@@ -1,0 +1,26 @@
+import { UtilContext } from "App";
+import { useContext } from "react";
+
+const useSidebar = () => {
+  const { sideBarExtended, setSideBarExtended } = useContext(UtilContext);
+
+  const toggleSidebar = () => {
+    setSideBarExtended(!sideBarExtended);
+  };
+
+  const extendSidebar = () => {
+    setSideBarExtended(true);
+  };
+
+  const collapseSidebar = () => {
+    setSideBarExtended(false);
+  };
+
+  return {
+    toggleSidebar,
+    extendSidebar,
+    collapseSidebar,
+  };
+};
+
+export default useSidebar;
