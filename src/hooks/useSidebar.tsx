@@ -6,6 +6,7 @@ const useSidebar = () => {
 
   const toggleSidebar = () => {
     setSideBarExtended(!sideBarExtended);
+    console.log(sideBarExtended);
   };
 
   const extendSidebar = () => {
@@ -20,6 +21,7 @@ const useSidebar = () => {
     toggleSidebar,
     extendSidebar,
     collapseSidebar,
+    sideBarExtended 
   };
 };
 
