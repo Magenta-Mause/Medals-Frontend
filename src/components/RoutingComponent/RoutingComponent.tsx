@@ -10,7 +10,7 @@ const RoutingComponent = () => {
         <Route index element={<HomePage />} />
         <Route path="/test" element={<HomePage />} />
         <Route path="/test/hallo" element={<HomePage />} />
-        <Route path="*" element={<NotFoundPage/>}/>
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

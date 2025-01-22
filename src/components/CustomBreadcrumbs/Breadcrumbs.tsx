@@ -1,7 +1,7 @@
 import useBreadcrumbs, { BreadcrumbsRoute } from "use-react-router-breadcrumbs";
 import { Breadcrumbs, Link } from "@mui/joy";
 import { ChevronRight } from "@mui/icons-material";
-import { Link as RouterLink} from "react-router";
+import { Link as RouterLink } from "react-router";
 
 const routes: BreadcrumbsRoute[] = [];
 
@@ -17,7 +17,9 @@ const CustomBreadcrumbs = () => {
         sx={{ pl: 0 }}
       >
         {breadcrumbs.map(({ match, breadcrumb }) => (
-          <Link component={RouterLink} to={match.pathname}>{breadcrumb}</Link>
+          <Link component={RouterLink} to={match.pathname}>
+            {breadcrumb}
+          </Link>
         ))}
       </Breadcrumbs>
     </>

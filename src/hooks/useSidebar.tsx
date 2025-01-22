@@ -21,7 +21,7 @@ const useSidebar = () => {
     toggleSidebar,
     extendSidebar,
     collapseSidebar,
-    sideBarExtended 
+    sideBarExtended,
   };
 };
 

@@ -1,7 +1,7 @@
-import { Typography } from "@mui/joy"
+import { Typography } from "@mui/joy";
 
 const HomePage = () => {
-    return <Typography>Home</Typography>
-}
+  return <Typography>Home</Typography>;
+};
 
 export default HomePage;

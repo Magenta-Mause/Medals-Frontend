@@ -113,10 +113,7 @@ const NavBar = () => {
         <Typography level="title-lg">Medals</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
-      <Input
-        size="sm"
-        startDecorator={<SearchRounded />}
-      />
+      <Input size="sm" startDecorator={<SearchRounded />} />
       <Box
         sx={{
           minHeight: 0,

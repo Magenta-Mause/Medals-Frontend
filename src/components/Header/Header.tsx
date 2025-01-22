@@ -1,6 +1,6 @@
 import useSidebar from "@hooks/useSidebar";
 import { Sheet, GlobalStyles, IconButton } from "@mui/joy";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = () => {
   const { toggleSidebar } = useSidebar();
