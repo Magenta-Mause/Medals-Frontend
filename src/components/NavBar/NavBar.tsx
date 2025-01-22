@@ -26,21 +26,22 @@ import {
   Stack,
   Typography,
 } from "@mui/joy";
-import { NavigateFunction, useNavigate } from "react-router";
+import {
+  matchPath,
+  NavigateFunction,
+  useLocation,
+  useNavigate,
+} from "react-router";
 
 const navBarElements = [
   {
     title: "Home",
-    onClick: (navigate: NavigateFunction) => {
-      navigate("/home");
-    },
+    path: "/",
     icon: <HomeRounded />,
   },
   {
     title: "Athletes",
-    onClick: (navigate: NavigateFunction) => {
-      navigate("/athletes");
-    },
+    path: "/athletes",
     icon: <PeopleRounded />,
   },
 ];
@@ -48,6 +49,7 @@ const navBarElements = [
 const NavBar = () => {
   const { collapseSidebar, sideBarExtended } = useSidebar();
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <Sheet
@@ -113,7 +115,7 @@ const NavBar = () => {
         <Typography level="title-lg">Medals</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
-      <Input size="sm" startDecorator={<SearchRounded />} />
+      <Input size="sm" startDecorator={<SearchRounded />} placeholder="Search" />
       <Box
         sx={{
           minHeight: 0,
@@ -138,8 +140,9 @@ const NavBar = () => {
             <ListItem>
               <ListItemButton
                 onClick={() => {
-                  element.onClick(navigate);
+                  navigate(element.path);
                 }}
+                selected={Boolean(matchPath(location.pathname, element.path))}
               >
                 {element.icon}
                 <ListItemContent>

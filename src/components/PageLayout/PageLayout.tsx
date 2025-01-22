@@ -26,6 +26,7 @@ const PageLayout = () => {
           minWidth: 0,
           height: "100dvh",
           gap: 1,
+          flexGrow: 1,
         }}
       >
         <CustomBreadcrumbs />
