@@ -2,7 +2,6 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import useSidebar from "@hooks/useSidebar";
 import {
   CloseRounded,
-  DashboardRounded,
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
@@ -117,7 +116,6 @@ const NavBar = () => {
       <Input
         size="sm"
         startDecorator={<SearchRounded />}
-        placeholder="Search"
       />
       <Box
         sx={{

@@ -39,11 +39,11 @@ const ColorSchemeToggle = (props: IconButtonProps) => {
       }}
       sx={[
         mode === "dark"
-          ? { "& > *:first-child": { display: "none" } }
-          : { "& > *:first-child": { display: "initial" } },
+          ? { "& > *:first-of-type": { display: "none" } }
+          : { "& > *:first-of-type": { display: "initial" } },
         mode === "light"
-          ? { "& > *:last-child": { display: "none" } }
-          : { "& > *:last-child": { display: "initial" } },
+          ? { "& > *:last-of-type": { display: "none" } }
+          : { "& > *:last-of-type": { display: "initial" } },
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
     >

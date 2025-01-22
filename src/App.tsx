@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router";
 
 type UtilContextType = {
   sideBarExtended: boolean;
-  setSideBarExtended: any;
+  setSideBarExtended: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 };
 
 const UtilContext = createContext<UtilContextType>({
