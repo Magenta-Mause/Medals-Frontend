@@ -5,16 +5,16 @@ const useSidebar = () => {
   const { sideBarExtended, setSideBarExtended } = useContext(UtilContext);
 
   const toggleSidebar = () => {
-    setSideBarExtended(!sideBarExtended);
+    setSideBarExtended!(!sideBarExtended);
     console.log(sideBarExtended);
   };
 
   const extendSidebar = () => {
-    setSideBarExtended(true);
+    setSideBarExtended!(true);
   };
 
   const collapseSidebar = () => {
-    setSideBarExtended(false);
+    setSideBarExtended!(false);
   };
 
   return {
