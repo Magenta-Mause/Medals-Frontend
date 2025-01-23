@@ -1,6 +1,9 @@
+import { mockAthletes } from "./ApiMock";
 import { getAxiosInstance } from "./axiosInstance";
 
-const getAthletes = async () => {
+const getAthletes = async (): Promise<Athlete[]> => {
+  return mockAthletes;
+  
   const axiosInstance = getAxiosInstance();
 
   try {

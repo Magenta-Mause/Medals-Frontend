@@ -1,7 +1,7 @@
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
 import { CssBaseline, CssVarsProvider, StyledEngineProvider } from "@mui/joy";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { initializeConfig } from "api/axiosInstance";
+import { initializeConfig } from "@api/axiosInstance";
 import { createContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router";
 import config from "../app.config.json";
