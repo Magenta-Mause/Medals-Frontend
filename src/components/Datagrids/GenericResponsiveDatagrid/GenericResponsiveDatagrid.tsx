@@ -41,7 +41,7 @@ import {
 } from "@mui/joy";
 import React, { Key, useCallback, useEffect, useRef, useState } from "react";
 
-const DEFAULT_MAX_VISIBLE_ON_PAGE = 10;
+const DEFAULT_MAX_VISIBLE_ON_PAGE = 5;
 
 const COLUMN_SIZES = {
   xs: 70,
@@ -106,11 +106,12 @@ const GenericResponsiveDatagrid = <T,>(
   );
 
   const cleanupSelection = useCallback(() => {
-    setSelected(
-      selected.filter(
-        (key) => props.data.findIndex((item) => props.keyOf(item) == key) != -1,
-      ),
+    const newSelected = selected.filter(
+      (key) => props.data.findIndex((item) => props.keyOf(item) == key) != -1,
     );
+    if (newSelected.length != selected.length) {
+      setSelected(newSelected);
+    }
   }, [selected, props.data]);
 
   useEffect(() => {
