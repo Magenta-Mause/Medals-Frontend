@@ -1,8 +1,14 @@
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
 import { CssBaseline, CssVarsProvider, StyledEngineProvider } from "@mui/joy";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createContext, useState } from "react";
+import { initializeConfig } from "api/axiosInstance";
+import { createContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router";
+import config from "../app.config.json";
+import { Provider, useDispatch } from "react-redux";
+import store from "./stores";
+import { fetchInitialState } from "@stores/slices/athleteSlice";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 type UtilContextType = {
   sideBarExtended: boolean;
@@ -17,25 +23,31 @@ const UtilContext = createContext<UtilContextType>({
 const App = () => {
   const queryClient = new QueryClient();
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  initializeConfig(config.bffBaseUrl);
+
+  useEffect(() => {
+    dispatch(fetchInitialState());
+  });
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <StyledEngineProvider injectFirst>
-        <CssVarsProvider>
-          <UtilContext.Provider
-            value={{
-              sideBarExtended: isSideBarOpen,
-              setSideBarExtended: setSideBarOpen,
-            }}
-          >
-            <CssBaseline />
-            <BrowserRouter>
-              <RoutingComponent />
-            </BrowserRouter>
-          </UtilContext.Provider>
-        </CssVarsProvider>
-      </StyledEngineProvider>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <StyledEngineProvider injectFirst>
+          <CssVarsProvider>
+            <UtilContext.Provider
+              value={{
+                sideBarExtended: isSideBarOpen,
+                setSideBarExtended: setSideBarOpen,
+              }}
+            >
+              <CssBaseline />
+              <BrowserRouter>
+                <RoutingComponent />
+              </BrowserRouter>
+            </UtilContext.Provider>
+          </CssVarsProvider>
+        </StyledEngineProvider>
+      </QueryClientProvider>
   );
 };
 

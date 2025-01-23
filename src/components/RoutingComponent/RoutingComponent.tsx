@@ -1,6 +1,7 @@
 import PageLayout from "@components/PageLayout/PageLayout";
-import HomePage from "@pages/Home/HomePage";
-import NotFoundPage from "@pages/NotFound/NotFoundPage";
+import AthleteOverviewPage from "@pages/athletes/AthleteOverviewPage";
+import HomePage from "@pages/home/HomePage";
+import NotFoundPage from "@pages/notFound/NotFoundPage";
 import { Route, Routes } from "react-router";
 
 const RoutingComponent = () => {
@@ -8,8 +9,7 @@ const RoutingComponent = () => {
     <Routes>
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="/test" element={<HomePage />} />
-        <Route path="/test/hallo" element={<HomePage />} />
+        <Route path="/athletes" element={<AthleteOverviewPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

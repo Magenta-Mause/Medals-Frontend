@@ -26,12 +26,7 @@ import {
   Stack,
   Typography,
 } from "@mui/joy";
-import {
-  matchPath,
-  NavigateFunction,
-  useLocation,
-  useNavigate,
-} from "react-router";
+import { matchPath, useLocation, useNavigate } from "react-router";
 
 const navBarElements = [
   {
@@ -141,7 +136,7 @@ const NavBar = () => {
           }}
         >
           {navBarElements.map((element) => (
-            <ListItem>
+            <ListItem key={element.path}>
               <ListItemButton
                 onClick={() => {
                   navigate(element.path);

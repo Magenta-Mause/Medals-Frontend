@@ -24,9 +24,12 @@ const PageLayout = () => {
           display: "flex",
           flexDirection: "column",
           minWidth: 0,
-          height: "100dvh",
+          height: {
+            xs: "calc(calc(100dvh - 12px) - var(--Header-height))",
+            sm: "calc(calc(100dvh - 12px) - var(--Header-height))",
+            md: "calc(100dvh)",
+          },
           gap: 1,
-          flexGrow: 1,
         }}
       >
         <CustomBreadcrumbs />

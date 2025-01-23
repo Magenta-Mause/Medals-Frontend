@@ -1,8 +1,4 @@
-import axios, {
-  AxiosInstance,
-  AxiosRequestConfig,
-  InternalAxiosRequestConfig,
-} from "axios";
+import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 
 let axiosInstance: AxiosInstance | null = null;
 
@@ -22,7 +18,7 @@ const initializeConfig = async (baseUrl: string) => {
           "Bearer " + (await getAuthorizationHeader());
         return config;
       },
-      (error: any) => {
+      (error) => {
         {
           return Promise.reject(error);
         }
@@ -30,3 +26,18 @@ const initializeConfig = async (baseUrl: string) => {
     );
   }
 };
+
+const getAxiosInstance = () => {
+  if (!axiosInstance) {
+    throw new Error(
+      "Axios instance has not been initialized. Call initializeConfig first.",
+    );
+  }
+  return axiosInstance;
+};
+
+const isInitialized = () => {
+  return axiosInstance != null;
+};
+
+export { getAxiosInstance, initializeConfig, isInitialized };
