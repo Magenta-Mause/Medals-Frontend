@@ -6,6 +6,7 @@ import GenericResponsiveDatagrid, {
 import { Box, Chip, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { removeAthlete } from "@stores/slices/athleteSlice";
+import { Athlete } from "@types/bffTypes";
 import { useDispatch } from "react-redux";
 
 const AthleteOverviewPage = () => {
@@ -15,43 +16,43 @@ const AthleteOverviewPage = () => {
 
   const columns: Column<Athlete>[] = [
     {
-      rowName: "Athlete ID",
-      rowMapping(item) {
+      columnName: "Athlete ID",
+      columnMapping(item) {
         return <Typography color="primary">ATH-{item.id}</Typography>;
       },
       size: "xs",
       sortable: true,
     },
     {
-      rowName: "First Name",
-      rowMapping(item) {
+      columnName: "First Name",
+      columnMapping(item) {
         return <Typography>{item.first_name}</Typography>;
       },
       sortable: true,
     },
     {
-      rowName: "Last Name",
-      rowMapping(item) {
+      columnName: "Last Name",
+      columnMapping(item) {
         return <Typography>{item.last_name}</Typography>;
       },
       sortable: true,
     },
     {
-      rowName: "Birthdate",
-      rowMapping(item) {
+      columnName: "Birthdate",
+      columnMapping(item) {
         return <Typography>{item.birthdate}</Typography>;
       },
       sortable: true,
     },
     {
-      rowName: "Email",
-      rowMapping(item) {
+      columnName: "Email",
+      columnMapping(item) {
         return <Typography>{item.email}</Typography>;
       },
     },
     {
-      rowName: "Gender",
-      rowMapping(item) {
+      columnName: "Gender",
+      columnMapping(item) {
         return (
           <Chip
             size="sm"
@@ -67,45 +68,51 @@ const AthleteOverviewPage = () => {
 
   const filters: Filter<Athlete>[] = [
     {
-      filterName: "Search",
-      applyFilter(filterParameter) {
+      name: "Search",
+      apply(filterParameter) {
+        filterParameter = filterParameter.toLowerCase();
         return (athlete) =>
-          athlete.first_name.includes(filterParameter) ||
-          athlete.last_name.includes(filterParameter) ||
-          athlete.birthdate.includes(filterParameter) ||
-          athlete.email.includes(filterParameter) ||
-          athlete.id.toString().includes(filterParameter);
+          athlete.first_name.toLowerCase().includes(filterParameter) ||
+          athlete.last_name.toLowerCase().includes(filterParameter) ||
+          athlete.birthdate.toLowerCase().includes(filterParameter) ||
+          athlete.email.toLowerCase().includes(filterParameter) ||
+          athlete.id.toString().toLowerCase().includes(filterParameter);
       },
-      filterType: "TEXT",
+      type: "TEXT",
     },
     {
-      filterName: "Date of Registration",
-      applyFilter(filterParameter) {
-        const parsed = Boolean(filterParameter);
+      name: "Date of Registration",
+      apply(filterParameter) {
+        const parsed = filterParameter == "1";
         return (athlete) => !parsed || athlete.id < 5;
       },
-      filterType: "TOGGLE",
-      filterLabel: "Early",
+      type: "TOGGLE",
+      label: "Early",
     },
     {
-      filterName: "Gender",
-      applyFilter(filterParameter) {
+      name: "Gender",
+      apply(filterParameter) {
         return (athlete) =>
+          filterParameter == "" ||
           athlete.gender.toUpperCase() == filterParameter.toUpperCase();
       },
-      filterType: "SELECTION",
+      type: "SELECTION",
       selection: [
         {
-          displayValue: <Typography>Male</Typography>,
-          value: "M",
+          displayValue: <Typography>All</Typography>,
+          value: "",
+        },
+        {
+          displayValue: <Typography>Divers</Typography>,
+          value: "D",
         },
         {
           displayValue: <Typography>Female</Typography>,
           value: "F",
         },
         {
-          displayValue: <Typography>Divers</Typography>,
-          value: "D",
+          displayValue: <Typography>Male</Typography>,
+          value: "M",
         },
       ],
     },

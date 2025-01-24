@@ -35,7 +35,15 @@ import {
   ButtonPropsVariantOverrides,
   VariantProp,
 } from "@mui/joy";
-import React, { Key, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  Key,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { Athlete } from "@types/bffTypes";
 
 const DEFAULT_MAX_VISIBLE_ON_PAGE = 5;
 
@@ -48,8 +56,8 @@ const COLUMN_SIZES = {
 };
 
 export interface Column<T> {
-  rowName: string;
-  rowMapping: (item: T) => React.ReactNode;
+  columnName: string;
+  columnMapping: (item: T) => React.ReactNode;
   sortable?: boolean;
   size?: keyof typeof COLUMN_SIZES;
 }
@@ -60,11 +68,11 @@ interface FilterValue {
 }
 
 export interface Filter<T> {
-  filterName: string;
-  applyFilter: (filterParameter: string) => (item: T) => boolean;
-  filterType: "TEXT" | "SELECTION" | "TOGGLE";
+  name: string;
+  apply: (filterParameter: string) => (item: T) => boolean;
+  type: "TEXT" | "SELECTION" | "TOGGLE";
   selection?: (string | FilterValue)[];
-  filterLabel?: string;
+  label?: string;
 }
 
 export interface Action<T> {
@@ -90,12 +98,182 @@ interface GenericResponsiveDatagridProps<T> {
   elementsPerPage?: number;
 }
 
+const FilterComponent = <T,>(props: {
+  filters: Filter<T>[];
+  setFilter: (
+    key: string,
+    value: string | ((oldVal: string) => string),
+  ) => void;
+  filterValues: Record<string, string>;
+}) => {
+  return (
+    <React.Fragment>
+      {props.filters.map((filter) => (
+        <FormControl size="sm" key={filter.name}>
+          <FormLabel>{filter.name}</FormLabel>
+          {filter.type == "SELECTION" ? (
+            <Select
+              size="sm"
+              placeholder={filter.label ?? "All"}
+              onChange={(event, newValue) => {
+                props.setFilter(filter.name, newValue as string);
+              }}
+              value={props.filterValues[filter.name]}
+            >
+              {filter.selection?.map((value) => {
+                if (value instanceof String) {
+                  return (
+                    <Option value={value} key={value as string}>
+                      <>{value}</>
+                    </Option>
+                  );
+                }
+                return (
+                  <Option
+                    value={(value as FilterValue).value}
+                    key={(value as FilterValue).value}
+                  >
+                    {(value as FilterValue).displayValue}
+                  </Option>
+                );
+              })}
+            </Select>
+          ) : filter.type == "TOGGLE" ? (
+            <ToggleButtonGroup
+              value={[props.filterValues[filter.name] == "1" ? "button" : ""]}
+              onChange={(_event, newValue) => {
+                console.log(newValue);
+                if (newValue.includes("button")) {
+                  props.setFilter(filter.name, "1");
+                } else {
+                  props.setFilter(filter.name, "0");
+                }
+              }}
+            >
+              <Button sx={{ flexGrow: 1 }} value="button">
+                {filter.label}
+              </Button>
+            </ToggleButtonGroup>
+          ) : (
+            <FormControl sx={{ flex: 1 }} size="sm">
+              <Input
+                size="sm"
+                placeholder={filter.label ?? "Search"}
+                startDecorator={<Search />}
+                onChange={(event) => {
+                  props.setFilter(
+                    filter.name,
+                    (oldValue) => event.target.value,
+                  );
+                }}
+              />
+            </FormControl>
+          )}
+        </FormControl>
+      ))}
+    </React.Fragment>
+  );
+};
+
+const PageControll = (props: {
+  currentPage: number;
+  setCurrentPage: (changePage: (currPage: number) => number) => void;
+  elementsPerPage: number;
+  rowCount: number;
+  setElementsPerPage: (elementsPerPage: number) => void;
+}) => {
+  const currentPageInputRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <Box
+      className="Pagination-laptopUp"
+      sx={{
+        pt: 2,
+        gap: 1,
+        [`& .${iconButtonClasses.root}`]: { borderRadius: "50%" },
+        display: {
+          xs: "none",
+          md: "flex",
+        },
+      }}
+    >
+      <Button
+        size="sm"
+        variant="outlined"
+        color="neutral"
+        disabled={props.currentPage <= 0}
+        onClick={() => props.setCurrentPage((currPage) => currPage - 1)}
+        startDecorator={<KeyboardArrowLeft />}
+      >
+        Previous
+      </Button>
+
+      <Box sx={{ flex: 1 }} />
+      {Array.from(
+        { length: Math.ceil(props.rowCount / props.elementsPerPage) },
+        (v, k) => k + 1,
+      ).map((page) => (
+        <Button
+          key={page}
+          size="sm"
+          variant={Number(page) ? "outlined" : "plain"}
+          color="neutral"
+          aria-pressed={page - 1 == props.currentPage}
+          onClick={() => props.setCurrentPage(() => page - 1)}
+        >
+          {page}
+        </Button>
+      ))}
+
+      <Typography
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+          ml: 3
+        }}
+      >
+        <Input
+          type={"tel"}
+          onChange={(e) => e.target.value != "" && props.setElementsPerPage(parseInt(e.target.value))}
+          defaultValue={props.elementsPerPage}
+          size="md"
+          sx={{
+            width: 40,
+            padding: 0,
+            textAlign: "center",
+          }}
+          slotProps={{ input: { min: 0, style: { textAlign: "center" } } }}
+        />
+        / {props.rowCount}
+      </Typography>
+
+      <Box sx={{ flex: 1 }} />
+      <Button
+        size="sm"
+        variant="outlined"
+        color="neutral"
+        endDecorator={<KeyboardArrowRight />}
+        disabled={
+          props.currentPage >=
+          Math.ceil(props.rowCount / props.elementsPerPage) - 1
+        }
+        onClick={() => {
+          props.setCurrentPage((currPage) => currPage + 1);
+        }}
+      >
+        Next {props.rowCount}
+      </Button>
+    </Box>
+  );
+};
+
 const GenericResponsiveDatagrid = <T,>(
   props: GenericResponsiveDatagridProps<T>,
 ) => {
   const [selected, setSelected] = useState<Key[]>([]);
   const [open, setOpen] = useState(false);
-  const currentPageInputRef = useRef<HTMLDivElement>(null);
+  const [filterValues, setFilterValues] = useState<Record<string, string>>({});
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [elementsPerPage, setElementsPerPage] = useState(
     props.elementsPerPage ?? DEFAULT_MAX_VISIBLE_ON_PAGE,
@@ -123,12 +301,47 @@ const GenericResponsiveDatagrid = <T,>(
     [selected, props],
   );
 
+  const getFilteredContent = useCallback(() => {
+    return props.data.filter((item) =>
+      props.filters.reduce<Boolean>(
+        (previousValue, currentFilter) =>
+          previousValue &&
+          currentFilter.apply(filterValues[currentFilter.name] ?? "")(item),
+        true,
+      ),
+    );
+  }, [filterValues, props.data]);
+
   const getRenderedPage = useCallback(() => {
-    return props.data.slice(
+    console.log(
+      getFilteredContent(),
       currentPage * elementsPerPage,
       (currentPage + 1) * elementsPerPage,
     );
-  }, [currentPage, props.data, elementsPerPage]);
+    return getFilteredContent().slice(
+      currentPage * elementsPerPage,
+      (currentPage + 1) * elementsPerPage,
+    );
+  }, [currentPage, elementsPerPage, getFilteredContent]);
+
+  useEffect(() => {
+    console.log(getRenderedPage());
+  }, [currentPage, getRenderedPage]);
+
+  const setFilter = (
+    key: string,
+    value: string | ((prevState: string) => string),
+  ) => {
+    if (typeof value == "string") {
+      setFilterValues((oldValue) => {
+        return { ...oldValue, [key]: value };
+      });
+    } else {
+      setFilterValues((oldValue) => {
+        return { ...oldValue, [key]: value(oldValue[key]) };
+      });
+    }
+  };
 
   const RowMenu = (rowMenuProps: { item: T }) => {
     return (
@@ -140,7 +353,6 @@ const GenericResponsiveDatagrid = <T,>(
           }}
           sx={{
             backgroundColor: "rgba(0, 0, 0, .1)",
-            marginLeft: 2,
           }}
         >
           <MoreHorizRounded />
@@ -160,52 +372,10 @@ const GenericResponsiveDatagrid = <T,>(
     );
   };
 
-  const FiltersComponent = () => {
-    return (
-      <React.Fragment>
-        {props.filters.map((filter) => (
-          <FormControl size="sm" key={filter.filterName}>
-            <FormLabel>{filter.filterName}</FormLabel>
-            {filter.filterType == "SELECTION" ? (
-              <Select size="sm" placeholder={filter.filterLabel ?? "All"}>
-                {filter.selection?.map((value) => {
-                  if (value instanceof String) {
-                    return (
-                      <Option value={value} key={value as string}>
-                        <>{value}</>
-                      </Option>
-                    );
-                  }
-                  return (
-                    <Option
-                      value={(value as FilterValue).value}
-                      key={(value as FilterValue).value}
-                    >
-                      {(value as FilterValue).displayValue}
-                    </Option>
-                  );
-                })}
-              </Select>
-            ) : filter.filterType == "TOGGLE" ? (
-              <ToggleButtonGroup>
-                <Button aria-pressed={true} sx={{ flexGrow: 1 }}>
-                  {filter.filterLabel}
-                </Button>
-              </ToggleButtonGroup>
-            ) : (
-              <FormControl sx={{ flex: 1 }} size="sm">
-                <Input
-                  size="sm"
-                  placeholder={filter.filterLabel ?? "Search"}
-                  startDecorator={<Search />}
-                />
-              </FormControl>
-            )}
-          </FormControl>
-        ))}
-      </React.Fragment>
-    );
-  };
+  useEffect(() => {
+    console.log("rerender");
+    console.log(getFilteredContent());
+  }, [props.filters, getFilteredContent]);
 
   return (
     <React.Fragment>
@@ -240,7 +410,11 @@ const GenericResponsiveDatagrid = <T,>(
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Sheet sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              <FiltersComponent />
+              <FilterComponent
+                filters={props.filters}
+                setFilter={setFilter}
+                filterValues={filterValues}
+              />
               <Button color="primary" onClick={() => setOpen(false)}>
                 Submit
               </Button>
@@ -262,7 +436,11 @@ const GenericResponsiveDatagrid = <T,>(
           },
         }}
       >
-        <FiltersComponent />
+        <FilterComponent
+          filters={props.filters}
+          setFilter={setFilter}
+          filterValues={filterValues}
+        />
       </Box>
       <Sheet
         className="OrderTableContainer"
@@ -330,17 +508,17 @@ const GenericResponsiveDatagrid = <T,>(
                     width: column.size ? COLUMN_SIZES[column.size] : 150,
                     padding: "12px 6px",
                   }}
-                  key={column.rowName}
+                  key={column.columnName}
                 >
                   <Typography sx={{ paddingLeft: 2 }}>
-                    {column.rowName}
+                    {column.columnName}
                   </Typography>
                 </th>
               ))}
               {props.actionMenu ? (
                 <th
                   style={{
-                    width: 50,
+                    width: 80,
                   }}
                 ></th>
               ) : (
@@ -378,7 +556,7 @@ const GenericResponsiveDatagrid = <T,>(
                   <></>
                 )}
                 {props.columns.map((column) => (
-                  <td key={column.rowName}>
+                  <td key={column.columnName}>
                     <Typography
                       level="body-xs"
                       sx={{
@@ -388,7 +566,7 @@ const GenericResponsiveDatagrid = <T,>(
                         display: "flex",
                       }}
                     >
-                      {column.rowMapping(row as T)}
+                      {column.columnMapping(row as T)}
                     </Typography>
                   </td>
                 ))}
@@ -416,7 +594,7 @@ const GenericResponsiveDatagrid = <T,>(
               <Button
                 color={action.color ?? "neutral"}
                 onClick={() => triggerActionForSelected(action.operation)}
-                key={action.operation}
+                key={action.key}
                 disabled={selected.length == 0}
                 variant={action.variant ?? "outlined"}
               >
@@ -434,100 +612,13 @@ const GenericResponsiveDatagrid = <T,>(
           background: "transparent",
         }}
       ></Sheet>
-      <Box
-        className="Pagination-laptopUp"
-        sx={{
-          pt: 2,
-          gap: 1,
-          [`& .${iconButtonClasses.root}`]: { borderRadius: "50%" },
-          display: {
-            xs: "none",
-            md: "flex",
-          },
-        }}
-      >
-        <Button
-          size="sm"
-          variant="outlined"
-          color="neutral"
-          disabled={currentPage <= 0}
-          onClick={() => setCurrentPage((currPage) => currPage - 1)}
-          startDecorator={<KeyboardArrowLeft />}
-        >
-          Previous
-        </Button>
-
-        <Box sx={{ flex: 1 }} />
-        {Array.from(
-          { length: Math.ceil(props.data.length / elementsPerPage) },
-          (v, k) => k + 1,
-        ).map((page) => (
-          <Button
-            key={page}
-            size="sm"
-            variant={Number(page) ? "outlined" : "plain"}
-            color="neutral"
-            aria-pressed={page - 1 == currentPage}
-            onClick={() => setCurrentPage(page - 1)}
-          >
-            {page}
-          </Button>
-        ))}
-
-        <Input
-          ref={currentPageInputRef}
-          type="tel"
-          size="md"
-          sx={{
-            width: 80,
-            ml: 3,
-          }}
-          placeholder={elementsPerPage.toString()}
-          onKeyDown={(event) => {
-            if (event.key == "Enter") {
-              setElementsPerPage(
-                parseInt(
-                  currentPageInputRef.current?.getElementsByTagName("input")[0]
-                    .value!,
-                ),
-              );
-            }
-          }}
-          endDecorator={
-            <Button
-              onClick={() => {
-                setElementsPerPage(
-                  parseInt(
-                    currentPageInputRef.current?.getElementsByTagName(
-                      "input",
-                    )[0].value!,
-                  ),
-                );
-              }}
-              sx={{
-                width: 2,
-              }}
-            >
-              <Done />
-            </Button>
-          }
-        />
-        <Box sx={{ flex: 1 }} />
-        <Button
-          size="sm"
-          variant="outlined"
-          color="neutral"
-          endDecorator={<KeyboardArrowRight />}
-          disabled={
-            currentPage >= Math.ceil(props.data.length / elementsPerPage) - 1
-          }
-          onClick={() => {
-            setCurrentPage((currPage) => currPage + 1);
-          }}
-        >
-          Next
-        </Button>
-      </Box>
+      <PageControll
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        elementsPerPage={elementsPerPage}
+        rowCount={getFilteredContent().length}
+        setElementsPerPage={setElementsPerPage}
+      />
     </React.Fragment>
   );
 };

@@ -28,6 +28,7 @@ import {
   Sheet,
   Table,
 } from "@mui/joy";
+import { Athlete } from "@types/bffTypes";
 import React from "react";
 
 interface AthleteDatagridProps {
