@@ -1,5 +1,4 @@
 import { Athlete } from "@types/bffTypes";
-import { mockAthletes } from "./ApiMock";
 import { getAxiosInstance } from "./axiosInstance";
 
 const getAthletes = async () => {

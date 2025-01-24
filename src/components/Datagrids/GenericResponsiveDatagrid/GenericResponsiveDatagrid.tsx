@@ -1,5 +1,4 @@
 import {
-  Done,
   FilterAlt,
   KeyboardArrowLeft,
   KeyboardArrowRight,
@@ -35,14 +34,7 @@ import {
   ButtonPropsVariantOverrides,
   VariantProp,
 } from "@mui/joy";
-import React, {
-  Key,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { Key, useCallback, useEffect, useState } from "react";
 import { Athlete } from "@types/bffTypes";
 
 const DEFAULT_MAX_VISIBLE_ON_PAGE = 5;
@@ -161,10 +153,7 @@ const FilterComponent = <T,>(props: {
                 placeholder={filter.label ?? "Search"}
                 startDecorator={<Search />}
                 onChange={(event) => {
-                  props.setFilter(
-                    filter.name,
-                    (oldValue) => event.target.value,
-                  );
+                  props.setFilter(filter.name, () => event.target.value);
                 }}
               />
             </FormControl>
@@ -182,8 +171,6 @@ const PageControll = (props: {
   rowCount: number;
   setElementsPerPage: (elementsPerPage: number) => void;
 }) => {
-  const currentPageInputRef = useRef<HTMLDivElement>(null);
-
   return (
     <Box
       className="Pagination-laptopUp"
@@ -265,7 +252,7 @@ const PageControll = (props: {
           props.setCurrentPage((currPage) => currPage + 1);
         }}
       >
-        Next 
+        Next
       </Button>
     </Box>
   );
@@ -313,7 +300,7 @@ const GenericResponsiveDatagrid = <T,>(
         true,
       ),
     );
-  }, [filterValues, props.data]);
+  }, [filterValues, props.data, props.filters]);
 
   const getRenderedPage = useCallback(() => {
     console.log(
