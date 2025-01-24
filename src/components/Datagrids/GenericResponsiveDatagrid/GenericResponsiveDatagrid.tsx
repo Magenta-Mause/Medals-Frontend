@@ -474,7 +474,10 @@ const GenericResponsiveDatagrid = <T,>(
                       selected.length > 0 &&
                       selected.length !== props.data.length
                     }
-                    checked={selected.length === props.data.length}
+                    checked={
+                      selected.length === props.data.length &&
+                      props.data.length !== 0
+                    }
                     onChange={(event) => {
                       setSelected(
                         event.target.checked ? props.data.map(props.keyOf) : [],

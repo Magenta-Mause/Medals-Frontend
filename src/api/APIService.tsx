@@ -11,7 +11,7 @@ const getAthletes = async () => {
   }
 };
 
-const getAthete = async (atheteId: number) => {
+const getAthete = async (atheteId: string) => {
   const axiosInstance = getAxiosInstance();
   try {
     const request = await axiosInstance.get(`/athletes/${atheteId}`);
@@ -21,4 +21,14 @@ const getAthete = async (atheteId: number) => {
   }
 };
 
-export { getAthletes, getAthete };
+const deleteAthlete = async (athleteId: string) => {
+  const axiosInstance = getAxiosInstance();
+  try {
+    const request = await axiosInstance.delete(`/athletes/${athleteId}`);
+    return request.status == 202;
+  } catch (error) {
+    console.error(`Error while deleting athlete with id: ${athleteId}`, error);
+  }
+};
+
+export { getAthletes, getAthete, deleteAthlete };

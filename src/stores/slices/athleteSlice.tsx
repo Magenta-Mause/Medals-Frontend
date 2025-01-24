@@ -1,5 +1,6 @@
 import { getAthletes } from "@api/APIService";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Athlete } from "@types/bffTypes";
 
 interface AthleteSliceState {
   data: Athlete[];
@@ -33,7 +34,7 @@ const athleteSlice = createSlice({
         state.data[index] = action.payload;
       }
     },
-    removeAthlete(state, action: PayloadAction<{ id: number }>) {
+    removeAthlete(state, action: PayloadAction<{ id: string }>) {
       state.data = state.data.filter((item) => item.id !== action.payload.id);
     },
   },

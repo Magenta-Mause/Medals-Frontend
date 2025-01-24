@@ -3,7 +3,7 @@ export interface Athlete {
   first_name: string;
   last_name: string;
   email: string;
-  birthdate: number[];
+  birthdate: string;
   gender: string;
   total_medal: MedalType;
   swimming_certificate: boolean;

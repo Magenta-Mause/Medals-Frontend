@@ -1,3 +1,4 @@
+import { deleteAthlete } from "@api/APIService";
 import GenericResponsiveDatagrid, {
   Action,
   Column,
@@ -81,13 +82,13 @@ const AthleteOverviewPage = () => {
       type: "TEXT",
     },
     {
-      name: "Date of Registration",
+      name: "Born in",
       apply(filterParameter) {
         const parsed = filterParameter == "1";
-        return (athlete) => !parsed || athlete.id < 5;
+        return (athlete) => !parsed || athlete.birthdate.slice(0, 4) == "2005";
       },
       type: "TOGGLE",
-      label: "Early",
+      label: "2005",
     },
     {
       name: "Gender",
@@ -126,6 +127,7 @@ const AthleteOverviewPage = () => {
       variant: "solid",
       operation: function (item: Athlete): void {
         dispatch(removeAthlete({ id: item.id }));
+        deleteAthlete(item.id);
         console.log("Deleted Athlete:", item);
       },
     },
