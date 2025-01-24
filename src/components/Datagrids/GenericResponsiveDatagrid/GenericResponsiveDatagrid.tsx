@@ -230,12 +230,15 @@ const PageControll = (props: {
           display: "flex",
           alignItems: "center",
           gap: 1,
-          ml: 3
+          ml: 3,
         }}
       >
         <Input
           type={"tel"}
-          onChange={(e) => e.target.value != "" && props.setElementsPerPage(parseInt(e.target.value))}
+          onChange={(e) =>
+            e.target.value != "" &&
+            props.setElementsPerPage(parseInt(e.target.value))
+          }
           defaultValue={props.elementsPerPage}
           size="md"
           sx={{
@@ -262,7 +265,7 @@ const PageControll = (props: {
           props.setCurrentPage((currPage) => currPage + 1);
         }}
       >
-        Next {props.rowCount}
+        Next 
       </Button>
     </Box>
   );
@@ -303,7 +306,7 @@ const GenericResponsiveDatagrid = <T,>(
 
   const getFilteredContent = useCallback(() => {
     return props.data.filter((item) =>
-      props.filters.reduce<Boolean>(
+      props.filters.reduce<boolean>(
         (previousValue, currentFilter) =>
           previousValue &&
           currentFilter.apply(filterValues[currentFilter.name] ?? "")(item),

@@ -1,11 +1,9 @@
+import { Athlete } from "@types/bffTypes";
 import { mockAthletes } from "./ApiMock";
 import { getAxiosInstance } from "./axiosInstance";
 
-const getAthletes = async (): Promise<Athlete[]> => {
-  return mockAthletes;
-
+const getAthletes = async () => {
   const axiosInstance = getAxiosInstance();
-
   try {
     const request = await axiosInstance.get(`/athletes`);
     return request.data as Athlete[];

@@ -140,7 +140,7 @@ const NavBar = () => {
               <ListItemButton
                 onClick={() => {
                   navigate(element.path);
-                  collapseSidebar()
+                  collapseSidebar();
                 }}
                 selected={Boolean(matchPath(location.pathname, element.path))}
               >
