@@ -17,5 +17,5 @@ const rootReducer: Reducer = (state, action: Action) => {
 
 const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-export { useTypedSelector};
+export { useTypedSelector };
 export default rootReducer;

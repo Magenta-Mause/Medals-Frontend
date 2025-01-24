@@ -17,7 +17,11 @@ const CustomBreadcrumbs = () => {
         sx={{ pl: 0 }}
       >
         {breadcrumbs.map(({ match, breadcrumb }) => (
-          <Link component={RouterLink} to={match.pathname} key={breadcrumb?.toLocaleString()}>
+          <Link
+            component={RouterLink}
+            to={match.pathname}
+            key={breadcrumb?.toLocaleString()}
+          >
             {breadcrumb}
           </Link>
         ))}

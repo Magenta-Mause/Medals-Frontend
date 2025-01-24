@@ -1,22 +1,17 @@
-import CustomBreadcrumbs from "@components/CustomBreadcrumbs/Breadcrumbs";
-import AthleteDatagrid from "@components/Datagrids/AthleteDatagrid/AthleteDatagrid";
 import GenericResponsiveDatagrid, {
   Action,
   Column,
   Filter,
 } from "@components/Datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
-import { DownloadRounded, HomeRounded } from "@mui/icons-material";
-import { Box, Breadcrumbs, Button, Chip, Link, Typography } from "@mui/joy";
+import { Box, Chip, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { removeAthlete } from "@stores/slices/athleteSlice";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const AthleteOverviewPage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
   const currentState = useTypedSelector((state) => state.athletes.state);
-  const dispatch = useDispatch()  
-
+  const dispatch = useDispatch();
 
   const columns: Column<Athlete>[] = [
     {
@@ -123,7 +118,7 @@ const AthleteOverviewPage = () => {
       key: "delete",
       variant: "solid",
       operation: function (item: Athlete): void {
-        dispatch(removeAthlete({id: item.id}))
+        dispatch(removeAthlete({ id: item.id }));
         console.log("Deleted Athlete:", item);
       },
     },

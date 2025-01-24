@@ -5,8 +5,7 @@ import { initializeConfig } from "@api/axiosInstance";
 import { createContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router";
 import config from "../app.config.json";
-import { Provider, useDispatch } from "react-redux";
-import store from "./stores";
+import { useDispatch } from "react-redux";
 import { fetchInitialState } from "@stores/slices/athleteSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 
@@ -31,23 +30,23 @@ const App = () => {
   });
 
   return (
-      <QueryClientProvider client={queryClient}>
-        <StyledEngineProvider injectFirst>
-          <CssVarsProvider>
-            <UtilContext.Provider
-              value={{
-                sideBarExtended: isSideBarOpen,
-                setSideBarExtended: setSideBarOpen,
-              }}
-            >
-              <CssBaseline />
-              <BrowserRouter>
-                <RoutingComponent />
-              </BrowserRouter>
-            </UtilContext.Provider>
-          </CssVarsProvider>
-        </StyledEngineProvider>
-      </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <StyledEngineProvider injectFirst>
+        <CssVarsProvider>
+          <UtilContext.Provider
+            value={{
+              sideBarExtended: isSideBarOpen,
+              setSideBarExtended: setSideBarOpen,
+            }}
+          >
+            <CssBaseline />
+            <BrowserRouter>
+              <RoutingComponent />
+            </BrowserRouter>
+          </UtilContext.Provider>
+        </CssVarsProvider>
+      </StyledEngineProvider>
+    </QueryClientProvider>
   );
 };
 

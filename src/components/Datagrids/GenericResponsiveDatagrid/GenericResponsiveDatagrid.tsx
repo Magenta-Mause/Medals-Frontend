@@ -4,14 +4,11 @@ import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
   MoreHorizRounded,
-  Pageview,
-  RunCircle,
   Search,
 } from "@mui/icons-material";
 import { OverridableStringUnion } from "@mui/types";
 import {
   Box,
-  Avatar,
   Typography,
   Button,
   Divider,
@@ -19,7 +16,6 @@ import {
   Menu,
   MenuButton,
   MenuItem,
-  Link,
   FormControl,
   FormLabel,
   Checkbox,
@@ -112,11 +108,11 @@ const GenericResponsiveDatagrid = <T,>(
     if (newSelected.length != selected.length) {
       setSelected(newSelected);
     }
-  }, [selected, props.data]);
+  }, [selected, props]);
 
   useEffect(() => {
     cleanupSelection();
-  }, [props.data, selected]);
+  }, [props, selected, cleanupSelection]);
 
   const triggerActionForSelected = useCallback(
     (action: (item: T) => void) => {
@@ -124,7 +120,7 @@ const GenericResponsiveDatagrid = <T,>(
         .filter((item) => selected.includes(props.keyOf(item)))
         .forEach((item) => action(item));
     },
-    [selected],
+    [selected, props],
   );
 
   const getRenderedPage = useCallback(() => {

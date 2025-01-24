@@ -56,8 +56,7 @@ const athleteSlice = createSlice({
   },
 });
 
-const { addAthlete, updateAthlete, removeAthlete } =
-  athleteSlice.actions;
+const { addAthlete, updateAthlete, removeAthlete } = athleteSlice.actions;
 
-export { addAthlete, updateAthlete, removeAthlete, fetchInitialState};
+export { addAthlete, updateAthlete, removeAthlete, fetchInitialState };
 export default athleteSlice.reducer;
