@@ -170,6 +170,7 @@ const PageControll = (props: {
   elementsPerPage: number;
   rowCount: number;
   setElementsPerPage: (elementsPerPage: number) => void;
+  showPreviousAndNextButtons: boolean;
 }) => {
   const getPageCount = useCallback(
     () => Math.ceil(props.rowCount / props.elementsPerPage),
@@ -202,19 +203,19 @@ const PageControll = (props: {
       .sort((a, b) => a - b);
   }, [getPageCount, props.currentPage]);
 
-  const pageButton = (page: number) => (
+  const PageButton = (pageButtonProps: { page: number }) => (
     <Button
-      key={page}
+      key={pageButtonProps.page}
       size="sm"
       variant={"outlined"}
       color="neutral"
-      aria-pressed={page == props.currentPage}
-      onClick={() => props.setCurrentPage(() => page)}
+      aria-pressed={pageButtonProps.page == props.currentPage}
+      onClick={() => props.setCurrentPage(() => pageButtonProps.page)}
       sx={{
         width: "2rem",
       }}
     >
-      {page + 1}
+      {pageButtonProps.page + 1}
     </Button>
   );
 
@@ -231,7 +232,7 @@ const PageControll = (props: {
       ) : (
         <></>
       )}
-      {pageButton(page)}
+      <PageButton page={page} />
     </>
   );
 
@@ -248,17 +249,20 @@ const PageControll = (props: {
         },
       }}
     >
-      <Button
-        size="sm"
-        variant="outlined"
-        color="neutral"
-        disabled={props.currentPage <= 0}
-        onClick={() => props.setCurrentPage((currPage) => currPage - 1)}
-        startDecorator={<KeyboardArrowLeft />}
-      >
-        Previous
-      </Button>
-
+      {props.showPreviousAndNextButtons ? (
+        <Button
+          size="sm"
+          variant="outlined"
+          color="neutral"
+          disabled={props.currentPage <= 0}
+          onClick={() => props.setCurrentPage((currPage) => currPage - 1)}
+          startDecorator={<KeyboardArrowLeft />}
+        >
+          Previous
+        </Button>
+      ) : (
+        <></>
+      )}
       <Box sx={{ flex: 1 }} />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center", width: "50%" }}>
         <Box
@@ -272,7 +276,7 @@ const PageControll = (props: {
         >
           {getVisiblePageButtonsLeftSide().map(pageButtonMapping)}
         </Box>
-        {pageButton(props.currentPage)}
+        <PageButton page={props.currentPage} />
         <Box
           sx={{
             display: "flex",
@@ -312,21 +316,25 @@ const PageControll = (props: {
         / {props.rowCount}
       </Typography>
 
-      <Button
-        size="sm"
-        variant="outlined"
-        color="neutral"
-        endDecorator={<KeyboardArrowRight />}
-        disabled={
-          props.currentPage >=
-          Math.ceil(props.rowCount / props.elementsPerPage) - 1
-        }
-        onClick={() => {
-          props.setCurrentPage((currPage) => currPage + 1);
-        }}
-      >
-        Next
-      </Button>
+      {props.showPreviousAndNextButtons ? (
+        <Button
+          size="sm"
+          variant="outlined"
+          color="neutral"
+          endDecorator={<KeyboardArrowRight />}
+          disabled={
+            props.currentPage >=
+            Math.ceil(props.rowCount / props.elementsPerPage) - 1
+          }
+          onClick={() => {
+            props.setCurrentPage((currPage) => currPage + 1);
+          }}
+        >
+          Next
+        </Button>
+      ) : (
+        <></>
+      )}
     </Box>
   );
 };
@@ -707,6 +715,7 @@ const GenericResponsiveDatagrid = <T,>(
         elementsPerPage={elementsPerPage}
         rowCount={getFilteredContent().length}
         setElementsPerPage={setElementsPerPage}
+        showPreviousAndNextButtons={false}
       />
     </React.Fragment>
   );
