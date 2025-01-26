@@ -21,7 +21,7 @@ const AthleteOverviewPage = () => {
       columnMapping(item) {
         return <Typography color="primary">ATH-{item.id}</Typography>;
       },
-      size: "xs",
+      size: "s",
       sortable: true,
     },
     {
@@ -40,6 +40,7 @@ const AthleteOverviewPage = () => {
     },
     {
       columnName: "Birthdate",
+      size: "s",
       columnMapping(item) {
         return <Typography>{item.birthdate}</Typography>;
       },
@@ -47,8 +48,9 @@ const AthleteOverviewPage = () => {
     },
     {
       columnName: "Email",
+      size: "l",
       columnMapping(item) {
-        return <Typography>{item.email}</Typography>;
+        return <Typography noWrap>{item.email}</Typography>;
       },
     },
     {
@@ -121,6 +123,14 @@ const AthleteOverviewPage = () => {
 
   const actions: Action<Athlete>[] = [
     {
+      label: <>Edit</>,
+      color: "primary",
+      key: "edit",
+      operation: function (item: Athlete): void {
+        console.log("Editing Athlete:", item);
+      },
+    },
+    {
       label: <>Delete</>,
       color: "danger",
       key: "delete",
@@ -129,14 +139,6 @@ const AthleteOverviewPage = () => {
         dispatch(removeAthlete({ id: item.id }));
         deleteAthlete(item.id);
         console.log("Deleted Athlete:", item);
-      },
-    },
-    {
-      label: <>Edit</>,
-      color: "primary",
-      key: "edit",
-      operation: function (item: Athlete): void {
-        console.log("Editing Athlete:", item);
       },
     },
   ];
