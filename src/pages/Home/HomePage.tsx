@@ -15,7 +15,7 @@ const HomePage = () => {
       <Typography level={"h1"} padding={"1.5rem"} textAlign={"center"}>
         Medals
       </Typography>
-      <Typography level={"h3"} color={"neutral"} textAlign={"center"}>
+      <Typography level={"h4"} color={"neutral"} textAlign={"center"}>
         The soon to be Medal Management System
       </Typography>
     </Box>
