@@ -3,20 +3,58 @@
     "de": "Deutsch",
     "en": "Englisch"
   },
-  "navbar": {
-    "logo": "Medals",
-    "locationList": {
-      "/": "Start",
-      "/athletes": "Athlet*innen"
-    },
-    "search": "Suchen",
-    "languageSelector": "Sprache",
-    "bottomInfoCard": {
-      "header": "Warnung",
-      "text": "Warnung!"
+  "genders": {
+    "d": "Divers",
+    "m": "Männlich",
+    "f": "Weiblich",
+    "": "Alle"
+  },
+  "pages": {
+    "athleteOverviewPage": {
+      "header": "Athlet*innen"
     }
   },
-  "athleteOverviewPage": {
-    "header": "Athlet*innen"
+  "components": {
+    "breadcrumbs": {
+      "paths": {
+        "/": "Start",
+        "/athletes": "Athlet*innen"
+      }
+    },
+    "navbar": {
+      "logo": "Medals",
+      "locationList": {
+        "/": "Start",
+        "/athletes": "Athlet*innen"
+      },
+      "search": "Suchen",
+      "languageSelector": "Sprache",
+      "bottomInfoCard": {
+        "header": "Warnung",
+        "text": "Warnung!"
+      }
+    },
+    "genericResponsiveDatagrid": {
+      "filterForm": {
+        "submit": "Fertig"
+      }
+    },
+    "athleteDatagrid": {
+      "table": {
+        "columns": {
+          "athleteId": "Athlet ID",
+          "firstName": "Firstname",
+          "lastName": "Lastname",
+          "birthdate": "Birthdate",
+          "email": "EMail",
+          "gender": "Gender"
+        },
+        "filters": {
+          "search": "Suche",
+          "bornIn": "Geboren in",
+          "gender": "Geschlecht"
+        }
+      }
+    }
   }
 }

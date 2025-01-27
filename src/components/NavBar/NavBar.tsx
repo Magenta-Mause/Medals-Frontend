@@ -97,7 +97,7 @@ const LanguageSelector = () => {
             <LanguageOutlined />
             <ListItemContent>
               <Typography level="title-sm">
-                {t("navbar.languageSelector")}
+                {t("components.navbar.languageSelector")}
               </Typography>
             </ListItemContent>
             <KeyboardArrowDown
@@ -204,13 +204,13 @@ const NavBar = () => {
         <IconButton variant="soft" color="primary" size="sm">
           <Typography fontSize={"1.2rem"}>🥇</Typography>
         </IconButton>
-        <Typography level="title-lg">{t("navbar.logo")}</Typography>
+        <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
       <Input
         size="sm"
         startDecorator={<SearchRounded />}
-        placeholder={t("navbar.search")}
+        placeholder={t("components.navbar.search")}
       />
       <Box
         sx={{
@@ -244,7 +244,7 @@ const NavBar = () => {
                 {element.icon}
                 <ListItemContent>
                   <Typography level="title-sm">
-                    {t("navbar.locationList." + element.path)}
+                    {t("components.navbar.locationList." + element.path)}
                   </Typography>
                 </ListItemContent>
               </ListItemButton>
@@ -264,8 +264,8 @@ const NavBar = () => {
           <LanguageSelector />
           {warning ? (
             <InfoCard
-              header={t("navbar.bottomInfoCard.header")}
-              text={t("navbar.bottomInfoCard.text")}
+              header={t("components.navbar.bottomInfoCard.header")}
+              text={t("components.navbar.bottomInfoCard.text")}
               type={"warning"}
               buttonCallback={() => {}}
             />

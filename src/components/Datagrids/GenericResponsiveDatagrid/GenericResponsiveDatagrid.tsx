@@ -84,6 +84,7 @@ export interface Filter<T> {
   type: "TEXT" | "SELECTION" | "TOGGLE";
   selection?: (string | FilterValue)[];
   label?: string;
+  option?: string;
 }
 
 export interface Action<T> {
@@ -101,7 +102,6 @@ interface GenericResponsiveDatagridProps<T> {
   data: T[];
   columns: Column<T>[];
   filters: Filter<T>[];
-  athletes: Athlete[];
   isLoading: boolean;
   actionMenu?: Action<T>[];
   itemSelectionActions?: Action<T>[];
@@ -122,7 +122,7 @@ const FilterComponent = <T,>(props: {
     <React.Fragment>
       {props.filters.map((filter) => (
         <FormControl size="sm" key={filter.name}>
-          <FormLabel>{filter.name}</FormLabel>
+          <FormLabel>{filter.label}</FormLabel>
           {filter.type == "SELECTION" ? (
             <Select
               size="sm"
@@ -163,7 +163,7 @@ const FilterComponent = <T,>(props: {
               }}
             >
               <Button sx={{ flexGrow: 1 }} value="button">
-                {filter.label}
+                {filter.option ?? filter.label}
               </Button>
             </ToggleButtonGroup>
           ) : (
@@ -859,31 +859,32 @@ const GenericResponsiveDatagrid = <T,>(
           keyOf={props.keyOf}
           actionMenu={props.actionMenu}
         />
-        {props.itemSelectionActions ? (
-          <Box
-            className="ActionButtonGroup-bottom"
-            sx={{
-              display: "flex",
-            }}
-          >
-            <ButtonGroup>
-              {props.itemSelectionActions.map((action) => (
-                <Button
-                  color={action.color ?? "neutral"}
-                  onClick={() => triggerActionForSelected(action.operation)}
-                  key={action.key}
-                  disabled={selected.length == 0}
-                  variant={action.variant ?? "outlined"}
-                >
-                  {action.label}
-                </Button>
-              ))}
-            </ButtonGroup>
-          </Box>
-        ) : (
-          <></>
-        )}
       </Sheet>
+
+      {props.itemSelectionActions ? (
+        <Box
+          className="ActionButtonGroup-bottom"
+          sx={{
+            display: { xs: "none", sm: "flex" },
+          }}
+        >
+          <ButtonGroup>
+            {props.itemSelectionActions.map((action) => (
+              <Button
+                color={action.color ?? "neutral"}
+                onClick={() => triggerActionForSelected(action.operation)}
+                key={action.key}
+                disabled={selected.length == 0}
+                variant={action.variant ?? "outlined"}
+              >
+                {action.label}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </Box>
+      ) : (
+        <></>
+      )}
 
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
         <MobileTable<T>
@@ -903,7 +904,7 @@ const GenericResponsiveDatagrid = <T,>(
           flex: "1 1 auto",
           background: "transparent",
         }}
-      ></Sheet>
+      />
       <PageControll
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

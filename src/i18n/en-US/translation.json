@@ -3,20 +3,58 @@
     "de": "German",
     "en": "English"
   },
-  "navbar": {
-    "logo": "Medals",
-    "locationList": {
-      "/": "Home",
-      "/athletes": "Athletes"
-    },
-    "search": "Search",
-    "languageSelector": "Language",
-    "bottomInfoCard": {
-      "header": "Warning",
-      "text": "Warning!"
+  "genders": {
+    "d": "Divers",
+    "m": "Male",
+    "f": "Female",
+    "": "All"
+  },
+  "pages": {
+    "athleteOverviewPage": {
+      "header": "Athletes"
     }
   },
-  "athleteOverviewPage": {
-    "header": "Athletes"
+  "components": {
+    "breadcrumbs": {
+      "paths": {
+        "/": "Home",
+        "/athletes": "Athletes"
+      }
+    },
+    "navbar": {
+      "logo": "Medals",
+      "locationList": {
+        "/": "Home",
+        "/athletes": "Athletes"
+      },
+      "search": "Search",
+      "languageSelector": "Language",
+      "bottomInfoCard": {
+        "header": "Warning",
+        "text": "Warning!"
+      }
+    },
+    "genericResponsiveDatagrid": {
+      "filterForm": {
+        "submit": "Fertig"
+      }
+    },
+    "athleteDatagrid": {
+      "table": {
+        "columns": {
+          "athleteId": "Athlet*in ID",
+          "firstName": "Vorname",
+          "lastName": "Nachname",
+          "birthdate": "Geburtstag",
+          "email": "E-Mail",
+          "gender": "Geschlecht"
+        },
+        "filters": {
+          "search": "Search",
+          "bornIn": "Born in",
+          "gender": "Gender"
+        }
+      }
+    }
   }
 }
