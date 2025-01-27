@@ -1,0 +1,22 @@
+{
+  "languages": {
+    "de": "Deutsch",
+    "en": "Englisch"
+  },
+  "navbar": {
+    "logo": "Medals",
+    "locationList": {
+      "/": "Start",
+      "/athletes": "Athlet*innen"
+    },
+    "search": "Suchen",
+    "languageSelector": "Sprache",
+    "bottomInfoCard": {
+      "header": "Warnung",
+      "text": "Warnung!"
+    }
+  },
+  "athleteOverviewPage": {
+    "header": "Athlet*innen"
+  }
+}

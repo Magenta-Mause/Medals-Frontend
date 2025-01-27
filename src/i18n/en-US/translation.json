@@ -1,0 +1,22 @@
+{
+  "languages": {
+    "de": "German",
+    "en": "English"
+  },
+  "navbar": {
+    "logo": "Medals",
+    "locationList": {
+      "/": "Home",
+      "/athletes": "Athletes"
+    },
+    "search": "Search",
+    "languageSelector": "Language",
+    "bottomInfoCard": {
+      "header": "Warning",
+      "text": "Warning!"
+    }
+  },
+  "athleteOverviewPage": {
+    "header": "Athletes"
+  }
+}

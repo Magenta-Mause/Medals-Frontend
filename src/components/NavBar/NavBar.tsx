@@ -1,8 +1,12 @@
 import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
+import InfoCard from "@components/InfoCard/InfoCard";
 import useSidebar from "@hooks/useSidebar";
 import {
   CloseRounded,
+  GroupRounded,
   HomeRounded,
+  KeyboardArrowDown,
+  LanguageOutlined,
   LogoutRounded,
   PeopleRounded,
   SearchRounded,
@@ -26,25 +30,106 @@ import {
   Stack,
   Typography,
 } from "@mui/joy";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
+import { Fragment } from "react/jsx-runtime";
 
 const navBarElements = [
   {
-    title: "Home",
     path: "/",
     icon: <HomeRounded />,
   },
   {
-    title: "Athletes",
     path: "/athletes",
     icon: <PeopleRounded />,
   },
 ];
 
+function Toggler({
+  defaultExpanded = false,
+  renderToggle,
+  children,
+}: {
+  defaultExpanded?: boolean;
+  children: React.ReactNode;
+  renderToggle: (params: {
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  }) => React.ReactNode;
+}) {
+  const [open, setOpen] = useState(defaultExpanded);
+  return (
+    <Fragment>
+      {renderToggle({ open, setOpen })}
+      <Box
+        sx={[
+          {
+            display: "grid",
+            transition: "0.2s ease",
+            "& > *": {
+              overflow: "hidden",
+            },
+          },
+          open ? { gridTemplateRows: "1fr" } : { gridTemplateRows: "0fr" },
+        ]}
+      >
+        {children}
+      </Box>
+    </Fragment>
+  );
+}
+
+const LanguageSelector = () => {
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    console.log(i18n.options.resources);
+  }, []);
+  return (
+    <ListItem nested>
+      <Toggler
+        renderToggle={({ open, setOpen }) => (
+          <ListItemButton onClick={() => setOpen(!open)}>
+            <LanguageOutlined />
+            <ListItemContent>
+              <Typography level="title-sm">{t("navbar.languageSelector")}</Typography>
+            </ListItemContent>
+            <KeyboardArrowDown
+              sx={[
+                open
+                  ? {
+                      transform: "rotate(-180deg)",
+                      transition: "ease .3s transform",
+                    }
+                  : {
+                      transform: "none",
+                      transition: "ease .3s transform",
+                    },
+              ]}
+            />
+          </ListItemButton>
+        )}
+      >
+        <List sx={{ gap: 0.5 }}>
+          {Object.keys(i18n.options.resources ?? []).map((language) => (
+            <ListItem>
+              <ListItemButton onClick={() => i18n.changeLanguage(language)}>
+                {t("languages." + language)}
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Toggler>
+    </ListItem>
+  );
+};
+
 const NavBar = () => {
   const { collapseSidebar, sideBarExtended } = useSidebar();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t, i18n } = useTranslation();
+  const warning = undefined;
 
   return (
     <Sheet
@@ -107,13 +192,13 @@ const NavBar = () => {
         <IconButton variant="soft" color="primary" size="sm">
           <Typography fontSize={"1.2rem"}>🥇</Typography>
         </IconButton>
-        <Typography level="title-lg">Medals</Typography>
+        <Typography level="title-lg">{t("navbar.logo")}</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
       <Input
         size="sm"
         startDecorator={<SearchRounded />}
-        placeholder="Search"
+        placeholder={t("navbar.search")}
       />
       <Box
         sx={{
@@ -146,40 +231,36 @@ const NavBar = () => {
               >
                 {element.icon}
                 <ListItemContent>
-                  <Typography level="title-sm">{element.title}</Typography>
+                  <Typography level="title-sm">
+                    {t("navbar.locationList." + element.path)}
+                  </Typography>
                 </ListItemContent>
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-
-        <Card
-          invertedColors
-          variant="soft"
-          color="warning"
+        <List
           size="sm"
-          sx={{ boxShadow: "none" }}
+          sx={{
+            gap: 1,
+            "--List-nestedInsetStart": "30px",
+            "--ListItem-radius": (theme) => theme.vars.radius.sm,
+            justifyContent: "flex-end",
+            padding: "none",
+          }}
         >
-          <Stack
-            direction="row"
-            sx={{ justifyContent: "space-between", alignItems: "center" }}
-          >
-            <Typography level="title-sm">Warning</Typography>
-            <IconButton size="sm">
-              <CloseRounded />
-            </IconButton>
-          </Stack>
-          <Typography level="body-xs">Warning Text</Typography>
-          <LinearProgress
-            variant="outlined"
-            value={80}
-            determinate
-            sx={{ my: 1 }}
-          />
-          <Button size="sm" variant="solid">
-            Do something
-          </Button>
-        </Card>
+          <LanguageSelector />
+          {warning ? (
+            <InfoCard
+              header={t("navbar.bottomInfoCard.header")}
+              text={t("navbar.bottomInfoCard.text")}
+              type={"warning"}
+              buttonCallback={() => {}}
+            />
+          ) : (
+            <></>
+          )}
+        </List>
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>

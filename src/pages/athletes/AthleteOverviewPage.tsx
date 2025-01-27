@@ -8,13 +8,15 @@ import { Box, Chip, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { removeAthlete } from "@stores/slices/athleteSlice";
 import { Athlete } from "@types/bffTypes";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 
 const AthleteOverviewPage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
   const currentState = useTypedSelector((state) => state.athletes.state);
   const dispatch = useDispatch();
-
+  const {t, i18n} = useTranslation();
+  
   const columns: Column<Athlete>[] = [
     {
       columnName: "Athlete ID",
@@ -176,7 +178,7 @@ const AthleteOverviewPage = () => {
         }}
       >
         <Typography level="h2" component="h1">
-          Athletes
+          {t("athleteOverviewPage.header")}
         </Typography>
       </Box>
       <GenericResponsiveDatagrid
