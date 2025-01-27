@@ -3,6 +3,7 @@ import GenericResponsiveDatagrid, {
   Action,
   Column,
   Filter,
+  MobileTableRendering,
 } from "@components/Datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Box, Chip, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
@@ -73,8 +74,12 @@ const AthleteOverviewPage = () => {
 
   const filters: Filter<Athlete>[] = [
     {
-      name: "Search",
+      name: "search",
+      label: "search",
       apply(filterParameter) {
+        if (filterParameter == undefined) {
+          return () => true;
+        }
         filterParameter = filterParameter.toLowerCase();
         return (athlete) =>
           athlete.first_name.toLowerCase().includes(filterParameter) ||
@@ -145,6 +150,54 @@ const AthleteOverviewPage = () => {
     },
   ];
 
+  const mobileRendering: MobileTableRendering<Athlete> = {
+    avatar: (athlete) => <>{athlete.id}</>,
+    h1: (athlete) => (
+      <>
+        {athlete.first_name} {athlete.last_name}
+      </>
+    ),
+    h2: (athlete) => <>{athlete.email}</>,
+    h3: (athlete) => (
+      <Typography level="body-xs">{athlete.birthdate}</Typography>
+    ),
+    bottomButtons: actions,
+    additionalActions: actions,
+    topRightInfo: (athlete) => (
+      <Chip
+        size="md"
+        sx={{
+          aspectRatio: 1,
+          p: 1,
+          height: "2rem",
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+          textAlign: "center",
+        }}
+      >
+        {athlete.gender.toUpperCase()}
+      </Chip>
+    ),
+    searchFilter: {
+      name: "search",
+      label: "Search",
+      apply(filterParameter) {
+        if (filterParameter == undefined) {
+          return () => true;
+        }
+
+        return (athlete) =>
+          athlete.first_name.toLowerCase().includes(filterParameter) ||
+          athlete.last_name.toLowerCase().includes(filterParameter) ||
+          athlete.birthdate.toLowerCase().includes(filterParameter) ||
+          athlete.email.toLowerCase().includes(filterParameter) ||
+          athlete.id.toString().toLowerCase().includes(filterParameter);
+      },
+      type: "TEXT",
+    },
+  };
+
   return (
     <Box
       component="main"
@@ -190,6 +243,7 @@ const AthleteOverviewPage = () => {
         actionMenu={actions}
         itemSelectionActions={actions}
         keyOf={(item) => item.id}
+        mobileRendering={mobileRendering}
       />
     </Box>
   );

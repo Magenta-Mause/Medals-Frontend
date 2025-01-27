@@ -6,19 +6,28 @@ import {
   Search,
 } from "@mui/icons-material";
 import {
+  Avatar,
   Box,
   Button,
   ButtonGroup,
   ButtonPropsVariantOverrides,
   Checkbox,
+  Chip,
   ColorPaletteProp,
   Divider,
   Dropdown,
   FormControl,
   FormLabel,
+  IconButton,
   iconButtonClasses,
   Input,
+  Link,
+  List,
+  ListDivider,
+  ListItem,
   ListItemButtonPropsColorOverrides,
+  ListItemContent,
+  ListItemDecorator,
   Menu,
   MenuButton,
   MenuItem,
@@ -35,7 +44,7 @@ import {
 } from "@mui/joy";
 import { OverridableStringUnion } from "@mui/types";
 import { Athlete } from "@types/bffTypes";
-import React, { Key, useCallback, useEffect, useState } from "react";
+import React, { Key, ReactNode, useCallback, useEffect, useState } from "react";
 
 const DEFAULT_MAX_VISIBLE_ON_PAGE = 5;
 
@@ -57,6 +66,17 @@ export interface Column<T> {
 interface FilterValue {
   displayValue: React.ReactNode;
   value: string;
+}
+
+export interface MobileTableRendering<T> {
+  avatar?: (row: T) => ReactNode;
+  h1?: (row: T) => ReactNode;
+  h2?: (row: T) => ReactNode;
+  h3?: (row: T) => ReactNode;
+  bottomButtons?: Action<T>[];
+  additionalActions?: Action<T>[];
+  topRightInfo?: (row: T) => ReactNode;
+  searchFilter: Filter<T>;
 }
 
 export interface Filter<T> {
@@ -88,6 +108,7 @@ interface GenericResponsiveDatagridProps<T> {
   itemSelectionActions?: Action<T>[];
   keyOf: (item: T) => Key;
   elementsPerPage?: number;
+  mobileRendering: MobileTableRendering<T>;
 }
 
 const FilterComponent = <T,>(props: {
@@ -150,8 +171,9 @@ const FilterComponent = <T,>(props: {
             <FormControl sx={{ flex: 1 }} size="sm">
               <Input
                 size="sm"
-                placeholder={filter.label ?? "Search"}
+                placeholder={filter.label ?? filter.name}
                 startDecorator={<Search />}
+                value={props.filterValues[filter.name]}
                 onChange={(event) => {
                   props.setFilter(filter.name, () => event.target.value);
                 }}
@@ -205,10 +227,10 @@ const PageControll = (props: {
 
   const PageButton = (pageButtonProps: { page: number }) => (
     <Button
-      key={pageButtonProps.page}
       size="sm"
       variant={"outlined"}
       color="neutral"
+      key={"pageButton" + pageButtonProps.page}
       aria-pressed={pageButtonProps.page == props.currentPage}
       onClick={() => props.setCurrentPage(() => pageButtonProps.page)}
       sx={{
@@ -263,6 +285,7 @@ const PageControll = (props: {
       ) : (
         <></>
       )}
+
       <Box sx={{ flex: 1 }} />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center", width: "50%" }}>
         <Box
@@ -483,6 +506,145 @@ const FullScreenTable = <T,>(props: {
   );
 };
 
+const MobileTable = <T,>(props: {
+  rows: T[];
+  rendering: MobileTableRendering<T>;
+  currentPage: number;
+  setCurrentPage: (callback: (prevNumber: number) => number) => void;
+  keyOf: (item: T) => Key;
+  maxPage: number;
+}) => {
+  return (
+    <>
+      <List size="sm" sx={{ "--ListItem-paddingX": 0 }}>
+        {props.rows.map((listItem) => (
+          <>
+            <ListItem
+              key={props.keyOf(listItem)}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "start",
+              }}
+            >
+              <ListItemContent
+                sx={{ display: "flex", gap: 2, alignItems: "start" }}
+              >
+                {props.rendering.avatar ? (
+                  <ListItemDecorator>
+                    <Avatar size="sm">
+                      {props.rendering.avatar(listItem)}
+                    </Avatar>
+                  </ListItemDecorator>
+                ) : (
+                  <></>
+                )}
+                <div>
+                  {props.rendering.h1 ? (
+                    <Typography gutterBottom sx={{ fontWeight: 600 }}>
+                      {props.rendering.h1(listItem)}
+                    </Typography>
+                  ) : (
+                    <></>
+                  )}
+                  {props.rendering.h2 ? (
+                    <Typography level="body-xs" gutterBottom>
+                      {props.rendering.h2(listItem)}
+                    </Typography>
+                  ) : (
+                    <></>
+                  )}
+                  {props.rendering.h3 ? (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: 0.5,
+                        mb: 1,
+                      }}
+                    >
+                      {props.rendering.h3(listItem)}
+                    </Box>
+                  ) : (
+                    <></>
+                  )}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 2,
+                      mb: 1,
+                    }}
+                  >
+                    {props.rendering.bottomButtons?.map((action) => (
+                      <Link
+                        level="body-sm"
+                        color={action.color}
+                        key={action.key}
+                        component="button"
+                        onClick={() => action.operation(listItem)}
+                      >
+                        {action.label}
+                      </Link>
+                    ))}
+                    {props.rendering.additionalActions ? (
+                      <RowMenu
+                        item={listItem}
+                        actionMenu={props.rendering.additionalActions}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                  </Box>
+                </div>
+              </ListItemContent>
+              {props.rendering.topRightInfo ? (
+                props.rendering.topRightInfo(listItem)
+              ) : (
+                <></>
+              )}
+            </ListItem>
+            <ListDivider />
+          </>
+        ))}
+      </List>
+      <Box
+        className="Pagination-mobile"
+        sx={{
+          display: { xs: "flex", md: "none" },
+          alignItems: "center",
+          py: 2,
+        }}
+      >
+        <IconButton
+          aria-label="previous page"
+          variant="outlined"
+          color="neutral"
+          size="sm"
+          disabled={props.currentPage == 0}
+          onClick={() => props.setCurrentPage((prevPage) => prevPage - 1)}
+        >
+          <KeyboardArrowLeft />
+        </IconButton>
+        <Typography level="body-sm" sx={{ mx: "auto" }}>
+          Page {props.currentPage + 1} of {props.maxPage}
+        </Typography>
+        <IconButton
+          aria-label="next page"
+          variant="outlined"
+          color="neutral"
+          size="sm"
+          disabled={props.currentPage >= props.maxPage - 1}
+          onClick={() => props.setCurrentPage((prevPage) => prevPage + 1)}
+        >
+          <KeyboardArrowRight />
+        </IconButton>
+      </Box>
+    </>
+  );
+};
+
 const RowMenu = <T,>(props: { item: T; actionMenu: Action<T>[] }) => {
   return (
     <Dropdown>
@@ -519,7 +681,7 @@ const GenericResponsiveDatagrid = <T,>(
   const [open, setOpen] = useState(false);
   const [filterValues, setFilterValues] = useState<Record<string, string>>({});
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const [elementsPerPage, setElementsPerPage] = useState(
+  const [pageSize, setElementsPerPage] = useState(
     props.elementsPerPage ?? DEFAULT_MAX_VISIBLE_ON_PAGE,
   );
 
@@ -553,16 +715,16 @@ const GenericResponsiveDatagrid = <T,>(
           currentFilter.apply(filterValues[currentFilter.name] ?? "")(item),
         true,
       ),
-    );
+    ).filter(props.mobileRendering.searchFilter.apply(filterValues[props.mobileRendering.searchFilter.name]));
   }, [filterValues, props.data, props.filters]);
 
   const getRenderedPage = useCallback(
     () =>
       getFilteredContent().slice(
-        currentPage * elementsPerPage,
-        (currentPage + 1) * elementsPerPage,
+        currentPage * pageSize,
+        (currentPage + 1) * pageSize,
       ),
-    [currentPage, elementsPerPage, getFilteredContent],
+    [currentPage, pageSize, getFilteredContent],
   );
 
   useEffect(() => {
@@ -570,12 +732,12 @@ const GenericResponsiveDatagrid = <T,>(
       Math.max(
         Math.min(
           currentPage,
-          Math.ceil(getFilteredContent().length / elementsPerPage) - 1,
+          Math.ceil(getFilteredContent().length / pageSize) - 1,
         ),
         0,
       ),
     );
-  }, [currentPage, getFilteredContent, elementsPerPage]);
+  }, [currentPage, getFilteredContent, pageSize]);
 
   const setFilter = (
     key: string,
@@ -600,14 +762,23 @@ const GenericResponsiveDatagrid = <T,>(
           display: { xs: "flex", sm: "none" },
           my: 1,
           gap: 1,
-          minHeight: "100dvh",
         }}
       >
         <Input
           size="sm"
-          placeholder="Search"
+          placeholder={
+            props.mobileRendering.searchFilter.label ??
+            props.mobileRendering.searchFilter.name
+          }
+          value={filterValues[props.mobileRendering.searchFilter.name]}
           startDecorator={<Search />}
           sx={{ flexGrow: 1 }}
+          onChange={(event) => {
+            setFilter(
+              props.mobileRendering.searchFilter.name,
+              event.target.value,
+            );
+          }}
         />
         <Button
           size="sm"
@@ -678,31 +849,45 @@ const GenericResponsiveDatagrid = <T,>(
           keyOf={props.keyOf}
           actionMenu={props.actionMenu}
         />
+        {props.itemSelectionActions ? (
+          <Box
+            className="ActionButtonGroup-bottom"
+            sx={{
+              display: "flex",
+            }}
+          >
+            <ButtonGroup>
+              {props.itemSelectionActions.map((action) => (
+                <Button
+                  color={action.color ?? "neutral"}
+                  onClick={() => triggerActionForSelected(action.operation)}
+                  key={action.key}
+                  disabled={selected.length == 0}
+                  variant={action.variant ?? "outlined"}
+                >
+                  {action.label}
+                </Button>
+              ))}
+            </ButtonGroup>
+          </Box>
+        ) : (
+          <></>
+        )}
       </Sheet>
-      {props.itemSelectionActions ? (
-        <Box
-          className="ActionButtonGroup-bottom"
-          sx={{
-            display: "flex",
+
+      <Box sx={{ display: { xs: "block", sm: "none" } }}>
+        <MobileTable<T>
+          rows={getRenderedPage()}
+          rendering={props.mobileRendering}
+          keyOf={props.keyOf}
+          currentPage={currentPage}
+          setCurrentPage={(callback: (prevNumber: number) => number) => {
+            setCurrentPage((prevPage) => callback(prevPage));
           }}
-        >
-          <ButtonGroup>
-            {props.itemSelectionActions.map((action) => (
-              <Button
-                color={action.color ?? "neutral"}
-                onClick={() => triggerActionForSelected(action.operation)}
-                key={action.key}
-                disabled={selected.length == 0}
-                variant={action.variant ?? "outlined"}
-              >
-                {action.label}
-              </Button>
-            ))}
-          </ButtonGroup>
-        </Box>
-      ) : (
-        <></>
-      )}
+          maxPage={Math.ceil(getFilteredContent().length / pageSize)}
+        />
+      </Box>
+
       <Sheet
         sx={{
           flex: "1 1 auto",
@@ -712,7 +897,7 @@ const GenericResponsiveDatagrid = <T,>(
       <PageControll
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        elementsPerPage={elementsPerPage}
+        elementsPerPage={pageSize}
         rowCount={getFilteredContent().length}
         setElementsPerPage={setElementsPerPage}
         showPreviousAndNextButtons={false}
