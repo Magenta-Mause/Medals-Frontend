@@ -1,7 +1,5 @@
 import { configureStore, Middleware, Store } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
-import { addAthlete } from "./slices/athleteSlice";
-import { Athlete } from "@types/bffTypes";
 
 const crossSliceMiddleware: Middleware = () => (next) => (action: any) => {
   const result = next(action);
