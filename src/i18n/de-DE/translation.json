@@ -10,6 +10,10 @@
     "": "Alle"
   },
   "pages": {
+    "homePage": {
+      "h1": "Medals",
+      "h3": "Das Medailien Management System der Zukunft"
+    },
     "athleteOverviewPage": {
       "header": "Athlet*innen"
     }
