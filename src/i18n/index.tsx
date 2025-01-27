@@ -4,11 +4,11 @@ import germanTranslation from "./de-DE/translation.json";
 import englishTranslation from "./en-US/translation.json";
 
 const resources = {
-  de: {
-    translation: germanTranslation,
-  },
   en: {
     translation: englishTranslation,
+  },
+  de: {
+    translation: germanTranslation,
   },
 };
 
