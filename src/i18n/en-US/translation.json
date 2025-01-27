@@ -50,7 +50,7 @@
     "athleteDatagrid": {
       "table": {
         "columns": {
-          "athleteId": "Athlet ID",
+          "athleteId": "Athlete ID",
           "firstName": "Firstname",
           "lastName": "Lastname",
           "birthdate": "Birthdate",
