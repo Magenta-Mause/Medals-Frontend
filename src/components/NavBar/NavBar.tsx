@@ -12,7 +12,6 @@ import {
 import {
   Avatar,
   Box,
-  Chip,
   Divider,
   GlobalStyles,
   IconButton,
@@ -22,7 +21,6 @@ import {
   ListItemButton,
   listItemButtonClasses,
   ListItemContent,
-  ListItemDecorator,
   Sheet,
   Typography,
 } from "@mui/joy";
@@ -94,7 +92,7 @@ const LanguageSelector = () => {
     >
       <Toggler
         overridenOpen={open}
-        renderToggle={({}) => (
+        renderToggle={() => (
           <ListItemButton onClick={() => setOpen(!open)}>
             <LanguageOutlined />
             <ListItemContent>
