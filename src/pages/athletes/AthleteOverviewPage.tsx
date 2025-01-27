@@ -15,8 +15,8 @@ const AthleteOverviewPage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
   const currentState = useTypedSelector((state) => state.athletes.state);
   const dispatch = useDispatch();
-  const {t, i18n} = useTranslation();
-  
+  const { t } = useTranslation();
+
   const columns: Column<Athlete>[] = [
     {
       columnName: "Athlete ID",

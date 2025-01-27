@@ -2,8 +2,6 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
 import useSidebar from "@hooks/useSidebar";
 import {
-  CloseRounded,
-  GroupRounded,
   HomeRounded,
   KeyboardArrowDown,
   LanguageOutlined,
@@ -14,23 +12,19 @@ import {
 import {
   Avatar,
   Box,
-  Button,
-  Card,
   Divider,
   GlobalStyles,
   IconButton,
   Input,
-  LinearProgress,
   List,
   ListItem,
   ListItemButton,
   listItemButtonClasses,
   ListItemContent,
   Sheet,
-  Stack,
   Typography,
 } from "@mui/joy";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import { Fragment } from "react/jsx-runtime";
@@ -82,9 +76,7 @@ function Toggler({
 
 const LanguageSelector = () => {
   const { t, i18n } = useTranslation();
-  useEffect(() => {
-    console.log(i18n.options.resources);
-  }, []);
+
   return (
     <ListItem nested>
       <Toggler
@@ -92,7 +84,9 @@ const LanguageSelector = () => {
           <ListItemButton onClick={() => setOpen(!open)}>
             <LanguageOutlined />
             <ListItemContent>
-              <Typography level="title-sm">{t("navbar.languageSelector")}</Typography>
+              <Typography level="title-sm">
+                {t("navbar.languageSelector")}
+              </Typography>
             </ListItemContent>
             <KeyboardArrowDown
               sx={[
@@ -128,7 +122,7 @@ const NavBar = () => {
   const { collapseSidebar, sideBarExtended } = useSidebar();
   const navigate = useNavigate();
   const location = useLocation();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const warning = undefined;
 
   return (

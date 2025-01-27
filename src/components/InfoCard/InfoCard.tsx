@@ -6,7 +6,6 @@ import {
   IconButton,
   LinearProgress,
   Button,
-  CardPropsColorOverrides,
   ColorPaletteProp,
 } from "@mui/joy";
 
