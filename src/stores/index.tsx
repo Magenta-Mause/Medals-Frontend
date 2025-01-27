@@ -3,12 +3,10 @@ import rootReducer from "./rootReducer";
 import { addAthlete } from "./slices/athleteSlice";
 import { Athlete } from "@types/bffTypes";
 
-const crossSliceMiddleware: Middleware = () =>
-  (next) =>
-  (action: any) => {
-    const result = next(action);
-    return result;
-  };
+const crossSliceMiddleware: Middleware = () => (next) => (action: any) => {
+  const result = next(action);
+  return result;
+};
 
 const store: Store = configureStore({
   reducer: rootReducer,
