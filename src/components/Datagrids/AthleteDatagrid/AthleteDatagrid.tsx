@@ -5,10 +5,10 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import GenericResponsiveDatagrid, {
   Action,
-  Column,
-  Filter,
-  MobileTableRendering,
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
+import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
+import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { Athlete } from "@types/bffTypes";
 
 interface AthleteDatagridProps {
@@ -137,7 +137,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       label: <>Edit</>,
       color: "primary",
       key: "edit",
-      operation: function (item: Athlete): void {
+      operation: function (item): void {
         console.log("Editing Athlete:", item);
       },
     },
@@ -146,7 +146,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       color: "danger",
       key: "delete",
       variant: "solid",
-      operation: function (item: Athlete): void {
+      operation: function (item): void {
         dispatch(removeAthlete({ id: item.id }));
         deleteAthlete(item.id);
         console.log("Deleted Athlete:", item);
@@ -185,7 +185,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     searchFilter: {
       name: "search",
       label: "Search",
-      apply(filterParameter) {
+      apply(filterParameter: string | undefined) {
         if (filterParameter == undefined) {
           return () => true;
         }
