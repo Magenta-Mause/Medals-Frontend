@@ -40,18 +40,20 @@ const navBarElements = [
   },
 ];
 
-function Toggler({
+const Toggler = ({
   defaultExpanded = false,
+  overridenOpen = false,
   renderToggle,
   children,
 }: {
   defaultExpanded?: boolean;
+  overridenOpen?: boolean;
   children: React.ReactNode;
   renderToggle: (params: {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   }) => React.ReactNode;
-}) {
+}) => {
   const [open, setOpen] = useState(defaultExpanded);
   return (
     <Fragment>
@@ -65,7 +67,7 @@ function Toggler({
               overflow: "hidden",
             },
           },
-          open ? { gridTemplateRows: "1fr" } : { gridTemplateRows: "0fr" },
+           (overridenOpen ?? open) ? { gridTemplateRows: "1fr" } : { gridTemplateRows: "0fr" },
         ]}
       >
         {children}
@@ -76,11 +78,19 @@ function Toggler({
 
 const LanguageSelector = () => {
   const { t, i18n } = useTranslation();
+  const [open, setOpen] = useState(false);
 
   return (
-    <ListItem nested>
+    <ListItem
+      nested
+      sx={{
+        display: "flex",
+        flexDirection: "column-reverse",
+      }}
+    >
       <Toggler
-        renderToggle={({ open, setOpen }) => (
+        overridenOpen={open}
+        renderToggle={({}) => (
           <ListItemButton onClick={() => setOpen(!open)}>
             <LanguageOutlined />
             <ListItemContent>
@@ -92,11 +102,11 @@ const LanguageSelector = () => {
               sx={[
                 open
                   ? {
-                      transform: "rotate(-180deg)",
+                      transform: "none",
                       transition: "ease .3s transform",
                     }
                   : {
-                      transform: "none",
+                      transform: "rotate(-180deg)",
                       transition: "ease .3s transform",
                     },
               ]}
@@ -107,7 +117,12 @@ const LanguageSelector = () => {
         <List sx={{ gap: 0.5 }}>
           {Object.keys(i18n.options.resources ?? []).map((language) => (
             <ListItem>
-              <ListItemButton onClick={() => i18n.changeLanguage(language)}>
+              <ListItemButton
+                onClick={() => {
+                  i18n.changeLanguage(language);
+                  setOpen(false);
+                }}
+              >
                 {t("languages." + language)}
               </ListItemButton>
             </ListItem>
