@@ -12,7 +12,6 @@ import {
   ButtonGroup,
   ButtonPropsVariantOverrides,
   Checkbox,
-  Chip,
   ColorPaletteProp,
   Divider,
   Dropdown,
@@ -708,15 +707,26 @@ const GenericResponsiveDatagrid = <T,>(
   );
 
   const getFilteredContent = useCallback(() => {
-    return props.data.filter((item) =>
-      props.filters.reduce<boolean>(
-        (previousValue, currentFilter) =>
-          previousValue &&
-          currentFilter.apply(filterValues[currentFilter.name] ?? "")(item),
-        true,
-      ),
-    ).filter(props.mobileRendering.searchFilter.apply(filterValues[props.mobileRendering.searchFilter.name]));
-  }, [filterValues, props.data, props.filters]);
+    return props.data
+      .filter((item) =>
+        props.filters.reduce<boolean>(
+          (previousValue, currentFilter) =>
+            previousValue &&
+            currentFilter.apply(filterValues[currentFilter.name] ?? "")(item),
+          true,
+        ),
+      )
+      .filter(
+        props.mobileRendering.searchFilter.apply(
+          filterValues[props.mobileRendering.searchFilter.name],
+        ),
+      );
+  }, [
+    filterValues,
+    props.data,
+    props.filters,
+    props.mobileRendering.searchFilter,
+  ]);
 
   const getRenderedPage = useCallback(
     () =>
