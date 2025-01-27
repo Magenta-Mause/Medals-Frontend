@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
 const NotFoundPage = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Box

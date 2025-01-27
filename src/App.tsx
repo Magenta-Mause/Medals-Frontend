@@ -27,7 +27,7 @@ const App = () => {
   useEffect(() => {
     initializeConfig(config.backendBaseUrl);
     dispatch(fetchInitialState());
-  }, [config, fetchInitialState, dispatch]);
+  }, [dispatch]);
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -11,7 +11,7 @@ const getAthletes = async () => {
   }
 };
 
-const getAthete = async (atheteId: string) => {
+const getAthlete = async (atheteId: string) => {
   const axiosInstance = getAxiosInstance();
   try {
     const request = await axiosInstance.get(`/athletes/${atheteId}`);
@@ -31,4 +31,4 @@ const deleteAthlete = async (athleteId: string) => {
   }
 };
 
-export { getAthletes, getAthete, deleteAthlete };
+export { getAthletes, getAthlete, deleteAthlete };
