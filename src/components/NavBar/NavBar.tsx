@@ -12,6 +12,7 @@ import {
 import {
   Avatar,
   Box,
+  Chip,
   Divider,
   GlobalStyles,
   IconButton,
@@ -21,6 +22,7 @@ import {
   ListItemButton,
   listItemButtonClasses,
   ListItemContent,
+  ListItemDecorator,
   Sheet,
   Typography,
 } from "@mui/joy";
@@ -67,14 +69,16 @@ const Toggler = ({
               overflow: "hidden",
             },
           },
-           (overridenOpen ?? open) ? { gridTemplateRows: "1fr" } : { gridTemplateRows: "0fr" },
+          (overridenOpen ?? open)
+            ? { gridTemplateRows: "1fr" }
+            : { gridTemplateRows: "0fr" },
         ]}
       >
         {children}
       </Box>
     </Fragment>
   );
-}
+};
 
 const LanguageSelector = () => {
   const { t, i18n } = useTranslation();
@@ -122,8 +126,9 @@ const LanguageSelector = () => {
                   i18n.changeLanguage(language);
                   setOpen(false);
                 }}
+                selected={i18n.language == language}
               >
-                {t("languages." + language)}
+                <ListItemContent>{t("languages." + language)}</ListItemContent>
               </ListItemButton>
             </ListItem>
           ))}
