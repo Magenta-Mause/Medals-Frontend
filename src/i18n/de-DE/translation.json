@@ -46,16 +46,16 @@
     "athleteDatagrid": {
       "table": {
         "columns": {
-          "athleteId": "Athlet ID",
-          "firstName": "Firstname",
-          "lastName": "Lastname",
-          "birthdate": "Birthdate",
-          "email": "EMail",
-          "gender": "Gender"
+          "athleteId": "Athlet*in ID",
+          "firstName": "Vorname",
+          "lastName": "Nachname",
+          "birthdate": "Geburtstag",
+          "email": "E-Mail",
+          "gender": "Geschlecht"
         },
         "filters": {
           "search": "Suche",
-          "bornIn": "Geboren in",
+          "bornIn": "Geburtsjahr",
           "gender": "Geschlecht"
         }
       }

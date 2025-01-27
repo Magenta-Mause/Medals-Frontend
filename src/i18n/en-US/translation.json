@@ -40,18 +40,18 @@
     },
     "genericResponsiveDatagrid": {
       "filterForm": {
-        "submit": "Fertig"
+        "submit": "Submit"
       }
     },
     "athleteDatagrid": {
       "table": {
         "columns": {
-          "athleteId": "Athlet*in ID",
-          "firstName": "Vorname",
-          "lastName": "Nachname",
-          "birthdate": "Geburtstag",
-          "email": "E-Mail",
-          "gender": "Geschlecht"
+          "athleteId": "Athlet ID",
+          "firstName": "Firstname",
+          "lastName": "Lastname",
+          "birthdate": "Birthdate",
+          "email": "Email",
+          "gender": "Gender"
         },
         "filters": {
           "search": "Search",
