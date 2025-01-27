@@ -42,7 +42,6 @@ import {
   VariantProp,
 } from "@mui/joy";
 import { OverridableStringUnion } from "@mui/types";
-import { Athlete } from "@types/bffTypes";
 import React, { Key, ReactNode, useCallback, useEffect, useState } from "react";
 
 const DEFAULT_MAX_VISIBLE_ON_PAGE = 5;

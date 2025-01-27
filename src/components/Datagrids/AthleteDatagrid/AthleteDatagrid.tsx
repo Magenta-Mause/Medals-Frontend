@@ -1,5 +1,5 @@
 import { deleteAthlete } from "@api/APIService";
-import { Box, Typography, Chip } from "@mui/joy";
+import { Typography, Chip } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -100,7 +100,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         return (athlete) => !parsed || athlete.birthdate.slice(0, 4) == "2005";
       },
       type: "TOGGLE",
-      option: "2005"
+      option: "2005",
     },
     {
       name: "gender",

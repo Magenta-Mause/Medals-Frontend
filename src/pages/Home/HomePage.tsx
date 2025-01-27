@@ -11,7 +11,12 @@ const HomePage = () => {
         flexDirection: "column",
       }}
     >
-      <Chip size="lg" sx={{aspectRatio: 1}}> <Typography level={"h1"} fontSize={100}>🥇</Typography></Chip>
+      <Chip size="lg" sx={{ aspectRatio: 1 }}>
+        {" "}
+        <Typography level={"h1"} fontSize={100}>
+          🥇
+        </Typography>
+      </Chip>
       <Typography level={"h1"} padding={"1.5rem"} textAlign={"center"}>
         Medals
       </Typography>
