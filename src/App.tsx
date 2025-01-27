@@ -23,11 +23,11 @@ const App = () => {
   const queryClient = new QueryClient();
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  initializeConfig(config.bffBaseUrl);
 
   useEffect(() => {
+    initializeConfig(config.backendBaseUrl);
     dispatch(fetchInitialState());
-  });
+  }, [config, fetchInitialState]);
 
   return (
     <QueryClientProvider client={queryClient}>
