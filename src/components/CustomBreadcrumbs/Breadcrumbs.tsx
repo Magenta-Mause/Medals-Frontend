@@ -29,7 +29,9 @@ const CustomBreadcrumbs = () => {
                 to={match.pathname}
                 key={breadcrumb?.toLocaleString()}
               >
-                {t("components.breadcrumbs.paths." + match.pathname)}
+                {t("components.breadcrumbs.paths." + match.pathname, {
+                  defaultValue: match.pathname.split("/").reverse()[0],
+                })}
               </Link>
             ))}
           </Breadcrumbs>
