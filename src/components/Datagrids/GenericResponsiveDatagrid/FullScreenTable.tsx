@@ -80,7 +80,7 @@ const PageButtonMapping = (props: {
   );
 };
 
-const PageControll = (props: {
+const PageControl = (props: {
   currentPage: number;
   setCurrentPage: (changePage: (currPage: number) => number) => void;
   elementsPerPage: number;
@@ -89,14 +89,15 @@ const PageControll = (props: {
   showPreviousAndNextButtons: boolean;
 }) => {
   const pageSizeInputRef = useRef<HTMLDivElement>(null);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const getPageCount = useCallback(
     () => Math.ceil(props.rowCount / props.elementsPerPage),
     [props.rowCount, props.elementsPerPage],
   );
 
   useEffect(() => {
-    pageSizeInputRef.current!.getElementsByTagName("input")[0].value = props.elementsPerPage.toString();
+    pageSizeInputRef.current!.getElementsByTagName("input")[0].value =
+      props.elementsPerPage.toString();
   }, [props.elementsPerPage]);
 
   const getVisiblePageButtonsLeftSide = useCallback(() => {
@@ -202,9 +203,19 @@ const PageControll = (props: {
       </Box>
 
       <Box sx={{ flex: 1 }} />
-      <Typography sx={{display: "flex", alignItems: "center"}}>{t("components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.label")}</Typography>
+      <Typography sx={{ display: "flex", alignItems: "center" }}>
+        {t(
+          "components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.label",
+        )}
+      </Typography>
       <Input
-        endDecorator={<Typography color="neutral" sx={{userSelect: "none"}}>{t("components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.inputPostfix")}</Typography>}
+        endDecorator={
+          <Typography color="neutral" sx={{ userSelect: "none" }}>
+            {t(
+              "components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.inputPostfix",
+            )}
+          </Typography>
+        }
         type={"tel"}
         onChange={(e) =>
           e.target.value != "" &&
@@ -216,7 +227,7 @@ const PageControll = (props: {
         sx={{
           width: 110,
           p: 0,
-          pl: 1, 
+          pl: 1,
           pr: 1,
           textAlign: "left",
         }}
@@ -399,5 +410,5 @@ const FullScreenTable = <T,>(props: {
   );
 };
 
-export { PageControll };
+export { PageControl as PageControll };
 export default FullScreenTable;
