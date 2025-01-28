@@ -88,7 +88,7 @@ const LanguageSelector = () => {
       >
         <List sx={{ gap: 0.5 }}>
           {Object.keys(i18n.options.resources ?? []).map((language) => (
-            <ListItem>
+            <ListItem key={language}>
               <ListItemButton
                 onClick={() => {
                   i18n.changeLanguage(language);

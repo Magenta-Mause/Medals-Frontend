@@ -5,7 +5,7 @@ const getAthletes = async () => {
   const axiosInstance = getAxiosInstance();
   try {
     const request = await axiosInstance.get(`/athletes`);
-    return request.data as Athlete[];
+    return request.data.data as Athlete[];
   } catch (error) {
     console.error("Error while fetching athletes", error);
   }

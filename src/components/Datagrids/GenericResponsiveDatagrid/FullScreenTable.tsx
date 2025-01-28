@@ -27,6 +27,58 @@ export interface Column<T> {
   size?: keyof typeof COLUMN_SIZES;
 }
 
+const PageButton = (props: {
+  page: number;
+  setCurrentPage: (callback: (prevPage: number) => number) => void;
+  currentPage: number;
+}) => (
+  <Button
+    size="sm"
+    variant={"outlined"}
+    color="neutral"
+    key={"pageButton" + props.page}
+    aria-pressed={props.page == props.currentPage}
+    onClick={() => props.setCurrentPage(() => props.page)}
+    sx={{
+      width: "2rem",
+    }}
+  >
+    {props.page + 1}
+  </Button>
+);
+
+const PageButtonMapping = (props: {
+  page: number;
+  index: number;
+  array: number[];
+  setPage: (callback: (prevPage: number) => number) => void;
+  currentPage: number;
+}) => {
+  const { page, index, array } = props;
+
+  return (
+    <>
+      {index > 0 && array[index - 1] != page - 1 ? (
+        <Typography
+          key={"divider " + page}
+          color={"neutral"}
+          sx={{ pl: 1, pr: 1, userSelect: "none" }}
+        >
+          ...
+        </Typography>
+      ) : (
+        <></>
+      )}
+      <PageButton
+        page={page}
+        key={"button " + page}
+        setCurrentPage={props.setPage}
+        currentPage={props.currentPage}
+      />
+    </>
+  );
+};
+
 const PageControll = (props: {
   currentPage: number;
   setCurrentPage: (changePage: (currPage: number) => number) => void;
@@ -65,39 +117,6 @@ const PageControll = (props: {
       )
       .sort((a, b) => a - b);
   }, [getPageCount, props.currentPage]);
-
-  const PageButton = (pageButtonProps: { page: number }) => (
-    <Button
-      size="sm"
-      variant={"outlined"}
-      color="neutral"
-      key={"pageButton" + pageButtonProps.page}
-      aria-pressed={pageButtonProps.page == props.currentPage}
-      onClick={() => props.setCurrentPage(() => pageButtonProps.page)}
-      sx={{
-        width: "2rem",
-      }}
-    >
-      {pageButtonProps.page + 1}
-    </Button>
-  );
-
-  const pageButtonMapping = (page: number, index: number, array: number[]) => (
-    <>
-      {index > 0 && array[index - 1] != page - 1 ? (
-        <Typography
-          key={"divider " + page}
-          color={"neutral"}
-          sx={{ pl: 1, pr: 1, userSelect: "none" }}
-        >
-          ...
-        </Typography>
-      ) : (
-        <></>
-      )}
-      <PageButton page={page} />
-    </>
-  );
 
   return (
     <Box
@@ -138,9 +157,22 @@ const PageControll = (props: {
             width: "45%",
           }}
         >
-          {getVisiblePageButtonsLeftSide().map(pageButtonMapping)}
+          {getVisiblePageButtonsLeftSide().map((page, index, array) => (
+            <PageButtonMapping
+              page={page}
+              index={index}
+              array={array}
+              setPage={props.setCurrentPage}
+              currentPage={props.currentPage}
+              key={page}
+            />
+          ))}
         </Box>
-        <PageButton page={props.currentPage} />
+        <PageButton
+          page={props.currentPage}
+          setCurrentPage={props.setCurrentPage}
+          currentPage={props.currentPage}
+        />
         <Box
           sx={{
             display: "flex",
@@ -149,7 +181,16 @@ const PageControll = (props: {
             width: "45%",
           }}
         >
-          {getVisiblePageButtonsRightSide().map(pageButtonMapping)}
+          {getVisiblePageButtonsRightSide().map((page, index, array) => (
+            <PageButtonMapping
+              page={page}
+              index={index}
+              array={array}
+              setPage={props.setCurrentPage}
+              currentPage={props.currentPage}
+              key={page}
+            />
+          ))}
         </Box>
       </Box>
 

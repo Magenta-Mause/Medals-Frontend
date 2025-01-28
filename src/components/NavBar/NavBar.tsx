@@ -24,6 +24,7 @@ import {
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
+import LanguageSelector from "./LanguageSelector";
 
 const navBarElements = [
   {
