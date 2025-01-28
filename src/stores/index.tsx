@@ -1,8 +1,12 @@
 import { configureStore, Middleware, Store } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
+import initiateClient from "websockets/client";
 
 const crossSliceMiddleware: Middleware = () => (next) => (action: any) => {
   const result = next(action);
+
+  initiateClient();
+
   return result;
 };
 
