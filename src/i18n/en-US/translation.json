@@ -53,6 +53,11 @@
             "inputPostfix": "Entries"
           }
         }
+      },
+      "mobileList": {
+        "pageControl": {
+          "pageLabels": "Page {currPage} of {maxPage}"
+        }
       }
     },
     "athleteDatagrid": {
