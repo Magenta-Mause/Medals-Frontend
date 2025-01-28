@@ -149,7 +149,7 @@ const GenericResponsiveDatagrid = <T,>(
 
   useEffect(() => {
     if (!wasPageSizeChanged) {
-      setPageSize(Math.floor(windowDimensions.height / 95));
+      setPageSizeInternal(Math.floor(windowDimensions.height / 95));
     }
   }, [windowDimensions, wasPageSizeChanged]);
 
