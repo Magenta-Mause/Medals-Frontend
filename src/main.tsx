@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import store from "./stores";
 import "./i18n";
 
-// @ts-ignore
+// @ts-expect-error this global is needed for sock js to work properly
 window.global = window;
 
 createRoot(document.getElementById("root")!).render(
