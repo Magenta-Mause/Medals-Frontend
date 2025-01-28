@@ -22,6 +22,7 @@ import FilterComponent, {
 } from "./GenericResponsiveDatagridFilterComponent";
 import FullScreenTable, { Column, PageControll } from "./FullScreenTable";
 import MobileTable, { MobileTableRendering } from "./MobileTable";
+import useWindowDimensions from "@hooks/useWindowDimensions";
 
 const DEFAULT_MAX_VISIBLE_ON_PAGE = 5;
 
@@ -55,9 +56,16 @@ const GenericResponsiveDatagrid = <T,>(
   const [open, setOpen] = useState(false);
   const [filterValues, setFilterValues] = useState<Record<string, string>>({});
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const [pageSize, setElementsPerPage] = useState(
+  const [pageSize, setPageSizeInternal] = useState(
     props.elementsPerPage ?? DEFAULT_MAX_VISIBLE_ON_PAGE,
   );
+  const windowDimensions = useWindowDimensions();
+  const [wasPageSizeChanged, setPageSizeChanged] = useState(false);
+
+  const setPageSize = (elementsPerPage: number) => {
+    setPageSizeInternal(elementsPerPage);
+    setPageSizeChanged(true);
+  }
 
   const cleanupSelection = useCallback(() => {
     const newSelected = selected.filter(
@@ -67,10 +75,6 @@ const GenericResponsiveDatagrid = <T,>(
       setSelected(newSelected);
     }
   }, [selected, props]);
-
-  useEffect(() => {
-    cleanupSelection();
-  }, [props, selected, cleanupSelection]);
 
   const triggerActionForSelected = useCallback(
     (action: (item: T) => void) => {
@@ -112,18 +116,6 @@ const GenericResponsiveDatagrid = <T,>(
     [currentPage, pageSize, getFilteredContent],
   );
 
-  useEffect(() => {
-    setCurrentPage(
-      Math.max(
-        Math.min(
-          currentPage,
-          Math.ceil(getFilteredContent().length / pageSize) - 1,
-        ),
-        0,
-      ),
-    );
-  }, [currentPage, getFilteredContent, pageSize]);
-
   const setFilter = (
     key: string,
     value: string | ((prevState: string) => string),
@@ -138,6 +130,30 @@ const GenericResponsiveDatagrid = <T,>(
       });
     }
   };
+
+  useEffect(() => {
+    setCurrentPage(
+      Math.max(
+        Math.min(
+          currentPage,
+          Math.ceil(getFilteredContent().length / pageSize) - 1,
+        ),
+        0,
+      ),
+    );
+  }, [currentPage, getFilteredContent, pageSize]);
+
+  useEffect(() => {
+    cleanupSelection();
+  }, [props, selected, cleanupSelection]);
+
+  useEffect(() => {
+    console.log(windowDimensions, wasPageSizeChanged)
+    if (!wasPageSizeChanged) {
+      setPageSizeInternal(Math.floor(windowDimensions.height / 95));
+      console.log(windowDimensions.height / 50)
+    }
+  }, [windowDimensions, wasPageSizeChanged]);
 
   return (
     <React.Fragment>
@@ -285,7 +301,7 @@ const GenericResponsiveDatagrid = <T,>(
         setCurrentPage={setCurrentPage}
         elementsPerPage={pageSize}
         rowCount={getFilteredContent().length}
-        setElementsPerPage={setElementsPerPage}
+        setElementsPerPage={setPageSize}
         showPreviousAndNextButtons={false}
       />
     </React.Fragment>

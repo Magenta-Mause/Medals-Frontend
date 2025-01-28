@@ -7,7 +7,7 @@ import {
   iconButtonClasses,
   Input,
 } from "@mui/joy";
-import { Key, useCallback } from "react";
+import { Key, useCallback, useEffect, useRef } from "react";
 import { Action } from "./GenericResponsiveDatagrid";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import RowMenu from "./RowMenu";
@@ -87,10 +87,15 @@ const PageControll = (props: {
   setElementsPerPage: (elementsPerPage: number) => void;
   showPreviousAndNextButtons: boolean;
 }) => {
+  const pageSizeInputRef = useRef<HTMLDivElement>(null);
   const getPageCount = useCallback(
     () => Math.ceil(props.rowCount / props.elementsPerPage),
     [props.rowCount, props.elementsPerPage],
   );
+
+  useEffect(() => {
+    pageSizeInputRef.current!.getElementsByTagName("input")[0].value = props.elementsPerPage.toString();
+  }, [props.elementsPerPage]);
 
   const getVisiblePageButtonsLeftSide = useCallback(() => {
     const visibleButtons = new Set([0, 1]);
@@ -203,6 +208,7 @@ const PageControll = (props: {
           props.setElementsPerPage(parseInt(e.target.value))
         }
         defaultValue={props.elementsPerPage}
+        ref={pageSizeInputRef}
         size="md"
         sx={{
           width: 40,
