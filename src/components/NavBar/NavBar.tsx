@@ -2,9 +2,10 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
 import useSidebar from "@hooks/useSidebar";
 import {
-  HomeRounded, LogoutRounded,
+  HomeRounded,
+  LogoutRounded,
   PeopleRounded,
-  SearchRounded
+  SearchRounded,
 } from "@mui/icons-material";
 import {
   Avatar,
