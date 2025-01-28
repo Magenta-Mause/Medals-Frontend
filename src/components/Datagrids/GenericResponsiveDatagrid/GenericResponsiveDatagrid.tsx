@@ -113,7 +113,7 @@ const GenericResponsiveDatagrid = <T,>(
         currentPage * pageSize,
         (currentPage + 1) * pageSize,
       ),
-    [currentPage, pageSize, getFilteredContent],
+    [currentPage, getFilteredContent, pageSize],
   );
 
   const setFilter = (
@@ -145,13 +145,11 @@ const GenericResponsiveDatagrid = <T,>(
 
   useEffect(() => {
     cleanupSelection();
-  }, [props, selected, cleanupSelection]);
+  }, [selected, props, cleanupSelection]);
 
   useEffect(() => {
-    console.log(windowDimensions, wasPageSizeChanged)
     if (!wasPageSizeChanged) {
       setPageSize(Math.floor(windowDimensions.height / 95));
-      console.log(windowDimensions.height / 50)
     }
   }, [windowDimensions, wasPageSizeChanged]);
 
