@@ -18,8 +18,8 @@
       "header": "Athletes"
     },
     "notFound": {
-        "h1": "404",
-        "h2": "Page not found"
+      "h1": "404",
+      "h2": "Page not found"
     }
   },
   "components": {
@@ -45,6 +45,19 @@
     "genericResponsiveDatagrid": {
       "filterForm": {
         "submit": "Submit"
+      },
+      "fullScreenTable": {
+        "pageControl": {
+          "pageSize": {
+            "label": "Page Size:",
+            "inputPostfix": "Entries"
+          }
+        }
+      },
+      "mobileList": {
+        "pageControl": {
+          "pageLabels": "Page {currPage} of {maxPage}"
+        }
       }
     },
     "athleteDatagrid": {
@@ -63,6 +76,10 @@
           "gender": "Gender"
         }
       }
+    },
+    "buttons": {
+      "next": "Next",
+      "previous": "Previous"
     }
   }
 }

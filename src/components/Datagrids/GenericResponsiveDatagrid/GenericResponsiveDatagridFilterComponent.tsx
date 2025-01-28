@@ -41,7 +41,7 @@ const FilterComponent = <T,>(props: {
             <Select
               size="sm"
               placeholder={filter.label ?? "All"}
-              onChange={(event, newValue) => {
+              onChange={(_event, newValue) => {
                 props.setFilter(filter.name, newValue as string);
               }}
               value={props.filterValues[filter.name]}

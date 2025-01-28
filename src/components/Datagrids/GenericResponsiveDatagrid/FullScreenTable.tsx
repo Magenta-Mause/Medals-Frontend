@@ -7,10 +7,11 @@ import {
   iconButtonClasses,
   Input,
 } from "@mui/joy";
-import { Key, useCallback } from "react";
+import { Key, useCallback, useEffect, useRef } from "react";
 import { Action } from "./GenericResponsiveDatagrid";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import RowMenu from "./RowMenu";
+import { useTranslation } from "react-i18next";
 
 const COLUMN_SIZES = {
   xs: 70,
@@ -79,7 +80,7 @@ const PageButtonMapping = (props: {
   );
 };
 
-const PageControll = (props: {
+const PageControl = (props: {
   currentPage: number;
   setCurrentPage: (changePage: (currPage: number) => number) => void;
   elementsPerPage: number;
@@ -87,10 +88,17 @@ const PageControll = (props: {
   setElementsPerPage: (elementsPerPage: number) => void;
   showPreviousAndNextButtons: boolean;
 }) => {
+  const pageSizeInputRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
   const getPageCount = useCallback(
     () => Math.ceil(props.rowCount / props.elementsPerPage),
     [props.rowCount, props.elementsPerPage],
   );
+
+  useEffect(() => {
+    pageSizeInputRef.current!.getElementsByTagName("input")[0].value =
+      props.elementsPerPage.toString();
+  }, [props.elementsPerPage]);
 
   const getVisiblePageButtonsLeftSide = useCallback(() => {
     const visibleButtons = new Set([0, 1]);
@@ -139,8 +147,13 @@ const PageControll = (props: {
           disabled={props.currentPage <= 0}
           onClick={() => props.setCurrentPage((currPage) => currPage - 1)}
           startDecorator={<KeyboardArrowLeft />}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
         >
-          Previous
+          {t("components.buttons.previous")}
         </Button>
       ) : (
         <></>
@@ -195,7 +208,19 @@ const PageControll = (props: {
       </Box>
 
       <Box sx={{ flex: 1 }} />
+      <Typography sx={{ display: "flex", alignItems: "center" }}>
+        {t(
+          "components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.label",
+        )}
+      </Typography>
       <Input
+        endDecorator={
+          <Typography color="neutral" sx={{ userSelect: "none" }}>
+            {t(
+              "components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.inputPostfix",
+            )}
+          </Typography>
+        }
         type={"tel"}
         onChange={(e) =>
           e.target.value != "" &&
@@ -203,13 +228,15 @@ const PageControll = (props: {
           props.setElementsPerPage(parseInt(e.target.value))
         }
         defaultValue={props.elementsPerPage}
-        size="md"
+        ref={pageSizeInputRef}
         sx={{
-          width: 40,
-          padding: 0,
-          textAlign: "center",
+          width: 110,
+          p: 0,
+          pl: 1,
+          pr: 1,
+          textAlign: "left",
         }}
-        slotProps={{ input: { min: 0, style: { textAlign: "center" } } }}
+        slotProps={{ input: { min: 0, style: { textAlign: "left" } } }}
       />
       <Typography
         sx={{
@@ -234,8 +261,14 @@ const PageControll = (props: {
           onClick={() => {
             props.setCurrentPage((currPage) => currPage + 1);
           }}
+          sx={{
+            ml: 5,
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
         >
-          Next
+          {t("components.buttons.next")}
         </Button>
       ) : (
         <></>
@@ -388,5 +421,5 @@ const FullScreenTable = <T,>(props: {
   );
 };
 
-export { PageControll };
+export { PageControl as PageControll };
 export default FullScreenTable;

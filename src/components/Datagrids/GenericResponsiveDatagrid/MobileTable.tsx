@@ -15,6 +15,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { Key, ReactNode } from "react";
 import RowMenu from "./RowMenu";
 import { Filter } from "./GenericResponsiveDatagridFilterComponent";
+import { useTranslation } from "react-i18next";
 
 export interface MobileTableRendering<T> {
   avatar?: (row: T) => ReactNode;
@@ -129,6 +130,8 @@ const MobileTable = <T,>(props: {
   keyOf: (item: T) => Key;
   maxPage: number;
 }) => {
+  const {t} = useTranslation();
+
   return (
     <>
       <List size="sm" sx={{ "--ListItem-paddingX": 0 }}>
@@ -160,7 +163,7 @@ const MobileTable = <T,>(props: {
           <KeyboardArrowLeft />
         </IconButton>
         <Typography level="body-sm" sx={{ mx: "auto" }}>
-          Page {props.currentPage + 1} of {props.maxPage}
+          {t("components.genericResponsiveDatagrid.mobileList.pageControl.pageLabels").replace("{currPage}", (props.currentPage + 1).toString()).replace("{maxPage}", props.maxPage.toString())}
         </Typography>
         <IconButton
           aria-label="next page"
