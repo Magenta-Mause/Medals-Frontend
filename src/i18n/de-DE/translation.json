@@ -45,6 +45,14 @@
     "genericResponsiveDatagrid": {
       "filterForm": {
         "submit": "Fertig"
+      },
+      "fullScreenTable": {
+        "pageControl": {
+          "pageSize": {
+            "label": "Seiten Größe:",
+            "inputPostfix": "Einträge"
+          }
+        }
       }
     },
     "athleteDatagrid": {

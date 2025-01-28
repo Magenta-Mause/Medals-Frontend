@@ -11,6 +11,7 @@ import { Key, useCallback, useEffect, useRef } from "react";
 import { Action } from "./GenericResponsiveDatagrid";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import RowMenu from "./RowMenu";
+import { useTranslation } from "react-i18next";
 
 const COLUMN_SIZES = {
   xs: 70,
@@ -88,6 +89,7 @@ const PageControll = (props: {
   showPreviousAndNextButtons: boolean;
 }) => {
   const pageSizeInputRef = useRef<HTMLDivElement>(null);
+  const {t} = useTranslation();
   const getPageCount = useCallback(
     () => Math.ceil(props.rowCount / props.elementsPerPage),
     [props.rowCount, props.elementsPerPage],
@@ -200,7 +202,9 @@ const PageControll = (props: {
       </Box>
 
       <Box sx={{ flex: 1 }} />
+      <Typography sx={{display: "flex", alignItems: "center"}}>{t("components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.label")}</Typography>
       <Input
+        endDecorator={<Typography color="neutral" sx={{userSelect: "none"}}>{t("components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.inputPostfix")}</Typography>}
         type={"tel"}
         onChange={(e) =>
           e.target.value != "" &&
@@ -209,13 +213,14 @@ const PageControll = (props: {
         }
         defaultValue={props.elementsPerPage}
         ref={pageSizeInputRef}
-        size="md"
         sx={{
-          width: 40,
-          padding: 0,
-          textAlign: "center",
+          width: 110,
+          p: 0,
+          pl: 1, 
+          pr: 1,
+          textAlign: "left",
         }}
-        slotProps={{ input: { min: 0, style: { textAlign: "center" } } }}
+        slotProps={{ input: { min: 0, style: { textAlign: "left" } } }}
       />
       <Typography
         sx={{
