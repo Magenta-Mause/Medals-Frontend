@@ -19,8 +19,11 @@
     "paths": {
       "@assets/*": ["./assets/*"],
       "@components/*": ["./components/*"],
+      "@api/*": ["./api/*"],
       "@hooks/*": ["./hooks/*"],
       "@pages/*": ["./pages/*"],
+      "@stores/*": ["./stores/*"],
+      "@types/*": ["./types/*"],
       "@utils/*": ["./utils/*"]
     },
     "typeRoots": ["node_modules/@types", "./types"]
