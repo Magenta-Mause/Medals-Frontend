@@ -147,8 +147,13 @@ const PageControl = (props: {
           disabled={props.currentPage <= 0}
           onClick={() => props.setCurrentPage((currPage) => currPage - 1)}
           startDecorator={<KeyboardArrowLeft />}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
         >
-          Previous
+          {t("components.buttons.previous")}
         </Button>
       ) : (
         <></>
@@ -256,8 +261,14 @@ const PageControl = (props: {
           onClick={() => {
             props.setCurrentPage((currPage) => currPage + 1);
           }}
+          sx={{
+            ml: 5,
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
         >
-          Next
+          {t("components.buttons.next")}
         </Button>
       ) : (
         <></>

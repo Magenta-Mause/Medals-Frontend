@@ -71,6 +71,10 @@
           "gender": "Gender"
         }
       }
+    },
+    "buttons": {
+      "next": "Next",
+      "previous": "Previous"
     }
   }
 }

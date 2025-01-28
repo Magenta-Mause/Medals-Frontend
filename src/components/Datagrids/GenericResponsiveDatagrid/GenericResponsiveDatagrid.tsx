@@ -65,7 +65,7 @@ const GenericResponsiveDatagrid = <T,>(
   const setPageSize = (elementsPerPage: number) => {
     setPageSizeInternal(elementsPerPage);
     setPageSizeChanged(true);
-  };
+  }
 
   const cleanupSelection = useCallback(() => {
     const newSelected = selected.filter(
@@ -148,10 +148,10 @@ const GenericResponsiveDatagrid = <T,>(
   }, [props, selected, cleanupSelection]);
 
   useEffect(() => {
-    console.log(windowDimensions, wasPageSizeChanged);
+    console.log(windowDimensions, wasPageSizeChanged)
     if (!wasPageSizeChanged) {
-      setPageSizeInternal(Math.floor(windowDimensions.height / 95));
-      console.log(windowDimensions.height / 50);
+      setPageSize(Math.floor(windowDimensions.height / 95));
+      console.log(windowDimensions.height / 50)
     }
   }, [windowDimensions, wasPageSizeChanged]);
 
