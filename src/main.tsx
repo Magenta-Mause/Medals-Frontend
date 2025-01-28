@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "./stores";
 import "./i18n";
 
+// @ts-ignore
 window.global = window;
 
 createRoot(document.getElementById("root")!).render(

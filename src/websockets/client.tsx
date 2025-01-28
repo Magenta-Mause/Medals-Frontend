@@ -1,19 +1,18 @@
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+import config from "../../app.config.json";
 
-const initiateClient = () => {
+const initiateClient = (onConnect: (client: Client) => void) => {
   const client = new Client({
-    brokerURL: "ws://localhost:8080/ws",
+    brokerURL: config.backendBrokerUrl,
     connectHeaders: {},
-    debug: console.log,
+    debug: () => {},
     reconnectDelay: 5000,
-    webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
+    webSocketFactory: () => new SockJS(config.websocketFactory),
   });
 
   client.onConnect = () => {
-    client.subscribe("/topic/updates", (message) => {
-      console.log("Received:", message.body);
-    });
+    onConnect(client);
   };
 
   client.activate();

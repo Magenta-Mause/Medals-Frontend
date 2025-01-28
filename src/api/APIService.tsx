@@ -21,7 +21,7 @@ const getAthlete = async (atheteId: string) => {
   }
 };
 
-const deleteAthlete = async (athleteId: string) => {
+const deleteAthlete = async (athleteId: number) => {
   const axiosInstance = getAxiosInstance();
   try {
     const request = await axiosInstance.delete(`/athletes/${athleteId}`);
