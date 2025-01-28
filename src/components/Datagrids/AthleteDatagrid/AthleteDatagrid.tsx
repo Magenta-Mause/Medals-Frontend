@@ -189,6 +189,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         if (filterParameter == undefined) {
           return () => true;
         }
+        filterParameter = filterParameter.toLowerCase();
 
         return (athlete) =>
           athlete.first_name.toLowerCase().includes(filterParameter) ||
