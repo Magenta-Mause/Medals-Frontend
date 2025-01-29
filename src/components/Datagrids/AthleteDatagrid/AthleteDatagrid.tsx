@@ -1,15 +1,15 @@
 import { deleteAthlete } from "@api/APIService";
-import { Typography, Chip } from "@mui/joy";
+import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
+import { Athlete } from "@types/bffTypes";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
+import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
-import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
-import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
-import { Athlete } from "@types/bffTypes";
+import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -66,7 +66,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
             size="sm"
             sx={{ aspectRatio: 1, height: "2rem", textAlign: "center" }}
           >
-            {item.gender.toUpperCase()}
+            {t("genders." + item.gender)
+              .slice(0, 1)
+              .toUpperCase()}
           </Chip>
         );
       },
@@ -189,6 +191,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         if (filterParameter == undefined) {
           return () => true;
         }
+        filterParameter = filterParameter.toLowerCase();
 
         return (athlete) =>
           athlete.first_name.toLowerCase().includes(filterParameter) ||
