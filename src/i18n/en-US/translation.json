@@ -1,0 +1,85 @@
+{
+  "languages": {
+    "de": "German",
+    "en": "English"
+  },
+  "genders": {
+    "DIVERSE": "Diverse",
+    "FEMALE": "Female",
+    "MALE": "Male",
+    "": "All"
+  },
+  "pages": {
+    "homePage": {
+      "h1": "Medals",
+      "h3": "The soon to be Medal Management System"
+    },
+    "athleteOverviewPage": {
+      "header": "Athletes"
+    },
+    "notFound": {
+      "h1": "404",
+      "h2": "Page not found"
+    }
+  },
+  "components": {
+    "breadcrumbs": {
+      "paths": {
+        "/": "Home",
+        "/athletes": "Athletes"
+      }
+    },
+    "navbar": {
+      "logo": "Medals",
+      "locationList": {
+        "/": "Home",
+        "/athletes": "Athletes"
+      },
+      "search": "Search",
+      "languageSelector": "Language",
+      "bottomInfoCard": {
+        "header": "Warning",
+        "text": "Warning!"
+      }
+    },
+    "genericResponsiveDatagrid": {
+      "filterForm": {
+        "submit": "Submit"
+      },
+      "fullScreenTable": {
+        "pageControl": {
+          "pageSize": {
+            "label": "Page Size:",
+            "inputPostfix": "Entries"
+          }
+        }
+      },
+      "mobileList": {
+        "pageControl": {
+          "pageLabels": "Page {currPage} of {maxPage}"
+        }
+      }
+    },
+    "athleteDatagrid": {
+      "table": {
+        "columns": {
+          "athleteId": "Athlete ID",
+          "firstName": "Firstname",
+          "lastName": "Lastname",
+          "birthdate": "Birthdate",
+          "email": "Email",
+          "gender": "Gender"
+        },
+        "filters": {
+          "search": "Search",
+          "bornIn": "Born in",
+          "gender": "Gender"
+        }
+      }
+    },
+    "buttons": {
+      "next": "Next",
+      "previous": "Previous"
+    }
+  }
+}

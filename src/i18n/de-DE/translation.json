@@ -1,0 +1,85 @@
+{
+  "languages": {
+    "de": "Deutsch",
+    "en": "Englisch"
+  },
+  "genders": {
+    "DIVERSE": "Divers",
+    "FEMALE": "Weiblich",
+    "MALE": "Männlich",
+    "": "Alle"
+  },
+  "pages": {
+    "homePage": {
+      "h1": "Medals",
+      "h3": "Das Medaillien Management System der Zukunft"
+    },
+    "athleteOverviewPage": {
+      "header": "Athlet*innen"
+    },
+    "notFound": {
+      "h1": "404",
+      "h2": "Seite konnte nicht gefunden werden"
+    }
+  },
+  "components": {
+    "breadcrumbs": {
+      "paths": {
+        "/": "Start",
+        "/athletes": "Athlet*innen"
+      }
+    },
+    "navbar": {
+      "logo": "Medals",
+      "locationList": {
+        "/": "Start",
+        "/athletes": "Athlet*innen"
+      },
+      "search": "Suchen",
+      "languageSelector": "Sprache",
+      "bottomInfoCard": {
+        "header": "Warnung",
+        "text": "Warnung!"
+      }
+    },
+    "genericResponsiveDatagrid": {
+      "filterForm": {
+        "submit": "Fertig"
+      },
+      "fullScreenTable": {
+        "pageControl": {
+          "pageSize": {
+            "label": "Seiten Größe:",
+            "inputPostfix": "Einträge"
+          }
+        }
+      },
+      "mobileList": {
+        "pageControl": {
+          "pageLabels": "Seite {currPage} von {maxPage}"
+        }
+      }
+    },
+    "athleteDatagrid": {
+      "table": {
+        "columns": {
+          "athleteId": "Athlet*in ID",
+          "firstName": "Vorname",
+          "lastName": "Nachname",
+          "birthdate": "Geburtstag",
+          "email": "E-Mail",
+          "gender": "Geschlecht"
+        },
+        "filters": {
+          "search": "Suche",
+          "bornIn": "Geburtsjahr",
+          "gender": "Geschlecht"
+        }
+      }
+    },
+    "buttons": {
+      "next": "Nächstes",
+      "previous": "Vorheriges"
+    }
+  }
+}
