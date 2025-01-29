@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:image": "npm run build && docker build -t medals-frontend .",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "preview": "vite preview"
