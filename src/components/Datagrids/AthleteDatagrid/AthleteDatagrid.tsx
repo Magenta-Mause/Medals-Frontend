@@ -119,16 +119,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           value: "",
         },
         {
-          displayValue: <Typography>{t("genders.d")}</Typography>,
-          value: "D",
+          displayValue: <Typography>{t("genders.DIVERSE")}</Typography>,
+          value: "DIVERSE",
         },
         {
-          displayValue: <Typography>{t("genders.f")}</Typography>,
-          value: "F",
+          displayValue: <Typography>{t("genders.FEMALE")}</Typography>,
+          value: "FEMALE",
         },
         {
-          displayValue: <Typography>{t("genders.m")}</Typography>,
-          value: "M",
+          displayValue: <Typography>{t("genders.MALE")}</Typography>,
+          value: "MALE",
         },
       ],
     },
