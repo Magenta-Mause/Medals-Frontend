@@ -1,13 +1,13 @@
+import { Athlete } from "@customTypes/bffTypes";
 import { configureStore, Middleware, Store } from "@reduxjs/toolkit";
-import rootReducer from "./rootReducer";
-import initiateClient from "websockets/client";
 import { Client } from "@stomp/stompjs";
+import initiateClient from "websockets/client";
+import rootReducer from "./rootReducer";
 import {
   addAthlete,
   removeAthlete,
   updateAthlete,
 } from "./slices/athleteSlice";
-import { Athlete } from "@types/bffTypes";
 
 let websocketClient: Client | null = null;
 

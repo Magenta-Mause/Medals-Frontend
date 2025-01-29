@@ -1,7 +1,7 @@
 import { deleteAthlete } from "@api/APIService";
+import { Athlete } from "@customTypes/bffTypes";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
-import { Athlete } from "@types/bffTypes";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
