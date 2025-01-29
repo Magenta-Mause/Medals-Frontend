@@ -1,4 +1,4 @@
-import { Athlete } from "@types/bffTypes";
+import { Athlete } from "@customTypes/bffTypes";
 import { getAxiosInstance } from "./axiosInstance";
 
 const getAthletes = async () => {
@@ -31,4 +31,4 @@ const deleteAthlete = async (athleteId: string) => {
   }
 };
 
-export { getAthletes, getAthlete, deleteAthlete };
+export { deleteAthlete, getAthlete, getAthletes };

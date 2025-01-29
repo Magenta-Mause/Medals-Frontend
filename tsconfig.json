@@ -23,7 +23,7 @@
       "@hooks/*": ["./hooks/*"],
       "@pages/*": ["./pages/*"],
       "@stores/*": ["./stores/*"],
-      "@types/*": ["./types/*"],
+      "@customTypes/*": ["./customTypes/*"],
       "@utils/*": ["./utils/*"]
     },
     "typeRoots": ["node_modules/@types", "./types"]

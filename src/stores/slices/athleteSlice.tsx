@@ -1,6 +1,6 @@
 import { getAthletes } from "@api/APIService";
+import { Athlete } from "@customTypes/bffTypes";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Athlete } from "@types/bffTypes";
 
 interface AthleteSliceState {
   data: Athlete[];
@@ -59,5 +59,5 @@ const athleteSlice = createSlice({
 
 const { addAthlete, updateAthlete, removeAthlete } = athleteSlice.actions;
 
-export { addAthlete, updateAthlete, removeAthlete, fetchInitialState };
+export { addAthlete, fetchInitialState, removeAthlete, updateAthlete };
 export default athleteSlice.reducer;
