@@ -130,7 +130,7 @@ const MobileTable = <T,>(props: {
   keyOf: (item: T) => Key;
   maxPage: number;
 }) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -163,7 +163,11 @@ const MobileTable = <T,>(props: {
           <KeyboardArrowLeft />
         </IconButton>
         <Typography level="body-sm" sx={{ mx: "auto" }}>
-          {t("components.genericResponsiveDatagrid.mobileList.pageControl.pageLabels").replace("{currPage}", (props.currentPage + 1).toString()).replace("{maxPage}", props.maxPage.toString())}
+          {t(
+            "components.genericResponsiveDatagrid.mobileList.pageControl.pageLabels",
+          )
+            .replace("{currPage}", (props.currentPage + 1).toString())
+            .replace("{maxPage}", props.maxPage.toString())}
         </Typography>
         <IconButton
           aria-label="next page"
