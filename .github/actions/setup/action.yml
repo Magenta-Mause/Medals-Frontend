@@ -1,0 +1,11 @@
+name: "Setup Medals-Frontend"
+
+description: "Set up Node.js environment"
+inputs:
+  node-version:
+    description: "Node.js version"
+    required: true
+
+runs:
+  using: "node23"
+  main: "index.js"
