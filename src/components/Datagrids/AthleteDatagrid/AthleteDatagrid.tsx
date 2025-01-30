@@ -1,5 +1,5 @@
 import { deleteAthlete } from "@api/APIService";
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete } from "bffTypes";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";

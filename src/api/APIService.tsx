@@ -1,4 +1,4 @@
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete } from "bffTypes";
 import { getAxiosInstance } from "./axiosInstance";
 
 const getAthletes = async () => {

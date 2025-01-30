@@ -1,6 +1,6 @@
 import { getAthletes } from "@api/APIService";
-import { Athlete } from "@customTypes/bffTypes";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Athlete } from "bffTypes";
 
 interface AthleteSliceState {
   data: Athlete[];
