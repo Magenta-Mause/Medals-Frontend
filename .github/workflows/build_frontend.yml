@@ -3,10 +3,9 @@ name: Build Frontend
 on: push
 
 jobs:
-  build-frontend:
-    name: Build Frontend
+  setup:
+    name: Setup
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v4
@@ -19,5 +18,18 @@ jobs:
       - name: Install Node.js dependencies
         run: npm ci
 
+  linting:
+    name: Run Linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Lint through project
+        run: npm run lint
+
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Build the Frontend
         run: npm run build
