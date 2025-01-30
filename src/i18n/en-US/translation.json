@@ -72,7 +72,7 @@
         },
         "filters": {
           "search": "Search",
-          "bornIn": "Born in",
+          "bornIn": "year of birth",
           "gender": "Gender"
         }
       }
