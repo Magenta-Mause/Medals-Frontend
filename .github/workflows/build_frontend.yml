@@ -35,9 +35,9 @@ jobs:
         run: npm run build
 
   publish-image:
-    name: Build Frontend
+    name: Publish Frontend
     runs-on: ubuntu-latest
-    needs: lint
+    needs: check-build
     # if: github.ref == 'refs/heads/main'
     steps:
       - name: Check out repository
@@ -56,3 +56,9 @@ jobs:
         with:
           username: ${{ vars.MEDALS_DOCKER_USERNAME }}
           password: ${{ secrets.MEDALS_DOCKER_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: user/app:latest
