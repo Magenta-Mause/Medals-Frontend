@@ -1,11 +1,15 @@
 name: "Setup Medals-Frontend"
-
 description: "Set up Node.js environment"
-inputs:
-  node-version:
-    description: "Node.js version"
-    required: true
-
 runs:
-  using: "node20"
-  main: "index.js"
+  using: "composite"
+  steps:
+    - name: Check out Git repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 23
+
+    - name: Install Node.js dependencies
+      run: npm ci
