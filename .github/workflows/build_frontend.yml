@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: setup
-        uses: ./.github/workflows/setup_project.yml
+        uses: ./.github/actions/setup_project.yml
         with:
           node-version: 23
       - name: Lint through project
@@ -21,7 +21,7 @@ jobs:
     # if: github.ref == 'refs/heads/main'
     steps:
       - name: setup
-        uses: ./.github/workflows/setup_project.yml
+        uses: ./.github/actions/setup_project.yml
         with:
           node-version: 23
       - name: Build the Frontend
