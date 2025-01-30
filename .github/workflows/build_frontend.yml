@@ -65,3 +65,11 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{vars.MEDALS_DOCKER_USERNAME}}/medals-frontend
+
+      - name: Start SSH Agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.MEDALS_DEPLOYMENT_SSH_TOKEN }}
+
+      - name: Access server via SSH
+        run: ssh -o StrictHostKeyChecking=no user@your-server.com 'echo "SSH connection successful"'
