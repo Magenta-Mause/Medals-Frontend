@@ -1,12 +1,12 @@
-const core = require("@actions/core");
-const exec = require("@actions/exec");
+import { getInput } from "@actions/core";
+import { exec } from "@actions/exec";
 
 async function run() {
   try {
-    const nodeVersion = core.getInput("node-version");
-    await exec.exec(`nvm install ${nodeVersion}`);
-    await exec.exec(`nvm use ${nodeVersion}`);
-    await exec.exec(`nvm ci`);
+    const nodeVersion = getInput("node-version");
+    await exec(`nvm install ${nodeVersion}`);
+    await exec(`nvm use ${nodeVersion}`);
+    await exec(`nvm ci`);
   } catch (error) {
     core.setFailed(error.message);
   }
