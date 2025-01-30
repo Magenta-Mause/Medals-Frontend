@@ -15,8 +15,18 @@
       "h3": "Das Medaillien Management System der Zukunft"
     },
     "athleteOverviewPage": {
-      "header": "Athlet*innen"
+      "header": "Athlet*innen",
+      "createButton": "erstelle Athlet*in"
     },
+
+    "athleteCreationPage": {
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "E-Mail": "E-Mail",
+      "birthdate": "Geburtstag",
+      "gender": "Geschlecht"
+    },
+
     "notFound": {
       "h1": "404",
       "h2": "Seite konnte nicht gefunden werden"
