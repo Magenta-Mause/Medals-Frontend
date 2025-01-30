@@ -1,5 +1,7 @@
 name: "Setup Medals-Frontend"
+
 description: "Set up Node.js environment"
+
 runs:
   using: "composite"
   steps:
