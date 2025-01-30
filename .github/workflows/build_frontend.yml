@@ -51,7 +51,7 @@ jobs:
 
       - name: Build Frontend
         env:
-          VITE_BACKEND_BASE_URL: ${{ secrets.MEDALS_BACKEND_BASE_URL }}
+          VITE_BACKEND_BASE_URL: ${{ vars.MEDALS_BACKEND_BASE_URL }}
         run: echo $VITE_BACKEND_BASE_URL && npm run build
 
       - name: Login to Docker Hub
