@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { initializeConfig } from "@api/axiosInstance";
 import { createContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router";
-import config from "../app.config.json";
+import config from "config";
 import { useDispatch } from "react-redux";
 import { fetchInitialState } from "@stores/slices/athleteSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
