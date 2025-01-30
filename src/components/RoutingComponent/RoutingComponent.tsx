@@ -14,6 +14,6 @@ const RoutingComponent = () => {
       </Route>
     </Routes>
   );
-}; 
+};
 
 export default RoutingComponent;
