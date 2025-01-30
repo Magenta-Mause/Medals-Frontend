@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup medals-frontend
-        uses: ./.github/actions
+        uses: ./.github/actions/setup
         with:
           node-version: 23
       - name: Lint through project
@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup medals-frontend
-        uses: ./.github/actions
+        uses: ./.github/actions/setup
         with:
           node-version: 23
       - name: Build the Frontend
