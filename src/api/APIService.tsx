@@ -31,20 +31,21 @@ const deleteAthlete = async (athleteId: number) => {
   }
 };
 
-const createAthlete = async (athleteData: { firstname: string; lastname:string; email: string; birthdate: string; gender:string }): Promise<number | null> => {
+const createAthlete = async (athleteData: { firstname: string; lastname:string; email: string; birthdate: string; gender:string }) => {
   const axiosInstance = getAxiosInstance();
-  try {
-    const response = await axiosInstance.post("/athletes", athleteData);
-    
-    if (response.status === 201) {
-      return response.data.id; // Assuming the API returns the created athlete's ID
-    }
-    
-    return null;
+  try{
+    const response = await axiosInstance.post(`/athletes/`, {
+        fname: athleteData.firstname,
+        lname: athleteData.lastname,
+        email: athleteData.email,
+        birthdate: athleteData.birthdate,
+        gender: athleteData.gender
+    });
+    console.log("Response:", response.data); // Handle response data
   } catch (error) {
-    console.error("Error while creating athlete:", error);
-    return null;
+    console.error("Error:", error); // Handle error
   }
-};
+  };
+
 
 export { deleteAthlete, getAthlete, getAthletes, createAthlete };

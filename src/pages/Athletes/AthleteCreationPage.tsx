@@ -4,40 +4,83 @@ import { useTranslation } from "react-i18next";
 import { createAthlete } from "@api/APIService";
 
 interface Athlete{
-firstname: String;
-lastname: String;
-birthdate: String;
-email: String;
-gender: String
+firstname: string;
+lastname: string;
+email: string;
+birthdate: string;
+gender: string
 }
 
 
 
 const AthleteCreationForm  = () => {
      const { t } = useTranslation();
-     const [value, setValue] = React.useState('female');
-     const fname = ""
-     const lname = ""
-     const email = ""
-     const birthdate = ""
+     const [gender, setgender] = React.useState('female');
+     const [fname, setfname] = React.useState("");
+     const [lname, setlname] = React.useState("");
+     const [email, setemail] = React.useState("");
+     const [birthdate, setbirthdate] = React.useState("");
+     const [valid, setvalid] = React.useState(false)
+     const [valid2, setvalid2] = React.useState(false)
+     const [valid3, setvalid3] = React.useState(false)
+     const [accept, setaccept] = React.useState(true)
 
+     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+     React.useEffect(() => {
+      checkemail();
+      accepted();
+    })
+    
+    
      const newAthlete: Athlete = {
         firstname: fname,
         lastname: lname,
         birthdate:birthdate,
         email: email,
-        gender: value,
+        gender: gender,
       };
+
+    const accepted = () => {
+        if(valid && valid2 && valid3 === true){
+          setaccept(false)
+        }
+    }  
+
+    const checklength1 =(word:string) => {
+      if (word.length < 255) {
+        setvalid(true)
+        return true
+      } else {setvalid(false)} return false
+    }
+
+    const checklength2 =(word:string) => {
+      if (word.length < 255) {
+        setvalid2(true)
+        return true
+      } else {setvalid2(false)} return false
+
+    }
+
+    const isValidEmail = (email:string) => emailRegex.test(email);
      
+    const checkemail= () => {
+        if(isValidEmail(email)){
+          setvalid3(true)
+          return true
+        } else {
+          setvalid3(false)
+          return false
+        }
+    }
 
      const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-       setValue(event.target.value);
+       setgender(event.target.value);
      };
 
-     const createAth = () =>{
-        
-        createAthlete(newAthlete)
-     }
+     const createAth = (newAthlete:Athlete) =>{
+        createAthlete(newAthlete);
+   }
 
 return(
     <div>
@@ -55,6 +98,8 @@ return(
             size="lg"
             variant="outlined"
             placeholder={t("pages.athleteCreationPage.firstName")}
+            value={fname}
+            onChange={(e) => checklength1(e.target.value) && setfname(e.target.value)}
         />
         <Input
             sx={{
@@ -66,7 +111,8 @@ return(
             size="lg"
             variant="outlined"
             placeholder={t("pages.athleteCreationPage.lastName")}
-            value={""}
+            value={lname}
+            onChange={(e) => checklength2(e.target.value) && setlname(e.target.value)}
         />
         <Input
             sx={{
@@ -78,8 +124,10 @@ return(
             size="lg"
             variant="outlined"
             placeholder={t("pages.athleteCreationPage.E-Mail")}
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
         />
-        
+
 
         <Input 
         sx={{
@@ -92,6 +140,8 @@ return(
             min: '1900-01-01'
           },
         }}
+        value={birthdate}
+        onChange={(e) => setbirthdate(e.target.value)}
       />
 
 
@@ -100,7 +150,7 @@ return(
                 <RadioGroup
                      defaultValue="female"
                     name="controlled-radio-buttons-group"
-                    value={value}
+                    value={gender}
                      onChange={handleChange}
                     sx={{ my: 1 }}
                 >
@@ -110,12 +160,12 @@ return(
                 </RadioGroup>
         </FormControl>
 
-        <Button
+        <Button disabled={accept}
         sx={{
             marginTop:'10vh'
         }}
         onClick={() => {
-            createAth()
+            {checkemail()&&  createAth(newAthlete), setaccept(false)}
           }}>
             {t("pages.athleteOverviewPage.createButton")}
         </Button>
