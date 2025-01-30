@@ -4,9 +4,9 @@
     "en": "English"
   },
   "genders": {
-    "d": "Divers",
-    "m": "Male",
-    "f": "Female",
+    "DIVERSE": "Diverse",
+    "FEMALE": "Female",
+    "MALE": "Male",
     "": "All"
   },
   "pages": {

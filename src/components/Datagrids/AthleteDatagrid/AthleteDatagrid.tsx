@@ -1,15 +1,15 @@
 import { deleteAthlete } from "@api/APIService";
-import { Typography, Chip } from "@mui/joy";
+import { Athlete } from "@customTypes/bffTypes";
+import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
+import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
-import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
-import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
-import { Athlete } from "@types/bffTypes";
+import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -66,7 +66,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
             size="sm"
             sx={{ aspectRatio: 1, height: "2rem", textAlign: "center" }}
           >
-            {item.gender.toUpperCase()}
+            {t("genders." + item.gender)
+              .slice(0, 1)
+              .toUpperCase()}
           </Chip>
         );
       },
@@ -117,16 +119,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           value: "",
         },
         {
-          displayValue: <Typography>{t("genders.d")}</Typography>,
-          value: "D",
+          displayValue: <Typography>{t("genders.DIVERSE")}</Typography>,
+          value: "DIVERSE",
         },
         {
-          displayValue: <Typography>{t("genders.f")}</Typography>,
-          value: "F",
+          displayValue: <Typography>{t("genders.FEMALE")}</Typography>,
+          value: "FEMALE",
         },
         {
-          displayValue: <Typography>{t("genders.m")}</Typography>,
-          value: "M",
+          displayValue: <Typography>{t("genders.MALE")}</Typography>,
+          value: "MALE",
         },
       ],
     },
