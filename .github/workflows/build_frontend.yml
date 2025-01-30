@@ -60,5 +60,4 @@ jobs:
           password: ${{ secrets.MEDALS_DOCKER_TOKEN }}
 
       - name: Build and push
-        run:
-          - docker build . -t ${{MEDALS_DOCKER_USERNAME}}/medals-frontend
+        run: docker build . -t ${{MEDALS_DOCKER_USERNAME}}/medals-frontend
