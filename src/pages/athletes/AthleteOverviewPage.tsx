@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
 
+
 const AthleteOverviewPage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
   const athleteState = useTypedSelector((state) => state.athletes.state);
