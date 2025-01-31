@@ -1,5 +1,5 @@
 import PageLayout from "@components/PageLayout/PageLayout";
-import AthleteOverviewPage from "@pages/athletes/AthleteOverviewPage";
+import AthleteOverviewPage from "@pages/Athletes/AthleteOverviewPage";
 import HomePage from "@pages/Home/HomePage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
 import { Route, Routes } from "react-router";
