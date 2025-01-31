@@ -51,7 +51,7 @@ const AthleteCreationForm  = () => {
       if(!isValidEmail(email)){
         return true
       }
-      if(birthdate==="tt.mm.jjjj"){
+      if(birthdate==="tt.mm.jjjj" || birthdate===""){
         return true
       }
       return false;
