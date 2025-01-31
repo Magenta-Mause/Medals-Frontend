@@ -20,16 +20,14 @@ const AthleteCreationForm  = () => {
      const [lname, setlname] = React.useState("");
      const [email, setemail] = React.useState("");
      const [birthdate, setbirthdate] = React.useState("");
-     const [valid, setvalid] = React.useState(false)
-     const [valid2, setvalid2] = React.useState(false)
-     const [valid3, setvalid3] = React.useState(false)
-     const [accept, setaccept] = React.useState(true)
+     const [valid, setvalid] = React.useState(true)
 
      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+     const isValidEmail = (email:string) => emailRegex.test(email);
+     
      React.useEffect(() => {
-      checkemail();
-      accepted();
+      setvalid(isAccepted())
     })
     
     
@@ -41,38 +39,25 @@ const AthleteCreationForm  = () => {
         gender: gender,
       };
 
-    const accepted = () => {
-        if(valid && valid2 && valid3 === true){
-          setaccept(false)
-        }
-    }  
+    
 
-    const checklength1 =(word:string) => {
-      if (word.length < 255) {
-        setvalid(true)
+    const isAccepted = () =>  {
+      if(fname.length>255 || fname.length===0){
         return true
-      } else {setvalid(false)} return false
-    }
-
-    const checklength2 =(word:string) => {
-      if (word.length < 255) {
-        setvalid2(true)
+      }
+      if(lname.length>255 || lname.length===0){
         return true
-      } else {setvalid2(false)} return false
-
+      }
+      if(!isValidEmail(email)){
+        return true
+      }
+      if(birthdate==="tt.mm.jjjj"){
+        return true
+      }
+      return false;
     }
-
-    const isValidEmail = (email:string) => emailRegex.test(email);
      
-    const checkemail= () => {
-        if(isValidEmail(email)){
-          setvalid3(true)
-          return true
-        } else {
-          setvalid3(false)
-          return false
-        }
-    }
+  
 
      const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
        setgender(event.target.value);
@@ -99,7 +84,7 @@ return(
             variant="outlined"
             placeholder={t("pages.athleteCreationPage.firstName")}
             value={fname}
-            onChange={(e) => checklength1(e.target.value) && setfname(e.target.value)}
+            onChange={(e) => setfname(e.target.value)}
         />
         <Input
             sx={{
@@ -112,7 +97,7 @@ return(
             variant="outlined"
             placeholder={t("pages.athleteCreationPage.lastName")}
             value={lname}
-            onChange={(e) => checklength2(e.target.value) && setlname(e.target.value)}
+            onChange={(e) => setlname(e.target.value)}
         />
         <Input
             sx={{
@@ -160,12 +145,12 @@ return(
                 </RadioGroup>
         </FormControl>
 
-        <Button disabled={accept}
+        <Button disabled={valid}
         sx={{
             marginTop:'10vh'
         }}
         onClick={() => {
-            {checkemail()&&  createAth(newAthlete), setaccept(false)}
+            {}
           }}>
             {t("pages.athleteOverviewPage.createButton")}
         </Button>

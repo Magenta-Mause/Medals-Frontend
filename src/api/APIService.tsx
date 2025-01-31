@@ -35,8 +35,8 @@ const createAthlete = async (athleteData: { firstname: string; lastname:string; 
   const axiosInstance = getAxiosInstance();
   try{
     const response = await axiosInstance.post(`/athletes/`, {
-        fname: athleteData.firstname,
-        lname: athleteData.lastname,
+        first_name: athleteData.firstname,
+        last_name: athleteData.lastname,
         email: athleteData.email,
         birthdate: athleteData.birthdate,
         gender: athleteData.gender
