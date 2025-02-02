@@ -3,8 +3,8 @@ name: Build Frontend
 on: push
 
 jobs:
-  lint:
-    name: lint
+  pre:
+    name: Setup
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -15,6 +15,10 @@ jobs:
         with:
           node-version: 23
 
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
       - name: Lint through project
         run: npm run lint
 
@@ -24,31 +28,15 @@ jobs:
     needs: lint
     if: github.ref != 'refs/heads/main'
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Setup medals-frontend
-        uses: ./.github/actions/setup
-        with:
-          node-version: 23
-
       - name: Build Frontend
         run: npm run build
 
-  publish-image:
+  publish-build:
     name: Publish Frontend
     runs-on: ubuntu-latest
     needs: lint
     # if: github.ref == 'refs/heads/main'
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Setup medals-frontend
-        uses: ./.github/actions/setup
-        with:
-          node-version: 23
-
       - name: Build Frontend
         env:
           VITE_BACKEND_BASE_URL: ${{ vars.MEDALS_BACKEND_BASE_URL }}
