@@ -1,5 +1,4 @@
 import useAxiosInstance from "@api/axiosInstance";
-import axios from "axios";
 import {
   createContext,
   ReactNode,
@@ -43,7 +42,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [authorizedUsers, setAuthorizedUsers] = useState<UserEntity[] | null>(
     null,
   );
-  const [selectedUser, setSelectedUser] = useState<UserEntity | null>(null);
+  const [selectedUser] = useState<UserEntity | null>(null);
   const [identityToken, setIdentityToken] = useState<string | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
   const [tokenExpirationDate, setTokenExpirationDate] = useState<number | null>(
@@ -85,13 +84,13 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       setAuthorized(false);
       return response.status == 200;
     } catch (error) {
-      console.error("Failed to logout");
+      console.error("Logout failed", error);
     }
-  }, []);
+  }, [axiosInstance]);
 
   useEffect(() => {
     refreshIdentityToken();
-  }, []);
+  }, [refreshIdentityToken]);
 
   return (
     <AuthContext.Provider

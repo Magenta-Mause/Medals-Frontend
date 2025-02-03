@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/joy";
+import { Box } from "@mui/joy";
 import logo from "@assets/logo.svg";
 
 const MedalsIcon = (props: { size: "inline" | "large" }) => {

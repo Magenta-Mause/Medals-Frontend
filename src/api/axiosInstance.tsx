@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext, useCallback } from "react";
+import { useEffect, useRef, useContext, useCallback } from "react";
 import axios, { AxiosInstance } from "axios";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 

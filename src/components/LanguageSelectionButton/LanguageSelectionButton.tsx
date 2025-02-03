@@ -1,18 +1,15 @@
+import { Check, LanguageOutlined } from "@mui/icons-material";
 import {
-    Check, LanguageOutlined
-} from "@mui/icons-material";
-import {
-    Dropdown, IconButtonProps,
-    ListItemDecorator,
-    Menu,
-    MenuButton,
-    MenuItem,
-    Typography
+  Dropdown,
+  ListItemDecorator,
+  Menu,
+  MenuButton,
+  MenuItem,
+  Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
-const LanguageSelectionButton = (props: IconButtonProps) => {
-  const { onClick, sx, ...other } = props;
+const LanguageSelectionButton = () => {
   const { t, i18n } = useTranslation();
 
   return (

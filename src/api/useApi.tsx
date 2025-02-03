@@ -1,7 +1,7 @@
 import { Athlete } from "@customTypes/bffTypes";
 import useAxiosInstance from "./axiosInstance";
 import config from "../../app.config.json";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 const useApi = () => {
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);
@@ -37,7 +37,7 @@ const useApi = () => {
   };
 
   const loginUser = useCallback(
-    async (email: string, password: string, persistLogin: boolean) => {
+    async (email: string, password: string) => {
       const request = await axiosInstance!.post(
         `/authorization/login`,
         {
