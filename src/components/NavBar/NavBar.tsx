@@ -6,9 +6,9 @@ import {
   LogoutRounded,
   PeopleRounded,
   SearchRounded,
+  SupervisedUserCircleOutlined,
 } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
   Divider,
   GlobalStyles,
@@ -46,7 +46,8 @@ const NavBar = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const warning = undefined;
-  const { logout, email } = useContext(AuthContext);
+  const { logout, email, setSelectedUser, selectedUser } =
+    useContext(AuthContext);
 
   return (
     <Sheet
@@ -181,13 +182,17 @@ const NavBar = () => {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <Avatar variant="outlined" size="sm" />
         <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography level="title-sm">Max Musterman</Typography>
+          <Typography level="title-sm">
+            {selectedUser?.first_name} {selectedUser?.last_name}
+          </Typography>
           <Typography level="body-xs" noWrap>
             {email}
           </Typography>
         </Box>
+        <IconButton about="Switch user" onClick={() => setSelectedUser(null)}>
+          <SupervisedUserCircleOutlined />
+        </IconButton>
         <IconButton size="sm" variant="plain" color="neutral" onClick={logout}>
           <LogoutRounded />
         </IconButton>

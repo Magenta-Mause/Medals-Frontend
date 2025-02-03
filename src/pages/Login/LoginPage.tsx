@@ -4,39 +4,20 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import LanguageSelectionButton from "@components/LanguageSelectionButton/LanguageSelectionButton";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import useImageLoading from "@hooks/useImageLoading";
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControl,
-  FormLabel,
-  GlobalStyles,
-  IconButton,
-  Input,
-  Link,
-  Stack,
-  Typography,
-} from "@mui/joy";
+import { Box, GlobalStyles, IconButton, Stack, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-
-interface FormElements extends HTMLFormControlsCollection {
-  email: HTMLInputElement;
-  password: HTMLInputElement;
-  persistent: HTMLInputElement;
-}
-
-interface SignInFormElement extends HTMLFormElement {
-  readonly elements: FormElements;
-}
+import LoginForm from "./LoginForm";
+import UserSelectionForm from "./UserSelectionForm";
 
 const LoginPage = () => {
   const { loginUser } = useApi();
   const navigate = useNavigate();
-  const { refreshIdentityToken, authorized } = useContext(AuthContext);
+  const { refreshIdentityToken, selectedUser, authorized } =
+    useContext(AuthContext);
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const imageUrlWhiteMode = useImageLoading([
@@ -49,10 +30,10 @@ const LoginPage = () => {
   ]);
 
   useEffect(() => {
-    if (authorized) {
+    if (selectedUser != null) {
       navigate("/");
     }
-  }, [authorized, navigate]);
+  }, [selectedUser, navigate]);
 
   const loginCallback = async (loginData: {
     email: string;
@@ -114,12 +95,25 @@ const LoginPage = () => {
             width: "100%",
             px: 2,
           }}
+          className="test"
         >
           <Box
             component="header"
             sx={{ py: 3, display: "flex", justifyContent: "space-between" }}
           >
-            <Box sx={{ gap: 2, display: "flex", alignItems: "center" }}>
+            <Box
+              sx={(theme) => ({
+                gap: 2,
+                display: "flex",
+                alignItems: "center",
+                background: "white",
+                p: 1,
+                borderRadius: 5,
+                [theme.getColorSchemeSelector("dark")]: {
+                  background: "rgba(0, 0, 0, 0.3)",
+                },
+              })}
+            >
               <IconButton variant="soft" color="primary" size="sm">
                 <MedalsIcon size="inline" />
               </IconButton>
@@ -133,12 +127,19 @@ const LoginPage = () => {
                 gap: 1.5,
               }}
             >
-              <ColorSchemeToggle />
+              <ColorSchemeToggle
+                sx={(theme) => ({
+                  background: "rgba(255, 255, 255, 0.3)",
+                  [theme.getColorSchemeSelector("dark")]: {
+                    background: "rgba(0, 0, 0, 0.3)",
+                  },
+                })}
+              />
             </Box>
           </Box>
           <Box
             component="main"
-            sx={{
+            sx={(theme) => ({
               my: "auto",
               py: 2,
               pb: 5,
@@ -157,7 +158,12 @@ const LoginPage = () => {
               [`& .MuiFormLabel-asterisk`]: {
                 visibility: "hidden",
               },
-            }}
+              background: "rgba(255, 255, 255, 0.5)",
+              [theme.getColorSchemeSelector("dark")]: {
+                background: "rgba(0, 0, 0, 0.5)",
+              },
+              p: 5,
+            })}
           >
             <Stack sx={{ gap: 4, mb: 2 }}>
               <Stack sx={{ gap: 1 }}>
@@ -165,64 +171,21 @@ const LoginPage = () => {
                   {t("pages.loginPage.signIn.header")}
                 </Typography>
                 <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
-                  {t("pages.loginPage.signIn.subheader")}{" "}
+                  {t("pages.loginPage.signIn.subheader")}
                 </Typography>
               </Stack>
             </Stack>
             <Stack sx={{ gap: 4, mt: 0 }}>
-              <form
-                onSubmit={(event: React.FormEvent<SignInFormElement>) => {
-                  event.preventDefault();
-                  const formElements = event.currentTarget.elements;
-                  const data = {
-                    email: formElements.email.value,
-                    password: formElements.password.value,
-                    persistent: formElements.persistent.checked,
-                  };
-
-                  login(data);
-                }}
-              >
-                <FormControl required>
-                  <FormLabel>
-                    {t("pages.loginPage.signIn.input.email")}
-                  </FormLabel>
-                  <Input type="email" name="email" />
-                </FormControl>
-                <FormControl required>
-                  <FormLabel>
-                    {t("pages.loginPage.signIn.input.password")}
-                  </FormLabel>
-                  <Input type="password" name="password" />
-                </FormControl>
-                <Stack sx={{ gap: 4, mt: 2 }}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Checkbox
-                      size="sm"
-                      label={t("pages.loginPage.signIn.rememberMe")}
-                      name="persistent"
-                      disabled
-                      checked
-                    />
-                    <Link level="title-sm" href="#replace-with-a-link">
-                      {t("pages.loginPage.signIn.forgotPassword")}
-                    </Link>
-                  </Box>
-                  <Button type="submit" fullWidth disabled={isPending}>
-                    {!isPending ? (
-                      t("pages.loginPage.signIn.submit")
-                    ) : (
-                      <>Loading...</>
-                    )}
-                  </Button>
-                </Stack>
-              </form>
+              {!authorized ? (
+                <LoginForm loginCallback={login} isPending={isPending} />
+              ) : (
+                <></>
+              )}
+              {selectedUser == null && authorized ? (
+                <UserSelectionForm />
+              ) : (
+                <></>
+              )}
             </Stack>
           </Box>
           <Box
@@ -234,7 +197,14 @@ const LoginPage = () => {
               alignItems: "center",
             }}
           >
-            <LanguageSelectionButton />
+            <LanguageSelectionButton
+              sx={(theme) => ({
+                background: "rgba(255, 255, 255, 0.3)",
+                [theme.getColorSchemeSelector("dark")]: {
+                  background: "rgba(0, 0, 0, 0.3)",
+                },
+              })}
+            />
             <Typography level="body-xs" sx={{ textAlign: "center" }}>
               © {t("pages.loginPage.logo")} {new Date().getFullYear()}
             </Typography>

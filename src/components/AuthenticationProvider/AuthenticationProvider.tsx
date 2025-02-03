@@ -9,6 +9,9 @@ import {
 import config from "../../../app.config.json";
 import { JwtTokenBody, UserEntity } from "@customTypes/bffTypes";
 import { jwtDecode } from "jwt-decode";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { useSnackbar } from "notistack";
+import { Box, CircularProgress } from "@mui/joy";
 
 interface AuthContextType {
   identityToken: string | null;
@@ -19,6 +22,7 @@ interface AuthContextType {
   authorizedUsers: UserEntity[] | null;
   refreshIdentityToken: () => void;
   logout: () => void;
+  setSelectedUser: (user: UserEntity | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -34,17 +38,24 @@ const AuthContext = createContext<AuthContextType>({
   logout() {
     console.warn("Called logout before auth context ready");
   },
+  setSelectedUser() {
+    console.warn("Called setSelectedUser before auth context ready");
+  },
 });
 
 const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
+  const [storageSelectedUser, setStorageSelectedUser] = useLocalStorage<
+    number | null
+  >("selectedUser", null);
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);
   const [email, setEmail] = useState<string | null>(null);
   const [authorizedUsers, setAuthorizedUsers] = useState<UserEntity[] | null>(
     null,
   );
-  const [selectedUser] = useState<UserEntity | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UserEntity | null>(null);
   const [identityToken, setIdentityToken] = useState<string | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
+  const { enqueueSnackbar } = useSnackbar();
   const [tokenExpirationDate, setTokenExpirationDate] = useState<number | null>(
     null,
   );
@@ -55,6 +66,27 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     setAuthorizedUsers(decoded.users);
     setEmail(decoded.sub);
   };
+
+  const selectUser = useCallback(
+    (user: UserEntity | null) => {
+      setSelectedUser(user);
+      setStorageSelectedUser(user?.id ?? null);
+    },
+    [setSelectedUser, setStorageSelectedUser],
+  );
+
+  useEffect(() => {
+    if (storageSelectedUser != null && authorizedUsers != undefined) {
+      const user = authorizedUsers?.find(
+        (user) => user.id == storageSelectedUser,
+      );
+      if (user == undefined) {
+        enqueueSnackbar("User couldnt be found", { variant: "warning" });
+      } else {
+        selectUser(user);
+      }
+    }
+  }, [authorizedUsers, selectUser, storageSelectedUser, enqueueSnackbar]);
 
   const refreshIdentityToken = useCallback(async () => {
     try {
@@ -75,18 +107,19 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = useCallback(async () => {
     try {
+      setIdentityToken(null);
+      setAuthorized(false);
+      selectUser(null);
       const response = await axiosInstance.post(
         "/authorization/logout",
         {},
         { withCredentials: true },
       );
-      setIdentityToken(null);
-      setAuthorized(false);
       return response.status == 200;
     } catch (error) {
       console.error("Logout failed", error);
     }
-  }, [axiosInstance]);
+  }, [axiosInstance, selectUser]);
 
   useEffect(() => {
     refreshIdentityToken();
@@ -103,9 +136,26 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
         email,
         authorizedUsers,
         selectedUser,
+        setSelectedUser: selectUser,
       }}
     >
-      {children}
+      {authorized == undefined ? (
+        <>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center",
+              height: "100vh",
+            }}
+          >
+            <CircularProgress size="lg" />
+          </Box>
+        </>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };

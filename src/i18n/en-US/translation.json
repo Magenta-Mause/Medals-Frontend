@@ -9,6 +9,11 @@
     "MALE": "Male",
     "": "All"
   },
+  "userTypes": {
+    "ATHLETE": "Athlete",
+    "TRAINER": "Trainer",
+    "ADMIN": "Admin"
+  },
   "pages": {
     "homePage": {
       "h1": "Medals",
@@ -33,7 +38,8 @@
         "forgotPassword": "Forgot password?",
         "rememberMe": "Remember me",
         "submit": "Login",
-        "loginFailedWarning": "Login failed"
+        "loginFailedWarning": "Login failed",
+        "logoutButton": "Logout"
       }
     },
     "loginRequiredPage": {

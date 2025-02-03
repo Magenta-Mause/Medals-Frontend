@@ -4,17 +4,22 @@ import {
   ListItemDecorator,
   Menu,
   MenuButton,
+  MenuButtonProps,
   MenuItem,
   Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
-const LanguageSelectionButton = () => {
+const LanguageSelectionButton = (props: MenuButtonProps) => {
+  const { sx, ...other } = props;
   const { t, i18n } = useTranslation();
 
   return (
     <Dropdown>
-      <MenuButton sx={{ aspectRatio: 1, p: 0 }}>
+      <MenuButton
+        sx={[...(Array.isArray(sx) ? sx : [sx]), { aspectRatio: 1, p: 0 }]}
+        {...other}
+      >
         <LanguageOutlined />
       </MenuButton>
       <Menu size="sm" placement="top-end">
