@@ -1,5 +1,4 @@
 import LanguageSelectionButton from "@components/LanguageSelectionButton/LanguageSelectionButton";
-import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { Box, Button, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";

@@ -1,18 +1,13 @@
 import {
-  Check,
-  DarkModeRounded,
-  LanguageOutlined,
-  LightModeRounded,
+    Check, LanguageOutlined
 } from "@mui/icons-material";
 import {
-  Dropdown,
-  IconButton,
-  IconButtonProps,
-  ListItemDecorator,
-  Menu,
-  MenuButton,
-  MenuItem,
-  Typography,
+    Dropdown, IconButtonProps,
+    ListItemDecorator,
+    Menu,
+    MenuButton,
+    MenuItem,
+    Typography
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
@@ -21,7 +16,7 @@ const LanguageSelectionButton = (props: IconButtonProps) => {
   const { t, i18n } = useTranslation();
 
   return (
-    <Dropdown >
+    <Dropdown>
       <MenuButton sx={{ aspectRatio: 1, p: 0 }}>
         <LanguageOutlined />
       </MenuButton>

@@ -40,7 +40,9 @@ const AuthContext = createContext<AuthContextType>({
 const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);
   const [email, setEmail] = useState<string | null>(null);
-  const [authorizedUsers, setAuthorizedUsers] = useState<UserEntity[] | null>(null);
+  const [authorizedUsers, setAuthorizedUsers] = useState<UserEntity[] | null>(
+    null,
+  );
   const [selectedUser, setSelectedUser] = useState<UserEntity | null>(null);
   const [identityToken, setIdentityToken] = useState<string | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
@@ -53,7 +55,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     setTokenExpirationDate(decoded.exp);
     setAuthorizedUsers(decoded.users);
     setEmail(decoded.sub);
-  }
+  };
 
   const refreshIdentityToken = useCallback(async () => {
     try {
@@ -101,7 +103,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
         logout,
         email,
         authorizedUsers,
-        selectedUser
+        selectedUser,
       }}
     >
       {children}

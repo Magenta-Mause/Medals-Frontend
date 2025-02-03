@@ -43,8 +43,8 @@ const App = () => {
         }}
         sx={{
           "&:hover": {
-            background: "rgba(0, 0, 0, 0.3)"
-          }
+            background: "rgba(0, 0, 0, 0.3)",
+          },
         }}
       >
         <Close sx={{ fill: "white" }} />

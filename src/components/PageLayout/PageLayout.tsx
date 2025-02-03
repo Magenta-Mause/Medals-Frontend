@@ -3,7 +3,6 @@ import CustomBreadcrumbs from "@components/CustomBreadcrumbs/Breadcrumbs";
 import Header from "@components/Header/Header";
 import NavBar from "@components/NavBar/NavBar";
 import { Box } from "@mui/joy";
-import LoginNeededPage from "@pages/LoginNeededPage/LoginNeededPage";
 import { useContext, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 
@@ -14,7 +13,7 @@ const PageLayout = () => {
     if (!isLoggedIn) {
       navigate("/login");
     }
-  }, [isLoggedIn])
+  }, [isLoggedIn, navigate]);
 
   return (
     <Box sx={{ display: "flex", minHeight: "100dvh" }}>

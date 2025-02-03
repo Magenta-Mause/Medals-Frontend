@@ -46,7 +46,7 @@ const NavBar = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const warning = undefined;
-  const { logout, selectedUser, email } = useContext(AuthContext);
+  const { logout, email } = useContext(AuthContext);
 
   return (
     <Sheet
@@ -185,7 +185,7 @@ const NavBar = () => {
         <Box sx={{ minWidth: 0, flex: 1 }}>
           <Typography level="title-sm">Max Musterman</Typography>
           <Typography level="body-xs" noWrap>
-          {email}
+            {email}
           </Typography>
         </Box>
         <IconButton size="sm" variant="plain" color="neutral" onClick={logout}>

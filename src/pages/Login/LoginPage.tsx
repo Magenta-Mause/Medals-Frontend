@@ -4,12 +4,10 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import LanguageSelectionButton from "@components/LanguageSelectionButton/LanguageSelectionButton";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import useImageLoading from "@hooks/useImageLoading";
-import { BadgeRounded, YoutubeSearchedForOutlined } from "@mui/icons-material";
 import {
   Box,
   Button,
   Checkbox,
-  Divider,
   FormControl,
   FormLabel,
   GlobalStyles,
@@ -21,7 +19,7 @@ import {
 } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
@@ -54,7 +52,7 @@ const LoginPage = () => {
     if (authorized) {
       navigate("/");
     }
-  }, [authorized]);
+  }, [authorized, navigate]);
 
   const loginCallback = async (loginData: {
     email: string;
@@ -78,6 +76,7 @@ const LoginPage = () => {
         });
       }
     } catch (error) {
+      console.log("Error during login", error);
       enqueueSnackbar("Login failed", { variant: "error" });
     }
   };

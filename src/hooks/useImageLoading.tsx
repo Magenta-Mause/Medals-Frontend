@@ -11,7 +11,7 @@ const useImageLoading = (imageUrls: string[]) => {
         setImageUrl(loadedImageUrl);
       }
     },
-    [imageUrl],
+    [imageUrl, imageUrls],
   );
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const useImageLoading = (imageUrls: string[]) => {
       };
       image.src = imageUrl;
     });
-  }, imageUrls);
+  }, [imageUrls, checkThenSetImageUrl]);
 
   return imageUrl;
 };
