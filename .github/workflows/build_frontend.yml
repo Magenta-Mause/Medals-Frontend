@@ -73,4 +73,4 @@ jobs:
           username: ${{ secrets.MEDALS_DEPLOYMENT_USERNAME }}
           key: ${{ secrets.MEDALS_DEPLOYMENT_SSH_TOKEN }}
           port: ${{ secrets.MEDALS_DEPLOYMENT_PORT }}
-          script: sudo systemctl restart medals-frontend
+          script: sudo systemctl restart medals-deployment.service
