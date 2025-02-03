@@ -61,11 +61,7 @@ const LoginPage = () => {
   }) => {
     console.log("Logging in: ", loginData);
     try {
-      const res = await loginUser(
-        loginData.email,
-        loginData.password,
-        loginData.persistent,
-      );
+      const res = await loginUser(loginData.email, loginData.password);
 
       if (res) {
         await refreshIdentityToken();

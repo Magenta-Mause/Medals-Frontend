@@ -1,5 +1,4 @@
 import { Box } from "@mui/joy";
-import logo from "@assets/logo.svg";
 
 const MedalsIcon = (props: { size: "inline" | "large" }) => {
   return (
@@ -13,7 +12,7 @@ const MedalsIcon = (props: { size: "inline" | "large" }) => {
       }}
     >
       <img
-        src={logo}
+        src="/logo.svg"
         style={{ aspectRatio: 1, flexGrow: 1, width: "100%", height: "auto" }}
       />
     </Box>

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import emptyImage from "@assets/emptyImage.png";
+const emptyImage = "/emptyImage.png";
 
 const useImageLoading = (imageUrls: string[]) => {
   const [imageUrl, setImageUrl] = useState<string>(emptyImage);
