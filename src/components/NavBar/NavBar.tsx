@@ -25,6 +25,9 @@ import {
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
+import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
+import { useContext } from "react";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
 const navBarElements = [
   {
@@ -43,6 +46,7 @@ const NavBar = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const warning = undefined;
+  const { logout, selectedUser, email } = useContext(AuthContext);
 
   return (
     <Sheet
@@ -103,7 +107,7 @@ const NavBar = () => {
       />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
         <IconButton variant="soft" color="primary" size="sm">
-          <Typography fontSize={"1.2rem"}>🥇</Typography>
+          <MedalsIcon size="inline" />
         </IconButton>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
@@ -181,10 +185,10 @@ const NavBar = () => {
         <Box sx={{ minWidth: 0, flex: 1 }}>
           <Typography level="title-sm">Max Musterman</Typography>
           <Typography level="body-xs" noWrap>
-            max.musterman@gmail.com
+          {email}
           </Typography>
         </Box>
-        <IconButton size="sm" variant="plain" color="neutral">
+        <IconButton size="sm" variant="plain" color="neutral" onClick={logout}>
           <LogoutRounded />
         </IconButton>
       </Box>

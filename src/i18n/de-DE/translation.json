@@ -20,6 +20,26 @@
     "notFound": {
       "h1": "404",
       "h2": "Seite konnte nicht gefunden werden"
+    },
+    "loginPage": {
+      "logo": "Medals",
+      "signIn": {
+        "header": "Anmelden",
+        "subheader": "Medals - Das Medaillen Management System der Zukunft",
+        "input": {
+          "email": "E-Mail",
+          "password": "Passwort"
+        },
+        "forgotPassword": "Passwort vergessen?",
+        "rememberMe": "Login speichern",
+        "submit": "Anmelden",
+        "loginFailedWarning": "Anmeldung fehlgeschlagen"
+      }
+    },
+    "loginRequiredPage": {
+      "h1": "Anmeldung benötigt",
+      "h2": "Um Zugriff auf diese Seite zu haben müssen Sie sich anmelden",
+      "loginButton": "Zur Anmeldung"
     }
   },
   "components": {

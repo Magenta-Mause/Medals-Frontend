@@ -1,4 +1,3 @@
-import { getAthletes } from "@api/APIService";
 import { Athlete } from "@customTypes/bffTypes";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -11,7 +10,7 @@ interface AthleteSliceState {
 const fetchInitialState = createAsyncThunk(
   "athleteSlice/fetchInitialState",
   async () => {
-    return await getAthletes();
+    return [];
   },
 );
 

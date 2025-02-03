@@ -1,43 +1,32 @@
-import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import { useState, useEffect, useRef, useContext, useCallback } from "react";
+import axios, { AxiosInstance } from "axios";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
-let axiosInstance: AxiosInstance | null = null;
+const useAxiosInstance = (baseUrl: string): AxiosInstance => {
+  const axiosRef = useRef<AxiosInstance | null>(null);
+  const { identityToken, authorized } = useContext(AuthContext);
 
-const getAuthorizationHeader = async () => {
-  return "authToken";
+  const getAuthorizationHeader = useCallback(() => {
+    return authorized ? `Bearer ${identityToken}` : null;
+  }, [authorized, identityToken]);
+
+  useEffect(() => {
+    if (!axiosRef.current) {
+      const newAxiosInstance = axios.create({ baseURL: baseUrl });
+
+      newAxiosInstance.interceptors.request.use(
+        (config) => {
+          config.headers.Authorization = getAuthorizationHeader();
+          return config;
+        },
+        (error) => Promise.reject(error),
+      );
+
+      axiosRef.current = newAxiosInstance;
+    }
+  }, [baseUrl, getAuthorizationHeader]);
+
+  return axiosRef.current ?? axios.create({ baseURL: baseUrl });
 };
 
-const initializeConfig = async (baseUrl: string) => {
-  if (!axiosInstance) {
-    axiosInstance = axios.create({
-      baseURL: baseUrl,
-    });
-
-    axiosInstance.interceptors.request.use(
-      async (config: InternalAxiosRequestConfig) => {
-        config.headers!.Authorization =
-          "Bearer " + (await getAuthorizationHeader());
-        return config;
-      },
-      (error) => {
-        {
-          return Promise.reject(error);
-        }
-      },
-    );
-  }
-};
-
-const getAxiosInstance = () => {
-  if (!axiosInstance) {
-    throw new Error(
-      "Axios instance has not been initialized. Call initializeConfig first.",
-    );
-  }
-  return axiosInstance;
-};
-
-const isInitialized = () => {
-  return axiosInstance != null;
-};
-
-export { getAxiosInstance, initializeConfig, isInitialized };
+export default useAxiosInstance;

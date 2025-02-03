@@ -20,6 +20,26 @@
     "notFound": {
       "h1": "404",
       "h2": "Page not found"
+    },
+    "loginPage": {
+      "logo": "Medals",
+      "signIn": {
+        "header": "Login",
+        "subheader": "Medals - The soon to be Medal Management System",
+        "input": {
+          "email": "Email",
+          "password": "Password"
+        },
+        "forgotPassword": "Forgot password?",
+        "rememberMe": "Remember me",
+        "submit": "Login",
+        "loginFailedWarning": "Login failed"
+      }
+    },
+    "loginRequiredPage": {
+      "h1": "Login required",
+      "h2": "Please login to access this resource",
+      "loginButton": "Login"
     }
   },
   "components": {
