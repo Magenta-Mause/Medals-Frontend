@@ -74,9 +74,9 @@ const LoginPage = () => {
           [`& .MuiFormLabel-asterisk`]: {
             visibility: "hidden",
           },
-          background: "rgba(255, 255, 255, 0.5)",
+          background: "rgba(236 236 231 / 0.9)",
           [theme.getColorSchemeSelector("dark")]: {
-            background: "rgba(0, 0, 0, 0.5)",
+            background: "rgba(19 19 24 / 0.8)",
           },
           p: 5,
         })}

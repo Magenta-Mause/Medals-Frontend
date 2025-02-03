@@ -36,7 +36,7 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
           display: "flex",
           justifyContent: "flex-end",
           backdropFilter: "blur(12px)",
-          backgroundColor: "rgba(255 255 255 / 0.5)",
+          background: "rgba(236 236 231 / 0.6)",
           [theme.getColorSchemeSelector("dark")]: {
             backgroundColor: "rgba(19 19 24 / 0.7)",
           },
