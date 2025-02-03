@@ -46,7 +46,7 @@ const NavBar = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const warning = undefined;
-  const { logout, email, setSelectedUser, selectedUser } =
+  const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
     useContext(AuthContext);
 
   return (
@@ -190,9 +190,13 @@ const NavBar = () => {
             {email}
           </Typography>
         </Box>
-        <IconButton about="Switch user" onClick={() => setSelectedUser(null)}>
-          <SupervisedUserCircleOutlined />
-        </IconButton>
+        {(authorizedUsers?.length ?? 0) > 1 ? (
+          <IconButton about="Switch user" onClick={() => setSelectedUser(null)}>
+            <SupervisedUserCircleOutlined />
+          </IconButton>
+        ) : (
+          <></>
+        )}
         <IconButton size="sm" variant="plain" color="neutral" onClick={logout}>
           <LogoutRounded />
         </IconButton>

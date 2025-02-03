@@ -64,6 +64,9 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     const decoded = jwtDecode(jwtToken) as JwtTokenBody;
     setTokenExpirationDate(decoded.exp);
     setAuthorizedUsers(decoded.users);
+    if (decoded.users?.length == 1) {
+      setSelectedUser(decoded.users[0]);
+    } 
     setEmail(decoded.sub);
   };
 
