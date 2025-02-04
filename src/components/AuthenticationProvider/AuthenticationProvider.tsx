@@ -1,4 +1,9 @@
-import useAxiosInstance from "@api/axiosInstance";
+import { JwtTokenBody, UserEntity } from "@customTypes/bffTypes";
+import useApi from "@hooks/useApi";
+import { Box, CircularProgress } from "@mui/joy";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { jwtDecode } from "jwt-decode";
+import { useSnackbar } from "notistack";
 import {
   createContext,
   ReactNode,
@@ -6,13 +11,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import config from "../../../app.config.json";
-import { JwtTokenBody, UserEntity } from "@customTypes/bffTypes";
-import { jwtDecode } from "jwt-decode";
-import { useLocalStorage } from "@uidotdev/usehooks";
-import { useSnackbar } from "notistack";
-import { Box, CircularProgress } from "@mui/joy";
-import useApi from "@hooks/useApi";
 
 interface AuthContextType {
   identityToken: string | null;
@@ -48,7 +46,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [storageSelectedUser, setStorageSelectedUser] = useLocalStorage<
     number | null
   >("selectedUser", null);
-  const axiosInstance = useAxiosInstance(config.backendBaseUrl);
   const [email, setEmail] = useState<string | null>(null);
   const [authorizedUsers, setAuthorizedUsers] = useState<UserEntity[] | null>(
     null,
@@ -106,7 +103,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       setAuthorized(false);
       return null;
     }
-  }, [axiosInstance, fetchIdentityToken]);
+  }, [fetchIdentityToken]);
 
   const logout = useCallback(async () => {
     try {
@@ -117,7 +114,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Logout failed", error);
     }
-  }, [axiosInstance, selectUser, logoutUser]);
+  }, [selectUser, logoutUser]);
 
   useEffect(() => {
     refreshIdentityToken();
