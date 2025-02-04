@@ -50,7 +50,6 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
             width: "100%",
             px: 2,
           }}
-          className="test"
         >
           <Box
             component="header"
@@ -61,7 +60,7 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
                 gap: 2,
                 display: "flex",
                 alignItems: "center",
-                background: "white",
+                background: "rgba(236 236 231 / 0.9)",
                 p: 1,
                 borderRadius: 5,
                 [theme.getColorSchemeSelector("dark")]: {

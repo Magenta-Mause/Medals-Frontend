@@ -9,6 +9,7 @@ const MedalsIcon = (props: { size: "inline" | "large" }) => {
         width: props.size == "inline" ? "1.2rem" : "auto",
         aspectRatio: 1,
         height: "auto",
+        flexGrow: 1
       }}
     >
       <img
