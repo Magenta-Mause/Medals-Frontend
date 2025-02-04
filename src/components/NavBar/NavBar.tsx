@@ -191,7 +191,13 @@ const NavBar = () => {
           </Typography>
         </Box>
         {(authorizedUsers?.length ?? 0) > 1 ? (
-          <IconButton about="Switch user" onClick={() => setSelectedUser(null)}>
+          <IconButton
+            about="Switch user"
+            onClick={() => {
+              setSelectedUser(null);
+              navigate("/login");
+            }}
+          >
             <SupervisedUserCircleOutlined />
           </IconButton>
         ) : (
