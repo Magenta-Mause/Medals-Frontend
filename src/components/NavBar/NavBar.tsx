@@ -5,7 +5,9 @@ import {
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
+  Person,
   SearchRounded,
+  Sports,
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -26,16 +28,42 @@ import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
 
-const navBarElements = [
+const navBarElements = {
+ADMIN: [
+  {
+    path: "/",
+    icon: <HomeRounded />,
+  },
+  {
+    path: "/trainer",
+    icon: <Sports/>
+  },
+  {
+    path: "/athletes",
+    icon: <PeopleRounded />,
+  },
+],
+TRAINER:[
   {
     path: "/",
     icon: <HomeRounded />,
   },
   {
     path: "/athletes",
-    icon: <PeopleRounded />,
+    icon: <PeopleRounded/>,
   },
-];
+],
+ATHLETE:[
+  {
+    path: "/",
+    icon: <HomeRounded />,
+  },
+  {
+    path: "/athlete",
+    icon: <Person />,
+  },
+],
+};
 
 const NavBar = () => {
   const { collapseSidebar, sideBarExtended } = useSidebar();
@@ -43,6 +71,7 @@ const NavBar = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const warning = undefined;
+  const userRole = "ATHLETE";
 
   return (
     <Sheet
@@ -133,7 +162,7 @@ const NavBar = () => {
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}
         >
-          {navBarElements.map((element) => (
+          {navBarElements[userRole].map((element) => (
             <ListItem key={element.path}>
               <ListItemButton
                 onClick={() => {
