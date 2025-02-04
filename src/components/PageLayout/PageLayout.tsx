@@ -11,11 +11,11 @@ const PageLayout = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (authorized === false || selectedUser === null) {
-      console.log(selectedUser);
       navigate("/login");
     }
   }, [authorized, selectedUser, navigate]);
 
+  console.log("rerendering");
   return (
     <Box sx={{ display: "flex", minHeight: "100dvh" }}>
       <Header />

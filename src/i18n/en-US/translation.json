@@ -19,7 +19,7 @@
       "loginFailed": "Login failed"
     },
     "setPassword": {
-      "failed": "Authorization code is invalid",
+      "failed": "Failed to set password",
       "success": "Password successfully set"
     }
   },
@@ -121,6 +121,13 @@
     "buttons": {
       "next": "Next",
       "previous": "Previous"
+    },
+    "passwordStrengthIndicator": {
+      "is8Characters": "Password is at least 8 characters long",
+      "hasNumber": "Password contains a number",
+      "hasUpperCase": "Password contains an uppercase letter",
+      "hasSpecial": "Password contains a special character",
+      "required": "Required"
     }
   }
 }

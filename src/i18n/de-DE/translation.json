@@ -19,7 +19,7 @@
       "loginFailed": "Login fehlgeschlagen"
     },
     "setPassword": {
-      "failed": "Autorisierungscode ist ungültig",
+      "failed": "Password setzen fehlgeschlagen",
       "success": "Passwort erfolgreich gesetzt"
     }
   },
@@ -122,6 +122,13 @@
     "buttons": {
       "next": "Nächstes",
       "previous": "Vorheriges"
+    },
+    "passwordStrengthIndicator": {
+      "is8Characters": "Passwort ist mindestens 8 Zeichen lang",
+      "hasNumber": "Passwort enthält eine Zahl",
+      "hasUpperCase": "Passwort enthält einen Großbuchstaben",
+      "hasSpecial": "Passwort enthält ein Sonderzeichen",
+      "required": "Verpflichtend"
     }
   }
 }

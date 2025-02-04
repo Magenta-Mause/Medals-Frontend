@@ -29,14 +29,12 @@ const LoginPage = () => {
     password: string;
     persistent: boolean;
   }) => {
-    console.log("Logging in: ", loginData);
     try {
       const res = await loginUser(loginData.email, loginData.password);
 
       if (res) {
         await refreshIdentityToken();
       } else {
-        console.log("ERORR");
         enqueueSnackbar("Login failed", {
           variant: "error",
         });

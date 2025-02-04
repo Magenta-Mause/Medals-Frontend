@@ -1,28 +1,46 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import PasswordStrengthBar from "@components/PasswordStrengthBar/PasswordStrengthBar";
 import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
 import useApi from "@hooks/useApi";
+import usePasswordValidation, {
+  PasswordStrengthChecks as PasswordStrengthCheck,
+  requiredPasswordChecks,
+} from "@hooks/usePasswordValidation";
+import { Check, Close } from "@mui/icons-material";
 import {
   Box,
   Button,
   FormControl,
   FormLabel,
   Input,
+  List,
+  ListItem,
+  ListItemContent,
+  ListItemDecorator,
   Stack,
+  Tooltip,
   Typography,
 } from "@mui/joy";
 import { SignInFormElement } from "@pages/Login/LoginForm";
 import { useMutation } from "@tanstack/react-query";
-import { t } from "i18next";
 import { useSnackbar } from "notistack";
 import { useCallback, useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router";
 
 const SetPasswordPage = () => {
   const [searchParams] = useSearchParams();
   const { setPassword: setPasswordApi } = useApi();
+  const [currentPassword, setCurrentPassword] = useState("");
   const { logout } = useContext(AuthContext);
   const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation();
   const navigate = useNavigate();
+  const {
+    strength: passwordStrength,
+    valid: passwordValid,
+    checks: passwordChecks,
+  } = usePasswordValidation(currentPassword);
   const setPasswordCallback = async (data: { password: string }) => {
     logout();
     try {
@@ -89,7 +107,7 @@ const SetPasswordPage = () => {
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          width: 400,
+          width: 450,
           maxWidth: "100%",
           mx: "auto",
           borderRadius: "sm",
@@ -139,14 +157,62 @@ const SetPasswordPage = () => {
                   type="password"
                   name="password"
                   disabled={isPending || isSuccess}
+                  onChange={(event) => setCurrentPassword(event.target.value)}
                 />
+                <PasswordStrengthBar passwordStrength={passwordStrength} />
+                <Typography level="body-sm" textAlign={"left"}>
+                  <List>
+                    {Object.keys(passwordChecks).map((key) => (
+                      <ListItem sx={{}} key={key}>
+                        <ListItemDecorator>
+                          {passwordChecks[key as PasswordStrengthCheck] ? (
+                            <Check
+                              sx={{
+                                fill: "green",
+                              }}
+                            />
+                          ) : (
+                            <Close />
+                          )}
+                        </ListItemDecorator>
+                        <ListItemContent sx={{ display: "flex" }}>
+                          <Typography level="body-sm">
+                            {t("components.passwordStrengthIndicator." + key)}
+                          </Typography>
+                          <Tooltip
+                            title={t(
+                              "components.passwordStrengthIndicator.required",
+                            )}
+                            sx={{
+                              userSelect: "none",
+                            }}
+                          >
+                            <Typography level="body-sm">
+                              {requiredPasswordChecks[
+                                key as PasswordStrengthCheck
+                              ]
+                                ? "*"
+                                : ""}
+                            </Typography>
+                          </Tooltip>
+                        </ListItemContent>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Typography>
               </FormControl>
-              <Stack sx={{ gap: 4, mt: 2 }}>
+              <Stack sx={{ gap: 4 }}>
                 <Button
                   type="submit"
                   fullWidth
-                  disabled={isPending}
-                  color={isSuccess ? "success" : "primary"}
+                  disabled={isPending || !passwordValid}
+                  color={
+                    !passwordValid
+                      ? "neutral"
+                      : isSuccess
+                        ? "success"
+                        : "primary"
+                  }
                 >
                   {isPending
                     ? t("pages.setPasswordPage.form.loading")
