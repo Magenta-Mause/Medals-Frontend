@@ -5,6 +5,7 @@ import useImageLoading from "@hooks/useImageLoading";
 import { GlobalStyles, Box, IconButton, Typography } from "@mui/joy";
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
 const SplitPageComponent = ({ children }: { children: ReactNode }) => {
   const imageUrlWhiteMode = useImageLoading([
@@ -16,6 +17,7 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
     "https://images.pexels.com/photos/1564420/pexels-photo-1564420.jpeg?w=1920&h=1080",
   ]);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -55,7 +57,9 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
             component="header"
             sx={{ py: 3, display: "flex", justifyContent: "space-between" }}
           >
-            <Box
+            <IconButton
+              variant="soft"
+              size="sm"
               sx={(theme) => ({
                 gap: 2,
                 display: "flex",
@@ -67,14 +71,15 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
                   background: "rgba(0, 0, 0, 0.3)",
                 },
               })}
+              onClick={() => {
+                navigate("/");
+              }}
             >
-              <IconButton variant="soft" color="primary" size="sm">
-                <MedalsIcon size="inline" />
-              </IconButton>
+              <MedalsIcon size="inline" />
               <Typography level="title-lg">
                 {t("pages.loginPage.logo")}
               </Typography>
-            </Box>
+            </IconButton>
             <Box
               sx={{
                 display: "flex",

@@ -14,6 +14,11 @@
     "TRAINER": "Trainer",
     "ADMIN": "Admin"
   },
+  "snackbar": {
+    "login": {
+      "loginFailed": "Login failed"
+    }
+  },
   "pages": {
     "homePage": {
       "h1": "Medals",

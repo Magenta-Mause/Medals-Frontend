@@ -43,7 +43,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.log("Error during login", error);
-      enqueueSnackbar("Login failed", { variant: "error" });
+      enqueueSnackbar(t("snackbar.login.loginFailed"), { variant: "error" });
     }
   };
 

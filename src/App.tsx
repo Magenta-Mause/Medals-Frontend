@@ -66,6 +66,10 @@ const App = () => {
               <SnackbarProvider
                 autoHideDuration={3000}
                 action={snackBarActions}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
               >
                 <AuthenticationProvider>
                   <RoutingComponent />
