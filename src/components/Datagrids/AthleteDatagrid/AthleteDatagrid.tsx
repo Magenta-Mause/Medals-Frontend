@@ -1,4 +1,4 @@
-import useApi from "@api/useApi";
+import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/bffTypes";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";

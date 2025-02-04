@@ -114,7 +114,10 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
                 },
               })}
             />
-            <Typography level="body-xs" sx={{ textAlign: "center" }}>
+            <Typography
+              level="body-xs"
+              sx={{ textAlign: "center", userSelect: "none" }}
+            >
               © {t("pages.loginPage.logo")} {new Date().getFullYear()}
             </Typography>
             <Box sx={{ px: 3 }}></Box>

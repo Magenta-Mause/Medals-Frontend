@@ -12,6 +12,7 @@ import { jwtDecode } from "jwt-decode";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useSnackbar } from "notistack";
 import { Box, CircularProgress } from "@mui/joy";
+import useApi from "@hooks/useApi";
 
 interface AuthContextType {
   identityToken: string | null;
@@ -56,6 +57,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [identityToken, setIdentityToken] = useState<string | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
   const { enqueueSnackbar } = useSnackbar();
+  const { logoutUser, fetchIdentityToken } = useApi();
   const [tokenExpirationDate, setTokenExpirationDate] = useState<number | null>(
     null,
   );
@@ -93,13 +95,11 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
 
   const refreshIdentityToken = useCallback(async () => {
     try {
-      const response = await axiosInstance.get("/authorization/token", {
-        withCredentials: true,
-      });
-      setIdentityToken(response.data.data);
+      const token = await fetchIdentityToken();
+      setIdentityToken(token);
       setAuthorized(true);
-      processJwtToken(response.data.data);
-      return response.data.identityToken;
+      processJwtToken(token);
+      return token;
     } catch (error) {
       console.error("Failed to refresh token", error);
       setIdentityToken(null);
@@ -113,12 +113,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       setIdentityToken(null);
       setAuthorized(false);
       selectUser(null);
-      const response = await axiosInstance.post(
-        "/authorization/logout",
-        {},
-        { withCredentials: true },
-      );
-      return response.status == 200;
+      return await logoutUser();
     } catch (error) {
       console.error("Logout failed", error);
     }

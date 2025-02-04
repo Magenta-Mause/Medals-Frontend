@@ -1,5 +1,5 @@
 import { Athlete } from "@customTypes/bffTypes";
-import useAxiosInstance from "./axiosInstance";
+import useAxiosInstance from "../api/axiosInstance";
 import config from "../../app.config.json";
 import { useCallback } from "react";
 
@@ -55,7 +55,31 @@ const useApi = () => {
     },
     [axiosInstance],
   );
-  return { loginUser, deleteAthlete, getAthlete, getAthletes };
+
+  const logoutUser = useCallback(async () => {
+    const request = await axiosInstance!.post(
+      "/authorization/logout",
+      {},
+      { withCredentials: true },
+    );
+    return request.status == 200;
+  }, [axiosInstance]);
+
+  const fetchIdentityToken = useCallback(async () => {
+    const request = await axiosInstance!.get("/authorization/token", {
+      withCredentials: true,
+    });
+    return request.data.data;
+  }, [axiosInstance]);
+
+  return {
+    loginUser,
+    logoutUser,
+    fetchIdentityToken,
+    deleteAthlete,
+    getAthlete,
+    getAthletes,
+  };
 };
 
 export default useApi;

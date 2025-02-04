@@ -1,4 +1,4 @@
-import useApi from "@api/useApi";
+import useApi from "@hooks/useApi";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { Box, Stack, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";

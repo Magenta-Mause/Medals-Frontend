@@ -107,7 +107,7 @@ const NavBar = () => {
         onClick={() => collapseSidebar()}
       />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <IconButton variant="soft" color="primary" size="sm" sx={{p: .5}}>
+        <IconButton variant="soft" color="primary" size="sm" sx={{ p: 0.5 }}>
           <MedalsIcon size="inline" />
         </IconButton>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
