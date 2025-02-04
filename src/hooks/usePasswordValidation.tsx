@@ -39,7 +39,7 @@ const usePasswordValidation = (password: string) => {
       is8Characters: password.length >= 8,
       hasNumber: /\d/.test(password),
       hasUpperCase: /[A-Z]/.test(password),
-      hasSpecial: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password),
+      hasSpecial: /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>?]+/.test(password),
     };
 
     return {
