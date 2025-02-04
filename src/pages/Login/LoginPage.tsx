@@ -1,5 +1,6 @@
-import useApi from "@hooks/useApi";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
+import useApi from "@hooks/useApi";
 import { Box, Stack, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
@@ -8,7 +9,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import LoginForm from "./LoginForm";
 import UserSelectionForm from "./UserSelectionForm";
-import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
 
 const LoginPage = () => {
   const { loginUser } = useApi();

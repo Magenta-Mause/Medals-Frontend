@@ -17,6 +17,10 @@
   "snackbar": {
     "login": {
       "loginFailed": "Login failed"
+    },
+    "setPassword": {
+      "failed": "Authorization code is invalid",
+      "success": "Password successfully set"
     }
   },
   "pages": {
@@ -47,10 +51,16 @@
         "logoutButton": "Logout"
       }
     },
-    "loginRequiredPage": {
-      "h1": "Login required",
-      "h2": "Please login to access this resource",
-      "loginButton": "Login"
+    "setPasswordPage": {
+      "header": "Configure your Password",
+      "subheader": "Please configure your password to use your account",
+      "invalidCode": "Ungültiger Code",
+      "form": {
+        "passwordLabel": "Password",
+        "submit": "Set Password",
+        "loading": "Loading...",
+        "goToLogin": "Go to login"
+      }
     }
   },
   "components": {

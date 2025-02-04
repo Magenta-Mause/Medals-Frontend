@@ -1,7 +1,7 @@
 import { Athlete } from "@customTypes/bffTypes";
-import useAxiosInstance from "../api/axiosInstance";
-import config from "../../app.config.json";
 import { useCallback } from "react";
+import config from "../../app.config.json";
+import useAxiosInstance from "../api/axiosInstance";
 
 const useApi = () => {
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);
@@ -72,6 +72,23 @@ const useApi = () => {
     return request.data.data;
   }, [axiosInstance]);
 
+  const setPassword = useCallback(
+    async (password: string, oneTimeCode: string) => {
+      const request = await axiosInstance!.post(
+        "/authorization/setPassword",
+        {
+          password: password,
+          oneTimeCode: oneTimeCode,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+      return request.status == 200;
+    },
+    [axiosInstance],
+  );
+
   return {
     loginUser,
     logoutUser,
@@ -79,6 +96,7 @@ const useApi = () => {
     deleteAthlete,
     getAthlete,
     getAthletes,
+    setPassword,
   };
 };
 

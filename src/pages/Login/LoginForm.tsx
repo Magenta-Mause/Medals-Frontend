@@ -1,12 +1,12 @@
 import {
+  Box,
+  Button,
+  Checkbox,
   FormControl,
   FormLabel,
   Input,
-  Stack,
-  Box,
-  Checkbox,
-  Button,
   Link,
+  Stack,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
