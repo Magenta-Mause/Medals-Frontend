@@ -79,25 +79,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     [setSelectedUser, setStorageSelectedUser],
   );
 
-  useEffect(() => {
-    if (storageSelectedUser == null) {
-      selectUser(null);
-      return;
-    }
-    if (authorizedUsers == null) {
-      return;
-    }
-    const user = authorizedUsers?.find(
-      (user) => user.id == storageSelectedUser,
-    );
-    if (user == undefined) {
-      selectUser(null);
-      enqueueSnackbar("User couldnt be found", { variant: "warning" });
-    } else {
-      selectUser(user);
-    }
-  }, [authorizedUsers, selectUser, storageSelectedUser, enqueueSnackbar]);
-
   const refreshIdentityToken = useCallback(async () => {
     try {
       const token = await fetchIdentityToken();
@@ -123,6 +104,25 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       console.error("Logout failed", error);
     }
   }, [selectUser, logoutUser]);
+
+  useEffect(() => {
+    if (storageSelectedUser == null) {
+      selectUser(null);
+      return;
+    }
+    if (authorizedUsers == null) {
+      return;
+    }
+    const user = authorizedUsers?.find(
+      (user) => user.id == storageSelectedUser,
+    );
+    if (user == undefined) {
+      selectUser(null);
+      enqueueSnackbar("User couldnt be found", { variant: "warning" });
+    } else {
+      selectUser(user);
+    }
+  }, [authorizedUsers, selectUser, storageSelectedUser, enqueueSnackbar]);
 
   useEffect(() => {
     refreshIdentityToken();
