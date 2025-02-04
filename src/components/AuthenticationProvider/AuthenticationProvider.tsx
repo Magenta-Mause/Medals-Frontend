@@ -16,19 +16,19 @@ interface AuthContextType {
   identityToken: string | null;
   authorized: boolean | null;
   tokenExpirationDate: number | null;
-  selectedUser: UserEntity | null;
+  selectedUser: UserEntity | null | undefined;
   email: string | null;
   authorizedUsers: UserEntity[] | null;
   refreshIdentityToken: () => void;
   logout: () => void;
-  setSelectedUser: (user: UserEntity | null) => void;
+  setSelectedUser: (user: UserEntity | null | undefined) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
   identityToken: null,
   authorized: null,
   tokenExpirationDate: null,
-  selectedUser: null,
+  selectedUser: undefined,
   email: null,
   authorizedUsers: null,
   refreshIdentityToken() {
@@ -50,7 +50,9 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [authorizedUsers, setAuthorizedUsers] = useState<UserEntity[] | null>(
     null,
   );
-  const [selectedUser, setSelectedUser] = useState<UserEntity | null>(null);
+  const [selectedUser, setSelectedUser] = useState<
+    UserEntity | null | undefined
+  >(undefined);
   const [identityToken, setIdentityToken] = useState<string | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
   const { enqueueSnackbar } = useSnackbar();
@@ -70,7 +72,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const selectUser = useCallback(
-    (user: UserEntity | null) => {
+    (user: UserEntity | null | undefined) => {
       setSelectedUser(user);
       setStorageSelectedUser(user?.id ?? null);
     },
@@ -78,15 +80,21 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   );
 
   useEffect(() => {
-    if (storageSelectedUser != null && authorizedUsers != undefined) {
-      const user = authorizedUsers?.find(
-        (user) => user.id == storageSelectedUser,
-      );
-      if (user == undefined) {
-        enqueueSnackbar("User couldnt be found", { variant: "warning" });
-      } else {
-        selectUser(user);
-      }
+    if (storageSelectedUser == null) {
+      selectUser(null);
+      return;
+    }
+    if (authorizedUsers == null) {
+      return;
+    }
+    const user = authorizedUsers?.find(
+      (user) => user.id == storageSelectedUser,
+    );
+    if (user == undefined) {
+      selectUser(null);
+      enqueueSnackbar("User couldnt be found", { variant: "warning" });
+    } else {
+      selectUser(user);
     }
   }, [authorizedUsers, selectUser, storageSelectedUser, enqueueSnackbar]);
 

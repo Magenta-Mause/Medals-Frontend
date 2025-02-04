@@ -7,14 +7,14 @@ import { useContext, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 
 const PageLayout = () => {
-  const { selectedUser } = useContext(AuthContext);
+  const { authorized, selectedUser } = useContext(AuthContext);
   const navigate = useNavigate();
-
   useEffect(() => {
-    if (selectedUser == null) {
+    if (authorized === false || selectedUser === null) {
+      console.log(selectedUser);
       navigate("/login");
     }
-  }, [selectedUser, navigate]);
+  }, [authorized, selectedUser, navigate]);
 
   return (
     <Box sx={{ display: "flex", minHeight: "100dvh" }}>

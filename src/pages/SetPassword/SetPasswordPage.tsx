@@ -33,13 +33,12 @@ const SetPasswordPage = () => {
       if (result === false) {
         throw new Error("Failed to set password");
       }
-    } catch {
-      enqueueSnackbar(t("snackbar.setPassword.failed"), { variant: "error" });
-      throw new Error("Failed to set password");
-    } finally {
       enqueueSnackbar(t("snackbar.setPassword.success"), {
         variant: "success",
       });
+    } catch {
+      enqueueSnackbar(t("snackbar.setPassword.failed"), { variant: "error" });
+      throw new Error("Failed to set password");
     }
   };
   const [isValid, setValid] = useState(true);
