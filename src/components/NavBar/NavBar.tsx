@@ -6,6 +6,7 @@ import {
   LogoutRounded,
   PeopleRounded,
   SearchRounded,
+  Download,
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -34,6 +35,10 @@ const navBarElements = [
   {
     path: "/athletes",
     icon: <PeopleRounded />,
+  },
+  {
+    path: "/downloads",
+    icon: <Download />,
   },
 ];
 

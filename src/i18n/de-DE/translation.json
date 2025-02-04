@@ -20,6 +20,9 @@
     "notFound": {
       "h1": "404",
       "h2": "Seite konnte nicht gefunden werden"
+    },
+    "downloadPage": {
+      "h1": "Downloads"
     }
   },
   "components": {
@@ -33,7 +36,8 @@
       "logo": "Medals",
       "locationList": {
         "/": "Start",
-        "/athletes": "Athlet*innen"
+        "/athletes": "Athlet*innen",
+        "/downloads": "Downloads"
       },
       "search": "Suchen",
       "languageSelector": "Sprache",
