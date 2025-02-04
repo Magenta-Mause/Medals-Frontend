@@ -163,7 +163,7 @@ const SetPasswordPage = () => {
                 <Typography level="body-sm" textAlign={"left"}>
                   <List>
                     {Object.keys(passwordChecks).map((key) => (
-                      <ListItem sx={{}} key={key}>
+                      <ListItem key={key}>
                         <ListItemDecorator>
                           {passwordChecks[key as PasswordStrengthCheck] ? (
                             <Check

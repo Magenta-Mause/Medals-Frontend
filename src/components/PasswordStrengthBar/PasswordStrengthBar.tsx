@@ -11,11 +11,15 @@ const passwordColors = {
 
 const PasswordStrengthBar = (props: { passwordStrength: PasswordStrength }) => (
   <Box
-    sx={{
+    sx={(theme) => ({
       width: "calc(100% - 6px)",
+      [theme.getColorSchemeSelector("dark")]: {
+        background: "gray",
+      },
       background: "lightgray",
       height: 5,
       m: "5px 3px",
+      mt: "15px",
       borderRadius: "sm",
       zIndex: 0,
       position: "relative",
@@ -29,7 +33,7 @@ const PasswordStrengthBar = (props: { passwordStrength: PasswordStrength }) => (
         height: "100%",
         borderRadius: "sm",
       },
-    }}
+    })}
   ></Box>
 );
 
