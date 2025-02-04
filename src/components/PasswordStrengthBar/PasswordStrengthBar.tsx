@@ -6,7 +6,7 @@ const passwordColors = {
   "25%": "#FF0000",
   "50%": "#FF8000",
   "75%": "#80C000",
-  "100%": "#80CC00",
+  "100%": "#80DD00",
 };
 
 const PasswordStrengthBar = (props: { passwordStrength: PasswordStrength }) => (
