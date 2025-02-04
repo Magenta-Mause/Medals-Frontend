@@ -106,7 +106,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       setAuthorized(false);
       return null;
     }
-  }, [axiosInstance]);
+  }, [axiosInstance, fetchIdentityToken]);
 
   const logout = useCallback(async () => {
     try {
@@ -117,7 +117,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Logout failed", error);
     }
-  }, [axiosInstance, selectUser]);
+  }, [axiosInstance, selectUser, logoutUser]);
 
   useEffect(() => {
     refreshIdentityToken();
