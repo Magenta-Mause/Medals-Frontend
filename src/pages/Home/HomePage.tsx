@@ -1,3 +1,4 @@
+import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { Box, Chip, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
@@ -14,10 +15,18 @@ const HomePage = () => {
         flexDirection: "column",
       }}
     >
-      <Chip size="lg" sx={{ aspectRatio: 1 }}>
-        <Typography level={"h1"} fontSize={100}>
-          🥇
-        </Typography>
+      <Chip size="lg" sx={{ p: 0 }}>
+        <Box
+          sx={{
+            width: 200,
+            aspectRatio: 1,
+            height: "auto",
+            display: "flex",
+            p: 2,
+          }}
+        >
+          <MedalsIcon size={"inline"} />
+        </Box>
       </Chip>
       <Typography level={"h1"} padding={"1.5rem"} textAlign={"center"}>
         {t("pages.homePage.h1")}

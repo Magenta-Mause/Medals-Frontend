@@ -1,4 +1,4 @@
-import { deleteAthlete } from "@api/APIService";
+import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/bffTypes";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
@@ -17,6 +17,7 @@ interface AthleteDatagridProps {
 }
 
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
+  const { deleteAthlete } = useApi();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -181,7 +182,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           textAlign: "center",
         }}
       >
-        {athlete.gender.toUpperCase()}
+        {athlete.gender.slice(0, 1).toUpperCase()}
       </Chip>
     ),
     searchFilter: {
