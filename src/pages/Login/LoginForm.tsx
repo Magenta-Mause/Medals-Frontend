@@ -83,7 +83,7 @@ const LoginForm = (props: {
           {!props.isPending ? (
             t("pages.loginPage.signIn.submit")
           ) : (
-            <>Loading...</>
+            <>{t("pages.loginPage.signIn.loading")}</>
           )}
         </Button>
       </Stack>

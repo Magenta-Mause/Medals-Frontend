@@ -48,7 +48,8 @@
         "rememberMe": "Remember me",
         "submit": "Login",
         "loginFailedWarning": "Login failed",
-        "logoutButton": "Logout"
+        "logoutButton": "Logout",
+        "loading": "Loading..."
       }
     },
     "setPasswordPage": {

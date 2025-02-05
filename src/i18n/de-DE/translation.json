@@ -48,7 +48,8 @@
         "rememberMe": "Login speichern",
         "submit": "Anmelden",
         "loginFailedWarning": "Anmeldung fehlgeschlagen",
-        "logoutButton": "Abmelden"
+        "logoutButton": "Abmelden",
+        "loading": "Lädt..."
       }
     },
     "setPasswordPage": {
