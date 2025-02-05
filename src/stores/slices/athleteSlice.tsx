@@ -33,33 +33,10 @@ const athleteSlice = createSlice({
       state.data = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchInitialState.pending, (state) => {
-        state.state = "loading";
-      })
-      .addCase(
-        fetchInitialState.fulfilled,
-        (state, action: PayloadAction<Athlete[] | undefined>) => {
-          state.state = "idle";
-          if (action.payload == undefined) {
-            console.error("Error while fetching ");
-          } else {
-            state.data = action.payload ?? [];
-          }
-        },
-      );
-  },
 });
 
 const { addAthlete, updateAthlete, removeAthlete, setAthltes } =
   athleteSlice.actions;
 
-export {
-  addAthlete,
-  fetchInitialState,
-  removeAthlete,
-  setAthltes,
-  updateAthlete,
-};
+export { addAthlete, removeAthlete, setAthltes, updateAthlete };
 export default athleteSlice.reducer;
