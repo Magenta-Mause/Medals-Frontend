@@ -1,19 +1,19 @@
+import AuthenticationProvider from "@components/AuthenticationProvider/AuthenticationProvider";
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
+import useApi from "@hooks/useApi";
+import { Close } from "@mui/icons-material";
 import {
   CssBaseline,
   CssVarsProvider,
   IconButton,
   StyledEngineProvider,
 } from "@mui/joy";
+import { setAthltes as setAthletes } from "@stores/slices/athleteSlice";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createContext, useEffect, useState } from "react";
-import { BrowserRouter } from "react-router";
-import { useDispatch } from "react-redux";
-import { fetchInitialState } from "@stores/slices/athleteSlice";
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import AuthenticationProvider from "@components/AuthenticationProvider/AuthenticationProvider";
 import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
-import { Close } from "@mui/icons-material";
+import { createContext, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { BrowserRouter } from "react-router";
 
 type UtilContextType = {
   sideBarExtended: boolean;
@@ -28,11 +28,15 @@ const UtilContext = createContext<UtilContextType>({
 const App = () => {
   const queryClient = new QueryClient();
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const { getAthletes } = useApi();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchInitialState());
-  }, [dispatch]);
+    const fetchData = async () => {
+      dispatch(setAthletes((await getAthletes()) || []));
+    };
+    fetchData();
+  }, [dispatch, getAthletes]);
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>

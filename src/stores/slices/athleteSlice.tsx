@@ -1,18 +1,11 @@
 import { Athlete } from "@customTypes/bffTypes";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AthleteSliceState {
   data: Athlete[];
   state: "idle" | "loading" | "failed";
   error: string | null;
 }
-
-const fetchInitialState = createAsyncThunk(
-  "athleteSlice/fetchInitialState",
-  async () => {
-    return [];
-  },
-);
 
 const athleteSlice = createSlice({
   name: "athleteSlice",
@@ -36,6 +29,9 @@ const athleteSlice = createSlice({
     removeAthlete(state, action: PayloadAction<{ id: number }>) {
       state.data = state.data.filter((item) => item.id !== action.payload.id);
     },
+    setAthltes(state, action: PayloadAction<Athlete[]>) {
+      state.data = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -56,7 +52,14 @@ const athleteSlice = createSlice({
   },
 });
 
-const { addAthlete, updateAthlete, removeAthlete } = athleteSlice.actions;
+const { addAthlete, updateAthlete, removeAthlete, setAthltes } =
+  athleteSlice.actions;
 
-export { addAthlete, fetchInitialState, removeAthlete, updateAthlete };
+export {
+  addAthlete,
+  fetchInitialState,
+  removeAthlete,
+  setAthltes,
+  updateAthlete,
+};
 export default athleteSlice.reducer;
