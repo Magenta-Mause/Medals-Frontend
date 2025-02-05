@@ -2,12 +2,18 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
 import useSidebar from "@hooks/useSidebar";
 import {
+  Article,
+  Assessment,
+  Download,
+  Equalizer,
+  HelpCenter,
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
   Person,
+  PersonAddAlt,
   SearchRounded,
-  Sports,
+  SpaceDashboard
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -28,6 +34,17 @@ import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
 
+const sharedNavBarElements = [
+  {
+    path: "/downloads",
+    icon: <Download />,
+  },
+  {
+    path: "/help",
+    icon: <HelpCenter />,
+  },
+]
+
 const navBarElements = {
 ADMIN: [
   {
@@ -35,13 +52,10 @@ ADMIN: [
     icon: <HomeRounded />,
   },
   {
-    path: "/trainer",
-    icon: <Sports/>
-  },
-  {
     path: "/athletes",
     icon: <PeopleRounded />,
   },
+  ...sharedNavBarElements
 ],
 TRAINER:[
   {
@@ -52,6 +66,15 @@ TRAINER:[
     path: "/athletes",
     icon: <PeopleRounded/>,
   },
+  {
+    path: "/performanceMetric",
+    icon: <Assessment/>,
+  },
+  {
+    path: "/assignAthlete",
+    icon: <PersonAddAlt/>,
+  },
+  ...sharedNavBarElements
 ],
 ATHLETE:[
   {
@@ -59,9 +82,22 @@ ATHLETE:[
     icon: <HomeRounded />,
   },
   {
-    path: "/athlete",
-    icon: <Person />,
+    path: "/dashboard",
+    icon: <SpaceDashboard/>,
   },
+  {
+    path: "/profile",
+    icon: <Person/>,
+  },
+  {
+    path: "/requirements",
+    icon: <Article/>
+  },
+  {
+    path: "/performances",
+    icon: <Equalizer/>,
+  },
+  ...sharedNavBarElements
 ],
 };
 

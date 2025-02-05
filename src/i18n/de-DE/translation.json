@@ -33,7 +33,15 @@
       "logo": "Medals",
       "locationList": {
         "/": "Start",
-        "/athletes": "Athlet*innen"
+        "/athletes": "Athlet*innen",
+        "/performanceMetrics": "Leistungswerte",
+        "/assignAthlete": "Athlet*in zuweisen",
+        "/dashboard": "Dashboard",
+        "/profile": "Profil",
+        "/requirements": "Anforderungen",
+        "/performances": "Leistungen",
+        "/downloads": "Downloads",
+        "/help": "Hilfe"
       },
       "search": "Suchen",
       "languageSelector": "Sprache",
