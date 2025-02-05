@@ -29,10 +29,10 @@ export interface UserEntity {
 }
 
 export interface JwtTokenBody {
-  aud: string;
-  exp: number;
-  iat: number;
-  sub: string;
+  aud: string; // audience claim
+  exp: number; // expiration time claim
+  iat: number; // issued at claim
+  sub: string; // subject claim
   users: UserEntity[] | null;
   tokenType: "IDENTITY_TOKEN" | "REFRESH_TOKEN";
 }
