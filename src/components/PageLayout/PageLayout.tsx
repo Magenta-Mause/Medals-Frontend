@@ -1,5 +1,5 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import CustomBreadcrumbs from "@components/CustomBreadcrumbs/Breadcrumbs";
+import CustomBreadcrumbs from "@components/CustomBreadcrumbs/CustomBreadcrumbs";
 import Header from "@components/Header/Header";
 import NavBar from "@components/NavBar/NavBar";
 import { Box } from "@mui/joy";
