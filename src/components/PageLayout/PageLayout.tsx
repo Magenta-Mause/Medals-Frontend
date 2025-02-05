@@ -15,7 +15,6 @@ const PageLayout = () => {
     }
   }, [authorized, selectedUser, navigate]);
 
-  console.log("rerendering");
   return (
     <Box sx={{ display: "flex", minHeight: "100dvh" }}>
       <Header />

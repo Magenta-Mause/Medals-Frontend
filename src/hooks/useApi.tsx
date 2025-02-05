@@ -1,7 +1,7 @@
 import { Athlete } from "@customTypes/bffTypes";
 import { useCallback } from "react";
 import config from "../../app.config.json";
-import useAxiosInstance from "../api/axiosInstance";
+import useAxiosInstance from "./useAxiosInstance";
 
 const useApi = () => {
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);

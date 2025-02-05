@@ -200,6 +200,9 @@ const SetPasswordPage = () => {
                     ))}
                   </List>
                 </Typography>
+                <Typography level="body-xs" color="neutral">
+                  * Constraint is required
+                </Typography>
               </FormControl>
               <Stack sx={{ gap: 4 }}>
                 <Button

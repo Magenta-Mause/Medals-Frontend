@@ -86,8 +86,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       setAuthorized(true);
       processJwtToken(token);
       return token;
-    } catch (error) {
-      console.error("Failed to refresh token", error);
+    } catch {
       setIdentityToken(null);
       setAuthorized(false);
       return null;
