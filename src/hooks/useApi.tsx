@@ -36,6 +36,27 @@ const useApi = () => {
     }
   };
 
+  const createAthlete = async (athleteData: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    birthdate: string;
+    gender: string;
+  }) => {
+    try {
+      const response = await axiosInstance.post(`/athletes`, {
+        first_name: athleteData.firstname,
+        last_name: athleteData.lastname,
+        email: athleteData.email,
+        birthdate: athleteData.birthdate,
+        gender: athleteData.gender,
+      });
+      console.log("Response:", response.data); // Handle response data
+    } catch (error) {
+      console.error("Error:", error); // Handle error
+    }
+  };
+
   const loginUser = useCallback(
     async (email: string, password: string) => {
       const request = await axiosInstance!.post(
@@ -97,6 +118,7 @@ const useApi = () => {
     getAthlete,
     getAthletes,
     setPassword,
+    createAthlete,
   };
 };
 
