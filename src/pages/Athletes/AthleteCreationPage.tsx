@@ -1,5 +1,5 @@
 import { Box, FormControl, FormLabel, Input, Radio, RadioGroup, Select, Option, Typography, Button } from "@mui/joy";
-import * as React from 'react';
+import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { createAthlete } from "@api/APIService";
 
@@ -8,7 +8,7 @@ interface Athlete {
   lastname: string;
   email: string;
   birthdate: string;
-  gender: string
+  gender: string;
 }
 
 
@@ -20,15 +20,16 @@ const AthleteCreationForm = () => {
   const [lname, setlname] = React.useState("");
   const [email, setemail] = React.useState("");
   const [birthdate, setbirthdate] = React.useState("");
-  const [valid, setvalid] = React.useState(true)
+  const [valid, setvalid] = React.useState(true);
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const isValidEmail = (email: string) => emailRegex.test(email);
 
+
   React.useEffect(() => {
-    setvalid(isAccepted())
-  })
+    setvalid(isAccepted());
+  }),[]
 
 
   const newAthlete: Athlete = {
@@ -43,16 +44,16 @@ const AthleteCreationForm = () => {
 
   const isAccepted = () => {
     if (fname.length > 255 || fname.length === 0) {
-      return true
+      return true;
     }
     if (lname.length > 255 || lname.length === 0) {
-      return true
+      return true;
     }
     if (!isValidEmail(email)) {
-      return true
+      return true;
     }
     if (birthdate === "tt.mm.jjjj" || birthdate === "") {
-      return true
+      return true;
     }
     return false;
   }
@@ -70,7 +71,7 @@ const AthleteCreationForm = () => {
   return (
     <div>
       <Typography level="h2" component="h1">
-        {t("pages.athleteOverviewPage.createButton")}
+        {t("pages.athleteOverviewPage.createButton")};
       </Typography>
 
       <Input

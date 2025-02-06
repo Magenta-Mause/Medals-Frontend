@@ -3,7 +3,7 @@ import { Box, Button, Modal, ModalClose, Sheet, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
 import AthleteCreationForm from "./AthleteCreationPage";
-import React, { useState } from 'react'
+import React, { useState } from "react"
 import { useNavigate } from "react-router";
 
 const AthleteOverviewPage = () => {
