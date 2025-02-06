@@ -34,12 +34,14 @@ const deleteAthlete = async (athleteId: number) => {
 const createAthlete = async (athleteData: { firstname: string; lastname:string; email: string; birthdate: string; gender:string }) => {
   const axiosInstance = getAxiosInstance();
   try{
-    const response = await axiosInstance.post(`/athletes/`, {
+    const response = await axiosInstance.post(`/athletes`, {
         first_name: athleteData.firstname,
         last_name: athleteData.lastname,
         email: athleteData.email,
         birthdate: athleteData.birthdate,
-        gender: athleteData.gender
+        gender: athleteData.gender,
+       
+      
     });
     console.log("Response:", response.data); // Handle response data
   } catch (error) {
