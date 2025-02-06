@@ -1,4 +1,12 @@
-import { Box, FormControl, FormLabel, Input, Radio, RadioGroup, Select, Option, Typography, Button } from "@mui/joy";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Radio,
+  RadioGroup,
+  Typography,
+  Button,
+} from "@mui/joy";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import useApi from "@hooks/useApi";
@@ -11,8 +19,6 @@ interface Athlete {
   gender: string;
 }
 
-
-
 const AthleteCreationForm = () => {
   const { t } = useTranslation();
   const [gender, setgender] = React.useState("female");
@@ -21,17 +27,16 @@ const AthleteCreationForm = () => {
   const [email, setemail] = React.useState("");
   const [birthdate, setbirthdate] = React.useState("");
   const [valid, setvalid] = React.useState(true);
-  const {createAthlete} = useApi();
+  const { createAthlete } = useApi();
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const isValidEmail = (email: string) => emailRegex.test(email);
 
-
   React.useEffect(() => {
     setvalid(isAccepted());
-  }),[]
-
+  }),
+    [];
 
   const newAthlete: Athlete = {
     firstname: fname,
@@ -40,8 +45,6 @@ const AthleteCreationForm = () => {
     email: email,
     gender: gender,
   };
-
-
 
   const isAccepted = () => {
     if (fname.length > 255 || fname.length === 0) {
@@ -57,9 +60,7 @@ const AthleteCreationForm = () => {
       return true;
     }
     return false;
-  }
-
-
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setgender(event.target.value);
@@ -67,7 +68,7 @@ const AthleteCreationForm = () => {
 
   const createAth = (newAthlete: Athlete) => {
     createAthlete(newAthlete);
-  }
+  };
 
   return (
     <div>
@@ -79,7 +80,7 @@ const AthleteCreationForm = () => {
         sx={{
           width: "30vw",
           marginTop: "8vh",
-          marginBottom: "2vh"
+          marginBottom: "2vh",
         }}
         color="neutral"
         size="lg"
@@ -92,7 +93,7 @@ const AthleteCreationForm = () => {
         sx={{
           width: "30vw",
           marginTop: "2vh",
-          marginBottom: "2vh"
+          marginBottom: "2vh",
         }}
         color="neutral"
         size="lg"
@@ -105,7 +106,7 @@ const AthleteCreationForm = () => {
         sx={{
           width: "30vw",
           marginTop: "2vh",
-          marginBottom: "2vh"
+          marginBottom: "2vh",
         }}
         color="neutral"
         size="lg"
@@ -115,22 +116,20 @@ const AthleteCreationForm = () => {
         onChange={(e) => setemail(e.target.value)}
       />
 
-
       <Input
         sx={{
           width: "30vw",
-          marginBottom: "2vh"
+          marginBottom: "2vh",
         }}
         type="date"
         slotProps={{
           input: {
-            min: "1900-01-01"
+            min: "1900-01-01",
           },
         }}
         value={birthdate}
         onChange={(e) => setbirthdate(e.target.value)}
       />
-
 
       <FormControl>
         <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
@@ -147,26 +146,21 @@ const AthleteCreationForm = () => {
         </RadioGroup>
       </FormControl>
 
-      <Button disabled={valid}
+      <Button
+        disabled={valid}
         sx={{
-          marginTop: "10vh"
+          marginTop: "10vh",
         }}
         onClick={() => {
-          { createAth(newAthlete) }
-        }}>
+          {
+            createAth(newAthlete);
+          }
+        }}
+      >
         {t("pages.athleteOverviewPage.createButton")}
       </Button>
-
-
-
-
-
-
-
-
     </div>
   );
-
-}
+};
 
 export default AthleteCreationForm;

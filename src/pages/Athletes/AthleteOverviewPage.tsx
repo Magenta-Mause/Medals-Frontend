@@ -3,15 +3,13 @@ import { Box, Button, Modal, ModalClose, Sheet, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
 import AthleteCreationForm from "./AthleteCreationPage";
-import React, { useState } from "react"
+import React, { useState } from "react";
 
 const AthleteOverviewPage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
   const athleteState = useTypedSelector((state) => state.athletes.state);
   const { t } = useTranslation();
   const [open, setOpen] = useState(Boolean);
-
-
 
   return (
     <>
@@ -31,7 +29,11 @@ const AthleteOverviewPage = () => {
         </Typography>
 
         <React.Fragment>
-          <Button variant="outlined" color="neutral" onClick={() => setOpen(true)}>
+          <Button
+            variant="outlined"
+            color="neutral"
+            onClick={() => setOpen(true)}
+          >
             {t("pages.athleteOverviewPage.createButton")}
           </Button>
           <Modal
@@ -39,7 +41,11 @@ const AthleteOverviewPage = () => {
             aria-describedby="modal-desc"
             open={open}
             onClose={() => setOpen(false)}
-            sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <Sheet
               variant="outlined"
@@ -52,9 +58,7 @@ const AthleteOverviewPage = () => {
                 level="h4"
                 textColor="inherit"
                 sx={{ fontWeight: "lg", mb: 1 }}
-              >
-
-              </Typography>
+              ></Typography>
               <Typography id="modal-desc" textColor="text.tertiary">
                 <AthleteCreationForm></AthleteCreationForm>
               </Typography>
