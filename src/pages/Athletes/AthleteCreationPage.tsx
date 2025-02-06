@@ -15,7 +15,7 @@ interface Athlete {
 
 const AthleteCreationForm = () => {
   const { t } = useTranslation();
-  const [gender, setgender] = React.useState('female');
+  const [gender, setgender] = React.useState("female");
   const [fname, setfname] = React.useState("");
   const [lname, setlname] = React.useState("");
   const [email, setemail] = React.useState("");
@@ -76,9 +76,9 @@ const AthleteCreationForm = () => {
 
       <Input
         sx={{
-          width: '30vw',
-          marginTop: '8vh',
-          marginBottom: '2vh'
+          width: "30vw",
+          marginTop: "8vh",
+          marginBottom: "2vh"
         }}
         color="neutral"
         size="lg"
@@ -89,9 +89,9 @@ const AthleteCreationForm = () => {
       />
       <Input
         sx={{
-          width: '30vw',
-          marginTop: '2vh',
-          marginBottom: '2vh'
+          width: "30vw",
+          marginTop: "2vh",
+          marginBottom: "2vh"
         }}
         color="neutral"
         size="lg"
@@ -102,9 +102,9 @@ const AthleteCreationForm = () => {
       />
       <Input
         sx={{
-          width: '30vw',
-          marginTop: '2vh',
-          marginBottom: '2vh'
+          width: "30vw",
+          marginTop: "2vh",
+          marginBottom: "2vh"
         }}
         color="neutral"
         size="lg"
@@ -117,13 +117,13 @@ const AthleteCreationForm = () => {
 
       <Input
         sx={{
-          width: '30vw',
-          marginBottom: '2vh'
+          width: "30vw",
+          marginBottom: "2vh"
         }}
         type="date"
         slotProps={{
           input: {
-            min: '1900-01-01'
+            min: "1900-01-01"
           },
         }}
         value={birthdate}
@@ -148,7 +148,7 @@ const AthleteCreationForm = () => {
 
       <Button disabled={valid}
         sx={{
-          marginTop: '10vh'
+          marginTop: "10vh"
         }}
         onClick={() => {
           { createAth(newAthlete) }

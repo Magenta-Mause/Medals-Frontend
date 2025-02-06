@@ -4,13 +4,11 @@ import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
 import AthleteCreationForm from "./AthleteCreationPage";
 import React, { useState } from "react"
-import { useNavigate } from "react-router";
 
 const AthleteOverviewPage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
   const athleteState = useTypedSelector((state) => state.athletes.state);
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [open, setOpen] = useState(Boolean);
 
 
@@ -41,11 +39,11 @@ const AthleteOverviewPage = () => {
             aria-describedby="modal-desc"
             open={open}
             onClose={() => setOpen(false)}
-            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
           >
             <Sheet
               variant="outlined"
-              sx={{ maxWidth: 1000, borderRadius: 'md', p: 3, boxShadow: 'lg' }}
+              sx={{ maxWidth: 1000, borderRadius: "md", p: 3, boxShadow: "lg" }}
             >
               <ModalClose variant="plain" sx={{ m: 1 }} />
               <Typography
@@ -53,7 +51,7 @@ const AthleteOverviewPage = () => {
                 id="modal-title"
                 level="h4"
                 textColor="inherit"
-                sx={{ fontWeight: 'lg', mb: 1 }}
+                sx={{ fontWeight: "lg", mb: 1 }}
               >
 
               </Typography>
