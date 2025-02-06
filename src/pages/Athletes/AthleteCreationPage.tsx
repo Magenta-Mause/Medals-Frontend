@@ -1,7 +1,7 @@
 import { Box, FormControl, FormLabel, Input, Radio, RadioGroup, Select, Option, Typography, Button } from "@mui/joy";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { createAthlete } from "@api/APIService";
+import useApi from "@hooks/useApi";
 
 interface Athlete {
   firstname: string;
@@ -21,6 +21,7 @@ const AthleteCreationForm = () => {
   const [email, setemail] = React.useState("");
   const [birthdate, setbirthdate] = React.useState("");
   const [valid, setvalid] = React.useState(true);
+  const {createAthlete} = useApi();
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
