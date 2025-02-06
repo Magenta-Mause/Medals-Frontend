@@ -24,6 +24,10 @@
     "inDevelopment": {
       "h1": "404",
       "h2": "Seite in der Entwicklung"
+    },
+    "userRoleError": {
+      "h1": "401",
+      "h2": "Keine berechtigte Rolle vorhanden"
     }
   },
   "components": {
@@ -38,6 +42,7 @@
       "locationList": {
         "/": "Start",
         "/athletes": "Athlet*innen",
+        "/trainer": "Trainer*innen",
         "/performanceMetrics": "Leistungswerte",
         "/assignAthlete": "Athlet*in zuweisen",
         "/dashboard": "Dashboard",

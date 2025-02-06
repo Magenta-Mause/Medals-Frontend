@@ -13,7 +13,7 @@ import {
   Person,
   PersonAddAlt,
   SearchRounded,
-  SpaceDashboard
+  SpaceDashboard,
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -31,7 +31,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import { matchPath, useLocation, useNavigate } from "react-router";
+import { matchPath, Navigate, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
 
 const sharedNavBarElements = [
@@ -43,7 +43,7 @@ const sharedNavBarElements = [
     path: "/help",
     icon: <HelpCenter />,
   },
-]
+];
 
 const navBarElements = {
 ADMIN: [
@@ -52,7 +52,7 @@ ADMIN: [
     icon: <HomeRounded />,
   },
   {
-    path: "/athletes",
+    path: "/trainer",
     icon: <PeopleRounded />,
   },
   ...sharedNavBarElements
@@ -67,7 +67,7 @@ TRAINER:[
     icon: <PeopleRounded/>,
   },
   {
-    path: "/performanceMetric",
+    path: "/performanceMetrics",
     icon: <Assessment/>,
   },
   {
@@ -108,6 +108,10 @@ const NavBar = () => {
   const { t } = useTranslation();
   const warning = undefined;
   const userRole = "ATHLETE";
+
+  if (!userRole || !navBarElements[userRole]) {
+    return <Navigate to="/userRoleErrorPage"/>;
+  }
 
   return (
     <Sheet

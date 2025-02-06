@@ -24,6 +24,10 @@
     "inDevelopment": {
       "h1": "404",
       "h2": "Page in development"
+    },
+    "userRoleError": {
+      "h1": "401",
+      "h2": "No valid Role found"
     }
   },
   "components": {
@@ -38,6 +42,7 @@
       "locationList": {
         "/": "Home",
         "/athletes": "Athletes",
+        "/trainer": "Trainer",
         "/performanceMetrics": "Performance Metrics",
         "/assignAthlete": "Assign Athlete",
         "/dashboard": "Dashboard",
