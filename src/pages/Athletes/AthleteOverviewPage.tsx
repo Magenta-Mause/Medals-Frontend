@@ -61,15 +61,6 @@ const AthleteOverviewPage = () => {
             </Sheet>
           </Modal>
         </React.Fragment>
-
-
-
-
-
-
-
-
-
       </Box>
       <AthleteDatagrid
         athletes={athletes}

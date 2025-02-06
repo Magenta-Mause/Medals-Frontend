@@ -6,9 +6,9 @@ import {
   LogoutRounded,
   PeopleRounded,
   SearchRounded,
+  SupervisedUserCircleOutlined,
 } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
   Divider,
   GlobalStyles,
@@ -25,6 +25,9 @@ import {
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
+import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
+import { useContext } from "react";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
 const navBarElements = [
   {
@@ -43,6 +46,8 @@ const NavBar = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const warning = undefined;
+  const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
+    useContext(AuthContext);
 
   return (
     <Sheet
@@ -102,8 +107,8 @@ const NavBar = () => {
         onClick={() => collapseSidebar()}
       />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <IconButton variant="soft" color="primary" size="sm">
-          <Typography fontSize={"1.2rem"}>🥇</Typography>
+        <IconButton variant="soft" color="primary" size="sm" sx={{ p: 0.5 }}>
+          <MedalsIcon size="inline" />
         </IconButton>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
@@ -177,14 +182,28 @@ const NavBar = () => {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <Avatar variant="outlined" size="sm" />
         <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography level="title-sm">Max Musterman</Typography>
+          <Typography level="title-sm">
+            {selectedUser?.first_name} {selectedUser?.last_name}
+          </Typography>
           <Typography level="body-xs" noWrap>
-            max.musterman@gmail.com
+            {email}
           </Typography>
         </Box>
-        <IconButton size="sm" variant="plain" color="neutral">
+        {(authorizedUsers?.length ?? 0) > 1 ? (
+          <IconButton
+            about="Switch user"
+            onClick={() => {
+              setSelectedUser(null);
+              navigate("/login");
+            }}
+          >
+            <SupervisedUserCircleOutlined />
+          </IconButton>
+        ) : (
+          <></>
+        )}
+        <IconButton size="sm" variant="plain" color="neutral" onClick={logout}>
           <LogoutRounded />
         </IconButton>
       </Box>
