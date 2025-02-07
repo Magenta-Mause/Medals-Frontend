@@ -46,59 +46,59 @@ const sharedNavBarElements = [
 ];
 
 const navBarElements = {
-    ADMIN:[
-      {
-        path: "/",
-        icon: <HomeRounded  />,
-      },
-      {
-        path: "/trainer",
-        icon: <PeopleRounded />,
-      },
-      ...sharedNavBarElements,
-    ],
-    TRAINER:[
-      {
-        path: "/",
-        icon: <HomeRounded />,
-      },
-      {
-        path: "/athletes",
-        icon: <PeopleRounded />,
-      },
-      {
-        path: "/performanceMetrics",
-        icon: <Assessment />,
-      },
-      {
-        path: "/assignAthlete",
-        icon: <PersonAddAlt />,
-      },
-      ...sharedNavBarElements,
-    ],
-    ATHLETE:[
-      {
-        path: "/",
-        icon: <HomeRounded />,
-      },
-      {
-        path: "/dashboard",
-        icon: <SpaceDashboard />,
-      },
-      {
-        path: "/profile",
-        icon: <Person />,
-      },
-      {
-        path: "/requirements",
-        icon: <Article />
-      },
-      {
-        path: "/performances",
-        icon: <Equalizer />,
-      },
-      ...sharedNavBarElements,
-    ],
+  ADMIN: [
+    {
+      path: "/",
+      icon: <HomeRounded />,
+    },
+    {
+      path: "/trainer",
+      icon: <PeopleRounded />,
+    },
+    ...sharedNavBarElements,
+  ],
+  TRAINER: [
+    {
+      path: "/",
+      icon: <HomeRounded />,
+    },
+    {
+      path: "/athletes",
+      icon: <PeopleRounded />,
+    },
+    {
+      path: "/performanceMetrics",
+      icon: <Assessment />,
+    },
+    {
+      path: "/assignAthlete",
+      icon: <PersonAddAlt />,
+    },
+    ...sharedNavBarElements,
+  ],
+  ATHLETE: [
+    {
+      path: "/",
+      icon: <HomeRounded />,
+    },
+    {
+      path: "/dashboard",
+      icon: <SpaceDashboard />,
+    },
+    {
+      path: "/profile",
+      icon: <Person />,
+    },
+    {
+      path: "/requirements",
+      icon: <Article />
+    },
+    {
+      path: "/performances",
+      icon: <Equalizer />,
+    },
+    ...sharedNavBarElements,
+  ],
 };
 
 const NavBar = () => {
