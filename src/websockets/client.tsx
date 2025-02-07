@@ -6,7 +6,7 @@ const initiateClient = (onConnect: (client: Client) => void) => {
   const client = new Client({
     brokerURL: config.backendBrokerUrl,
     connectHeaders: {},
-    debug: console.log,
+    debug: () => {},
     reconnectDelay: 5000,
     webSocketFactory: () => new SockJS(config.websocketFactory),
   });

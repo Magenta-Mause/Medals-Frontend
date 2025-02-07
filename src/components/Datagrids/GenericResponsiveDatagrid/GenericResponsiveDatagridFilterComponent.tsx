@@ -1,12 +1,12 @@
 import { Search } from "@mui/icons-material";
 import {
+  Button,
   FormControl,
   FormLabel,
-  Select,
-  ToggleButtonGroup,
-  Button,
   Input,
   Option,
+  Select,
+  ToggleButtonGroup,
 } from "@mui/joy";
 import React from "react";
 
@@ -68,7 +68,6 @@ const FilterComponent = <T,>(props: {
             <ToggleButtonGroup
               value={[props.filterValues[filter.name] == "1" ? "button" : ""]}
               onChange={(_event, newValue) => {
-                console.log(newValue);
                 if (newValue.includes("button")) {
                   props.setFilter(filter.name, "1");
                 } else {

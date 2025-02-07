@@ -9,6 +9,20 @@
     "MALE": "Male",
     "": "All"
   },
+  "userTypes": {
+    "ATHLETE": "Athlete",
+    "TRAINER": "Trainer",
+    "ADMIN": "Admin"
+  },
+  "snackbar": {
+    "login": {
+      "loginFailed": "Login failed"
+    },
+    "setPassword": {
+      "failed": "Failed to set password",
+      "success": "Password successfully set"
+    }
+  },
   "pages": {
     "homePage": {
       "h1": "Medals",
@@ -28,6 +42,34 @@
     "userRoleError": {
       "h1": "401",
       "h2": "No valid Role found"
+    },
+    "loginPage": {
+      "logo": "Medals",
+      "signIn": {
+        "header": "Login",
+        "subheader": "Medals - The soon to be Medal Management System",
+        "input": {
+          "email": "Email",
+          "password": "Password"
+        },
+        "forgotPassword": "Forgot password?",
+        "rememberMe": "Remember me",
+        "submit": "Login",
+        "loginFailedWarning": "Login failed",
+        "logoutButton": "Logout",
+        "loading": "Loading..."
+      }
+    },
+    "setPasswordPage": {
+      "header": "Configure your Password",
+      "subheader": "Please configure your password to use your account",
+      "invalidCode": "Ungültiger Code",
+      "form": {
+        "passwordLabel": "Password",
+        "submit": "Set Password",
+        "loading": "Loading...",
+        "goToLogin": "Go to login"
+      }
     }
   },
   "components": {
@@ -97,6 +139,13 @@
     "buttons": {
       "next": "Next",
       "previous": "Previous"
+    },
+    "passwordStrengthIndicator": {
+      "is8Characters": "Password is at least 8 characters long",
+      "hasNumber": "Password contains a number",
+      "hasUpperCase": "Password contains an uppercase letter",
+      "hasSpecial": "Password contains a special character",
+      "required": "Required"
     }
   }
 }
