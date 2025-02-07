@@ -1,5 +1,4 @@
 import { Box } from "@mui/joy";
-import { usePdfFiles } from "./PdfFiles";
 import {
   AspectRatio,
   Card,
@@ -24,7 +23,7 @@ const DownloadCard = (props: DownloadCardProps) => {
     link.download = pdfPath.split("/").pop() || "download.pdf";
     link.click();
   };
-  const pdfFiles = usePdfFiles();
+
   return (
     <Box>
       <Card variant="outlined" sx={{ width: 320 }}>
