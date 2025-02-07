@@ -37,15 +37,6 @@
     },
     "downloadPage": {
       "header": "Downloads",
-      "filenames": {
-        "dsa_achievement_2020": "Leistungsnachweis 2020",
-        "dsa_achievement_2023": "Leistungsnachweis 2023",
-        "dsa_achievement_2024": "Leistungsnachweis 2024",
-        "dsa_achievement_2025": "Leistungsnachweis 2025",
-        "dsa_swimming": "Schwimmnachweis",
-        "dsa_single_test_card": "Einzelprüfkarten",
-        "dsa_group_test_card": "Gruppenprüfkarten"
-      },
       "downloadButton": "Herunterladen",
       "headerText": "Hier findest du alle ab 1. Januar 2025 gültigen Materialien"
     },
