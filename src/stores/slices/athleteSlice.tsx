@@ -1,19 +1,11 @@
-import { getAthletes } from "@api/APIService";
 import { Athlete } from "@customTypes/bffTypes";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AthleteSliceState {
   data: Athlete[];
   state: "idle" | "loading" | "failed";
   error: string | null;
 }
-
-const fetchInitialState = createAsyncThunk(
-  "athleteSlice/fetchInitialState",
-  async () => {
-    return await getAthletes();
-  },
-);
 
 const athleteSlice = createSlice({
   name: "athleteSlice",
@@ -37,27 +29,14 @@ const athleteSlice = createSlice({
     removeAthlete(state, action: PayloadAction<{ id: number }>) {
       state.data = state.data.filter((item) => item.id !== action.payload.id);
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchInitialState.pending, (state) => {
-        state.state = "loading";
-      })
-      .addCase(
-        fetchInitialState.fulfilled,
-        (state, action: PayloadAction<Athlete[] | undefined>) => {
-          state.state = "idle";
-          if (action.payload == undefined) {
-            console.error("Error while fetching ");
-          } else {
-            state.data = action.payload ?? [];
-          }
-        },
-      );
+    setAthltes(state, action: PayloadAction<Athlete[]>) {
+      state.data = action.payload;
+    },
   },
 });
 
-const { addAthlete, updateAthlete, removeAthlete } = athleteSlice.actions;
+const { addAthlete, updateAthlete, removeAthlete, setAthltes } =
+  athleteSlice.actions;
 
-export { addAthlete, fetchInitialState, removeAthlete, updateAthlete };
+export { addAthlete, removeAthlete, setAthltes, updateAthlete };
 export default athleteSlice.reducer;

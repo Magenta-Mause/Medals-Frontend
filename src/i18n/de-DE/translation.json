@@ -9,6 +9,20 @@
     "MALE": "Männlich",
     "": "Alle"
   },
+  "userTypes": {
+    "ATHLETE": "Athlet*in",
+    "TRAINER": "Trainer*in",
+    "ADMIN": "Admin"
+  },
+  "snackbar": {
+    "login": {
+      "loginFailed": "Login fehlgeschlagen"
+    },
+    "setPassword": {
+      "failed": "Password setzen fehlgeschlagen",
+      "success": "Passwort erfolgreich gesetzt"
+    }
+  },
   "pages": {
     "homePage": {
       "h1": "Medals",
@@ -34,6 +48,35 @@
       },
       "downloadButton": "Herunterladen",
       "headerText": "Hier findest du alle ab 1. Januar 2025 gültigen Materialien"
+    },
+    "loginPage": {
+      "logo": "Medals",
+      "signIn": {
+        "header": "Anmelden",
+        "subheader": "Medals - Das Medaillen Management System der Zukunft",
+        "input": {
+          "email": "E-Mail",
+          "password": "Passwort"
+        },
+        "forgotPassword": "Passwort vergessen?",
+        "rememberMe": "Login speichern",
+        "submit": "Anmelden",
+        "loginFailedWarning": "Anmeldung fehlgeschlagen",
+        "logoutButton": "Abmelden",
+        "loading": "Lädt..."
+      }
+    },
+    "setPasswordPage": {
+      "header": "Konfiguriere dein Passwort",
+      "subheader": "Konfiguriere dein Passwort um deinen Account zu nutzen",
+      "invalidCode": "Ungültiger Code",
+      "form": {
+        "passwordLabel": "Passwort",
+        "submit": "Passwort setzen",
+        "loading": "Lädt...",
+        "success": "Passwort erfolgreich gesetzt",
+        "goToLogin": "Weiter zur Anmeldung"
+      }
     }
   },
   "components": {
@@ -96,6 +139,13 @@
     "buttons": {
       "next": "Nächstes",
       "previous": "Vorheriges"
+    },
+    "passwordStrengthIndicator": {
+      "is8Characters": "Passwort ist mindestens 8 Zeichen lang",
+      "hasNumber": "Passwort enthält eine Zahl",
+      "hasUpperCase": "Passwort enthält einen Großbuchstaben",
+      "hasSpecial": "Passwort enthält ein Sonderzeichen",
+      "required": "Verpflichtend"
     }
   }
 }
