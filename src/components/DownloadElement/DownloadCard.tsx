@@ -1,9 +1,11 @@
-import AspectRatio from "@mui/joy/AspectRatio";
-import Card from "@mui/joy/Card";
-import CardContent from "@mui/joy/CardContent";
-import CardOverflow from "@mui/joy/CardOverflow";
-import Typography from "@mui/joy/Typography";
-import Link from "@mui/joy/Link";
+import {
+  AspectRatio,
+  Card,
+  CardContent,
+  CardOverflow,
+  Typography,
+  Link,
+} from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
 interface DownloadCardProps {
