@@ -10,12 +10,15 @@ import {
 import { useTranslation } from "react-i18next";
 
 interface DownloadCardProps {
-  title: string;
   path: string;
   image: string;
 }
 
 const DownloadCard = (props: DownloadCardProps) => {
+  const title = props.path
+    .replace("DSA_", "")
+    .replace(".pdf", "")
+    .replace(/_/g, " ");
   const { t } = useTranslation();
   const handleDownload = (pdfPath: string) => {
     const link = document.createElement("a");
@@ -34,7 +37,7 @@ const DownloadCard = (props: DownloadCardProps) => {
         </CardOverflow>
         <CardContent>
           <Typography level="title-md" fontWeight={"bold"}>
-            {props.title}
+            {title}
           </Typography>
           <Typography level="body-sm">
             <Link
