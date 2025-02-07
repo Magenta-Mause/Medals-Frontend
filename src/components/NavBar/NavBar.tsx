@@ -107,7 +107,7 @@ const NavBar = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const warning = undefined;
-  const userRole = "ATHLETE";
+  const userRole = "TRAINER";
 
   if (!userRole || !navBarElements[userRole]) {
     return <Navigate to="/userRoleErrorPage"/>;

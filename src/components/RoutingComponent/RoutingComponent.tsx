@@ -4,25 +4,45 @@ import HomePage from "@pages/Home/HomePage";
 import InDevelopmentPage from "@pages/InDevelopment/InDevelopmentPage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
+import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import { Route, Routes } from "react-router";
 
 const RoutingComponent = () => {
+  const userRole="TRAINER";
   return (
     <Routes>
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="/athletes" element={<AthleteOverviewPage />} />
-        <Route path="/trainer" element={<InDevelopmentPage/>} />
-        <Route path="/performanceMetric" element={<InDevelopmentPage />} />
-        <Route path="/assignAthlete" element={<InDevelopmentPage />} />
-        <Route path="/dashboard" element={<InDevelopmentPage />} />
-        <Route path="/profile" element={<InDevelopmentPage />} />
-        <Route path="/requirements" element={<InDevelopmentPage />} />
-        <Route path="/performances" element={<InDevelopmentPage />} />
-        <Route path="/downloads" element={<InDevelopmentPage />} />
-        <Route path="/help" element={<InDevelopmentPage />} />
-        <Route path="/userRoleErrorPage" element={<UserRoleErrorPage/>} />
+
+        {/* ADMIN */}
+        <Route element={<ProtectedRoute userRole={userRole} />}>
+          <Route path="/trainer" element={<InDevelopmentPage />} />
+        </Route>
+
+        {/* TRAINER */}
+        <Route element={<ProtectedRoute userRole={userRole} />}>
+          <Route path="/athletes" element={<AthleteOverviewPage />} />
+          <Route path="/performanceMetrics" element={<InDevelopmentPage />} />
+          <Route path="/assignAthlete" element={<InDevelopmentPage />} />
+        </Route>
+
+        {/* ATHLETE */}
+        <Route element={<ProtectedRoute userRole={userRole} />}>
+          <Route path="/dashboard" element={<InDevelopmentPage />} />
+          <Route path="/profile" element={<InDevelopmentPage />} />
+          <Route path="/requirements" element={<InDevelopmentPage />} />
+          <Route path="/performances" element={<InDevelopmentPage />} />
+        </Route>
+
+        {/* Gemeinsame Seiten */}
+        <Route element={<ProtectedRoute userRole={userRole} />}>
+          <Route path="/downloads" element={<InDevelopmentPage />} />
+          <Route path="/help" element={<InDevelopmentPage />} />
+        </Route>
+
+        {/* Error Pages */}
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/userRoleErrorPage" element={<UserRoleErrorPage/>} />
       </Route>
     </Routes>
   );
