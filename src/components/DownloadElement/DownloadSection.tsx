@@ -3,7 +3,7 @@ import { usePdfFiles } from "./PdfFiles";
 import DownloadCard from "@components/DownloadElement/DownloadCard";
 
 const DownloadFormat = () => {
-  var pdfFiles = usePdfFiles();
+  const pdfFiles = usePdfFiles();
   return (
     <Box
       sx={{
