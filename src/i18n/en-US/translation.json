@@ -22,21 +22,34 @@
       "h2": "Page not found"
     },
     "downloadPage": {
-      "h1": "Downloads"
+      "header": "Downloads",
+      "filenames": {
+        "dsa_achievement_2020": "Performance record 2020",
+        "dsa_achievement_2023": "Performance record 2023",
+        "dsa_achievement_2024": "Performance record 2024",
+        "dsa_achievement_2025": "Performance record 2025",
+        "dsa_swimming": "Swimming record",
+        "dsa_single_test_card": "Individual report card",
+        "dsa_group_test_card": "Group report card"
+      },
+      "downloadButton": "Download",
+      "headerText": "Here you can find all materials valid from 1 January 2025"
     }
   },
   "components": {
     "breadcrumbs": {
       "paths": {
         "/": "Home",
-        "/athletes": "Athletes"
+        "/athletes": "Athletes",
+        "/downloads": "Downloads"
       }
     },
     "navbar": {
       "logo": "Medals",
       "locationList": {
         "/": "Home",
-        "/athletes": "Athletes"
+        "/athletes": "Athletes",
+        "/downloads": "Downloads"
       },
       "search": "Search",
       "languageSelector": "Language",
