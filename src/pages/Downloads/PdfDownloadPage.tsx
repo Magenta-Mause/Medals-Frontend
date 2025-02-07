@@ -1,11 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { Box, Typography } from "@mui/joy";
-import DownloadFormat from "components/DownloadElement/DownloadSection";
+import { usePdfFiles } from "@components/DownloadCard/PdfFiles";
+import DownloadCard from "@components/DownloadCard/DownloadCard";
 
 const DownloadPage = () => {
+  const pdfFiles = usePdfFiles();
   const { t } = useTranslation();
   return (
-    <>
+    <Box>
       <Box
         sx={{
           display: "flex",
@@ -24,9 +26,22 @@ const DownloadPage = () => {
       <Box sx={{ marginBottom: "40px" }}>
         <Typography>{t("pages.downloadPage.headerText")}</Typography>
       </Box>
-
-      <DownloadFormat />
-    </>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "1fr 1fr",
+            md: "1fr 1fr 1fr",
+          },
+          gap: 7,
+        }}
+      >
+        {pdfFiles.map((pdf) => (
+          <DownloadCard title={pdf.title} path={pdf.path} image={pdf.image} />
+        ))}
+      </Box>
+    </Box>
   );
 };
 
