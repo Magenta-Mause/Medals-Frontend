@@ -16,7 +16,7 @@ interface DownloadCardProps {
   image: string;
 }
 
-const DownloadSection = (props: DownloadCardProps) => {
+const DownloadCard = (props: DownloadCardProps) => {
   const { t } = useTranslation();
   const handleDownload = (pdfPath: string) => {
     const link = document.createElement("a");
@@ -51,4 +51,4 @@ const DownloadSection = (props: DownloadCardProps) => {
   );
 };
 
-export default DownloadSection;
+export default DownloadCard;
