@@ -4,32 +4,32 @@ import DownloadCard from "@components/DownloadCard/DownloadCard";
 
 const pdfFiles = [
   {
-    path: "/assets/pdfs/DSA_Einzelpruefkarte_2025.pdf",
-    image: "/assets/images/downloadPage/single.jpg",
+    path: "DSA_Einzelpruefkarte_2025.pdf",
+    image: "single.jpg",
   },
   {
-    path: "/assets/pdfs/DSA_Gruppenpruefkarte_2025.pdf",
-    image: "/assets/images/downloadPage/team.jpg",
+    path: "DSA_Gruppenpruefkarte_2025.pdf",
+    image: "team.jpg",
   },
   {
-    path: "/assets/pdfs/DSA-Schwimmnachweis_2025.pdf",
-    image: "/assets/images/downloadPage/swimming.jpg",
+    path: "DSA-Schwimmnachweis_2025.pdf",
+    image: "swimming.jpg",
   },
   {
-    path: "/assets/pdfs/DSA_Leistungsuebersicht_2020.pdf",
-    image: "/assets/images/downloadPage/2020.jpg",
+    path: "DSA_Leistungsuebersicht_2020.pdf",
+    image: "2020.jpg",
   },
   {
-    path: "/assets/pdfs/DSA_Leistungsuebersicht_2023.pdf",
-    image: "/assets/images/downloadPage/2023.jpg",
+    path: "DSA_Leistungsuebersicht_2023.pdf",
+    image: "2023.jpg",
   },
   {
-    path: "/assets/pdfs/DSA_Leistungsuebersicht_2024.pdf",
-    image: "/assets/images/downloadPage/2024.jpg",
+    path: "DSA_Leistungsuebersicht_2024.pdf",
+    image: "2024.jpg",
   },
   {
-    path: "/assets/pdfs/DSA_Leistungsuebersicht_2025.pdf",
-    image: "/assets/images/downloadPage/2025.jpg",
+    path: "DSA_Leistungsuebersicht_2025.pdf",
+    image: "2025.jpg",
   },
 ];
 const DownloadPage = () => {

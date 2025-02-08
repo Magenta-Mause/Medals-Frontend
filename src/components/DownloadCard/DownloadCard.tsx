@@ -32,7 +32,10 @@ const DownloadCard = (props: DownloadCardProps) => {
       <Card variant="outlined">
         <CardOverflow>
           <AspectRatio ratio="2">
-            <img src={props.image} loading="lazy" />
+            <img
+              src={"/assets/images/downloadPage/" + props.image}
+              loading="lazy"
+            />
           </AspectRatio>
         </CardOverflow>
         <CardContent>
@@ -42,7 +45,7 @@ const DownloadCard = (props: DownloadCardProps) => {
           <Typography level="body-sm">
             <Link
               href="#multiple-actions"
-              onClick={() => handleDownload(props.path)}
+              onClick={() => handleDownload("/assets/pdfs/" + props.path)}
             >
               {t("pages.downloadPage.downloadButton")}
             </Link>
