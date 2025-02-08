@@ -92,6 +92,17 @@
         "text": "Warnung!"
       }
     },
+    "downloadCard": {
+      "items": {
+        "DSA_Leistungsuebersicht_2020": "Leistungsnachweis 2020",
+        "DSA_Leistungsuebersicht_2023": "Leistungsnachweis 2023",
+        "DSA_Leistungsuebersicht_2024": "Leistungsnachweis 2024",
+        "DSA_Leistungsuebersicht_2025": "Leistungsnachweis 2025",
+        "DSA-Schwimmnachweis_2025": "Schwimmnachweis",
+        "DSA_Einzelpruefkarte_2025": "Einzelprüfkarten",
+        "DSA_Gruppenpruefkarte_2025": "Gruppenprüfkarten"
+      }
+    },
     "genericResponsiveDatagrid": {
       "filterForm": {
         "submit": "Fertig"

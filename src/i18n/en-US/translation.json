@@ -91,6 +91,17 @@
         "text": "Warning!"
       }
     },
+    "downloadCard": {
+      "items": {
+        "DSA_Leistungsuebersicht_2020": "Performance record 2020",
+        "DSA_Leistungsuebersicht_2023": "Performance record 2023",
+        "DSA_Leistungsuebersicht_2024": "Performance record 2024",
+        "DSA_Leistungsuebersicht_2025": "Performance record 2025",
+        "DSA-Schwimmnachweis_2025": "Swimming record",
+        "DSA_Einzelpruefkarte_2025": "Individual report card",
+        "DSA_Gruppenpruefkarte_2025": "Group report card"
+      }
+    },
     "genericResponsiveDatagrid": {
       "filterForm": {
         "submit": "Submit"

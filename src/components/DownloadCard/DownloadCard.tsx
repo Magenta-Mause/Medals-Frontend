@@ -16,9 +16,9 @@ interface DownloadCardProps {
 
 const DownloadCard = (props: DownloadCardProps) => {
   const title = props.path
-    .replace("DSA_", "")
-    .replace(".pdf", "")
-    .replace(/_/g, " ");
+    .replace("/assets/images/downloadPage/", "")
+    .replace("/assets/pdfs/", "")
+    .replace(".pdf", "");
   const { t } = useTranslation();
   const handleDownload = (pdfPath: string) => {
     const link = document.createElement("a");
@@ -29,7 +29,7 @@ const DownloadCard = (props: DownloadCardProps) => {
 
   return (
     <Box>
-      <Card variant="outlined" sx={{ width: 320 }}>
+      <Card variant="outlined">
         <CardOverflow>
           <AspectRatio ratio="2">
             <img src={props.image} loading="lazy" />
@@ -37,7 +37,7 @@ const DownloadCard = (props: DownloadCardProps) => {
         </CardOverflow>
         <CardContent>
           <Typography level="title-md" fontWeight={"bold"}>
-            {title}
+            {t("components.downloadCard.items." + title)}
           </Typography>
           <Typography level="body-sm">
             <Link

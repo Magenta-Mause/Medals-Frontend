@@ -2,38 +2,37 @@ import { useTranslation } from "react-i18next";
 import { Box, Typography } from "@mui/joy";
 import DownloadCard from "@components/DownloadCard/DownloadCard";
 
+const pdfFiles = [
+  {
+    path: "/assets/pdfs/DSA_Einzelpruefkarte_2025.pdf",
+    image: "/assets/images/downloadPage/single.jpg",
+  },
+  {
+    path: "/assets/pdfs/DSA_Gruppenpruefkarte_2025.pdf",
+    image: "/assets/images/downloadPage/team.jpg",
+  },
+  {
+    path: "/assets/pdfs/DSA-Schwimmnachweis_2025.pdf",
+    image: "/assets/images/downloadPage/swimming.jpg",
+  },
+  {
+    path: "/assets/pdfs/DSA_Leistungsuebersicht_2020.pdf",
+    image: "/assets/images/downloadPage/2020.jpg",
+  },
+  {
+    path: "/assets/pdfs/DSA_Leistungsuebersicht_2023.pdf",
+    image: "/assets/images/downloadPage/2023.jpg",
+  },
+  {
+    path: "/assets/pdfs/DSA_Leistungsuebersicht_2024.pdf",
+    image: "/assets/images/downloadPage/2024.jpg",
+  },
+  {
+    path: "/assets/pdfs/DSA_Leistungsuebersicht_2025.pdf",
+    image: "/assets/images/downloadPage/2025.jpg",
+  },
+];
 const DownloadPage = () => {
-  const pdfFiles = [
-    {
-      path: "DSA_Einzelpruefkarte_2025.pdf",
-      image: "/src/assets/single.jpg",
-    },
-    {
-      path: "DSA_Gruppenpruefkarte_2025.pdf",
-      image: "/src/assets/team.jpg",
-    },
-    {
-      path: "DSA-Schwimmnachweis_2025.pdf",
-      image: "/src/assets/swimming.jpg",
-    },
-    {
-      path: "DSA_Leistungsuebersicht_2020.pdf",
-      image: "/src/assets/2020.jpg",
-    },
-    {
-      path: "DSA_Leistungsuebersicht_2023.pdf",
-      image: "/src/assets/2023.jpg",
-    },
-    {
-      path: "DSA_Leistungsuebersicht_2024.pdf",
-      image: "/src/assets/2024.jpg",
-    },
-    {
-      path: "DSA_Leistungsuebersicht_2025.pdf",
-      image: "/src/assets/2025.jpg",
-    },
-  ];
-
   const { t } = useTranslation();
 
   return (
@@ -58,17 +57,22 @@ const DownloadPage = () => {
       </Box>
       <Box
         sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "1fr",
-            sm: "1fr 1fr",
-            md: "1fr 1fr 1fr",
-          },
-          gap: 7,
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 4,
+          justifyContent: "center",
         }}
       >
         {pdfFiles.map((pdf) => (
-          <DownloadCard path={pdf.path} image={pdf.image} />
+          <Box
+            sx={{
+              width: "100%",
+              maxWidth: "350px",
+              flexGrow: 1,
+            }}
+          >
+            <DownloadCard path={pdf.path} image={pdf.image} />
+          </Box>
         ))}
       </Box>
     </Box>
