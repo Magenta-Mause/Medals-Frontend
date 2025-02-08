@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
 const InDevelopmentPage = () => {
-  console.log("InDevelopment Page loaded")
+  console.log("InDevelopment Page loaded");
   const { t } = useTranslation();
 
   return (

@@ -94,7 +94,7 @@ const navBarElements = {
     },
     {
       path: "/requirements",
-      icon: <Article />
+      icon: <Article />,
     },
     {
       path: "/performances",
@@ -112,10 +112,10 @@ const NavBar = () => {
   const warning = undefined;
   const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
     useContext(AuthContext);
-  const userRole = "TRAINER";
+  const userRole = "ATHLETE";
 
   if (!userRole || !navBarElements[userRole]) {
-    return <Navigate to="/userRoleErrorPage"/>;
+    return <Navigate to="/userRoleErrorPage" />;
   }
 
   return (

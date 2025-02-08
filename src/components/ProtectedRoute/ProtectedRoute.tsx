@@ -1,11 +1,26 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-type UserRole = "ADMIN" | "TRAINER" | "ATHLETE" ;
+type UserRole = "ADMIN" | "TRAINER" | "ATHLETE";
 
 const rolePermissions: Record<UserRole, string[]> = {
   ADMIN: ["/", "/trainer", "/downloads", "/help"],
-  TRAINER: ["/", "/athletes", "/performanceMetrics", "/assignAthlete", "/downloads", "/help"],
-  ATHLETE: ["/", "/dashboard", "/profile", "/requirements", "/performances", "/downloads", "/help"]
+  TRAINER: [
+    "/",
+    "/athletes",
+    "/performanceMetrics",
+    "/assignAthlete",
+    "/downloads",
+    "/help",
+  ],
+  ATHLETE: [
+    "/",
+    "/dashboard",
+    "/profile",
+    "/requirements",
+    "/performances",
+    "/downloads",
+    "/help",
+  ],
 };
 
 interface ProtectedRouteProps {

@@ -10,7 +10,7 @@ import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import { Route, Routes } from "react-router";
 
 const RoutingComponent = () => {
-  const userRole="TRAINER";
+  const userRole = "ATHLETE";
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
@@ -46,7 +46,7 @@ const RoutingComponent = () => {
 
         {/* Error Pages */}
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="/userRoleErrorPage" element={<UserRoleErrorPage/>} />
+        <Route path="/userRoleErrorPage" element={<UserRoleErrorPage />} />
       </Route>
     </Routes>
   );

@@ -1,5 +1,5 @@
 import { LogoutRounded } from "@mui/icons-material";
-import { Box, Button, IconButton, Typography } from "@mui/joy";
+import { Box, IconButton, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { Navigate } from "react-router";
 
@@ -23,7 +23,14 @@ const UserRoleErrorPage = () => {
         {t("pages.userRoleError.h2")}
       </Typography>
       <Typography padding={"2rem"}>
-      <IconButton color="primary" onClick={() => <Navigate to="/login"/>}variant="solid"> <LogoutRounded/></IconButton>
+        <IconButton
+          color="primary"
+          onClick={() => <Navigate to="/login" />}
+          variant="solid"
+        >
+          {" "}
+          <LogoutRounded />
+        </IconButton>
       </Typography>
     </Box>
   );
