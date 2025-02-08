@@ -2,10 +2,18 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
 import useSidebar from "@hooks/useSidebar";
 import {
+  Article,
+  Assessment,
+  Download,
+  Equalizer,
+  HelpCenter,
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
+  Person,
+  PersonAddAlt,
   SearchRounded,
+  SpaceDashboard,
   SupervisedUserCircleOutlined,
 } from "@mui/icons-material";
 import {
@@ -23,22 +31,78 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import { matchPath, useLocation, useNavigate } from "react-router";
+import { matchPath, Navigate, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
-const navBarElements = [
+const sharedNavBarElements = [
   {
-    path: "/",
-    icon: <HomeRounded />,
+    path: "/downloads",
+    icon: <Download />,
   },
   {
-    path: "/athletes",
-    icon: <PeopleRounded />,
+    path: "/help",
+    icon: <HelpCenter />,
   },
 ];
+
+const navBarElements = {
+  ADMIN: [
+    {
+      path: "/",
+      icon: <HomeRounded />,
+    },
+    {
+      path: "/trainer",
+      icon: <PeopleRounded />,
+    },
+    ...sharedNavBarElements,
+  ],
+  TRAINER: [
+    {
+      path: "/",
+      icon: <HomeRounded />,
+    },
+    {
+      path: "/athletes",
+      icon: <PeopleRounded />,
+    },
+    {
+      path: "/performanceMetrics",
+      icon: <Assessment />,
+    },
+    {
+      path: "/assignAthlete",
+      icon: <PersonAddAlt />,
+    },
+    ...sharedNavBarElements,
+  ],
+  ATHLETE: [
+    {
+      path: "/",
+      icon: <HomeRounded />,
+    },
+    {
+      path: "/dashboard",
+      icon: <SpaceDashboard />,
+    },
+    {
+      path: "/profile",
+      icon: <Person />,
+    },
+    {
+      path: "/requirements",
+      icon: <Article />,
+    },
+    {
+      path: "/performances",
+      icon: <Equalizer />,
+    },
+    ...sharedNavBarElements,
+  ],
+};
 
 const NavBar = () => {
   const { collapseSidebar, sideBarExtended } = useSidebar();
@@ -48,6 +112,11 @@ const NavBar = () => {
   const warning = undefined;
   const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
     useContext(AuthContext);
+  const userRole = "ATHLETE";
+
+  if (!userRole || !navBarElements[userRole]) {
+    return <Navigate to="/userRoleErrorPage" />;
+  }
 
   return (
     <Sheet
@@ -138,7 +207,7 @@ const NavBar = () => {
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}
         >
-          {navBarElements.map((element) => (
+          {navBarElements[userRole].map((element) => (
             <ListItem key={element.path}>
               <ListItemButton
                 onClick={() => {
