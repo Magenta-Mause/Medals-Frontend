@@ -96,7 +96,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     {
       name: "born in",
-      label: t("components.athleteDatagrid.table.filters.bornIn"),
+      label: t("components.athleteDatagrid.table.filters.yearOfBirth"),
       apply(filterParameter) {
         const parsed = filterParameter == "1";
         return (athlete) => !parsed || athlete.birthdate.slice(0, 4) == "2005";
