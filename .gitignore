@@ -24,3 +24,7 @@ tsconfig.tsbuildinfo
 *.njsproj
 *.sln
 *.sw?
+
+tsconfig.tsbuildinfo
+vite.config.js
+vite.config.d.ts
