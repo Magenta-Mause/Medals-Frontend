@@ -1,4 +1,3 @@
-import { Box } from "@mui/joy";
 import {
   AspectRatio,
   Card,
