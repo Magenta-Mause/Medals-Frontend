@@ -15,10 +15,6 @@ interface DownloadCardProps {
 }
 
 const DownloadCard = (props: DownloadCardProps) => {
-  const title = props.path
-    .replace("/assets/images/downloadPage/", "")
-    .replace("/assets/pdfs/", "")
-    .replace(".pdf", "");
   const { t } = useTranslation();
   const handleDownload = (pdfPath: string) => {
     const link = document.createElement("a");
@@ -40,7 +36,7 @@ const DownloadCard = (props: DownloadCardProps) => {
         </CardOverflow>
         <CardContent>
           <Typography level="title-md" fontWeight={"bold"}>
-            {t("components.downloadCard.items." + title)}
+            {t("components.downloadCard.items." + props.path)}
           </Typography>
           <Typography level="body-sm">
             <Link
