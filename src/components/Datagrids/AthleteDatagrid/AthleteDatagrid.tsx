@@ -1,5 +1,5 @@
 import useApi from "@hooks/useApi";
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete } from "bffTypes";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
@@ -97,7 +97,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     {
       name: "born in",
-      label: t("components.athleteDatagrid.table.filters.bornIn"),
+      label: t("components.athleteDatagrid.table.filters.birthYear"),
       apply(filterParameter) {
         const parsed = filterParameter == "1";
         return (athlete) => !parsed || athlete.birthdate.slice(0, 4) == "2005";

@@ -114,7 +114,7 @@
         },
         "filters": {
           "search": "Search",
-          "bornIn": "Born in",
+          "birthYear": "Birth year",
           "gender": "Gender"
         }
       }

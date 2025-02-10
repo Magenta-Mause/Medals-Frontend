@@ -1,5 +1,5 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { UserEntity } from "@customTypes/bffTypes";
+import { UserEntity } from "bffTypes";
 import {
   Box,
   Button,
