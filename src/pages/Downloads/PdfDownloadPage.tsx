@@ -32,22 +32,13 @@ const pdfFiles = [
     image: "2025.jpg",
   },
 ];
-const DownloadPage = () => {
+
+const PdfDownloadPage = () => {
   const { t } = useTranslation();
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: "flex",
-          mb: 1,
-          gap: 1,
-          flexDirection: { xs: "column", sm: "row" },
-          alignItems: { xs: "start", sm: "center" },
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
+      <Box>
         <Typography level="h2" component="h1">
           {t("pages.downloadPage.header")}
         </Typography>
@@ -60,7 +51,7 @@ const DownloadPage = () => {
           display: "flex",
           flexWrap: "wrap",
           gap: 4,
-          justifyContent: "center",
+          justifyContent: "space-around",
         }}
       >
         {pdfFiles.map((pdf) => (
@@ -79,4 +70,4 @@ const DownloadPage = () => {
   );
 };
 
-export default DownloadPage;
+export default PdfDownloadPage;

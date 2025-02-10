@@ -24,31 +24,29 @@ const DownloadCard = (props: DownloadCardProps) => {
   };
 
   return (
-    <Box>
-      <Card variant="outlined">
-        <CardOverflow>
-          <AspectRatio ratio="2">
-            <img
-              src={"/assets/images/downloadPage/" + props.image}
-              loading="lazy"
-            />
-          </AspectRatio>
-        </CardOverflow>
-        <CardContent>
-          <Typography level="title-md" fontWeight={"bold"}>
-            {t("components.downloadCard.items." + props.path)}
-          </Typography>
-          <Typography level="body-sm">
-            <Link
-              href="#multiple-actions"
-              onClick={() => handleDownload("/assets/pdfs/" + props.path)}
-            >
-              {t("pages.downloadPage.downloadButton")}
-            </Link>
-          </Typography>
-        </CardContent>
-      </Card>
-    </Box>
+    <Card variant="outlined">
+      <CardOverflow>
+        <AspectRatio ratio="2">
+          <img
+            src={"/assets/images/downloadPage/" + props.image}
+            loading="lazy"
+          />
+        </AspectRatio>
+      </CardOverflow>
+      <CardContent>
+        <Typography level="title-md" fontWeight={"bold"}>
+          {t("components.downloadCard.items." + props.path)}
+        </Typography>
+        <Typography level="body-sm">
+          <Link
+            href="#multiple-actions"
+            onClick={() => handleDownload("/assets/pdfs/" + props.path)}
+          >
+            {t("pages.downloadPage.downloadButton")}
+          </Link>
+        </Typography>
+      </CardContent>
+    </Card>
   );
 };
 
