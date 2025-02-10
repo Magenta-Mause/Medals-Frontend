@@ -2,6 +2,11 @@ name: "Setup Medals-Frontend"
 
 description: "Set up Node.js environment"
 
+inputs:
+  node-version:
+    description: "The Node.js version to use"
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -11,7 +16,7 @@ runs:
     - name: Set up Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: 23
+        node-version: ${{ inputs.node-version }}
 
     - name: Install Node.js dependencies
       run: npm ci

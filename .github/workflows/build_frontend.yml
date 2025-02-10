@@ -13,7 +13,7 @@ jobs:
       - name: Setup medals-frontend
         uses: ./.github/actions/setup
         with:
-          node-version: 23
+          node-version: 22
 
       - name: Lint through project
         run: npm run lint
@@ -30,7 +30,7 @@ jobs:
       - name: Setup medals-frontend
         uses: ./.github/actions/setup
         with:
-          node-version: 23
+          node-version: 22
 
       - name: Build Frontend
         run: npm run build
@@ -47,7 +47,7 @@ jobs:
       - name: Setup medals-frontend
         uses: ./.github/actions/setup
         with:
-          node-version: 23
+          node-version: 22
 
       - name: Build Frontend
         env:
