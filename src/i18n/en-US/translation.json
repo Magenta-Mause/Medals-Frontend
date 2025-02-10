@@ -35,6 +35,14 @@
       "h1": "404",
       "h2": "Page not found"
     },
+    "inDevelopment": {
+      "h1": "404",
+      "h2": "Page in development"
+    },
+    "userRoleError": {
+      "h1": "401",
+      "h2": "No valid Role found"
+    },
     "loginPage": {
       "logo": "Medals",
       "signIn": {
@@ -75,7 +83,16 @@
       "logo": "Medals",
       "locationList": {
         "/": "Home",
-        "/athletes": "Athletes"
+        "/athletes": "Athletes",
+        "/trainer": "Trainer",
+        "/performanceMetrics": "Performance Metrics",
+        "/assignAthlete": "Assign Athlete",
+        "/dashboard": "Dashboard",
+        "/profile": "Profile",
+        "/requirements": "Requirements",
+        "/performances": "Performances",
+        "/downloads": "Downloads",
+        "/help": "Help"
       },
       "search": "Search",
       "languageSelector": "Language",
