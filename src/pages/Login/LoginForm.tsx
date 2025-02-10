@@ -11,7 +11,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
-export interface SignInFormElement extends HTMLFormElement {
+interface SignInFormElement extends HTMLFormElement {
   readonly elements: FormElements;
 }
 

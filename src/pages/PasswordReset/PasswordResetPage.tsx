@@ -1,75 +1,52 @@
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import CreatePasswordComponent from "@components/CreatePasswordComponent/CreatePasswordComponent";
 import PasswordStrengthBar from "@components/PasswordStrengthBar/PasswordStrengthBar";
 import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
 import useApi from "@hooks/useApi";
-import usePasswordValidation, {
-  PasswordStrengthChecks,
-  requiredPasswordChecks,
-} from "@hooks/usePasswordValidation";
-import { Check, Close } from "@mui/icons-material";
+import usePasswordValidation from "@hooks/usePasswordValidation";
 import {
   Box,
   Button,
   FormControl,
   FormLabel,
   Input,
-  List,
-  ListItem,
-  ListItemContent,
-  ListItemDecorator,
   Stack,
-  Tooltip,
   Typography,
 } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
-import { useSnackbar } from "notistack";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 
-interface SetPasswordFormElement extends HTMLFormElement {
-  readonly elements: SetPasswordFormElements;
+interface ResetPasswordFormElement extends HTMLFormElement {
+  readonly elements: ResetPasswordFormElements;
 }
 
-interface SetPasswordFormElements extends HTMLFormControlsCollection {
-  email: HTMLInputElement;
+interface ResetPasswordFormElements extends HTMLFormControlsCollection {
   password: HTMLInputElement;
-  persistent: HTMLInputElement;
 }
 
-const SetPasswordPage = () => {
-  const [searchParams] = useSearchParams();
-  const { setPassword: setPasswordApi } = useApi();
-  const { logout } = useContext(AuthContext);
-  const { enqueueSnackbar } = useSnackbar();
+const ResetPasswordPage = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { resetPassword } = useApi();
+  const [searchParams] = useSearchParams();
+  const [hasCode, setCode] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
 
   const setPasswordCallback = async (data: { password: string }) => {
-    logout();
-    try {
-      const result = await setPasswordApi(
-        data.password,
-        searchParams.get("oneTimeCode")!,
-      );
-      if (result === false) {
-        throw new Error("Failed to set password");
-      }
-      enqueueSnackbar(t("snackbar.setPassword.success"), {
-        variant: "success",
-      });
-    } catch {
-      enqueueSnackbar(t("snackbar.setPassword.failed"), { variant: "error" });
-      throw new Error("Failed to set password");
-    }
+    resetPassword(data.password, searchParams.get("oneTimeCode") ?? "");
   };
-  const [isValid, setValid] = useState(true);
+
+  const {
+    mutate: setPassword,
+    isPending,
+    isSuccess,
+  } = useMutation({
+    mutationFn: setPasswordCallback,
+  });
 
   useEffect(() => {
     if (!searchParams.has("oneTimeCode")) {
-      setValid(false);
+      setCode(false);
       return;
     }
     const oneTimeCode = searchParams.get("oneTimeCode");
@@ -77,30 +54,11 @@ const SetPasswordPage = () => {
       "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
     );
     if (!uuidRegex.test(oneTimeCode || "")) {
-      setValid(false);
+      setCode(false);
       return;
     }
-    setValid(true);
+    setCode(true);
   }, [searchParams]);
-
-  const {
-    mutate: loginCallback,
-    isPending,
-    isSuccess,
-  } = useMutation({
-    mutationFn: setPasswordCallback,
-  });
-
-  const buttonCallback = useCallback(
-    (formData: { password: string }) => {
-      if (isSuccess) {
-        navigate("/login");
-      } else {
-        loginCallback(formData);
-      }
-    },
-    [isSuccess, loginCallback, navigate],
-  );
 
   return (
     <SplitPageComponent>
@@ -135,30 +93,32 @@ const SetPasswordPage = () => {
         <Stack sx={{ gap: 4, mb: 2 }}>
           <Stack sx={{ gap: 1 }}>
             <Typography component="h1" level="h3">
-              {t("pages.setPasswordPage.header")}
+              {t("pages.resetPassword.header")}
             </Typography>
             <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
-              {t("pages.setPasswordPage.subheader")}
+              {hasCode
+                ? t("pages.resetPassword.subheader.hasCode")
+                : t("pages.resetPassword.subheader.noCode")}
             </Typography>
           </Stack>
         </Stack>
-        <Stack sx={{ gap: 4, mt: 0 }}>
-          {isValid ? (
+        <Stack>
+          {hasCode ? (
             <form
-              onSubmit={(event: React.FormEvent<SetPasswordFormElement>) => {
+              onSubmit={(event: React.FormEvent<ResetPasswordFormElement>) => {
                 event.preventDefault();
                 const formElements = event.currentTarget.elements;
                 const data = {
                   password: formElements.password.value,
                 };
 
-                buttonCallback(data);
+                setPassword(data);
               }}
             >
               <FormControl required>
                 <CreatePasswordComponent
-                  isPending={isPending}
                   isSuccess={isSuccess}
+                  isPending={isPending}
                   setPasswordValid={setPasswordValid}
                 />
               </FormControl>
@@ -184,9 +144,42 @@ const SetPasswordPage = () => {
               </Stack>
             </form>
           ) : (
-            <Typography textAlign={"center"} level="h4" sx={{ my: 10 }}>
-              {t("pages.setPasswordPage.invalidCode")}
-            </Typography>
+            <form
+              onSubmit={(event: React.FormEvent<ResetPasswordFormElement>) => {
+                event.preventDefault();
+                const formElements = event.currentTarget.elements;
+                const data = {
+                  password: formElements.password.value,
+                };
+
+                setPassword(data);
+              }}
+            >
+              <FormControl required>
+                <FormLabel>Email</FormLabel>
+                <Input name="email" placeholder={t("pages.resetPasswordPage.email")}/>
+              </FormControl>
+              <Stack sx={{ gap: 4 }}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  disabled={isPending || !passwordValid}
+                  color={
+                    !passwordValid
+                      ? "neutral"
+                      : isSuccess
+                        ? "success"
+                        : "primary"
+                  }
+                >
+                  {isPending
+                    ? t("pages.setPasswordPage.form.loading")
+                    : isSuccess
+                      ? t("pages.setPasswordPage.form.goToLogin")
+                      : t("pages.setPasswordPage.form.submit")}
+                </Button>
+              </Stack>
+            </form>
           )}
         </Stack>
       </Box>
@@ -194,4 +187,4 @@ const SetPasswordPage = () => {
   );
 };
 
-export default SetPasswordPage;
+export default ResetPasswordPage;
