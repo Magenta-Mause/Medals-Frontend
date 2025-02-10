@@ -1,27 +1,8 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import CreatePasswordComponent from "@components/CreatePasswordComponent/CreatePasswordComponent";
-import PasswordStrengthBar from "@components/PasswordStrengthBar/PasswordStrengthBar";
 import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
 import useApi from "@hooks/useApi";
-import usePasswordValidation, {
-  PasswordStrengthChecks,
-  requiredPasswordChecks,
-} from "@hooks/usePasswordValidation";
-import { Check, Close } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  List,
-  ListItem,
-  ListItemContent,
-  ListItemDecorator,
-  Stack,
-  Tooltip,
-  Typography,
-} from "@mui/joy";
+import { Box, Button, FormControl, Stack, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 import { useCallback, useContext, useEffect, useState } from "react";

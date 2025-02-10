@@ -1,8 +1,6 @@
 import CreatePasswordComponent from "@components/CreatePasswordComponent/CreatePasswordComponent";
-import PasswordStrengthBar from "@components/PasswordStrengthBar/PasswordStrengthBar";
 import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
 import useApi from "@hooks/useApi";
-import usePasswordValidation from "@hooks/usePasswordValidation";
 import {
   Box,
   Button,
@@ -157,7 +155,10 @@ const ResetPasswordPage = () => {
             >
               <FormControl required>
                 <FormLabel>Email</FormLabel>
-                <Input name="email" placeholder={t("pages.resetPasswordPage.email")}/>
+                <Input
+                  name="email"
+                  placeholder={t("pages.resetPasswordPage.email")}
+                />
               </FormControl>
               <Stack sx={{ gap: 4 }}>
                 <Button

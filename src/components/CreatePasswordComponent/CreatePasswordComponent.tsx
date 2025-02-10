@@ -1,18 +1,18 @@
 import PasswordStrengthBar from "@components/PasswordStrengthBar/PasswordStrengthBar";
 import usePasswordValidation, {
-    PasswordStrengthChecks,
-    requiredPasswordChecks,
+  PasswordStrengthChecks,
+  requiredPasswordChecks,
 } from "@hooks/usePasswordValidation";
 import { Check, Close } from "@mui/icons-material";
 import {
-    Input,
-    Typography,
-    List,
-    ListItem,
-    ListItemDecorator,
-    ListItemContent,
-    Tooltip,
-    FormLabel,
+  Input,
+  Typography,
+  List,
+  ListItem,
+  ListItemDecorator,
+  ListItemContent,
+  Tooltip,
+  FormLabel,
 } from "@mui/joy";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
@@ -27,7 +27,7 @@ const CreatePasswordComponent = (props: {
 
   useEffect(() => {
     props.setPasswordValid(valid);
-  }, [valid]);
+  }, [props, valid]);
 
   return (
     <>
