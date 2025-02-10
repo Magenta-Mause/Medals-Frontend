@@ -36,20 +36,14 @@ const useApi = () => {
     }
   };
 
-  const createAthlete = async (athleteData: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    birthdate: string;
-    gender: string;
-  }) => {
+  const createAthlete = async (Athlete: Athlete) => {
     try {
       const response = await axiosInstance.post(`/athletes`, {
-        first_name: athleteData.firstname,
-        last_name: athleteData.lastname,
-        email: athleteData.email,
-        birthdate: athleteData.birthdate,
-        gender: athleteData.gender,
+        firstname: Athlete.first_name,
+        last_name: Athlete.last_name,
+        email: Athlete.email,
+        birthdate: Athlete.birthdate,
+        gender: Athlete.gender,
       });
       console.log("Response:", response.data); // Handle response data
     } catch (error) {
