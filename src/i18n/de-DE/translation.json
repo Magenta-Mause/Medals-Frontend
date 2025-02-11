@@ -37,8 +37,7 @@
     },
     "downloadPage": {
       "header": "Downloads",
-      "downloadButton": "Herunterladen",
-      "headerText": "Hier findest du alle ab 1. Januar 2025 gültigen Materialien"
+      "headerText": "Hier die wichtigsten Downloads nur einen Klick entfernt"
     },
     "loginPage": {
       "logo": "Medals",
@@ -93,6 +92,7 @@
       }
     },
     "downloadCard": {
+      "downloadButton": "Herunterladen",
       "items": {
         "DSA_Leistungsuebersicht_2020.pdf": "Leistungsnachweis 2020",
         "DSA_Leistungsuebersicht_2023.pdf": "Leistungsnachweis 2023",

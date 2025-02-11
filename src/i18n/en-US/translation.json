@@ -37,8 +37,7 @@
     },
     "downloadPage": {
       "header": "Downloads",
-      "downloadButton": "Download",
-      "headerText": "Here you can find all materials valid from 1 January 2025"
+      "headerText": "Here are the most important downloads just a click away"
     },
     "loginPage": {
       "logo": "Medals",
@@ -92,6 +91,7 @@
       }
     },
     "downloadCard": {
+      "downloadButton": "Download",
       "items": {
         "DSA_Leistungsuebersicht_2020.pdf": "Performance record 2020",
         "DSA_Leistungsuebersicht_2023.pdf": "Performance record 2023",

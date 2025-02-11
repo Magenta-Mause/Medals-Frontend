@@ -7,6 +7,7 @@ import {
   Link,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
+import { Download } from "@mui/icons-material";
 
 interface DownloadCardProps {
   path: string;
@@ -41,7 +42,8 @@ const DownloadCard = (props: DownloadCardProps) => {
             href="#multiple-actions"
             onClick={() => handleDownload("/assets/pdfs/" + props.path)}
           >
-            {t("pages.downloadPage.downloadButton")}
+            {t("components.downloadCard.downloadButton")}
+            <Download />
           </Link>
         </Typography>
       </CardContent>
