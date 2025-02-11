@@ -38,7 +38,7 @@ const AthleteCreationForm = () => {
 
   React.useEffect(() => {
     setValid(isAccepted());
-  },[Athlete]);
+  }, [Athlete]);
 
   const newAthlete: Athlete = {
     first_name: Athlete.first_name,
@@ -61,7 +61,7 @@ const AthleteCreationForm = () => {
     if (Athlete.birthdate === "tt.mm.jjjj" || Athlete.birthdate === "") {
       return true;
     }
-    if (Athlete.gender === ""){
+    if (Athlete.gender === "") {
       return true;
     }
     return false;
@@ -115,125 +115,126 @@ const AthleteCreationForm = () => {
           <Typography level="h2" component="h1">
             {t("pages.athleteCreationPage.createButton")}
           </Typography>
-            <FormLabel sx={{ marginTop: "6vh" }}>
-              {" "}
-              {t("pages.athleteCreationPage.firstName")}
-            </FormLabel>
-            <Input
-              sx={{
-                width: { sx: "60vw", md: "30vw" },
-                marginBottom: "2vh",
-              }}
-              color="neutral"
-              size="lg"
-              variant="outlined"
-              placeholder={t("pages.athleteCreationPage.firstName")}
-              value={Athlete.first_name}
-              onChange={(e) =>
-                setAthlete((prevUser) => ({
-                  ...prevUser,
-                  first_name: e.target.value,
-                }))
-              }
-            />
-            <FormLabel> {t("pages.athleteCreationPage.lastName")}</FormLabel>
-            <Input
-              sx={{
-                width: { sx: "60vw", md: "30vw" },
-                marginBottom: "2vh",
-              }}
-              color="neutral"
-              size="lg"
-              variant="outlined"
-              placeholder={t("pages.athleteCreationPage.lastName")}
-              value={Athlete.last_name}
-              onChange={(e) =>
-                setAthlete((prevUser) => ({
-                  ...prevUser,
-                  last_name: e.target.value,
-                }))
-              }
-            />
-            <FormLabel> {t("pages.athleteCreationPage.email")}</FormLabel>
-            <Input
-              sx={{
-                width: { sx: "60vw", md: "30vw" },
-                marginBottom: "2vh",
-              }}
-              color="neutral"
-              size="lg"
-              variant="outlined"
-              placeholder={t("pages.athleteCreationPage.email")}
-              value={Athlete.email}
-              onChange={(e) =>
-                setAthlete((prevUser) => ({
-                  ...prevUser,
-                  email: e.target.value,
-                }))
-              }
-            />
-            <FormLabel> {t("pages.athleteCreationPage.birthdate")}</FormLabel>
-            <Input
-              sx={{
-                width: { sx: "60vw", md: "30vw" },
-                marginBottom: "2vh",
-              }}
-              type="date"
-              slotProps={{
-                input: {
-                  min: "1900-01-01",
-                },
-              }}
-              value={Athlete.birthdate}
-              onChange={(e) =>
-                setAthlete((prevUser) => ({
-                  ...prevUser,
-                  birthdate: e.target.value,
-                }))
-              }
-            />
-            
-            <Dropdown>
-              <MenuButton sx={{width:"20vw", left:"5vw", marginTop:""}}>{t("pages.athleteCreationPage.gender")}</MenuButton>
-              <Menu sx={{ zIndex: "9999" }}>
-                <FormControl>
-                  <RadioGroup
-                    defaultValue="female"
-                    name="controlled-radio-buttons-group"
-                    value={Athlete.gender}
-                    onChange={handleChange}
-                    sx={{
-                      my: 1,
-                      width: "30vw",
-                      height: "10vh",
-                      overflow: "hidden",
-                    }}
-                  >
-                    
-                    <Radio value="female" label={t("genders.FEMALE")} />
-                    <Radio value="male" label={t("genders.MALE")} />
-                    <Radio value="other" label={t("genders.DIVERSE")} />
-                  </RadioGroup>
-                  </FormControl>
+          <FormLabel sx={{ marginTop: "6vh" }}>
+            {" "}
+            {t("pages.athleteCreationPage.firstName")}
+          </FormLabel>
+          <Input
+            sx={{
+              width: { sx: "60vw", md: "30vw" },
+              marginBottom: "2vh",
+            }}
+            color="neutral"
+            size="lg"
+            variant="outlined"
+            placeholder={t("pages.athleteCreationPage.firstName")}
+            value={Athlete.first_name}
+            onChange={(e) =>
+              setAthlete((prevUser) => ({
+                ...prevUser,
+                first_name: e.target.value,
+              }))
+            }
+          />
+          <FormLabel> {t("pages.athleteCreationPage.lastName")}</FormLabel>
+          <Input
+            sx={{
+              width: { sx: "60vw", md: "30vw" },
+              marginBottom: "2vh",
+            }}
+            color="neutral"
+            size="lg"
+            variant="outlined"
+            placeholder={t("pages.athleteCreationPage.lastName")}
+            value={Athlete.last_name}
+            onChange={(e) =>
+              setAthlete((prevUser) => ({
+                ...prevUser,
+                last_name: e.target.value,
+              }))
+            }
+          />
+          <FormLabel> {t("pages.athleteCreationPage.email")}</FormLabel>
+          <Input
+            sx={{
+              width: { sx: "60vw", md: "30vw" },
+              marginBottom: "2vh",
+            }}
+            color="neutral"
+            size="lg"
+            variant="outlined"
+            placeholder={t("pages.athleteCreationPage.email")}
+            value={Athlete.email}
+            onChange={(e) =>
+              setAthlete((prevUser) => ({
+                ...prevUser,
+                email: e.target.value,
+              }))
+            }
+          />
+          <FormLabel> {t("pages.athleteCreationPage.birthdate")}</FormLabel>
+          <Input
+            sx={{
+              width: { sx: "60vw", md: "30vw" },
+              marginBottom: "2vh",
+            }}
+            type="date"
+            slotProps={{
+              input: {
+                min: "1900-01-01",
+              },
+            }}
+            value={Athlete.birthdate}
+            onChange={(e) =>
+              setAthlete((prevUser) => ({
+                ...prevUser,
+                birthdate: e.target.value,
+              }))
+            }
+          />
 
-              </Menu>
-            </Dropdown>
-            <Button fullWidth
-              disabled={valid}
-              sx={{
-                marginTop: "10vh",
-              }}
-              onClick={() => {
-                {
-                  createAth(newAthlete);
-                }
-              }}
-            >
-              {t("pages.athleteCreationPage.createButton")}
-            </Button>
+          <Dropdown>
+            <MenuButton sx={{ width: "20vw", left: "5vw", marginTop: "" }}>
+              {t("pages.athleteCreationPage.gender")}
+            </MenuButton>
+            <Menu sx={{ zIndex: "9999" }}>
+              <FormControl>
+                <RadioGroup
+                  defaultValue="female"
+                  name="controlled-radio-buttons-group"
+                  value={Athlete.gender}
+                  onChange={handleChange}
+                  sx={{
+                    my: 1,
+                    width: "30vw",
+                    height: "10vh",
+                    overflow: "hidden",
+                  }}
+                >
+                  <Radio value="female" label={t("genders.FEMALE")} />
+                  <Radio value="male" label={t("genders.MALE")} />
+                  <Radio value="other" label={t("genders.DIVERSE")} />
+                </RadioGroup>
+              </FormControl>
+            </Menu>
+          </Dropdown>
+          <Button
+            fullWidth
+            disabled={valid}
+            sx={{
+              marginTop: "10vh",
+            }}
+            onClick={() => {
+              {
+                createAth(newAthlete);
+              }
+            }}
+          >
+            {t("pages.athleteCreationPage.createButton")}
+          </Button>
         </Sheet>
       </Modal>
-      </>
+    </>
   );
 };
 

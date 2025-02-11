@@ -25,7 +25,7 @@ const AthleteOverviewPage = () => {
         <Typography level="h2" component="h1">
           {t("pages.athleteOverviewPage.header")}
         </Typography>
-        <AthleteCreationForm/>
+        <AthleteCreationForm />
       </Box>
       <AthleteDatagrid
         athletes={athletes}
