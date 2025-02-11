@@ -8,10 +8,13 @@ import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import { Route, Routes } from "react-router";
+import { useContext } from "react";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { UserType } from "@customTypes/bffTypes";
 
 const RoutingComponent = () => {
-  const userRole: UserType=UserType.ATHLETE;
+  const {selectedUser}=useContext(AuthContext);
+
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
@@ -19,8 +22,9 @@ const RoutingComponent = () => {
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
 
+        <Route element={<ProtectedRoute userRole={selectedUser?.type ?? UserType.DEFAULT} />}>
+
         {/* ADMIN */}
-        <Route element={<ProtectedRoute userRole={userRole} />}>
           <Route path="/trainer" element={<InDevelopmentPage />} />
 
         {/* TRAINER */}
@@ -37,6 +41,7 @@ const RoutingComponent = () => {
         {/* Gemeinsame Seiten */}
           <Route path="/downloads" element={<InDevelopmentPage />} />
           <Route path="/help" element={<InDevelopmentPage />} />
+
         </Route>
 
         {/* Error Pages */}

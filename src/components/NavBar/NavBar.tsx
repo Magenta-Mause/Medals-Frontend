@@ -38,8 +38,6 @@ import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { UserType } from "@customTypes/bffTypes";
 
-const userRole:UserType = UserType.ATHLETE;
-
 const sharedNavBarElements = [
   {
     path: "/downloads",
@@ -52,6 +50,12 @@ const sharedNavBarElements = [
 ];
 
 const navBarElements = {
+  DEFAULT:[
+    {
+      path:"/",
+      icon:<HomeRounded/>
+    }
+  ],
   ADMIN: [
     {
       path: "/",
@@ -102,6 +106,7 @@ const navBarElements = {
       icon: <Equalizer />,
     },
   ],
+
 };
 
 const NavBar = () => {
@@ -112,10 +117,8 @@ const NavBar = () => {
   const warning = undefined;
   const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
     useContext(AuthContext);
-
-  if (!userRole || !navBarElements[userRole]) {
-    return <Navigate to="/userRoleErrorPage" />;
-  }
+  const userRole = selectedUser?.type ?? UserType.DEFAULT;
+  console.log(userRole);
 
   return (
     <Sheet
