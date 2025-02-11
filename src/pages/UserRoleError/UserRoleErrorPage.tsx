@@ -22,16 +22,6 @@ const UserRoleErrorPage = () => {
       <Typography level={"h2"} color={"neutral"}>
         {t("pages.userRoleError.h2")}
       </Typography>
-      <Typography padding={"2rem"}>
-        <IconButton
-          color="primary"
-          onClick={() => <Navigate to="/login" />}
-          variant="solid"
-        >
-          {" "}
-          <LogoutRounded />
-        </IconButton>
-      </Typography>
     </Box>
   );
 };
