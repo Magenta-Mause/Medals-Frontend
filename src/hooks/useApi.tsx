@@ -45,9 +45,13 @@ const useApi = () => {
         birthdate: Athlete.birthdate,
         gender: Athlete.gender,
       });
-      console.log("Response:", response.data); // Handle response data
-    } catch (error) {
-      console.error("Error:", error); // Handle error
+      if (response.status != 200) {
+        throw "Login Failed";
+      }
+      return response.status == 200;
+    }
+    finally{
+      
     }
   };
 

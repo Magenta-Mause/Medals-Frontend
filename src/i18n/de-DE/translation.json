@@ -35,7 +35,7 @@
     "athleteCreationPage": {
       "firstName": "Vorname",
       "lastName": "Nachname",
-      "E-Mail": "E-Mail",
+      "email": "E-Mail",
       "birthdate": "Geburtstag",
       "gender": "Geschlecht",
       "createButton": "erstelle Athlet*in"

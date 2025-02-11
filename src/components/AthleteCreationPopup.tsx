@@ -21,9 +21,9 @@ import { useState } from "react";
 
 const AthleteCreationForm = () => {
   const { t } = useTranslation();
-  const [valid, setvalid] = useState(true);
+  const [valid, setValid] = useState(true);
   const { createAthlete } = useApi();
-  const [openPopup, setOpenPopUp] = useState(false);
+  const [isPopupOpen, setPopupOpen] = useState(false);
   const [Athlete, setAthlete] = useState<Athlete>({
     first_name: "",
     last_name: "",
@@ -37,8 +37,8 @@ const AthleteCreationForm = () => {
   const isValidEmail = (email: string) => emailRegex.test(email);
 
   React.useEffect(() => {
-    setvalid(isAccepted());
-  });
+    setValid(isAccepted());
+  },[Athlete]);
 
   const newAthlete: Athlete = {
     first_name: Athlete.first_name,
@@ -61,6 +61,9 @@ const AthleteCreationForm = () => {
     if (Athlete.birthdate === "tt.mm.jjjj" || Athlete.birthdate === "") {
       return true;
     }
+    if (Athlete.gender === ""){
+      return true;
+    }
     return false;
   };
 
@@ -76,19 +79,19 @@ const AthleteCreationForm = () => {
   };
 
   return (
-    <div>
+    <>
       <Button
         variant="outlined"
         color="neutral"
-        onClick={() => setOpenPopUp(true)}
+        onClick={() => setPopupOpen(true)}
       >
         {t("pages.athleteOverviewPage.createButton")}
       </Button>
       <Modal
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
-        open={openPopup}
-        onClose={() => setOpenPopUp(false)}
+        open={isPopupOpen}
+        onClose={() => setPopupOpen(false)}
         sx={{
           display: "flex",
           justifyContent: "center",
@@ -112,7 +115,6 @@ const AthleteCreationForm = () => {
           <Typography level="h2" component="h1">
             {t("pages.athleteCreationPage.createButton")}
           </Typography>
-          <FormControl>
             <FormLabel sx={{ marginTop: "6vh" }}>
               {" "}
               {t("pages.athleteCreationPage.firstName")}
@@ -152,7 +154,7 @@ const AthleteCreationForm = () => {
                 }))
               }
             />
-            <FormLabel> {t("pages.athleteCreationPage.E-Mail")}</FormLabel>
+            <FormLabel> {t("pages.athleteCreationPage.email")}</FormLabel>
             <Input
               sx={{
                 width: { sx: "60vw", md: "30vw" },
@@ -161,7 +163,7 @@ const AthleteCreationForm = () => {
               color="neutral"
               size="lg"
               variant="outlined"
-              placeholder={t("pages.athleteCreationPage.E-Mail")}
+              placeholder={t("pages.athleteCreationPage.email")}
               value={Athlete.email}
               onChange={(e) =>
                 setAthlete((prevUser) => ({
@@ -190,9 +192,10 @@ const AthleteCreationForm = () => {
                 }))
               }
             />
+            
             <Dropdown>
-              <MenuButton>{t("pages.athleteCreationPage.gender")}</MenuButton>
-              <Menu sx={{ zIndex: "99900000" }}>
+              <MenuButton sx={{width:"20vw", left:"5vw", marginTop:""}}>{t("pages.athleteCreationPage.gender")}</MenuButton>
+              <Menu sx={{ zIndex: "9999" }}>
                 <FormControl>
                   <RadioGroup
                     defaultValue="female"
@@ -206,14 +209,16 @@ const AthleteCreationForm = () => {
                       overflow: "hidden",
                     }}
                   >
+                    
                     <Radio value="female" label={t("genders.FEMALE")} />
                     <Radio value="male" label={t("genders.MALE")} />
                     <Radio value="other" label={t("genders.DIVERSE")} />
                   </RadioGroup>
-                </FormControl>
+                  </FormControl>
+
               </Menu>
             </Dropdown>
-            <Button
+            <Button fullWidth
               disabled={valid}
               sx={{
                 marginTop: "10vh",
@@ -226,10 +231,9 @@ const AthleteCreationForm = () => {
             >
               {t("pages.athleteCreationPage.createButton")}
             </Button>
-          </FormControl>
         </Sheet>
       </Modal>
-    </div>
+      </>
   );
 };
 
