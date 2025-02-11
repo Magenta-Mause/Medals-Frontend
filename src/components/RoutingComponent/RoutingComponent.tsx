@@ -8,9 +8,10 @@ import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import { Route, Routes } from "react-router";
+import { UserType } from "@customTypes/bffTypes";
 
 const RoutingComponent = () => {
-  const userRole = "ATHLETE";
+  const userRole: UserType=UserType.ATHLETE;
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
@@ -21,32 +22,26 @@ const RoutingComponent = () => {
         {/* ADMIN */}
         <Route element={<ProtectedRoute userRole={userRole} />}>
           <Route path="/trainer" element={<InDevelopmentPage />} />
-        </Route>
 
         {/* TRAINER */}
-        <Route element={<ProtectedRoute userRole={userRole} />}>
           <Route path="/athletes" element={<AthleteOverviewPage />} />
           <Route path="/performanceMetrics" element={<InDevelopmentPage />} />
           <Route path="/assignAthlete" element={<InDevelopmentPage />} />
-        </Route>
 
         {/* ATHLETE */}
-        <Route element={<ProtectedRoute userRole={userRole} />}>
           <Route path="/dashboard" element={<InDevelopmentPage />} />
           <Route path="/profile" element={<InDevelopmentPage />} />
           <Route path="/requirements" element={<InDevelopmentPage />} />
           <Route path="/performances" element={<InDevelopmentPage />} />
-        </Route>
 
         {/* Gemeinsame Seiten */}
-        <Route element={<ProtectedRoute userRole={userRole} />}>
           <Route path="/downloads" element={<InDevelopmentPage />} />
           <Route path="/help" element={<InDevelopmentPage />} />
         </Route>
 
         {/* Error Pages */}
-        <Route path="*" element={<NotFoundPage />} />
         <Route path="/userRoleErrorPage" element={<UserRoleErrorPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

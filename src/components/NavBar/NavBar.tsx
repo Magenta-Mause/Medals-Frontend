@@ -36,6 +36,9 @@ import LanguageSelector from "./LanguageSelector";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { UserType } from "@customTypes/bffTypes";
+
+const userRole:UserType = UserType.ATHLETE;
 
 const sharedNavBarElements = [
   {
@@ -58,7 +61,6 @@ const navBarElements = {
       path: "/trainer",
       icon: <PeopleRounded />,
     },
-    ...sharedNavBarElements,
   ],
   TRAINER: [
     {
@@ -77,7 +79,6 @@ const navBarElements = {
       path: "/assignAthlete",
       icon: <PersonAddAlt />,
     },
-    ...sharedNavBarElements,
   ],
   ATHLETE: [
     {
@@ -100,7 +101,6 @@ const navBarElements = {
       path: "/performances",
       icon: <Equalizer />,
     },
-    ...sharedNavBarElements,
   ],
 };
 
@@ -112,7 +112,6 @@ const NavBar = () => {
   const warning = undefined;
   const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
     useContext(AuthContext);
-  const userRole = "ATHLETE";
 
   if (!userRole || !navBarElements[userRole]) {
     return <Navigate to="/userRoleErrorPage" />;
@@ -207,7 +206,7 @@ const NavBar = () => {
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}
         >
-          {navBarElements[userRole].map((element) => (
+          {[...navBarElements[userRole], ...sharedNavBarElements].map((element) => (
             <ListItem key={element.path}>
               <ListItemButton
                 onClick={() => {

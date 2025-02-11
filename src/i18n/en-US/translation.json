@@ -76,7 +76,17 @@
     "breadcrumbs": {
       "paths": {
         "/": "Home",
-        "/athletes": "Athletes"
+        "/athletes": "Athletes",
+        "/trainer": "Trainer",
+        "/performanceMetrics": "Performance Metrics",
+        "/assignAthlete": "Assign Athlete",
+        "/dashboard": "Dashboard",
+        "/profile": "Profile",
+        "/requirements": "Requirements",
+        "/performances": "Performances",
+        "/downloads": "Downloads",
+        "/help": "Help",
+        "/userRoleErrorPage": "User Role Error"
       }
     },
     "navbar": {

@@ -1,8 +1,7 @@
+import { UserType } from "@customTypes/bffTypes";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-type UserRole = "ADMIN" | "TRAINER" | "ATHLETE";
-
-const rolePermissions: Record<UserRole, string[]> = {
+const rolePermissions: Record<UserType, string[]> = {
   ADMIN: ["/", "/trainer", "/downloads", "/help"],
   TRAINER: [
     "/",
@@ -24,7 +23,7 @@ const rolePermissions: Record<UserRole, string[]> = {
 };
 
 interface ProtectedRouteProps {
-  userRole: UserRole;
+  userRole: UserType;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ userRole }) => {
