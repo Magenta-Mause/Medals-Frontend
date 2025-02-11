@@ -31,7 +31,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import { matchPath, Navigate, useLocation, useNavigate } from "react-router";
+import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { useContext } from "react";
@@ -50,11 +50,11 @@ const sharedNavBarElements = [
 ];
 
 const navBarElements = {
-  DEFAULT:[
+  DEFAULT: [
     {
-      path:"/",
-      icon:<HomeRounded/>
-    }
+      path: "/",
+      icon: <HomeRounded />,
+    },
   ],
   ADMIN: [
     {
@@ -106,7 +106,6 @@ const navBarElements = {
       icon: <Equalizer />,
     },
   ],
-
 };
 
 const NavBar = () => {
@@ -118,7 +117,6 @@ const NavBar = () => {
   const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
     useContext(AuthContext);
   const userRole = selectedUser?.type ?? UserType.DEFAULT;
-  console.log(userRole);
 
   return (
     <Sheet
@@ -209,24 +207,26 @@ const NavBar = () => {
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}
         >
-          {[...navBarElements[userRole], ...sharedNavBarElements].map((element) => (
-            <ListItem key={element.path}>
-              <ListItemButton
-                onClick={() => {
-                  navigate(element.path);
-                  collapseSidebar();
-                }}
-                selected={Boolean(matchPath(location.pathname, element.path))}
-              >
-                {element.icon}
-                <ListItemContent>
-                  <Typography level="title-sm">
-                    {t("components.navbar.locationList." + element.path)}
-                  </Typography>
-                </ListItemContent>
-              </ListItemButton>
-            </ListItem>
-          ))}
+          {[...navBarElements[userRole], ...sharedNavBarElements].map(
+            (element) => (
+              <ListItem key={element.path}>
+                <ListItemButton
+                  onClick={() => {
+                    navigate(element.path);
+                    collapseSidebar();
+                  }}
+                  selected={Boolean(matchPath(location.pathname, element.path))}
+                >
+                  {element.icon}
+                  <ListItemContent>
+                    <Typography level="title-sm">
+                      {t("components.navbar.locationList." + element.path)}
+                    </Typography>
+                  </ListItemContent>
+                </ListItemButton>
+              </ListItem>
+            ),
+          )}
         </List>
         <List
           size="sm"

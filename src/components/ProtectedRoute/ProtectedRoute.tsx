@@ -32,8 +32,7 @@ const rolePermissions: Record<UserType, string[]> = {
     "/performances",
     "/downloads",
     "/help",
-
-  ]
+  ],
 };
 
 interface ProtectedRouteProps {
@@ -42,12 +41,11 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ userRole }) => {
   const location = useLocation();
-  console.log(userRole);
 
   if (!userRole) {
     return <Navigate to="/userRoleErrorPage" replace />;
   }
-  
+
   if (!rolePermissions[userRole]?.includes(location.pathname)) {
     return <Navigate to="/userRoleErrorPage" replace />;
   }

@@ -13,7 +13,7 @@ import { AuthContext } from "@components/AuthenticationProvider/AuthenticationPr
 import { UserType } from "@customTypes/bffTypes";
 
 const RoutingComponent = () => {
-  const {selectedUser}=useContext(AuthContext);
+  const { selectedUser } = useContext(AuthContext);
 
   return (
     <Routes>
@@ -22,26 +22,28 @@ const RoutingComponent = () => {
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
 
-        <Route element={<ProtectedRoute userRole={selectedUser?.type ?? UserType.DEFAULT} />}>
-
-        {/* ADMIN */}
+        <Route
+          element={
+            <ProtectedRoute userRole={selectedUser?.type ?? UserType.DEFAULT} />
+          }
+        >
+          {/* ADMIN */}
           <Route path="/trainer" element={<InDevelopmentPage />} />
 
-        {/* TRAINER */}
+          {/* TRAINER */}
           <Route path="/athletes" element={<AthleteOverviewPage />} />
           <Route path="/performanceMetrics" element={<InDevelopmentPage />} />
           <Route path="/assignAthlete" element={<InDevelopmentPage />} />
 
-        {/* ATHLETE */}
+          {/* ATHLETE */}
           <Route path="/dashboard" element={<InDevelopmentPage />} />
           <Route path="/profile" element={<InDevelopmentPage />} />
           <Route path="/requirements" element={<InDevelopmentPage />} />
           <Route path="/performances" element={<InDevelopmentPage />} />
 
-        {/* Gemeinsame Seiten */}
+          {/* Gemeinsame Seiten */}
           <Route path="/downloads" element={<InDevelopmentPage />} />
           <Route path="/help" element={<InDevelopmentPage />} />
-
         </Route>
 
         {/* Error Pages */}
