@@ -1,7 +1,5 @@
-import { LogoutRounded } from "@mui/icons-material";
-import { Box, IconButton, Typography } from "@mui/joy";
+import { Box, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import { Navigate } from "react-router";
 
 const UserRoleErrorPage = () => {
   const { t } = useTranslation();
