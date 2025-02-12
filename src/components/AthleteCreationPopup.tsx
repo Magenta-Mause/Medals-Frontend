@@ -25,6 +25,7 @@ const AthleteCreationForm = () => {
   const [valid, setValid] = useState(true);
   const { createAthlete } = useApi();
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [date] = useState<any>();
   const [Athlete, setAthlete] = useState<Athlete>({
     first_name: "",
     last_name: "",
@@ -41,16 +42,8 @@ const AthleteCreationForm = () => {
     setValid(isAccepted());
   }, [Athlete]);
 
-  const newAthlete: Athlete = {
-    first_name: Athlete.first_name,
-    last_name: Athlete.last_name,
-    birthdate: Athlete.birthdate,
-    email: Athlete.email,
-    gender: Athlete.gender,
-  };
-
   const isAccepted = () => {
-    if (Athlete.first_name.length > 255 || Athlete.first_name.length === 0) {
+    if (Athlete.first_name.length > 255 || Athlete.first_name === "") {
       return true;
     }
     if (Athlete.last_name.length > 255 || Athlete.last_name.length === 0) {
@@ -174,33 +167,48 @@ const AthleteCreationForm = () => {
             }
           />
           <FormLabel> {t("pages.athleteCreationPage.birthdate")}</FormLabel>
-          <DatePicker />
-
-          <Dropdown>
-            <MenuButton sx={{ width: "20vw", left: "5vw", marginTop: "" }}>
-              {t("pages.athleteCreationPage.gender")}
-            </MenuButton>
-            <Menu sx={{ zIndex: "9999" }}>
-              <FormControl>
-                <RadioGroup
-                  defaultValue="female"
-                  name="controlled-radio-buttons-group"
-                  value={Athlete.gender}
-                  onChange={handleChange}
-                  sx={{
-                    my: 1,
-                    width: "30vw",
-                    height: "10vh",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Radio value="female" label={t("genders.FEMALE")} />
-                  <Radio value="male" label={t("genders.MALE")} />
-                  <Radio value="other" label={t("genders.DIVERSE")} />
-                </RadioGroup>
-              </FormControl>
-            </Menu>
-          </Dropdown>
+          <DatePicker
+            sx={{
+              width: { sx: "60vw", md: "30vw" },
+              marginBottom: "2vh",
+              position: "relative",
+            }}
+            value={date}
+            onChange={(newDate) =>
+              setAthlete((prevUser) => ({
+                ...prevUser,
+                birthdate: newDate,
+              }))
+            }
+            format="DD/MM/YYYY"
+          />
+          <p>
+            <Dropdown>
+              <MenuButton sx={{ width: "30vw", marginTop: "" }}>
+                {t("pages.athleteCreationPage.gender")}
+              </MenuButton>
+              <Menu sx={{ zIndex: "9999", height: "20" }}>
+                <FormControl>
+                  <RadioGroup
+                    defaultValue="FEMALE"
+                    name="controlled-radio-buttons-group"
+                    value={Athlete.gender}
+                    onChange={handleChange}
+                    sx={{
+                      my: 1,
+                      width: "30vw",
+                      height: "11vh",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Radio value="FEMALE" label={t("genders.FEMALE")} />
+                    <Radio value="MALE" label={t("genders.MALE")} />
+                    <Radio value="DIVERSE" label={t("genders.DIVERSE")} />
+                  </RadioGroup>
+                </FormControl>
+              </Menu>
+            </Dropdown>
+          </p>
           <Button
             fullWidth
             disabled={valid}
@@ -209,7 +217,7 @@ const AthleteCreationForm = () => {
             }}
             onClick={() => {
               {
-                createAth(newAthlete);
+                createAth(Athlete);
               }
             }}
           >

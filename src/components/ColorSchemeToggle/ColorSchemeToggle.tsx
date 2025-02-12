@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const ColorSchemeToggle = (props: IconButtonProps) => {
   const { onClick, sx, ...other } = props;
   const { mode, setMode } = useColorScheme();
-  const { mode: muiMode, setMode: setMUIMode } = useMuiColorScheme();
+  const { setMode: setMUIMode } = useMuiColorScheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
