@@ -63,6 +63,18 @@
         "success": "Passwort erfolgreich gesetzt",
         "goToLogin": "Weiter zur Anmeldung"
       }
+    },
+    "resetPasswordPage": {
+      "header": "Passwort zurücksetzen",
+      "subheader": {
+        "hasCode": "Geben Sie ihr neues Passwort an",
+        "noCode": "Geben Sie ihre E-Mail Adresse an um ihr Passwort zurückzusetzen"
+      },
+      "email": "E-Mail",
+      "button": {
+        "hasCode": "Passwort zurücksetzen",
+        "noCode": "Bestätigungs senden"
+      }
     }
   },
   "components": {

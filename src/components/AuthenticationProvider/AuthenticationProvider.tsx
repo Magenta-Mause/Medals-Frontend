@@ -66,7 +66,8 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     setTokenExpirationDate(decoded.exp);
     setAuthorizedUsers(decoded.users);
     if (decoded.users?.length == 1) {
-      setSelectedUser(decoded.users[0]);
+      console.log("Auto picking user");
+      selectUser(decoded.users[0]);
     }
     setEmail(decoded.sub);
   };

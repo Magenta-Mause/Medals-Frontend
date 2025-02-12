@@ -103,6 +103,16 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const initiateResetPasswrod = useCallback(
+    async (email: string) => {
+      const request = await axiosInstance!.post(
+        "/authorization/resetPassword/" + email,
+      );
+      return request.status == 200;
+    },
+    [axiosInstance],
+  );
+
   return {
     loginUser,
     logoutUser,

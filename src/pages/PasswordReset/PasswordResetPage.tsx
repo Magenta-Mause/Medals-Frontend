@@ -20,19 +20,25 @@ interface ResetPasswordFormElement extends HTMLFormElement {
 }
 
 interface ResetPasswordFormElements extends HTMLFormControlsCollection {
-  password: HTMLInputElement;
+  password?: HTMLInputElement;
+  email?: HTMLInputElement;
 }
 
 const ResetPasswordPage = () => {
   const { t } = useTranslation();
-  const { resetPassword } = useApi();
+  const { resetPassword,  } = useApi();
   const [searchParams] = useSearchParams();
   const [hasCode, setCode] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+  const [emailValid, setEmailValid] = useState(false);
 
   const setPasswordCallback = async (data: { password: string }) => {
     resetPassword(data.password, searchParams.get("oneTimeCode") ?? "");
   };
+
+  const initiatePasswordResetCallback = async (data: {email: string}) => {
+    initiate
+  }
 
   const {
     mutate: setPassword,
@@ -91,12 +97,12 @@ const ResetPasswordPage = () => {
         <Stack sx={{ gap: 4, mb: 2 }}>
           <Stack sx={{ gap: 1 }}>
             <Typography component="h1" level="h3">
-              {t("pages.resetPassword.header")}
+              {t("pages.resetPasswordPage.header")}
             </Typography>
             <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
               {hasCode
-                ? t("pages.resetPassword.subheader.hasCode")
-                : t("pages.resetPassword.subheader.noCode")}
+                ? t("pages.resetPasswordPage.subheader.hasCode")
+                : t("pages.resetPasswordPage.subheader.noCode")}
             </Typography>
           </Stack>
         </Stack>
@@ -107,7 +113,7 @@ const ResetPasswordPage = () => {
                 event.preventDefault();
                 const formElements = event.currentTarget.elements;
                 const data = {
-                  password: formElements.password.value,
+                  password: formElements.password!.value,
                 };
 
                 setPassword(data);
@@ -147,26 +153,30 @@ const ResetPasswordPage = () => {
                 event.preventDefault();
                 const formElements = event.currentTarget.elements;
                 const data = {
-                  password: formElements.password.value,
+                  email: formElements.email!.value
                 };
 
                 setPassword(data);
               }}
             >
               <FormControl required>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t("pages.resetPasswordPage.email")}</FormLabel>
                 <Input
                   name="email"
                   placeholder={t("pages.resetPasswordPage.email")}
+                  onChange={(event) => {
+                    const emailRegex = /^.*@.*\..+$/
+                    setEmailValid(emailRegex.test(event.target.value));
+                  }}
                 />
               </FormControl>
               <Stack sx={{ gap: 4 }}>
                 <Button
                   type="submit"
                   fullWidth
-                  disabled={isPending || !passwordValid}
+                  disabled={isPending || (hasCode ? !passwordValid : !emailValid)}
                   color={
-                    !passwordValid
+                    !(hasCode ? passwordValid : emailValid)
                       ? "neutral"
                       : isSuccess
                         ? "success"
@@ -177,7 +187,9 @@ const ResetPasswordPage = () => {
                     ? t("pages.setPasswordPage.form.loading")
                     : isSuccess
                       ? t("pages.setPasswordPage.form.goToLogin")
-                      : t("pages.setPasswordPage.form.submit")}
+                      : hasCode
+                        ? t("pages.resetPasswordPage.button.hasCode")
+                        : t("pages.resetPasswordPage.button.noCode")}
                 </Button>
               </Stack>
             </form>

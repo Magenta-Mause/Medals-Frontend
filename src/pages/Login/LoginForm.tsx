@@ -71,7 +71,6 @@ const LoginForm = (props: {
           />
           <Link
             level="title-sm"
-            href="#replace-with-a-link"
             onClick={() => {
               navigate("/resetPassword");
             }}
