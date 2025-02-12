@@ -1,7 +1,7 @@
-import { JwtTokenBody, UserEntity } from "bffTypes";
 import useApi from "@hooks/useApi";
 import { Box, CircularProgress } from "@mui/joy";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { JwtTokenBody, UserEntity } from "bffTypes";
 import { jwtDecode } from "jwt-decode";
 import { useSnackbar } from "notistack";
 import {
@@ -61,23 +61,26 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     null,
   );
 
-  const processJwtToken = (jwtToken: string) => {
-    const decoded = jwtDecode(jwtToken) as JwtTokenBody;
-    setTokenExpirationDate(decoded.exp);
-    setAuthorizedUsers(decoded.users);
-    if (decoded.users?.length == 1) {
-      console.log("Auto picking user");
-      selectUser(decoded.users[0]);
-    }
-    setEmail(decoded.sub);
-  };
-
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {
       setSelectedUser(user);
       setStorageSelectedUser(user?.id ?? null);
     },
     [setSelectedUser, setStorageSelectedUser],
+  );
+
+  const processJwtToken = useCallback(
+    (jwtToken: string) => {
+      const decoded = jwtDecode(jwtToken) as JwtTokenBody;
+      setTokenExpirationDate(decoded.exp);
+      setAuthorizedUsers(decoded.users);
+      if (decoded.users?.length == 1) {
+        console.log("Auto picking user");
+        selectUser(decoded.users[0]);
+      }
+      setEmail(decoded.sub);
+    },
+    [selectUser],
   );
 
   const refreshIdentityToken = useCallback(async () => {
@@ -92,7 +95,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       setAuthorized(false);
       return null;
     }
-  }, [fetchIdentityToken]);
+  }, [fetchIdentityToken, processJwtToken]);
 
   const logout = useCallback(async () => {
     try {
