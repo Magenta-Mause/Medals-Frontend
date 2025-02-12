@@ -36,6 +36,7 @@ import LanguageSelector from "./LanguageSelector";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { UserType } from "@customTypes/bffTypes";
 
 const sharedNavBarElements = [
   {
@@ -48,64 +49,76 @@ const sharedNavBarElements = [
   },
 ];
 
-const navBarElements = {
-  undefined: [
-    {
-      path: "/",
-      icon: <HomeRounded />,
-    },
+const navBarElements = new Map<UserType | undefined, {path: string; icon: JSX.Element}[]>([
+  [
+    undefined,
+    [
+      {
+        path: "/",
+        icon: <HomeRounded />,
+      },
+    ],
   ],
-  ADMIN: [
-    {
-      path: "/",
-      icon: <HomeRounded />,
-    },
-    {
-      path: "/trainer",
-      icon: <PeopleRounded />,
-    },
+  [
+    UserType.ADMIN,
+    [
+      {
+        path: "/",
+        icon: <HomeRounded />,
+      },
+      {
+        path: "/trainer",
+        icon: <PeopleRounded />,
+      },
+    ],
   ],
-  TRAINER: [
-    {
-      path: "/",
-      icon: <HomeRounded />,
-    },
-    {
-      path: "/athletes",
-      icon: <PeopleRounded />,
-    },
-    {
-      path: "/performanceMetrics",
-      icon: <Assessment />,
-    },
-    {
-      path: "/assignAthlete",
-      icon: <PersonAddAlt />,
-    },
+  [
+    UserType.TRAINER,
+    [
+      {
+        path: "/",
+        icon: <HomeRounded />,
+      },
+      {
+        path: "/athletes",
+        icon: <PeopleRounded />,
+      },
+      {
+        path: "/performanceMetrics",
+        icon: <Assessment />,
+      },
+      {
+        path: "/assignAthlete",
+        icon: <PersonAddAlt />,
+      },
+    ],
   ],
-  ATHLETE: [
-    {
-      path: "/",
-      icon: <HomeRounded />,
-    },
-    {
-      path: "/dashboard",
-      icon: <SpaceDashboard />,
-    },
-    {
-      path: "/profile",
-      icon: <Person />,
-    },
-    {
-      path: "/requirements",
-      icon: <Article />,
-    },
-    {
-      path: "/performances",
-      icon: <Equalizer />,
-    },
+  [
+    UserType.ATHLETE,
+    [
+      {
+        path: "/",
+        icon: <HomeRounded />,
+      },
+      {
+        path: "/dashboard",
+        icon: <SpaceDashboard />,
+      },
+      {
+        path: "/profile",
+        icon: <Person />,
+      },
+      {
+        path: "/requirements",
+        icon: <Article />,
+      },
+      {
+        path: "/performances",
+        icon: <Equalizer />,
+      },
+    ],
   ],
-};
+]);
 
 const NavBar = () => {
   const { collapseSidebar, sideBarExtended } = useSidebar();
@@ -206,7 +219,7 @@ const NavBar = () => {
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}
         >
-          {[...navBarElements[userRole], ...sharedNavBarElements].map(
+          {[...navBarElements.get(userRole) ?? [], ...sharedNavBarElements].map(
             (element) => (
               <ListItem key={element.path}>
                 <ListItemButton
