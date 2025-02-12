@@ -49,7 +49,10 @@ const sharedNavBarElements = [
   },
 ];
 
-const navBarElements = new Map<UserType | undefined, {path: string; icon: JSX.Element}[]>([
+const navBarElements = new Map<
+  UserType | undefined,
+  { path: string; icon: JSX.Element }[]
+>([
   [
     undefined,
     [
@@ -219,26 +222,27 @@ const NavBar = () => {
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}
         >
-          {[...navBarElements.get(userRole) ?? [], ...sharedNavBarElements].map(
-            (element) => (
-              <ListItem key={element.path}>
-                <ListItemButton
-                  onClick={() => {
-                    navigate(element.path);
-                    collapseSidebar();
-                  }}
-                  selected={Boolean(matchPath(location.pathname, element.path))}
-                >
-                  {element.icon}
-                  <ListItemContent>
-                    <Typography level="title-sm">
-                      {t("components.navbar.locationList." + element.path)}
-                    </Typography>
-                  </ListItemContent>
-                </ListItemButton>
-              </ListItem>
-            ),
-          )}
+          {[
+            ...(navBarElements.get(userRole) ?? []),
+            ...sharedNavBarElements,
+          ].map((element) => (
+            <ListItem key={element.path}>
+              <ListItemButton
+                onClick={() => {
+                  navigate(element.path);
+                  collapseSidebar();
+                }}
+                selected={Boolean(matchPath(location.pathname, element.path))}
+              >
+                {element.icon}
+                <ListItemContent>
+                  <Typography level="title-sm">
+                    {t("components.navbar.locationList." + element.path)}
+                  </Typography>
+                </ListItemContent>
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
         <List
           size="sm"
