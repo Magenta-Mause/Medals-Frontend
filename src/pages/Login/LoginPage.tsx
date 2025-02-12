@@ -85,7 +85,7 @@ const LoginPage = () => {
               {t("pages.loginPage.signIn.header")}
             </Typography>
             <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
-              {t("pages.loginPage.signIn.subheader")}
+              {t("pages.loginPage.signIn.subheader")} test est
             </Typography>
           </Stack>
         </Stack>
