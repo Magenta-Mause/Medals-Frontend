@@ -1,7 +1,8 @@
 {
   "languages": {
     "de": "German",
-    "en": "English"
+    "en": "English",
+    "sp": "Spanish"
   },
   "genders": {
     "DIVERSE": "Diverse",
