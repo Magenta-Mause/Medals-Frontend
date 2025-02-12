@@ -65,32 +65,32 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
         <ThemeProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
-        <CssVarsProvider>
-          <CssBaseline enableColorScheme />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <UtilContext.Provider
-              value={{
-                sideBarExtended: isSideBarOpen,
-                setSideBarExtended: setSideBarOpen,
-              }}
-            >
-              <BrowserRouter>
-                <SnackbarProvider
-                  autoHideDuration={3000}
-                  action={snackBarActions}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "center",
-                  }}
-                >
-                  <AuthenticationProvider>
-                    <RoutingComponent />
-                  </AuthenticationProvider>
-                </SnackbarProvider>
-              </BrowserRouter>
-            </UtilContext.Provider>
-          </LocalizationProvider>
-        </CssVarsProvider>
+          <CssVarsProvider>
+            <CssBaseline enableColorScheme />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <UtilContext.Provider
+                value={{
+                  sideBarExtended: isSideBarOpen,
+                  setSideBarExtended: setSideBarOpen,
+                }}
+              >
+                <BrowserRouter>
+                  <SnackbarProvider
+                    autoHideDuration={3000}
+                    action={snackBarActions}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                  >
+                    <AuthenticationProvider>
+                      <RoutingComponent />
+                    </AuthenticationProvider>
+                  </SnackbarProvider>
+                </BrowserRouter>
+              </UtilContext.Provider>
+            </LocalizationProvider>
+          </CssVarsProvider>
         </ThemeProvider>
       </MaterialCssVarsProvider>
     </QueryClientProvider>
