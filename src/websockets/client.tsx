@@ -1,6 +1,6 @@
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
-import config from "../../app.config.json";
+import config from "../config";
 
 const initiateClient = (onConnect: (client: Client) => void) => {
   const client = new Client({

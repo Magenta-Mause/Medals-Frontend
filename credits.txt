@@ -1,3 +1,10 @@
 Background Images on Login Page:
 LightMode: Photo by  Anastasia  Shuraeva: https://www.pexels.com/photo/coach-talking-to-the-athletes-9519495/
 DarkMode: Photo by Rosemary Ketchum: https://www.pexels.com/photo/group-of-women-standing-outdoor-during-day-1564420/
+SwimmingCard: Photo by Mali Meader: https://www.pexels.com/photo/person-swimming-on-body-of-water-1415810/
+SingleAtheletsCard: Photo by Nappy: https://www.pexels.com/photo/man-wearing-white-sweater-and-black-shorts-about-to-run-936094/
+GroupAtheletsCard: Photo by Andrea Piacquadio: https://www.pexels.com/photo/basketball-team-stacking-hands-together-3755440/
+2020MedalsCard: Photo by DS stories: https://www.pexels.com/photo/medals-on-a-beige-surface-7267586/
+2023MedalsCard: Photo by DS stories: https://www.pexels.com/photo/photograph-of-medals-on-white-shapes-7267573/
+2024MedalsCard: Photo by DS stories: https://www.pexels.com/photo/gold-silver-and-bronze-round-medals-7267538/
+2025MedalsCard: Photo by DS stories: https://www.pexels.com/photo/different-types-of-medals-on-shapes-7267585/
