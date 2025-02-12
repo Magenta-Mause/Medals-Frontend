@@ -19,7 +19,6 @@ export enum UserType {
   ADMIN = "ADMIN",
   TRAINER = "TRAINER",
   ATHLETE = "ATHLETE",
-  DEFAULT = "DEFAULT",
 }
 
 export interface UserEntity {

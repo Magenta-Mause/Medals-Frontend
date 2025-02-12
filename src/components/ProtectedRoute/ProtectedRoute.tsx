@@ -1,52 +1,57 @@
 import { UserType } from "@customTypes/bffTypes";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-const rolePermissions: Record<UserType, string[]> = {
-  ADMIN: ["/", "/trainer", "/downloads", "/help"],
-  TRAINER: [
-    "/",
-    "/athletes",
-    "/performanceMetrics",
-    "/assignAthlete",
-    "/downloads",
-    "/help",
+const rolePermissions = new Map<UserType | undefined, string[]>([
+  [UserType.ADMIN, ["/", "/trainer", "/downloads", "/help"]],
+  [
+    UserType.TRAINER,
+    [
+      "/",
+      "/athletes",
+      "/performanceMetrics",
+      "/assignAthlete",
+      "/downloads",
+      "/help",
+    ],
   ],
-  ATHLETE: [
-    "/",
-    "/dashboard",
-    "/profile",
-    "/requirements",
-    "/performances",
-    "/downloads",
-    "/help",
+  [
+    UserType.ATHLETE,
+    [
+      "/",
+      "/dashboard",
+      "/profile",
+      "/requirements",
+      "/performances",
+      "/downloads",
+      "/help",
+    ],
   ],
-  DEFAULT: [
-    "/",
-    "/trainer",
-    "/athletes",
-    "/performanceMetrics",
-    "/assignAthlete",
-    "/dashboard",
-    "/profile",
-    "/requirements",
-    "/performances",
-    "/downloads",
-    "/help",
+  [
+    undefined,
+    [
+      "/",
+      "/trainer",
+      "/athletes",
+      "/performanceMetrics",
+      "/assignAthlete",
+      "/dashboard",
+      "/profile",
+      "/requirements",
+      "/performances",
+      "/downloads",
+      "/help",
+    ],
   ],
-};
+]);
 
 interface ProtectedRouteProps {
-  userRole: UserType;
+  userRole: UserType | undefined;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ userRole }) => {
   const location = useLocation();
 
-  if (!userRole) {
-    return <Navigate to="/userRoleErrorPage" replace />;
-  }
-
-  if (!rolePermissions[userRole]?.includes(location.pathname)) {
+  if (!rolePermissions.get(userRole)?.includes(location.pathname)) {
     return <Navigate to="/userRoleErrorPage" replace />;
   }
 

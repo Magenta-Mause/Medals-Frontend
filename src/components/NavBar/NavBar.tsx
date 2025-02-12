@@ -36,7 +36,6 @@ import LanguageSelector from "./LanguageSelector";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { UserType } from "@customTypes/bffTypes";
 
 const sharedNavBarElements = [
   {
@@ -50,7 +49,7 @@ const sharedNavBarElements = [
 ];
 
 const navBarElements = {
-  DEFAULT: [
+  undefined: [
     {
       path: "/",
       icon: <HomeRounded />,
@@ -116,7 +115,7 @@ const NavBar = () => {
   const warning = undefined;
   const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
     useContext(AuthContext);
-  const userRole = selectedUser?.type ?? UserType.DEFAULT;
+  const userRole = selectedUser?.type;
 
   return (
     <Sheet

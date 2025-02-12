@@ -10,7 +10,6 @@ import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import { Route, Routes } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { UserType } from "@customTypes/bffTypes";
 
 const RoutingComponent = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -22,11 +21,7 @@ const RoutingComponent = () => {
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
 
-        <Route
-          element={
-            <ProtectedRoute userRole={selectedUser?.type ?? UserType.DEFAULT} />
-          }
-        >
+        <Route element={<ProtectedRoute userRole={selectedUser?.type} />}>
           {/* ADMIN */}
           <Route path="/trainer" element={<InDevelopmentPage />} />
 
