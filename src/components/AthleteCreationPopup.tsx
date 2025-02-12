@@ -1,23 +1,24 @@
+import { Athlete } from "@customTypes/bffTypes";
+import useApi from "@hooks/useApi";
 import {
+  Button,
+  Dropdown,
   FormControl,
   FormLabel,
   Input,
-  Radio,
-  RadioGroup,
-  Typography,
-  Button,
-  Sheet,
+  Menu,
+  MenuButton,
   Modal,
   ModalClose,
-  Dropdown,
-  MenuButton,
-  Menu,
+  Radio,
+  RadioGroup,
+  Sheet,
+  Typography,
 } from "@mui/joy";
+import { DatePicker } from "@mui/x-date-pickers";
 import * as React from "react";
-import { useTranslation } from "react-i18next";
-import useApi from "@hooks/useApi";
-import { Athlete } from "@customTypes/bffTypes";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const AthleteCreationForm = () => {
   const { t } = useTranslation();
@@ -173,25 +174,7 @@ const AthleteCreationForm = () => {
             }
           />
           <FormLabel> {t("pages.athleteCreationPage.birthdate")}</FormLabel>
-          <Input
-            sx={{
-              width: { sx: "60vw", md: "30vw" },
-              marginBottom: "2vh",
-            }}
-            type="date"
-            slotProps={{
-              input: {
-                min: "1900-01-01",
-              },
-            }}
-            value={Athlete.birthdate}
-            onChange={(e) =>
-              setAthlete((prevUser) => ({
-                ...prevUser,
-                birthdate: e.target.value,
-              }))
-            }
-          />
+          <DatePicker />
 
           <Dropdown>
             <MenuButton sx={{ width: "20vw", left: "5vw", marginTop: "" }}>
