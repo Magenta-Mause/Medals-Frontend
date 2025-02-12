@@ -95,7 +95,7 @@ const useApi = () => {
         "/authorization/resetPassword",
         {
           password: password,
-          oneTimeCode: oneTimeCode,
+          token: oneTimeCode,
         },
       );
       return request.status == 200;
@@ -103,7 +103,7 @@ const useApi = () => {
     [axiosInstance],
   );
 
-  const initiateResetPasswrod = useCallback(
+  const initiatePasswordReset = useCallback(
     async (email: string) => {
       const request = await axiosInstance!.post(
         "/authorization/resetPassword/" + email,
@@ -122,6 +122,7 @@ const useApi = () => {
     getAthletes,
     setPassword,
     resetPassword,
+    initiatePasswordReset,
   };
 };
 

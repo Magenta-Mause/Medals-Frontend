@@ -21,6 +21,10 @@
     "setPassword": {
       "failed": "Password setzen fehlgeschlagen",
       "success": "Passwort erfolgreich gesetzt"
+    },
+    "resetPassword": {
+      "failed": "Es konnte kein Account gefunden werden",
+      "success": "Bestätigungs E-Mail gesendet"
     }
   },
   "pages": {
@@ -77,7 +81,11 @@
       "email": "E-Mail",
       "button": {
         "hasCode": "Passwort zurücksetzen",
-        "noCode": "Bestätigungs senden"
+        "noCode": "Bestätigungs senden",
+        "success": {
+          "hasCode": "Passwort wurde zurückgesetzt",
+          "noCode": "E-Mail wurde versendet"
+        }
       }
     }
   },

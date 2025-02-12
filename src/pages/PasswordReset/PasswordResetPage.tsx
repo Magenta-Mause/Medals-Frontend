@@ -11,9 +11,10 @@ import {
   Typography,
 } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
+import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 interface ResetPasswordFormElement extends HTMLFormElement {
   readonly elements: ResetPasswordFormElements;
@@ -26,19 +27,43 @@ interface ResetPasswordFormElements extends HTMLFormControlsCollection {
 
 const ResetPasswordPage = () => {
   const { t } = useTranslation();
-  const { resetPassword,  } = useApi();
+  const { resetPassword, initiatePasswordReset } = useApi();
   const [searchParams] = useSearchParams();
   const [hasCode, setCode] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
-  const setPasswordCallback = async (data: { password: string }) => {
-    resetPassword(data.password, searchParams.get("oneTimeCode") ?? "");
+  const initiatePasswordResetCallback = async (email: string) => {
+    try {
+      await initiatePasswordReset(email);
+      enqueueSnackbar(t("snackbar.resetPassword.success"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.log("Error during password reset", error);
+      enqueueSnackbar(t("snackbar.resetPassword.failed"), {
+        variant: "error",
+      });
+      throw new Error("Failed to reset password");
+    }
   };
 
-  const initiatePasswordResetCallback = async (data: {email: string}) => {
-    initiate
-  }
+  const setPasswordCallback = async (data: { password: string }) => {
+    try {
+      await resetPassword(data.password, searchParams.get("oneTimeCode") ?? "");
+      enqueueSnackbar(t("snackbar.setPassword.success"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.log("Error during password reset", error);
+      enqueueSnackbar(t("snackbar.setPassword.failed"), {
+        variant: "error",
+      });
+      throw new Error("Failed to reset password");
+    }
+  };
 
   const {
     mutate: setPassword,
@@ -46,6 +71,14 @@ const ResetPasswordPage = () => {
     isSuccess,
   } = useMutation({
     mutationFn: setPasswordCallback,
+  });
+
+  const {
+    mutate: initiatePasswordResetMutate,
+    isPending: initiatePending,
+    isSuccess: initiateSuccess,
+  } = useMutation({
+    mutationFn: initiatePasswordResetCallback,
   });
 
   useEffect(() => {
@@ -110,13 +143,17 @@ const ResetPasswordPage = () => {
           {hasCode ? (
             <form
               onSubmit={(event: React.FormEvent<ResetPasswordFormElement>) => {
-                event.preventDefault();
-                const formElements = event.currentTarget.elements;
-                const data = {
-                  password: formElements.password!.value,
-                };
+                if (!isSuccess) {
+                  event.preventDefault();
+                  const formElements = event.currentTarget.elements;
+                  const data = {
+                    password: formElements.password!.value,
+                  };
 
-                setPassword(data);
+                  setPassword(data);
+                } else {
+                  navigate("/login");
+                }
               }}
             >
               <FormControl required>
@@ -153,10 +190,10 @@ const ResetPasswordPage = () => {
                 event.preventDefault();
                 const formElements = event.currentTarget.elements;
                 const data = {
-                  email: formElements.email!.value
+                  email: formElements.email!.value,
                 };
 
-                setPassword(data);
+                initiatePasswordResetMutate(data.email);
               }}
             >
               <FormControl required>
@@ -165,7 +202,7 @@ const ResetPasswordPage = () => {
                   name="email"
                   placeholder={t("pages.resetPasswordPage.email")}
                   onChange={(event) => {
-                    const emailRegex = /^.*@.*\..+$/
+                    const emailRegex = /^.*@.*\..+$/;
                     setEmailValid(emailRegex.test(event.target.value));
                   }}
                 />
@@ -174,22 +211,20 @@ const ResetPasswordPage = () => {
                 <Button
                   type="submit"
                   fullWidth
-                  disabled={isPending || (hasCode ? !passwordValid : !emailValid)}
+                  disabled={initiatePending || !emailValid || initiateSuccess}
                   color={
-                    !(hasCode ? passwordValid : emailValid)
+                    !emailValid
                       ? "neutral"
-                      : isSuccess
+                      : initiateSuccess
                         ? "success"
                         : "primary"
                   }
                 >
-                  {isPending
+                  {initiatePending
                     ? t("pages.setPasswordPage.form.loading")
-                    : isSuccess
-                      ? t("pages.setPasswordPage.form.goToLogin")
-                      : hasCode
-                        ? t("pages.resetPasswordPage.button.hasCode")
-                        : t("pages.resetPasswordPage.button.noCode")}
+                    : initiateSuccess
+                      ? t("pages.resetPasswordPage.button.success.noCode")
+                      : t("pages.resetPasswordPage.button.noCode")}
                 </Button>
               </Stack>
             </form>

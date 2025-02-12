@@ -21,6 +21,10 @@
     "setPassword": {
       "failed": "Failed to set password",
       "success": "Password successfully set"
+    },
+    "resetPassword": {
+      "failed": "We couldnt find an account connected to that email",
+      "success": "Verification email sent"
     }
   },
   "pages": {
@@ -65,6 +69,22 @@
         "submit": "Set Password",
         "loading": "Loading...",
         "goToLogin": "Go to login"
+      }
+    },
+    "resetPasswordPage": {
+      "header": "Reset Password",
+      "subheader": {
+        "hasCode": "Enter your new password",
+        "noCode": "Enter your email address to reset your Password"
+      },
+      "email": "Email",
+      "button": {
+        "hasCode": "Reset Password",
+        "noCode": "Send verification email",
+        "success": {
+          "hasCode": "Password successfully reset",
+          "noCode": "Verification email sent"
+        }
       }
     }
   },

@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import { Box, Typography } from "@mui/joy";
 import DownloadCard from "@components/DownloadCard/DownloadCard";
+import { Box, Typography } from "@mui/joy";
+import { useTranslation } from "react-i18next";
 
 const pdfFiles = [
   {
@@ -37,7 +37,13 @@ const PdfDownloadPage = () => {
   const { t } = useTranslation();
 
   return (
-    <Box>
+    <Box
+      sx={{
+        overflowY: "scroll",
+        height: "100vh",
+        pb: 2,
+      }}
+    >
       <Box>
         <Typography level="h2" component="h1">
           {t("pages.downloadPage.header")}
