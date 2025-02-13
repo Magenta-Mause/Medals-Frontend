@@ -1,17 +1,17 @@
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import {
-  Table,
-  Checkbox,
-  Typography,
   Box,
   Button,
+  Checkbox,
   iconButtonClasses,
   Input,
+  Table,
+  Typography,
 } from "@mui/joy";
 import { Key, useCallback, useEffect, useRef } from "react";
-import { Action } from "./GenericResponsiveDatagrid";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
-import RowMenu from "./RowMenu";
 import { useTranslation } from "react-i18next";
+import { Action } from "./GenericResponsiveDatagrid";
+import RowMenu from "./RowMenu";
 
 const COLUMN_SIZES = {
   xs: 70,
@@ -131,6 +131,7 @@ const PageControl = (props: {
       className="Pagination-laptopUp"
       sx={{
         pt: 2,
+        pb: 2,
         gap: 1,
         [`& .${iconButtonClasses.root}`]: { borderRadius: "50%" },
         display: {

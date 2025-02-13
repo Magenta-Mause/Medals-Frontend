@@ -1,46 +1,33 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import PasswordStrengthBar from "@components/PasswordStrengthBar/PasswordStrengthBar";
+import CreatePasswordComponent from "@components/CreatePasswordComponent/CreatePasswordComponent";
 import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
 import useApi from "@hooks/useApi";
-import usePasswordValidation, {
-  PasswordStrengthChecks as PasswordStrengthCheck,
-  requiredPasswordChecks,
-} from "@hooks/usePasswordValidation";
-import { Check, Close } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  List,
-  ListItem,
-  ListItemContent,
-  ListItemDecorator,
-  Stack,
-  Tooltip,
-  Typography,
-} from "@mui/joy";
-import { SignInFormElement } from "@pages/Login/LoginForm";
+import { Box, Button, FormControl, Stack, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router";
 
+interface SetPasswordFormElement extends HTMLFormElement {
+  readonly elements: SetPasswordFormElements;
+}
+
+interface SetPasswordFormElements extends HTMLFormControlsCollection {
+  email: HTMLInputElement;
+  password: HTMLInputElement;
+  persistent: HTMLInputElement;
+}
+
 const SetPasswordPage = () => {
   const [searchParams] = useSearchParams();
   const { setPassword: setPasswordApi } = useApi();
-  const [currentPassword, setCurrentPassword] = useState("");
   const { logout } = useContext(AuthContext);
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const {
-    strength: passwordStrength,
-    valid: passwordValid,
-    checks: passwordChecks,
-  } = usePasswordValidation(currentPassword);
+  const [passwordValid, setPasswordValid] = useState(false);
+
   const setPasswordCallback = async (data: { password: string }) => {
     logout();
     try {
@@ -139,7 +126,7 @@ const SetPasswordPage = () => {
         <Stack sx={{ gap: 4, mt: 0 }}>
           {isValid ? (
             <form
-              onSubmit={(event: React.FormEvent<SignInFormElement>) => {
+              onSubmit={(event: React.FormEvent<SetPasswordFormElement>) => {
                 event.preventDefault();
                 const formElements = event.currentTarget.elements;
                 const data = {
@@ -150,59 +137,11 @@ const SetPasswordPage = () => {
               }}
             >
               <FormControl required>
-                <FormLabel>
-                  {t("pages.setPasswordPage.form.passwordLabel")}
-                </FormLabel>
-                <Input
-                  type="password"
-                  name="password"
-                  disabled={isPending || isSuccess}
-                  onChange={(event) => setCurrentPassword(event.target.value)}
+                <CreatePasswordComponent
+                  isPending={isPending}
+                  isSuccess={isSuccess}
+                  setPasswordValid={setPasswordValid}
                 />
-                <PasswordStrengthBar passwordStrength={passwordStrength} />
-                <Typography level="body-sm" textAlign={"left"}>
-                  <List>
-                    {Object.keys(passwordChecks).map((key) => (
-                      <ListItem key={key}>
-                        <ListItemDecorator>
-                          {passwordChecks[key as PasswordStrengthCheck] ? (
-                            <Check
-                              sx={{
-                                fill: "green",
-                              }}
-                            />
-                          ) : (
-                            <Close />
-                          )}
-                        </ListItemDecorator>
-                        <ListItemContent sx={{ display: "flex" }}>
-                          <Typography level="body-sm">
-                            {t("components.passwordStrengthIndicator." + key)}
-                          </Typography>
-                          <Tooltip
-                            title={t(
-                              "components.passwordStrengthIndicator.required",
-                            )}
-                            sx={{
-                              userSelect: "none",
-                            }}
-                          >
-                            <Typography level="body-sm">
-                              {requiredPasswordChecks[
-                                key as PasswordStrengthCheck
-                              ]
-                                ? "*"
-                                : ""}
-                            </Typography>
-                          </Tooltip>
-                        </ListItemContent>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Typography>
-                <Typography level="body-xs" color="neutral">
-                  * Constraint is required
-                </Typography>
               </FormControl>
               <Stack sx={{ gap: 4 }}>
                 <Button
