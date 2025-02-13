@@ -1,4 +1,5 @@
-import { UserType } from "@customTypes/bffTypes";
+
+import { UserType } from "bffTypes";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const rolePermissions = new Map<UserType | undefined, string[]>([
