@@ -36,6 +36,20 @@ const useApi = () => {
     }
   };
 
+  const createAthlete = async (Athlete: Athlete) => {
+    const response = await axiosInstance.post(`/athletes`, {
+      first_name: Athlete.first_name,
+      last_name: Athlete.last_name,
+      email: Athlete.email,
+      birthdate: Athlete.birthdate,
+      gender: Athlete.gender,
+    });
+    if (response.status != 201) {
+      throw "Login Failed";
+    }
+    return response.status == 201;
+  };
+
   const loginUser = useCallback(
     async (email: string, password: string) => {
       const request = await axiosInstance!.post(
@@ -97,6 +111,7 @@ const useApi = () => {
     getAthlete,
     getAthletes,
     setPassword,
+    createAthlete,
   };
 };
 
