@@ -2,10 +2,10 @@
   "languages": {
     "de": "Alemán",
     "en": "Inglés",
-    "sp": "Espanol"
+    "es": "Español"
   },
   "genders": {
-    "DIVERSE": "Diverso",
+    "DIVERSE": "No binario",
     "FEMALE": "Femenino",
     "MALE": "Masculino",
     "": "Todos"

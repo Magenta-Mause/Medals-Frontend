@@ -2,7 +2,7 @@
   "languages": {
     "de": "Deutsch",
     "en": "Englisch",
-    "sp": "Spanisch"
+    "es": "Spanisch"
   },
   "genders": {
     "DIVERSE": "Divers",
@@ -82,7 +82,7 @@
       "email": "E-Mail",
       "button": {
         "hasCode": "Passwort zurücksetzen",
-        "noCode": "Bestätigungs senden",
+        "noCode": "Bestätigungs E-Mail senden",
         "success": {
           "hasCode": "Passwort wurde zurückgesetzt",
           "noCode": "E-Mail wurde versendet"
