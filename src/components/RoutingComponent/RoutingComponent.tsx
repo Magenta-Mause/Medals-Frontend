@@ -2,6 +2,7 @@ import PageLayout from "@components/PageLayout/PageLayout";
 import AthleteOverviewPage from "@pages/Athletes/AthleteOverviewPage";
 import HomePage from "@pages/Home/HomePage";
 import InDevelopmentPage from "@pages/InDevelopment/InDevelopmentPage";
+import PdfDownloadPage from "@pages/Downloads/PdfDownloadPage";
 import LoginPage from "@pages/Login/LoginPage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
@@ -44,6 +45,7 @@ const RoutingComponent = () => {
         {/* Error Pages */}
         <Route path="/userRoleErrorPage" element={<UserRoleErrorPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/downloads" element={<PdfDownloadPage />} />
       </Route>
     </Routes>
   );

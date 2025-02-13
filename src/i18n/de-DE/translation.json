@@ -35,6 +35,10 @@
       "h1": "404",
       "h2": "Seite konnte nicht gefunden werden"
     },
+    "downloadPage": {
+      "header": "Downloads",
+      "headerText": "Hier die wichtigsten Downloads nur einen Klick entfernt"
+    },
     "inDevelopment": {
       "h1": "404",
       "h2": "Seite in der Entwicklung"
@@ -112,6 +116,18 @@
         "text": "Warnung!"
       }
     },
+    "downloadCard": {
+      "downloadButton": "Herunterladen",
+      "items": {
+        "DSA_Leistungsuebersicht_2020.pdf": "Leistungsnachweis 2020",
+        "DSA_Leistungsuebersicht_2023.pdf": "Leistungsnachweis 2023",
+        "DSA_Leistungsuebersicht_2024.pdf": "Leistungsnachweis 2024",
+        "DSA_Leistungsuebersicht_2025.pdf": "Leistungsnachweis 2025",
+        "DSA-Schwimmnachweis_2025.pdf": "Schwimmnachweis",
+        "DSA_Einzelpruefkarte_2025.pdf": "Einzelprüfkarten",
+        "DSA_Gruppenpruefkarte_2025.pdf": "Gruppenprüfkarten"
+      }
+    },
     "genericResponsiveDatagrid": {
       "filterForm": {
         "submit": "Fertig"
@@ -142,7 +158,7 @@
         },
         "filters": {
           "search": "Suche",
-          "bornIn": "Geburtsjahr",
+          "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
         }
       }
