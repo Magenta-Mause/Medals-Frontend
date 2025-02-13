@@ -4,25 +4,18 @@ import useApi from "@hooks/useApi";
 import { Box, Stack, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { Navigate } from "react-router";
 import LoginForm from "./LoginForm";
 import UserSelectionForm from "./UserSelectionForm";
 
 const LoginPage = () => {
   const { loginUser } = useApi();
-  const navigate = useNavigate();
   const { refreshIdentityToken, selectedUser, authorized } =
     useContext(AuthContext);
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    if (selectedUser != null) {
-      navigate("/");
-    }
-  }, [selectedUser, navigate]);
 
   const loginCallback = async (loginData: {
     email: string;
@@ -48,6 +41,10 @@ const LoginPage = () => {
   const { isPending, mutate: login } = useMutation({
     mutationFn: loginCallback,
   });
+
+  if (authorized !== false && selectedUser !== null) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <SplitPageComponent>

@@ -42,7 +42,7 @@ const ResetPasswordPage = () => {
         variant: "success",
       });
     } catch (error) {
-      console.log("Error during password reset", error);
+      console.error("Error during password reset", error);
       enqueueSnackbar(t("snackbar.resetPassword.failed"), {
         variant: "error",
       });
@@ -57,7 +57,7 @@ const ResetPasswordPage = () => {
         variant: "success",
       });
     } catch (error) {
-      console.log("Error during password reset", error);
+      console.error("Error during password reset", error);
       enqueueSnackbar(t("snackbar.setPassword.failed"), {
         variant: "error",
       });

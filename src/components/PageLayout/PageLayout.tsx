@@ -3,17 +3,14 @@ import CustomBreadcrumbs from "@components/CustomBreadcrumbs/CustomBreadcrumbs";
 import Header from "@components/Header/Header";
 import NavBar from "@components/NavBar/NavBar";
 import { Box } from "@mui/joy";
-import { useContext, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router";
+import { useContext } from "react";
+import { Navigate, Outlet } from "react-router";
 
 const PageLayout = () => {
   const { authorized, selectedUser } = useContext(AuthContext);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (authorized === false || selectedUser === null) {
-      navigate("/login");
-    }
-  }, [authorized, selectedUser, navigate]);
+  if (authorized === false || selectedUser === null) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <Box sx={{ display: "flex", minHeight: "100dvh" }}>

@@ -75,7 +75,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       setTokenExpirationDate(decoded.exp);
       setAuthorizedUsers(decoded.users);
       if (decoded.users?.length == 1) {
-        console.log("Auto picking user");
         selectUser(decoded.users[0]);
       }
       setEmail(decoded.sub);
@@ -91,6 +90,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       processJwtToken(token);
       return token;
     } catch {
+      console.log("Not authorized");
       setIdentityToken(null);
       setAuthorized(false);
       return null;
@@ -99,10 +99,10 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = useCallback(async () => {
     try {
-      setIdentityToken(null);
+      await logoutUser();
       setAuthorized(false);
       selectUser(null);
-      return await logoutUser();
+      setIdentityToken(null);
     } catch (error) {
       console.error("Logout failed", error);
     }
