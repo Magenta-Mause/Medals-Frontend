@@ -1,6 +1,6 @@
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete } from "bffTypes";
 import { useCallback } from "react";
-import config from "../../app.config.json";
+import config from "../config";
 import useAxiosInstance from "./useAxiosInstance";
 
 const useApi = () => {

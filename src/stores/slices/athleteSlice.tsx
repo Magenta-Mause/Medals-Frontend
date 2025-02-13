@@ -1,4 +1,4 @@
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete } from "bffTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AthleteSliceState {

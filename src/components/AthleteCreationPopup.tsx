@@ -1,4 +1,4 @@
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete } from "bffTypes";
 import useApi from "@hooks/useApi";
 import {
   Button,
@@ -15,7 +15,6 @@ import {
   Sheet,
   Typography,
 } from "@mui/joy";
-import { DatePicker } from "@mui/x-date-pickers";
 import * as React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -63,7 +62,7 @@ const AthleteCreationForm = () => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAthlete((prevUser) => ({
+    setAthlete((prevUser: Athlete) => ({
       ...prevUser,
       gender: event.target.value,
     }));
@@ -125,7 +124,7 @@ const AthleteCreationForm = () => {
             placeholder={t("pages.athleteCreationPage.firstName")}
             value={Athlete.first_name}
             onChange={(e) =>
-              setAthlete((prevUser) => ({
+              setAthlete((prevUser: Athlete) => ({
                 ...prevUser,
                 first_name: e.target.value,
               }))
@@ -143,7 +142,7 @@ const AthleteCreationForm = () => {
             placeholder={t("pages.athleteCreationPage.lastName")}
             value={Athlete.last_name}
             onChange={(e) =>
-              setAthlete((prevUser) => ({
+              setAthlete((prevUser: Athlete) => ({
                 ...prevUser,
                 last_name: e.target.value,
               }))
@@ -161,7 +160,7 @@ const AthleteCreationForm = () => {
             placeholder={t("pages.athleteCreationPage.email")}
             value={Athlete.email}
             onChange={(e) =>
-              setAthlete((prevUser) => ({
+              setAthlete((prevUser: Athlete) => ({
                 ...prevUser,
                 email: e.target.value,
               }))
@@ -176,7 +175,7 @@ const AthleteCreationForm = () => {
             }}
             value={date}
             onChange={(newDate) =>
-              setAthlete((prevUser) => ({
+              setAthlete((prevUser: Athlete) => ({
                 ...prevUser,
                 birthdate: newDate,
               }))

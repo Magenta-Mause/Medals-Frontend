@@ -44,6 +44,10 @@
       "h1": "404",
       "h2": "Page not found"
     },
+    "downloadPage": {
+      "header": "Downloads",
+      "headerText": "Here are the most important downloads just a click away"
+    },
     "loginPage": {
       "logo": "Medals",
       "signIn": {
@@ -77,20 +81,34 @@
     "breadcrumbs": {
       "paths": {
         "/": "Home",
-        "/athletes": "Athletes"
+        "/athletes": "Athletes",
+        "/downloads": "Downloads"
       }
     },
     "navbar": {
       "logo": "Medals",
       "locationList": {
         "/": "Home",
-        "/athletes": "Athletes"
+        "/athletes": "Athletes",
+        "/downloads": "Downloads"
       },
       "search": "Search",
       "languageSelector": "Language",
       "bottomInfoCard": {
         "header": "Warning",
         "text": "Warning!"
+      }
+    },
+    "downloadCard": {
+      "downloadButton": "Download",
+      "items": {
+        "DSA_Leistungsuebersicht_2020.pdf": "Performance record 2020",
+        "DSA_Leistungsuebersicht_2023.pdf": "Performance record 2023",
+        "DSA_Leistungsuebersicht_2024.pdf": "Performance record 2024",
+        "DSA_Leistungsuebersicht_2025.pdf": "Performance record 2025",
+        "DSA-Schwimmnachweis_2025.pdf": "Swimming record",
+        "DSA_Einzelpruefkarte_2025.pdf": "Individual report card",
+        "DSA_Gruppenpruefkarte_2025.pdf": "Group report card"
       }
     },
     "genericResponsiveDatagrid": {
@@ -123,7 +141,7 @@
         },
         "filters": {
           "search": "Search",
-          "bornIn": "Born in",
+          "birthYear": "Birth year",
           "gender": "Gender"
         }
       }

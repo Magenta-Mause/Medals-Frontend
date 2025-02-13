@@ -58,8 +58,6 @@ const CustomDatePicker = (props: {
           },
         },
       }}
-
-
       value={props.value}
       onChange={props.onChange}
       format={props.format}
