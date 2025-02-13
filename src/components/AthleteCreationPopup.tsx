@@ -19,6 +19,8 @@ import * as React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "./CustomDatePicker/CustomDatePicker";
+import dayjs from "dayjs";
+
 
 const AthleteCreationForm = () => {
   const { t } = useTranslation();
@@ -174,15 +176,18 @@ const AthleteCreationForm = () => {
               position: "relative",
             }}
             value={date}
-            onChange={(newDate) =>
+            onChange={(newDate) => {
+              const localDate = new Date(newDate);
+              const adjustedDate:any = new Date(
+                localDate.getTime() - localDate.getTimezoneOffset() * 60000
+              );
               setAthlete((prevUser: Athlete) => ({
                 ...prevUser,
-                birthdate: newDate,
-              }))
-            }
+                birthdate: adjustedDate,
+              }));
+            }}
             format="DD/MM/YYYY"
           />
-
           <p>
             <Dropdown>
               <MenuButton sx={{ width: "30vw", marginTop: "" }}>

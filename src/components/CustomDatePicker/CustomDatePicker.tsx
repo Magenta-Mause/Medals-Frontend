@@ -38,14 +38,15 @@ const CustomDatePicker = (props: {
         textField: {
           InputProps: {
             sx: {
-              backgroundColor: mode === "dark" ? "#333" : "#fff",
-              color: mode === "dark" ? "#fff" : "#000",
+              backgroundColor: mode === "dark" ? "#0b0d0e" : "white",
+              color: mode === "dark" ? "white" : "black",
               "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: mode === "dark" ? "#777" : "rgb(205, 215, 225)",
+                borderColor: mode === "dark" ? "rgb(61, 65, 68)" : "rgb(205, 215, 225)",
               },
               "&:hover .MuiOutlinedInput-notchedOutline": {
                 borderColor: mode === "dark" ? "#bbb" : "rgb(205, 215, 225)",
               },
+              borderRadius:"8px"
             },
           },
         },
