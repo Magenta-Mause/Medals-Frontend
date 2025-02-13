@@ -1,3 +1,4 @@
+import useWindowDimensions from "@hooks/useWindowDimensions";
 import { FilterAlt, Search } from "@mui/icons-material";
 import {
   Box,
@@ -17,12 +18,11 @@ import {
 } from "@mui/joy";
 import { OverridableStringUnion } from "@mui/types";
 import React, { Key, useCallback, useEffect, useState } from "react";
+import FullScreenTable, { Column, PageControll } from "./FullScreenTable";
 import FilterComponent, {
   Filter,
 } from "./GenericResponsiveDatagridFilterComponent";
-import FullScreenTable, { Column, PageControll } from "./FullScreenTable";
 import MobileTable, { MobileTableRendering } from "./MobileTable";
-import useWindowDimensions from "@hooks/useWindowDimensions";
 
 const DEFAULT_MAX_VISIBLE_ON_PAGE = 5;
 
@@ -196,7 +196,7 @@ const GenericResponsiveDatagrid = <T,>(
   }, [windowDimensions, wasPageSizeChanged]);
 
   return (
-    <React.Fragment>
+    <>
       <Sheet
         className="SearchAndFilters-mobile"
         sx={{
@@ -344,7 +344,7 @@ const GenericResponsiveDatagrid = <T,>(
         setElementsPerPage={setPageSize}
         showPreviousAndNextButtons={false}
       />
-    </React.Fragment>
+    </>
   );
 };
 

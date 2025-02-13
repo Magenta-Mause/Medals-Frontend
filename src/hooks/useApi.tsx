@@ -89,6 +89,30 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const resetPassword = useCallback(
+    async (password: string, oneTimeCode: string) => {
+      const request = await axiosInstance!.post(
+        "/authorization/resetPassword",
+        {
+          password: password,
+          token: oneTimeCode,
+        },
+      );
+      return request.status == 200;
+    },
+    [axiosInstance],
+  );
+
+  const initiatePasswordReset = useCallback(
+    async (email: string) => {
+      const request = await axiosInstance!.post(
+        "/authorization/resetPassword/" + email,
+      );
+      return request.status == 200;
+    },
+    [axiosInstance],
+  );
+
   return {
     loginUser,
     logoutUser,
@@ -97,6 +121,8 @@ const useApi = () => {
     getAthlete,
     getAthletes,
     setPassword,
+    resetPassword,
+    initiatePasswordReset,
   };
 };
 

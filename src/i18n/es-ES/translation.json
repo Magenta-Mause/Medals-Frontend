@@ -1,0 +1,173 @@
+{
+  "languages": {
+    "de": "Alemán",
+    "en": "Inglés",
+    "es": "Español"
+  },
+  "genders": {
+    "DIVERSE": "No binario",
+    "FEMALE": "Femenino",
+    "MALE": "Masculino",
+    "": "Todos"
+  },
+  "userTypes": {
+    "ATHLETE": "Atleta",
+    "TRAINER": "Entrenador",
+    "ADMIN": "Administrador"
+  },
+  "snackbar": {
+    "login": {
+      "loginFailed": "Error de inicio de sesión"
+    },
+    "setPassword": {
+      "failed": "Error al establecer la contraseña",
+      "success": "Contraseña establecida con éxito"
+    },
+    "resetPassword": {
+      "failed": "No pudimos encontrar una cuenta vinculada a ese correo electrónico",
+      "success": "Correo de verificación enviado"
+    }
+  },
+  "pages": {
+    "homePage": {
+      "h1": "Medallas",
+      "h3": "El futuro sistema de gestión de medallas"
+    },
+    "athleteOverviewPage": {
+      "header": "Atletas"
+    },
+    "notFound": {
+      "h1": "404",
+      "h2": "Página no encontrada"
+    },
+    "downloadPage": {
+      "header": "Descargas",
+      "headerText": "Aquí están las descargas más importantes a un clic de distancia"
+    },
+    "loginPage": {
+      "logo": "Medallas",
+      "signIn": {
+        "header": "Iniciar sesión",
+        "subheader": "Medallas - El futuro sistema de gestión de medallas",
+        "input": {
+          "email": "Correo electrónico",
+          "password": "Contraseña"
+        },
+        "forgotPassword": "¿Olvidaste tu contraseña?",
+        "rememberMe": "Recuérdame",
+        "submit": "Iniciar sesión",
+        "loginFailedWarning": "Error de inicio de sesión",
+        "logoutButton": "Cerrar sesión",
+        "loading": "Cargando..."
+      }
+    },
+    "setPasswordPage": {
+      "header": "Configura tu contraseña",
+      "subheader": "Por favor, configura tu contraseña para usar tu cuenta",
+      "invalidCode": "Código inválido",
+      "form": {
+        "passwordLabel": "Contraseña",
+        "submit": "Establecer contraseña",
+        "loading": "Cargando...",
+        "goToLogin": "Ir a iniciar sesión"
+      }
+    },
+    "resetPasswordPage": {
+      "header": "Restablecer contraseña",
+      "subheader": {
+        "hasCode": "Ingresa tu nueva contraseña",
+        "noCode": "Ingresa tu correo electrónico para restablecer tu contraseña"
+      },
+      "email": "Correo electrónico",
+      "button": {
+        "hasCode": "Restablecer contraseña",
+        "noCode": "Enviar correo de verificación",
+        "success": {
+          "hasCode": "Contraseña restablecida con éxito",
+          "noCode": "Correo de verificación enviado"
+        }
+      }
+    }
+  },
+  "components": {
+    "breadcrumbs": {
+      "paths": {
+        "/": "Inicio",
+        "/athletes": "Atletas",
+        "/downloads": "Descargas"
+      }
+    },
+    "navbar": {
+      "logo": "Medallas",
+      "locationList": {
+        "/": "Inicio",
+        "/athletes": "Atletas",
+        "/downloads": "Descargas"
+      },
+      "search": "Buscar",
+      "languageSelector": "Idioma",
+      "bottomInfoCard": {
+        "header": "Advertencia",
+        "text": "¡Advertencia!"
+      }
+    },
+    "downloadCard": {
+      "downloadButton": "Descargar",
+      "items": {
+        "DSA_Leistungsuebersicht_2020.pdf": "Registro de rendimiento 2020",
+        "DSA_Leistungsuebersicht_2023.pdf": "Registro de rendimiento 2023",
+        "DSA_Leistungsuebersicht_2024.pdf": "Registro de rendimiento 2024",
+        "DSA_Leistungsuebersicht_2025.pdf": "Registro de rendimiento 2025",
+        "DSA-Schwimmnachweis_2025.pdf": "Registro de natación",
+        "DSA_Einzelpruefkarte_2025.pdf": "Tarjeta de informe individual",
+        "DSA_Gruppenpruefkarte_2025.pdf": "Tarjeta de informe grupal"
+      }
+    },
+    "genericResponsiveDatagrid": {
+      "filterForm": {
+        "submit": "Enviar"
+      },
+      "fullScreenTable": {
+        "pageControl": {
+          "pageSize": {
+            "label": "Tamaño de página:",
+            "inputPostfix": "Entradas"
+          }
+        }
+      },
+      "mobileList": {
+        "pageControl": {
+          "pageLabels": "Página {currPage} de {maxPage}"
+        }
+      }
+    },
+    "athleteDatagrid": {
+      "table": {
+        "columns": {
+          "athleteId": "ID del atleta",
+          "firstName": "Nombre",
+          "lastName": "Apellido",
+          "birthdate": "Fecha de nacimiento",
+          "email": "Correo electrónico",
+          "gender": "Género"
+        },
+        "filters": {
+          "search": "Buscar",
+          "birthYear": "Año de nacimiento",
+          "gender": "Género"
+        }
+      }
+    },
+    "buttons": {
+      "next": "Siguiente",
+      "previous": "Anterior"
+    },
+    "passwordStrengthIndicator": {
+      "is8Characters": "La contraseña tiene al menos 8 caracteres",
+      "hasNumber": "La contraseña contiene un número",
+      "hasUpperCase": "La contraseña contiene una letra mayúscula",
+      "hasSpecial": "La contraseña contiene un carácter especial",
+      "required": "Obligatorio"
+    }
+  }
+}
