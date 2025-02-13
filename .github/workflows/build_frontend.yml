@@ -1,6 +1,8 @@
 name: Build Frontend
 
-on: push
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   lint:
@@ -22,7 +24,7 @@ jobs:
     name: Build Frontend
     runs-on: ubuntu-latest
     needs: lint
-    if: github.ref != 'refs/heads/main'
+    if: github.ref != 'refs/heads/main' && github.event_name != 'workflow_dispatch'
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -39,7 +41,7 @@ jobs:
     name: Publish Frontend
     runs-on: ubuntu-latest
     needs: lint
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
