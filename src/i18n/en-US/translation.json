@@ -29,7 +29,16 @@
       "h3": "The soon to be Medal Management System"
     },
     "athleteOverviewPage": {
-      "header": "Athletes"
+      "header": "Athletes",
+      "createButton": "create athlete"
+    },
+    "athleteCreationPage": {
+      "firstName": "first name",
+      "lastName": "last name",
+      "email": "email",
+      "birthdate": "birthdate",
+      "gender": "gender",
+      "createButton": "create athlete"
     },
     "notFound": {
       "h1": "404",
