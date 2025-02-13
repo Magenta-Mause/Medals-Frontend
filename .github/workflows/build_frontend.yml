@@ -1,6 +1,8 @@
 name: Build Frontend
 
-on: push
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   lint:
