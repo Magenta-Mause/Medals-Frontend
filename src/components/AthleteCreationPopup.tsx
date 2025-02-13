@@ -19,6 +19,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import * as React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import CustomDatePicker from "./CustomDatePicker/CustomDatePicker";
 
 const AthleteCreationForm = () => {
   const { t } = useTranslation();
@@ -167,7 +168,7 @@ const AthleteCreationForm = () => {
             }
           />
           <FormLabel> {t("pages.athleteCreationPage.birthdate")}</FormLabel>
-          <DatePicker
+          <CustomDatePicker
             sx={{
               width: { sx: "60vw", md: "30vw" },
               marginBottom: "2vh",
@@ -182,6 +183,7 @@ const AthleteCreationForm = () => {
             }
             format="DD/MM/YYYY"
           />
+
           <p>
             <Dropdown>
               <MenuButton sx={{ width: "30vw", marginTop: "" }}>
