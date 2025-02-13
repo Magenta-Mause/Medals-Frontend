@@ -32,7 +32,7 @@ const CustomDatePicker = (props: {
         {
           ...props.sx,
           ...styles[(mode as "dark" | "light" | undefined) ?? "light"],
-          backgroundColor: mode === "dark" ? "rgb(61, 65, 68)" : "white",
+          backgroundColor: mode === "dark" ? "#0b0d0e" : "white",
         } as SxProps<Theme>
       }
       slotProps={{
