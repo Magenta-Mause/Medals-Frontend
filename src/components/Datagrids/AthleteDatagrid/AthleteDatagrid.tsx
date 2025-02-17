@@ -1,5 +1,5 @@
 import useApi from "@hooks/useApi";
-import { Athlete } from "bffTypes";
+import { Athlete } from "@customTypes/bffTypes";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";

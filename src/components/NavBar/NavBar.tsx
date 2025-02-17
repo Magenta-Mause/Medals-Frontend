@@ -36,7 +36,7 @@ import LanguageSelector from "./LanguageSelector";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { UserType } from "bffTypes";
+import { UserType } from "@customTypes/enums";
 
 const sharedNavBarElements = [
   {
