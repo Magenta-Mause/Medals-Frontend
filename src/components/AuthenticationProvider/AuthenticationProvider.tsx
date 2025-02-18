@@ -1,7 +1,7 @@
+import { JwtTokenBody, UserEntity } from "@customTypes/bffTypes";
 import useApi from "@hooks/useApi";
 import { Box, CircularProgress } from "@mui/joy";
 import { useLocalStorage } from "@uidotdev/usehooks";
-import { JwtTokenBody, UserEntity } from "bffTypes";
 import { jwtDecode } from "jwt-decode";
 import { useSnackbar } from "notistack";
 import {

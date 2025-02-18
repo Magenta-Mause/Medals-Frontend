@@ -44,6 +44,14 @@
       "header": "Downloads",
       "headerText": "Here are the most important downloads just a click away"
     },
+    "inDevelopment": {
+      "h1": "404",
+      "h2": "Page in development"
+    },
+    "userRoleError": {
+      "h1": "401",
+      "h2": "No valid Role found"
+    },
     "loginPage": {
       "logo": "Medals",
       "signIn": {
@@ -94,7 +102,16 @@
       "paths": {
         "/": "Home",
         "/athletes": "Athletes",
-        "/downloads": "Downloads"
+        "/trainer": "Trainer",
+        "/performanceMetrics": "Performance Metrics",
+        "/assignAthlete": "Assign Athlete",
+        "/dashboard": "Dashboard",
+        "/profile": "Profile",
+        "/requirements": "Requirements",
+        "/performances": "Performances",
+        "/downloads": "Downloads",
+        "/help": "Help",
+        "/userRoleErrorPage": "User Role Error"
       }
     },
     "navbar": {
@@ -102,7 +119,15 @@
       "locationList": {
         "/": "Home",
         "/athletes": "Athletes",
-        "/downloads": "Downloads"
+        "/trainer": "Trainer",
+        "/performanceMetrics": "Performance Metrics",
+        "/assignAthlete": "Assign Athlete",
+        "/dashboard": "Dashboard",
+        "/profile": "Profile",
+        "/requirements": "Requirements",
+        "/performances": "Performances",
+        "/downloads": "Downloads",
+        "/help": "Help"
       },
       "search": "Search",
       "languageSelector": "Language",

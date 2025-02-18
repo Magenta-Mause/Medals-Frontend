@@ -44,6 +44,14 @@
       "header": "Downloads",
       "headerText": "Hier die wichtigsten Downloads nur einen Klick entfernt"
     },
+    "inDevelopment": {
+      "h1": "404",
+      "h2": "Seite in der Entwicklung"
+    },
+    "userRoleError": {
+      "h1": "401",
+      "h2": "Keine berechtigte Rolle vorhanden"
+    },
     "loginPage": {
       "logo": "Medals",
       "signIn": {
@@ -95,7 +103,16 @@
       "paths": {
         "/": "Start",
         "/athletes": "Athlet*innen",
-        "/downloads": "Downloads"
+        "/trainer": "Trainer*innen",
+        "/performanceMetrics": "Leistungswerte",
+        "/assignAthlete": "Athlet*in zuweisen",
+        "/dashboard": "Dashboard",
+        "/profile": "Profil",
+        "/requirements": "Anforderungen",
+        "/performances": "Leistungen",
+        "/downloads": "Downloads",
+        "/help": "Hilfe",
+        "/userRoleErrorPage": "fehlende Nutzungberechtigung"
       }
     },
     "navbar": {
@@ -103,7 +120,15 @@
       "locationList": {
         "/": "Start",
         "/athletes": "Athlet*innen",
-        "/downloads": "Downloads"
+        "/trainer": "Trainer*innen",
+        "/performanceMetrics": "Leistungswerte",
+        "/assignAthlete": "Athlet*in zuweisen",
+        "/dashboard": "Dashboard",
+        "/profile": "Profil",
+        "/requirements": "Anforderungen",
+        "/performances": "Leistungen",
+        "/downloads": "Downloads",
+        "/help": "Hilfe"
       },
       "search": "Suchen",
       "languageSelector": "Sprache",

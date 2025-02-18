@@ -2,11 +2,18 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
 import useSidebar from "@hooks/useSidebar";
 import {
+  Article,
+  Assessment,
+  Download,
+  Equalizer,
+  HelpCenter,
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
+  Person,
+  PersonAddAlt,
   SearchRounded,
-  Download,
+  SpaceDashboard,
   SupervisedUserCircleOutlined,
 } from "@mui/icons-material";
 import {
@@ -29,21 +36,92 @@ import LanguageSelector from "./LanguageSelector";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { UserType } from "@customTypes/enums";
 
-const navBarElements = [
-  {
-    path: "/",
-    icon: <HomeRounded />,
-  },
-  {
-    path: "/athletes",
-    icon: <PeopleRounded />,
-  },
+const sharedNavBarElements = [
   {
     path: "/downloads",
     icon: <Download />,
   },
+  {
+    path: "/help",
+    icon: <HelpCenter />,
+  },
 ];
+
+const navBarElements = new Map<
+  UserType | undefined,
+  { path: string; icon: JSX.Element }[]
+>([
+  [
+    undefined,
+    [
+      {
+        path: "/",
+        icon: <HomeRounded />,
+      },
+    ],
+  ],
+  [
+    UserType.ADMIN,
+    [
+      {
+        path: "/",
+        icon: <HomeRounded />,
+      },
+      {
+        path: "/trainer",
+        icon: <PeopleRounded />,
+      },
+    ],
+  ],
+  [
+    UserType.TRAINER,
+    [
+      {
+        path: "/",
+        icon: <HomeRounded />,
+      },
+      {
+        path: "/athletes",
+        icon: <PeopleRounded />,
+      },
+      {
+        path: "/performanceMetrics",
+        icon: <Assessment />,
+      },
+      {
+        path: "/assignAthlete",
+        icon: <PersonAddAlt />,
+      },
+    ],
+  ],
+  [
+    UserType.ATHLETE,
+    [
+      {
+        path: "/",
+        icon: <HomeRounded />,
+      },
+      {
+        path: "/dashboard",
+        icon: <SpaceDashboard />,
+      },
+      {
+        path: "/profile",
+        icon: <Person />,
+      },
+      {
+        path: "/requirements",
+        icon: <Article />,
+      },
+      {
+        path: "/performances",
+        icon: <Equalizer />,
+      },
+    ],
+  ],
+]);
 
 const NavBar = () => {
   const { collapseSidebar, sideBarExtended } = useSidebar();
@@ -53,6 +131,7 @@ const NavBar = () => {
   const warning = undefined;
   const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
     useContext(AuthContext);
+  const userRole = selectedUser?.type;
 
   return (
     <Sheet
@@ -143,7 +222,10 @@ const NavBar = () => {
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}
         >
-          {navBarElements.map((element) => (
+          {[
+            ...(navBarElements.get(userRole) ?? []),
+            ...sharedNavBarElements,
+          ].map((element) => (
             <ListItem key={element.path}>
               <ListItemButton
                 onClick={() => {

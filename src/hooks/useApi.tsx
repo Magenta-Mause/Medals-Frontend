@@ -1,4 +1,4 @@
-import { Athlete } from "bffTypes";
+import { Athlete } from "@customTypes/bffTypes";
 import { useCallback } from "react";
 import config from "../config";
 import useAxiosInstance from "./useAxiosInstance";

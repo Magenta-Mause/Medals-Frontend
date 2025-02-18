@@ -1,4 +1,4 @@
-import { Athlete } from "bffTypes";
+import { Athlete } from "@customTypes/bffTypes";
 import { configureStore, Middleware, Store } from "@reduxjs/toolkit";
 import { Client } from "@stomp/stompjs";
 import initiateClient from "websockets/client";
