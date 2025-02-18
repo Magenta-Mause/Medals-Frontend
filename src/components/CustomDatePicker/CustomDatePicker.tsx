@@ -36,6 +36,14 @@ const CustomDatePicker = (props: {
         } as SxProps<Theme>
       }
       slotProps={{
+        day: {
+          sx: {
+            color: mode === "dark" ? "white" : "black",
+            "&.MuiDayCalendar-weekDayLabel": {
+              color: "red",
+            },
+          },
+        },
         textField: {
           InputProps: {
             sx: {
