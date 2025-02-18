@@ -47,6 +47,7 @@ interface GenericResponsiveDatagridProps<T> {
   keyOf: (item: T) => Key;
   elementsPerPage?: number;
   mobileRendering: MobileTableRendering<T>;
+  onItemClick?: (item: T) => void;
 }
 
 /**
@@ -289,6 +290,7 @@ const GenericResponsiveDatagrid = <T,>(
           columns={props.columns}
           keyOf={props.keyOf}
           actionMenu={props.actionMenu}
+          rowOnClick={props.onItemClick}
         />
       </Sheet>
 

@@ -10,6 +10,8 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import { useState } from "react";
+import AthleteDetailPopup from "@components/AthleteDetailPopup/AthleteDetailPopup";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -20,6 +22,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const { deleteAthlete } = useApi();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedAthlete, selectAthlete] = useState<Athlete | null>(null);
 
   const columns: Column<Athlete>[] = [
     {
@@ -205,17 +209,26 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
   };
 
+  const itemCallback = (item: Athlete) => {
+    setModalOpen(true);
+    selectAthlete(item);
+  };
+
   return (
-    <GenericResponsiveDatagrid
-      isLoading={props.isLoading}
-      data={props.athletes}
-      columns={columns}
-      filters={filters}
-      actionMenu={actions}
-      itemSelectionActions={actions}
-      keyOf={(item) => item.id}
-      mobileRendering={mobileRendering}
-    />
+    <>
+      <GenericResponsiveDatagrid
+        isLoading={props.isLoading}
+        data={props.athletes}
+        columns={columns}
+        filters={filters}
+        actionMenu={actions}
+        itemSelectionActions={actions}
+        keyOf={(item) => item.id}
+        mobileRendering={mobileRendering}
+        onItemClick={itemCallback}
+      />
+      <AthleteDetailPopup athlete={selectedAthlete} open={isModalOpen} setOpen={setModalOpen} />
+    </>
   );
 };
 

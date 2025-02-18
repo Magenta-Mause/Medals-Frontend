@@ -1,5 +1,6 @@
 import { JwtTokenBody, UserEntity } from "@customTypes/bffTypes";
 import useApi from "@hooks/useApi";
+import useInstantiation from "@hooks/useInstantiation";
 import { Box, CircularProgress } from "@mui/joy";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { jwtDecode } from "jwt-decode";
@@ -60,11 +61,13 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [tokenExpirationDate, setTokenExpirationDate] = useState<number | null>(
     null,
   );
+  const {instantiateByType} = useInstantiation();
 
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {
       setSelectedUser(user);
       setStorageSelectedUser(user?.id ?? null);
+      instantiateByType(user?.type);
     },
     [setSelectedUser, setStorageSelectedUser],
   );

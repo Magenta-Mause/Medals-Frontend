@@ -29,14 +29,14 @@ const athleteSlice = createSlice({
     removeAthlete(state, action: PayloadAction<{ id: number }>) {
       state.data = state.data.filter((item) => item.id !== action.payload.id);
     },
-    setAthltes(state, action: PayloadAction<Athlete[]>) {
+    setAthletes(state, action: PayloadAction<Athlete[]>) {
       state.data = action.payload;
     },
   },
 });
 
-const { addAthlete, updateAthlete, removeAthlete, setAthltes } =
+const { addAthlete, updateAthlete, removeAthlete, setAthletes } =
   athleteSlice.actions;
 
-export { addAthlete, removeAthlete, setAthltes, updateAthlete };
+export { addAthlete, removeAthlete, setAthletes, updateAthlete };
 export default athleteSlice.reducer;
