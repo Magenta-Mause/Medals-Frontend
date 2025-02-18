@@ -43,7 +43,7 @@
       "email": "E-Mail",
       "birthdate": "Geburtstag",
       "gender": "Geschlecht",
-      "createButton": "erstelle Athlet*in"
+      "createButton": "Athlet*in erstellen"
     },
     "notFound": {
       "h1": "404",

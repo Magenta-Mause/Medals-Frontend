@@ -53,17 +53,13 @@ const AthleteCreationForm = () => {
 
   const handleChangeGender = (
     event: React.SyntheticEvent | null,
-    newValue: string |null,
+    newGender: string |null,
   ) => {
-    changeGender(newValue)
-  };
-
-  const changeGender = (newGender: string) => {
     setAthlete((prevUser: Athlete) => ({
       ...prevUser,
-      gender: newGender,
+      gender: newGender!,
     }))
-  }
+  };
 
   return (
     <>
@@ -83,7 +79,11 @@ const AthleteCreationForm = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          left: "10vw",
+          left: {
+            xs: "0",
+            sm: "0",
+            md: "10vw", 
+          },
         }}
       >
         <Sheet
@@ -177,13 +177,12 @@ const AthleteCreationForm = () => {
           <p>
             <FormLabel> {t("pages.athleteCreationPage.gender")}</FormLabel>
             <Select
-              defaultValue=""
               sx={{ height: "5vh" }}
               onChange={handleChangeGender}
             >
               <Option value="FEMALE">{t("genders.FEMALE")}</Option>
               <Option value="MALE">{t("genders.MALE")}</Option>
-              <Option value="DIVERS">{t("genders.DIVERSE")}</Option>
+              <Option value="DIVERSE">{t("genders.DIVERSE")}</Option>
             </Select>
           </p>
           <Button
