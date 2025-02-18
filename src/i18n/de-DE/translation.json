@@ -1,7 +1,8 @@
 {
   "languages": {
     "de": "Deutsch",
-    "en": "Englisch"
+    "en": "Englisch",
+    "es": "Spanisch"
   },
   "genders": {
     "DIVERSE": "Divers",
@@ -21,6 +22,10 @@
     "setPassword": {
       "failed": "Password setzen fehlgeschlagen",
       "success": "Passwort erfolgreich gesetzt"
+    },
+    "resetPassword": {
+      "failed": "Es konnte kein Account gefunden werden",
+      "success": "Bestätigungs E-Mail gesendet"
     }
   },
   "pages": {
@@ -74,6 +79,22 @@
         "loading": "Lädt...",
         "success": "Passwort erfolgreich gesetzt",
         "goToLogin": "Weiter zur Anmeldung"
+      }
+    },
+    "resetPasswordPage": {
+      "header": "Passwort zurücksetzen",
+      "subheader": {
+        "hasCode": "Geben Sie ihr neues Passwort an",
+        "noCode": "Geben Sie ihre E-Mail Adresse an um ihr Passwort zurückzusetzen"
+      },
+      "email": "E-Mail",
+      "button": {
+        "hasCode": "Passwort zurücksetzen",
+        "noCode": "Bestätigungs E-Mail senden",
+        "success": {
+          "hasCode": "Passwort wurde zurückgesetzt",
+          "noCode": "E-Mail wurde versendet"
+        }
       }
     }
   },

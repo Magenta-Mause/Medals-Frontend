@@ -61,22 +61,25 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     null,
   );
 
-  const processJwtToken = (jwtToken: string) => {
-    const decoded = jwtDecode(jwtToken) as JwtTokenBody;
-    setTokenExpirationDate(decoded.exp);
-    setAuthorizedUsers(decoded.users);
-    if (decoded.users?.length == 1) {
-      setSelectedUser(decoded.users[0]);
-    }
-    setEmail(decoded.sub);
-  };
-
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {
       setSelectedUser(user);
       setStorageSelectedUser(user?.id ?? null);
     },
     [setSelectedUser, setStorageSelectedUser],
+  );
+
+  const processJwtToken = useCallback(
+    (jwtToken: string) => {
+      const decoded = jwtDecode(jwtToken) as JwtTokenBody;
+      setTokenExpirationDate(decoded.exp);
+      setAuthorizedUsers(decoded.users);
+      if (decoded.users?.length == 1) {
+        selectUser(decoded.users[0]);
+      }
+      setEmail(decoded.sub);
+    },
+    [selectUser],
   );
 
   const refreshIdentityToken = useCallback(async () => {
@@ -87,18 +90,19 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       processJwtToken(token);
       return token;
     } catch {
+      console.log("Not authorized");
       setIdentityToken(null);
       setAuthorized(false);
       return null;
     }
-  }, [fetchIdentityToken]);
+  }, [fetchIdentityToken, processJwtToken]);
 
   const logout = useCallback(async () => {
     try {
-      setIdentityToken(null);
+      await logoutUser();
       setAuthorized(false);
       selectUser(null);
-      return await logoutUser();
+      setIdentityToken(null);
     } catch (error) {
       console.error("Logout failed", error);
     }
