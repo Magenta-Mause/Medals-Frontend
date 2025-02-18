@@ -13,7 +13,7 @@ const AthleteCreationForm = () => {
   const { createAthlete } = useApi();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [date] = useState<any>();
-  const [Athlete, setAthlete] = useState<Athlete>({
+  const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
     last_name: "",
     email: "",
@@ -26,19 +26,19 @@ const AthleteCreationForm = () => {
   const isValidEmail = (email: string) => emailRegex.test(email);
 
   const isAccepted = () => {
-    if (Athlete.first_name.length > 255 || Athlete.first_name === "") {
+    if (athlete.first_name.length > 255 || athlete.first_name === "") {
       return false;
     }
-    if (Athlete.last_name.length > 255 || Athlete.last_name.length === 0) {
+    if (athlete.last_name.length > 255 || athlete.last_name.length === 0) {
       return false;
     }
-    if (!isValidEmail(Athlete.email)) {
+    if (!isValidEmail(athlete.email)) {
       return false;
     }
-    if (Athlete.birthdate === "tt.mm.jjjj" || Athlete.birthdate === "") {
+    if (athlete.birthdate === "tt.mm.jjjj" || athlete.birthdate === "") {
       return false;
     }
-    if (Athlete.gender === "") {
+    if (athlete.gender === "") {
       return false;
     }
     return true;
@@ -73,9 +73,8 @@ const AthleteCreationForm = () => {
           justifyContent: "center",
           alignItems: "center",
           left: {
-            xs: "0",
+            md: "var(--Sidebar-width)",
             sm: "0",
-            md: "10vw",
           },
         }}
       >
@@ -105,7 +104,7 @@ const AthleteCreationForm = () => {
             color="neutral"
             size="lg"
             variant="outlined"
-            value={Athlete.first_name}
+            value={athlete.first_name}
             onChange={(e) =>
               setAthlete((prevUser: Athlete) => ({
                 ...prevUser,
@@ -122,7 +121,7 @@ const AthleteCreationForm = () => {
             color="neutral"
             size="lg"
             variant="outlined"
-            value={Athlete.last_name}
+            value={athlete.last_name}
             onChange={(e) =>
               setAthlete((prevUser: Athlete) => ({
                 ...prevUser,
@@ -139,7 +138,7 @@ const AthleteCreationForm = () => {
             color="neutral"
             size="lg"
             variant="outlined"
-            value={Athlete.email}
+            value={athlete.email}
             onChange={(e) =>
               setAthlete((prevUser: Athlete) => ({
                 ...prevUser,
@@ -183,7 +182,7 @@ const AthleteCreationForm = () => {
             }}
             onClick={() => {
               {
-                createAthlete(Athlete);
+                createAthlete(athlete);
                 setPopupOpen(false);
                 setAthlete((prevUser: Athlete) => ({
                   ...prevUser,

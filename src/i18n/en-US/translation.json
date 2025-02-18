@@ -43,7 +43,9 @@
       "email": "email",
       "birthdate": "birthdate",
       "gender": "gender",
-      "createButton": "create athlete"
+      "createButton": "create",
+      "createHeader": "create athlete"
+
     },
     "notFound": {
       "h1": "404",
