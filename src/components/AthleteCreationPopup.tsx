@@ -1,13 +1,6 @@
 import { Athlete } from "@customTypes/bffTypes";
 import useApi from "@hooks/useApi";
-import {
-  Button,
-  FormLabel,
-  Input,
-  Modal,
-  Sheet,
-  Typography,
-} from "@mui/joy";
+import { Button, FormLabel, Input, Modal, Sheet, Typography } from "@mui/joy";
 import * as React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -53,12 +46,12 @@ const AthleteCreationForm = () => {
 
   const handleChangeGender = (
     event: React.SyntheticEvent | null,
-    newGender: string |null,
+    newGender: string | null,
   ) => {
     setAthlete((prevUser: Athlete) => ({
       ...prevUser,
       gender: newGender!,
-    }))
+    }));
   };
 
   return (
@@ -82,7 +75,7 @@ const AthleteCreationForm = () => {
           left: {
             xs: "0",
             sm: "0",
-            md: "10vw", 
+            md: "10vw",
           },
         }}
       >
@@ -176,10 +169,7 @@ const AthleteCreationForm = () => {
           />
           <p>
             <FormLabel> {t("pages.athleteCreationPage.gender")}</FormLabel>
-            <Select
-              sx={{ height: "5vh" }}
-              onChange={handleChangeGender}
-            >
+            <Select sx={{ height: "5vh" }} onChange={handleChangeGender}>
               <Option value="FEMALE">{t("genders.FEMALE")}</Option>
               <Option value="MALE">{t("genders.MALE")}</Option>
               <Option value="DIVERSE">{t("genders.DIVERSE")}</Option>
