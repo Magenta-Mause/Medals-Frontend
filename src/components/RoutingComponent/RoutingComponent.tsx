@@ -39,7 +39,7 @@ const RoutingComponent = () => {
           <Route path="/requirements" element={<InDevelopmentPage />} />
           <Route path="/performances" element={<InDevelopmentPage />} />
 
-          {/* Gemeinsame Seiten */}
+          {/* Shared Pages */}
           <Route path="/downloads" element={<InDevelopmentPage />} />
           <Route path="/help" element={<InDevelopmentPage />} />
         </Route>
