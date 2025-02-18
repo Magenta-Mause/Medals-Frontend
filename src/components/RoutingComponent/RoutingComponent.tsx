@@ -40,14 +40,13 @@ const RoutingComponent = () => {
           <Route path="/performances" element={<InDevelopmentPage />} />
 
           {/* Gemeinsame Seiten */}
-          <Route path="/downloads" element={<InDevelopmentPage />} />
+          <Route path="/downloads" element={<PdfDownloadPage />} />
           <Route path="/help" element={<InDevelopmentPage />} />
         </Route>
 
         {/* Error Pages */}
         <Route path="/userRoleErrorPage" element={<UserRoleErrorPage />} />
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="/downloads" element={<PdfDownloadPage />} />
       </Route>
     </Routes>
   );
