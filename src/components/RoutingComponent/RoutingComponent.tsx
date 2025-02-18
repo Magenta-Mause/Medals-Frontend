@@ -47,7 +47,6 @@ const RoutingComponent = () => {
         {/* Error Pages */}
         <Route path="/userRoleErrorPage" element={<UserRoleErrorPage />} />
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="/downloads" element={<PdfDownloadPage />} />
       </Route>
     </Routes>
   );
