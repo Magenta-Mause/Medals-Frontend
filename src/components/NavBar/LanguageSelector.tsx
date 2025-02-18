@@ -1,11 +1,11 @@
-import { LanguageOutlined, KeyboardArrowDown } from "@mui/icons-material";
+import { KeyboardArrowDown, LanguageOutlined } from "@mui/icons-material";
 import {
+  Box,
+  List,
   ListItem,
   ListItemButton,
   ListItemContent,
   Typography,
-  List,
-  Box,
 } from "@mui/joy";
 import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -63,7 +63,7 @@ const LanguageSelector = () => {
       <Toggler
         overridenOpen={open}
         renderToggle={() => (
-          <ListItemButton onClick={() => setOpen(!open)}>
+          <ListItemButton onClick={() => setOpen(!open)} sx={{ mt: 1 }}>
             <LanguageOutlined />
             <ListItemContent>
               <Typography level="title-sm">

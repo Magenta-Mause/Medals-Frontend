@@ -1,17 +1,10 @@
-import { Athlete } from "bffTypes";
+import { Athlete } from "@customTypes/bffTypes";
 import useApi from "@hooks/useApi";
 import {
   Button,
-  Dropdown,
-  FormControl,
   FormLabel,
   Input,
-  Menu,
-  MenuButton,
   Modal,
-  ModalClose,
-  Radio,
-  RadioGroup,
   Sheet,
   Typography,
 } from "@mui/joy";
@@ -19,10 +12,11 @@ import * as React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "./CustomDatePicker/CustomDatePicker";
+import Select from "@mui/joy/Select";
+import Option from "@mui/joy/Option";
 
 const AthleteCreationForm = () => {
   const { t } = useTranslation();
-  const [valid, setValid] = useState(true);
   const { createAthlete } = useApi();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [date] = useState<any>();
@@ -38,39 +32,38 @@ const AthleteCreationForm = () => {
 
   const isValidEmail = (email: string) => emailRegex.test(email);
 
-  React.useEffect(() => {
-    setValid(isAccepted());
-  }, [Athlete]);
-
   const isAccepted = () => {
     if (Athlete.first_name.length > 255 || Athlete.first_name === "") {
-      return true;
+      return false;
     }
     if (Athlete.last_name.length > 255 || Athlete.last_name.length === 0) {
-      return true;
+      return false;
     }
     if (!isValidEmail(Athlete.email)) {
-      return true;
+      return false;
     }
     if (Athlete.birthdate === "tt.mm.jjjj" || Athlete.birthdate === "") {
-      return true;
+      return false;
     }
     if (Athlete.gender === "") {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeGender = (
+    event: React.SyntheticEvent | null,
+    newValue: string |null,
+  ) => {
+    changeGender(newValue)
+  };
+
+  const changeGender = (newGender: string) => {
     setAthlete((prevUser: Athlete) => ({
       ...prevUser,
-      gender: event.target.value,
-    }));
-  };
-
-  const createAth = (newAthlete: Athlete) => {
-    createAthlete(newAthlete);
-  };
+      gender: newGender,
+    }))
+  }
 
   return (
     <>
@@ -97,7 +90,6 @@ const AthleteCreationForm = () => {
           variant="outlined"
           sx={{ maxWidth: 1000, borderRadius: "md", p: 3, boxShadow: "lg" }}
         >
-          <ModalClose variant="plain" sx={{ m: 1 }} />
           <Typography
             component="h2"
             id="modal-title"
@@ -110,18 +102,16 @@ const AthleteCreationForm = () => {
             {t("pages.athleteCreationPage.createButton")}
           </Typography>
           <FormLabel sx={{ marginTop: "6vh" }}>
-            {" "}
             {t("pages.athleteCreationPage.firstName")}
           </FormLabel>
           <Input
             sx={{
-              width: { sx: "60vw", md: "30vw" },
+              width: { sx: "40vw", md: "30vw" },
               marginBottom: "2vh",
             }}
             color="neutral"
             size="lg"
             variant="outlined"
-            placeholder={t("pages.athleteCreationPage.firstName")}
             value={Athlete.first_name}
             onChange={(e) =>
               setAthlete((prevUser: Athlete) => ({
@@ -139,7 +129,6 @@ const AthleteCreationForm = () => {
             color="neutral"
             size="lg"
             variant="outlined"
-            placeholder={t("pages.athleteCreationPage.lastName")}
             value={Athlete.last_name}
             onChange={(e) =>
               setAthlete((prevUser: Athlete) => ({
@@ -157,7 +146,6 @@ const AthleteCreationForm = () => {
             color="neutral"
             size="lg"
             variant="outlined"
-            placeholder={t("pages.athleteCreationPage.email")}
             value={Athlete.email}
             onChange={(e) =>
               setAthlete((prevUser: Athlete) => ({
@@ -170,7 +158,7 @@ const AthleteCreationForm = () => {
           <CustomDatePicker
             sx={{
               width: { sx: "60vw", md: "30vw" },
-              marginBottom: "2vh",
+              marginBottom: "1vh",
               position: "relative",
             }}
             value={date}
@@ -187,41 +175,35 @@ const AthleteCreationForm = () => {
             format="DD/MM/YYYY"
           />
           <p>
-            <Dropdown>
-              <MenuButton sx={{ width: "30vw", marginTop: "" }}>
-                {t("pages.athleteCreationPage.gender")}
-              </MenuButton>
-              <Menu sx={{ zIndex: "9999", height: "20" }}>
-                <FormControl>
-                  <RadioGroup
-                    defaultValue="FEMALE"
-                    name="controlled-radio-buttons-group"
-                    value={Athlete.gender}
-                    onChange={handleChange}
-                    sx={{
-                      my: 1,
-                      width: "30vw",
-                      height: "11vh",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Radio value="FEMALE" label={t("genders.FEMALE")} />
-                    <Radio value="MALE" label={t("genders.MALE")} />
-                    <Radio value="DIVERSE" label={t("genders.DIVERSE")} />
-                  </RadioGroup>
-                </FormControl>
-              </Menu>
-            </Dropdown>
+            <FormLabel> {t("pages.athleteCreationPage.gender")}</FormLabel>
+            <Select
+              defaultValue=""
+              sx={{ height: "5vh" }}
+              onChange={handleChangeGender}
+            >
+              <Option value="FEMALE">{t("genders.FEMALE")}</Option>
+              <Option value="MALE">{t("genders.MALE")}</Option>
+              <Option value="DIVERS">{t("genders.DIVERSE")}</Option>
+            </Select>
           </p>
           <Button
             fullWidth
-            disabled={valid}
+            disabled={!isAccepted()}
             sx={{
               marginTop: "10vh",
             }}
             onClick={() => {
               {
-                createAth(Athlete);
+                createAthlete(Athlete);
+                setPopupOpen(false);
+                setAthlete((prevUser: Athlete) => ({
+                  ...prevUser,
+                  first_name: "",
+                  last_name: "",
+                  email: "",
+                  gender: "",
+                  birthdate: "",
+                }));
               }
             }}
           >

@@ -9,18 +9,6 @@ export interface Athlete {
   swimming_certificate?: boolean;
 }
 
-export enum MedalType {
-  GOLD = "GOLD",
-  SILVER = "SILVER",
-  BRONZE = "BRONZE",
-}
-
-export enum UserType {
-  ADMIN = "ADMIN",
-  TRAINER = "TRAINER",
-  ATHLETE = "ATHLETE",
-}
-
 export interface UserEntity {
   id: number;
   first_name: string;

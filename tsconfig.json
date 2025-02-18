@@ -23,9 +23,10 @@
       "@hooks/*": ["./hooks/*"],
       "@pages/*": ["./pages/*"],
       "@stores/*": ["./stores/*"],
-      "@utils/*": ["./utils/*"]
+      "@utils/*": ["./utils/*"],
+      "@customTypes/*": ["./customTypes/*"]
     },
-    "typeRoots": ["node_modules/@types", "./types", "./src/@types"]
+    "typeRoots": ["node_modules/@types", "./types"]
   },
   "include": [
     "src/**/*.ts",

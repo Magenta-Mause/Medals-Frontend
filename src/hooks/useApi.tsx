@@ -1,4 +1,4 @@
-import { Athlete } from "bffTypes";
+import { Athlete } from "@customTypes/bffTypes";
 import { useCallback } from "react";
 import config from "../config";
 import useAxiosInstance from "./useAxiosInstance";
@@ -103,6 +103,30 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const resetPassword = useCallback(
+    async (password: string, oneTimeCode: string) => {
+      const request = await axiosInstance!.post(
+        "/authorization/resetPassword",
+        {
+          password: password,
+          token: oneTimeCode,
+        },
+      );
+      return request.status == 200;
+    },
+    [axiosInstance],
+  );
+
+  const initiatePasswordReset = useCallback(
+    async (email: string) => {
+      const request = await axiosInstance!.post(
+        "/authorization/resetPassword/" + email,
+      );
+      return request.status == 200;
+    },
+    [axiosInstance],
+  );
+
   return {
     loginUser,
     logoutUser,
@@ -112,6 +136,8 @@ const useApi = () => {
     getAthletes,
     setPassword,
     createAthlete,
+    resetPassword,
+    initiatePasswordReset,
   };
 };
 
