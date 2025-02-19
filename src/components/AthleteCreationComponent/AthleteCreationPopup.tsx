@@ -4,7 +4,7 @@ import { Button, FormLabel, Input, Modal, Sheet, Typography } from "@mui/joy";
 import * as React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import CustomDatePicker from "./CustomDatePicker/CustomDatePicker";
+import CustomDatePicker from "../CustomDatePicker/CustomDatePicker";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 
@@ -21,7 +21,8 @@ const AthleteCreationForm = () => {
     gender: "",
   });
 
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailRegex =
+    /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])/i;
 
   const isValidEmail = (email: string) => emailRegex.test(email);
 
@@ -89,7 +90,7 @@ const AthleteCreationForm = () => {
             textColor="inherit"
             sx={{ fontWeight: "lg", mb: 1 }}
           ></Typography>
-          <Typography id="modal-desc" textColor="text.tertiary"></Typography>
+
           <Typography level="h2" component="h1">
             {t("pages.athleteCreationPage.createButton")}
           </Typography>
@@ -153,7 +154,7 @@ const AthleteCreationForm = () => {
               marginBottom: "1vh",
               position: "relative",
             }}
-            value={date}
+            value={athlete.birthdate}
             onChange={(newDate) => {
               const localDate = new Date(newDate);
               const adjustedDate: any = new Date(
