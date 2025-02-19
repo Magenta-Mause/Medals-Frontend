@@ -96,6 +96,9 @@
           "noCode": "E-Mail wurde versendet"
         }
       }
+    },
+    "profilePage":{
+      "header": "Mein Profil"
     }
   },
   "components": {

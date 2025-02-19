@@ -87,6 +87,9 @@
           "noCode": "Correo de verificación enviado"
         }
       }
+    },
+    "profilePage":{
+      "header": "Mi Perfil"
     }
   },
   "components": {

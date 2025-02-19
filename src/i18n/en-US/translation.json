@@ -95,6 +95,9 @@
           "noCode": "Verification email sent"
         }
       }
+    },
+    "profilePage":{
+      "header": "My Profile"
     }
   },
   "components": {
