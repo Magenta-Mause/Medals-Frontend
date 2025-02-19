@@ -1,8 +1,8 @@
 import { UserType } from "@customTypes/enums";
+import { setAthletes } from "@stores/slices/athleteSlice";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import useApi from "./useApi";
-import { setAthletes } from "@stores/slices/athleteSlice";
 
 const useInstantiation = () => {
   const dispatch = useDispatch();
@@ -11,12 +11,12 @@ const useInstantiation = () => {
   const instantiateAdmin = useCallback(async () => {
     console.log("Instantiating admin");
     dispatch(setAthletes((await getAthletes()) ?? []));
-  }, [dispatch, setAthletes, getAthletes]);
+  }, [dispatch, getAthletes]);
 
   const instantiateTrainer = useCallback(async () => {
     console.log("Instantiating trainer");
     dispatch(setAthletes((await getAthletes()) ?? []));
-  }, [dispatch, setAthletes, getAthletes]);
+  }, [dispatch, getAthletes]);
 
   const instantiateAthlete = useCallback(async () => {
     console.log("Instantiating athlete");

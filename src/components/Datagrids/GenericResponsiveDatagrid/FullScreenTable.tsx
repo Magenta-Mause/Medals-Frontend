@@ -369,7 +369,11 @@ const FullScreenTable = <T,>(props: {
       </thead>
       <tbody>
         {props.renderedPage.map((row) => (
-          <tr key={props.keyOf(row)} onClick={() => props.rowOnClick? props.rowOnClick(row) : {}} style={{cursor: props.rowOnClick ? "pointer" : "inherit"}}>
+          <tr
+            key={props.keyOf(row)}
+            onClick={() => (props.rowOnClick ? props.rowOnClick(row) : {})}
+            style={{ cursor: props.rowOnClick ? "pointer" : "inherit" }}
+          >
             {props.itemSelectionActions ? (
               <td style={{ textAlign: "center", width: 120 }}>
                 <Checkbox

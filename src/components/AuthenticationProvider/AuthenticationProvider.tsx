@@ -61,7 +61,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [tokenExpirationDate, setTokenExpirationDate] = useState<number | null>(
     null,
   );
-  const {instantiateByType} = useInstantiation();
+  const { instantiateByType } = useInstantiation();
 
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {
@@ -69,7 +69,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       setStorageSelectedUser(user?.id ?? null);
       instantiateByType(user?.type);
     },
-    [setSelectedUser, setStorageSelectedUser],
+    [setSelectedUser, setStorageSelectedUser, instantiateByType],
   );
 
   const processJwtToken = useCallback(

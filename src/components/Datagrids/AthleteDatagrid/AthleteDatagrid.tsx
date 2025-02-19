@@ -227,7 +227,11 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
       />
-      <AthleteDetailPopup athlete={selectedAthlete} open={isModalOpen} setOpen={setModalOpen} />
+      <AthleteDetailPopup
+        athlete={selectedAthlete}
+        open={isModalOpen}
+        setOpen={setModalOpen}
+      />
     </>
   );
 };

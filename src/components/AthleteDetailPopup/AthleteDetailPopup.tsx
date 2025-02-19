@@ -17,9 +17,11 @@ const AthleteDetailPopup = (props: {
         },
       }}
     >
-      <ModalDialog sx={{
-        width: "1000px"
-      }}>
+      <ModalDialog
+        sx={{
+          width: "1000px",
+        }}
+      >
         <ModalClose />
         <Typography level={"h2"}>
           {props.athlete?.first_name} {props.athlete?.last_name}
