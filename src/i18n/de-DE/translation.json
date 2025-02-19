@@ -98,7 +98,10 @@
       }
     },
     "profilePage":{
-      "header": "Mein Profil"
+      "header": "Mein Profil",
+      "birthdate": "Geburtstag",
+      "gender":"Geschlecht",
+      "email":"E-Mail"
     }
   },
   "components": {
