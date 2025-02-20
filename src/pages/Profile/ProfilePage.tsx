@@ -1,22 +1,20 @@
-import AthleteDatagrid from "@components/Datagrids/AthleteDatagrid/AthleteDatagrid";
-import { Box, Button, Card, CardContent, Typography } from "@mui/joy";
-import { useTypedSelector } from "@stores/rootReducer";
-import { useTranslation } from "react-i18next";
-import { useContext } from "react";
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { Bolt } from "@mui/icons-material";
-import { Navigate, useNavigate } from "react-router";
-import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
-
+import React, { useState } from 'react';
+import { Box, Button, Card, CardContent, Typography } from '@mui/joy';
+import { useTypedSelector } from '@stores/rootReducer';
+import { useTranslation } from 'react-i18next';
+import { useContext } from 'react';
+import { AuthContext } from '@components/AuthenticationProvider/AuthenticationProvider';
+import { useNavigate } from 'react-router';
+import ConfirmationPopup from '@components/ConfirmationPopup/ConfirmationPopup';
 
 const ProfilePage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
-  const athleteState = useTypedSelector((state) => state.athletes.state);
   const { selectedUser } = useContext(AuthContext);
   const selectedAthlete = athletes.find((athlete: { id: number | undefined; }) => athlete.id === selectedUser?.id);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  
+  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
   const formattedDate = new Intl.DateTimeFormat("de-DE", {
     day: "2-digit",
     month: "2-digit",
@@ -35,6 +33,21 @@ const ProfilePage = () => {
       </Card>
     </Box>
   );
+
+  const handleDeleteClick = () => {
+    setDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    // Hier kannst du die Logik für das Löschen des Profils hinzufügen
+    // Zum Beispiel: API-Aufruf zum Löschen des Profils
+    console.log('Profil wird gelöscht');
+    setDeleteDialogOpen(false);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogOpen(false);
+  };
 
   return (
     <>
@@ -85,11 +98,21 @@ const ProfilePage = () => {
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
           <Button 
             variant="outlined"
-            onClick={() => {
-                  navigate("/resetPassword")}}>{t("pages.profilePage.resetPasswordButton")}</Button>
-          <Button variant="outlined">Delete Profile</Button>
+            onClick={() => navigate("/resetPassword")}>
+            {t("pages.profilePage.resetPasswordButton")}
+          </Button>
+          <Button variant="outlined" color="danger" onClick={handleDeleteClick}>
+            {t("pages.profilePage.deleteProfileButton")}
+          </Button>
         </Box>
-      </Box>   
+      </Box>
+
+      <ConfirmationPopup
+        open={isDeleteDialogOpen}
+        onClose={handleCloseDeleteDialog}
+        onConfirm={handleConfirmDelete}
+        message={t("pages.profilePage.confirmDeleteMessage")}
+      />
     </>
   );
 };
