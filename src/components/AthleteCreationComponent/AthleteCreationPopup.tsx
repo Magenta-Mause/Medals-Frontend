@@ -83,7 +83,7 @@ const AthleteCreationForm = () => {
           sx={{ maxWidth: 1000, borderRadius: "md", p: 3, boxShadow: "lg" }}
         >
           <Typography level="h2" component="h1">
-            {t("pages.athleteCreationPage.createButton")}
+            {t("pages.athleteCreationPage.createHeader")}
           </Typography>
           <FormLabel sx={{ marginTop: "6vh" }}>
             {t("pages.athleteCreationPage.firstName")}
