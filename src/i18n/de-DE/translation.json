@@ -102,7 +102,10 @@
       "birthdate": "Geburtstag",
       "gender":"Geschlecht",
       "email":"E-Mail",
-      "resetPasswordButton": "Password zurücksetzen"
+      "resetPasswordButton": "Password zurücksetzen",
+      "deleteProfileButton": "Account löschen",
+      "confirmDeleteMessage": "Durch das Klicken auf 'Löschen' wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht."
+
     }
   },
   "components": {
@@ -201,6 +204,11 @@
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",
       "hasSpecial": "Passwort enthält ein Sonderzeichen",
       "required": "Verpflichtend"
+    },
+    "confirmationPopup": {
+      "header": "Sind Sie sicher?",
+      "cancelButton": "Abbrechen",
+      "deleteButton": "Löschen"
     }
   }
 }

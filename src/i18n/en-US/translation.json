@@ -101,7 +101,10 @@
       "birthdate": "Birthdate",
       "gender":"Gender",
       "email":"Email",
-      "resetPasswordButton": "Reset Password"
+      "resetPasswordButton": "Reset Password",
+      "deleteProfileButton": "Delete Account",
+      "confirmDeleteMessage": "By clicking 'Delete', your account and all associated data will be permanently removed."
+
     }
   },
   "components": {
@@ -200,6 +203,11 @@
       "hasUpperCase": "Password contains an uppercase letter",
       "hasSpecial": "Password contains a special character",
       "required": "Required"
+    },
+    "confirmationPopup": {
+      "header": "Are You Sure?",
+      "cancelButton": "Cancel",
+      "deleteButton": "Delete"
     }
   }
 }

@@ -93,7 +93,10 @@
       "birthdate": "Fecha de nacimiento",
       "gender":"Género",
       "email":"Correo electrónico",
-      "resetPasswordButton": "Restablecer contraseña"
+      "resetPasswordButton": "Restablecer contraseña",
+      "deleteProfileButton": "Eliminar Cuenta",
+      "confirmDeleteMessage": "Al hacer clic en 'Eliminar', su cuenta y todos sus datos asociados se eliminarán de forma permanente."
+
     }
   },
   "components": {
@@ -175,6 +178,12 @@
       "hasUpperCase": "La contraseña contiene una letra mayúscula",
       "hasSpecial": "La contraseña contiene un carácter especial",
       "required": "Obligatorio"
-    }
+    },
+    "confirmationPopup": {
+      "header": "¿Está seguro?",
+      "cancelButton": "Cancelar",
+      "deleteButton": "Eliminar"
+}
+
   }
 }
