@@ -39,9 +39,6 @@ const CustomDatePicker = (props: {
         day: {
           sx: {
             color: mode === "dark" ? "white" : "black",
-            "&.MuiDayCalendar-weekDayLabel": {
-              color: "red",
-            },
           },
         },
         textField: {
@@ -75,6 +72,16 @@ const CustomDatePicker = (props: {
               backgroundColor: mode === "dark" ? "#222" : "#fff",
               color: mode === "dark" ? "#fff" : "#000",
             },
+            ".css-1191e5t-MuiTypography-root-MuiDayCalendar-weekDayLabel": {
+              color: mode === "dark" ? "white !important" : "#000",
+            },
+            ".css-8hoymy-MuiSvgIcon-root": {
+              color: mode === "dark" ? "white !important" : "#000",
+            },
+            ".css-wnony7-MuiSvgIcon-root-MuiPickersCalendarHeader-switchViewIcon":
+              {
+                color: mode === "dark" ? "white !important" : "#000",
+              },
           },
         },
       }}

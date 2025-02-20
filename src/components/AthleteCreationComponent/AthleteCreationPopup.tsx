@@ -12,7 +12,6 @@ const AthleteCreationForm = () => {
   const { t } = useTranslation();
   const { createAthlete } = useApi();
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const [date] = useState<any>();
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
     last_name: "",
@@ -83,14 +82,6 @@ const AthleteCreationForm = () => {
           variant="outlined"
           sx={{ maxWidth: 1000, borderRadius: "md", p: 3, boxShadow: "lg" }}
         >
-          <Typography
-            component="h2"
-            id="modal-title"
-            level="h4"
-            textColor="inherit"
-            sx={{ fontWeight: "lg", mb: 1 }}
-          ></Typography>
-
           <Typography level="h2" component="h1">
             {t("pages.athleteCreationPage.createButton")}
           </Typography>
@@ -113,7 +104,7 @@ const AthleteCreationForm = () => {
               }))
             }
           />
-          <FormLabel> {t("pages.athleteCreationPage.lastName")}</FormLabel>
+          <FormLabel>{t("pages.athleteCreationPage.lastName")}</FormLabel>
           <Input
             sx={{
               width: { sx: "60vw", md: "30vw" },
@@ -154,7 +145,7 @@ const AthleteCreationForm = () => {
               marginBottom: "1vh",
               position: "relative",
             }}
-            value={athlete.birthdate}
+            value={null}
             onChange={(newDate) => {
               const localDate = new Date(newDate);
               const adjustedDate: any = new Date(
