@@ -51,7 +51,7 @@ interface GenericResponsiveDatagridProps<T> {
   data: T[];
   columns: Column<T>[];
   filters: Filter<T>[];
-  toolbarActions: ToolbarAction[];
+  toolbarActions?: ToolbarAction[];
   isLoading: boolean;
   actionMenu?: Action<T>[];
   itemSelectionActions?: Action<T>[];
@@ -279,23 +279,27 @@ const GenericResponsiveDatagrid = <T,>(
           setFilter={setFilter}
           filterValues={filterValues}
         />
-        {props.toolbarActions.map((action) => (
-          <FormControl size="sm" key={action.key}>
-            <FormLabel>{action.label}</FormLabel>
-            <Button
-              value="button"
-              size="sm"
-              sx={{ width: action.collapseToText ? "fit-content" : "auto" }}
-              color={action.color ?? "neutral"}
-              onClick={action.operation}
-              key={action.key}
-              variant={action.variant ?? "outlined"}
-              startDecorator={action.icon}
-            >
-              {action.content}
-            </Button>
-          </FormControl>
-        ))}
+        {props.toolbarActions ? (
+          props.toolbarActions.map((action) => (
+            <FormControl size="sm" key={action.key}>
+              <FormLabel>{action.label}</FormLabel>
+              <Button
+                value="button"
+                size="sm"
+                sx={{ width: action.collapseToText ? "fit-content" : "auto" }}
+                color={action.color ?? "neutral"}
+                onClick={action.operation}
+                key={action.key}
+                variant={action.variant ?? "outlined"}
+                startDecorator={action.icon}
+              >
+                {action.content}
+              </Button>
+            </FormControl>
+          ))
+        ) : (
+          <></>
+        )}
       </Box>
       <Sheet
         className="OrderTableContainer"
