@@ -114,6 +114,15 @@
         "/userRoleErrorPage": "User Role Error"
       }
     },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "birthdate": "Birthdate",
+        "email": "Email",
+        "gender": "Gender"
+      }
+    },
     "navbar": {
       "logo": "Medals",
       "locationList": {

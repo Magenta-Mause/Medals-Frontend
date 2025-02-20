@@ -5,8 +5,6 @@ export interface Athlete {
   email: string;
   birthdate: string;
   gender: string;
-  total_medal: MedalType;
-  swimming_certificate: boolean;
 }
 
 export interface UserEntity {

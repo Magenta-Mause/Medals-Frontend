@@ -115,6 +115,15 @@
         "/userRoleErrorPage": "fehlende Nutzungberechtigung"
       }
     },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "birthdate": "Geburtstag",
+        "email": "E-Mail",
+        "gender": "Geschlecht"
+      }
+    },
     "navbar": {
       "logo": "Medals",
       "locationList": {

@@ -1,5 +1,38 @@
+import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 import { Athlete } from "@customTypes/bffTypes";
-import { Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
+import { FitnessCenter } from "@mui/icons-material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Modal,
+  ModalClose,
+  ModalDialog,
+  Typography,
+} from "@mui/joy";
+
+const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
+  return (
+    <Accordion>
+      <AccordionSummary>
+        <Typography
+          level="h3"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            borderRadius: "10px",
+            padding: "10px",
+          }}
+        >
+          <FitnessCenter />
+          Strength
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails></AccordionDetails>
+    </Accordion>
+  );
+};
 
 const AthleteDetailPopup = (props: {
   athlete: Athlete | null;
@@ -20,12 +53,19 @@ const AthleteDetailPopup = (props: {
       <ModalDialog
         sx={{
           width: "1000px",
+          py: 5,
+          maxWidth: { md: "calc(90vw - var(--Sidebar-width))", xs: "90vw" },
         }}
       >
         <ModalClose />
-        <Typography level={"h2"}>
-          {props.athlete?.first_name} {props.athlete?.last_name}
-        </Typography>
+        {props.athlete ? (
+          <>
+            <AthleteDetailHeader athlete={props.athlete} />
+            <AthletePerformanceAccordions athlete={props.athlete} />
+          </>
+        ) : (
+          <></>
+        )}
       </ModalDialog>
     </Modal>
   );

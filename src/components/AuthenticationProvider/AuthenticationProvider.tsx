@@ -126,13 +126,23 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       selectUser(null);
       enqueueSnackbar("User couldnt be found", { variant: "warning" });
     } else {
-      selectUser(user);
+      if (selectedUser == null || selectedUser?.id != user.id) {
+        selectUser(user);
+      }
     }
-  }, [authorizedUsers, selectUser, storageSelectedUser, enqueueSnackbar]);
+  }, [
+    authorizedUsers,
+    selectUser,
+    storageSelectedUser,
+    enqueueSnackbar,
+    selectedUser,
+  ]);
 
   useEffect(() => {
-    refreshIdentityToken();
-  }, [refreshIdentityToken]);
+    if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {
+      refreshIdentityToken();
+    }
+  }, [refreshIdentityToken, tokenExpirationDate]);
 
   return (
     <AuthContext.Provider
