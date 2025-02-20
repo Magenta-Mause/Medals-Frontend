@@ -26,6 +26,10 @@
     "resetPassword": {
       "failed": "We couldnt find an account connected to that email",
       "success": "Verification email sent"
+    },
+    "inviteTrainer": {
+      "failed": "Failed to invite trainer",
+      "success": "Trainer was invited successfully"
     }
   },
   "pages": {
@@ -203,6 +207,14 @@
             "content": "Invite Trainer"
           }
         }
+      },
+      "inviteModal": {
+        "email": "Email",
+        "firstName": "Firstname",
+        "firstNamePlaceholder": "John",
+        "lastName": "Lastname",
+        "lastNamePlaceholder": "Doe",
+        "confirm": "Invite Trainer"
       }
     },
     "buttons": {

@@ -26,6 +26,10 @@
     "resetPassword": {
       "failed": "No pudimos encontrar una cuenta vinculada a ese correo electrónico",
       "success": "Correo de verificación enviado"
+    },
+    "inviteTrainer": {
+      "failed": "No se pudo invitar al entrenador",
+      "success": "El entrenador fue invitado"
     }
   },
   "pages": {
@@ -182,6 +186,14 @@
             "content": "Invitar al entrenador"
           }
         }
+      },
+      "inviteModal": {
+        "email": "Correo electrónico",
+        "firstName": "Nombre",
+        "firstNamePlaceholder": "Juan",
+        "lastName": "Apellido",
+        "lastNamePlaceholder": "Perez",
+        "confirm": "Invitar al entrenador"
       }
     },
     "buttons": {

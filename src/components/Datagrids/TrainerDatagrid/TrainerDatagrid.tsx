@@ -116,7 +116,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
         setTrainerInviteSnackbar({
           open: true,
           color: "success",
-          text: "Invited user",
+          text: t("snackbar.inviteTrainer.success"),
         });
       })
       .catch(() => {
@@ -125,7 +125,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
         setTrainerInviteSnackbar({
           open: true,
           color: "danger",
-          text: "Failed to Invite user",
+          text: t("snackbar.inviteTrainer.failed"),
         });
       })
       .finally(() => {
@@ -301,7 +301,9 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
           <Divider inset="none" sx={{ marginBottom: 1 }} />
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <FormControl sx={{ width: "100%" }}>
-              <FormLabel>E-Mail</FormLabel>
+              <FormLabel>
+                {t("components.trainerDatagrid.inviteModal.email")}
+              </FormLabel>
               <Input
                 size="md"
                 placeholder="someone@example.com"
@@ -321,9 +323,13 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <FormControl sx={{ width: "100%" }}>
-              <FormLabel>Vorname</FormLabel>
+              <FormLabel>
+                {t("components.trainerDatagrid.inviteModal.firstName")}
+              </FormLabel>
               <Input
-                placeholder="John"
+                placeholder={t(
+                  "components.trainerDatagrid.inviteModal.firstNamePlaceholder",
+                )}
                 onChange={(event) => {
                   setTrainerInviteForm((formData) => ({
                     ...formData,
@@ -340,10 +346,14 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <FormControl sx={{ width: "100%" }}>
-              <FormLabel>Nachname</FormLabel>
+              <FormLabel>
+                {t("components.trainerDatagrid.inviteModal.lastName")}
+              </FormLabel>
               <Input
                 size="md"
-                placeholder="Doe"
+                placeholder={t(
+                  "components.trainerDatagrid.inviteModal.lastNamePlaceholder",
+                )}
                 onChange={(event) => {
                   setTrainerInviteForm((formData) => ({
                     ...formData,
@@ -362,7 +372,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
             loading={trainerInviteSubmitted}
             sx={{ marginTop: 1 }}
           >
-            Invite Trainer
+            {t("components.trainerDatagrid.inviteModal.confirm")}
           </Button>
         </ModalDialog>
       </Modal>

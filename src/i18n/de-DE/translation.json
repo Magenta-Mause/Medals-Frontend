@@ -26,6 +26,10 @@
     "resetPassword": {
       "failed": "Es konnte kein Account gefunden werden",
       "success": "Bestätigungs E-Mail gesendet"
+    },
+    "inviteTrainer": {
+      "failed": "Der Trainer konnte nicht eingeladen werden",
+      "success": "Der Trainer wurde eingeladen"
     }
   },
   "pages": {
@@ -204,6 +208,14 @@
             "content": "Trainer Einladen"
           }
         }
+      },
+      "inviteModal": {
+        "email": "E-Mail",
+        "firstName": "Vorname",
+        "firstNamePlaceholder": "Max",
+        "lastName": "Nachname",
+        "lastNamePlaceholder": "Mustermann",
+        "confirm": "Trainer Einladen"
       }
     },
     "buttons": {
