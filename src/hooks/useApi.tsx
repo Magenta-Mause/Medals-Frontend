@@ -1,4 +1,4 @@
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete, Trainer } from "@customTypes/bffTypes";
 import { useCallback } from "react";
 import config from "../config";
 import useAxiosInstance from "./useAxiosInstance";
@@ -31,6 +31,39 @@ const useApi = () => {
     } catch (error) {
       console.error(
         `Error while deleting athlete with id: ${athleteId}`,
+        error,
+      );
+    }
+  };
+
+  const getTrainers = async () => {
+    try {
+      const request = await axiosInstance!.get(`/trainers`);
+      return request.data.data as Trainer[];
+    } catch (error) {
+      console.error("Error while fetching trainers", error);
+    }
+  };
+
+  const getTrainer = async (trainerId: string) => {
+    try {
+      const request = await axiosInstance!.get(`/trainers/${trainerId}`);
+      return request.data as Trainer;
+    } catch (error) {
+      console.error(
+        `Error while fetching trainer with id: ${trainerId}`,
+        error,
+      );
+    }
+  };
+
+  const deleteTrainer = async (trainerId: number) => {
+    try {
+      const request = await axiosInstance!.delete(`/trainers/${trainerId}`);
+      return request.status == 202;
+    } catch (error) {
+      console.error(
+        `Error while deleting athlete with id: ${trainerId}`,
         error,
       );
     }
@@ -123,6 +156,9 @@ const useApi = () => {
     setPassword,
     resetPassword,
     initiatePasswordReset,
+    deleteTrainer,
+    getTrainer,
+    getTrainers,
   };
 };
 

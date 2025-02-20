@@ -9,6 +9,7 @@ import {
   StyledEngineProvider,
 } from "@mui/joy";
 import { setAthltes as setAthletes } from "@stores/slices/athleteSlice";
+import { setTrainers } from "@stores/slices/trainerSlice";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
 import { createContext, useEffect, useState } from "react";
@@ -28,15 +29,16 @@ const UtilContext = createContext<UtilContextType>({
 const App = () => {
   const queryClient = new QueryClient();
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
-  const { getAthletes } = useApi();
+  const { getAthletes, getTrainers } = useApi();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
       dispatch(setAthletes((await getAthletes()) || []));
+      dispatch(setTrainers((await getTrainers()) || []));
     };
     fetchData();
-  }, [dispatch, getAthletes]);
+  }, [dispatch, getAthletes, getTrainers]);
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>

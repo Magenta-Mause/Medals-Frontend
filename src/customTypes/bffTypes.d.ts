@@ -9,6 +9,13 @@ export interface Athlete {
   swimming_certificate: boolean;
 }
 
+export interface Trainer {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
 export interface UserEntity {
   id: number;
   first_name: string;
