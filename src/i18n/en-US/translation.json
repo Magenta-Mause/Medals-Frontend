@@ -36,6 +36,9 @@
     "athleteOverviewPage": {
       "header": "Athletes"
     },
+    "trainerOverviewPage": {
+      "header": "Trainers"
+    },
     "notFound": {
       "h1": "404",
       "h2": "Page not found"
@@ -180,6 +183,19 @@
           "search": "Search",
           "birthYear": "Birth year",
           "gender": "Gender"
+        }
+      }
+    },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "Trainer ID",
+          "firstName": "Firstname",
+          "lastName": "Lastname",
+          "email": "Email"
+        },
+        "filters": {
+          "search": "Search"
         }
       }
     },

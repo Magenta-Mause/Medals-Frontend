@@ -36,6 +36,9 @@
     "athleteOverviewPage": {
       "header": "Atletas"
     },
+    "trainerOverviewPage": {
+      "header": "Entrenadores"
+    },
     "notFound": {
       "h1": "404",
       "h2": "Página no encontrada"
@@ -94,7 +97,9 @@
       "paths": {
         "/": "Inicio",
         "/athletes": "Atletas",
-        "/downloads": "Descargas"
+        "/downloads": "Descargas",
+        "/trainer": "Entrenadores",
+        "/help": "Ayuda"
       }
     },
     "navbar": {
@@ -102,7 +107,9 @@
       "locationList": {
         "/": "Inicio",
         "/athletes": "Atletas",
-        "/downloads": "Descargas"
+        "/trainer": "Entrenadores",
+        "/downloads": "Descargas",
+        "/help": "Ayuda"
       },
       "search": "Buscar",
       "languageSelector": "Idioma",
@@ -155,6 +162,19 @@
           "search": "Buscar",
           "birthYear": "Año de nacimiento",
           "gender": "Género"
+        }
+      }
+    },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "ID del entrenador",
+          "firstName": "Nombre",
+          "lastName": "Apellido",
+          "email": "Correo electrónico"
+        },
+        "filters": {
+          "search": "Buscar"
         }
       }
     },
