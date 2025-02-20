@@ -40,7 +40,7 @@ export interface Action<T> {
 interface GenericResponsiveDatagridProps<T> {
   data: T[];
   columns: Column<T>[];
-  filters: Filter<T>[];
+  filters?: Filter<T>[];
   isLoading: boolean;
   actionMenu?: Action<T>[];
   itemSelectionActions?: Action<T>[];
@@ -48,6 +48,7 @@ interface GenericResponsiveDatagridProps<T> {
   elementsPerPage?: number;
   mobileRendering: MobileTableRendering<T>;
   onItemClick?: (item: T) => void;
+  disablePaging: boolean;
 }
 
 /**
@@ -109,7 +110,11 @@ const GenericResponsiveDatagrid = <T,>(
     setPageSizeInternal(elementsPerPage);
     setPageSizeChanged(true);
   };
-
+  useEffect(() => {
+    if (props.disablePaging) {
+      setPageSize(1000);
+    }
+  }, [props.disablePaging, setPageSize]);
   const cleanupSelection = useCallback(() => {
     const newSelected = selected.filter(
       (key) => props.data.findIndex((item) => props.keyOf(item) == key) != -1,
@@ -129,9 +134,16 @@ const GenericResponsiveDatagrid = <T,>(
   );
 
   const getFilteredContent = useCallback(() => {
+    if (
+      props.filters == undefined ||
+      props.mobileRendering.searchFilter == undefined
+    ) {
+      return props.data;
+    }
+
     return props.data
       .filter((item) =>
-        props.filters.reduce<boolean>(
+        props.filters!.reduce<boolean>(
           (previousValue, currentFilter) =>
             previousValue &&
             currentFilter.apply(filterValues[currentFilter.name] ?? "")(item),
@@ -206,22 +218,26 @@ const GenericResponsiveDatagrid = <T,>(
           gap: 1,
         }}
       >
-        <Input
-          size="sm"
-          placeholder={
-            props.mobileRendering.searchFilter.label ??
-            props.mobileRendering.searchFilter.name
-          }
-          value={filterValues[props.mobileRendering.searchFilter.name]}
-          startDecorator={<Search />}
-          sx={{ flexGrow: 1 }}
-          onChange={(event) => {
-            setFilter(
-              props.mobileRendering.searchFilter.name,
-              event.target.value,
-            );
-          }}
-        />
+        {props.mobileRendering.searchFilter != undefined ? (
+          <Input
+            size="sm"
+            placeholder={
+              props.mobileRendering.searchFilter.label ??
+              props.mobileRendering.searchFilter.name
+            }
+            value={filterValues[props.mobileRendering.searchFilter.name]}
+            startDecorator={<Search />}
+            sx={{ flexGrow: 1 }}
+            onChange={(event) => {
+              setFilter(
+                props.mobileRendering.searchFilter!.name,
+                event.target.value,
+              );
+            }}
+          />
+        ) : (
+          <></>
+        )}
         <Button
           size="sm"
           variant="outlined"
@@ -238,14 +254,20 @@ const GenericResponsiveDatagrid = <T,>(
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Sheet sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              <FilterComponent
-                filters={props.filters}
-                setFilter={setFilter}
-                filterValues={filterValues}
-              />
-              <Button color="primary" onClick={() => setOpen(false)}>
-                Submit
-              </Button>
+              {props.filters != undefined ? (
+                <>
+                  <FilterComponent
+                    filters={props.filters}
+                    setFilter={setFilter}
+                    filterValues={filterValues}
+                  />
+                  <Button color="primary" onClick={() => setOpen(false)}>
+                    Submit
+                  </Button>
+                </>
+              ) : (
+                <> </>
+              )}
             </Sheet>
           </ModalDialog>
         </Modal>
@@ -264,11 +286,15 @@ const GenericResponsiveDatagrid = <T,>(
           },
         }}
       >
-        <FilterComponent
-          filters={props.filters}
-          setFilter={setFilter}
-          filterValues={filterValues}
-        />
+        {props.filters != undefined ? (
+          <FilterComponent
+            filters={props.filters}
+            setFilter={setFilter}
+            filterValues={filterValues}
+          />
+        ) : (
+          <></>
+        )}
       </Box>
       <Sheet
         className="OrderTableContainer"
@@ -338,14 +364,18 @@ const GenericResponsiveDatagrid = <T,>(
           background: "transparent",
         }}
       />
-      <PageControll
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        elementsPerPage={pageSize}
-        rowCount={getFilteredContent().length}
-        setElementsPerPage={setPageSize}
-        showPreviousAndNextButtons={false}
-      />
+      {!props.disablePaging ? (
+        <PageControll
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          elementsPerPage={pageSize}
+          rowCount={getFilteredContent().length}
+          setElementsPerPage={setPageSize}
+          showPreviousAndNextButtons={false}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };

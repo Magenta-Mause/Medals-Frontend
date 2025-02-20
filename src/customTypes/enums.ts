@@ -9,3 +9,15 @@ export enum UserType {
   TRAINER = "TRAINER",
   ATHLETE = "ATHLETE",
 }
+
+export enum MetricUnits {
+  SECONDS = "seconds",
+  METERS = "meters",
+}
+
+export enum DisciplineCategories {
+  STRENGTH = "STRENGTH",
+  ENDURANCE = "ENDURANCE",
+  SPEED = "SPEED",
+  COORDINATION = "COORDINATION"
+}

@@ -1,10 +1,19 @@
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import { useCallback } from "react";
 import config from "../config";
 import useAxiosInstance from "./useAxiosInstance";
 
 const useApi = () => {
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);
+
+  const getPerformanceRecordings = async () => {
+    try {
+      const request = await axiosInstance!.get("/performance-recordings");
+      return request.data.data as PerformanceRecording[];
+    } catch (error) {
+      console.error("Error while fetching performance recordings", error);
+    }
+  };
 
   const getAthletes = async () => {
     try {
@@ -113,6 +122,18 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const getDisciplines = useCallback(async (selectedYear: number | null) => {
+    try {
+      const request = await axiosInstance!.get(
+        "/disciplines" +
+          (selectedYear != null ? "?selected_year=" + selectedYear : ""),
+      );
+      return request.data.data;
+    } catch {
+      console.error("Error while loading disciplines");
+    }
+  }, []);
+
   return {
     loginUser,
     logoutUser,
@@ -123,6 +144,8 @@ const useApi = () => {
     setPassword,
     resetPassword,
     initiatePasswordReset,
+    getPerformanceRecordings,
+    getDisciplines,
   };
 };
 

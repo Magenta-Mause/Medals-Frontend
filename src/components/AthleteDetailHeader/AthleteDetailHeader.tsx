@@ -1,4 +1,4 @@
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete } from "@customTypes/backendTypes";
 import { Box, Divider, Grid, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
@@ -50,15 +50,12 @@ const AthleteDetailHeader = (props: { athlete: Athlete }) => {
     >
       <Grid container spacing={2} justifyContent="space-evenly">
         {columnMappings.map((column) => (
-          <>
-            <Grid xs={12} md={column.size} key={column.label}>
-              <Typography color="neutral" sx={{ userSelect: "none" }}>
-                {t("components.athleteDetailHeader.columns." + column.label)}:
-              </Typography>{" "}
-              <Typography>{column.mapping(props.athlete)}</Typography>
-            </Grid>
-            <Divider />
-          </>
+          <Grid xs={12} md={column.size} key={column.label}>
+            <Typography color="neutral" sx={{ userSelect: "none" }}>
+              {t("components.athleteDetailHeader.columns." + column.label)}:
+            </Typography>{" "}
+            <Typography>{column.mapping(props.athlete)}</Typography>
+          </Grid>
         ))}
       </Grid>
     </Box>

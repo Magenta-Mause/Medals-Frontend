@@ -15,6 +15,26 @@
     "TRAINER": "Trainer*in",
     "ADMIN": "Admin"
   },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+"label": "Stärke",
+"icon": "💪"
+      },
+      "ENDURANCE": {
+        "label": "Ausdauer",
+        "icon": "⌚"
+      },
+      "SPEED": {
+        "label": "Geschwindigkeit",
+        "icon": "🏃‍♀️"
+      },
+      "COORDINATION": {
+        "label": "Koordination",
+        "icon": "♟"
+      }
+    }
+  },
   "snackbar": {
     "login": {
       "loginFailed": "Login fehlgeschlagen"

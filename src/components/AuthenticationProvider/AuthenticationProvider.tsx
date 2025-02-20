@@ -1,6 +1,6 @@
-import { JwtTokenBody, UserEntity } from "@customTypes/bffTypes";
+import { JwtTokenBody, UserEntity } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import useInstantiation from "@hooks/useInstantiation";
+import useInstantiation from "@hooks/useInstantiation/useInstantiation";
 import { Box, CircularProgress } from "@mui/joy";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { jwtDecode } from "jwt-decode";

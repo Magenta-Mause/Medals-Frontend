@@ -25,7 +25,7 @@ export interface MobileTableRendering<T> {
   bottomButtons?: Action<T>[];
   additionalActions?: Action<T>[];
   topRightInfo?: (row: T) => ReactNode;
-  searchFilter: Filter<T>;
+  searchFilter?: Filter<T>;
 }
 
 const Row = <T,>(props: {
