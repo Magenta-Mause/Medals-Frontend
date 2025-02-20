@@ -4,6 +4,7 @@ import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { Bolt } from "@mui/icons-material";
 
 
 const ProfilePage = () => {
@@ -19,19 +20,18 @@ const ProfilePage = () => {
     year: "numeric"
   }).format(new Date(selectedAthlete?.birthdate));
 
-  let gender = '';
-
-  // Setze den Wert für gender abhängig vom Geschlecht
-  //if (selectedAthlete?.gender === "MALE") {
-    //gender = "männlich";
-  //} else if (selectedAthlete?.gender === "FEMALE") {
-    //gender = "weiblich";
-  //} else if (selectedAthlete?.gender === "DIVERSE") {
-   // gender = "divers";
-  //}
-  
-  
-
+  const InfoCard = ({ label, value }: { label: string, value: string | React.ReactNode }) => (
+    <Box sx={{ marginTop: '20px' }}>
+      <Typography fontWeight="bold" component="h2" sx={{ lineHeight: 1, marginBottom: '5px' }}>
+        {label}
+      </Typography>
+      <Card variant="outlined">
+        <CardContent>
+          <Typography sx={{ lineHeight: 0.6 }}>{value}</Typography>
+        </CardContent>
+      </Card>
+    </Box>
+  );
 
   return (
     <>
@@ -58,21 +58,27 @@ const ProfilePage = () => {
         height: "100vh",
       }}>
         <Box sx={{ width: "100%", maxWidth: "350px" }}>
-          <Typography level="h2" component="h1">
+          <Typography
+            level="h3"
+            component="h1"
+            sx={{textAlign: "center"}}>
             {selectedUser?.first_name} {selectedUser?.last_name}
           </Typography>
-          <Card variant="outlined">
-            
+
+          <Card
+            variant="outlined"
+            sx={{
+              paddingTop: "0px",
+              margin: "5px",
+            }}>  
             <CardContent>
-              ID: {selectedUser?.id} <br />
-              {t("pages.profilePage.birthdate")}: {formattedDate} <br />
-              {t("pages.profilePage.gender")}: {t("genders." + selectedAthlete.gender)} <br />
-              {t("pages.profilePage.email")}: {selectedUser?.email}
+              <InfoCard label="ID" value={selectedUser?.id} />
+              <InfoCard label={t("pages.profilePage.birthdate")} value={formattedDate} />
+              <InfoCard label={t("pages.profilePage.gender")} value={t("genders." + selectedAthlete.gender)} />
+              <InfoCard label={t("pages.profilePage.email")} value={selectedUser?.email} />
             </CardContent>
           </Card>
         </Box>
-
-        {/* Buttons unter der Card */}
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
           <Button variant="outlined">Reset Password</Button>
           <Button variant="outlined">Delete Profile</Button>
