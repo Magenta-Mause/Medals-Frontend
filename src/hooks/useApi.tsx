@@ -18,7 +18,7 @@ const useApi = () => {
   const getAthlete = async (atheteId: string) => {
     try {
       const request = await axiosInstance!.get(`/athletes/${atheteId}`);
-      return request.data as Athlete;
+      return request.data.data as Athlete;
     } catch (error) {
       console.error(`Error while fetching athlete with id: ${atheteId}`, error);
     }
@@ -48,7 +48,7 @@ const useApi = () => {
   const getTrainer = async (trainerId: string) => {
     try {
       const request = await axiosInstance!.get(`/trainers/${trainerId}`);
-      return request.data as Trainer;
+      return request.data.data as Trainer;
     } catch (error) {
       console.error(
         `Error while fetching trainer with id: ${trainerId}`,
@@ -66,6 +66,20 @@ const useApi = () => {
         `Error while deleting athlete with id: ${trainerId}`,
         error,
       );
+    }
+  };
+
+  const inviteTrainer = async (trainer: Trainer) => {
+    try {
+      const request = await axiosInstance!.post(`/trainers`, trainer);
+      if (request.status !== 201)
+        throw new Error(
+          `failed to create athlete, status code: ${request.status}`,
+        );
+      return true;
+    } catch (error) {
+      console.error(`Error while adding trainer`, error);
+      throw error;
     }
   };
 
@@ -159,6 +173,7 @@ const useApi = () => {
     deleteTrainer,
     getTrainer,
     getTrainers,
+    inviteTrainer,
   };
 };
 
