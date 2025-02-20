@@ -74,14 +74,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
 
   const actions: Action<Trainer>[] = [
     {
-      label: <>Edit</>,
-      color: "primary",
-      key: "edit",
-      operation: function (item): void {
-        console.log("Editing Trainer:", item);
-      },
-    },
-    {
       label: <>Delete</>,
       color: "danger",
       key: "delete",
