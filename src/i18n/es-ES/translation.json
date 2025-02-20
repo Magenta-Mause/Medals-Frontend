@@ -92,7 +92,8 @@
       "header": "Mi Perfil",
       "birthdate": "Fecha de nacimiento",
       "gender":"Género",
-      "email":"Correo electrónico"
+      "email":"Correo electrónico",
+      "resetPasswordButton": "Restablecer contraseña"
     }
   },
   "components": {

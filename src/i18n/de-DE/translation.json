@@ -101,7 +101,8 @@
       "header": "Mein Profil",
       "birthdate": "Geburtstag",
       "gender":"Geschlecht",
-      "email":"E-Mail"
+      "email":"E-Mail",
+      "resetPasswordButton": "Password zurücksetzen"
     }
   },
   "components": {

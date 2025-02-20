@@ -100,7 +100,8 @@
       "header": "My Profile",
       "birthdate": "Birthdate",
       "gender":"Gender",
-      "email":"Email"
+      "email":"Email",
+      "resetPasswordButton": "Reset Password"
     }
   },
   "components": {

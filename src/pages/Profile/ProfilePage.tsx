@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { Bolt } from "@mui/icons-material";
+import { Navigate, useNavigate } from "react-router";
+import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 
 
 const ProfilePage = () => {
@@ -13,6 +15,7 @@ const ProfilePage = () => {
   const { selectedUser } = useContext(AuthContext);
   const selectedAthlete = athletes.find((athlete: { id: number | undefined; }) => athlete.id === selectedUser?.id);
   const { t } = useTranslation();
+  const navigate = useNavigate();
   
   const formattedDate = new Intl.DateTimeFormat("de-DE", {
     day: "2-digit",
@@ -80,7 +83,10 @@ const ProfilePage = () => {
           </Card>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
-          <Button variant="outlined">Reset Password</Button>
+          <Button 
+            variant="outlined"
+            onClick={() => {
+                  navigate("/resetPassword")}}>{t("pages.profilePage.resetPasswordButton")}</Button>
           <Button variant="outlined">Delete Profile</Button>
         </Box>
       </Box>   
