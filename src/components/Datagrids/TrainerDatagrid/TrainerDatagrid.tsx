@@ -7,9 +7,11 @@ import { useDispatch } from "react-redux";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
+  ToolbarAction,
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import { Add } from "@mui/icons-material";
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
@@ -72,6 +74,21 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
     },
   ];
 
+  const toolbarActions: ToolbarAction[] = [
+    {
+      label: t("components.trainerDatagrid.table.toolbar.addTrainer.label"),
+      content: t("components.trainerDatagrid.table.toolbar.addTrainer.content"),
+      icon: <Add />,
+      collapseToText: true,
+      color: "primary",
+      key: "invite-trainer",
+      variant: "solid",
+      operation: function (): void {
+        console.log("adding trainer modal");
+      },
+    },
+  ];
+
   const actions: Action<Trainer>[] = [
     {
       label: <>Delete</>,
@@ -120,6 +137,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       data={props.trainers}
       columns={columns}
       filters={filters}
+      toolbarActions={toolbarActions}
       actionMenu={actions}
       itemSelectionActions={actions}
       keyOf={(item) => item.id}

@@ -175,6 +175,12 @@
         },
         "filters": {
           "search": "Buscar"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Invitar",
+            "content": "Invitar al entrenador"
+          }
         }
       }
     },

@@ -196,6 +196,12 @@
         },
         "filters": {
           "search": "Search"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Invite",
+            "content": "Invite Trainer"
+          }
         }
       }
     },
