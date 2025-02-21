@@ -64,11 +64,7 @@ const AthleteCreationForm = () => {
 
   return (
     <>
-      <Button
-        variant="outlined"
-        color="neutral"
-        onClick={() => setPopupOpen(true)}
-      >
+      <Button color="primary" onClick={() => setPopupOpen(true)}>
         {t("pages.athleteOverviewPage.createButton")}
       </Button>
       <Modal
@@ -190,7 +186,7 @@ const AthleteCreationForm = () => {
             sx={{
               marginTop: "5vh",
               marginBottom: "2vh",
-              color: "white !important",
+              color: "primary",
             }}
             onClick={() => {
               {
