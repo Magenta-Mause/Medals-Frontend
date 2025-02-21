@@ -15,6 +15,30 @@
     "TRAINER": "Trainer",
     "ADMIN": "Admin"
   },
+  "units": {
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+        "label": "Strength",
+        "icon": "💪"
+      },
+      "ENDURANCE": {
+        "label": "Endurance",
+        "icon": "⌚"
+      },
+      "SPEED": {
+        "label": "Speed",
+        "icon": "🏃‍♀️"
+      },
+      "COORDINATION": {
+        "label": "Coordination",
+        "icon": "♟"
+      }
+    }
+  },
   "snackbar": {
     "login": {
       "loginFailed": "Login failed"
@@ -145,6 +169,14 @@
         "text": "Warning!"
       }
     },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Title",
+        "description": "Description",
+        "lastValue": "Last Value",
+        "recordedAt": "Recorded At"
+      }
+    },
     "downloadCard": {
       "downloadButton": "Download",
       "items": {
@@ -202,6 +234,9 @@
       "hasUpperCase": "Password contains an uppercase letter",
       "hasSpecial": "Password contains a special character",
       "required": "Required"
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Selected Year"
     }
   }
 }

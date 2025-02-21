@@ -41,7 +41,6 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
 
   return (
     <>
-      {" "}
       <form
         onSubmit={(e) => {
           setSelectedYear(hoveredYear);
@@ -49,7 +48,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
         }}
       >
         <FormControl>
-          <FormLabel>Ausgewähltes Jahr</FormLabel>
+          <FormLabel>{t("components.athletePerformanceAccordions.selectedYear")}</FormLabel>
           <Input
             placeholder={String(new Date().getFullYear())}
             type={"number"}

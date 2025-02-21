@@ -217,6 +217,14 @@
         }
       }
     },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Titel",
+        "description": "Description",
+        "lastValue": "Letzter Wert",
+        "recordedAt": "Aufgenommen am"
+      }
+    },
     "buttons": {
       "next": "Nächstes",
       "previous": "Vorheriges"
@@ -228,6 +236,9 @@
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",
       "hasSpecial": "Passwort enthält ein Sonderzeichen",
       "required": "Verpflichtend"
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Ausgewähltes Jahr"
     }
   }
 }

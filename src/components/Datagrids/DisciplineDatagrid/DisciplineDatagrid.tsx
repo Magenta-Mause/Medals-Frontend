@@ -41,21 +41,21 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
 
   const columns: Column<DisciplineWithPerformanceRecordings>[] = [
     {
-      columnName: "Titel",
+      columnName: t("components.disciplineDatagrid.columns.title"),
       columnMapping(item) {
         return <Typography>{item.name}</Typography>;
       },
       sortable: true,
     },
     {
-      columnName: "Beschreibung",
+      columnName: t("components.disciplineDatagrid.columns.description"),
       columnMapping(item) {
         return <Typography>{item.description ?? "-"}</Typography>;
       },
       sortable: true,
     },
     {
-      columnName: "Letzter Wert",
+      columnName: t("components.disciplineDatagrid.columns.lastValue"),
       columnMapping(item) {
         const bestItem = item.performanceRecordings.sort(
           item.more_better
@@ -72,7 +72,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
       },
     },
     {
-      columnName: "Aufgenommen am",
+      columnName: t("components.disciplineDatagrid.columns.recordedAt"),
       columnMapping(item) {
         const bestItem = item.performanceRecordings.sort(
           item.more_better
