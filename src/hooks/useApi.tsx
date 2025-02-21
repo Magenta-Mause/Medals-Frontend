@@ -36,6 +36,20 @@ const useApi = () => {
     }
   };
 
+  const createAthlete = async (athlete: Athlete) => {
+    const response = await axiosInstance.post(`/athletes`, {
+      first_name: athlete.first_name,
+      last_name: athlete.last_name,
+      email: athlete.email,
+      birthdate: athlete.birthdate,
+      gender: athlete.gender,
+    });
+    if (response.status != 201) {
+      throw new Error("Error during athlete creation");
+    }
+    return response.status == 201;
+  };
+
   const loginUser = useCallback(
     async (email: string, password: string) => {
       const request = await axiosInstance!.post(
@@ -121,6 +135,7 @@ const useApi = () => {
     getAthlete,
     getAthletes,
     setPassword,
+    createAthlete,
     resetPassword,
     initiatePasswordReset,
   };
