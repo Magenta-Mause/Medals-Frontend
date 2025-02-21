@@ -109,10 +109,6 @@ const navBarElements = new Map<
         icon: <SpaceDashboard />,
       },
       {
-        path: "/profile",
-        icon: <Person />,
-      },
-      {
         path: "/requirements",
         icon: <Article />,
       },

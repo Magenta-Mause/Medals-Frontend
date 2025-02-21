@@ -36,13 +36,13 @@ const RoutingComponent = () => {
 
           {/* ATHLETE */}
           <Route path="/dashboard" element={<InDevelopmentPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/requirements" element={<InDevelopmentPage />} />
           <Route path="/performances" element={<InDevelopmentPage />} />
 
           {/* Shared Pages */}
           <Route path="/downloads" element={<PdfDownloadPage />} />
           <Route path="/help" element={<InDevelopmentPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
 
         {/* Error Pages */}

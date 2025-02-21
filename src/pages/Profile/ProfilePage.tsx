@@ -15,11 +15,13 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
 
-  const formattedDate = new Intl.DateTimeFormat("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric"
-  }).format(new Date(selectedAthlete?.birthdate));
+  const formattedDate = selectedAthlete?.birthdate
+  ? new Intl.DateTimeFormat("de-DE", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    }).format(new Date(selectedAthlete.birthdate))
+  : "Datum nicht verfügbar"; // Hier kannst du einen Standardwert setzen, wenn kein Datum vorhanden ist
 
   const InfoCard = ({ label, value }: { label: string, value: string | React.ReactNode }) => (
     <Box>
@@ -78,16 +80,23 @@ const ProfilePage = () => {
               minWidth: "450px"
               
             }}>  
-            <Avatar sx={{ width: 80, height: 80, margin: "0 auto", mb: 2 }}>
-              {selectedUser?.first_name.charAt(0)} {selectedUser?.last_name.charAt(0)}
+            <Avatar sx={{ width: 100, height: 100, margin: "0 auto", mb: 1}}>
+              <Typography sx={{ fontSize: '2rem' }}>
+                {selectedUser?.first_name.charAt(0)}{selectedUser?.last_name.charAt(0)}
+              </Typography>
             </Avatar>
             <CardContent>
               <Typography level="h3" gutterBottom>
                 {selectedUser?.first_name} {selectedUser?.last_name}
               </Typography>
               <InfoCard label="ID" value={selectedUser?.id} />
-              <InfoCard label={t("pages.profilePage.birthdate")} value={formattedDate} />
-              <InfoCard label={t("pages.profilePage.gender")} value={t("genders." + selectedAthlete.gender)} />
+
+              {selectedUser?.type === "ATHLETE" && (
+                <>
+                  <InfoCard label={t("pages.profilePage.birthdate")} value={formattedDate} />
+                  <InfoCard label={t("pages.profilePage.gender")} value={t("genders." + selectedAthlete?.gender)} />
+                </>
+              )}
               <InfoCard label={t("pages.profilePage.email")} value={selectedUser?.email} />
             </CardContent>
           </Card>
