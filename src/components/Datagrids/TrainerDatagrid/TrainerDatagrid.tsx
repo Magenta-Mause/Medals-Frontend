@@ -3,17 +3,13 @@ import { Trainer } from "@customTypes/bffTypes";
 import {
   Box,
   Button,
-  ColorPaletteProp,
   Divider,
   FormControl,
   FormLabel,
-  IconButton,
   Input,
   Modal,
   ModalClose,
   ModalDialog,
-  Snackbar,
-  SnackbarPropsColorOverrides,
   Typography,
 } from "@mui/joy";
 import { removeTrainer } from "@stores/slices/trainerSlice";
@@ -26,19 +22,13 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { Add, Close } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import { useState } from "react";
-import { OverridableStringUnion } from "@mui/types";
+import { useSnackbar } from "notistack";
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
   isLoading: boolean;
-}
-
-interface TrainerInviteSnackbar {
-  open: boolean;
-  text: string;
-  color?: OverridableStringUnion<ColorPaletteProp, SnackbarPropsColorOverrides>;
 }
 
 const TrainerDatagrid = (props: TrainerDatagridProps) => {
@@ -59,11 +49,12 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
     lastNameInputValid: true,
   });
 
-  const [trainerInviteSnackbar, setTrainerInviteSnackbar] =
+  /*const [trainerInviteSnackbar, setTrainerInviteSnackbar] =
     useState<TrainerInviteSnackbar>({
       open: false,
       text: "",
-    });
+    });*/
+  const { enqueueSnackbar } = useSnackbar();
 
   const [trainerInviteSubmitted, setTrainerInviteSubmitted] = useState(false);
 
@@ -113,38 +104,28 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       .then(() => {
         setAddTrainerModalOpen(false);
         setTrainerInviteSubmitted(false);
-        setTrainerInviteSnackbar({
-          open: true,
-          color: "success",
-          text: t("snackbar.inviteTrainer.success"),
+        enqueueSnackbar(t("snackbar.inviteTrainer.success"), {
+          variant: "success",
         });
       })
       .catch(() => {
         setAddTrainerModalOpen(false);
         setTrainerInviteSubmitted(false);
-        setTrainerInviteSnackbar({
-          open: true,
-          color: "danger",
-          text: t("snackbar.inviteTrainer.failed"),
+        enqueueSnackbar(t("snackbar.inviteTrainer.failed"), {
+          variant: "error",
         });
       })
       .finally(() => {
-        setTimeout(() => {
-          setTrainerInviteForm({
-            email: "",
-            emailInputValid: true,
+        setTrainerInviteForm({
+          email: "",
+          emailInputValid: true,
 
-            firstName: "",
-            firstNameInputValid: true,
+          firstName: "",
+          firstNameInputValid: true,
 
-            lastName: "",
-            lastNameInputValid: true,
-          });
-          setTrainerInviteSnackbar((snackbarData) => ({
-            ...snackbarData,
-            open: false,
-          }));
-        }, 4000);
+          lastName: "",
+          lastNameInputValid: true,
+        });
       });
   };
 
@@ -270,23 +251,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
       />
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        color={trainerInviteSnackbar.color}
-        open={trainerInviteSnackbar.open}
-      >
-        <Typography width="100%">{trainerInviteSnackbar.text}</Typography>
-        <IconButton
-          onClick={() => {
-            setTrainerInviteSnackbar((snackbarData) => ({
-              ...snackbarData,
-              open: false,
-            }));
-          }}
-        >
-          <Close />
-        </IconButton>
-      </Snackbar>
       <Modal
         open={addTrainerModalOpen}
         onClose={() => {
