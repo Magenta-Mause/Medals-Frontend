@@ -48,7 +48,9 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
         }}
       >
         <FormControl>
-          <FormLabel>{t("components.athletePerformanceAccordions.selectedYear")}</FormLabel>
+          <FormLabel>
+            {t("components.athletePerformanceAccordions.selectedYear")}
+          </FormLabel>
           <Input
             placeholder={String(new Date().getFullYear())}
             type={"number"}
