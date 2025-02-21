@@ -1,17 +1,5 @@
-import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import { Client } from "@stomp/stompjs";
-import {
-  updateAthlete,
-  addAthlete,
-  removeAthlete,
-} from "@stores/slices/athleteSlice";
-import {
-  updatePerformanceRecording,
-  addPerformanceRecording,
-  removePerformanceRecording,
-} from "@stores/slices/performanceRecordingSlice";
 import { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
 
 const useGenericWebsocketInitialization = <T,>(
   client: Client | null,
@@ -39,7 +27,14 @@ const useGenericWebsocketInitialization = <T,>(
     client.subscribe("/topics/" + topic + "/deletion", (message) => {
       deleteCallback(JSON.parse(message.body) as number);
     });
-  }, [client, isConnected, insertCallback, updateAthlete, deleteCallback]);
+  }, [
+    client,
+    isConnected,
+    insertCallback,
+    deleteCallback,
+    updateCallback,
+    topic,
+  ]);
 
   const uninitialize = useCallback(() => {
     if (!isConnected) {
@@ -51,7 +46,7 @@ const useGenericWebsocketInitialization = <T,>(
     client.unsubscribe("/topics/" + topic + "/creation");
     client.unsubscribe("/topics/" + topic + "/update");
     client.unsubscribe("/topics/" + topic + "/deletion");
-  }, [client, isConnected]);
+  }, [client, isConnected, topic]);
 
   return { initialize, uninitialize };
 };

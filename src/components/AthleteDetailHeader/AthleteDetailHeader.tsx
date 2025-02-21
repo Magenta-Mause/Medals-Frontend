@@ -1,5 +1,5 @@
 import { Athlete } from "@customTypes/backendTypes";
-import { Box, Divider, Grid, Typography } from "@mui/joy";
+import { Box, Grid, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
 const AthleteDetailHeader = (props: { athlete: Athlete }) => {

@@ -106,10 +106,14 @@ const GenericResponsiveDatagrid = <T,>(
   const windowDimensions = useWindowDimensions();
   const [wasPageSizeChanged, setPageSizeChanged] = useState(false);
 
-  const setPageSize = (elementsPerPage: number) => {
-    setPageSizeInternal(elementsPerPage);
-    setPageSizeChanged(true);
-  };
+  const setPageSize = useCallback(
+    (elementsPerPage: number) => {
+      setPageSizeInternal(elementsPerPage);
+      setPageSizeChanged(true);
+    },
+    [setPageSizeInternal, setPageSizeChanged],
+  );
+
   useEffect(() => {
     if (props.disablePaging) {
       setPageSize(1000);

@@ -6,18 +6,15 @@ import {
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import { DisciplineCategories } from "@customTypes/enums";
-import { Check, FitnessCenter, Label } from "@mui/icons-material";
+import { Check } from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box,
   FormControl,
   FormLabel,
   IconButton,
   Input,
-  List,
-  ListItem,
   Modal,
   ModalClose,
   ModalDialog,

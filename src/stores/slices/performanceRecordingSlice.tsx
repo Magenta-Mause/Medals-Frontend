@@ -1,4 +1,4 @@
-import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
+import { PerformanceRecording } from "@customTypes/backendTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PerformanceRecordingSliceState {

@@ -6,7 +6,7 @@ import {
   updateAthlete,
 } from "@stores/slices/athleteSlice";
 import { useCallback, useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import useApi from "../useApi";
 import { Client } from "@stomp/stompjs";
 import {
@@ -21,11 +21,7 @@ import {
   setPerformanceRecordings,
   updatePerformanceRecording,
 } from "@stores/slices/performanceRecordingSlice";
-import {
-  useAthleteWebsocket,
-  useGenericWebsocketInitialization,
-  usePerformanceRecordingWebsocket,
-} from "./useWebsocketInstantiation";
+import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
 import {
   addDiscipline,
   removeDiscipline,
@@ -89,10 +85,12 @@ const useInstantiation = () => {
       initializePerformanceRecordingWebsocket();
     }, 500);
   }, [
-    client,
     dispatch,
     getAthletes,
+    getDisciplines,
+    getPerformanceRecordings,
     initializeAthleteWebsocket,
+    initializeDisciplineWebsocket,
     initializePerformanceRecordingWebsocket,
   ]);
 
@@ -111,10 +109,12 @@ const useInstantiation = () => {
       initializePerformanceRecordingWebsocket();
     }, 500);
   }, [
-    client,
     dispatch,
     getAthletes,
+    getDisciplines,
+    getPerformanceRecordings,
     initializeAthleteWebsocket,
+    initializeDisciplineWebsocket,
     initializePerformanceRecordingWebsocket,
   ]);
 
@@ -123,7 +123,11 @@ const useInstantiation = () => {
     uninitialiseAthleteWebsocket();
     uninitialiseDisciplineWebsocket();
     uninitialisePerformanceRecordingWebsocket();
-  }, [client]);
+  }, [
+    uninitialiseAthleteWebsocket,
+    uninitialiseDisciplineWebsocket,
+    uninitialisePerformanceRecordingWebsocket,
+  ]);
 
   const instantiateByType = useCallback(
     (userType: UserType) => {

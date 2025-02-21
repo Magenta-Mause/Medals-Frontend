@@ -1,8 +1,4 @@
-import {
-  Athlete,
-  Discipline,
-  PerformanceRecording,
-} from "@customTypes/backendTypes";
+import { Discipline } from "@customTypes/backendTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface DisciplineSliceState {

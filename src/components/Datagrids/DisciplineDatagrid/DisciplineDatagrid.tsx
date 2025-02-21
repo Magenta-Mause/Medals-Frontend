@@ -1,22 +1,10 @@
-import useApi from "@hooks/useApi";
-import {
-  Athlete,
-  Discipline,
-  PerformanceRecording,
-} from "@customTypes/backendTypes";
+import { Discipline, PerformanceRecording } from "@customTypes/backendTypes";
 import { Chip, Typography } from "@mui/joy";
-import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
-import GenericResponsiveDatagrid, {
-  Action,
-} from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
-import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
+import GenericResponsiveDatagrid from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { useCallback, useEffect, useState } from "react";
-import AthleteDetailPopup from "@components/AthleteDetailPopup/AthleteDetailPopup";
-import { D } from "react-router/dist/development/fog-of-war-Ckdfl79L";
+import { useEffect, useState } from "react";
 import useFormatting from "@hooks/useFormatting";
 
 interface DisciplineDatagridProps {
@@ -32,7 +20,6 @@ interface DisciplineWithPerformanceRecordings extends Discipline {
 }
 
 const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
-  const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const [data, setData] = useState<DisciplineWithPerformanceRecordings[]>([]);
   const { formatValue } = useFormatting();
