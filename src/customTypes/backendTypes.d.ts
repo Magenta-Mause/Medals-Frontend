@@ -36,14 +36,19 @@ export interface Discipline {
   valid_in: number;
 }
 
+export interface RatingMetric {
+  bronze_rating: number;
+  silver_rating: number;
+  gold_rating: number;
+}
+
 export interface DisciplineRatingMetric {
   id: number;
   discipline: Discipline;
   start_age: number;
   end_age: number;
-  bronze_rating: number;
-  silver_rating: number;
-  gold_rating: number;
+  rating_male: RatingMetric;
+  rating_female: RatingMetric;
 }
 
 export interface PerformanceRecording {

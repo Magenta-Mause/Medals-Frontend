@@ -11,7 +11,7 @@ import GenericResponsiveDatagrid, {
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import { useState } from "react";
-import AthleteDetailPopup from "@components/AthleteDetailModal/AthleteDetailPopup";
+import AthleteDetailModal from "@components/AthleteDetailModal/AthleteDetailModal";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -160,6 +160,11 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
     },
   ];
+  
+  const itemCallback = (item: Athlete) => {
+    setModalOpen(true);
+    selectAthlete(item);
+  };
 
   const mobileRendering: MobileTableRendering<Athlete> = {
     avatar: (athlete) => <>{athlete.id}</>,
@@ -172,7 +177,15 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     h3: (athlete) => (
       <Typography level="body-xs">{athlete.birthdate}</Typography>
     ),
-    bottomButtons: actions,
+    bottomButtons: [
+      {
+        key: "openDetails",
+        label: t("components.athleteDatagrid.actions.openDetails"),
+        operation: itemCallback,
+        color: "primary",
+      },
+      ...actions,
+    ],
     topRightInfo: (athlete) => (
       <Chip
         size="md"
@@ -209,11 +222,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
   };
 
-  const itemCallback = (item: Athlete) => {
-    setModalOpen(true);
-    selectAthlete(item);
-  };
-
   return (
     <>
       <GenericResponsiveDatagrid
@@ -228,7 +236,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         onItemClick={itemCallback}
         disablePaging={false}
       />
-      <AthleteDetailPopup
+      <AthleteDetailModal
         athlete={selectedAthlete}
         open={isModalOpen}
         setOpen={setModalOpen}

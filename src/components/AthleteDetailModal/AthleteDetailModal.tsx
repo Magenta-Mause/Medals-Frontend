@@ -73,8 +73,23 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
       </form>
       {Object.values(DisciplineCategories).map(
         (category: DisciplineCategories) => (
-          <Accordion key={category}>
-            <AccordionSummary>
+          <Accordion
+            key={category}
+            sx={(theme) => {
+              return {
+                background: "rgba(0, 0, 0, 0.05)",
+                padding: 1,
+                borderRadius: 10,
+                [theme.getColorSchemeSelector("dark")]: {
+                  background: "rgba(255, 255, 255, 0.05)",
+                },
+              };
+            }}
+          >
+            <AccordionSummary
+              sx={{ marginY: 1, borderRadius: 25 }}
+              slotProps={{ button: { sx: { borderRadius: 10 } } }}
+            >
               <Typography
                 level="h3"
                 sx={{
@@ -110,7 +125,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
   );
 };
 
-const AthleteDetailPopup = (props: {
+const AthleteDetailModal = (props: {
   athlete: Athlete | null;
   open: boolean;
   setOpen: (newVal: boolean) => void;
@@ -122,15 +137,21 @@ const AthleteDetailPopup = (props: {
       sx={{
         left: {
           md: "var(--Sidebar-width)",
-          sm: "0",
+          xs: "0",
+        },
+        marginTop: {
+          md: 0,
+          xs: 5,
         },
       }}
     >
       <ModalDialog
         sx={{
           width: "1000px",
-          py: 6,
+          pt: 6,
           maxWidth: { md: "calc(90vw - var(--Sidebar-width))", xs: "90vw" },
+          overflowY: "auto",
+          height: { xs: "90vh", md: "80vh" },
         }}
       >
         <ModalClose />
@@ -147,4 +168,4 @@ const AthleteDetailPopup = (props: {
   );
 };
 
-export default AthleteDetailPopup;
+export default AthleteDetailModal;

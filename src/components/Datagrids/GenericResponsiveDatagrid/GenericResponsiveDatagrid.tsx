@@ -242,14 +242,18 @@ const GenericResponsiveDatagrid = <T,>(
         ) : (
           <></>
         )}
-        <Button
-          size="sm"
-          variant="outlined"
-          color="neutral"
-          onClick={() => setOpen(true)}
-        >
-          <FilterAlt />
-        </Button>
+        {props.filters ? (
+          <Button
+            size="sm"
+            variant="outlined"
+            color="neutral"
+            onClick={() => setOpen(true)}
+          >
+            <FilterAlt />
+          </Button>
+        ) : (
+          <></>
+        )}
         <Modal open={open} onClose={() => setOpen(false)}>
           <ModalDialog aria-labelledby="filter-modal" layout="center">
             <ModalClose />
@@ -359,6 +363,7 @@ const GenericResponsiveDatagrid = <T,>(
             setCurrentPage((prevPage) => callback(prevPage));
           }}
           maxPage={Math.ceil(getFilteredContent().length / pageSize)}
+          disablePaging={props.disablePaging}
         />
       </Box>
 

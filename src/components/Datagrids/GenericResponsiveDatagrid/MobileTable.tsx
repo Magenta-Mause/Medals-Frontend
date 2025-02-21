@@ -43,7 +43,7 @@ const Row = <T,>(props: {
           alignItems: "start",
         }}
       >
-        <ListItemContent sx={{ display: "flex", gap: 2, alignItems: "start" }}>
+        <ListItemContent sx={{ display: "flex", gap: 2, alignItems: "start", pl: props.rendering.avatar ? 0 : "10px"}}>
           {props.rendering.avatar ? (
             <ListItemDecorator>
               <Avatar size="sm">{props.rendering.avatar(props.item)}</Avatar>
@@ -129,6 +129,7 @@ const MobileTable = <T,>(props: {
   setCurrentPage: (callback: (prevNumber: number) => number) => void;
   keyOf: (item: T) => Key;
   maxPage: number;
+  disablePaging: boolean;
 }) => {
   const { t } = useTranslation();
 
@@ -144,42 +145,46 @@ const MobileTable = <T,>(props: {
           ></Row>
         ))}
       </List>
-      <Box
-        className="Pagination-mobile"
-        sx={{
-          display: { xs: "flex", md: "none" },
-          alignItems: "center",
-          py: 2,
-        }}
-      >
-        <IconButton
-          aria-label="previous page"
-          variant="outlined"
-          color="neutral"
-          size="sm"
-          disabled={props.currentPage == 0}
-          onClick={() => props.setCurrentPage((prevPage) => prevPage - 1)}
+      {!props.disablePaging ? (
+        <Box
+          className="Pagination-mobile"
+          sx={{
+            display: { xs: "flex", md: "none" },
+            alignItems: "center",
+            py: 2,
+          }}
         >
-          <KeyboardArrowLeft />
-        </IconButton>
-        <Typography level="body-sm" sx={{ mx: "auto" }}>
-          {t(
-            "components.genericResponsiveDatagrid.mobileList.pageControl.pageLabels",
-          )
-            .replace("{currPage}", (props.currentPage + 1).toString())
-            .replace("{maxPage}", props.maxPage.toString())}
-        </Typography>
-        <IconButton
-          aria-label="next page"
-          variant="outlined"
-          color="neutral"
-          size="sm"
-          disabled={props.currentPage >= props.maxPage - 1}
-          onClick={() => props.setCurrentPage((prevPage) => prevPage + 1)}
-        >
-          <KeyboardArrowRight />
-        </IconButton>
-      </Box>
+          <IconButton
+            aria-label="previous page"
+            variant="outlined"
+            color="neutral"
+            size="sm"
+            disabled={props.currentPage == 0}
+            onClick={() => props.setCurrentPage((prevPage) => prevPage - 1)}
+          >
+            <KeyboardArrowLeft />
+          </IconButton>
+          <Typography level="body-sm" sx={{ mx: "auto" }}>
+            {t(
+              "components.genericResponsiveDatagrid.mobileList.pageControl.pageLabels",
+            )
+              .replace("{currPage}", (props.currentPage + 1).toString())
+              .replace("{maxPage}", props.maxPage.toString())}
+          </Typography>
+          <IconButton
+            aria-label="next page"
+            variant="outlined"
+            color="neutral"
+            size="sm"
+            disabled={props.currentPage >= props.maxPage - 1}
+            onClick={() => props.setCurrentPage((prevPage) => prevPage + 1)}
+          >
+            <KeyboardArrowRight />
+          </IconButton>
+        </Box>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

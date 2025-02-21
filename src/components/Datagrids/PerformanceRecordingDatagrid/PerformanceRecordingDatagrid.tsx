@@ -41,21 +41,25 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
 
   const columns: Column<DisciplineWithPerformanceRecordings>[] = [
     {
-      columnName: t("components.disciplineDatagrid.columns.title"),
+      columnName: t("components.performanceRecordingDatagrid.columns.title"),
       columnMapping(item) {
-        return <Typography sx={{color: "lightgray"}}>{item.name}</Typography>;
+        return <Typography>{item.name}</Typography>;
       },
       sortable: true,
     },
     {
-      columnName: t("components.disciplineDatagrid.columns.description"),
+      columnName: t(
+        "components.performanceRecordingDatagrid.columns.description",
+      ),
       columnMapping(item) {
         return <Typography>{item.description ?? "-"}</Typography>;
       },
       sortable: true,
     },
     {
-      columnName: t("components.disciplineDatagrid.columns.lastValue"),
+      columnName: t(
+        "components.performanceRecordingDatagrid.columns.lastValue",
+      ),
       columnMapping(item) {
         const bestItem = item.performanceRecordings.sort(
           item.more_better
@@ -66,13 +70,15 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
           <Typography>
             {item.performanceRecordings.length > 0
               ? formatValue(bestItem.rating_value, item.unit)
-              : t("messages.noEntriesFound")}
+              : "-"}
           </Typography>
         );
       },
     },
     {
-      columnName: t("components.disciplineDatagrid.columns.recordedAt"),
+      columnName: t(
+        "components.performanceRecordingDatagrid.columns.recordedAt",
+      ),
       columnMapping(item) {
         const bestItem = item.performanceRecordings.sort(
           item.more_better
@@ -83,7 +89,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
           <Typography>
             {item.performanceRecordings.length > 0
               ? dateTimeFormatter.format(Date.parse(bestItem.date_recorded))
-              : t("messages.noEntriesFound")}
+              : "-"}
           </Typography>
         );
       },
@@ -92,23 +98,25 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
 
   const mobileRendering: MobileTableRendering<DisciplineWithPerformanceRecordings> =
     {
+      avatar: (discipline) => <>{discipline.id}</>,
       h1: (discipline) => <>{discipline.name}</>,
-      h2: (discipline) => {
-        const bestItem = discipline.performanceRecordings.sort(
-          discipline.more_better
-            ? (a, b) => b.rating_value - a.rating_value
-            : (a, b) => a.rating_value - b.rating_value,
-        )[0];
-
-        return (
-          <>
-            {(discipline.description ??
-            discipline.performanceRecordings.length > 0)
-              ? formatValue(bestItem.rating_value, discipline.unit)
-              : t("messages.noEntriesFound")}
-          </>
-        );
-      },
+      h2: (discipline) => <>{discipline.description}</>,
+      topRightInfo: (athlete) => (
+        <Chip
+          size="md"
+          sx={{
+            aspectRatio: 1,
+            p: 1,
+            height: "2rem",
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+            textAlign: "center",
+          }}
+        >
+          {athlete.unit.slice(0, 1).toUpperCase()}
+        </Chip>
+      ),
     };
 
   return (

@@ -39,6 +39,9 @@
     "seconds": "Sekunden",
     "minutes": "Minuten"
   },
+  "messages": {
+    "noEntriesFound": "Keine Einträge gefunden"
+  },
   "snackbar": {
     "login": {
       "loginFailed": "Login fehlgeschlagen"
@@ -215,6 +218,9 @@
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
         }
+      },
+      "actions": {
+        "openDetails": "Details ansehen"
       }
     },
     "disciplineDatagrid": {
