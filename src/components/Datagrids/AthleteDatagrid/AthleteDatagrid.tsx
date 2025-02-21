@@ -11,7 +11,7 @@ import GenericResponsiveDatagrid, {
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import { useState } from "react";
-import AthleteDetailPopup from "@components/AthleteDetailPopup/AthleteDetailPopup";
+import AthleteDetailPopup from "@components/AthleteDetailModal/AthleteDetailPopup";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -226,6 +226,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
+        disablePaging={false}
       />
       <AthleteDetailPopup
         athlete={selectedAthlete}
