@@ -49,11 +49,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
     lastNameInputValid: true,
   });
 
-  /*const [trainerInviteSnackbar, setTrainerInviteSnackbar] =
-    useState<TrainerInviteSnackbar>({
-      open: false,
-      text: "",
-    });*/
   const { enqueueSnackbar } = useSnackbar();
 
   const [trainerInviteSubmitted, setTrainerInviteSubmitted] = useState(false);
