@@ -1,6 +1,6 @@
 import { Athlete } from "@customTypes/bffTypes";
 import useApi from "@hooks/useApi";
-import { Button, FormLabel, Input, Modal, Sheet, Typography } from "@mui/joy";
+import { Box, Button, FormLabel, Input, Modal, Sheet, Typography } from "@mui/joy";
 import * as React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -92,7 +92,9 @@ const AthleteCreationForm = () => {
             sx={{
               width: { sx: "40vw", md: "30vw" },
               marginBottom: "2vh",
+              height : {sx: "3vh", md: "5vh", xs:"5vh"},
             }}
+            placeholder={t("pages.athleteCreationPage.firstName")}
             color="neutral"
             size="lg"
             variant="outlined"
@@ -109,7 +111,9 @@ const AthleteCreationForm = () => {
             sx={{
               width: { sx: "60vw", md: "30vw" },
               marginBottom: "2vh",
+              height : {sx: "3vh", md: "5vh", xs:"5vh"},
             }}
+            placeholder={t("pages.athleteCreationPage.lastName")}
             color="neutral"
             size="lg"
             variant="outlined"
@@ -121,12 +125,14 @@ const AthleteCreationForm = () => {
               }))
             }
           />
-          <FormLabel> {t("pages.athleteCreationPage.email")}</FormLabel>
+          <FormLabel>{t("pages.athleteCreationPage.email")}</FormLabel>
           <Input
             sx={{
               width: { sx: "60vw", md: "30vw" },
               marginBottom: "2vh",
+              height : {sx: "3vh", md: "5vh", xs:"5vh"},
             }}
+            placeholder={t("pages.athleteCreationPage.email")}
             color="neutral"
             size="lg"
             variant="outlined"
@@ -138,12 +144,12 @@ const AthleteCreationForm = () => {
               }))
             }
           />
-          <FormLabel> {t("pages.athleteCreationPage.birthdate")}</FormLabel>
+          <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
           <CustomDatePicker
             sx={{
               width: { sx: "60vw", md: "30vw" },
               marginBottom: "1vh",
-              position: "relative",
+              position: "relative", 
             }}
             value={null}
             onChange={(newDate) => {
@@ -158,19 +164,21 @@ const AthleteCreationForm = () => {
             }}
             format="DD/MM/YYYY"
           />
-          <p>
-            <FormLabel> {t("pages.athleteCreationPage.gender")}</FormLabel>
-            <Select sx={{ height: "5vh" }} onChange={handleChangeGender}>
+          <Box sx={{marginTop:"2vh"}}>
+            <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
+            <Select placeholder={t("pages.athleteCreationPage.gender")} sx={{height:{sx: "3vh", md: "5vh"},}} onChange={handleChangeGender}>
               <Option value="FEMALE">{t("genders.FEMALE")}</Option>
               <Option value="MALE">{t("genders.MALE")}</Option>
               <Option value="DIVERSE">{t("genders.DIVERSE")}</Option>
             </Select>
-          </p>
+          </Box>
           <Button
             fullWidth
             disabled={!isAccepted()}
             sx={{
-              marginTop: "10vh",
+              marginTop: "5vh",
+              marginBottom: "2vh",
+              color:"white !important",
             }}
             onClick={() => {
               {
@@ -187,7 +195,7 @@ const AthleteCreationForm = () => {
               }
             }}
           >
-            {t("pages.athleteCreationPage.createButton")}
+          {t("pages.athleteCreationPage.createButton")}
           </Button>
         </Sheet>
       </Modal>

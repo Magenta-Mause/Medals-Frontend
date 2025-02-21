@@ -43,7 +43,7 @@
       "email": "email",
       "birthdate": "birthdate",
       "gender": "gender",
-      "createButton": "create",
+      "createButton": "Create",
       "createHeader": "create athlete"
 
     },

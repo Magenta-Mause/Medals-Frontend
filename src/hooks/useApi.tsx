@@ -4,16 +4,6 @@ import config from "../config";
 import useAxiosInstance from "./useAxiosInstance";
 
 const useApi = () => {
-  class ApiError extends Error {
-    constructor(
-      message: string,
-      public statusCode: number,
-    ) {
-      super(message);
-      this.name = "ApiError";
-    }
-  }
-
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);
 
   const getAthletes = async () => {
@@ -55,7 +45,7 @@ const useApi = () => {
       gender: athlete.gender,
     });
     if (response.status != 201) {
-      throw new ApiError("Failed to create Athlete", response.status);
+      throw new Error("Error during athlete creation");
     }
     return response.status == 201;
   };
