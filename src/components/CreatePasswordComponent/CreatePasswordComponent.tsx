@@ -13,9 +13,10 @@ import {
   ListItemContent,
   Tooltip,
   FormLabel,
+  FormControl,
 } from "@mui/joy";
-import { t } from "i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const CreatePasswordComponent = (props: {
   isPending: boolean;
@@ -24,6 +25,7 @@ const CreatePasswordComponent = (props: {
 }) => {
   const [currentPassword, setCurrentPassword] = useState("");
   const { checks, strength, valid } = usePasswordValidation(currentPassword);
+  const {t} = useTranslation();
 
   useEffect(() => {
     props.setPasswordValid(valid);
@@ -31,13 +33,15 @@ const CreatePasswordComponent = (props: {
 
   return (
     <>
-      <FormLabel>Password</FormLabel>
-      <Input
-        type="password"
-        name="password"
-        disabled={props.isPending || props.isSuccess}
-        onChange={(event) => setCurrentPassword(event.target.value)}
-      />
+      <FormControl>
+        <FormLabel>{t("components.passwordStrengthIndicator.password")}</FormLabel>
+        <Input
+          type="password"
+          name="password"
+          disabled={props.isPending || props.isSuccess}
+          onChange={(event) => setCurrentPassword(event.target.value)}
+        />
+      </FormControl>
       <PasswordStrengthBar passwordStrength={strength} />
       <Typography level="body-sm" textAlign={"left"}>
         <List>

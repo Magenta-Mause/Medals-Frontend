@@ -51,4 +51,5 @@ export interface PerformanceRecording {
   athlete_id: number;
   discipline_rating_metric: DisciplineRatingMetric;
   rating_value: number;
+  date_recorded: string;
 }

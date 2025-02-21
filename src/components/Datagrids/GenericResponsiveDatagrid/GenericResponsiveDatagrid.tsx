@@ -273,29 +273,29 @@ const GenericResponsiveDatagrid = <T,>(
         </Modal>
       </Sheet>
 
-      <Box
-        className="SearchAndFilters-tabletUp"
-        sx={{
-          borderRadius: "sm",
-          py: 2,
-          display: { xs: "none", sm: "flex" },
-          flexWrap: "wrap",
-          gap: 1.5,
-          "& > *": {
-            minWidth: { xs: "120px", md: "160px" },
-          },
-        }}
-      >
-        {props.filters != undefined ? (
+      {props.filters != undefined ? (
+        <Box
+          className="SearchAndFilters-tabletUp"
+          sx={{
+            borderRadius: "sm",
+            py: 2,
+            display: { xs: "none", sm: "flex" },
+            flexWrap: "wrap",
+            gap: 1.5,
+            "& > *": {
+              minWidth: { xs: "120px", md: "160px" },
+            },
+          }}
+        >
           <FilterComponent
             filters={props.filters}
             setFilter={setFilter}
             filterValues={filterValues}
           />
-        ) : (
-          <></>
-        )}
-      </Box>
+        </Box>
+      ) : (
+        <></>
+      )}
       <Sheet
         className="OrderTableContainer"
         variant="outlined"

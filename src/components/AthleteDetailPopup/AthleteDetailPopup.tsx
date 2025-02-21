@@ -6,11 +6,16 @@ import {
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import { DisciplineCategories } from "@customTypes/enums";
-import { FitnessCenter } from "@mui/icons-material";
+import { Check, FitnessCenter, Label } from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
+  FormControl,
+  FormLabel,
+  IconButton,
+  Input,
   List,
   ListItem,
   Modal,
@@ -19,6 +24,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
@@ -29,9 +35,40 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
     (state) => state.disciplines.data,
   ) as Discipline[];
   const { t } = useTranslation();
+  const [selectedYear, setSelectedYear] = useState<number>(
+    new Date().getFullYear(),
+  );
+  const [hoveredYear, setHoveredYear] = useState<number>(
+    new Date().getFullYear(),
+  );
 
   return (
-    <>
+    <>      <form onSubmit={(e) => {
+        setSelectedYear(hoveredYear);
+        e.preventDefault();
+      }}>
+        <FormControl>
+          <FormLabel>Ausgewähltes Jahr</FormLabel>
+          <Input
+            placeholder={String(new Date().getFullYear())}
+            type={"number"}
+            onChange={(e) => setHoveredYear(parseInt(e.target.value))}
+            endDecorator={
+              <IconButton
+                onClick={() => {
+                  setSelectedYear(hoveredYear);
+                }}
+              variant="soft"
+              color={selectedYear != hoveredYear ? "success" : "neutral"}
+              >
+                <Check
+                  color={selectedYear != hoveredYear ? "success" : "disabled"}
+                />
+              </IconButton>
+            }
+          />
+        </FormControl>
+      </form>
       {Object.values(DisciplineCategories).map(
         (category: DisciplineCategories) => (
           <Accordion key={category}>
@@ -53,7 +90,12 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
             </AccordionSummary>
             <AccordionDetails>
               <DisciplineDatagrid
-                disciplines={disciplines}
+                performanceRecordings={performances.filter(
+                  (p) => p.athlete_id == props.athlete.id,
+                )}
+                disciplines={disciplines.filter(
+                  (d) => d.category == category && d.valid_in == selectedYear,
+                )}
                 isLoading={false}
                 onDisciplineClick={console.log}
                 disablePaging={true}

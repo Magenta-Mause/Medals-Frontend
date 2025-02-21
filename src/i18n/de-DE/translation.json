@@ -18,8 +18,8 @@
   "disciplines": {
     "categories": {
       "STRENGTH": {
-"label": "Stärke",
-"icon": "💪"
+        "label": "Stärke",
+        "icon": "💪"
       },
       "ENDURANCE": {
         "label": "Ausdauer",
@@ -34,6 +34,10 @@
         "icon": "♟"
       }
     }
+  },
+  "units": {
+    "seconds": "Sekunden",
+    "minutes": "Minuten"
   },
   "snackbar": {
     "login": {
@@ -218,6 +222,7 @@
       "previous": "Vorheriges"
     },
     "passwordStrengthIndicator": {
+      "password": "Passwort",
       "is8Characters": "Passwort ist mindestens 8 Zeichen lang",
       "hasNumber": "Passwort enthält eine Zahl",
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",

@@ -1,5 +1,9 @@
 import useApi from "@hooks/useApi";
-import { Athlete, Discipline } from "@customTypes/backendTypes";
+import {
+  Athlete,
+  Discipline,
+  PerformanceRecording,
+} from "@customTypes/backendTypes";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
@@ -10,73 +14,137 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AthleteDetailPopup from "@components/AthleteDetailPopup/AthleteDetailPopup";
+import { D } from "react-router/dist/development/fog-of-war-Ckdfl79L";
+import useFormatting from "@hooks/useFormatting";
 
 interface DisciplineDatagridProps {
   disciplines: Discipline[];
+  performanceRecordings: PerformanceRecording[];
   onDisciplineClick: (d: Discipline) => void;
   isLoading: boolean;
   disablePaging: boolean;
 }
 
-const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
-  const { deleteAthlete } = useApi();
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
+interface DisciplineWithPerformanceRecordings extends Discipline {
+  performanceRecordings: PerformanceRecording[];
+}
 
-  const columns: Column<Discipline>[] = [
+const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
+  const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
+  const [data, setData] = useState<DisciplineWithPerformanceRecordings[]>([]);
+  const { formatValue } = useFormatting();
+  const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
+
+  useEffect(() => {
+    setData(
+      props.disciplines.map((discipline) => {
+        return {
+          ...discipline,
+          performanceRecordings: props.performanceRecordings.filter(
+            (recording) =>
+              recording.discipline_rating_metric.discipline.id == discipline.id,
+          ),
+        };
+      }),
+    );
+  }, [props.performanceRecordings, props.disciplines]);
+
+  const columns: Column<DisciplineWithPerformanceRecordings>[] = [
     {
-      columnName: "Disziplin ID",
-      columnMapping(item) {
-        return <Typography color="primary">D-{item.id}</Typography>;
-      },
-      size: "s",
-      sortable: true,
-    },
-    {
-      columnName: "Disziplin Titel",
+      columnName: "Titel",
       columnMapping(item) {
         return <Typography>{item.name}</Typography>;
       },
       sortable: true,
     },
     {
-      columnName: "Disziplin Beschreibung",
+      columnName: "Beschreibung",
       columnMapping(item) {
-        return <Typography>{item.description}</Typography>;
+        return <Typography>{item.description ?? "-"}</Typography>;
       },
       sortable: true,
     },
+    {
+      columnName: "Letzter Wert",
+      columnMapping(item) {
+        const bestItem = item.performanceRecordings.sort(
+          item.more_better
+            ? (a, b) => b.rating_value - a.rating_value
+            : (a, b) => a.rating_value - b.rating_value,
+        )[0];
+        return (
+          <Typography>
+            {item.performanceRecordings.length > 0
+              ? formatValue(bestItem.rating_value, item.unit)
+              : "-"}
+          </Typography>
+        );
+      },
+    },
+    {
+      columnName: "Aufgenommen am",
+      columnMapping(item) {
+        const bestItem = item.performanceRecordings.sort(
+          item.more_better
+            ? (a, b) => b.rating_value - a.rating_value
+            : (a, b) => a.rating_value - b.rating_value,
+        )[0];
+        return (
+          <Typography>
+            {item.performanceRecordings.length > 0
+              ? dateTimeFormatter.format(Date.parse(bestItem.date_recorded))
+              : "-"}
+          </Typography>
+        );
+      },
+    },
   ];
 
-  const mobileRendering: MobileTableRendering<Discipline> = {
-    avatar: (discipline) => <>{discipline.id}</>,
-    h1: (discipline) => <>{discipline.name}</>,
-    h2: (discipline) => <>{discipline.description}</>,
-    topRightInfo: (athlete) => (
-      <Chip
-        size="md"
-        sx={{
-          aspectRatio: 1,
-          p: 1,
-          height: "2rem",
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
-          textAlign: "center",
-        }}
-      >
-        {athlete.unit.slice(0, 1).toUpperCase()}
-      </Chip>
-    ),
-  };
+  const mobileRendering: MobileTableRendering<DisciplineWithPerformanceRecordings> =
+    {
+      avatar: (discipline) => <>{discipline.id}</>,
+      h1: (discipline) => <>{discipline.name}</>,
+      h2: (discipline) => <>{discipline.description}</>,
+      topRightInfo: (athlete) => (
+        <Chip
+          size="md"
+          sx={{
+            aspectRatio: 1,
+            p: 1,
+            height: "2rem",
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+            textAlign: "center",
+          }}
+        >
+          {athlete.unit.slice(0, 1).toUpperCase()}
+        </Chip>
+      ),
+    };
 
   return (
     <>
       <GenericResponsiveDatagrid
         isLoading={props.isLoading}
-        data={props.disciplines}
+        data={data.sort(
+          (a, b) =>
+            Math.max(
+              0,
+              ...a.performanceRecordings.map((p) =>
+                parseInt(Date.parse(p.date_recorded).toFixed()),
+              ),
+            ) -
+            Math.max(
+              0,
+              ...b.performanceRecordings.map((p) =>
+                parseInt(Date.parse(p.date_recorded).toFixed()),
+              ),
+            ),
+        )}
         columns={columns}
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
