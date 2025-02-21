@@ -18,6 +18,7 @@ import {
 } from "@mui/icons-material";
 import {
   Box,
+  Button,
   Divider,
   GlobalStyles,
   IconButton,
@@ -269,6 +270,15 @@ const NavBar = () => {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+        <Button
+        variant="plain"
+        color="neutral"
+        size="sm"
+        sx={{
+          p: 0.5,
+          textAlign: "left"
+        }}
+        onClick={()=> navigate("/profile")}>
         <Box sx={{ minWidth: 0, flex: 1 }}>
           <Typography level="title-sm">
             {selectedUser?.first_name} {selectedUser?.last_name}
@@ -277,6 +287,7 @@ const NavBar = () => {
             {email}
           </Typography>
         </Box>
+        </Button>
         {(authorizedUsers?.length ?? 0) > 1 ? (
           <IconButton
             about="Switch user"
