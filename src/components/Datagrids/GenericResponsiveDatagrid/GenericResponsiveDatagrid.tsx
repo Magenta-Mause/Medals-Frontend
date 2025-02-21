@@ -7,6 +7,8 @@ import {
   ButtonPropsVariantOverrides,
   ColorPaletteProp,
   Divider,
+  FormControl,
+  FormLabel,
   Input,
   ListItemButtonPropsColorOverrides,
   Modal,
@@ -37,10 +39,19 @@ export interface Action<T> {
   variant?: OverridableStringUnion<VariantProp, ButtonPropsVariantOverrides>;
 }
 
+export interface ToolbarAction extends Action<null> {
+  operation: () => void;
+  icon?: React.ReactNode;
+  collapseToText?: boolean;
+  content: string;
+  label: string;
+}
+
 interface GenericResponsiveDatagridProps<T> {
   data: T[];
   columns: Column<T>[];
   filters: Filter<T>[];
+  toolbarActions?: ToolbarAction[];
   isLoading: boolean;
   actionMenu?: Action<T>[];
   itemSelectionActions?: Action<T>[];
@@ -251,7 +262,7 @@ const GenericResponsiveDatagrid = <T,>(
       </Sheet>
 
       <Box
-        className="SearchAndFilters-tabletUp"
+        className="SearchAndFiltersTooltip-tabletUp"
         sx={{
           borderRadius: "sm",
           py: 2,
@@ -268,6 +279,27 @@ const GenericResponsiveDatagrid = <T,>(
           setFilter={setFilter}
           filterValues={filterValues}
         />
+        {props.toolbarActions ? (
+          props.toolbarActions.map((action) => (
+            <FormControl size="sm" key={action.key}>
+              <FormLabel>{action.label}</FormLabel>
+              <Button
+                value="button"
+                size="sm"
+                sx={{ width: action.collapseToText ? "fit-content" : "auto" }}
+                color={action.color ?? "neutral"}
+                onClick={action.operation}
+                key={action.key}
+                variant={action.variant ?? "outlined"}
+                startDecorator={action.icon}
+              >
+                {action.content}
+              </Button>
+            </FormControl>
+          ))
+        ) : (
+          <></>
+        )}
       </Box>
       <Sheet
         className="OrderTableContainer"

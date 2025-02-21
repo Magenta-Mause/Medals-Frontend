@@ -1,10 +1,12 @@
 import { Action, combineReducers, Reducer } from "@reduxjs/toolkit";
 import athleteReducer from "@stores/slices/athleteSlice";
+import trainerReducer from "@stores/slices/trainerSlice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { RootState } from ".";
 
 const appReducer = combineReducers({
   athletes: athleteReducer,
+  trainers: trainerReducer,
 });
 
 const rootReducer: Reducer = (state, action: Action) => {
