@@ -314,7 +314,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
                     email: event.target.value,
                   }));
                 }}
-                value={trainerInviteForm.email}
                 error={!trainerInviteForm.emailInputValid}
                 disabled={trainerInviteSubmitted}
               />
@@ -337,7 +336,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
                     firstName: event.target.value,
                   }));
                 }}
-                value={trainerInviteForm.firstName}
                 error={!trainerInviteForm.firstNameInputValid}
                 disabled={trainerInviteSubmitted}
               />
@@ -361,7 +359,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
                     lastName: event.target.value,
                   }));
                 }}
-                value={trainerInviteForm.lastName}
                 error={!trainerInviteForm.lastNameInputValid}
                 disabled={trainerInviteSubmitted}
               />
