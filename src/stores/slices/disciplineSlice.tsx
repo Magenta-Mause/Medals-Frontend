@@ -1,4 +1,8 @@
-import { Athlete, Discipline, PerformanceRecording } from "@customTypes/backendTypes";
+import {
+  Athlete,
+  Discipline,
+  PerformanceRecording,
+} from "@customTypes/backendTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface DisciplineSliceState {
@@ -35,8 +39,8 @@ const disciplineSlice = createSlice({
   },
 });
 
-const {addDiscipline, removeDiscipline, setDisciplines, updateDiscipline} =
+const { addDiscipline, removeDiscipline, setDisciplines, updateDiscipline } =
   disciplineSlice.actions;
 
-export {addDiscipline, removeDiscipline, setDisciplines, updateDiscipline};
+export { addDiscipline, removeDiscipline, setDisciplines, updateDiscipline };
 export default disciplineSlice.reducer;

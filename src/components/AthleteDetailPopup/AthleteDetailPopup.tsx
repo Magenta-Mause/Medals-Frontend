@@ -43,10 +43,14 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
   );
 
   return (
-    <>      <form onSubmit={(e) => {
-        setSelectedYear(hoveredYear);
-        e.preventDefault();
-      }}>
+    <>
+      {" "}
+      <form
+        onSubmit={(e) => {
+          setSelectedYear(hoveredYear);
+          e.preventDefault();
+        }}
+      >
         <FormControl>
           <FormLabel>Ausgewähltes Jahr</FormLabel>
           <Input
@@ -58,8 +62,8 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                 onClick={() => {
                   setSelectedYear(hoveredYear);
                 }}
-              variant="soft"
-              color={selectedYear != hoveredYear ? "success" : "neutral"}
+                variant="soft"
+                color={selectedYear != hoveredYear ? "success" : "neutral"}
               >
                 <Check
                   color={selectedYear != hoveredYear ? "success" : "disabled"}

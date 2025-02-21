@@ -8,7 +8,7 @@ import { RootState } from ".";
 const appReducer = combineReducers({
   athletes: athleteReducer,
   performanceRecordings: performanceRecordingReducer,
-  disciplines: disciplineReducer
+  disciplines: disciplineReducer,
 });
 
 const rootReducer: Reducer = (state, action: Action) => {

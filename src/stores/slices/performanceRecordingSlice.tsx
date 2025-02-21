@@ -15,10 +15,16 @@ const performanceRecordingSlice = createSlice({
     error: null,
   } as PerformanceRecordingSliceState,
   reducers: {
-    addPerformanceRecording(state, action: PayloadAction<PerformanceRecording>) {
+    addPerformanceRecording(
+      state,
+      action: PayloadAction<PerformanceRecording>,
+    ) {
       state.data.push(action.payload);
     },
-    updatePerformanceRecording(state, action: PayloadAction<PerformanceRecording>) {
+    updatePerformanceRecording(
+      state,
+      action: PayloadAction<PerformanceRecording>,
+    ) {
       const index = state.data.findIndex(
         (athlete) => athlete.id == action.payload.id,
       );
@@ -29,14 +35,26 @@ const performanceRecordingSlice = createSlice({
     removePerformanceRecording(state, action: PayloadAction<{ id: number }>) {
       state.data = state.data.filter((item) => item.id !== action.payload.id);
     },
-    setPerformanceRecordings(state, action: PayloadAction<PerformanceRecording[]>) {
+    setPerformanceRecordings(
+      state,
+      action: PayloadAction<PerformanceRecording[]>,
+    ) {
       state.data = action.payload;
     },
   },
 });
 
-const {addPerformanceRecording, removePerformanceRecording, setPerformanceRecordings, updatePerformanceRecording} =
-  performanceRecordingSlice.actions;
+const {
+  addPerformanceRecording,
+  removePerformanceRecording,
+  setPerformanceRecordings,
+  updatePerformanceRecording,
+} = performanceRecordingSlice.actions;
 
-export {addPerformanceRecording, removePerformanceRecording, setPerformanceRecordings, updatePerformanceRecording};
+export {
+  addPerformanceRecording,
+  removePerformanceRecording,
+  setPerformanceRecordings,
+  updatePerformanceRecording,
+};
 export default performanceRecordingSlice.reducer;

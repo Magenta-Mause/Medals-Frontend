@@ -25,7 +25,7 @@ const CreatePasswordComponent = (props: {
 }) => {
   const [currentPassword, setCurrentPassword] = useState("");
   const { checks, strength, valid } = usePasswordValidation(currentPassword);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     props.setPasswordValid(valid);
@@ -34,7 +34,9 @@ const CreatePasswordComponent = (props: {
   return (
     <>
       <FormControl>
-        <FormLabel>{t("components.passwordStrengthIndicator.password")}</FormLabel>
+        <FormLabel>
+          {t("components.passwordStrengthIndicator.password")}
+        </FormLabel>
         <Input
           type="password"
           name="password"
