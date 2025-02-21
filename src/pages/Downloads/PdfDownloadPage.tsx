@@ -67,6 +67,7 @@ const PdfDownloadPage = () => {
               maxWidth: "350px",
               flexGrow: 1,
             }}
+            key={pdf.path}
           >
             <DownloadCard path={pdf.path} image={pdf.image} />
           </Box>

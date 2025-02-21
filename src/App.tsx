@@ -1,6 +1,5 @@
 import AuthenticationProvider from "@components/AuthenticationProvider/AuthenticationProvider";
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
-import useApi from "@hooks/useApi";
 import { Close } from "@mui/icons-material";
 import {
   CssBaseline,
@@ -8,11 +7,9 @@ import {
   IconButton,
   StyledEngineProvider,
 } from "@mui/joy";
-import { setAthltes as setAthletes } from "@stores/slices/athleteSlice";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
-import { createContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { createContext, useState } from "react";
 import { BrowserRouter } from "react-router";
 
 type UtilContextType = {
@@ -28,15 +25,6 @@ const UtilContext = createContext<UtilContextType>({
 const App = () => {
   const queryClient = new QueryClient();
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
-  const { getAthletes } = useApi();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      dispatch(setAthletes((await getAthletes()) || []));
-    };
-    fetchData();
-  }, [dispatch, getAthletes]);
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>

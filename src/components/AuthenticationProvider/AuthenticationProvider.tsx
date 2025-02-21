@@ -1,5 +1,6 @@
-import { JwtTokenBody, UserEntity } from "@customTypes/bffTypes";
+import { JwtTokenBody, UserEntity } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
+import useInstantiation from "@hooks/useInstantiation/useInstantiation";
 import { Box, CircularProgress } from "@mui/joy";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { jwtDecode } from "jwt-decode";
@@ -60,13 +61,15 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [tokenExpirationDate, setTokenExpirationDate] = useState<number | null>(
     null,
   );
+  const { instantiateByType } = useInstantiation();
 
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {
       setSelectedUser(user);
       setStorageSelectedUser(user?.id ?? null);
+      instantiateByType(user?.type);
     },
-    [setSelectedUser, setStorageSelectedUser],
+    [setSelectedUser, setStorageSelectedUser, instantiateByType],
   );
 
   const processJwtToken = useCallback(
@@ -123,13 +126,23 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       selectUser(null);
       enqueueSnackbar("User couldnt be found", { variant: "warning" });
     } else {
-      selectUser(user);
+      if (selectedUser == null || selectedUser?.id != user.id) {
+        selectUser(user);
+      }
     }
-  }, [authorizedUsers, selectUser, storageSelectedUser, enqueueSnackbar]);
+  }, [
+    authorizedUsers,
+    selectUser,
+    storageSelectedUser,
+    enqueueSnackbar,
+    selectedUser,
+  ]);
 
   useEffect(() => {
-    refreshIdentityToken();
-  }, [refreshIdentityToken]);
+    if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {
+      refreshIdentityToken();
+    }
+  }, [refreshIdentityToken, tokenExpirationDate]);
 
   return (
     <AuthContext.Provider
