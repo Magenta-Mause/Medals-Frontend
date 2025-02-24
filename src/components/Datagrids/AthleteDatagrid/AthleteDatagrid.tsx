@@ -1,7 +1,9 @@
-import useApi from "@hooks/useApi";
+import AthleteDetailModal from "@components/modals/AthleteDetailModal/AthleteDetailModal";
 import { Athlete } from "@customTypes/backendTypes";
+import useApi from "@hooks/useApi";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -10,8 +12,6 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { useState } from "react";
-import AthleteDetailModal from "@components/AthleteDetailModal/AthleteDetailModal";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -160,7 +160,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
     },
   ];
-  
+
   const itemCallback = (item: Athlete) => {
     setModalOpen(true);
     selectAthlete(item);

@@ -1,38 +1,40 @@
+import {
+  Athlete,
+  Discipline,
+  PerformanceRecording,
+} from "@customTypes/backendTypes";
 import { UserType } from "@customTypes/enums";
+import { Client } from "@stomp/stompjs";
 import {
   addAthlete,
   removeAthlete,
   setAthletes,
   updateAthlete,
 } from "@stores/slices/athleteSlice";
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import useApi from "../useApi";
-import { Client } from "@stomp/stompjs";
-import {
-  Athlete,
-  Discipline,
-  PerformanceRecording,
-} from "@customTypes/backendTypes";
-import initiateClient from "websockets/client";
-import {
-  addPerformanceRecording,
-  removePerformanceRecording,
-  setPerformanceRecordings,
-  updatePerformanceRecording,
-} from "@stores/slices/performanceRecordingSlice";
-import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
 import {
   addDiscipline,
   removeDiscipline,
   setDisciplines,
   updateDiscipline,
 } from "@stores/slices/disciplineSlice";
+import {
+  addPerformanceRecording,
+  removePerformanceRecording,
+  setPerformanceRecordings,
+  updatePerformanceRecording,
+} from "@stores/slices/performanceRecordingSlice";
+import { setTrainers } from "@stores/slices/trainerSlice";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import initiateClient from "websockets/client";
+import useApi from "../useApi";
+import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
 
 const useInstantiation = () => {
   const dispatch = useDispatch();
   const [client, setConnection] = useState<Client | null>(null);
-  const { getAthletes, getPerformanceRecordings, getDisciplines } = useApi();
+  const { getAthletes, getPerformanceRecordings, getDisciplines, getTrainers } =
+    useApi();
   const {
     initialize: initializeAthleteWebsocket,
     uninitialize: uninitialiseAthleteWebsocket,
@@ -66,6 +68,17 @@ const useInstantiation = () => {
     (id) => dispatch(removePerformanceRecording({ id: id })),
   );
 
+  const {
+    initialize: initializeTrainerWebsocket,
+    uninitialize: uninitialiseTrainerWebsocket,
+  } = useGenericWebsocketInitialization<Athlete>(
+    client,
+    "trainer",
+    (a) => dispatch(addAthlete(a)),
+    (a) => dispatch(updateAthlete(a)),
+    (id) => dispatch(removeAthlete({ id: id })),
+  );
+
   useEffect(() => {
     setConnection(initiateClient(() => {}));
   }, []);
@@ -73,6 +86,7 @@ const useInstantiation = () => {
   const instantiateAdmin = useCallback(async () => {
     console.log("Initializing admin");
 
+    dispatch(setTrainers((await getTrainers()) ?? []));
     dispatch(setAthletes((await getAthletes()) ?? []));
     dispatch(setDisciplines((await getDisciplines(2025)) ?? []));
     dispatch(
@@ -82,12 +96,15 @@ const useInstantiation = () => {
     setTimeout(() => {
       initializeAthleteWebsocket();
       initializeDisciplineWebsocket();
+      initializeTrainerWebsocket();
       initializePerformanceRecordingWebsocket();
     }, 500);
   }, [
+    initializeTrainerWebsocket,
     dispatch,
     getAthletes,
     getDisciplines,
+    getTrainers,
     getPerformanceRecordings,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
@@ -104,11 +121,13 @@ const useInstantiation = () => {
     );
 
     setTimeout(() => {
+      uninitialiseTrainerWebsocket();
       initializeAthleteWebsocket();
       initializeDisciplineWebsocket();
       initializePerformanceRecordingWebsocket();
     }, 500);
   }, [
+    uninitialiseTrainerWebsocket,
     dispatch,
     getAthletes,
     getDisciplines,
@@ -122,8 +141,10 @@ const useInstantiation = () => {
     console.log("Initializing athlete");
     uninitialiseAthleteWebsocket();
     uninitialiseDisciplineWebsocket();
+    uninitialiseTrainerWebsocket();
     uninitialisePerformanceRecordingWebsocket();
   }, [
+    uninitialiseTrainerWebsocket,
     uninitialiseAthleteWebsocket,
     uninitialiseDisciplineWebsocket,
     uninitialisePerformanceRecordingWebsocket,

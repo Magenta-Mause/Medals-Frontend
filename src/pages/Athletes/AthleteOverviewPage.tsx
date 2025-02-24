@@ -1,4 +1,4 @@
-import AthleteDatagrid from "@components/Datagrids/AthleteDatagrid/AthleteDatagrid";
+import AthleteDatagrid from "@components/datagrids/AthleteDatagrid/AthleteDatagrid";
 import { Box, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";

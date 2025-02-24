@@ -1,5 +1,5 @@
 import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
-import DisciplineDatagrid from "@components/Datagrids/DisciplineDatagrid/DisciplineDatagrid";
+import DisciplineDatagrid from "@components/datagrids/DisciplineDatagrid/DisciplineDatagrid";
 import {
   Athlete,
   Discipline,

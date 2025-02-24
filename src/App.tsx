@@ -1,5 +1,6 @@
 import AuthenticationProvider from "@components/AuthenticationProvider/AuthenticationProvider";
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
+import useApi from "@hooks/useApi";
 import { Close } from "@mui/icons-material";
 import {
   CssBaseline,
@@ -7,14 +8,11 @@ import {
   IconButton,
   StyledEngineProvider,
 } from "@mui/joy";
-<<<<<<< HEAD
-=======
-import { setAthltes as setAthletes } from "@stores/slices/athleteSlice";
 import { setTrainers } from "@stores/slices/trainerSlice";
->>>>>>> 7351e3fa4cc808b9954ec3d5596c23a74da03d85
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router";
 
 type UtilContextType = {
@@ -30,19 +28,15 @@ const UtilContext = createContext<UtilContextType>({
 const App = () => {
   const queryClient = new QueryClient();
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
-<<<<<<< HEAD
-=======
   const { getAthletes, getTrainers } = useApi();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch(setAthletes((await getAthletes()) || []));
       dispatch(setTrainers((await getTrainers()) || []));
     };
     fetchData();
   }, [dispatch, getAthletes, getTrainers]);
->>>>>>> 7351e3fa4cc808b9954ec3d5596c23a74da03d85
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>
