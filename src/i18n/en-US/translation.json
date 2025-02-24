@@ -15,6 +15,30 @@
     "TRAINER": "Trainer",
     "ADMIN": "Admin"
   },
+  "units": {
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+        "label": "Strength",
+        "icon": "💪"
+      },
+      "ENDURANCE": {
+        "label": "Endurance",
+        "icon": "⌚"
+      },
+      "SPEED": {
+        "label": "Speed",
+        "icon": "🏃‍♀️"
+      },
+      "COORDINATION": {
+        "label": "Coordination",
+        "icon": "♟"
+      }
+    }
+  },
   "snackbar": {
     "login": {
       "loginFailed": "Login failed"
@@ -26,6 +50,10 @@
     "resetPassword": {
       "failed": "We couldnt find an account connected to that email",
       "success": "Verification email sent"
+    },
+    "inviteTrainer": {
+      "failed": "Failed to invite trainer",
+      "success": "Trainer was invited successfully"
     }
   },
   "pages": {
@@ -35,6 +63,9 @@
     },
     "athleteOverviewPage": {
       "header": "Athletes"
+    },
+    "trainerOverviewPage": {
+      "header": "Trainers"
     },
     "notFound": {
       "h1": "404",
@@ -114,6 +145,15 @@
         "/userRoleErrorPage": "User Role Error"
       }
     },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "birthdate": "Birthdate",
+        "email": "Email",
+        "gender": "Gender"
+      }
+    },
     "navbar": {
       "logo": "Medals",
       "locationList": {
@@ -134,6 +174,14 @@
       "bottomInfoCard": {
         "header": "Warning",
         "text": "Warning!"
+      }
+    },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Title",
+        "description": "Description",
+        "lastValue": "Last Value",
+        "recordedAt": "Recorded At"
       }
     },
     "downloadCard": {
@@ -183,6 +231,33 @@
         }
       }
     },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "Trainer ID",
+          "firstName": "Firstname",
+          "lastName": "Lastname",
+          "email": "Email"
+        },
+        "filters": {
+          "search": "Search"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Invite",
+            "content": "Invite Trainer"
+          }
+        }
+      },
+      "inviteModal": {
+        "email": "Email",
+        "firstName": "Firstname",
+        "firstNamePlaceholder": "John",
+        "lastName": "Lastname",
+        "lastNamePlaceholder": "Doe",
+        "confirm": "Invite Trainer"
+      }
+    },
     "buttons": {
       "next": "Next",
       "previous": "Previous"
@@ -193,6 +268,9 @@
       "hasUpperCase": "Password contains an uppercase letter",
       "hasSpecial": "Password contains a special character",
       "required": "Required"
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Selected Year"
     }
   }
 }

@@ -1,7 +1,9 @@
+import AthleteDetailModal from "@components/modals/AthleteDetailModal/AthleteDetailModal";
+import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import { Athlete } from "@customTypes/bffTypes";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -20,6 +22,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const { deleteAthlete } = useApi();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedAthlete, selectAthlete] = useState<Athlete | null>(null);
 
   const columns: Column<Athlete>[] = [
     {
@@ -157,6 +161,11 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
   ];
 
+  const itemCallback = (item: Athlete) => {
+    setModalOpen(true);
+    selectAthlete(item);
+  };
+
   const mobileRendering: MobileTableRendering<Athlete> = {
     avatar: (athlete) => <>{athlete.id}</>,
     h1: (athlete) => (
@@ -168,7 +177,15 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     h3: (athlete) => (
       <Typography level="body-xs">{athlete.birthdate}</Typography>
     ),
-    bottomButtons: actions,
+    bottomButtons: [
+      {
+        key: "openDetails",
+        label: t("components.athleteDatagrid.actions.openDetails"),
+        operation: itemCallback,
+        color: "primary",
+      },
+      ...actions,
+    ],
     topRightInfo: (athlete) => (
       <Chip
         size="md"
@@ -206,16 +223,25 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   return (
-    <GenericResponsiveDatagrid
-      isLoading={props.isLoading}
-      data={props.athletes}
-      columns={columns}
-      filters={filters}
-      actionMenu={actions}
-      itemSelectionActions={actions}
-      keyOf={(item) => item.id}
-      mobileRendering={mobileRendering}
-    />
+    <>
+      <GenericResponsiveDatagrid
+        isLoading={props.isLoading}
+        data={props.athletes}
+        columns={columns}
+        filters={filters}
+        actionMenu={actions}
+        itemSelectionActions={actions}
+        keyOf={(item) => item.id}
+        mobileRendering={mobileRendering}
+        onItemClick={itemCallback}
+        disablePaging={false}
+      />
+      <AthleteDetailModal
+        athlete={selectedAthlete}
+        open={isModalOpen}
+        setOpen={setModalOpen}
+      />
+    </>
   );
 };
 

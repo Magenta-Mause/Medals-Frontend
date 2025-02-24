@@ -15,6 +15,33 @@
     "TRAINER": "Trainer*in",
     "ADMIN": "Admin"
   },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+        "label": "Stärke",
+        "icon": "💪"
+      },
+      "ENDURANCE": {
+        "label": "Ausdauer",
+        "icon": "⌚"
+      },
+      "SPEED": {
+        "label": "Geschwindigkeit",
+        "icon": "🏃‍♀️"
+      },
+      "COORDINATION": {
+        "label": "Koordination",
+        "icon": "♟"
+      }
+    }
+  },
+  "units": {
+    "seconds": "Sekunden",
+    "minutes": "Minuten"
+  },
+  "messages": {
+    "noEntriesFound": "Keine Einträge gefunden"
+  },
   "snackbar": {
     "login": {
       "loginFailed": "Login fehlgeschlagen"
@@ -26,6 +53,10 @@
     "resetPassword": {
       "failed": "Es konnte kein Account gefunden werden",
       "success": "Bestätigungs E-Mail gesendet"
+    },
+    "inviteTrainer": {
+      "failed": "Der Trainer konnte nicht eingeladen werden",
+      "success": "Der Trainer wurde eingeladen"
     }
   },
   "pages": {
@@ -35,6 +66,9 @@
     },
     "athleteOverviewPage": {
       "header": "Athlet*innen"
+    },
+    "trainerOverviewPage": {
+      "header": "Trainer*innen"
     },
     "notFound": {
       "h1": "404",
@@ -115,6 +149,15 @@
         "/userRoleErrorPage": "fehlende Nutzungberechtigung"
       }
     },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "birthdate": "Geburtstag",
+        "email": "E-Mail",
+        "gender": "Geschlecht"
+      }
+    },
     "navbar": {
       "logo": "Medals",
       "locationList": {
@@ -182,6 +225,44 @@
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
         }
+      },
+      "actions": {
+        "openDetails": "Details ansehen"
+      }
+    },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Titel",
+        "description": "Description",
+        "lastValue": "Letzter Wert",
+        "recordedAt": "Aufgenommen am"
+      }
+    },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "Trainer*in ID",
+          "firstName": "Vorname",
+          "lastName": "Nachname",
+          "email": "E-Mail"
+        },
+        "filters": {
+          "search": "Suche"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Einladen",
+            "content": "Trainer Einladen"
+          }
+        }
+      },
+      "inviteModal": {
+        "email": "E-Mail",
+        "firstName": "Vorname",
+        "firstNamePlaceholder": "Max",
+        "lastName": "Nachname",
+        "lastNamePlaceholder": "Mustermann",
+        "confirm": "Trainer Einladen"
       }
     },
     "buttons": {
@@ -189,11 +270,15 @@
       "previous": "Vorheriges"
     },
     "passwordStrengthIndicator": {
+      "password": "Passwort",
       "is8Characters": "Passwort ist mindestens 8 Zeichen lang",
       "hasNumber": "Passwort enthält eine Zahl",
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",
       "hasSpecial": "Passwort enthält ein Sonderzeichen",
       "required": "Verpflichtend"
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Ausgewähltes Jahr"
     }
   }
 }
