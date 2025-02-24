@@ -2,7 +2,7 @@ import { UserType } from "@customTypes/enums";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const rolePermissions = new Map<UserType | undefined, string[]>([
-  [UserType.ADMIN, ["/", "/trainer", "/downloads", "/help", "/profile",]],
+  [UserType.ADMIN, ["/", "/trainer", "/downloads", "/help", "/profile"]],
   [
     UserType.TRAINER,
     [
