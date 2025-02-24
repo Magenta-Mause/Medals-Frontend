@@ -50,6 +50,10 @@
     "resetPassword": {
       "failed": "We couldnt find an account connected to that email",
       "success": "Verification email sent"
+    },
+    "inviteTrainer": {
+      "failed": "Failed to invite trainer",
+      "success": "Trainer was invited successfully"
     }
   },
   "pages": {
@@ -59,6 +63,9 @@
     },
     "athleteOverviewPage": {
       "header": "Athletes"
+    },
+    "trainerOverviewPage": {
+      "header": "Trainers"
     },
     "notFound": {
       "h1": "404",
@@ -222,6 +229,33 @@
           "birthYear": "Birth year",
           "gender": "Gender"
         }
+      }
+    },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "Trainer ID",
+          "firstName": "Firstname",
+          "lastName": "Lastname",
+          "email": "Email"
+        },
+        "filters": {
+          "search": "Search"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Invite",
+            "content": "Invite Trainer"
+          }
+        }
+      },
+      "inviteModal": {
+        "email": "Email",
+        "firstName": "Firstname",
+        "firstNamePlaceholder": "John",
+        "lastName": "Lastname",
+        "lastNamePlaceholder": "Doe",
+        "confirm": "Invite Trainer"
       }
     },
     "buttons": {

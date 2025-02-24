@@ -1,4 +1,8 @@
-import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
+import {
+  Athlete,
+  PerformanceRecording,
+  Trainer,
+} from "@customTypes/backendTypes";
 import { useCallback } from "react";
 import config from "../config";
 import useAxiosInstance from "./useAxiosInstance";
@@ -27,7 +31,7 @@ const useApi = () => {
   const getAthlete = async (atheteId: string) => {
     try {
       const request = await axiosInstance!.get(`/athletes/${atheteId}`);
-      return request.data as Athlete;
+      return request.data.data as Athlete;
     } catch (error) {
       console.error(`Error while fetching athlete with id: ${atheteId}`, error);
     }
@@ -42,6 +46,53 @@ const useApi = () => {
         `Error while deleting athlete with id: ${athleteId}`,
         error,
       );
+    }
+  };
+
+  const getTrainers = async () => {
+    try {
+      const request = await axiosInstance!.get(`/trainers`);
+      return request.data.data as Trainer[];
+    } catch (error) {
+      console.error("Error while fetching trainers", error);
+    }
+  };
+
+  const getTrainer = async (trainerId: string) => {
+    try {
+      const request = await axiosInstance!.get(`/trainers/${trainerId}`);
+      return request.data.data as Trainer;
+    } catch (error) {
+      console.error(
+        `Error while fetching trainer with id: ${trainerId}`,
+        error,
+      );
+    }
+  };
+
+  const deleteTrainer = async (trainerId: number) => {
+    try {
+      const request = await axiosInstance!.delete(`/trainers/${trainerId}`);
+      return request.status == 202;
+    } catch (error) {
+      console.error(
+        `Error while deleting athlete with id: ${trainerId}`,
+        error,
+      );
+    }
+  };
+
+  const inviteTrainer = async (trainer: Trainer) => {
+    try {
+      const request = await axiosInstance!.post(`/trainers`, trainer);
+      if (request.status !== 201)
+        throw new Error(
+          `failed to create athlete, status code: ${request.status}`,
+        );
+      return true;
+    } catch (error) {
+      console.error(`Error while adding trainer`, error);
+      throw error;
     }
   };
 
@@ -149,6 +200,10 @@ const useApi = () => {
     initiatePasswordReset,
     getPerformanceRecordings,
     getDisciplines,
+    deleteTrainer,
+    getTrainer,
+    getTrainers,
+    inviteTrainer,
   };
 };
 

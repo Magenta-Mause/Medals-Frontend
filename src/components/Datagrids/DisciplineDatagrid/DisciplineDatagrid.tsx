@@ -1,11 +1,11 @@
 import { Discipline, PerformanceRecording } from "@customTypes/backendTypes";
-import { Chip, Typography } from "@mui/joy";
+import useFormatting from "@hooks/useFormatting";
+import { Typography } from "@mui/joy";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { useEffect, useState } from "react";
-import useFormatting from "@hooks/useFormatting";
 
 interface DisciplineDatagridProps {
   disciplines: Discipline[];
@@ -43,7 +43,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
     {
       columnName: t("components.disciplineDatagrid.columns.title"),
       columnMapping(item) {
-        return <Typography sx={{color: "lightgray"}}>{item.name}</Typography>;
+        return <Typography>{item.name}</Typography>;
       },
       sortable: true,
     },

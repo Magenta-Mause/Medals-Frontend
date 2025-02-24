@@ -51,6 +51,13 @@ export interface DisciplineRatingMetric {
   rating_female: RatingMetric;
 }
 
+export interface Trainer {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
 export interface PerformanceRecording {
   id: number;
   athlete_id: number;

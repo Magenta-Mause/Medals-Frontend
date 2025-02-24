@@ -53,6 +53,10 @@
     "resetPassword": {
       "failed": "Es konnte kein Account gefunden werden",
       "success": "Bestätigungs E-Mail gesendet"
+    },
+    "inviteTrainer": {
+      "failed": "Der Trainer konnte nicht eingeladen werden",
+      "success": "Der Trainer wurde eingeladen"
     }
   },
   "pages": {
@@ -62,6 +66,9 @@
     },
     "athleteOverviewPage": {
       "header": "Athlet*innen"
+    },
+    "trainerOverviewPage": {
+      "header": "Trainer*innen"
     },
     "notFound": {
       "h1": "404",
@@ -229,6 +236,33 @@
         "description": "Description",
         "lastValue": "Letzter Wert",
         "recordedAt": "Aufgenommen am"
+      }
+    },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "Trainer*in ID",
+          "firstName": "Vorname",
+          "lastName": "Nachname",
+          "email": "E-Mail"
+        },
+        "filters": {
+          "search": "Suche"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Einladen",
+            "content": "Trainer Einladen"
+          }
+        }
+      },
+      "inviteModal": {
+        "email": "E-Mail",
+        "firstName": "Vorname",
+        "firstNamePlaceholder": "Max",
+        "lastName": "Nachname",
+        "lastNamePlaceholder": "Mustermann",
+        "confirm": "Trainer Einladen"
       }
     },
     "buttons": {
