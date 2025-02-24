@@ -1,49 +1,35 @@
-import { Discipline, PerformanceRecording } from "@customTypes/backendTypes";
-import { Chip, Typography } from "@mui/joy";
+import { PerformanceRecording } from "@customTypes/backendTypes";
+import useFormatting from "@hooks/useFormatting";
+import { Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { useEffect, useState } from "react";
-import useFormatting from "@hooks/useFormatting";
 
-interface DisciplineDatagridProps {
-  disciplines: Discipline[];
+interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];
-  onDisciplineClick: (d: Discipline) => void;
   isLoading: boolean;
-  disablePaging: boolean;
 }
 
-interface DisciplineWithPerformanceRecordings extends Discipline {
-  performanceRecordings: PerformanceRecording[];
-}
-
-const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
+const PerformanceRecordingDatagrid = (
+  props: PerformanceRecordingDatagridProps,
+) => {
   const { t, i18n } = useTranslation();
-  const [data, setData] = useState<DisciplineWithPerformanceRecordings[]>([]);
   const { formatValue } = useFormatting();
   const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
 
-  useEffect(() => {
-    setData(
-      props.disciplines.map((discipline) => {
-        return {
-          ...discipline,
-          performanceRecordings: props.performanceRecordings.filter(
-            (recording) =>
-              recording.discipline_rating_metric.discipline.id == discipline.id,
-          ),
-        };
-      }),
-    );
-  }, [props.performanceRecordings, props.disciplines]);
-
-  const columns: Column<DisciplineWithPerformanceRecordings>[] = [
+  const columns: Column<PerformanceRecording>[] = [
     {
       columnName: t("components.performanceRecordingDatagrid.columns.title"),
-      columnMapping(item) {
-        return <Typography>{item.name}</Typography>;
+      columnMapping(p) {
+        return (
+          <Typography>
+            {formatValue(
+              p.rating_value,
+              p.discipline_rating_metric.discipline.unit,
+            )}
+          </Typography>
+        );
       },
       sortable: true,
     },
@@ -52,100 +38,46 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         "components.performanceRecordingDatagrid.columns.description",
       ),
       columnMapping(item) {
-        return <Typography>{item.description ?? "-"}</Typography>;
+        return (
+          <Typography>
+            {dateTimeFormatter.format(Date.parse(item.date_recorded)) ?? "-"}
+          </Typography>
+        );
       },
       sortable: true,
     },
     {
-      columnName: t(
-        "components.performanceRecordingDatagrid.columns.lastValue",
-      ),
-      columnMapping(item) {
-        const bestItem = item.performanceRecordings.sort(
-          item.more_better
-            ? (a, b) => b.rating_value - a.rating_value
-            : (a, b) => a.rating_value - b.rating_value,
-        )[0];
-        return (
-          <Typography>
-            {item.performanceRecordings.length > 0
-              ? formatValue(bestItem.rating_value, item.unit)
-              : "-"}
-          </Typography>
-        );
-      },
-    },
-    {
-      columnName: t(
-        "components.performanceRecordingDatagrid.columns.recordedAt",
-      ),
-      columnMapping(item) {
-        const bestItem = item.performanceRecordings.sort(
-          item.more_better
-            ? (a, b) => b.rating_value - a.rating_value
-            : (a, b) => a.rating_value - b.rating_value,
-        )[0];
-        return (
-          <Typography>
-            {item.performanceRecordings.length > 0
-              ? dateTimeFormatter.format(Date.parse(bestItem.date_recorded))
-              : "-"}
-          </Typography>
-        );
+      columnName: "Medaillie",
+      columnMapping() {
+        return "Not implemented yet";
       },
     },
   ];
 
-  const mobileRendering: MobileTableRendering<DisciplineWithPerformanceRecordings> =
-    {
-      avatar: (discipline) => <>{discipline.id}</>,
-      h1: (discipline) => <>{discipline.name}</>,
-      h2: (discipline) => <>{discipline.description}</>,
-      topRightInfo: (athlete) => (
-        <Chip
-          size="md"
-          sx={{
-            aspectRatio: 1,
-            p: 1,
-            height: "2rem",
-            display: "flex",
-            justifyContent: "center",
-            alignContent: "center",
-            textAlign: "center",
-          }}
-        >
-          {athlete.unit.slice(0, 1).toUpperCase()}
-        </Chip>
-      ),
-    };
+  const mobileRendering: MobileTableRendering<PerformanceRecording> = {
+    h1: (p) => (
+      <>
+        {formatValue(
+          p.rating_value,
+          p.discipline_rating_metric.discipline.unit,
+        )}
+      </>
+    ),
+  };
 
   return (
     <>
       <GenericResponsiveDatagrid
         isLoading={props.isLoading}
-        data={data.sort(
-          (a, b) =>
-            Math.max(
-              0,
-              ...a.performanceRecordings.map((p) =>
-                parseInt(Date.parse(p.date_recorded).toFixed()),
-              ),
-            ) -
-            Math.max(
-              0,
-              ...b.performanceRecordings.map((p) =>
-                parseInt(Date.parse(p.date_recorded).toFixed()),
-              ),
-            ),
+        data={props.performanceRecordings.sort(
+          (a, b) => Date.parse(a.date_recorded) - Date.parse(b.date_recorded),
         )}
         columns={columns}
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
-        onItemClick={props.onDisciplineClick}
-        disablePaging={props.disablePaging}
       />
     </>
   );
 };
 
-export default DisciplineDatagrid;
+export default PerformanceRecordingDatagrid;

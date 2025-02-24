@@ -1,4 +1,4 @@
-import { Trainer } from "@customTypes/bffTypes";
+import { Trainer } from "@customTypes/backendTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface TrainerSliceState {

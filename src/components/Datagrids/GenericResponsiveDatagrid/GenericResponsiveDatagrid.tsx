@@ -59,7 +59,7 @@ interface GenericResponsiveDatagridProps<T> {
   elementsPerPage?: number;
   mobileRendering: MobileTableRendering<T>;
   onItemClick?: (item: T) => void;
-  disablePaging: boolean;
+  disablePaging?: boolean;
 }
 
 /**
@@ -398,7 +398,7 @@ const GenericResponsiveDatagrid = <T,>(
             setCurrentPage((prevPage) => callback(prevPage));
           }}
           maxPage={Math.ceil(getFilteredContent().length / pageSize)}
-          disablePaging={props.disablePaging}
+          disablePaging={props.disablePaging ?? false}
         />
       </Box>
 

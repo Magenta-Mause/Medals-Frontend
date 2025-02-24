@@ -1,9 +1,16 @@
-import { Athlete, Discipline } from "@customTypes/backendTypes";
+import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
+import PerformanceRecordingDatagrid from "@components/datagrids/PerformanceRecordingDatagrid/PerformanceRecordingDatagrid";
+import {
+  Athlete,
+  Discipline,
+  PerformanceRecording,
+} from "@customTypes/backendTypes";
 import { Modal, ModalClose, ModalDialog } from "@mui/joy";
 
 const DisciplineDetailModal = (props: {
   discipline: Discipline;
   athlete: Athlete;
+  performanceRecordings: PerformanceRecording[];
   open: boolean;
   setOpen: (open: boolean) => void;
 }) => {
@@ -29,7 +36,10 @@ const DisciplineDetailModal = (props: {
         {props.athlete ? (
           <>
             <AthleteDetailHeader athlete={props.athlete} />
-            <AthletePerformanceAccordions athlete={props.athlete} />
+            <PerformanceRecordingDatagrid
+              performanceRecordings={props.performanceRecordings}
+              isLoading={false}
+            />
           </>
         ) : (
           <></>

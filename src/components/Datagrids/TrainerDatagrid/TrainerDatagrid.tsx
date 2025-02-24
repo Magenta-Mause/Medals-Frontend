@@ -1,5 +1,6 @@
+import { Trainer } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import { Trainer } from "@customTypes/bffTypes";
+import { Add } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -13,6 +14,8 @@ import {
   Typography,
 } from "@mui/joy";
 import { removeTrainer } from "@stores/slices/trainerSlice";
+import { useSnackbar } from "notistack";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -22,9 +25,6 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { Add } from "@mui/icons-material";
-import { useState } from "react";
-import { useSnackbar } from "notistack";
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
