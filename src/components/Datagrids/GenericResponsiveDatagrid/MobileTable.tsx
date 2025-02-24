@@ -43,7 +43,14 @@ const Row = <T,>(props: {
           alignItems: "start",
         }}
       >
-        <ListItemContent sx={{ display: "flex", gap: 2, alignItems: "start", pl: props.rendering.avatar ? 0 : "10px"}}>
+        <ListItemContent
+          sx={{
+            display: "flex",
+            gap: 2,
+            alignItems: "start",
+            pl: props.rendering.avatar ? 0 : "10px",
+          }}
+        >
           {props.rendering.avatar ? (
             <ListItemDecorator>
               <Avatar size="sm">{props.rendering.avatar(props.item)}</Avatar>
