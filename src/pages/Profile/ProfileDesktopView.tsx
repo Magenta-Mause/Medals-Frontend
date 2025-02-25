@@ -14,6 +14,7 @@ import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { useNavigate } from "react-router";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
+import useApi from "@hooks/useApi";
 
 const ProfileDesktopView = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
@@ -24,6 +25,8 @@ const ProfileDesktopView = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
+  const { deleteAthlete, deleteTrainer } = useApi();
+
 
   const formattedDate = selectedAthlete?.birthdate
     ? new Intl.DateTimeFormat("de-DE", {
@@ -64,7 +67,6 @@ const ProfileDesktopView = () => {
     "pages.profilePage.gender",
   ];
 
-  // Calculate the longest label without useMemo
   let longestLabel = "";
   let maxLength = 0;
   labels.forEach((label) => {
@@ -75,10 +77,31 @@ const ProfileDesktopView = () => {
     }
   });
 
-  const handleConfirmDelete = () => {
-    console.log("Profil wird gelöscht");
+  const handleConfirmDelete = async () => {
+  
+    try {
+      if (selectedUser?.type === "ATHLETE") {
+        const success = await deleteAthlete(selectedUser.id);
+        if (success) {
+          console.log("Athlet Profil gelöscht");
+        }
+      } 
+      else if (selectedUser?.type === "TRAINER") {
+        const success = await deleteTrainer(selectedUser.id);
+        if (success) {
+          console.log("Trainer Profil gelöscht");
+        }
+      }
+
+      navigate("/login");
+
+    } catch (error) {
+      console.error("Fehler beim Löschen des Profils:", error);
+    }
+  
     setDeletePopupOpen(false);
   };
+  
 
   return (
     <>

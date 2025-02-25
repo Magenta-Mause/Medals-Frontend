@@ -36,6 +36,18 @@ const useApi = () => {
     }
   };
 
+  const deleteTrainer = async (trainerId: number) => {
+    try {
+      const request = await axiosInstance!.delete(`/trainers/${trainerId}`);
+      return request.status == 202;
+    } catch (error) {
+      console.error(
+        `Error while deleting athlete with id: ${trainerId}`,
+        error,
+      );
+    }
+  };
+
   const loginUser = useCallback(
     async (email: string, password: string) => {
       const request = await axiosInstance!.post(
@@ -120,6 +132,7 @@ const useApi = () => {
     deleteAthlete,
     getAthlete,
     getAthletes,
+    deleteTrainer,
     setPassword,
     resetPassword,
     initiatePasswordReset,
