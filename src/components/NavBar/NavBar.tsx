@@ -32,7 +32,8 @@ import {
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
-import LanguageSelector from "./LanguageSelector";
+import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
+import LanguageSelector from "@components/NavBar/LanguageSelector";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
@@ -254,6 +255,7 @@ const NavBar = () => {
             padding: "none",
           }}
         >
+          <LegalLinksSelector /> 
           <LanguageSelector />
           {warning ? (
             <InfoCard
