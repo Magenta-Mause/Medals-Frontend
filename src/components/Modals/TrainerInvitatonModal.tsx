@@ -17,35 +17,35 @@ const TrainerInvitatonModal = (props: TrainerInvitationModalProps) => {
 
   const { inviteTrainer } = useApi();
 
-  const handleSubmitTrainerInvitation = (data: {
+  const handleSubmitTrainerInvitation = async (data: {
     email: string;
     first_name: string;
     last_name: string;
-  }): void => {
+  }): Promise<void> => {
     console.log("Inviting trainer..");
     setTrainerInviteSubmitted(true);
 
     // send request here
-    inviteTrainer({
+    const invite_success = await inviteTrainer({
       id: -1,
       email: data.email,
       first_name: data.first_name,
       last_name: data.last_name,
-    })
-      .then(() => {
-        props.setOpen(false);
-        setTrainerInviteSubmitted(false);
-        enqueueSnackbar(t("snackbar.inviteTrainer.success"), {
-          variant: "success",
-        });
-      })
-      .catch(() => {
-        props.setOpen(false);
-        setTrainerInviteSubmitted(false);
-        enqueueSnackbar(t("snackbar.inviteTrainer.failed"), {
-          variant: "error",
-        });
+    });
+
+    if (invite_success) {
+      props.setOpen(false);
+      setTrainerInviteSubmitted(false);
+      enqueueSnackbar(t("snackbar.inviteTrainer.success"), {
+        variant: "success",
       });
+    } else {
+      props.setOpen(false);
+      setTrainerInviteSubmitted(false);
+      enqueueSnackbar(t("snackbar.inviteTrainer.failed"), {
+        variant: "error",
+      });
+    }
   };
 
   return (
