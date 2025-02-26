@@ -87,6 +87,10 @@
           "noCode": "Correo de verificación enviado"
         }
       }
+    },
+    "imprintPage": {
+      "title": "Pie de imprenta",
+      "contact": "Contacto"
     }
   },
   "components": {
@@ -109,6 +113,12 @@
       "bottomInfoCard": {
         "header": "Advertencia",
         "text": "¡Advertencia!"
+      },
+      "legalLinks": {
+        "title": "Legal",
+        "imprint": "Pie de imprenta",
+        "privacyPolicy": "Política de privacidad",
+        "acknowledgement": "Unser Dank geht an ..."
       }
     },
     "downloadCard": {

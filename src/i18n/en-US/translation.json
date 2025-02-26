@@ -95,6 +95,10 @@
           "noCode": "Verification email sent"
         }
       }
+    },
+    "imprintPage": {
+      "title": "Imprint",
+      "contact": "Contact"
     }
   },
   "components": {
@@ -134,6 +138,12 @@
       "bottomInfoCard": {
         "header": "Warning",
         "text": "Warning!"
+      },
+      "legalLinks": {
+        "title": "Legal",
+        "imprint": "Imprint",
+        "privacyPolicy": "Privacy Policy",
+        "acknowledgement": "Unser Dank geht an ..."
       }
     },
     "downloadCard": {

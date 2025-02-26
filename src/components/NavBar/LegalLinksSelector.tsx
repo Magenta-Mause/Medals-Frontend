@@ -11,9 +11,9 @@ const LegalLinksSelector = () => {
   const [open, setOpen] = useState(false);
 
   const links = [
-    { path: "/imprint", label: t("components.navbar.complianceLinks.imprint") },
-    { path: "/privacyPolicy", label: t("components.navbar.complianceLinks.privacyPolicy") },
-    { path: "/acknowledgement", label: t("components.navbar.complianceLinks.acknowledgement") },
+    { path: "/imprint", label: t("components.navbar.legalLinks.imprint") },
+    { path: "/privacyPolicy", label: t("components.navbar.legalLinks.privacyPolicy") },
+    { path: "/acknowledgement", label: t("components.navbar.legalLinks.acknowledgement") },
   ];
 
   return (
@@ -31,7 +31,7 @@ const LegalLinksSelector = () => {
             <InfoOutlined />
             <ListItemContent>
               <Typography level="title-sm">
-                {t("components.navbar.complianceLinks.title")}
+                {t("components.navbar.legalLinks.title")}
               </Typography>
             </ListItemContent>
             <KeyboardArrowDown

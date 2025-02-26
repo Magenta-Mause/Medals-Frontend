@@ -96,6 +96,10 @@
           "noCode": "E-Mail wurde versendet"
         }
       }
+    },
+    "imprintPage": {
+      "title": "Impressum",
+      "contact": "Kontakt"
     }
   },
   "components": {
@@ -135,6 +139,12 @@
       "bottomInfoCard": {
         "header": "Warnung",
         "text": "Warnung!"
+      },
+      "legalLinks": {
+        "title": "Rechtliches",
+        "imprint": "Impressum",
+        "privacyPolicy": "Datenschutz",
+        "acknowledgement": "Unser Dank geht an ..."
       }
     },
     "downloadCard": {
