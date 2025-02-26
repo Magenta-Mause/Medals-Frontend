@@ -10,7 +10,7 @@ import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 interface DisciplineDatagridProps {
   disciplines: Discipline[];
   performanceRecordings: PerformanceRecording[];
-  onDisciplineClick: (d: Discipline) => void;
+  onDisciplineClick?: (d: Discipline) => void;
   isLoading: boolean;
   disablePaging: boolean;
 }

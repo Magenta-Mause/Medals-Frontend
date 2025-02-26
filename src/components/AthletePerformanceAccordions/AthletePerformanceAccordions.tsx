@@ -1,4 +1,5 @@
 import DisciplineDatagrid from "@components/datagrids/DisciplineDatagrid/DisciplineDatagrid";
+import DisciplineDetailModal from "@components/modals/DisciplineDetailModal/DisciplineDetailModal";
 import {
   Athlete,
   Discipline,
@@ -20,7 +21,10 @@ import { useTypedSelector } from "@stores/rootReducer";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
+const AthletePerformanceAccordions = (props: {
+  athlete: Athlete;
+  disciplineOnclick?: (discipline: Discipline) => void;
+}) => {
   const performances = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
@@ -34,9 +38,25 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
   const [hoveredYear, setHoveredYear] = useState<number>(
     new Date().getFullYear(),
   );
+  const [selectedDiscipline, setSelectedDiscipline] = useState<Discipline>();
+  const [isDisciplineOpen, setDisciplineOpen] = useState(false);
 
   return (
     <>
+      <DisciplineDetailModal
+        athlete={props.athlete}
+        setOpen={setDisciplineOpen}
+        performanceRecordings={performances.filter(
+          (p) =>
+            p.athlete_id == props.athlete.id &&
+            (selectedDiscipline
+              ? selectedDiscipline.id ==
+                p.discipline_rating_metric.discipline.id
+              : false),
+        )}
+        discipline={selectedDiscipline}
+        open={isDisciplineOpen}
+      />
       <form
         onSubmit={(e) => {
           setSelectedYear(hoveredYear);
@@ -110,7 +130,10 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                   (d) => d.category == category && d.valid_in == selectedYear,
                 )}
                 isLoading={false}
-                onDisciplineClick={console.log}
+                onDisciplineClick={(d) => {
+                  setSelectedDiscipline(d);
+                  setDisciplineOpen(true);
+                }}
                 disablePaging={true}
               />
             </AccordionDetails>

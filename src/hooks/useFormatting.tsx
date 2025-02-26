@@ -13,7 +13,6 @@ const useFormatting = () => {
   const { t } = useTranslation();
   const formatValue = useCallback(
     (value: number, unit: string): string => {
-      console.log(value);
       switch (unit) {
         case "seconds": {
           return (

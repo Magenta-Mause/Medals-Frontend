@@ -20,7 +20,7 @@ const PerformanceRecordingDatagrid = (
 
   const columns: Column<PerformanceRecording>[] = [
     {
-      columnName: t("components.performanceRecordingDatagrid.columns.title"),
+      columnName: t("components.performanceRecordingDatagrid.columns.result"),
       columnMapping(p) {
         return (
           <Typography>
@@ -35,7 +35,7 @@ const PerformanceRecordingDatagrid = (
     },
     {
       columnName: t(
-        "components.performanceRecordingDatagrid.columns.description",
+        "components.performanceRecordingDatagrid.columns.dateOfRecording",
       ),
       columnMapping(item) {
         return (

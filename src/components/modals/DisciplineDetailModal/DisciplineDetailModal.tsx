@@ -8,7 +8,7 @@ import {
 import { Modal, ModalClose, ModalDialog } from "@mui/joy";
 
 const DisciplineDetailModal = (props: {
-  discipline: Discipline;
+  discipline: Discipline | undefined;
   athlete: Athlete;
   performanceRecordings: PerformanceRecording[];
   open: boolean;
@@ -28,8 +28,10 @@ const DisciplineDetailModal = (props: {
       <ModalDialog
         sx={{
           width: "1000px",
-          py: 6,
+          pt: 6,
           maxWidth: { md: "calc(90vw - var(--Sidebar-width))", xs: "90vw" },
+          overflowY: "auto",
+          height: { xs: "90vh", md: "80vh" },
         }}
       >
         <ModalClose />
