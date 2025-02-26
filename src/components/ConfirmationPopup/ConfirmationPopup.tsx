@@ -22,7 +22,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column", 
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           margin: "auto",
@@ -33,7 +33,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
           height: "100dvh",
         }}
       >
-        <Card sx={{ width: "auto", maxWidth: "90%", pl:3 , pr: 3}}>
+        <Card sx={{ width: "auto", maxWidth: "90%", pl: 3, pr: 3 }}>
           <Typography level="h4" component="h2" sx={{ textAlign: "center" }}>
             {t("components.confirmationPopup.header")}
           </Typography>
