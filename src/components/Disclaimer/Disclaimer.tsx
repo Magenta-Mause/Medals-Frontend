@@ -8,17 +8,15 @@ const Disclaimer = () => {
     <Box
       sx={{
         p: 2,
-        backgroundColor: 'background.level1',
-        border: '1px solid',
-        borderColor: 'divider',
-        borderRadius: 'sm',
+        backgroundColor: "background.level1",
+        border: "1px solid",
+        borderColor: "divider",
+        borderRadius: "sm",
         mt: 2,
-        textAlign: 'center',
+        textAlign: "center",
       }}
     >
-      <Typography level="body-sm">
-        {t("components.disclaimer.text")}
-      </Typography>
+      <Typography level="body-sm">{t("components.disclaimer.text")}</Typography>
     </Box>
   );
 };
