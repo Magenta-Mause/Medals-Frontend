@@ -29,39 +29,41 @@ const TrainerInvitatonForm = (props: {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
+  const submitInviteTrainer = (
+    event: React.FormEvent<TrainerInvitationFormElement>,
+  ) => {
+    event.preventDefault();
+    const formElements = event.currentTarget.elements;
+    const data = {
+      first_name: formElements.first_name.value,
+      last_name: formElements.last_name.value,
+      email: formElements.email.value,
+    };
+
+    let valid = true;
+
+    if (!validateEmail(data.email)) {
+      setEmailValid(false);
+      valid = false;
+    }
+
+    if (!data.first_name) {
+      setFirstNameValid(false);
+      valid = false;
+    }
+
+    if (!data.last_name) {
+      setLastNameValid(false);
+      valid = false;
+    }
+
+    if (valid) {
+      props.inviteCallback(data);
+    }
+  };
+
   return (
-    <form
-      onSubmit={(event: React.FormEvent<TrainerInvitationFormElement>) => {
-        event.preventDefault();
-        const formElements = event.currentTarget.elements;
-        const data = {
-          first_name: formElements.first_name.value,
-          last_name: formElements.last_name.value,
-          email: formElements.email.value,
-        };
-
-        let valid = true;
-
-        if (!validateEmail(data.email)) {
-          setEmailValid(false);
-          valid = false;
-        }
-
-        if (!data.first_name) {
-          setFirstNameValid(false);
-          valid = false;
-        }
-
-        if (!data.last_name) {
-          setLastNameValid(false);
-          valid = false;
-        }
-
-        if (valid) {
-          props.inviteCallback(data);
-        }
-      }}
-    >
+    <form onSubmit={submitInviteTrainer}>
       <Box sx={{ display: "flex", alignItems: "center", gap: 2, marginTop: 1 }}>
         <FormControl sx={{ width: "100%" }}>
           <FormLabel>

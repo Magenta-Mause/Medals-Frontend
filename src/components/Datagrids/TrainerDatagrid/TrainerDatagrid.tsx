@@ -87,7 +87,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       key: "invite-trainer",
       variant: "solid",
       operation: function (): void {
-        console.log("adding trainer modal");
         setAddTrainerModalOpen(true);
       },
     },
