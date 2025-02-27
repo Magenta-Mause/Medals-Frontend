@@ -100,6 +100,11 @@
     "imprintPage": {
       "title": "Impressum",
       "contact": "Kontakt"
+    },
+    "acknowledgementPage": {
+      "title": "Unser Dank geht an...",
+      "loginPage": "Login Seite",
+      "downloadPage": "Download Seite"
     }
   },
   "components": {
@@ -116,6 +121,9 @@
         "/performances": "Leistungen",
         "/downloads": "Downloads",
         "/help": "Hilfe",
+        "/imprint": "Impressum",
+        "/privacyPolicy": "Datenschutz",
+        "/acknowledgement": "Unser Dank geht an ...",
         "/userRoleErrorPage": "fehlende Nutzungberechtigung"
       }
     },
@@ -144,7 +152,7 @@
         "title": "Rechtliches",
         "imprint": "Impressum",
         "privacyPolicy": "Datenschutz",
-        "acknowledgement": "Unser Dank geht an ..."
+        "acknowledgement": "Unser Dank geht an"
       }
     },
     "downloadCard": {

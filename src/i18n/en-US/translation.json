@@ -99,6 +99,11 @@
     "imprintPage": {
       "title": "Imprint",
       "contact": "Contact"
+    },
+    "acknowledgementPage": {
+      "title": "Our thanks go to...",
+      "loginPage": "Login Page",
+      "downloadPage": "Download Page"
     }
   },
   "components": {
@@ -115,6 +120,9 @@
         "/performances": "Performances",
         "/downloads": "Downloads",
         "/help": "Help",
+        "/imprint": "Imprint",
+        "/privacyPolicy": "Privacy Policy",
+        "/acknowledgement": "Our thanks go to ...",
         "/userRoleErrorPage": "User Role Error"
       }
     },
@@ -143,7 +151,7 @@
         "title": "Legal",
         "imprint": "Imprint",
         "privacyPolicy": "Privacy Policy",
-        "acknowledgement": "Unser Dank geht an ..."
+        "acknowledgement": "Our thanks go to"
       }
     },
     "downloadCard": {
