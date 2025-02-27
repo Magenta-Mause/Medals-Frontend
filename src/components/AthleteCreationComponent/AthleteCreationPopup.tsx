@@ -243,7 +243,7 @@ const AthleteCreationForm = () => {
               sx={{ height: { sx: "3vh", md: "5vh" }, width: { md: "30vw" } }}
               onChange={handleChangeGender}
               color={inputValid.gender ? "neutral" : "danger"}
-              >
+            >
               <Option value="FEMALE">{t("genders.FEMALE")}</Option>
               <Option value="MALE">{t("genders.MALE")}</Option>
               <Option value="DIVERSE">{t("genders.DIVERSE")}</Option>
