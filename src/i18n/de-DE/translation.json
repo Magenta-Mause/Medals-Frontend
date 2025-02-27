@@ -194,6 +194,9 @@
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",
       "hasSpecial": "Passwort enthält ein Sonderzeichen",
       "required": "Verpflichtend"
+    },
+    "disclaimer": {
+      "text": "Diese Anwendung ist ein Universitätsprojekt und kein offizieller Dienst (z.B. Sportabzeichen-Digital). Sie wird nicht von einer offiziellen Organisation unterstützt oder bereitgestellt. Es werden keine offiziellen Zertifizierungen oder Ansprüche bereitgestellt."
     }
   }
 }
