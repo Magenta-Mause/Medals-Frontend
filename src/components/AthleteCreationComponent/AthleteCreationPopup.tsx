@@ -10,11 +10,13 @@ import {
   Typography,
 } from "@mui/joy";
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "../CustomDatePicker/CustomDatePicker";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
+import DoneIcon from "@mui/icons-material/Done";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const AthleteCreationForm = () => {
   const { t } = useTranslation();
@@ -26,6 +28,13 @@ const AthleteCreationForm = () => {
     email: "",
     birthdate: "",
     gender: "",
+  });
+  const [inputValid, setinputValid] = useState({
+    first_name: false,
+    last_name: false,
+    email: false,
+    birthdate: false,
+    gender: false,
   });
 
   const emailRegex = // eslint-disable-next-line no-control-regex
@@ -51,6 +60,64 @@ const AthleteCreationForm = () => {
     }
     return true;
   };
+
+  useEffect(() => {
+    if (athlete.first_name.length! > 255 || athlete.first_name !== "") {
+      setinputValid((prevUser: any) => ({
+        ...prevUser,
+        first_name: true,
+      }));
+    } else {
+      setinputValid((prevUser: any) => ({
+        ...prevUser,
+        first_name: false,
+      }));
+    }
+    if (athlete.last_name.length! > 255 || athlete.last_name !== "") {
+      setinputValid((prevUser: any) => ({
+        ...prevUser,
+        last_name: true,
+      }));
+    } else {
+      setinputValid((prevUser: any) => ({
+        ...prevUser,
+        last_name: false,
+      }));
+    }
+    if (isValidEmail(athlete.email)) {
+      setinputValid((prevUser: any) => ({
+        ...prevUser,
+        email: true,
+      }));
+    } else {
+      setinputValid((prevUser: any) => ({
+        ...prevUser,
+        email: false,
+      }));
+    }
+    if (athlete.birthdate !== "") {
+      setinputValid((prevUser: any) => ({
+        ...prevUser,
+        birthdate: true,
+      }));
+    } else {
+      setinputValid((prevUser: any) => ({
+        ...prevUser,
+        birthdate: false,
+      }));
+    }
+    if (athlete.gender !== "") {
+      setinputValid((prevUser: any) => ({
+        ...prevUser,
+        gender: true,
+      }));
+    } else {
+      setinputValid((prevUser: any) => ({
+        ...prevUser,
+        gender: false,
+      }));
+    }
+  }, [inputValid, athlete]);
 
   const handleChangeGender = (
     event: React.SyntheticEvent | null,
@@ -109,6 +176,13 @@ const AthleteCreationForm = () => {
                 first_name: e.target.value,
               }))
             }
+            endDecorator={
+              inputValid.first_name ? (
+                <DoneIcon sx={{ color: "green" }} />
+              ) : (
+                <ClearIcon sx={{ color: "red" }} />
+              )
+            }
           />
           <FormLabel>{t("pages.athleteCreationPage.lastName")}</FormLabel>
           <Input
@@ -127,6 +201,13 @@ const AthleteCreationForm = () => {
                 ...prevUser,
                 last_name: e.target.value,
               }))
+            }
+            endDecorator={
+              inputValid.last_name ? (
+                <DoneIcon sx={{ color: "green" }} />
+              ) : (
+                <ClearIcon sx={{ color: "red" }} />
+              )
             }
           />
           <FormLabel>{t("pages.athleteCreationPage.email")}</FormLabel>
@@ -147,33 +228,49 @@ const AthleteCreationForm = () => {
                 email: e.target.value,
               }))
             }
+            endDecorator={
+              inputValid.email ? (
+                <DoneIcon sx={{ color: "green" }} />
+              ) : (
+                <ClearIcon sx={{ color: "red" }} />
+              )
+            }
           />
           <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
-          <CustomDatePicker
-            sx={{
-              width: { sx: "60vw", md: "30vw" },
-              marginBottom: "1vh",
-              position: "relative",
-            }}
-            value={null}
-            onChange={(newDate) => {
-              const localDate = new Date(newDate);
-              const adjustedDate: any = new Date(
-                localDate.getTime() - localDate.getTimezoneOffset() * 60000,
-              );
-              setAthlete((prevUser: Athlete) => ({
-                ...prevUser,
-                birthdate: adjustedDate,
-              }));
-            }}
-            format="DD/MM/YYYY"
-          />
+          <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <CustomDatePicker
+              sx={{
+                width: { sx: "60vw", md: "30vw" },
+                marginBottom: "1vh",
+                position: "relative",
+              }}
+              value={null}
+              onChange={(newDate) => {
+                const localDate = new Date(newDate);
+                const adjustedDate: any = new Date(
+                  localDate.getTime() - localDate.getTimezoneOffset() * 60000,
+                );
+                setAthlete((prevUser: Athlete) => ({
+                  ...prevUser,
+                  birthdate: adjustedDate,
+                }));
+              }}
+              format="DD/MM/YYYY"
+            />
+          </Box>
           <Box sx={{ marginTop: "2vh" }}>
             <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
             <Select
               placeholder={t("pages.athleteCreationPage.gender")}
-              sx={{ height: { sx: "3vh", md: "5vh" } }}
+              sx={{ height: { sx: "3vh", md: "5vh" }, width: { md: "30vw" } }}
               onChange={handleChangeGender}
+              endDecorator={
+                inputValid.gender ? (
+                  <DoneIcon sx={{ color: "green" }} />
+                ) : (
+                  <ClearIcon sx={{ color: "red" }} />
+                )
+              }
             >
               <Option value="FEMALE">{t("genders.FEMALE")}</Option>
               <Option value="MALE">{t("genders.MALE")}</Option>
@@ -187,6 +284,7 @@ const AthleteCreationForm = () => {
               marginTop: "5vh",
               marginBottom: "2vh",
               color: "primary",
+              width: { md: "30vw" },
             }}
             onClick={() => {
               {
