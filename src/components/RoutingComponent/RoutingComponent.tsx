@@ -28,7 +28,7 @@ const RoutingComponent = () => {
         <Route index element={<HomePage />} />
         <Route path="/imprint" element={<ImprintPage />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
-        <Route path="/acknowledgement" element={<AcknowledgementPage />} /> 
+        <Route path="/acknowledgement" element={<AcknowledgementPage />} />
 
         <Route element={<ProtectedRoute userRole={selectedUser?.type} />}>
           {/* ADMIN */}

@@ -1,4 +1,10 @@
-import { List, ListItem, ListItemButton, ListItemContent, Typography } from "@mui/joy";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemContent,
+  Typography,
+} from "@mui/joy";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { KeyboardArrowDown, InfoOutlined } from "@mui/icons-material";
@@ -12,8 +18,14 @@ const LegalLinksSelector = () => {
 
   const links = [
     { path: "/imprint", label: t("components.navbar.legalLinks.imprint") },
-    { path: "/privacyPolicy", label: t("components.navbar.legalLinks.privacyPolicy") },
-    { path: "/acknowledgement", label: t("components.navbar.legalLinks.acknowledgement") },
+    {
+      path: "/privacyPolicy",
+      label: t("components.navbar.legalLinks.privacyPolicy"),
+    },
+    {
+      path: "/acknowledgement",
+      label: t("components.navbar.legalLinks.acknowledgement"),
+    },
   ];
 
   return (

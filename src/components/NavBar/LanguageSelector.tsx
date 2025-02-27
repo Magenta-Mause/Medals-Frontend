@@ -10,7 +10,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Toggler from "@components/NavBar/Toggler";
 
-
 const LanguageSelector = () => {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);

@@ -6,7 +6,7 @@ const AcknowledgementPage = () => {
 
   const imageCredits = [
     {
-      description: t('pages.acknowledgementPage.loginPage'),
+      description: t("pages.acknowledgementPage.loginPage"),
       credits: [
         {
           mode: "LightMode",
@@ -17,11 +17,11 @@ const AcknowledgementPage = () => {
           mode: "DarkMode",
           text: "Photo by Rosemary Ketchum",
           link: "https://www.pexels.com/photo/group-of-women-standing-outdoor-during-day-1564420/",
-        }
-      ]
+        },
+      ],
     },
     {
-      description: t('pages.acknowledgementPage.downloadPage'),
+      description: t("pages.acknowledgementPage.downloadPage"),
       credits: [
         {
           mode: "SwimmingCard",
@@ -77,7 +77,11 @@ const AcknowledgementPage = () => {
               <ListItem key={idx}>
                 <Typography>
                   {credit.mode}:{" "}
-                  <a href={credit.link} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={credit.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {credit.text}
                   </a>
                 </Typography>

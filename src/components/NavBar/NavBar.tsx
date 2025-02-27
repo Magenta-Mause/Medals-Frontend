@@ -255,7 +255,7 @@ const NavBar = () => {
             padding: "none",
           }}
         >
-          <LegalLinksSelector /> 
+          <LegalLinksSelector />
           <LanguageSelector />
           {warning ? (
             <InfoCard
