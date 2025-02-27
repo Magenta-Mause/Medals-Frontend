@@ -42,7 +42,19 @@ const useApi = () => {
       return request.status == 202;
     } catch (error) {
       console.error(
-        `Error while deleting athlete with id: ${trainerId}`,
+        `Error while deleting trainer with id: ${trainerId}`,
+        error,
+      );
+    }
+  };
+
+  const deleteAdmin = async (adminId: number) => {
+    try {
+      const request = await axiosInstance!.delete(`/admins/${adminId}`);
+      return request.status == 202;
+    } catch (error) {
+      console.error(
+        `Error while deleting admin with id: ${adminId}`,
         error,
       );
     }
@@ -133,6 +145,7 @@ const useApi = () => {
     getAthlete,
     getAthletes,
     deleteTrainer,
+    deleteAdmin,
     setPassword,
     resetPassword,
     initiatePasswordReset,

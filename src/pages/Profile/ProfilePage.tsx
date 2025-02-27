@@ -24,7 +24,7 @@ const ProfilePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
-  const { deleteAthlete, deleteTrainer } = useApi();
+  const { deleteAthlete, deleteTrainer, deleteAdmin } = useApi();
   const selectedAthlete = athletes.find(
     (athlete: { id: number | undefined }) => athlete.id === selectedUser?.id,
   );
@@ -96,23 +96,21 @@ const ProfilePage = () => {
 
   const handleConfirmDelete = async () => {
     try {
+      let success= undefined;
       if (selectedUser?.type === "ATHLETE") {
-        const success = await deleteAthlete(selectedUser.id);
-        if (success) {
-          console.log("Athlet Profil gelöscht");
-        }
+        success = await deleteAthlete(selectedUser.id);
       } else if (selectedUser?.type === "TRAINER") {
-        const success = await deleteTrainer(selectedUser.id);
-        if (success) {
-          console.log("Trainer Profil gelöscht");
-        }
+        success = await deleteTrainer(selectedUser.id);
+      }else if(selectedUser?.type === "ADMIN"){
+        success = await deleteAdmin(selectedUser.id);
       }
-      setSelectedUser(null);
-      navigate("/login");
+      if(success){
+        setSelectedUser(null);
+        navigate("/login");
+      }
     } catch (error) {
-      console.error("Fehler beim Löschen des Profils:", error);
+      console.error("Error while deleting profile", error);
     }
-
     setDeletePopupOpen(false);
   };
 
@@ -120,21 +118,12 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          mb: 1,
-          gap: 1,
-          flexDirection: { xs: "column", sm: "row" },
-          alignItems: { xs: "start", sm: "center" },
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
+      <Box>
+        <Box>
         <Typography level="h2" component="h1">
           {t("pages.profilePage.header")}
         </Typography>
-      </Box>
+        </Box>
       <Box
         sx={{
           display: "flex",
@@ -142,6 +131,7 @@ const ProfilePage = () => {
           alignItems: "center",
           justifyContent: "center",
           pb: 3,
+          overflowY: "scroll",
         }}
       >
         <Card
@@ -211,6 +201,7 @@ const ProfilePage = () => {
         onConfirm={handleConfirmDelete}
         message={t("pages.profilePage.confirmDeleteMessage")}
       />
+    </Box>
     </>
   );
 };
