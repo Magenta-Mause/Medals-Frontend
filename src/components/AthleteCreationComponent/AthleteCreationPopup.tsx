@@ -166,7 +166,6 @@ const AthleteCreationForm = () => {
               height: { sx: "3vh", md: "5vh", xs: "5vh" },
             }}
             placeholder={t("pages.athleteCreationPage.firstName")}
-            color="neutral"
             size="lg"
             variant="outlined"
             value={athlete.first_name}
@@ -176,13 +175,7 @@ const AthleteCreationForm = () => {
                 first_name: e.target.value,
               }))
             }
-            endDecorator={
-              inputValid.first_name ? (
-                <DoneIcon sx={{ color: "green" }} />
-              ) : (
-                <ClearIcon sx={{ color: "red" }} />
-              )
-            }
+            error={!inputValid.first_name}
           />
           <FormLabel>{t("pages.athleteCreationPage.lastName")}</FormLabel>
           <Input
@@ -192,8 +185,8 @@ const AthleteCreationForm = () => {
               height: { sx: "3vh", md: "5vh", xs: "5vh" },
             }}
             placeholder={t("pages.athleteCreationPage.lastName")}
-            color="neutral"
             size="lg"
+            error={!inputValid.last_name}
             variant="outlined"
             value={athlete.last_name}
             onChange={(e) =>
@@ -201,13 +194,6 @@ const AthleteCreationForm = () => {
                 ...prevUser,
                 last_name: e.target.value,
               }))
-            }
-            endDecorator={
-              inputValid.last_name ? (
-                <DoneIcon sx={{ color: "green" }} />
-              ) : (
-                <ClearIcon sx={{ color: "red" }} />
-              )
             }
           />
           <FormLabel>{t("pages.athleteCreationPage.email")}</FormLabel>
@@ -218,7 +204,6 @@ const AthleteCreationForm = () => {
               height: { sx: "3vh", md: "5vh", xs: "5vh" },
             }}
             placeholder={t("pages.athleteCreationPage.email")}
-            color="neutral"
             size="lg"
             variant="outlined"
             value={athlete.email}
@@ -228,17 +213,12 @@ const AthleteCreationForm = () => {
                 email: e.target.value,
               }))
             }
-            endDecorator={
-              inputValid.email ? (
-                <DoneIcon sx={{ color: "green" }} />
-              ) : (
-                <ClearIcon sx={{ color: "red" }} />
-              )
-            }
+            error={!inputValid.email}
           />
           <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
           <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <CustomDatePicker
+              error={!inputValid.birthdate}
               sx={{
                 width: { sx: "60vw", md: "30vw" },
                 marginBottom: "1vh",
@@ -264,13 +244,15 @@ const AthleteCreationForm = () => {
               placeholder={t("pages.athleteCreationPage.gender")}
               sx={{ height: { sx: "3vh", md: "5vh" }, width: { md: "30vw" } }}
               onChange={handleChangeGender}
-              endDecorator={
-                inputValid.gender ? (
-                  <DoneIcon sx={{ color: "green" }} />
-                ) : (
-                  <ClearIcon sx={{ color: "red" }} />
-                )
-              }
+              slotProps={{
+                button: {
+                  error: true
+                },
+                indicator: {
+                  error: true
+                }
+              }}
+              
             >
               <Option value="FEMALE">{t("genders.FEMALE")}</Option>
               <Option value="MALE">{t("genders.MALE")}</Option>

@@ -9,6 +9,7 @@ import {
 const CustomDatePicker = (props: {
   sx: SxProps<Theme>;
   value: any;
+  error: boolean;
   onChange:
     | ((
         value: any,
@@ -42,6 +43,7 @@ const CustomDatePicker = (props: {
           },
         },
         textField: {
+          error: props.error,
           sx: {
             height: { sx: "3vh", md: "5vh", xs: "5vh" },
           },
