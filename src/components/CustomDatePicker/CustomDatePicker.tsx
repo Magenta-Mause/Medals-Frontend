@@ -1,28 +1,22 @@
 import { useColorScheme } from "@mui/joy";
-import { InputAdornment, SxProps, Theme } from "@mui/material";
+import { SxProps, Theme } from "@mui/material";
 import {
   DatePicker,
   DateValidationError,
   PickerChangeHandlerContext,
 } from "@mui/x-date-pickers";
-import DoneIcon from "@mui/icons-material/Done";
-import ClearIcon from "@mui/icons-material/Clear";
 
-const CustomDatePicker = (
-  props: {
-    sx: SxProps<Theme>;
-    value: any;
-    onChange:
-      | ((
-          value: any,
-          context: PickerChangeHandlerContext<DateValidationError>,
-        ) => void)
-      | undefined;
-    format: string | undefined;
-    valid: boolean;
-  },
-  valid: boolean,
-) => {
+const CustomDatePicker = (props: {
+  sx: SxProps<Theme>;
+  value: any;
+  onChange:
+    | ((
+        value: any,
+        context: PickerChangeHandlerContext<DateValidationError>,
+      ) => void)
+    | undefined;
+  format: string | undefined;
+}) => {
   const { mode } = useColorScheme();
   const styles: Record<"dark" | "light", SxProps<Theme> | undefined> = {
     dark: {
@@ -52,15 +46,6 @@ const CustomDatePicker = (
             height: { sx: "3vh", md: "5vh", xs: "5vh" },
           },
           InputProps: {
-            endAdornment: (
-              <InputAdornment position="end">
-                {valid ? (
-                  <DoneIcon sx={{ color: "green" }} />
-                ) : (
-                  <ClearIcon sx={{ color: "red" }} />
-                )}
-              </InputAdornment>
-            ),
             sx: {
               height: { sx: "3vh", md: "5vh", xs: "5vh" },
               width: {
