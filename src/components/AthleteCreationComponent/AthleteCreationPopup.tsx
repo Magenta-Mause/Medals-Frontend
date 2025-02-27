@@ -15,8 +15,6 @@ import { useTranslation } from "react-i18next";
 import CustomDatePicker from "../CustomDatePicker/CustomDatePicker";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-import DoneIcon from "@mui/icons-material/Done";
-import ClearIcon from "@mui/icons-material/Clear";
 
 const AthleteCreationForm = () => {
   const { t } = useTranslation();
@@ -244,16 +242,8 @@ const AthleteCreationForm = () => {
               placeholder={t("pages.athleteCreationPage.gender")}
               sx={{ height: { sx: "3vh", md: "5vh" }, width: { md: "30vw" } }}
               onChange={handleChangeGender}
-              slotProps={{
-                button: {
-                  error: true
-                },
-                indicator: {
-                  error: true
-                }
-              }}
-              
-            >
+              color={inputValid.gender ? "neutral" : "danger"}
+              >
               <Option value="FEMALE">{t("genders.FEMALE")}</Option>
               <Option value="MALE">{t("genders.MALE")}</Option>
               <Option value="DIVERSE">{t("genders.DIVERSE")}</Option>
