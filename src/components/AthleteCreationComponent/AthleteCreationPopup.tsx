@@ -117,7 +117,7 @@ const AthleteCreationForm = () => {
         gender: false,
       }));
     }
-  }, [inputValid, athlete]);
+  }, [athlete]);
 
   const handleChangeGender = (
     event: React.SyntheticEvent | null,
