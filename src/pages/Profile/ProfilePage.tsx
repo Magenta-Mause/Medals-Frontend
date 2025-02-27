@@ -96,15 +96,15 @@ const ProfilePage = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      let success= undefined;
+      let success = undefined;
       if (selectedUser?.type === "ATHLETE") {
         success = await deleteAthlete(selectedUser.id);
       } else if (selectedUser?.type === "TRAINER") {
         success = await deleteTrainer(selectedUser.id);
-      }else if(selectedUser?.type === "ADMIN"){
+      } else if (selectedUser?.type === "ADMIN") {
         success = await deleteAdmin(selectedUser.id);
       }
-      if(success){
+      if (success) {
         setSelectedUser(null);
         navigate("/login");
       }
@@ -120,88 +120,91 @@ const ProfilePage = () => {
     <>
       <Box>
         <Box>
-        <Typography level="h2" component="h1">
-          {t("pages.profilePage.header")}
-        </Typography>
+          <Typography level="h2" component="h1">
+            {t("pages.profilePage.header")}
+          </Typography>
         </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          pb: 3,
-          overflowY: "scroll",
-        }}
-      >
-        <Card
-          variant="outlined"
+        <Box
           sx={{
-            p: 3,
-            textAlign: "center",
             display: "flex",
-            maxWidth: "100%",
-            minWidth: isMobile
-              ? "none"
-              : `${Math.max(selectedUser?.email ? selectedUser.email.length * 23 : 100, longestLabel.length * 22)}px`,
-            width: isMobile ? "100%" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            pb: 3,
+            overflowY: "scroll",
           }}
         >
-          <Avatar sx={{ width: 100, height: 100, margin: "0 auto", mb: 1 }}>
-            <Typography sx={{ fontSize: "2rem" }}>
-              {selectedUser?.first_name.charAt(0)}
-              {selectedUser?.last_name.charAt(0)}
-            </Typography>
-          </Avatar>
-          <CardContent>
-            <Typography level="h3" gutterBottom>
-              {selectedUser?.first_name} {selectedUser?.last_name}
-            </Typography>
-            <InfoCard label="ID" value={selectedUser?.id} />
-
-            {selectedUser?.type === "ATHLETE" && (
-              <>
-                <InfoCard
-                  label={t("pages.profilePage.birthdate")}
-                  value={formattedDate}
-                />
-                <InfoCard
-                  label={t("pages.profilePage.gender")}
-                  value={t("genders." + selectedAthlete?.gender)}
-                />
-              </>
-            )}
-            <InfoCard
-              label={t("pages.profilePage.email")}
-              value={selectedUser?.email}
-            />
-          </CardContent>
-        </Card>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
-          <Button variant="outlined" onClick={() => navigate("/resetPassword")}>
-            {t("pages.profilePage.resetPasswordButton")}
-          </Button>
-          <Button
+          <Card
             variant="outlined"
-            color="danger"
-            onClick={() => {
-              setDeletePopupOpen(true);
+            sx={{
+              p: 3,
+              textAlign: "center",
+              display: "flex",
+              maxWidth: "100%",
+              minWidth: isMobile
+                ? "none"
+                : `${Math.max(selectedUser?.email ? selectedUser.email.length * 23 : 100, longestLabel.length * 22)}px`,
+              width: isMobile ? "100%" : "none",
             }}
           >
-            {t("pages.profilePage.deleteProfileButton")}
-          </Button>
-        </Box>
-      </Box>
+            <Avatar sx={{ width: 100, height: 100, margin: "0 auto", mb: 1 }}>
+              <Typography sx={{ fontSize: "2rem" }}>
+                {selectedUser?.first_name.charAt(0)}
+                {selectedUser?.last_name.charAt(0)}
+              </Typography>
+            </Avatar>
+            <CardContent>
+              <Typography level="h3" gutterBottom>
+                {selectedUser?.first_name} {selectedUser?.last_name}
+              </Typography>
+              <InfoCard label="ID" value={selectedUser?.id} />
 
-      <ConfirmationPopup
-        open={isDeletePopupOpen}
-        onClose={() => {
-          setDeletePopupOpen(false);
-        }}
-        onConfirm={handleConfirmDelete}
-        message={t("pages.profilePage.confirmDeleteMessage")}
-      />
-    </Box>
+              {selectedUser?.type === "ATHLETE" && (
+                <>
+                  <InfoCard
+                    label={t("pages.profilePage.birthdate")}
+                    value={formattedDate}
+                  />
+                  <InfoCard
+                    label={t("pages.profilePage.gender")}
+                    value={t("genders." + selectedAthlete?.gender)}
+                  />
+                </>
+              )}
+              <InfoCard
+                label={t("pages.profilePage.email")}
+                value={selectedUser?.email}
+              />
+            </CardContent>
+          </Card>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
+            <Button
+              variant="outlined"
+              onClick={() => navigate("/resetPassword")}
+            >
+              {t("pages.profilePage.resetPasswordButton")}
+            </Button>
+            <Button
+              variant="outlined"
+              color="danger"
+              onClick={() => {
+                setDeletePopupOpen(true);
+              }}
+            >
+              {t("pages.profilePage.deleteProfileButton")}
+            </Button>
+          </Box>
+        </Box>
+
+        <ConfirmationPopup
+          open={isDeletePopupOpen}
+          onClose={() => {
+            setDeletePopupOpen(false);
+          }}
+          onConfirm={handleConfirmDelete}
+          message={t("pages.profilePage.confirmDeleteMessage")}
+        />
+      </Box>
     </>
   );
 };

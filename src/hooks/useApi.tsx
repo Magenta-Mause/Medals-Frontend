@@ -53,10 +53,7 @@ const useApi = () => {
       const request = await axiosInstance!.delete(`/admins/${adminId}`);
       return request.status == 202;
     } catch (error) {
-      console.error(
-        `Error while deleting admin with id: ${adminId}`,
-        error,
-      );
+      console.error(`Error while deleting admin with id: ${adminId}`, error);
     }
   };
 
