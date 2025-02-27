@@ -1,8 +1,6 @@
 import { Box, Typography } from "@mui/joy";
-import { useTranslation } from "react-i18next";
 
 const PrivacyPolicyPage = () => {
-
   return (
     <Box sx={{ p: 3 }}>
       <Typography level="h1" sx={{ mb: 2 }}>
