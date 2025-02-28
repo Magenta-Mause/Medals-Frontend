@@ -59,7 +59,11 @@ const CustomDatePicker = (props: {
               },
               borderRadius: "7px",
               backgroundColor: mode === "dark" ? "#0b0d0e" : "white",
-              color: mode === "dark" ? "white" : "black",
+              color: props.error
+                ? "#f7c5c5"
+                : mode === "dark"
+                  ? "white"
+                  : "black",
               "& .MuiOutlinedInput-root": {
                 backgroundColor: mode === "dark" ? "#0b0d0e" : "white",
               },
