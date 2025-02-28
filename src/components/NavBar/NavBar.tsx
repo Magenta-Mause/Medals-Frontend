@@ -279,7 +279,7 @@ const NavBar = () => {
             <Typography level="title-sm">
               {selectedUser?.first_name} {selectedUser?.last_name}
             </Typography>
-            <Typography level="body-xs" noWrap>
+            <Typography level="body-xs" sx={{ wordBreak: "break-word"}}>
               {email}
             </Typography>
           </Box>
