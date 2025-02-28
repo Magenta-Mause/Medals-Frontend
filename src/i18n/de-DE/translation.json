@@ -35,7 +35,7 @@
     },
     "athleteOverviewPage": {
       "header": "Athlet*innen",
-      "createButton": "erstelle Athlet*in"
+      "createButton": "Athlet*in erstellen"
     },
     "athleteCreationPage": {
       "firstName": "Vorname",

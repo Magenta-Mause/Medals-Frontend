@@ -35,16 +35,16 @@
     },
     "athleteOverviewPage": {
       "header": "Athletes",
-      "createButton": "create athlete"
+      "createButton": "Create Athlete"
     },
     "athleteCreationPage": {
-      "firstName": "first name",
-      "lastName": "last name",
-      "email": "email",
-      "birthdate": "birthdate",
-      "gender": "gender",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "birthdate": "Birthdate",
+      "gender": "Gender",
       "createButton": "Create",
-      "createHeader": "create athlete"
+      "createHeader": "Create Athlete"
 
     },
     "notFound": {
@@ -181,8 +181,8 @@
       "table": {
         "columns": {
           "athleteId": "Athlete ID",
-          "firstName": "Firstname",
-          "lastName": "Lastname",
+          "firstName": "First Name",
+          "lastName": "Last Name",
           "birthdate": "Birthdate",
           "email": "Email",
           "gender": "Gender"
