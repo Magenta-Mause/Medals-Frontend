@@ -284,6 +284,9 @@
       "columns": {
         "dateOfRecording": "Aufgenommen am",
         "result": "Ergebnis"
+      },
+      "filters": {
+        "recordedIn": "Aufgenommen in"
       }
     }
   }

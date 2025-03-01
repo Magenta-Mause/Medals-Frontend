@@ -10,7 +10,7 @@ const pad = (num: number, size: number) => {
 };
 
 const useFormatting = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const formatValue = useCallback(
     (value: number, unit: string): string => {
       switch (unit) {
@@ -29,7 +29,14 @@ const useFormatting = () => {
     [t],
   );
 
-  return { formatValue };
+  const formatDate = useCallback(
+    (value: number): string => {
+      return new Intl.DateTimeFormat(i18n.language).format(value);
+    },
+    [i18n.language],
+  );
+
+  return { formatValue, formatDate };
 };
 
 export default useFormatting;

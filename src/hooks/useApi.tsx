@@ -173,20 +173,14 @@ const useApi = () => {
     [axiosInstance],
   );
 
-  const getDisciplines = useCallback(
-    async (selectedYear: number | null) => {
-      try {
-        const request = await axiosInstance!.get(
-          "/disciplines" +
-            (selectedYear != null ? "?selected_year=" + selectedYear : ""),
-        );
-        return request.data.data;
-      } catch {
-        console.error("Error while loading disciplines");
-      }
-    },
-    [axiosInstance],
-  );
+  const getDisciplines = useCallback(async () => {
+    try {
+      const request = await axiosInstance!.get("/disciplines");
+      return request.data.data;
+    } catch {
+      console.error("Error while loading disciplines");
+    }
+  }, [axiosInstance]);
 
   return {
     loginUser,

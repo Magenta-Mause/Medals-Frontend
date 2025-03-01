@@ -3,7 +3,10 @@ import useFormatting from "@hooks/useFormatting";
 import { Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
-import GenericResponsiveDatagrid from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
+import GenericResponsiveDatagrid, {
+  ToolbarAction,
+} from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
+import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 
 interface PerformanceRecordingDatagridProps {
@@ -14,9 +17,8 @@ interface PerformanceRecordingDatagridProps {
 const PerformanceRecordingDatagrid = (
   props: PerformanceRecordingDatagridProps,
 ) => {
-  const { t, i18n } = useTranslation();
-  const { formatValue } = useFormatting();
-  const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
+  const { t } = useTranslation();
+  const { formatValue, formatDate } = useFormatting();
 
   const columns: Column<PerformanceRecording>[] = [
     {
@@ -40,7 +42,7 @@ const PerformanceRecordingDatagrid = (
       columnMapping(item) {
         return (
           <Typography>
-            {dateTimeFormatter.format(Date.parse(item.date_recorded)) ?? "-"}
+            {formatDate(Date.parse(item.date_recorded)) ?? "-"}
           </Typography>
         );
       },
@@ -65,6 +67,37 @@ const PerformanceRecordingDatagrid = (
     ),
   };
 
+  const filters: Filter<PerformanceRecording>[] = [
+    {
+      name: "Recorded in",
+      label: t("components.performanceRecordingDatagrid.filters.recordedIn"),
+      type: "SELECTION",
+      selection: [
+        ...new Set(
+          props.performanceRecordings.map((p) =>
+            new Date(Date.parse(p.date_recorded)).getFullYear().toString(),
+          ),
+        ),
+      ].map((date) => ({
+        displayValue: date,
+        value: date,
+      })),
+      apply: (filterParameter) => (item) =>
+        item.date_recorded == filterParameter,
+    },
+  ];
+
+  const actions: ToolbarAction[] = [
+    {
+      label: "Leistungsaufnahme hinzufügen",
+      key: "addRecording",
+      operation: () => {
+        console.log("add new performance");
+      },
+      content: "+ Add",
+    },
+  ];
+
   return (
     <>
       <GenericResponsiveDatagrid
@@ -73,8 +106,10 @@ const PerformanceRecordingDatagrid = (
           (a, b) => Date.parse(a.date_recorded) - Date.parse(b.date_recorded),
         )}
         columns={columns}
+        filters={filters}
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
+        toolbarActions={actions}
       />
     </>
   );

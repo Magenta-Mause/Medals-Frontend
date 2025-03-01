@@ -33,7 +33,6 @@ export interface Discipline {
   description: string | null;
   unit: MetricUnits;
   more_better: boolean;
-  valid_in: number;
 }
 
 export interface RatingMetric {
@@ -47,6 +46,7 @@ export interface DisciplineRatingMetric {
   discipline: Discipline;
   start_age: number;
   end_age: number;
+  valid_in: number;
   rating_male: RatingMetric;
   rating_female: RatingMetric;
 }

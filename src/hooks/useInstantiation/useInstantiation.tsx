@@ -88,7 +88,7 @@ const useInstantiation = () => {
 
     dispatch(setTrainers((await getTrainers()) ?? []));
     dispatch(setAthletes((await getAthletes()) ?? []));
-    dispatch(setDisciplines((await getDisciplines(2025)) ?? []));
+    dispatch(setDisciplines((await getDisciplines()) ?? []));
     dispatch(
       setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
     );
@@ -115,7 +115,7 @@ const useInstantiation = () => {
     console.log("Initializing trainer");
 
     dispatch(setAthletes((await getAthletes()) ?? []));
-    dispatch(setDisciplines((await getDisciplines(2025)) ?? []));
+    dispatch(setDisciplines((await getDisciplines()) ?? []));
     dispatch(
       setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
     );
