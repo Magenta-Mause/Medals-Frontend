@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "esbuild": ">=0.25.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/inter": "^5.1.1",
@@ -35,6 +36,7 @@
     "use-react-router-breadcrumbs": "^4.0.1"
   },
   "devDependencies": {
+    "esbuild": ">=0.25.0",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@eslint/js": "^9.17.0",
     "@types/react": "^18.3.18",
