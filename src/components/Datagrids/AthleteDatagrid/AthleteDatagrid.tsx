@@ -91,7 +91,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           athlete.last_name.toLowerCase().includes(filterParameter) ||
           athlete.birthdate.toLowerCase().includes(filterParameter) ||
           athlete.email.toLowerCase().includes(filterParameter) ||
-          athlete.id.toString().toLowerCase().includes(filterParameter);
+          athlete.id!.toString().toLowerCase().includes(filterParameter);
       },
       type: "TEXT",
     },
@@ -150,8 +150,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       key: "delete",
       variant: "solid",
       operation: function (item): void {
-        dispatch(removeAthlete({ id: item.id }));
-        deleteAthlete(item.id);
+        dispatch(removeAthlete({ id: item.id! }));
+        deleteAthlete(item.id!);
         console.log("Deleted Athlete:", item);
       },
     },
@@ -199,7 +199,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           athlete.last_name.toLowerCase().includes(filterParameter) ||
           athlete.birthdate.toLowerCase().includes(filterParameter) ||
           athlete.email.toLowerCase().includes(filterParameter) ||
-          athlete.id.toString().toLowerCase().includes(filterParameter);
+          athlete.id!.toString().toLowerCase().includes(filterParameter);
       },
       type: "TEXT",
     },
@@ -213,7 +213,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       filters={filters}
       actionMenu={actions}
       itemSelectionActions={actions}
-      keyOf={(item) => item.id}
+      keyOf={(item) => item.id!}
       mobileRendering={mobileRendering}
     />
   );

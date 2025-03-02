@@ -2,7 +2,7 @@ import { AuthContext } from "@components/AuthenticationProvider/AuthenticationPr
 import CustomBreadcrumbs from "@components/CustomBreadcrumbs/CustomBreadcrumbs";
 import Header from "@components/Header/Header";
 import NavBar from "@components/NavBar/NavBar";
-import { Box } from "@mui/joy";
+import { Box, Sheet } from "@mui/joy";
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router";
 
@@ -13,7 +13,7 @@ const PageLayout = () => {
   }
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100dvh" }}>
+    <Sheet sx={{ display: "flex", minHeight: "100dvh" }}>
       <Header />
       <NavBar />
       <Box
@@ -42,7 +42,7 @@ const PageLayout = () => {
         <CustomBreadcrumbs />
         <Outlet />
       </Box>
-    </Box>
+    </Sheet>
   );
 };
 

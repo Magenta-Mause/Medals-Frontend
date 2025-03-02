@@ -34,7 +34,18 @@
       "h3": "The soon to be Medal Management System"
     },
     "athleteOverviewPage": {
-      "header": "Athletes"
+      "header": "Athletes",
+      "createButton": "Create Athlete"
+    },
+    "athleteCreationPage": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "birthdate": "Birthdate",
+      "gender": "Gender",
+      "createButton": "Create",
+      "createHeader": "Create Athlete"
+
     },
     "notFound": {
       "h1": "404",
@@ -170,8 +181,8 @@
       "table": {
         "columns": {
           "athleteId": "Athlete ID",
-          "firstName": "Firstname",
-          "lastName": "Lastname",
+          "firstName": "First Name",
+          "lastName": "Last Name",
           "birthdate": "Birthdate",
           "email": "Email",
           "gender": "Gender"
