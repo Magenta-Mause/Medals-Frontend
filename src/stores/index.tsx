@@ -1,4 +1,4 @@
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete, Trainer } from "@customTypes/bffTypes";
 import { configureStore, Middleware, Store } from "@reduxjs/toolkit";
 import { Client } from "@stomp/stompjs";
 import initiateClient from "websockets/client";
@@ -8,6 +8,7 @@ import {
   removeAthlete,
   updateAthlete,
 } from "./slices/athleteSlice";
+import { addTrainer, removeTrainer } from "./slices/trainerSlice";
 
 let websocketClient: Client | null = null;
 
@@ -32,6 +33,18 @@ const crossSliceMiddleware: Middleware = (store) => (next) => (action: any) => {
         const athleteId = parseInt(message.body);
         console.log("athlete deletion [athleteId: " + athleteId + "]");
         store.dispatch(removeAthlete({ id: athleteId }));
+      });
+
+      client.subscribe("/topics/trainer/creation", (message) => {
+        const trainer = JSON.parse(message.body) as Trainer;
+        console.log("trainer created:", message.body);
+        store.dispatch(addTrainer(trainer));
+      });
+
+      client.subscribe("/topics/trainer/deletion", (message) => {
+        const trainerId = parseInt(message.body);
+        console.log("trainer deletion [trainerId: " + trainerId + "]");
+        store.dispatch(removeTrainer({ id: trainerId }));
       });
     };
 
