@@ -81,6 +81,7 @@ const useApi = () => {
       console.error(`Error while adding trainer`, error);
       throw error;
     }
+  };
 
   const createAthlete = async (athlete: Athlete) => {
     const response = await axiosInstance.post(`/athletes`, {
