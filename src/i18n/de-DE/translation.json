@@ -40,7 +40,8 @@
   },
   "units": {
     "seconds": "Sekunden",
-    "minutes": "Minuten"
+    "minutes": "Minuten",
+    "meters": "Meter"
   },
   "messages": {
     "noEntriesFound": "Keine Einträge gefunden"
@@ -60,6 +61,10 @@
     "inviteTrainer": {
       "failed": "Der Trainer konnte nicht eingeladen werden",
       "success": "Der Trainer wurde eingeladen"
+    },
+    "performanceRecording": {
+      "creationError": "Fehler beim anlegen von Leistungsaufnahme",
+      "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
     }
   },
   "pages": {
@@ -68,7 +73,17 @@
       "h3": "Das Medaillen Management System der Zukunft"
     },
     "athleteOverviewPage": {
-      "header": "Athlet*innen"
+      "header": "Athlet*innen",
+      "createButton": "Athlet*in erstellen"
+    },
+    "athleteCreationPage": {
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail",
+      "birthdate": "Geburtstag",
+      "gender": "Geschlecht",
+      "createButton": "Erstellen",
+      "createHeader": "Athlet*in erstellen"
     },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
@@ -150,6 +165,14 @@
         "/downloads": "Downloads",
         "/help": "Hilfe",
         "/userRoleErrorPage": "fehlende Nutzungberechtigung"
+      }
+    },
+    "createPerformanceRecordingModal": {
+      "header": "Leistungsaufnahme hinzufügen",
+      "form": {
+        "discipline": "Disziplin",
+        "amount": "Erreichtes Ergebniss",
+        "dateOfRecording": "Tag der Aufnahme"
       }
     },
     "athleteDetailHeader": {
@@ -240,6 +263,33 @@
         "description": "Description",
         "lastValue": "Letzter Wert",
         "recordedAt": "Aufgenommen am"
+      }
+    },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "Trainer*in ID",
+          "firstName": "Vorname",
+          "lastName": "Nachname",
+          "email": "E-Mail"
+        },
+        "filters": {
+          "search": "Suche"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Einladen",
+            "content": "Trainer Einladen"
+          }
+        }
+      },
+      "inviteModal": {
+        "email": "E-Mail",
+        "firstName": "Vorname",
+        "firstNamePlaceholder": "Max",
+        "lastName": "Nachname",
+        "lastNamePlaceholder": "Mustermann",
+        "confirm": "Trainer Einladen"
       }
     },
     "trainerDatagrid": {

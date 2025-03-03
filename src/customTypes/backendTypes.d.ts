@@ -70,6 +70,5 @@ export interface PerformanceRecordingCreationDto {
   athlete_id: number;
   rating_value: number;
   discipline_id: number;
-  selected_year: number;
   date_of_performance: number;
 }

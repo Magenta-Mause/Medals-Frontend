@@ -205,7 +205,7 @@ const NavBar = () => {
       <Box
         sx={{
           minHeight: 0,
-          overflow: "hidden auto",
+          overflow: { md: "hidden hidden", xs: "hidden auto" },
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",

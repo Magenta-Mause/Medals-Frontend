@@ -37,7 +37,7 @@ const useInstantiation = () => {
     useApi();
   const {
     initialize: initializeAthleteWebsocket,
-    uninitialize: uninitialiseAthleteWebsocket,
+    uninitialize: uninitializeAthleteWebsocket,
   } = useGenericWebsocketInitialization<Athlete>(
     client,
     "athlete",
@@ -48,7 +48,7 @@ const useInstantiation = () => {
 
   const {
     initialize: initializeDisciplineWebsocket,
-    uninitialize: uninitialiseDisciplineWebsocket,
+    uninitialize: uninitializeDisciplineWebsocket,
   } = useGenericWebsocketInitialization<Discipline>(
     client,
     "discipline",
@@ -59,7 +59,7 @@ const useInstantiation = () => {
 
   const {
     initialize: initializePerformanceRecordingWebsocket,
-    uninitialize: uninitialisePerformanceRecordingWebsocket,
+    uninitialize: uninitializePerformanceRecordingWebsocket,
   } = useGenericWebsocketInitialization<PerformanceRecording>(
     client,
     "performance-recording",
@@ -70,7 +70,7 @@ const useInstantiation = () => {
 
   const {
     initialize: initializeTrainerWebsocket,
-    uninitialize: uninitialiseTrainerWebsocket,
+    uninitialize: uninitializeTrainerWebsocket,
   } = useGenericWebsocketInitialization<Athlete>(
     client,
     "trainer",
@@ -121,13 +121,13 @@ const useInstantiation = () => {
     );
 
     setTimeout(() => {
-      uninitialiseTrainerWebsocket();
+      uninitializeTrainerWebsocket();
       initializeAthleteWebsocket();
       initializeDisciplineWebsocket();
       initializePerformanceRecordingWebsocket();
     }, 500);
   }, [
-    uninitialiseTrainerWebsocket,
+    uninitializeTrainerWebsocket,
     dispatch,
     getAthletes,
     getDisciplines,
@@ -139,15 +139,15 @@ const useInstantiation = () => {
 
   const instantiateAthlete = useCallback(async () => {
     console.log("Initializing athlete");
-    uninitialiseAthleteWebsocket();
-    uninitialiseDisciplineWebsocket();
-    uninitialiseTrainerWebsocket();
-    uninitialisePerformanceRecordingWebsocket();
+    uninitializeAthleteWebsocket();
+    uninitializeDisciplineWebsocket();
+    uninitializeTrainerWebsocket();
+    uninitializePerformanceRecordingWebsocket();
   }, [
-    uninitialiseTrainerWebsocket,
-    uninitialiseAthleteWebsocket,
-    uninitialiseDisciplineWebsocket,
-    uninitialisePerformanceRecordingWebsocket,
+    uninitializeTrainerWebsocket,
+    uninitializeAthleteWebsocket,
+    uninitializeDisciplineWebsocket,
+    uninitializePerformanceRecordingWebsocket,
   ]);
 
   const instantiateByType = useCallback(

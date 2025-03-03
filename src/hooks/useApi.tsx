@@ -1,6 +1,7 @@
 import {
   Athlete,
   PerformanceRecording,
+  PerformanceRecordingCreationDto,
   Trainer,
 } from "@customTypes/backendTypes";
 import { useCallback } from "react";
@@ -28,12 +29,16 @@ const useApi = () => {
     }
   };
 
-  const getAthlete = async (atheteId: string) => {
+  const getAthlete = async (athleteId: string) => {
     try {
-      const request = await axiosInstance!.get(`/athletes/${atheteId}`);
+      4;
+      const request = await axiosInstance!.get(`/athletes/${athleteId}`);
       return request.data.data as Athlete;
     } catch (error) {
-      console.error(`Error while fetching athlete with id: ${atheteId}`, error);
+      console.error(
+        `Error while fetching athlete with id: ${athleteId}`,
+        error,
+      );
     }
   };
 
@@ -94,6 +99,20 @@ const useApi = () => {
       console.error(`Error while adding trainer`, error);
       throw error;
     }
+  };
+
+  const createAthlete = async (athlete: Athlete) => {
+    const response = await axiosInstance.post(`/athletes`, {
+      first_name: athlete.first_name,
+      last_name: athlete.last_name,
+      email: athlete.email,
+      birthdate: athlete.birthdate,
+      gender: athlete.gender,
+    });
+    if (response.status != 201) {
+      throw new Error("Error during athlete creation");
+    }
+    return response.status == 201;
   };
 
   const loginUser = useCallback(
@@ -182,6 +201,19 @@ const useApi = () => {
     }
   }, [axiosInstance]);
 
+  const createPerformanceRecording = useCallback(
+    async (p: PerformanceRecordingCreationDto) => {
+      try {
+        const response = await axiosInstance!.post("/performance-recordings", p);
+        console.log(response);
+        return response.status == 201;
+      } catch {
+        throw new Error("Error while creating performance recording");
+      }
+    },
+    [axiosInstance],
+  );
+
   return {
     loginUser,
     logoutUser,
@@ -190,6 +222,7 @@ const useApi = () => {
     getAthlete,
     getAthletes,
     setPassword,
+    createAthlete,
     resetPassword,
     initiatePasswordReset,
     getPerformanceRecordings,
@@ -198,6 +231,7 @@ const useApi = () => {
     getTrainer,
     getTrainers,
     inviteTrainer,
+    createPerformanceRecording
   };
 };
 

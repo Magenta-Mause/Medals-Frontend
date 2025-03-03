@@ -2,16 +2,19 @@ import AuthenticationProvider from "@components/AuthenticationProvider/Authentic
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
 import useApi from "@hooks/useApi";
 import { Close } from "@mui/icons-material";
+import { CssVarsProvider, IconButton } from "@mui/joy";
+import CssBaseline from "@mui/material/CssBaseline";
 import {
-  CssBaseline,
-  CssVarsProvider,
-  IconButton,
-  StyledEngineProvider,
-} from "@mui/joy";
-import { setTrainers } from "@stores/slices/trainerSlice";
+  THEME_ID as MATERIAL_THEME_ID,
+  Experimental_CssVarsProvider as MaterialCssVarsProvider,
+  ThemeProvider,
+  extendTheme as materialExtendTheme,
+} from "@mui/material/styles";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router";
 
@@ -25,18 +28,13 @@ const UtilContext = createContext<UtilContextType>({
   setSideBarExtended: undefined,
 });
 
+const materialTheme = materialExtendTheme();
+
 const App = () => {
   const queryClient = new QueryClient();
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
-  const { getAthletes, getTrainers } = useApi();
+  const { getAthletes } = useApi();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      dispatch(setTrainers((await getTrainers()) || []));
-    };
-    fetchData();
-  }, [dispatch, getAthletes, getTrainers]);
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>
@@ -57,32 +55,36 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <StyledEngineProvider injectFirst>
-        <CssVarsProvider>
-          <UtilContext.Provider
-            value={{
-              sideBarExtended: isSideBarOpen,
-              setSideBarExtended: setSideBarOpen,
-            }}
-          >
-            <CssBaseline />
-            <BrowserRouter>
-              <SnackbarProvider
-                autoHideDuration={3000}
-                action={snackBarActions}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
+      <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
+        <ThemeProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
+          <CssVarsProvider>
+            <CssBaseline enableColorScheme />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <UtilContext.Provider
+                value={{
+                  sideBarExtended: isSideBarOpen,
+                  setSideBarExtended: setSideBarOpen,
                 }}
               >
-                <AuthenticationProvider>
-                  <RoutingComponent />
-                </AuthenticationProvider>
-              </SnackbarProvider>
-            </BrowserRouter>
-          </UtilContext.Provider>
-        </CssVarsProvider>
-      </StyledEngineProvider>
+                <BrowserRouter>
+                  <SnackbarProvider
+                    autoHideDuration={3000}
+                    action={snackBarActions}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                  >
+                    <AuthenticationProvider>
+                      <RoutingComponent />
+                    </AuthenticationProvider>
+                  </SnackbarProvider>
+                </BrowserRouter>
+              </UtilContext.Provider>
+            </LocalizationProvider>
+          </CssVarsProvider>
+        </ThemeProvider>
+      </MaterialCssVarsProvider>
     </QueryClientProvider>
   );
 };
