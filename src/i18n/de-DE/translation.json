@@ -104,7 +104,7 @@
       "email":"E-Mail",
       "resetPasswordButton": "Password zurücksetzen",
       "deleteProfileButton": "Account löschen",
-      "confirmDeleteMessage": "Durch das Klicken auf 'Löschen' wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht."
+      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht."
 
     }
   },
