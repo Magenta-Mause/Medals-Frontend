@@ -1,6 +1,7 @@
 import CreatePasswordComponent from "@components/CreatePasswordComponent/CreatePasswordComponent";
 import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
 import useApi from "@hooks/useApi";
+import { ArrowBackIos } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -99,6 +100,18 @@ const ResetPasswordPage = () => {
 
   return (
     <SplitPageComponent>
+      <Box display="flex">
+        <Button
+        sx={{
+          minWidth: "auto"
+        }}
+        onClick={() =>
+          navigate("/profile")
+        }
+        >
+          {<ArrowBackIos />} Back
+        </Button>
+      </Box>
       <Box
         component="main"
         sx={(theme) => ({
