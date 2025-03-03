@@ -1,3 +1,4 @@
+import Disclaimer from "@components/Disclaimer/Disclaimer";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import { Box, Chip, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
@@ -34,6 +35,7 @@ const HomePage = () => {
       <Typography level={"h4"} color={"neutral"} textAlign={"center"}>
         {t("pages.homePage.h3")}
       </Typography>
+      <Disclaimer />
     </Box>
   );
 };
