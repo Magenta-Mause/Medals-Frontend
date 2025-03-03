@@ -24,7 +24,7 @@ const LegalLinksSelector = ({ collapseSidebar }: { collapseSidebar: () => void }
     },
     {
       path: "/credits",
-      label: t("components.navbar.legalLinks.credit"),
+      label: t("components.navbar.legalLinks.credits"),
     },
   ];
 
