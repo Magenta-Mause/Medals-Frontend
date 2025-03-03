@@ -26,6 +26,10 @@
     "resetPassword": {
       "failed": "No pudimos encontrar una cuenta vinculada a ese correo electrónico",
       "success": "Correo de verificación enviado"
+    },
+    "inviteTrainer": {
+      "failed": "No se pudo invitar al entrenador",
+      "success": "El entrenador fue invitado"
     }
   },
   "pages": {
@@ -35,6 +39,9 @@
     },
     "athleteOverviewPage": {
       "header": "Atletas"
+    },
+    "trainerOverviewPage": {
+      "header": "Entrenadores"
     },
     "notFound": {
       "h1": "404",
@@ -94,7 +101,9 @@
       "paths": {
         "/": "Inicio",
         "/athletes": "Atletas",
-        "/downloads": "Descargas"
+        "/downloads": "Descargas",
+        "/trainer": "Entrenadores",
+        "/help": "Ayuda"
       }
     },
     "navbar": {
@@ -102,7 +111,9 @@
       "locationList": {
         "/": "Inicio",
         "/athletes": "Atletas",
-        "/downloads": "Descargas"
+        "/trainer": "Entrenadores",
+        "/downloads": "Descargas",
+        "/help": "Ayuda"
       },
       "search": "Buscar",
       "languageSelector": "Idioma",
@@ -156,6 +167,33 @@
           "birthYear": "Año de nacimiento",
           "gender": "Género"
         }
+      }
+    },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "ID del entrenador",
+          "firstName": "Nombre",
+          "lastName": "Apellido",
+          "email": "Correo electrónico"
+        },
+        "filters": {
+          "search": "Buscar"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Invitar",
+            "content": "Invitar al entrenador"
+          }
+        }
+      },
+      "inviteModal": {
+        "email": "Correo electrónico",
+        "firstName": "Nombre",
+        "firstNamePlaceholder": "Juan",
+        "lastName": "Apellido",
+        "lastNamePlaceholder": "Perez",
+        "confirm": "Invitar al entrenador"
       }
     },
     "buttons": {
