@@ -23,8 +23,8 @@ const LegalLinksSelector = ({ collapseSidebar }: { collapseSidebar: () => void }
       label: t("components.navbar.legalLinks.privacyPolicy"),
     },
     {
-      path: "/acknowledgement",
-      label: t("components.navbar.legalLinks.acknowledgement"),
+      path: "/credits",
+      label: t("components.navbar.legalLinks.credit"),
     },
   ];
 

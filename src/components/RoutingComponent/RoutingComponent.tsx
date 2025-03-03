@@ -9,7 +9,7 @@ import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
-import AcknowledgementPage from "@pages/Legal/AcknowledgementPage";
+import CreditsPage from "@pages/Legal/CreditsPage";
 import ImprintPage from "@pages/Legal/ImprintPage";
 import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
 import { Route, Routes } from "react-router";
@@ -28,7 +28,7 @@ const RoutingComponent = () => {
         <Route index element={<HomePage />} />
         <Route path="/imprint" element={<ImprintPage />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
-        <Route path="/acknowledgement" element={<AcknowledgementPage />} />
+        <Route path="/credits" element={<CreditsPage />} />
 
         <Route element={<ProtectedRoute userRole={selectedUser?.type} />}>
           {/* ADMIN */}
