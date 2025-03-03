@@ -11,7 +11,7 @@ import { KeyboardArrowDown, InfoOutlined } from "@mui/icons-material";
 import Toggler from "@components/NavBar/Toggler";
 import { useState } from "react";
 
-const LegalLinksSelector = () => {
+const LegalLinksSelector = ({ collapseSidebar }: { collapseSidebar: () => void }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -68,6 +68,7 @@ const LegalLinksSelector = () => {
               <ListItemButton
                 onClick={() => {
                   navigate(link.path);
+                  collapseSidebar();
                   setOpen(false);
                 }}
               >
