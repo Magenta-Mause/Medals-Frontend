@@ -272,6 +272,8 @@ const NavBar = () => {
           sx={{
             p: 0.5,
             textAlign: "left",
+            flex: 1,
+            minWidth: 0
           }}
           onClick={() => navigate("/profile")}
         >
@@ -279,7 +281,7 @@ const NavBar = () => {
             <Typography level="title-sm">
               {selectedUser?.first_name} {selectedUser?.last_name}
             </Typography>
-            <Typography level="body-xs" sx={{ wordBreak: "break-word" }}>
+            <Typography level="body-xs" noWrap sx={{maxWidth: "100%"}}>
               {email}
             </Typography>
           </Box>
