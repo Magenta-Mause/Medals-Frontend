@@ -100,7 +100,7 @@
       "title": "Imprint",
       "contact": "Contact"
     },
-    "acknowledgementPage": {
+    "credits": {
       "title": "Our thanks go to...",
       "loginPage": "Login Page",
       "downloadPage": "Download Page"
@@ -122,7 +122,7 @@
         "/help": "Help",
         "/imprint": "Imprint",
         "/privacyPolicy": "Privacy Policy",
-        "/acknowledgement": "Our thanks go to ...",
+        "/credits": "Our thanks go to ...",
         "/userRoleErrorPage": "User Role Error"
       }
     },
@@ -151,7 +151,7 @@
         "title": "Legal",
         "imprint": "Imprint",
         "privacyPolicy": "Privacy Policy",
-        "acknowledgement": "Our thanks go to"
+        "credits": "Our thanks go to"
       }
     },
     "downloadCard": {

@@ -101,7 +101,7 @@
       "title": "Impressum",
       "contact": "Kontakt"
     },
-    "acknowledgementPage": {
+    "creditsPage": {
       "title": "Unser Dank geht an...",
       "loginPage": "Login Seite",
       "downloadPage": "Download Seite"
@@ -123,7 +123,7 @@
         "/help": "Hilfe",
         "/imprint": "Impressum",
         "/privacyPolicy": "Datenschutz",
-        "/acknowledgement": "Unser Dank geht an ...",
+        "/credits": "Unser Dank geht an ...",
         "/userRoleErrorPage": "fehlende Nutzungberechtigung"
       }
     },
@@ -152,7 +152,7 @@
         "title": "Rechtliches",
         "imprint": "Impressum",
         "privacyPolicy": "Datenschutz",
-        "acknowledgement": "Unser Dank geht an"
+        "credits": "Unser Dank geht an"
       }
     },
     "downloadCard": {

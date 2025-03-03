@@ -1,12 +1,12 @@
 import { Box, Typography, List, ListItem } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
-const AcknowledgementPage = () => {
+const CreditsPage = () => {
   const { t } = useTranslation();
 
   const imageCredits = [
     {
-      description: t("pages.acknowledgementPage.loginPage"),
+      description: t("pages.creditsPage.loginPage"),
       credits: [
         {
           mode: "LightMode",
@@ -21,7 +21,7 @@ const AcknowledgementPage = () => {
       ],
     },
     {
-      description: t("pages.acknowledgementPage.downloadPage"),
+      description: t("pages.creditsPage.downloadPage"),
       credits: [
         {
           mode: "SwimmingCard",
@@ -63,9 +63,14 @@ const AcknowledgementPage = () => {
   ];
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box
+      sx={{
+        overflowY: "scroll",
+        height: "100vh",
+        pb: 2,
+      }}>
       <Typography level="h1" sx={{ mb: 2 }}>
-        {t("pages.acknowledgementPage.title")}
+        {t("pages.creditsPage.title")}
       </Typography>
       {imageCredits.map((section, index) => (
         <Box key={index} sx={{ mb: 3 }}>
@@ -94,4 +99,4 @@ const AcknowledgementPage = () => {
   );
 };
 
-export default AcknowledgementPage;
+export default CreditsPage;
