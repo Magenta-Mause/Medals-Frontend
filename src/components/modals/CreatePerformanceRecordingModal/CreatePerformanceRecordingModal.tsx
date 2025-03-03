@@ -68,17 +68,20 @@ const CreatePerformanceRecordingModal = (props: {
   }, [selectedDiscipline, setDiscipline, disciplines]);
   const [selectedDate, setDate] = useState<number | null>(null);
   const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
 
   const submitPerformanceRecording = async (
     p: PerformanceRecordingCreationDto,
   ) => {
+    setLoading(true);
     try {
-      if (! await careatePerformanceRecording(p)) {
+      if (!(await createPerformanceRecording(p))) {
         throw Error("Error while submitting performance recording");
       } else {
         enqueueSnackbar(t("snackbar.performanceRecording.creationSuccess"), {
           variant: "success",
         });
+        props.setOpen(false);
       }
     } catch {
       enqueueSnackbar(t("snackbar.performanceRecording.creationError"), {
@@ -177,7 +180,7 @@ const CreatePerformanceRecordingModal = (props: {
               format={undefined}
             />
           </FormControl>
-          <Button type={"submit"}>Submit</Button>
+          <Button type={"submit"} disabled={loading}>{!loading ? "Submit" : "Loading"}</Button>
         </form>
       </ModalDialog>
     </Modal>

@@ -23,6 +23,9 @@ const useFormatting = () => {
             t("units.minutes")
           );
         }
+        case "meters": {
+          return value + " " + t("units.meters");
+        }
       }
       return "";
     },
