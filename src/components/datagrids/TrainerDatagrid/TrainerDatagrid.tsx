@@ -1,5 +1,4 @@
 import useApi from "@hooks/useApi";
-import { Trainer } from "@customTypes/bffTypes";
 import { Typography } from "@mui/joy";
 import { removeTrainer } from "@stores/slices/trainerSlice";
 import { useTranslation } from "react-i18next";
@@ -12,8 +11,9 @@ import GenericResponsiveDatagrid, {
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import { Add } from "@mui/icons-material";
-import TrainerInvitatonModal from "@components/Modals/TrainerInvitatonModal";
 import { useState } from "react";
+import { Trainer } from "@customTypes/backendTypes";
+import TrainerInvitationModal from "@components/modals/TrainerInvitatonModal";
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
@@ -147,7 +147,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
       />
-      <TrainerInvitatonModal
+      <TrainerInvitationModal
         isOpen={addTrainerModalOpen}
         setOpen={setAddTrainerModalOpen}
       />

@@ -1,21 +1,19 @@
 import AuthenticationProvider from "@components/AuthenticationProvider/AuthenticationProvider";
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
-import useApi from "@hooks/useApi";
 import { Close } from "@mui/icons-material";
 import { CssVarsProvider, IconButton } from "@mui/joy";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
   THEME_ID as MATERIAL_THEME_ID,
   Experimental_CssVarsProvider as MaterialCssVarsProvider,
-  ThemeProvider,
   extendTheme as materialExtendTheme,
+  ThemeProvider,
 } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
 import { createContext, useState } from "react";
-import { useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router";
 
 type UtilContextType = {
@@ -33,8 +31,6 @@ const materialTheme = materialExtendTheme();
 const App = () => {
   const queryClient = new QueryClient();
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
-  const { getAthletes } = useApi();
-  const dispatch = useDispatch();
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>

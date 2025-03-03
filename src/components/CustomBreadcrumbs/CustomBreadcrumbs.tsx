@@ -1,4 +1,7 @@
-import useBreadcrumbs, { BreadcrumbsRoute } from "use-react-router-breadcrumbs";
+import useBreadcrumbs, {
+  BreadcrumbComponentProps,
+  BreadcrumbsRoute,
+} from "use-react-router-breadcrumbs";
 import { Breadcrumbs, Link } from "@mui/joy";
 import { ChevronRight } from "@mui/icons-material";
 import { Link as RouterLink, useLocation } from "react-router";
@@ -8,13 +11,16 @@ import useAthleteLookup from "@hooks/useAthleteLookup";
 const CustomBreadcrumbs = () => {
   const location = useLocation();
   const { t } = useTranslation();
-  const athleteLookup = useAthleteLookup();
+  const { useAthleteNameLookup } = useAthleteLookup();
+
+  const useBreadcrumbsAthleteNameConverter = (
+    athleteId: BreadcrumbComponentProps<string>,
+  ) => useAthleteNameLookup(athleteId.match.params.athleteId as string);
 
   const routes: BreadcrumbsRoute[] = [
     {
       path: "/athletes/:athleteId",
-      breadcrumb: (athleteId) =>
-        athleteLookup(athleteId.match.params.athleteId as string),
+      breadcrumb: useBreadcrumbsAthleteNameConverter,
     },
   ];
   const breadcrumbs = useBreadcrumbs(routes);

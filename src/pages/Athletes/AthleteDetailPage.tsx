@@ -1,7 +1,7 @@
 import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 import AthletePerformanceAccordions from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
 import CreatePerformanceRecordingModal from "@components/modals/CreatePerformanceRecordingModal/CreatePerformanceRecordingModal";
-import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
+import { Athlete } from "@customTypes/backendTypes";
 import { Button, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useState } from "react";
@@ -24,10 +24,6 @@ const AthleteDetailPage = () => {
     return <Typography>No matching </Typography>;
   }
 
-  const createPerformanceRecording = (p: PerformanceRecording) => {
-    return <></>;
-  };
-
   return (
     <>
       <AthleteDetailHeader athlete={filteredAthletes[0]} />
@@ -39,7 +35,6 @@ const AthleteDetailPage = () => {
         open={isPerformanceRecordingModalOpen}
         setOpen={setPerformanceRecordingModalOpen}
         athlete={filteredAthletes[0]}
-        onCreatePerformanceRecording={createPerformanceRecording}
       />
     </>
   );

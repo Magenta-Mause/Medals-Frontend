@@ -31,7 +31,6 @@ const useApi = () => {
 
   const getAthlete = async (athleteId: string) => {
     try {
-      4;
       const request = await axiosInstance!.get(`/athletes/${athleteId}`);
       return request.data.data as Athlete;
     } catch (error) {
@@ -204,7 +203,10 @@ const useApi = () => {
   const createPerformanceRecording = useCallback(
     async (p: PerformanceRecordingCreationDto) => {
       try {
-        const response = await axiosInstance!.post("/performance-recordings", p);
+        const response = await axiosInstance!.post(
+          "/performance-recordings",
+          p,
+        );
         console.log(response);
         return response.status == 201;
       } catch {
@@ -231,7 +233,7 @@ const useApi = () => {
     getTrainer,
     getTrainers,
     inviteTrainer,
-    createPerformanceRecording
+    createPerformanceRecording,
   };
 };
 

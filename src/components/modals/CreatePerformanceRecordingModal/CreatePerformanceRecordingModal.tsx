@@ -2,7 +2,6 @@ import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import {
   Athlete,
   Discipline,
-  PerformanceRecording,
   PerformanceRecordingCreationDto,
 } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
@@ -20,7 +19,6 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
-import { Dayjs } from "dayjs";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -38,7 +36,6 @@ const CreatePerformanceRecordingModal = (props: {
   setOpen: (open: boolean) => void;
   athlete: Athlete;
   defaultSelected?: Discipline;
-  onCreatePerformanceRecording: (p: PerformanceRecording) => void;
 }) => {
   const disciplines = useTypedSelector(
     (state) => state.disciplines.data,
@@ -116,7 +113,7 @@ const CreatePerformanceRecordingModal = (props: {
           onSubmit={(e: React.FormEvent<CreatePerformanceRecordingElement>) => {
             e.preventDefault();
             submitPerformanceRecording({
-              athlete_id: props.athlete.id,
+              athlete_id: props.athlete.id!,
               rating_value: parseInt(
                 e.currentTarget.elements.rating_value.value,
               ),
@@ -180,7 +177,9 @@ const CreatePerformanceRecordingModal = (props: {
               format={undefined}
             />
           </FormControl>
-          <Button type={"submit"} disabled={loading}>{!loading ? "Submit" : "Loading"}</Button>
+          <Button type={"submit"} disabled={loading}>
+            {!loading ? "Submit" : "Loading"}
+          </Button>
         </form>
       </ModalDialog>
     </Modal>

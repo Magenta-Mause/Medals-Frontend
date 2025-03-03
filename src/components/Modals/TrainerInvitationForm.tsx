@@ -12,7 +12,7 @@ interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
 }
 
-const TrainerInvitatonForm = (props: {
+const TrainerInvitationForm = (props: {
   inviteCallback: (formValues: {
     first_name: string;
     last_name: string;
@@ -127,4 +127,4 @@ const TrainerInvitatonForm = (props: {
   );
 };
 
-export default TrainerInvitatonForm;
+export default TrainerInvitationForm;

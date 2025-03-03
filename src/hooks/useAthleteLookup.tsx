@@ -2,7 +2,7 @@ import { Athlete } from "@customTypes/backendTypes";
 import { useTypedSelector } from "@stores/rootReducer";
 
 const useAthleteLookup = () => {
-  return (userId: string) => {
+  const useAthleteNameLookup = (userId: string) => {
     const athletes = useTypedSelector(
       (state) => state.athletes.data,
     ) as Athlete[];
@@ -15,6 +15,7 @@ const useAthleteLookup = () => {
       </>
     );
   };
+  return { useAthleteNameLookup };
 };
 
 export default useAthleteLookup;

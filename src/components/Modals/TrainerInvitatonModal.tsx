@@ -3,25 +3,29 @@ import { Divider, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import TrainerInvitatonForm from "./TrainerInvitationForm";
+import TrainerInvitationForm from "./TrainerInvitationForm";
 
 interface TrainerInvitationModalProps {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const TrainerInvitatonModal = (props: TrainerInvitationModalProps) => {
+interface TrainerInvitationObject {
+  email: string;
+  first_name: string;
+  last_name: string;
+}
+
+const TrainerInvitationModal = (props: TrainerInvitationModalProps) => {
   const { enqueueSnackbar } = useSnackbar();
   const [trainerInviteSubmitted, setTrainerInviteSubmitted] = useState(false);
   const { t } = useTranslation();
 
   const { inviteTrainer } = useApi();
 
-  const handleSubmitTrainerInvitation = async (data: {
-    email: string;
-    first_name: string;
-    last_name: string;
-  }): Promise<void> => {
+  const handleSubmitTrainerInvitation = async (
+    data: TrainerInvitationObject,
+  ): Promise<void> => {
     console.log("Inviting trainer..");
     setTrainerInviteSubmitted(true);
 
@@ -62,8 +66,8 @@ const TrainerInvitatonModal = (props: TrainerInvitationModalProps) => {
             {t("components.trainerDatagrid.table.toolbar.addTrainer.content")}
           </Typography>
           <Divider inset="none" sx={{ marginBottom: 1 }} />
-          <TrainerInvitatonForm
-            inviteCallback={(formValues) => {
+          <TrainerInvitationForm
+            inviteCallback={(formValues: TrainerInvitationObject) => {
               handleSubmitTrainerInvitation(formValues);
             }}
             isPending={trainerInviteSubmitted}
@@ -74,4 +78,4 @@ const TrainerInvitatonModal = (props: TrainerInvitationModalProps) => {
   );
 };
 
-export default TrainerInvitatonModal;
+export default TrainerInvitationModal;

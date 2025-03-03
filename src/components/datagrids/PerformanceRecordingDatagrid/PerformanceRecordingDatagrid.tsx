@@ -28,9 +28,6 @@ const PerformanceRecordingDatagrid = (
   const { t } = useTranslation();
   const { formatValue, formatDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
-  const createPerformanceRecording = (p: PerformanceRecording) => {
-    console.log(p);
-  };
 
   const columns: Column<PerformanceRecording>[] = [
     {
@@ -69,7 +66,7 @@ const PerformanceRecordingDatagrid = (
   ];
 
   const mobileRendering: MobileTableRendering<PerformanceRecording> = {
-    avatar: (p) => {
+    avatar: () => {
       return (
         <Chip
           sx={{ aspectRatio: 1, height: 45, backgroundColor: "gold" }}
@@ -123,7 +120,7 @@ const PerformanceRecordingDatagrid = (
         ]
       : []),
   ];
-  
+
   return (
     <>
       <GenericResponsiveDatagrid
@@ -144,7 +141,6 @@ const PerformanceRecordingDatagrid = (
           open={isCreationModalOpen}
           setOpen={setCreationModalOpen}
           athlete={props.athlete}
-          onCreatePerformanceRecording={createPerformanceRecording}
           defaultSelected={props.discipline}
         />
       ) : (

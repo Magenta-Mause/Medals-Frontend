@@ -1,5 +1,5 @@
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
   IconButton,
   Link,
@@ -10,12 +10,11 @@ import {
   ListItemDecorator,
   Typography,
 } from "@mui/joy";
-import { Action } from "./GenericResponsiveDatagrid";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { Key, ReactNode } from "react";
-import RowMenu from "./RowMenu";
-import { Filter } from "./GenericResponsiveDatagridFilterComponent";
 import { useTranslation } from "react-i18next";
+import { Action } from "./GenericResponsiveDatagrid";
+import { Filter } from "./GenericResponsiveDatagridFilterComponent";
+import RowMenu from "./RowMenu";
 
 export interface MobileTableRendering<T> {
   avatar?: (row: T) => ReactNode;

@@ -2,16 +2,15 @@ import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { useNavigate } from "react-router";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -233,7 +232,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         filters={filters}
         actionMenu={actions}
         itemSelectionActions={actions}
-        keyOf={(item) => item.id}
+        keyOf={(item) => item.id!}
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
         disablePaging={false}
