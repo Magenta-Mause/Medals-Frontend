@@ -16,10 +16,7 @@ import { useTypedSelector } from "@stores/rootReducer";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const AthletePerformanceAccordions = (props: {
-  athlete: Athlete;
-  disciplineOnclick?: (discipline: Discipline) => void;
-}) => {
+const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
   const performances = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
@@ -56,7 +53,7 @@ const AthletePerformanceAccordions = (props: {
                 padding: 1,
                 borderRadius: 10,
                 [theme.getColorSchemeSelector("dark")]: {
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "rgba(255, 255, 255, 0.08)",
                 },
               };
             }}
@@ -68,9 +65,6 @@ const AthletePerformanceAccordions = (props: {
               <Typography
                 level="h3"
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
                   borderRadius: "10px",
                   padding: "10px",
                 }}

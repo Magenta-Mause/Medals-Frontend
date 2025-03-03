@@ -11,14 +11,14 @@ const AthleteDetailHeader = (props: { athlete: Athlete }) => {
     mapping: (athlete: Athlete) => string;
   }[] = [
     {
-      label: "id",
-      size: 2,
-      mapping: (athlete) => String(athlete.id),
-    },
-    {
       label: "name",
       size: 2,
       mapping: (athlete) => `${athlete.first_name} ${athlete.last_name}`,
+    },
+    {
+      label: "id",
+      size: 2,
+      mapping: (athlete) => String(athlete.id),
     },
     {
       label: "birthdate",
@@ -46,6 +46,7 @@ const AthleteDetailHeader = (props: { athlete: Athlete }) => {
         background: "var(--joy-palette-background-level2)",
         padding: "20px 20px",
         borderRadius: "10px",
+        m: "20px 0"
       }}
     >
       <Grid container spacing={1} justifyContent="left">
@@ -61,7 +62,7 @@ const AthleteDetailHeader = (props: { athlete: Athlete }) => {
               lang={"de"}
             >
               {t("components.athleteDetailHeader.columns." + column.label)}:
-            </Typography>{" "}
+            </Typography>
             <Typography
               sx={{ wordBreak: "break-all", hyphens: "auto" }}
               lang={i18n.language}

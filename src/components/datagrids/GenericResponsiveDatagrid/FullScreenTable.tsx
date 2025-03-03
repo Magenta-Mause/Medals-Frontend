@@ -293,6 +293,8 @@ const FullScreenTable = <T,>(props: {
   keyOf: (item: T) => Key;
   rowOnClick?: (item: T) => void;
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Table
       aria-labelledby="tableTitle"
@@ -301,9 +303,11 @@ const FullScreenTable = <T,>(props: {
       sx={{
         "--TableCell-headBackground": "var(--joy-palette-background-level1)",
         "--Table-headerUnderlineThickness": "1px",
-        "--TableRow-hoverBackground": "var(--joy-palette-background-level1)",
         "--TableCell-paddingY": "4px",
         "--TableCell-paddingX": "8px",
+        "--TableRow-hoverBackground": props.rowOnClick
+          ? "var(--joy-palette-background-level1)"
+          : "var(--joy-palette-background-surface)",
       }}
     >
       <thead>
@@ -372,75 +376,89 @@ const FullScreenTable = <T,>(props: {
           )}
         </tr>
       </thead>
-      <tbody>
+      <tbody
+        style={{
+          position: "relative",
+          height: props.renderedPage.length == 0 ? "50px" : "auto",
+        }}
+      >
         {props.renderedPage.length == 0 ? (
-          <Typography
-            sx={{
-              display: "flex",
-              height: "50px",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            No Entrys found
-          </Typography>
-        ) : (
-          <></>
-        )}
-        {props.renderedPage.map((row) => (
-          <tr
-            key={props.keyOf(row)}
-            onClick={() => (props.rowOnClick ? props.rowOnClick(row) : {})}
-            style={{ cursor: props.rowOnClick ? "pointer" : "inherit" }}
-          >
-            {props.itemSelectionActions ? (
-              <td style={{ textAlign: "center", width: 120 }}>
-                <Checkbox
-                  size="sm"
-                  checked={props.selected.includes(props.keyOf(row))}
-                  color={
-                    props.selected.includes(props.keyOf(row))
-                      ? "primary"
-                      : undefined
-                  }
-                  onChange={(event) => {
-                    props.setSelected((ids) =>
-                      event.target.checked
-                        ? ids.concat(props.keyOf(row))
-                        : ids.filter((itemId) => itemId !== props.keyOf(row)),
-                    );
-                  }}
-                  slotProps={{ checkbox: { sx: { textAlign: "left" } } }}
-                  sx={{ verticalAlign: "text-bottom" }}
-                />
-              </td>
-            ) : (
-              <></>
-            )}
-            {props.columns.map((column) => (
-              <td key={column.columnName}>
-                <Typography
-                  level="body-xs"
-                  sx={{
-                    padding: 1,
-                    paddingLeft: 2,
-                    alignContent: "center",
-                    display: "flex",
-                  }}
-                >
-                  {column.columnMapping(row as T)}
-                </Typography>
-              </td>
-            ))}
-            {props.actionMenu ? (
-              <td>
-                <RowMenu item={row} actionMenu={props.actionMenu} />
-              </td>
-            ) : (
-              <></>
-            )}
+          <tr>
+            <td
+              style={{
+                display: "flex",
+                height: "50px",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "absolute",
+                left: "calc(50%)",
+                transform: "translateX(-50%)",
+              }}
+              colSpan={props.columns.length}
+            >
+              <Typography color="neutral">
+                {t(
+                  "components.genericResponsiveDatagrid.fullScreenTable.empty",
+                )}
+              </Typography>
+            </td>
           </tr>
-        ))}
+        ) : (
+          props.renderedPage.map((row) => (
+            <tr
+              key={props.keyOf(row)}
+              onClick={() => (props.rowOnClick ? props.rowOnClick(row) : {})}
+              style={{ cursor: props.rowOnClick ? "pointer" : "inherit" }}
+            >
+              {props.itemSelectionActions ? (
+                <td style={{ textAlign: "center", width: 120 }}>
+                  <Checkbox
+                    size="sm"
+                    checked={props.selected.includes(props.keyOf(row))}
+                    color={
+                      props.selected.includes(props.keyOf(row))
+                        ? "primary"
+                        : undefined
+                    }
+                    onChange={(event) => {
+                      props.setSelected((ids) =>
+                        event.target.checked
+                          ? ids.concat(props.keyOf(row))
+                          : ids.filter((itemId) => itemId !== props.keyOf(row)),
+                      );
+                    }}
+                    slotProps={{ checkbox: { sx: { textAlign: "left" } } }}
+                    sx={{ verticalAlign: "text-bottom" }}
+                  />
+                </td>
+              ) : (
+                <></>
+              )}
+              {props.columns.map((column) => (
+                <td key={column.columnName}>
+                  <Typography
+                    level="body-xs"
+                    sx={{
+                      padding: 1,
+                      paddingLeft: 2,
+                      alignContent: "center",
+                      display: "flex",
+                    }}
+                  >
+                    {column.columnMapping(row as T)}
+                  </Typography>
+                </td>
+              ))}
+              {props.actionMenu ? (
+                <td>
+                  <RowMenu item={row} actionMenu={props.actionMenu} />
+                </td>
+              ) : (
+                <></>
+              )}
+            </tr>
+          ))
+        )}
       </tbody>
     </Table>
   );

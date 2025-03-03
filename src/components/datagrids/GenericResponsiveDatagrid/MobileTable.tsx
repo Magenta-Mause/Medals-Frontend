@@ -30,6 +30,8 @@ export interface MobileTableRendering<T> {
 
 const Row = <T,>(props: {
   item: T;
+  totalCount: number;
+  index: number;
   rendering: MobileTableRendering<T>;
   keyOf: (item: T) => Key;
 }) => {
@@ -53,7 +55,7 @@ const Row = <T,>(props: {
         >
           {props.rendering.avatar ? (
             <ListItemDecorator>
-              <Avatar size="sm">{props.rendering.avatar(props.item)}</Avatar>
+              {props.rendering.avatar(props.item)}
             </ListItemDecorator>
           ) : (
             <></>
@@ -101,6 +103,7 @@ const Row = <T,>(props: {
                   level="body-sm"
                   color={action.color}
                   key={action.key}
+                  variant={action.variant ?? "plain"}
                   component="button"
                   onClick={() => action.operation(props.item)}
                 >
@@ -124,7 +127,11 @@ const Row = <T,>(props: {
           <></>
         )}
       </ListItem>
-      <ListDivider key={props.keyOf(props.item) + "divider"} />
+      {props.index < props.totalCount - 1 ? (
+        <ListDivider key={props.keyOf(props.item) + "divider"} />
+      ) : (
+        <></>
+      )}
     </>
   );
 };
@@ -143,10 +150,12 @@ const MobileTable = <T,>(props: {
   return (
     <>
       <List size="sm" sx={{ "--ListItem-paddingX": 0 }}>
-        {props.rows.map((listItem) => (
+        {props.rows.map((listItem, index) => (
           <Row
             item={listItem}
+            index={index}
             keyOf={props.keyOf}
+            totalCount={props.rows.length}
             rendering={props.rendering}
             key={props.keyOf(listItem)}
           ></Row>

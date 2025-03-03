@@ -10,9 +10,10 @@ import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
-import { Route, Routes } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import AthleteDetailPage from "@pages/Athletes/AthleteDetailPage";
+import { Route, Routes } from "react-router";
 
 const RoutingComponent = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -31,6 +32,7 @@ const RoutingComponent = () => {
 
           {/* TRAINER */}
           <Route path="/athletes" element={<AthleteOverviewPage />} />
+          <Route path="/athletes/:athleteId" element={<AthleteDetailPage />} />
           <Route path="/performanceMetrics" element={<InDevelopmentPage />} />
           <Route path="/assignAthlete" element={<InDevelopmentPage />} />
 

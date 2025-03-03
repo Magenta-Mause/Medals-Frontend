@@ -31,7 +31,8 @@ const DisciplineDetailModal = (props: {
           pt: 6,
           maxWidth: { md: "calc(90vw - var(--Sidebar-width))", xs: "90vw" },
           overflowY: "auto",
-          height: { xs: "90vh", md: "80vh" },
+          height: { xs: "calc(90vh - var(--Header-height))", md: "80vh" },
+          mt: "var(--Header-height)",
         }}
       >
         <ModalClose />
@@ -44,6 +45,8 @@ const DisciplineDetailModal = (props: {
             <PerformanceRecordingDatagrid
               performanceRecordings={props.performanceRecordings}
               isLoading={false}
+              athlete={props.athlete}
+              discipline={props.discipline}
             />
           </>
         ) : (

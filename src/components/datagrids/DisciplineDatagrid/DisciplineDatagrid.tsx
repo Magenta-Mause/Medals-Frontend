@@ -82,7 +82,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         return (
           <Typography>
             {item.performanceRecordings.length > 0
-              ? dateTimeFormatter.format(Date.parse(bestItem.date_recorded))
+              ? dateTimeFormatter.format(new Date(bestItem.date_of_performance))
               : t("messages.noEntriesFound")}
           </Typography>
         );
@@ -109,6 +109,13 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
           </>
         );
       },
+      bottomButtons: [
+        {
+          label: "Details",
+          key: "openDetails",
+          operation: props.onDisciplineClick ?? (() => {}),
+        },
+      ],
     };
 
   return (
@@ -120,13 +127,13 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
             Math.max(
               0,
               ...a.performanceRecordings.map((p) =>
-                parseInt(Date.parse(p.date_recorded).toFixed()),
+                parseInt(Date.parse(p.date_of_performance).toFixed()),
               ),
             ) -
             Math.max(
               0,
               ...b.performanceRecordings.map((p) =>
-                parseInt(Date.parse(p.date_recorded).toFixed()),
+                parseInt(Date.parse(p.date_of_performance).toFixed()),
               ),
             ),
         )}

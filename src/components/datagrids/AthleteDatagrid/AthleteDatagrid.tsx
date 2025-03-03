@@ -1,4 +1,3 @@
-import AthleteDetailModal from "@components/modals/AthleteDetailModal/AthleteDetailModal";
 import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Chip, Typography } from "@mui/joy";
@@ -12,6 +11,7 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import { useNavigate } from "react-router";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -21,9 +21,8 @@ interface AthleteDatagridProps {
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const { deleteAthlete } = useApi();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedAthlete, selectAthlete] = useState<Athlete | null>(null);
 
   const columns: Column<Athlete>[] = [
     {
@@ -162,12 +161,15 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   ];
 
   const itemCallback = (item: Athlete) => {
-    setModalOpen(true);
-    selectAthlete(item);
+    navigate("/athletes/" + item.id);
   };
 
   const mobileRendering: MobileTableRendering<Athlete> = {
-    avatar: (athlete) => <>{athlete.id}</>,
+    avatar: (athlete) => (
+      <Chip size="lg" sx={{ aspectRatio: 1 }}>
+        {athlete.id}
+      </Chip>
+    ),
     h1: (athlete) => (
       <>
         {athlete.first_name} {athlete.last_name}
@@ -235,11 +237,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
         disablePaging={false}
-      />
-      <AthleteDetailModal
-        athlete={selectedAthlete}
-        open={isModalOpen}
-        setOpen={setModalOpen}
       />
     </>
   );

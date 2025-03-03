@@ -63,5 +63,13 @@ export interface PerformanceRecording {
   athlete_id: number;
   discipline_rating_metric: DisciplineRatingMetric;
   rating_value: number;
-  date_recorded: string;
+  date_of_performance: string;
+}
+
+export interface PerformanceRecordingCreationDto {
+  athlete_id: number;
+  rating_value: number;
+  discipline_id: number;
+  selected_year: number;
+  date_of_performance: number;
 }

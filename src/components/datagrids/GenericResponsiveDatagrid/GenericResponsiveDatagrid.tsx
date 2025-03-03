@@ -108,7 +108,7 @@ const GenericResponsiveDatagrid = <T,>(
   props: GenericResponsiveDatagridProps<T>,
 ) => {
   const [selected, setSelected] = useState<Key[]>([]);
-  const [open, setOpen] = useState(false);
+  const [isFilterOpen, setFilterOpen] = useState(false);
   const [filterValues, setFilterValues] = useState<Record<string, string>>({});
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [pageSize, setPageSizeInternal] = useState(
@@ -258,14 +258,14 @@ const GenericResponsiveDatagrid = <T,>(
             size="sm"
             variant="outlined"
             color="neutral"
-            onClick={() => setOpen(true)}
+            onClick={() => setFilterOpen(true)}
           >
             <FilterAlt />
           </Button>
         ) : (
           <></>
         )}
-        <Modal open={open} onClose={() => setOpen(false)}>
+        <Modal open={isFilterOpen} onClose={() => setFilterOpen(false)}>
           <ModalDialog aria-labelledby="filter-modal" layout="center">
             <ModalClose />
             <Typography id="filter-modal" level="h2">
@@ -280,7 +280,7 @@ const GenericResponsiveDatagrid = <T,>(
                     setFilter={setFilter}
                     filterValues={filterValues}
                   />
-                  <Button color="primary" onClick={() => setOpen(false)}>
+                  <Button color="primary" onClick={() => setFilterOpen(false)}>
                     Submit
                   </Button>
                 </>

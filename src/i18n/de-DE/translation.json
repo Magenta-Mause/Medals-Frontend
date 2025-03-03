@@ -205,7 +205,8 @@
             "label": "Seiten Größe:",
             "inputPostfix": "Einträge"
           }
-        }
+        },
+        "empty": "Keine Einträge vorhanden"
       },
       "mobileList": {
         "pageControl": {
