@@ -15,6 +15,9 @@
     "TRAINER": "Trainer*in",
     "ADMIN": "Admin"
   },
+  "generic": {
+    "all": "Alle"
+  },
   "disciplines": {
     "categories": {
       "STRENGTH": {

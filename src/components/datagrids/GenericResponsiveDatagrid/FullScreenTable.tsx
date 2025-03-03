@@ -209,19 +209,15 @@ const PageControl = (props: {
       </Box>
 
       <Box sx={{ flex: 1 }} />
-      <Typography sx={{ display: "flex", alignItems: "center" }}>
+      <Typography
+        color="neutral"
+        sx={{ display: "flex", alignItems: "center", userSelect: "none" }}
+      >
         {t(
           "components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.label",
         )}
       </Typography>
       <Input
-        endDecorator={
-          <Typography color="neutral" sx={{ userSelect: "none" }}>
-            {t(
-              "components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.inputPostfix",
-            )}
-          </Typography>
-        }
         type={"tel"}
         onChange={(e) =>
           e.target.value != "" &&
@@ -231,7 +227,7 @@ const PageControl = (props: {
         defaultValue={props.elementsPerPage}
         ref={pageSizeInputRef}
         sx={{
-          width: 110,
+          width: 40,
           p: 0,
           pl: 1,
           pr: 1,
@@ -247,6 +243,15 @@ const PageControl = (props: {
         }}
       >
         / {props.rowCount}
+      </Typography>
+
+      <Typography
+        color="neutral"
+        sx={{ userSelect: "none", display: "flex", alignItems: "center" }}
+      >
+        {t(
+          "components.genericResponsiveDatagrid.fullScreenTable.pageControl.pageSize.inputPostfix",
+        )}
       </Typography>
 
       {props.showPreviousAndNextButtons ? (
@@ -368,6 +373,20 @@ const FullScreenTable = <T,>(props: {
         </tr>
       </thead>
       <tbody>
+        {props.renderedPage.length == 0 ? (
+          <Typography
+            sx={{
+              display: "flex",
+              height: "50px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            No Entrys found
+          </Typography>
+        ) : (
+          <></>
+        )}
         {props.renderedPage.map((row) => (
           <tr
             key={props.keyOf(row)}

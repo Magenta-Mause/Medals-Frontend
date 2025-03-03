@@ -9,6 +9,7 @@ import {
   ToggleButtonGroup,
 } from "@mui/joy";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export interface Filter<T> {
   name: string;
@@ -32,6 +33,7 @@ const FilterComponent = <T,>(props: {
   ) => void;
   filterValues: Record<string, string>;
 }) => {
+  const { t } = useTranslation();
   return (
     <React.Fragment>
       {props.filters.map((filter) => (
@@ -40,7 +42,7 @@ const FilterComponent = <T,>(props: {
           {filter.type == "SELECTION" ? (
             <Select
               size="sm"
-              placeholder={filter.label ?? "All"}
+              placeholder={t("generic.all")}
               onChange={(_event, newValue) => {
                 props.setFilter(filter.name, newValue as string);
               }}

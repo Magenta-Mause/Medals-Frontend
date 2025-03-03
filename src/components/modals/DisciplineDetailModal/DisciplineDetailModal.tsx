@@ -5,7 +5,7 @@ import {
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
-import { Modal, ModalClose, ModalDialog } from "@mui/joy";
+import { Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
 
 const DisciplineDetailModal = (props: {
   discipline: Discipline | undefined;
@@ -37,6 +37,9 @@ const DisciplineDetailModal = (props: {
         <ModalClose />
         {props.athlete ? (
           <>
+            <Typography level="h1" sx={{ pb: 2 }}>
+              {props.discipline?.name ?? "-"}
+            </Typography>
             <AthleteDetailHeader athlete={props.athlete} />
             <PerformanceRecordingDatagrid
               performanceRecordings={props.performanceRecordings}
