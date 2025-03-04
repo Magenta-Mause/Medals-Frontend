@@ -44,7 +44,10 @@
     }
   },
   "generic": {
-    "all": "All"
+    "all": "All",
+    "discipline": "Discipline",
+    "tooYoung": "to young",
+    "invalid": "invalid"
   },
   "snackbar": {
     "login": {
@@ -314,7 +317,8 @@
       "form": {
         "discipline": "Discipline",
         "amount": "Achieved result",
-        "dateOfRecording": "Date of recording"
+        "dateOfRecording": "Date of recording",
+        "ageAtRecording": "Calculated age at recording: "
       }
     }
   }

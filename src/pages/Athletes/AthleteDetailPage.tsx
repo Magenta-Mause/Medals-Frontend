@@ -26,6 +26,7 @@ const AthleteDetailPage = () => {
 
   return (
     <>
+      <Box sx={{pt: 5}}></Box>
       <AthleteDetailHeader athlete={filteredAthletes[0]} />
       <Box
         sx={{

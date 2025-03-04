@@ -5,7 +5,8 @@ import {
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
-import { Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
+import GenericModal from "../GenericModal";
+import { useTranslation } from "react-i18next";
 
 const DisciplineDetailModal = (props: {
   discipline: Discipline | undefined;
@@ -14,46 +15,34 @@ const DisciplineDetailModal = (props: {
   open: boolean;
   setOpen: (open: boolean) => void;
 }) => {
+  const {t} = useTranslation();
+  
   return (
-    <Modal
+    <GenericModal
       open={props.open}
-      onClose={() => props.setOpen(false)}
-      sx={{
-        left: {
-          md: "var(--Sidebar-width)",
-          sm: "0",
-        },
+      setOpen={props.setOpen}
+      header={t("generic.discipline") + ": " + (props.discipline?.name ?? "-")}
+      modalDialogSX={{
+        width: "1000px",
+        maxWidth: { md: "calc(90vw - var(--Sidebar-width))", xs: "90vw" },
+        overflowY: "auto",
+        height: { xs: "calc(90vh - var(--Header-height))", md: "80vh" },
       }}
     >
-      <ModalDialog
-        sx={{
-          width: "1000px",
-          pt: 6,
-          maxWidth: { md: "calc(90vw - var(--Sidebar-width))", xs: "90vw" },
-          overflowY: "auto",
-          height: { xs: "calc(90vh - var(--Header-height))", md: "80vh" },
-          mt: "var(--Header-height)",
-        }}
-      >
-        <ModalClose />
-        {props.athlete ? (
-          <>
-            <Typography level="h1" sx={{ pb: 2 }}>
-              {props.discipline?.name ?? "-"}
-            </Typography>
-            <AthleteDetailHeader athlete={props.athlete} />
-            <PerformanceRecordingDatagrid
-              performanceRecordings={props.performanceRecordings}
-              isLoading={false}
-              athlete={props.athlete}
-              discipline={props.discipline}
-            />
-          </>
-        ) : (
-          <></>
-        )}
-      </ModalDialog>
-    </Modal>
+      {props.athlete ? (
+        <>
+          <AthleteDetailHeader athlete={props.athlete} />
+          <PerformanceRecordingDatagrid
+            performanceRecordings={props.performanceRecordings}
+            isLoading={false}
+            athlete={props.athlete}
+            discipline={props.discipline}
+          />
+        </>
+      ) : (
+        <></>
+      )}
+    </GenericModal>
   );
 };
 

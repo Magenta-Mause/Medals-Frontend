@@ -90,89 +90,100 @@ const CreatePerformanceRecordingModal = (props: {
   };
 
   return (
-    <>
-      <GenericModal
-        header={t("components.createPerformanceRecordingModal.header")}
-        open={props.open}
-        setOpen={props.setOpen}
-        disableEscape
-        modalDialogSX={{
-          width: { md: "calc(30vw - var(--Sidebar-width))", xs: "90vw" },
+    <GenericModal
+      header={t("components.createPerformanceRecordingModal.header")}
+      open={props.open}
+      setOpen={props.setOpen}
+      disableEscape
+      modalSX={{ backdropFilter: "blur(0px)" }}
+      modalDialogSX={{
+        width: { md: "calc(30vw - var(--Sidebar-width))", xs: "90vw" },
+      }}
+    >
+      <form
+        onSubmit={(e: React.FormEvent<CreatePerformanceRecordingElement>) => {
+          e.preventDefault();
+          submitPerformanceRecording({
+            athlete_id: props.athlete.id!,
+            rating_value: parseInt(e.currentTarget.elements.rating_value.value),
+            discipline_id: discipline!.id,
+            date_of_performance: selectedDate!,
+          });
+        }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          width: "100%",
         }}
       >
-        <form
-          onSubmit={(e: React.FormEvent<CreatePerformanceRecordingElement>) => {
-            e.preventDefault();
-            submitPerformanceRecording({
-              athlete_id: props.athlete.id!,
-              rating_value: parseInt(
-                e.currentTarget.elements.rating_value.value,
-              ),
-              discipline_id: discipline!.id,
-              date_of_performance: selectedDate!,
-            });
-          }}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
-            width: "100%",
-          }}
-        >
-          <FormControl>
-            <FormLabel>
-              {t("components.createPerformanceRecordingModal.form.discipline")}
-            </FormLabel>
-            <Autocomplete
-              onChange={(_e, newVal: Discipline | null) =>
-                setSelectedDiscipline(newVal?.id ?? null)
-              }
-              defaultValue={props.defaultSelected}
-              autoSelect
-              placeholder={t(
-                "components.createPerformanceRecordingModal.form.discipline",
-              )}
-              options={disciplines}
-              getOptionLabel={(d: Discipline) => d.name}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>
-              {t("components.createPerformanceRecordingModal.form.amount")}
-            </FormLabel>
-            <Input
-              disabled={!selectedDiscipline}
-              placeholder={t(
-                "components.createPerformanceRecordingModal.form.amount",
-              )}
-              type={"number"}
-              endDecorator={discipline ? t("units." + discipline.unit) : ""}
-              name="rating_value"
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>
+        <FormControl>
+          <FormLabel>
+            {t("components.createPerformanceRecordingModal.form.discipline")}
+          </FormLabel>
+          <Autocomplete
+            onChange={(_e, newVal: Discipline | null) =>
+              setSelectedDiscipline(newVal?.id ?? null)
+            }
+            defaultValue={props.defaultSelected}
+            autoSelect
+            placeholder={t(
+              "components.createPerformanceRecordingModal.form.discipline",
+            )}
+            options={disciplines}
+            getOptionLabel={(d: Discipline) => d.name}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>
+            {t("components.createPerformanceRecordingModal.form.amount")}
+          </FormLabel>
+          <Input
+            disabled={!selectedDiscipline}
+            placeholder={t(
+              "components.createPerformanceRecordingModal.form.amount",
+            )}
+            type={"tel"}
+            endDecorator={discipline ? t("units." + discipline.unit) : ""}
+            name="rating_value"
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>
+            {t(
+              "components.createPerformanceRecordingModal.form.dateOfRecording",
+            )}
+          </FormLabel>
+          <CustomDatePicker
+            sx={{ width: "10%" }}
+            error={false}
+            value={undefined}
+            onChange={(val) => {
+              const date = new Date(val.year(), val.month(), val.day());
+              setDate(date.getTime());
+            }}
+            format={undefined}
+          />
+          <FormLabel>
+            <Typography fontSize={15} pt={1} color="neutral">
               {t(
-                "components.createPerformanceRecordingModal.form.dateOfRecording",
+                "components.createPerformanceRecordingModal.form.ageAtRecording",
               )}
-            </FormLabel>
-            <CustomDatePicker
-              sx={{ width: "10%" }}
-              error={false}
-              value={undefined}
-              onChange={(val) => {
-                const date = new Date(val.year(), val.month(), val.day());
-                setDate(date.getTime());
-              }}
-              format={undefined}
-            />
-          </FormControl>
-          <Button type={"submit"} disabled={loading}>
-            {!loading ? "Submit" : "Loading"}
-          </Button>
-        </form>
-      </GenericModal>
-    </>
+              {selectedDate
+                ? new Date(selectedDate).getFullYear() >
+                  new Date(Date.parse(props.athlete.birthdate)).getFullYear()
+                  ? new Date(selectedDate).getFullYear() -
+                    new Date(Date.parse(props.athlete.birthdate)).getFullYear()
+                  : t("generic.invalid")
+                : "-"}
+            </Typography>
+          </FormLabel>
+        </FormControl>
+        <Button type={"submit"} disabled={loading}>
+          {!loading ? "Submit" : "Loading"}
+        </Button>
+      </form>
+    </GenericModal>
   );
 };
 

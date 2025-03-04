@@ -16,7 +16,9 @@
     "ADMIN": "Admin"
   },
   "generic": {
-    "all": "Alle"
+    "all": "Alle",
+    "discipline": "Disziplin",
+    "invalid": "Ungültig"
   },
   "disciplines": {
     "categories": {
@@ -172,7 +174,8 @@
       "form": {
         "discipline": "Disziplin",
         "amount": "Erreichtes Ergebniss",
-        "dateOfRecording": "Tag der Aufnahme"
+        "dateOfRecording": "Tag der Aufnahme",
+        "ageAtRecording": "Berechnetes Alter bei Aufnahme: "
       }
     },
     "athleteDetailHeader": {
