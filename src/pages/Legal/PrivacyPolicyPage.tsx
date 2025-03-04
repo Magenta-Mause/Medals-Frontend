@@ -5,7 +5,13 @@ const PrivacyPolicyPage = () => {
   const { t } = useTranslation();
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box
+      sx={{
+        overflowY: "scroll",
+        height: "100vh",
+        pb: 2,
+      }}
+    >
       <Typography level="h1" sx={{ mb: 2 }}>
         {t("pages.privacyPolicyPage.title")}
       </Typography>
