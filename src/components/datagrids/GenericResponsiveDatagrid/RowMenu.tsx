@@ -20,7 +20,10 @@ const RowMenu = <T,>(props: { item: T; actionMenu: Action<T>[] }) => {
         {props.actionMenu?.map((action) => (
           <MenuItem
             color={action.color ?? "neutral"}
-            onClick={() => action.operation(props.item)}
+            onClick={(e) => {
+              action.operation(props.item);
+              e.preventDefault();
+            }}
             key={action.key}
           >
             {action.label}

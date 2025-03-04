@@ -157,8 +157,15 @@ const MobileTable = <T,>(props: {
             totalCount={props.rows.length}
             rendering={props.rendering}
             key={props.keyOf(listItem)}
-          ></Row>
+          />
         ))}
+        {props.rows.length == 0 ? (
+          <Typography color="neutral" textAlign={"center"} p={2}>
+            {t("components.genericResponsiveDatagrid.fullScreenTable.empty")}
+          </Typography>
+        ) : (
+          <></>
+        )}
       </List>
       {!props.disablePaging ? (
         <Box

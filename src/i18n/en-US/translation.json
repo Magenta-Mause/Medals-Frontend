@@ -19,6 +19,9 @@
     "minutes": "minutes",
     "seconds": "seconds"
   },
+  "messages": {
+    "noEntriesFound": "No entries found"
+  },
   "disciplines": {
     "categories": {
       "STRENGTH": {
@@ -39,6 +42,9 @@
       }
     }
   },
+  "generic": {
+    "all": "All"
+  },
   "snackbar": {
     "login": {
       "loginFailed": "Login failed"
@@ -54,6 +60,10 @@
     "inviteTrainer": {
       "failed": "Failed to invite trainer",
       "success": "Trainer was invited successfully"
+    },
+    "performanceRecording": {
+      "creationError": "Error while registering performance recording",
+      "creationSuccess": "Performance recording successfully registered"
     }
   },
   "pages": {
@@ -73,10 +83,6 @@
       "gender": "Gender",
       "createButton": "Create",
       "createHeader": "Create Athlete"
-
-    },
-    "trainerOverviewPage": {
-      "header": "Trainers"
     },
     "trainerOverviewPage": {
       "header": "Trainers"
@@ -220,7 +226,8 @@
             "label": "Page Size:",
             "inputPostfix": "Entries"
           }
-        }
+        },
+        "empty": "No entries found"
       },
       "mobileList": {
         "pageControl": {
@@ -285,6 +292,21 @@
     },
     "athletePerformanceAccordions": {
       "selectedYear": "Selected Year"
+    },
+    "performanceRecordingDatagrid": {
+      "columns": {
+        "dateOfRecording": "Recorded on",
+        "result": "Achieved result"
+      },
+      "filters": {
+        "recordedIn": "Recorded in"
+      },
+      "actions": {
+        "add": {
+          "text": "Add performance recording",
+          "label": "+ add"
+        }
+      }
     }
   }
 }

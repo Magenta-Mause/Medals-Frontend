@@ -106,16 +106,23 @@ const PerformanceRecordingDatagrid = (
     },
   ];
 
+  // @ts-expect-error typescript be buggin
   const actions: ToolbarAction[] = [
     ...(props.athlete
       ? [
           {
-            label: "Leistungsaufnahme hinzufügen",
+            label: t(
+              "components.performanceRecordingDatagrid.actions.add.text",
+            ),
             key: "addRecording",
             operation: () => {
               setCreationModalOpen(true);
             },
-            content: "+ Add",
+            content: t(
+              "components.performanceRecordingDatagrid.actions.add.label",
+            ),
+            color: "primary",
+            variant: "solid",
           },
         ]
       : []),

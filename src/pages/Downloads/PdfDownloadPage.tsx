@@ -37,13 +37,7 @@ const PdfDownloadPage = () => {
   const { t } = useTranslation();
 
   return (
-    <Box
-      sx={{
-        overflowY: "scroll",
-        height: "100vh",
-        pb: 2,
-      }}
-    >
+    <>
       <Box>
         <Typography level="h2" component="h1">
           {t("pages.downloadPage.header")}
@@ -73,7 +67,7 @@ const PdfDownloadPage = () => {
           </Box>
         ))}
       </Box>
-    </Box>
+    </>
   );
 };
 

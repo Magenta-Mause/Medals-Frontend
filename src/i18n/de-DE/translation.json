@@ -292,33 +292,6 @@
         "confirm": "Trainer Einladen"
       }
     },
-    "trainerDatagrid": {
-      "table": {
-        "columns": {
-          "trainerId": "Trainer*in ID",
-          "firstName": "Vorname",
-          "lastName": "Nachname",
-          "email": "E-Mail"
-        },
-        "filters": {
-          "search": "Suche"
-        },
-        "toolbar": {
-          "addTrainer": {
-            "label": "Einladen",
-            "content": "Trainer Einladen"
-          }
-        }
-      },
-      "inviteModal": {
-        "email": "E-Mail",
-        "firstName": "Vorname",
-        "firstNamePlaceholder": "Max",
-        "lastName": "Nachname",
-        "lastNamePlaceholder": "Mustermann",
-        "confirm": "Trainer Einladen"
-      }
-    },
     "buttons": {
       "next": "Nächstes",
       "previous": "Vorheriges"
@@ -341,6 +314,12 @@
       },
       "filters": {
         "recordedIn": "Aufgenommen in"
+      },
+      "actions": {
+        "add": {
+          "text": "Hinzufügen",
+          "label": "+ aufnehmen"
+        }
       }
     }
   }

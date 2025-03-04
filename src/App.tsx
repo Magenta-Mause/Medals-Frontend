@@ -13,8 +13,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router";
+import "dayjs/locale/de";
+import "dayjs/locale/en";
+import "dayjs/locale/es";
+import { useTranslation } from "react-i18next";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 type UtilContextType = {
   sideBarExtended: boolean;
@@ -30,6 +35,7 @@ const materialTheme = materialExtendTheme();
 
 const App = () => {
   const queryClient = new QueryClient();
+  const [language, setLanguage] = useLocalStorage<string>("language");
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
@@ -48,6 +54,17 @@ const App = () => {
       </IconButton>
     </>
   );
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    setLanguage(i18n.language);
+  }, [i18n.language, setLanguage]);
+
+  useEffect(() => {
+    if (language && i18n.language != language) {
+      i18n.changeLanguage(language);
+    }
+  }, [language, i18n]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -55,7 +72,10 @@ const App = () => {
         <ThemeProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
           <CssVarsProvider>
             <CssBaseline enableColorScheme />
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider
+              dateAdapter={AdapterDayjs}
+              adapterLocale={i18n.language}
+            >
               <UtilContext.Provider
                 value={{
                   sideBarExtended: isSideBarOpen,

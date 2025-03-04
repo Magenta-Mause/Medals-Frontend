@@ -305,9 +305,10 @@ const FullScreenTable = <T,>(props: {
         "--Table-headerUnderlineThickness": "1px",
         "--TableCell-paddingY": "4px",
         "--TableCell-paddingX": "8px",
-        "--TableRow-hoverBackground": props.rowOnClick
-          ? "var(--joy-palette-background-level1)"
-          : "var(--joy-palette-background-surface)",
+        "--TableRow-hoverBackground":
+          props.rowOnClick && props.renderedPage.length > 0
+            ? "var(--joy-palette-background-level1)"
+            : "var(--joy-palette-background-surface)",
       }}
     >
       <thead>
@@ -408,7 +409,12 @@ const FullScreenTable = <T,>(props: {
             <tr
               key={props.keyOf(row)}
               onClick={() => (props.rowOnClick ? props.rowOnClick(row) : {})}
-              style={{ cursor: props.rowOnClick ? "pointer" : "inherit" }}
+              style={{
+                cursor:
+                  props.rowOnClick && props.renderedPage.length > 0
+                    ? "pointer"
+                    : "inherit",
+              }}
             >
               {props.itemSelectionActions ? (
                 <td style={{ textAlign: "center", width: 120 }}>

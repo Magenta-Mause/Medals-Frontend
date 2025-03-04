@@ -6,6 +6,7 @@ import {
 } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import {
+  Autocomplete,
   Button,
   Divider,
   FormControl,
@@ -14,8 +15,6 @@ import {
   Modal,
   ModalClose,
   ModalDialog,
-  Option,
-  Select,
   Typography,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
@@ -78,12 +77,14 @@ const CreatePerformanceRecordingModal = (props: {
         enqueueSnackbar(t("snackbar.performanceRecording.creationSuccess"), {
           variant: "success",
         });
+        setLoading(false);
         props.setOpen(false);
       }
     } catch {
       enqueueSnackbar(t("snackbar.performanceRecording.creationError"), {
         variant: "error",
       });
+      setLoading(false);
     }
   };
 
@@ -97,6 +98,7 @@ const CreatePerformanceRecordingModal = (props: {
           sm: "0",
         },
       }}
+      disableEscapeKeyDown
     >
       <ModalDialog
         sx={{
@@ -132,19 +134,18 @@ const CreatePerformanceRecordingModal = (props: {
             <FormLabel>
               {t("components.createPerformanceRecordingModal.form.discipline")}
             </FormLabel>
-            <Select
-              onChange={(_e, newVal) => setSelectedDiscipline(newVal)}
-              defaultValue={props.defaultSelected?.id}
+            <Autocomplete
+              onChange={(_e, newVal: Discipline | null) =>
+                setSelectedDiscipline(newVal?.id ?? null)
+              }
+              defaultValue={props.defaultSelected}
+              autoSelect
               placeholder={t(
                 "components.createPerformanceRecordingModal.form.discipline",
               )}
-            >
-              {disciplines.map((d) => (
-                <Option value={d.id} key={d.id}>
-                  {d.name}
-                </Option>
-              ))}
-            </Select>
+              options={disciplines}
+              getOptionLabel={(d: Discipline) => d.name}
+            />
           </FormControl>
           <FormControl>
             <FormLabel>

@@ -2,7 +2,7 @@ import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHe
 import AthletePerformanceAccordions from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
 import CreatePerformanceRecordingModal from "@components/modals/CreatePerformanceRecordingModal/CreatePerformanceRecordingModal";
 import { Athlete } from "@customTypes/backendTypes";
-import { Button, Typography } from "@mui/joy";
+import { Box, Button, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useState } from "react";
 import { useParams } from "react-router";
@@ -27,10 +27,22 @@ const AthleteDetailPage = () => {
   return (
     <>
       <AthleteDetailHeader athlete={filteredAthletes[0]} />
-      <Button onClick={() => setPerformanceRecordingModalOpen(true)}>
-        + Add performance
-      </Button>
-      <AthletePerformanceAccordions athlete={filteredAthletes[0]} />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "25px",
+          alignItems: "flex-end",
+        }}
+      >
+        <Button
+          onClick={() => setPerformanceRecordingModalOpen(true)}
+          sx={{ width: 200 }}
+        >
+          + Add performance
+        </Button>
+        <AthletePerformanceAccordions athlete={filteredAthletes[0]} />
+      </Box>
       <CreatePerformanceRecordingModal
         open={isPerformanceRecordingModalOpen}
         setOpen={setPerformanceRecordingModalOpen}
