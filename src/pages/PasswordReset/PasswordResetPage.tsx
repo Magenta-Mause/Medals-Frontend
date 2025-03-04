@@ -101,10 +101,7 @@ const ResetPasswordPage = () => {
   return (
     <SplitPageComponent>
       <Box display="flex">
-        <Button
-        sx={{
-          minWidth: "auto"
-        }}
+        <Button color="neutral" variant="soft"
         onClick={() =>
           navigate("/profile")
         }
