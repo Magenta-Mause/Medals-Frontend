@@ -1,6 +1,6 @@
 import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 import AthletePerformanceAccordions from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
-import CreatePerformanceRecordingModal from "@components/modals/CreatePerformanceRecordingModal/CreatePerformanceRecordingModal";
+import CreatePerformanceRecordingModal from "@components/modalss/CreatePerformanceRecordingModal/CreatePerformanceRecordingModal";
 import { Athlete } from "@customTypes/backendTypes";
 import { Box, Button, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";

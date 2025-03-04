@@ -12,7 +12,7 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import CreatePerformanceRecordingModal from "@components/modals/CreatePerformanceRecordingModal/CreatePerformanceRecordingModal";
+import CreatePerformanceRecordingModal from "@components/modalss/CreatePerformanceRecordingModal/CreatePerformanceRecordingModal";
 import { useState } from "react";
 
 interface PerformanceRecordingDatagridProps {

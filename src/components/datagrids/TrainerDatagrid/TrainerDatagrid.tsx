@@ -13,7 +13,7 @@ import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import { Add } from "@mui/icons-material";
 import { useState } from "react";
 import { Trainer } from "@customTypes/backendTypes";
-import TrainerInvitationModal from "@components/modals/TrainerInvitationModal/TrainerInvitatonModal";
+import TrainerInvitationModal from "@components/modalss/TrainerInvitationModal/TrainerInvitatonModal";
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
