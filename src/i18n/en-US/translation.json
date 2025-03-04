@@ -100,10 +100,20 @@
       "title": "Imprint",
       "contact": "Contact"
     },
-    "credits": {
-      "title": "Our thanks go to...",
-      "loginPage": "Login Page",
-      "downloadPage": "Download Page"
+    "creditsPage": {
+      "title": "Credits",
+      "loginPage": "Background Images on Login Page",
+      "lightMode": "LightMode",
+      "darkMode": "DarkMode",
+      "downloadPage": "Download Page",
+      "swimmingCard": "SwimmingCard",
+      "singleAthletesCard": "SingleAthletesCard",
+      "groupAthletesCard": "GroupAthletesCard",
+      "2020MedalsCard": "2020MedalsCard",
+      "2023MedalsCard": "2023MedalsCard",
+      "2024MedalsCard": "2024MedalsCard",
+      "2025MedalsCard": "2025MedalsCard",
+      "photoBy": "Photo by"
     }
   },
   "components": {

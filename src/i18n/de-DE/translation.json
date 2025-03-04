@@ -102,9 +102,19 @@
       "contact": "Kontakt"
     },
     "creditsPage": {
-      "title": "Unser Dank geht an...",
-      "loginPage": "Login Seite",
-      "downloadPage": "Download Seite"
+      "title": "Danksagungen",
+      "loginPage": "Hintergrundbilder auf der Login-Seite",
+      "lightMode": "Heller Modus",
+      "darkMode": "Dunkler Modus",
+      "downloadPage": "Download-Seite",
+      "swimmingCard": "Schwimmkarte",
+      "singleAthletesCard": "Einzelathletenkarte",
+      "groupAthletesCard": "Gruppenathletenkarte",
+      "2020MedalsCard": "2020 Medaillenkarte",
+      "2023MedalsCard": "2023 Medaillenkarte",
+      "2024MedalsCard": "2024 Medaillenkarte",
+      "2025MedalsCard": "2025 Medaillenkarte",
+      "photoBy": "Foto von"
     }
   },
   "components": {
