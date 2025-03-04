@@ -13,6 +13,7 @@ import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import { Route, Routes } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import ProfilePage from "@pages/Profile/ProfilePage";
 
 const RoutingComponent = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -36,13 +37,13 @@ const RoutingComponent = () => {
 
           {/* ATHLETE */}
           <Route path="/dashboard" element={<InDevelopmentPage />} />
-          <Route path="/profile" element={<InDevelopmentPage />} />
           <Route path="/requirements" element={<InDevelopmentPage />} />
           <Route path="/performances" element={<InDevelopmentPage />} />
 
           {/* Shared Pages */}
           <Route path="/downloads" element={<PdfDownloadPage />} />
           <Route path="/help" element={<InDevelopmentPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
 
         {/* Error Pages */}

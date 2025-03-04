@@ -10,7 +10,6 @@ import {
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
-  Person,
   PersonAddAlt,
   SearchRounded,
   SpaceDashboard,
@@ -18,6 +17,7 @@ import {
 } from "@mui/icons-material";
 import {
   Box,
+  Button,
   Divider,
   GlobalStyles,
   IconButton,
@@ -106,10 +106,6 @@ const navBarElements = new Map<
       {
         path: "/dashboard",
         icon: <SpaceDashboard />,
-      },
-      {
-        path: "/profile",
-        icon: <Person />,
       },
       {
         path: "/requirements",
@@ -269,14 +265,30 @@ const NavBar = () => {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography level="title-sm">
-            {selectedUser?.first_name} {selectedUser?.last_name}
-          </Typography>
-          <Typography level="body-xs" noWrap>
-            {email}
-          </Typography>
-        </Box>
+        <Button
+          variant="plain"
+          color="neutral"
+          size="sm"
+          sx={{
+            p: 0.5,
+            textAlign: "left",
+            flex: 1,
+            minWidth: 0,
+          }}
+          onClick={() => {
+            navigate("/profile");
+            collapseSidebar();
+          }}
+        >
+          <Box sx={{ minWidth: 0, flex: 1 }}>
+            <Typography level="title-sm">
+              {selectedUser?.first_name} {selectedUser?.last_name}
+            </Typography>
+            <Typography level="body-xs" noWrap sx={{ maxWidth: "100%" }}>
+              {email}
+            </Typography>
+          </Box>
+        </Button>
         {(authorizedUsers?.length ?? 0) > 1 ? (
           <IconButton
             about="Switch user"

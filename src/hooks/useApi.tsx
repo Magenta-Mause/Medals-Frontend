@@ -97,6 +97,15 @@ const useApi = () => {
     return response.status == 201;
   };
 
+  const deleteAdmin = async (adminId: number) => {
+    try {
+      const request = await axiosInstance!.delete(`/admins/${adminId}`);
+      return request.status == 202;
+    } catch (error) {
+      console.error(`Error while deleting admin with id: ${adminId}`, error);
+    }
+  };
+
   const loginUser = useCallback(
     async (email: string, password: string) => {
       const request = await axiosInstance!.post(
@@ -181,6 +190,7 @@ const useApi = () => {
     deleteAthlete,
     getAthlete,
     getAthletes,
+    deleteAdmin,
     setPassword,
     createAthlete,
     resetPassword,
