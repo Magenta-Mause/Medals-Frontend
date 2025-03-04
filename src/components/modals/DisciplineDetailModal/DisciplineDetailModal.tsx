@@ -15,8 +15,8 @@ const DisciplineDetailModal = (props: {
   open: boolean;
   setOpen: (open: boolean) => void;
 }) => {
-  const {t} = useTranslation();
-  
+  const { t } = useTranslation();
+
   return (
     <GenericModal
       open={props.open}

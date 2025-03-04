@@ -411,7 +411,9 @@ const FullScreenTable = <T,>(props: {
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                props.rowOnClick ? props.rowOnClick(row) : {};
+                if (props.rowOnClick) {
+                  props.rowOnClick(row);
+                }
               }}
               style={{
                 cursor:

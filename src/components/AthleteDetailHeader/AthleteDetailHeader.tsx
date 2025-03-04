@@ -46,7 +46,7 @@ const AthleteDetailHeader = (props: { athlete: Athlete }) => {
         background: "var(--joy-palette-background-level2)",
         padding: "20px 20px",
         borderRadius: "10px",
-        mb: "10px"
+        mb: "10px",
       }}
     >
       <Grid container spacing={1} justifyContent="left">

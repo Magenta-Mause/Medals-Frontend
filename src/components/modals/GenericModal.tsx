@@ -1,6 +1,6 @@
 import { Divider, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 
 const GenericModal = (props: {
   header: string;
