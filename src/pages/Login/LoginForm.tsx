@@ -93,7 +93,11 @@ const LoginForm = (props: {
               {t("pages.loginPage.signIn.forgotPassword")}
             </Link>
           </Box>
-          <Button type="submit" fullWidth disabled={props.isPending || !privacyPolicyChecked}>
+          <Button
+            type="submit"
+            fullWidth
+            disabled={props.isPending || !privacyPolicyChecked}
+          >
             {!props.isPending ? (
               t("pages.loginPage.signIn.submit")
             ) : (
