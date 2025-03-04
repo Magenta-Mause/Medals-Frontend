@@ -275,7 +275,10 @@ const NavBar = () => {
             flex: 1,
             minWidth: 0,
           }}
-          onClick={() => navigate("/profile")}
+          onClick={() => {
+            navigate("/profile");
+            collapseSidebar();
+          }}
         >
           <Box sx={{ minWidth: 0, flex: 1 }}>
             <Typography level="title-sm">
