@@ -50,6 +50,9 @@
       "createButton": "Erstellen",
       "createHeader": "Athlet*in erstellen"
     },
+    "athleteImportPage":{
+      "importButton": "importiere Athlet*in"
+    },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
     },

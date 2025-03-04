@@ -49,7 +49,9 @@
       "gender": "Gender",
       "createButton": "Create",
       "createHeader": "Create Athlete"
-
+    },
+    "athleteImportPage":{
+      "importButton": "Import Athlete"
     },
     "trainerOverviewPage": {
       "header": "Trainers"
