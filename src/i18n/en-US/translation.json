@@ -26,6 +26,10 @@
     "resetPassword": {
       "failed": "We couldnt find an account connected to that email",
       "success": "Verification email sent"
+    },
+    "inviteTrainer": {
+      "failed": "Failed to invite trainer",
+      "success": "Trainer was invited successfully"
     }
   },
   "pages": {
@@ -34,7 +38,21 @@
       "h3": "The soon to be Medal Management System"
     },
     "athleteOverviewPage": {
-      "header": "Athletes"
+      "header": "Athletes",
+      "createButton": "Create Athlete"
+    },
+    "athleteCreationPage": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "birthdate": "Birthdate",
+      "gender": "Gender",
+      "createButton": "Create",
+      "createHeader": "Create Athlete"
+
+    },
+    "trainerOverviewPage": {
+      "header": "Trainers"
     },
     "notFound": {
       "h1": "404",
@@ -180,8 +198,8 @@
       "table": {
         "columns": {
           "athleteId": "Athlete ID",
-          "firstName": "Firstname",
-          "lastName": "Lastname",
+          "firstName": "First Name",
+          "lastName": "Last Name",
           "birthdate": "Birthdate",
           "email": "Email",
           "gender": "Gender"
@@ -191,6 +209,33 @@
           "birthYear": "Birth year",
           "gender": "Gender"
         }
+      }
+    },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "Trainer ID",
+          "firstName": "Firstname",
+          "lastName": "Lastname",
+          "email": "Email"
+        },
+        "filters": {
+          "search": "Search"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Invite",
+            "content": "Invite Trainer"
+          }
+        }
+      },
+      "inviteModal": {
+        "email": "Email",
+        "firstName": "Firstname",
+        "firstNamePlaceholder": "John",
+        "lastName": "Lastname",
+        "lastNamePlaceholder": "Doe",
+        "confirm": "Invite Trainer"
       }
     },
     "buttons": {

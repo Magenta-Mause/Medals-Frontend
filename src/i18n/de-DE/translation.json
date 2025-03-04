@@ -26,6 +26,10 @@
     "resetPassword": {
       "failed": "Es konnte kein Account gefunden werden",
       "success": "Bestätigungs E-Mail gesendet"
+    },
+    "inviteTrainer": {
+      "failed": "Der Trainer konnte nicht eingeladen werden",
+      "success": "Der Trainer wurde eingeladen"
     }
   },
   "pages": {
@@ -34,7 +38,20 @@
       "h3": "Das Medaillen Management System der Zukunft"
     },
     "athleteOverviewPage": {
-      "header": "Athlet*innen"
+      "header": "Athlet*innen",
+      "createButton": "Athlet*in erstellen"
+    },
+    "athleteCreationPage": {
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail",
+      "birthdate": "Geburtstag",
+      "gender": "Geschlecht",
+      "createButton": "Erstellen",
+      "createHeader": "Athlet*in erstellen"
+    },
+    "trainerOverviewPage": {
+      "header": "Trainer*innen"
     },
     "notFound": {
       "h1": "404",
@@ -192,6 +209,33 @@
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
         }
+      }
+    },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "Trainer*in ID",
+          "firstName": "Vorname",
+          "lastName": "Nachname",
+          "email": "E-Mail"
+        },
+        "filters": {
+          "search": "Suche"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Einladen",
+            "content": "Trainer Einladen"
+          }
+        }
+      },
+      "inviteModal": {
+        "email": "E-Mail",
+        "firstName": "Vorname",
+        "firstNamePlaceholder": "Max",
+        "lastName": "Nachname",
+        "lastNamePlaceholder": "Mustermann",
+        "confirm": "Trainer Einladen"
       }
     },
     "buttons": {
