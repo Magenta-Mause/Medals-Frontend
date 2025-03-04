@@ -68,20 +68,22 @@ const LoginForm = (props: {
               alignItems: "center",
             }}
           >
-            <Checkbox
-              size="sm"
-              name="privacyPolicy"
-              checked={privacyPolicyChecked}
-              onChange={(e) => setPrivacyPolicyChecked(e.target.checked)}
-            />
-            <Typography level="body-sm">
-              <Link
-                level="body-sm"
-                onClick={() => setPrivacyPolicyModalOpen(true)}
-              >
-                {t("pages.loginPage.signIn.privacyPolicy")}
-              </Link>
-            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Checkbox
+                size="sm"
+                name="privacyPolicy"
+                checked={privacyPolicyChecked}
+                onChange={(e) => setPrivacyPolicyChecked(e.target.checked)}
+              />
+              <Typography level="body-sm">
+                <Link
+                  level="body-sm"
+                  onClick={() => setPrivacyPolicyModalOpen(true)}
+                >
+                  {t("pages.loginPage.signIn.privacyPolicy")}
+                </Link>
+              </Typography>
+            </Box>
             <Link
               level="title-sm"
               onClick={() => {
