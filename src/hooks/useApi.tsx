@@ -1,10 +1,24 @@
-import { Athlete, Trainer } from "@customTypes/bffTypes";
+import {
+  Athlete,
+  PerformanceRecording,
+  PerformanceRecordingCreationDto,
+  Trainer,
+} from "@customTypes/backendTypes";
 import { useCallback } from "react";
 import config from "../config";
 import useAxiosInstance from "./useAxiosInstance";
 
 const useApi = () => {
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);
+
+  const getPerformanceRecordings = async () => {
+    try {
+      const request = await axiosInstance!.get("/performance-recordings");
+      return request.data.data as PerformanceRecording[];
+    } catch (error) {
+      console.error("Error while fetching performance recordings", error);
+    }
+  };
 
   const getAthletes = async () => {
     try {
@@ -15,12 +29,15 @@ const useApi = () => {
     }
   };
 
-  const getAthlete = async (atheteId: string) => {
+  const getAthlete = async (athleteId: string) => {
     try {
-      const request = await axiosInstance!.get(`/athletes/${atheteId}`);
+      const request = await axiosInstance!.get(`/athletes/${athleteId}`);
       return request.data.data as Athlete;
     } catch (error) {
-      console.error(`Error while fetching athlete with id: ${atheteId}`, error);
+      console.error(
+        `Error while fetching athlete with id: ${athleteId}`,
+        error,
+      );
     }
   };
 
@@ -174,6 +191,31 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const getDisciplines = useCallback(async () => {
+    try {
+      const request = await axiosInstance!.get("/disciplines");
+      return request.data.data;
+    } catch {
+      console.error("Error while loading disciplines");
+    }
+  }, [axiosInstance]);
+
+  const createPerformanceRecording = useCallback(
+    async (p: PerformanceRecordingCreationDto) => {
+      try {
+        const response = await axiosInstance!.post(
+          "/performance-recordings",
+          p,
+        );
+        console.log(response);
+        return response.status == 201;
+      } catch {
+        throw new Error("Error while creating performance recording");
+      }
+    },
+    [axiosInstance],
+  );
+
   return {
     loginUser,
     logoutUser,
@@ -185,10 +227,13 @@ const useApi = () => {
     createAthlete,
     resetPassword,
     initiatePasswordReset,
+    getPerformanceRecordings,
+    getDisciplines,
     deleteTrainer,
     getTrainer,
     getTrainers,
     inviteTrainer,
+    createPerformanceRecording,
   };
 };
 

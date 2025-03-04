@@ -2,19 +2,19 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import LanguageSelectionButton from "@components/LanguageSelectionButton/LanguageSelectionButton";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import useImageLoading from "@hooks/useImageLoading";
-import { GlobalStyles, Box, IconButton, Typography } from "@mui/joy";
+import { Box, GlobalStyles, IconButton, Typography } from "@mui/joy";
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
 const SplitPageComponent = ({ children }: { children: ReactNode }) => {
   const imageUrlWhiteMode = useImageLoading([
-    "https://images.pexels.com/photos/9501967/pexels-photo-9501967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/9501967/pexels-photo-9501967.jpeg?w=1920&h=1080",
+    "/assets/images/splitPage/pexels-photo-9501967-low-quality.jpeg",
+    "/assets/images/splitPage/pexels-photo-9501967.jpeg",
   ]);
   const imageUrlDarkmode = useImageLoading([
-    "https://images.pexels.com/photos/1564420/pexels-photo-1564420.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/1564420/pexels-photo-1564420.jpeg?w=1920&h=1080",
+    "/assets/images/splitPage/pexels-photo-9501967-low-quality.jpeg",
+    "/assets/images/splitPage/pexels-photo-9501967.jpeg",
   ]);
   const { t } = useTranslation();
   const navigate = useNavigate();

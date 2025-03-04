@@ -26,16 +26,16 @@ const PageLayout = () => {
             sm: "calc(12px + var(--Header-height))",
             md: 3,
           },
-          pb: 0,
+          pb: 20,
           flex: 1,
           display: "flex",
           flexDirection: "column",
           minWidth: 0,
           height: {
-            xs: "calc(calc(100dvh - 12px) - var(--Header-height))",
-            sm: "calc(calc(100dvh - 12px) - var(--Header-height))",
-            md: "calc(100dvh)",
+            sm: "calc(calc(100dvh) - var(--Header-height))",
+            md: "100dvh",
           },
+          overflowY: "auto",
           gap: 1,
         }}
       >
