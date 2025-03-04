@@ -4,6 +4,7 @@ import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import TrainerInvitationForm from "./TrainerInvitationForm";
+import GenericModal from "../GenericModal";
 
 interface TrainerInvitationModalProps {
   isOpen: boolean;
@@ -53,28 +54,19 @@ const TrainerInvitationModal = (props: TrainerInvitationModalProps) => {
   };
 
   return (
-    <>
-      <Modal
-        open={props.isOpen}
-        onClose={() => {
-          props.setOpen(false);
+    <GenericModal
+      header={t("components.trainerDatagrid.table.toolbar.addTrainer.content")}
+      open={props.isOpen}
+      setOpen={props.setOpen}
+      modalDialogSX={{ minWidth: "30%" }}
+    >
+      <TrainerInvitationForm
+        inviteCallback={(formValues: TrainerInvitationObject) => {
+          handleSubmitTrainerInvitation(formValues);
         }}
-      >
-        <ModalDialog sx={{ minWidth: "30%" }}>
-          <ModalClose />
-          <Typography>
-            {t("components.trainerDatagrid.table.toolbar.addTrainer.content")}
-          </Typography>
-          <Divider inset="none" sx={{ marginBottom: 1 }} />
-          <TrainerInvitationForm
-            inviteCallback={(formValues: TrainerInvitationObject) => {
-              handleSubmitTrainerInvitation(formValues);
-            }}
-            isPending={trainerInviteSubmitted}
-          />
-        </ModalDialog>
-      </Modal>
-    </>
+        isPending={trainerInviteSubmitted}
+      />
+    </GenericModal>
   );
 };
 

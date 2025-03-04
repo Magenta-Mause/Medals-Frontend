@@ -21,6 +21,7 @@ import { useTypedSelector } from "@stores/rootReducer";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import GenericModal from "../GenericModal";
 
 interface CreatePerformanceRecordingElement extends HTMLFormElement {
   readonly elements: FormElements;
@@ -89,28 +90,16 @@ const CreatePerformanceRecordingModal = (props: {
   };
 
   return (
-    <Modal
-      open={props.open}
-      onClose={() => props.setOpen(false)}
-      sx={{
-        left: {
-          md: "var(--Sidebar-width)",
-          sm: "0",
-        },
-      }}
-      disableEscapeKeyDown
-    >
-      <ModalDialog
-        sx={{
+    <>
+      <GenericModal
+        header={t("components.createPerformanceRecordingModal.header")}
+        open={props.open}
+        setOpen={props.setOpen}
+        disableEscape
+        modalDialogSX={{
           width: { md: "calc(30vw - var(--Sidebar-width))", xs: "90vw" },
-          overflowY: "auto",
         }}
       >
-        <ModalClose />
-        <Typography>
-          {t("components.createPerformanceRecordingModal.header")}
-        </Typography>
-        <Divider inset="none" sx={{ marginBottom: 1 }} />
         <form
           onSubmit={(e: React.FormEvent<CreatePerformanceRecordingElement>) => {
             e.preventDefault();
@@ -182,8 +171,8 @@ const CreatePerformanceRecordingModal = (props: {
             {!loading ? "Submit" : "Loading"}
           </Button>
         </form>
-      </ModalDialog>
-    </Modal>
+      </GenericModal>
+    </>
   );
 };
 

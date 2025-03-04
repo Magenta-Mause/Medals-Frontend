@@ -408,7 +408,11 @@ const FullScreenTable = <T,>(props: {
           props.renderedPage.map((row) => (
             <tr
               key={props.keyOf(row)}
-              onClick={() => (props.rowOnClick ? props.rowOnClick(row) : {})}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                props.rowOnClick ? props.rowOnClick(row) : {};
+              }}
               style={{
                 cursor:
                   props.rowOnClick && props.renderedPage.length > 0

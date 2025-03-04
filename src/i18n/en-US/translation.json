@@ -17,7 +17,8 @@
   },
   "units": {
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "meters": "meters"
   },
   "messages": {
     "noEntriesFound": "No entries found"
@@ -306,6 +307,14 @@
           "text": "Add performance recording",
           "label": "+ add"
         }
+      }
+    },
+    "createPerformanceRecordingModal": {
+      "header": "Register performance recording",
+      "form": {
+        "discipline": "Discipline",
+        "amount": "Achieved result",
+        "dateOfRecording": "Date of recording"
       }
     }
   }
