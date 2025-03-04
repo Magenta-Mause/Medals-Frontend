@@ -1,12 +1,11 @@
-import AthleteDatagrid from "@components/Datagrids/AthleteDatagrid/AthleteDatagrid";
+import TrainerDatagrid from "@components/Datagrids/TrainerDatagrid/TrainerDatagrid";
 import { Box, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
-import AthleteCreationForm from "@components/AthleteCreationComponent/AthleteCreationPopup";
 
-const AthleteOverviewPage = () => {
-  const athletes = useTypedSelector((state) => state.athletes.data);
-  const athleteState = useTypedSelector((state) => state.athletes.state);
+const TrainerOverviewPage = () => {
+  const trainers = useTypedSelector((state) => state.trainers.data);
+  const trainersState = useTypedSelector((state) => state.trainers.state);
   const { t } = useTranslation();
 
   return (
@@ -23,16 +22,15 @@ const AthleteOverviewPage = () => {
         }}
       >
         <Typography level="h2" component="h1">
-          {t("pages.athleteOverviewPage.header")}
+          {t("pages.trainerOverviewPage.header")}
         </Typography>
-        <AthleteCreationForm />
       </Box>
-      <AthleteDatagrid
-        athletes={athletes}
-        isLoading={athleteState == "LOADING"}
+      <TrainerDatagrid
+        trainers={trainers}
+        isLoading={trainersState == "LOADING"}
       />
     </>
   );
 };
 
-export default AthleteOverviewPage;
+export default TrainerOverviewPage;

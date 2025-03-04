@@ -8,6 +8,7 @@ import NotFoundPage from "@pages/NotFound/NotFoundPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
+import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import CreditsPage from "@pages/Legal/CreditsPage";
 import ImprintPage from "@pages/Legal/ImprintPage";
@@ -32,7 +33,7 @@ const RoutingComponent = () => {
 
         <Route element={<ProtectedRoute userRole={selectedUser?.type} />}>
           {/* ADMIN */}
-          <Route path="/trainer" element={<InDevelopmentPage />} />
+          <Route path="/trainer" element={<TrainerOverviewPage />} />
 
           {/* TRAINER */}
           <Route path="/athletes" element={<AthleteOverviewPage />} />
