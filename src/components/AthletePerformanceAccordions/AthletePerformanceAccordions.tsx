@@ -1,5 +1,5 @@
 import DisciplineDatagrid from "@components/datagrids/DisciplineDatagrid/DisciplineDatagrid";
-import DisciplineDetailModal from "@components/modalss/DisciplineDetailModal/DisciplineDetailModal";
+import DisciplineDetailModal from "@components/modals/DisciplineDetailModal/DisciplineDetailModal";
 import {
   Athlete,
   Discipline,
