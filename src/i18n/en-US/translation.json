@@ -62,7 +62,7 @@
           "password": "Password"
         },
         "forgotPassword": "Forgot password?",
-        "rememberMe": "Remember me",
+        "privacyPolicy": "Privacy Policy",
         "submit": "Login",
         "loginFailedWarning": "Login failed",
         "logoutButton": "Logout",

@@ -7,9 +7,11 @@ import {
   Input,
   Link,
   Stack,
+  Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 interface SignInFormElement extends HTMLFormElement {
   readonly elements: FormElements;
@@ -18,19 +20,20 @@ interface SignInFormElement extends HTMLFormElement {
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
   password: HTMLInputElement;
-  persistent: HTMLInputElement;
+  privacyPolicy: HTMLInputElement;
 }
 
 const LoginForm = (props: {
   loginCallback: (formValues: {
     email: string;
     password: string;
-    persistent: boolean;
+    privacyPolicy: boolean;
   }) => void;
   isPending: boolean;
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [privacyPolicyChecked, setPrivacyPolicyChecked] = useState(false);
 
   return (
     <form
@@ -40,7 +43,7 @@ const LoginForm = (props: {
         const data = {
           email: formElements.email.value,
           password: formElements.password.value,
-          persistent: formElements.persistent.checked,
+          privacyPolicy: formElements.privacyPolicy.checked,
         };
 
         props.loginCallback(data);
@@ -64,11 +67,20 @@ const LoginForm = (props: {
         >
           <Checkbox
             size="sm"
-            label={t("pages.loginPage.signIn.rememberMe")}
-            name="persistent"
-            disabled
-            checked
+            name="privacyPolicy"
+            checked={privacyPolicyChecked}
+            onChange={(e) => setPrivacyPolicyChecked(e.target.checked)}
           />
+          <Typography level="body-sm">
+            <Link
+              level="body-sm"
+              onClick={() => {
+                navigate("/privacyPolicy");
+              }}
+            >
+              {t("pages.loginPage.signIn.privacyPolicy")}
+            </Link>
+          </Typography>
           <Link
             level="title-sm"
             onClick={() => {
