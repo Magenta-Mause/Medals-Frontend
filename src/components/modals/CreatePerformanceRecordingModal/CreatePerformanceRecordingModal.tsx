@@ -1,3 +1,4 @@
+import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import {
   Athlete,
@@ -18,7 +19,6 @@ import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import GenericModal from "../GenericModal";
-import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 
 interface CreatePerformanceRecordingElement extends HTMLFormElement {
   readonly elements: FormElements;
@@ -97,7 +97,7 @@ const CreatePerformanceRecordingModal = (props: {
       setOpen={props.setOpen}
       disableEscape
       modalDialogSX={{
-        width: { md: "calc(60vw - var(--Sidebar-width))", xs: "90vw" },
+        width: { md: "800px", xs: "90vw" },
       }}
     >
       <form
@@ -135,7 +135,7 @@ const CreatePerformanceRecordingModal = (props: {
             slotProps={{ listbox: { sx: { maxHeight: 200 } } }}
           />
         </FormControl>
-        <AthleteDetailHeader athlete={selectedAthlete} />
+        <AthleteDetailHeader athlete={selectedAthlete} scalingFactor={2} />
         <FormControl>
           <FormLabel>
             {t("components.createPerformanceRecordingModal.form.discipline")}

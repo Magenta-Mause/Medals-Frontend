@@ -2,7 +2,10 @@ import { Athlete } from "@customTypes/backendTypes";
 import { Box, Grid, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
-const AthleteDetailHeader = (props: { athlete?: Athlete | null }) => {
+const AthleteDetailHeader = (props: {
+  athlete?: Athlete | null;
+  scalingFactor?: number;
+}) => {
   const { t, i18n } = useTranslation();
   const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
   const columnMappings: {
@@ -52,7 +55,11 @@ const AthleteDetailHeader = (props: { athlete?: Athlete | null }) => {
     >
       <Grid container spacing={1} justifyContent="left">
         {columnMappings.map((column) => (
-          <Grid xs={column.size * 3} md={column.size} key={column.label}>
+          <Grid
+            xs={column.size * 3}
+            md={column.size * (props.scalingFactor ?? 1)}
+            key={column.label}
+          >
             <Typography
               color="neutral"
               sx={{
