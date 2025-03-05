@@ -11,7 +11,7 @@ import {
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PrivacyPolicyModal from "@components/PrivacyPolicyModal/PrivacyPolicyModal";
 
 interface SignInFormElement extends HTMLFormElement {
@@ -36,6 +36,19 @@ const LoginForm = (props: {
   const { t } = useTranslation();
   const [privacyPolicyChecked, setPrivacyPolicyChecked] = useState(false);
   const [privacyPolicyModalOpen, setPrivacyPolicyModalOpen] = useState(false);
+
+  useEffect(() => {
+    const privacyPolicyAccepted = localStorage.getItem("privacyPolicyAccepted");
+    if (privacyPolicyAccepted === "true") {
+      setPrivacyPolicyChecked(true);
+    }
+  }, []);
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setPrivacyPolicyChecked(isChecked);
+    localStorage.setItem("privacyPolicyAccepted", isChecked.toString());
+  };
 
   return (
     <>
@@ -73,7 +86,7 @@ const LoginForm = (props: {
                 size="sm"
                 name="privacyPolicy"
                 checked={privacyPolicyChecked}
-                onChange={(e) => setPrivacyPolicyChecked(e.target.checked)}
+                onChange={handleCheckboxChange}
               />
               <Typography level="body-sm">
                 <Link
