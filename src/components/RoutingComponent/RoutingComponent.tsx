@@ -1,19 +1,18 @@
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import PageLayout from "@components/PageLayout/PageLayout";
+import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import AthleteOverviewPage from "@pages/Athletes/AthleteOverviewPage";
+import PdfDownloadPage from "@pages/Downloads/PdfDownloadPage";
 import HomePage from "@pages/Home/HomePage";
 import InDevelopmentPage from "@pages/InDevelopment/InDevelopmentPage";
-import PdfDownloadPage from "@pages/Downloads/PdfDownloadPage";
 import LoginPage from "@pages/Login/LoginPage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
-import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
-import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
-import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
-import { Route, Routes } from "react-router";
+import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
+import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
 import { useContext } from "react";
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import ProfilePage from "@pages/Profile/ProfilePage";
+import { Route, Routes } from "react-router";
 
 const RoutingComponent = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -43,7 +42,6 @@ const RoutingComponent = () => {
           {/* Shared Pages */}
           <Route path="/downloads" element={<PdfDownloadPage />} />
           <Route path="/help" element={<InDevelopmentPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
         </Route>
 
         {/* Error Pages */}

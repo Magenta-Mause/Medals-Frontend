@@ -19,7 +19,51 @@ import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
-const ProfilePage = () => {
+const infoCardDesktop = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string | React.ReactNode;
+}) => (
+  <Box>
+    <Grid
+      container
+      spacing={2}
+      sx={{ textAlign: "left", alignItems: "center" }}
+    >
+      <Grid xs={6} sx={{ textAlign: "right" }}>
+        <Typography fontWeight="bold" component="h2">
+          {label}:
+        </Typography>
+      </Grid>
+      <Grid xs={6} sx={{ textAlign: "left" }}>
+        <Typography>{value}</Typography>
+      </Grid>
+    </Grid>
+  </Box>
+);
+
+const infoCardMobile = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string | React.ReactNode;
+}) => (
+  <Box sx={{ textAlign: "center", alignItems: "center" }}>
+    <Typography fontWeight="bold" component="h2">
+      {label}: <br />
+    </Typography>
+
+    <Typography>{value}</Typography>
+  </Box>
+);
+
+const ProfileModal = (props: {
+  isOpen: boolean;
+  setOpen: (open: boolean) => void;
+}) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const athletes = useTypedSelector((state) => state.athletes.data);
   const { selectedUser, setSelectedUser } = useContext(AuthContext);
@@ -29,47 +73,6 @@ const ProfilePage = () => {
   const { deleteAthlete, deleteTrainer, deleteAdmin } = useApi();
   const selectedAthlete = athletes.find(
     (athlete: { id: number | undefined }) => athlete.id === selectedUser?.id,
-  );
-
-  const infoCardDesktop = ({
-    label,
-    value,
-  }: {
-    label: string;
-    value: string | React.ReactNode;
-  }) => (
-    <Box>
-      <Grid
-        container
-        spacing={2}
-        sx={{ textAlign: "left", alignItems: "center" }}
-      >
-        <Grid xs={6} sx={{ textAlign: "right" }}>
-          <Typography fontWeight="bold" component="h2">
-            {label}:
-          </Typography>
-        </Grid>
-        <Grid xs={6} sx={{ textAlign: "left" }}>
-          <Typography>{value}</Typography>
-        </Grid>
-      </Grid>
-    </Box>
-  );
-
-  const infoCardMobile = ({
-    label,
-    value,
-  }: {
-    label: string;
-    value: string | React.ReactNode;
-  }) => (
-    <Box sx={{ textAlign: "center", alignItems: "center" }}>
-      <Typography fontWeight="bold" component="h2">
-        {label}: <br />
-      </Typography>
-
-      <Typography>{value}</Typography>
-    </Box>
   );
 
   const formattedDate = selectedAthlete?.birthdate
@@ -104,13 +107,14 @@ const ProfilePage = () => {
 
   return (
     <Modal
-      open={true}
+      open={props.isOpen}
       sx={{
         transform: {
           md: "translateX(calc(var(--Sidebar-width) / 2))",
           xs: "none",
         },
       }}
+      onClose={() => props.setOpen(false)}
     >
       <ModalDialog
         sx={{
@@ -206,4 +210,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default ProfileModal;

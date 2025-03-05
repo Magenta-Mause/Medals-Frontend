@@ -1,5 +1,9 @@
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
+import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
+import ProfileModal from "@components/modals/ProfileModal/ProfileModal";
+import { UserType } from "@customTypes/enums";
 import useSidebar from "@hooks/useSidebar";
 import {
   Article,
@@ -30,13 +34,10 @@ import {
   Sheet,
   Typography,
 } from "@mui/joy";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
-import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
-import { useContext } from "react";
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { UserType } from "@customTypes/enums";
 
 const sharedNavBarElements = [
   {
@@ -128,6 +129,7 @@ const NavBar = () => {
   const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
     useContext(AuthContext);
   const userRole = selectedUser?.type;
+  const [isProfileOpen, setProfileOpen] = useState(false);
 
   return (
     <Sheet
@@ -276,7 +278,7 @@ const NavBar = () => {
             minWidth: 0,
           }}
           onClick={() => {
-            navigate("/profile");
+            setProfileOpen(true);
             collapseSidebar();
           }}
         >
@@ -306,6 +308,7 @@ const NavBar = () => {
           <LogoutRounded />
         </IconButton>
       </Box>
+      <ProfileModal isOpen={isProfileOpen} setOpen={setProfileOpen} />
     </Sheet>
   );
 };

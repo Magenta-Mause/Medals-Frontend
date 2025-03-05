@@ -114,15 +114,14 @@
         }
       }
     },
-    "profilePage":{
+    "profilePage": {
       "header": "Mein Profil",
       "birthdate": "Geburtstag",
-      "gender":"Geschlecht",
-      "email":"E-Mail",
+      "gender": "Geschlecht",
+      "email": "E-Mail",
       "resetPasswordButton": "Password zurücksetzen",
       "deleteProfileButton": "Account löschen",
       "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht."
-
     }
   },
   "components": {
@@ -250,7 +249,7 @@
       "required": "Verpflichtend"
     },
     "confirmationPopup": {
-      "header": "Sind Sie sicher?",
+      "header": "Account Löschen",
       "cancelButton": "Abbrechen",
       "deleteButton": "Löschen"
     }
