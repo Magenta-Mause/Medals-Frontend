@@ -9,6 +9,7 @@ import {
   createContext,
   ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -24,6 +25,16 @@ interface AuthContextType {
   logout: () => void;
   setSelectedUser: (user: UserEntity | null | undefined) => void;
 }
+
+const AuthInitialisationComponent = () => {
+  const { selectedUser } = useContext(AuthContext);
+  const { instantiateByType } = useInstantiation();
+  useEffect(() => {
+    instantiateByType(selectedUser?.type);
+  }, [selectedUser, instantiateByType]);
+
+  return <></>;
+};
 
 const AuthContext = createContext<AuthContextType>({
   identityToken: null,
@@ -61,15 +72,13 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [tokenExpirationDate, setTokenExpirationDate] = useState<number | null>(
     null,
   );
-  const { instantiateByType } = useInstantiation();
 
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {
       setSelectedUser(user);
       setStorageSelectedUser(user?.id ?? null);
-      instantiateByType(user?.type);
     },
-    [setSelectedUser, setStorageSelectedUser, instantiateByType],
+    [setSelectedUser, setStorageSelectedUser],
   );
 
   const processJwtToken = useCallback(
@@ -158,6 +167,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
         setSelectedUser: selectUser,
       }}
     >
+      <AuthInitialisationComponent />
       {authorized == undefined ? (
         <>
           <Box

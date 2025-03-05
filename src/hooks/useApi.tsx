@@ -11,108 +11,126 @@ import useAxiosInstance from "./useAxiosInstance";
 const useApi = () => {
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);
 
-  const getPerformanceRecordings = async () => {
+  const getPerformanceRecordings = useCallback(async () => {
     try {
       const request = await axiosInstance!.get("/performance-recordings");
       return request.data.data as PerformanceRecording[];
     } catch (error) {
       console.error("Error while fetching performance recordings", error);
     }
-  };
+  }, [axiosInstance]);
 
-  const getAthletes = async () => {
+  const getAthletes = useCallback(async () => {
     try {
       const request = await axiosInstance!.get(`/athletes`);
       return request.data.data as Athlete[];
     } catch (error) {
       console.error("Error while fetching athletes", error);
     }
-  };
+  }, [axiosInstance]);
 
-  const getAthlete = async (athleteId: string) => {
-    try {
-      const request = await axiosInstance!.get(`/athletes/${athleteId}`);
-      return request.data.data as Athlete;
-    } catch (error) {
-      console.error(
-        `Error while fetching athlete with id: ${athleteId}`,
-        error,
-      );
-    }
-  };
+  const getAthlete = useCallback(
+    async (athleteId: string) => {
+      try {
+        const request = await axiosInstance!.get(`/athletes/${athleteId}`);
+        return request.data.data as Athlete;
+      } catch (error) {
+        console.error(
+          `Error while fetching athlete with id: ${athleteId}`,
+          error,
+        );
+      }
+    },
+    [axiosInstance],
+  );
 
-  const deleteAthlete = async (athleteId: number) => {
-    try {
-      const request = await axiosInstance!.delete(`/athletes/${athleteId}`);
-      return request.status == 202;
-    } catch (error) {
-      console.error(
-        `Error while deleting athlete with id: ${athleteId}`,
-        error,
-      );
-    }
-  };
+  const deleteAthlete = useCallback(
+    async (athleteId: number) => {
+      try {
+        const request = await axiosInstance!.delete(`/athletes/${athleteId}`);
+        return request.status == 202;
+      } catch (error) {
+        console.error(
+          `Error while deleting athlete with id: ${athleteId}`,
+          error,
+        );
+      }
+    },
+    [axiosInstance],
+  );
 
-  const getTrainers = async () => {
+  const getTrainers = useCallback(async () => {
     try {
       const request = await axiosInstance!.get(`/trainers`);
       return request.data.data as Trainer[];
     } catch (error) {
       console.error("Error while fetching trainers", error);
     }
-  };
+  }, [axiosInstance]);
 
-  const getTrainer = async (trainerId: string) => {
-    try {
-      const request = await axiosInstance!.get(`/trainers/${trainerId}`);
-      return request.data.data as Trainer;
-    } catch (error) {
-      console.error(
-        `Error while fetching trainer with id: ${trainerId}`,
-        error,
-      );
-    }
-  };
-
-  const deleteTrainer = async (trainerId: number) => {
-    try {
-      const request = await axiosInstance!.delete(`/trainers/${trainerId}`);
-      return request.status == 202;
-    } catch (error) {
-      console.error(
-        `Error while deleting athlete with id: ${trainerId}`,
-        error,
-      );
-    }
-  };
-
-  const inviteTrainer = async (trainer: Trainer) => {
-    try {
-      const request = await axiosInstance!.post(`/trainers`, trainer);
-      if (request.status !== 201)
-        throw new Error(
-          `failed to create athlete, status code: ${request.status}`,
+  const getTrainer = useCallback(
+    async (trainerId: string) => {
+      try {
+        const request = await axiosInstance!.get(`/trainers/${trainerId}`);
+        return request.data.data as Trainer;
+      } catch (error) {
+        console.error(
+          `Error while fetching trainer with id: ${trainerId}`,
+          error,
         );
-      return true;
-    } catch (error) {
-      console.error(`Error while adding trainer`, error);
-      throw error;
-    }
-  };
+      }
+    },
+    [axiosInstance],
+  );
 
-  const createAthlete = async (athlete: Athlete) => {
-    const response = await axiosInstance.post(`/athletes`, {
-      first_name: athlete.first_name,
-      last_name: athlete.last_name,
-      email: athlete.email,
-      birthdate: athlete.birthdate,
-      gender: athlete.gender,
-    });
-    if (response.status != 201) {
-      throw new Error("Error during athlete creation");
-    }
-    return response.status == 201;
-  };
+  const deleteTrainer = useCallback(
+    async (trainerId: number) => {
+      try {
+        const request = await axiosInstance!.delete(`/trainers/${trainerId}`);
+        return request.status == 202;
+      } catch (error) {
+        console.error(
+          `Error while deleting athlete with id: ${trainerId}`,
+          error,
+        );
+      }
+    },
+    [axiosInstance],
+  );
+
+  const inviteTrainer = useCallback(
+    async (trainer: Trainer) => {
+      try {
+        const request = await axiosInstance!.post(`/trainers`, trainer);
+        if (request.status !== 201)
+          throw new Error(
+            `failed to create athlete, status code: ${request.status}`,
+          );
+        return true;
+      } catch (error) {
+        console.error(`Error while adding trainer`, error);
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
+
+  const createAthlete = useCallback(
+    async (athlete: Athlete) => {
+      const response = await axiosInstance.post(`/athletes`, {
+        first_name: athlete.first_name,
+        last_name: athlete.last_name,
+        email: athlete.email,
+        birthdate: athlete.birthdate,
+        gender: athlete.gender,
+      });
+      if (response.status != 201) {
+        throw new Error("Error during athlete creation");
+      }
+      return response.status == 201;
+    },
+    [axiosInstance],
+  );
 
   const loginUser = useCallback(
     async (email: string, password: string) => {
