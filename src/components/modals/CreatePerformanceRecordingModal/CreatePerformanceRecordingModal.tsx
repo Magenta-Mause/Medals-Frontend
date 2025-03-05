@@ -18,6 +18,7 @@ import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import GenericModal from "../GenericModal";
+import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 
 interface CreatePerformanceRecordingElement extends HTMLFormElement {
   readonly elements: FormElements;
@@ -30,31 +31,35 @@ interface FormElements extends HTMLFormControlsCollection {
 const CreatePerformanceRecordingModal = (props: {
   open: boolean;
   setOpen: (open: boolean) => void;
-  athlete: Athlete;
-  defaultSelected?: Discipline;
+  athlete?: Athlete;
+  discipline?: Discipline;
 }) => {
   const disciplines = useTypedSelector(
     (state) => state.disciplines.data,
   ) as Discipline[];
+  const athletes = useTypedSelector(
+    (state) => state.athletes.data,
+  ) as Athlete[];
   const [selectedDiscipline, setSelectedDiscipline] = useState<number | null>(
     null,
   );
+  const [selectedAthlete, setSelectedAthlete] = useState<Athlete | null>(null);
   const [discipline, setDiscipline] = useState<Discipline | null>(null);
   const { t } = useTranslation();
   const { createPerformanceRecording } = useApi();
 
   useEffect(() => {
-    if (props.defaultSelected !== undefined) {
-      setSelectedDiscipline(props.defaultSelected.id);
-      setDiscipline(props.defaultSelected);
+    if (props.discipline !== undefined) {
+      setSelectedDiscipline(props.discipline.id);
+      setDiscipline(props.discipline);
     }
-  }, [props.defaultSelected]);
+  }, [props.discipline]);
 
   useEffect(() => {
     if (!props.open) {
-      setSelectedDiscipline(props.defaultSelected?.id ?? null);
+      setSelectedDiscipline(props.discipline?.id ?? null);
     }
-  }, [props.open, props.defaultSelected]);
+  }, [props.open, props.discipline]);
 
   useEffect(() => {
     setDiscipline(disciplines.filter((d) => d.id == selectedDiscipline)[0]);
@@ -91,16 +96,15 @@ const CreatePerformanceRecordingModal = (props: {
       open={props.open}
       setOpen={props.setOpen}
       disableEscape
-      modalSX={{ backdropFilter: "blur(0px)" }}
       modalDialogSX={{
-        width: { md: "calc(30vw - var(--Sidebar-width))", xs: "90vw" },
+        width: { md: "calc(60vw - var(--Sidebar-width))", xs: "90vw" },
       }}
     >
       <form
         onSubmit={(e: React.FormEvent<CreatePerformanceRecordingElement>) => {
           e.preventDefault();
           submitPerformanceRecording({
-            athlete_id: props.athlete.id!,
+            athlete_id: selectedAthlete!.id!,
             rating_value: parseInt(e.currentTarget.elements.rating_value.value),
             discipline_id: discipline!.id,
             date_of_performance: selectedDate!,
@@ -115,13 +119,32 @@ const CreatePerformanceRecordingModal = (props: {
       >
         <FormControl>
           <FormLabel>
+            {t("components.createPerformanceRecordingModal.form.athlete")}
+          </FormLabel>
+          <Autocomplete
+            onChange={(_e, newVal: Athlete | null) =>
+              setSelectedAthlete(newVal ?? null)
+            }
+            defaultValue={props.athlete}
+            autoSelect
+            placeholder={t(
+              "components.createPerformanceRecordingModal.form.athlete",
+            )}
+            options={athletes}
+            getOptionLabel={(a: Athlete) => a.first_name + " " + a.last_name}
+            slotProps={{ listbox: { sx: { maxHeight: 200 } } }}
+          />
+        </FormControl>
+        <AthleteDetailHeader athlete={selectedAthlete} />
+        <FormControl>
+          <FormLabel>
             {t("components.createPerformanceRecordingModal.form.discipline")}
           </FormLabel>
           <Autocomplete
             onChange={(_e, newVal: Discipline | null) =>
               setSelectedDiscipline(newVal?.id ?? null)
             }
-            defaultValue={props.defaultSelected}
+            defaultValue={props.discipline}
             autoSelect
             placeholder={t(
               "components.createPerformanceRecordingModal.form.discipline",
@@ -165,11 +188,13 @@ const CreatePerformanceRecordingModal = (props: {
               {t(
                 "components.createPerformanceRecordingModal.form.ageAtRecording",
               )}
-              {selectedDate
+              {selectedDate && selectedAthlete
                 ? new Date(selectedDate).getFullYear() >
-                  new Date(Date.parse(props.athlete.birthdate)).getFullYear()
+                  new Date(Date.parse(selectedAthlete.birthdate)).getFullYear()
                   ? new Date(selectedDate).getFullYear() -
-                    new Date(Date.parse(props.athlete.birthdate)).getFullYear()
+                    new Date(
+                      Date.parse(selectedAthlete.birthdate),
+                    ).getFullYear()
                   : t("generic.invalid")
                 : "-"}
             </Typography>

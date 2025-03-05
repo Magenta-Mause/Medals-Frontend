@@ -148,7 +148,7 @@ const PerformanceRecordingDatagrid = (
           open={isCreationModalOpen}
           setOpen={setCreationModalOpen}
           athlete={props.athlete}
-          defaultSelected={props.discipline}
+          discipline={props.discipline}
         />
       ) : (
         <></>

@@ -173,6 +173,7 @@
       "header": "Leistungsaufnahme hinzufügen",
       "form": {
         "discipline": "Disziplin",
+        "athlete": "Athlet*in",
         "amount": "Erreichtes Ergebniss",
         "dateOfRecording": "Tag der Aufnahme",
         "ageAtRecording": "Berechnetes Alter bei Aufnahme: "

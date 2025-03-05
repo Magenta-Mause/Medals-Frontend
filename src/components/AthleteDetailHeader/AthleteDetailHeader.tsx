@@ -2,39 +2,39 @@ import { Athlete } from "@customTypes/backendTypes";
 import { Box, Grid, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
-const AthleteDetailHeader = (props: { athlete: Athlete }) => {
+const AthleteDetailHeader = (props: { athlete?: Athlete | null }) => {
   const { t, i18n } = useTranslation();
   const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
   const columnMappings: {
     label: string;
     size: number;
-    mapping: (athlete: Athlete) => string;
+    mapping: (athlete: Athlete | null | undefined) => string;
   }[] = [
     {
       label: "name",
       size: 2,
-      mapping: (athlete) => `${athlete.first_name} ${athlete.last_name}`,
+      mapping: (athlete) => athlete ? `${athlete.first_name} ${athlete.last_name}` : "-",
     },
     {
       label: "id",
       size: 2,
-      mapping: (athlete) => String(athlete.id),
+      mapping: (athlete) => athlete ? String(athlete.id) : "-",
     },
     {
       label: "birthdate",
       size: 2,
-      mapping: (athlete) =>
-        dateTimeFormatter.format(Date.parse(athlete.birthdate)),
+      mapping: (athlete) => athlete ?
+        dateTimeFormatter.format(Date.parse(athlete.birthdate)) : "-",
     },
     {
       label: "gender",
       size: 2,
-      mapping: (athlete) => t("genders." + athlete.gender),
+      mapping: (athlete) => athlete ? t("genders." + athlete.gender) : "-",
     },
     {
       label: "email",
       size: 3,
-      mapping: (athlete) => athlete.email,
+      mapping: (athlete) => athlete ? athlete.email : "-",
     },
   ];
 
