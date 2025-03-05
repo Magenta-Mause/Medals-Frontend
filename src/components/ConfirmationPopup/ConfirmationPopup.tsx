@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Modal, Typography, Card } from "@mui/joy";
+import { Box, Button, Modal, Typography, Card, ModalDialog } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
 interface ConfirmationPopupProps {
@@ -18,43 +18,47 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Modal open={open} onClose={onClose}>
-      <Box
+    <Modal
+      open={open}
+      onClose={onClose}
+      sx={{
+        left: {
+          md: "var(--Sidebar-width)",
+          sm: "0",
+        },
+      }}
+    >
+      <ModalDialog
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           margin: "auto",
-          transform: {
-            md: "translateX(calc(var(--Sidebar-width) / 2))",
-            xs: "none",
-          },
-          height: "100dvh",
+          maxWidth: "500px",
+          gap: 5,
         }}
       >
-        <Card sx={{ width: "auto", maxWidth: "90%", pl: 3, pr: 3 }}>
-          <Typography level="h4" component="h2" sx={{ textAlign: "center" }}>
-            {t("components.confirmationPopup.header")}
-          </Typography>
-          <Typography sx={{ textAlign: "center" }}>{message}</Typography>
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "center",
-              width: "100%",
-            }}
-          >
-            <Button variant="outlined" onClick={onClose}>
-              {t("components.confirmationPopup.cancelButton")}
-            </Button>
-            <Button variant="outlined" color="danger" onClick={onConfirm}>
-              {t("components.confirmationPopup.deleteButton")}
-            </Button>
-          </Box>
-        </Card>
-      </Box>
+        <Typography level="h4" component="h2" sx={{ textAlign: "center" }}>
+          {t("components.confirmationPopup.header")}
+        </Typography>
+        <Typography sx={{ textAlign: "justify", textAlignLast: "justify", p: "0 10px" }}>{message}</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <Button onClick={onClose}>
+            {t("components.confirmationPopup.cancelButton")}
+          </Button>
+          <Button color="danger" onClick={onConfirm}>
+            {t("components.confirmationPopup.deleteButton")}
+          </Button>
+        </Box>
+      </ModalDialog>
     </Modal>
   );
 };

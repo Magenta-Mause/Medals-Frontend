@@ -81,22 +81,6 @@ const ProfilePage = () => {
       }).format(new Date(selectedAthlete.birthdate))
     : "Datum nicht verfügbar";
 
-  const labels = [
-    "pages.profilePage.email",
-    "pages.profilePage.birthdate",
-    "pages.profilePage.gender",
-  ];
-
-  let longestLabel = "";
-  let maxLength = 0;
-  labels.forEach((label) => {
-    const translatedLabel = t(label);
-    if (translatedLabel.length > maxLength) {
-      maxLength = translatedLabel.length;
-      longestLabel = translatedLabel;
-    }
-  });
-
   const handleConfirmDelete = async () => {
     try {
       let success = undefined;
@@ -144,16 +128,31 @@ const ProfilePage = () => {
             width: "60%",
           }}
         >
-          <Dropdown>
-            <MenuButton
-              sx={{ p: 0.5, aspectRatio: 1, width: "auto", height: "auto" }}
-            >
-              <MoreVert />
-            </MenuButton>
-            <Menu>
-              <MenuItem>Test</MenuItem>
-            </Menu>
-          </Dropdown>
+          <Box sx={{ width: "100%", textAlign: "right" }}>
+            <Dropdown>
+              <MenuButton
+                sx={{ p: 0.5, aspectRatio: 1, width: "auto", height: "auto" }}
+              >
+                <MoreVert />
+              </MenuButton>
+              <Menu placement="bottom-end">
+                <MenuItem
+                  color={"neutral"}
+                  onClick={() => navigate("/resetPassword")}
+                >
+                  {t("pages.profilePage.resetPasswordButton")}
+                </MenuItem>
+                <MenuItem
+                  color={"danger"}
+                  onClick={() => {
+                    setDeletePopupOpen(true);
+                  }}
+                >
+                  {t("pages.profilePage.deleteProfileButton")}
+                </MenuItem>
+              </Menu>
+            </Dropdown>
+          </Box>
           <Avatar sx={{ width: 100, height: 100, margin: "0 auto", mb: 1 }}>
             <Typography sx={{ fontSize: "2rem" }}>
               {selectedUser?.first_name.charAt(0)}
@@ -181,23 +180,6 @@ const ProfilePage = () => {
               label={t("pages.profilePage.email")}
               value={selectedUser?.email}
             />
-          </Box>
-          <Box sx={{ display: "flex", flexDirection: "row", gap: 2, mt: 2 }}>
-            <Button
-              variant="outlined"
-              onClick={() => navigate("/resetPassword")}
-            >
-              {t("pages.profilePage.resetPasswordButton")}
-            </Button>
-            <Button
-              variant="outlined"
-              color="danger"
-              onClick={() => {
-                setDeletePopupOpen(true);
-              }}
-            >
-              {t("pages.profilePage.deleteProfileButton")}
-            </Button>
           </Box>
         </Box>
 
