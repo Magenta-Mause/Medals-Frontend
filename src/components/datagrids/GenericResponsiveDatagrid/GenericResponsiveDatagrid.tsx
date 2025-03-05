@@ -360,6 +360,7 @@ const GenericResponsiveDatagrid = <T,>(
           keyOf={props.keyOf}
           actionMenu={props.actionMenu}
           rowOnClick={props.onItemClick}
+          allItems={props.data}
         />
       </Sheet>
 

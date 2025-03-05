@@ -292,6 +292,7 @@ const FullScreenTable = <T,>(props: {
   columns: Column<T>[];
   keyOf: (item: T) => Key;
   rowOnClick?: (item: T) => void;
+  allItems: T[];
 }) => {
   const { t } = useTranslation();
 
@@ -325,21 +326,22 @@ const FullScreenTable = <T,>(props: {
                 size="sm"
                 indeterminate={
                   props.selected.length > 0 &&
-                  props.selected.length !== props.renderedPage.length
+                  props.selected.length !== props.allItems.length
                 }
                 checked={
-                  props.selected.length === props.renderedPage.length &&
-                  props.renderedPage.length !== 0
+                  props.selected.length === props.allItems.length &&
+                  props.allItems.length !== 0
                 }
                 onChange={(event) => {
-                  props.setSelected((prevSelected: Key[]) =>
-                    event.target.checked
-                      ? [
-                          ...prevSelected,
-                          ...props.renderedPage.map(props.keyOf),
-                        ]
-                      : [],
-                  );
+                  if (props.selected.length >= props.allItems.length) {
+                    props.setSelected(() => []);
+                  } else {
+                    props.setSelected((prevSelected: Key[]) =>
+                      event.target.checked
+                        ? [...prevSelected, ...props.allItems.map(props.keyOf)]
+                        : [],
+                    );
+                  }
                 }}
                 color={
                   props.selected.length > 0 ||
@@ -409,8 +411,6 @@ const FullScreenTable = <T,>(props: {
             <tr
               key={props.keyOf(row)}
               onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
                 if (props.rowOnClick) {
                   props.rowOnClick(row);
                 }
@@ -424,24 +424,29 @@ const FullScreenTable = <T,>(props: {
             >
               {props.itemSelectionActions ? (
                 <td style={{ textAlign: "center", width: 120 }}>
-                  <Checkbox
-                    size="sm"
-                    checked={props.selected.includes(props.keyOf(row))}
-                    color={
-                      props.selected.includes(props.keyOf(row))
-                        ? "primary"
-                        : undefined
-                    }
-                    onChange={(event) => {
-                      props.setSelected((ids) =>
-                        event.target.checked
-                          ? ids.concat(props.keyOf(row))
-                          : ids.filter((itemId) => itemId !== props.keyOf(row)),
-                      );
-                    }}
-                    slotProps={{ checkbox: { sx: { textAlign: "left" } } }}
-                    sx={{ verticalAlign: "text-bottom" }}
-                  />
+                  <Box onClick={(e) => e.stopPropagation()}>
+                    <Checkbox
+                      size="sm"
+                      checked={props.selected.includes(props.keyOf(row))}
+                      color={
+                        props.selected.includes(props.keyOf(row))
+                          ? "primary"
+                          : undefined
+                      }
+                      onChange={(event) => {
+                        event.stopPropagation();
+                        props.setSelected((ids) =>
+                          event.target.checked
+                            ? ids.concat(props.keyOf(row))
+                            : ids.filter(
+                                (itemId) => itemId !== props.keyOf(row),
+                              ),
+                        );
+                      }}
+                      slotProps={{ checkbox: { sx: { textAlign: "left" } } }}
+                      sx={{ verticalAlign: "text-bottom" }}
+                    />
+                  </Box>
                 </td>
               ) : (
                 <></>
