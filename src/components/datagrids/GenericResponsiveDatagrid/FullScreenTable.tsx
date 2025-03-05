@@ -410,7 +410,7 @@ const FullScreenTable = <T,>(props: {
           props.renderedPage.map((row) => (
             <tr
               key={props.keyOf(row)}
-              onClick={(e) => {
+              onClick={() => {
                 if (props.rowOnClick) {
                   props.rowOnClick(row);
                 }
