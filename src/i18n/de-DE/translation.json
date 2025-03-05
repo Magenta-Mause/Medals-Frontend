@@ -252,6 +252,9 @@
       "header": "Account Löschen",
       "cancelButton": "Abbrechen",
       "deleteButton": "Löschen"
+    },
+    "disclaimer": {
+      "text": "Diese Anwendung ist ein Universitätsprojekt und kein offizieller Dienst (z.B. Sportabzeichen-Digital). Sie wird nicht von einer offiziellen Organisation unterstützt oder bereitgestellt. Es werden keine offiziellen Zertifizierungen oder Ansprüche bereitgestellt."
     }
   }
 }
