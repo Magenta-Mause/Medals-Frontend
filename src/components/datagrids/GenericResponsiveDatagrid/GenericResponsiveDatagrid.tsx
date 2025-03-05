@@ -26,7 +26,10 @@ import FilterComponent, {
 } from "./GenericResponsiveDatagridFilterComponent";
 import MobileTable, { MobileTableRendering } from "./MobileTable";
 
-const DEFAULT_MAX_VISIBLE_ON_PAGE = 5;
+const ESTIMATED_HEIGHT_OF_ROW = 95;
+const DEFAULT_MAX_VISIBLE_ON_PAGE = Math.floor(
+  window.innerHeight / ESTIMATED_HEIGHT_OF_ROW,
+);
 
 export interface Action<T> {
   label: React.ReactNode;
@@ -130,6 +133,7 @@ const GenericResponsiveDatagrid = <T,>(
       setPageSize(1000);
     }
   }, [props.disablePaging, setPageSize]);
+
   const cleanupSelection = useCallback(() => {
     const newSelected = selected.filter(
       (key) => props.data.findIndex((item) => props.keyOf(item) == key) != -1,
@@ -219,7 +223,9 @@ const GenericResponsiveDatagrid = <T,>(
 
   useEffect(() => {
     if (!wasPageSizeChanged) {
-      setPageSizeInternal(Math.floor(windowDimensions.height / 95));
+      setPageSizeInternal(
+        Math.floor(windowDimensions.height / ESTIMATED_HEIGHT_OF_ROW),
+      );
     }
   }, [windowDimensions, wasPageSizeChanged]);
 
