@@ -2,7 +2,7 @@ import { AuthContext } from "@components/AuthenticationProvider/AuthenticationPr
 import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
-import ProfileModal from "@components/modalss/ProfileModal/ProfileModal";
+import ProfileModal from "@components/modals/ProfileModal/ProfileModal";
 import { UserType } from "@customTypes/enums";
 import useSidebar from "@hooks/useSidebar";
 import {
