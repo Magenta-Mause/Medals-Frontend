@@ -13,7 +13,10 @@ const Disclaimer = () => {
         borderColor: "divider",
         borderRadius: "sm",
         mt: 2,
-        textAlign: "center",
+        textAlign: "justify",
+        textAlignLast: "center",
+        letterSpacing: 0.1,
+        maxWidth: "700px",
       }}
     >
       <Typography level="body-sm">{t("components.disclaimer.text")}</Typography>

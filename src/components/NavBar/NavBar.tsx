@@ -1,5 +1,8 @@
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
+import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
+import { UserType } from "@customTypes/enums";
 import useSidebar from "@hooks/useSidebar";
 import {
   Article,
@@ -11,7 +14,7 @@ import {
   LogoutRounded,
   PeopleRounded,
   Person,
-  PersonAddAlt,
+  PersonAdd,
   SearchRounded,
   SpaceDashboard,
   SupervisedUserCircleOutlined,
@@ -30,13 +33,10 @@ import {
   Sheet,
   Typography,
 } from "@mui/joy";
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
-import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
-import { useContext } from "react";
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { UserType } from "@customTypes/enums";
 
 const sharedNavBarElements = [
   {
@@ -92,7 +92,7 @@ const navBarElements = new Map<
       },
       {
         path: "/assignAthlete",
-        icon: <PersonAddAlt />,
+        icon: <PersonAdd />,
       },
     ],
   ],
@@ -205,7 +205,7 @@ const NavBar = () => {
       <Box
         sx={{
           minHeight: 0,
-          overflow: "hidden auto",
+          overflow: { md: "hidden hidden", xs: "hidden auto" },
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",

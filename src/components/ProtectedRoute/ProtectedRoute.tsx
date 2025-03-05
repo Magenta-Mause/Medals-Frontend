@@ -7,7 +7,8 @@ const rolePermissions = new Map<UserType | undefined, string[]>([
     UserType.TRAINER,
     [
       "/",
-      "/athletes",
+      "\\/athletes",
+      "/athletes/[0-9]+",
       "/performanceMetrics",
       "/assignAthlete",
       "/downloads",
@@ -31,7 +32,8 @@ const rolePermissions = new Map<UserType | undefined, string[]>([
     [
       "/",
       "/trainer",
-      "/athletes",
+      "\\/athletes",
+      "/athletes/[0-9]+",
       "/performanceMetrics",
       "/assignAthlete",
       "/dashboard",
@@ -50,8 +52,11 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ userRole }) => {
   const location = useLocation();
+  const hasAccess = rolePermissions.get(userRole)?.reduce((prev, curr) => {
+    return prev ? true : new RegExp("^" + curr + "$").test(location.pathname);
+  }, false);
 
-  if (!rolePermissions.get(userRole)?.includes(location.pathname)) {
+  if (!hasAccess) {
     return <Navigate to="/userRoleErrorPage" replace />;
   }
 

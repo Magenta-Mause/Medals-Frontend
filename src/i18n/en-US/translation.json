@@ -15,6 +15,40 @@
     "TRAINER": "Trainer",
     "ADMIN": "Admin"
   },
+  "units": {
+    "minutes": "minutes",
+    "seconds": "seconds",
+    "meters": "meters"
+  },
+  "messages": {
+    "noEntriesFound": "No entries found"
+  },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+        "label": "Strength",
+        "icon": "💪"
+      },
+      "ENDURANCE": {
+        "label": "Endurance",
+        "icon": "⌚"
+      },
+      "SPEED": {
+        "label": "Speed",
+        "icon": "🏃‍♀️"
+      },
+      "COORDINATION": {
+        "label": "Coordination",
+        "icon": "♟"
+      }
+    }
+  },
+  "generic": {
+    "all": "All",
+    "discipline": "Discipline",
+    "tooYoung": "to young",
+    "invalid": "invalid"
+  },
   "snackbar": {
     "login": {
       "loginFailed": "Login failed"
@@ -30,6 +64,10 @@
     "inviteTrainer": {
       "failed": "Failed to invite trainer",
       "success": "Trainer was invited successfully"
+    },
+    "performanceRecording": {
+      "creationError": "Error while registering performance recording",
+      "creationSuccess": "Performance recording successfully registered"
     }
   },
   "pages": {
@@ -49,7 +87,6 @@
       "gender": "Gender",
       "createButton": "Create",
       "createHeader": "Create Athlete"
-
     },
     "trainerOverviewPage": {
       "header": "Trainers"
@@ -132,6 +169,15 @@
         "/userRoleErrorPage": "User Role Error"
       }
     },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "birthdate": "Birthdate",
+        "email": "Email",
+        "gender": "Gender"
+      }
+    },
     "navbar": {
       "logo": "Medals",
       "locationList": {
@@ -152,6 +198,14 @@
       "bottomInfoCard": {
         "header": "Warning",
         "text": "Warning!"
+      }
+    },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Title",
+        "description": "Description",
+        "lastValue": "Last Value",
+        "recordedAt": "Recorded At"
       }
     },
     "downloadCard": {
@@ -176,7 +230,8 @@
             "label": "Page Size:",
             "inputPostfix": "Entries"
           }
-        }
+        },
+        "empty": "No entries found"
       },
       "mobileList": {
         "pageControl": {
@@ -241,6 +296,33 @@
     },
     "disclaimer": {
       "text": "This application is a university project and not an official service (e.g., Sportabzeichen-Digital). It is not endorsed or provided by any official organization. No official certifications or claims are provided."
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Selected Year"
+    },
+    "performanceRecordingDatagrid": {
+      "columns": {
+        "dateOfRecording": "Recorded on",
+        "result": "Achieved result"
+      },
+      "filters": {
+        "recordedIn": "Recorded in"
+      },
+      "actions": {
+        "add": {
+          "text": "Add performance recording",
+          "label": "+ add"
+        }
+      }
+    },
+    "createPerformanceRecordingModal": {
+      "header": "Register performance recording",
+      "form": {
+        "discipline": "Discipline",
+        "amount": "Achieved result",
+        "dateOfRecording": "Date of recording",
+        "ageAtRecording": "Calculated age at recording: "
+      }
     }
   }
 }
