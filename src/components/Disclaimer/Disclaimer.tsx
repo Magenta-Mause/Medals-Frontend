@@ -16,7 +16,7 @@ const Disclaimer = () => {
         textAlign: "justify",
         textAlignLast: "center",
         letterSpacing: 0.1,
-        maxWidth: "700px"
+        maxWidth: "700px",
       }}
     >
       <Typography level="body-sm">{t("components.disclaimer.text")}</Typography>
