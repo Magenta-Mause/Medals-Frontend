@@ -336,7 +336,7 @@ const FullScreenTable = <T,>(props: {
                   if (props.selected.length >= props.allItems.length) {
                     props.setSelected(() => []);
                   } else {
-                    props.setSelected((prevSelected: Key[]) =>
+                    props.setSelected(() =>
                       event.target.checked
                         ? props.allItems.map(props.keyOf)
                         : [],
