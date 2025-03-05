@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Modal, Typography, Card, ModalDialog } from "@mui/joy";
+import { Box, Button, Modal, Typography, ModalDialog } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
 interface ConfirmationPopupProps {
@@ -42,7 +42,11 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
         <Typography level="h4" component="h2" sx={{ textAlign: "center" }}>
           {t("components.confirmationPopup.header")}
         </Typography>
-        <Typography sx={{ textAlign: "justify", textAlignLast: "justify", p: "0 10px" }}>{message}</Typography>
+        <Typography
+          sx={{ textAlign: "justify", textAlignLast: "justify", p: "0 10px" }}
+        >
+          {message}
+        </Typography>
         <Box
           sx={{
             display: "flex",
