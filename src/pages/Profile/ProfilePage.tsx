@@ -1,21 +1,23 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  Avatar,
-  Grid,
-} from "@mui/joy";
-import { useTypedSelector } from "@stores/rootReducer";
-import { useTranslation } from "react-i18next";
-import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { useNavigate } from "react-router";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import useApi from "@hooks/useApi";
+import {
+  Avatar,
+  Box,
+  Button,
+  CardContent,
+  Divider,
+  Grid,
+  Modal,
+  ModalClose,
+  ModalDialog,
+  Typography,
+} from "@mui/joy";
+import { useTypedSelector } from "@stores/rootReducer";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
 const ProfilePage = () => {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -78,22 +80,6 @@ const ProfilePage = () => {
       }).format(new Date(selectedAthlete.birthdate))
     : "Datum nicht verfügbar";
 
-  const labels = [
-    "pages.profilePage.email",
-    "pages.profilePage.birthdate",
-    "pages.profilePage.gender",
-  ];
-
-  let longestLabel = "";
-  let maxLength = 0;
-  labels.forEach((label) => {
-    const translatedLabel = t(label);
-    if (translatedLabel.length > maxLength) {
-      maxLength = translatedLabel.length;
-      longestLabel = translatedLabel;
-    }
-  });
-
   const handleConfirmDelete = async () => {
     try {
       let success = undefined;
@@ -117,12 +103,26 @@ const ProfilePage = () => {
   const InfoCard = isMobile ? infoCardMobile : infoCardDesktop;
 
   return (
-    <>
-      <Box>
+    <Modal
+      open={true}
+      sx={{
+        transform: {
+          md: "translateX(calc(var(--Sidebar-width) / 2))",
+          xs: "none",
+        },
+      }}
+    >
+      <ModalDialog
+        sx={{
+          width: "500px",
+        }}
+      >
         <Box>
-          <Typography level="h2" component="h1">
+          <Typography component="h1">
             {t("pages.profilePage.header")}
           </Typography>
+          <Divider />
+          <ModalClose />
         </Box>
         <Box
           sx={{
@@ -130,54 +130,51 @@ const ProfilePage = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            pb: 3,
+            p: "0 50px",
             overflowY: "scroll",
           }}
         >
-          <Card
-            variant="outlined"
+          <Avatar
+            sx={{ width: 100, height: 100, margin: "0 auto", mb: 2, mt: 4 }}
+          >
+            <Typography sx={{ fontSize: "2rem" }}>
+              {selectedUser?.first_name.charAt(0)}
+              {selectedUser?.last_name.charAt(0)}
+            </Typography>
+          </Avatar>
+          <CardContent>
+            <Typography level="h3" gutterBottom sx={{ textAlign: "center" }}>
+              {selectedUser?.first_name} {selectedUser?.last_name}
+            </Typography>
+            <InfoCard label="ID" value={selectedUser?.id} />
+
+            {selectedUser?.type === "ATHLETE" && (
+              <>
+                <InfoCard
+                  label={t("pages.profilePage.birthdate")}
+                  value={formattedDate}
+                />
+                <InfoCard
+                  label={t("pages.profilePage.gender")}
+                  value={t("genders." + selectedAthlete?.gender)}
+                />
+              </>
+            )}
+            <InfoCard
+              label={t("pages.profilePage.email")}
+              value={selectedUser?.email}
+            />
+          </CardContent>
+          <Box
             sx={{
-              p: 3,
-              textAlign: "center",
               display: "flex",
-              maxWidth: "100%",
-              minWidth: isMobile
-                ? "none"
-                : `${Math.max(selectedUser?.email ? selectedUser.email.length * 23 : 100, longestLabel.length * 22)}px`,
-              width: isMobile ? "100%" : "none",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 2,
+              mt: 8,
             }}
           >
-            <Avatar sx={{ width: 100, height: 100, margin: "0 auto", mb: 1 }}>
-              <Typography sx={{ fontSize: "2rem" }}>
-                {selectedUser?.first_name.charAt(0)}
-                {selectedUser?.last_name.charAt(0)}
-              </Typography>
-            </Avatar>
-            <CardContent>
-              <Typography level="h3" gutterBottom>
-                {selectedUser?.first_name} {selectedUser?.last_name}
-              </Typography>
-              <InfoCard label="ID" value={selectedUser?.id} />
-
-              {selectedUser?.type === "ATHLETE" && (
-                <>
-                  <InfoCard
-                    label={t("pages.profilePage.birthdate")}
-                    value={formattedDate}
-                  />
-                  <InfoCard
-                    label={t("pages.profilePage.gender")}
-                    value={t("genders." + selectedAthlete?.gender)}
-                  />
-                </>
-              )}
-              <InfoCard
-                label={t("pages.profilePage.email")}
-                value={selectedUser?.email}
-              />
-            </CardContent>
-          </Card>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
             <Button
               variant="outlined"
               onClick={() => navigate("/resetPassword")}
@@ -204,8 +201,8 @@ const ProfilePage = () => {
           onConfirm={handleConfirmDelete}
           message={t("pages.profilePage.confirmDeleteMessage")}
         />
-      </Box>
-    </>
+      </ModalDialog>
+    </Modal>
   );
 };
 
