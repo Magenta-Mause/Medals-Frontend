@@ -1,7 +1,10 @@
-import useApi from "@hooks/useApi";
+import TrainerInvitatonModal from "@components/modals/TrainerInvitatonModal";
 import { Trainer } from "@customTypes/bffTypes";
+import useApi from "@hooks/useApi";
+import { Add } from "@mui/icons-material";
 import { Typography } from "@mui/joy";
 import { removeTrainer } from "@stores/slices/trainerSlice";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -11,9 +14,6 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { Add } from "@mui/icons-material";
-import TrainerInvitatonModal from "@components/Modals/TrainerInvitatonModal";
-import { useState } from "react";
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
