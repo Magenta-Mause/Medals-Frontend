@@ -1,20 +1,12 @@
+import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import {
-  Box,
-  Button,
-  FormLabel,
-  Input,
-  Modal,
-  Sheet,
-  Typography,
-} from "@mui/joy";
+import { Box, Button, FormLabel, Input } from "@mui/joy";
+import Option from "@mui/joy/Option";
+import Select from "@mui/joy/Select";
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "../../CustomDatePicker/CustomDatePicker";
-import Select from "@mui/joy/Select";
-import Option from "@mui/joy/Option";
-import { Athlete } from "@customTypes/backendTypes";
 import GenericModal from "../GenericModal";
 
 const emailRegex = // eslint-disable-next-line no-control-regex
@@ -147,9 +139,7 @@ const AthleteCreationForm = () => {
           },
         }}
       >
-        <FormLabel>
-          {t("pages.athleteCreationPage.firstName")}
-        </FormLabel>
+        <FormLabel>{t("pages.athleteCreationPage.firstName")}</FormLabel>
         <Input
           sx={{
             width: { sx: "40vw", md: "30vw" },
@@ -207,7 +197,14 @@ const AthleteCreationForm = () => {
           error={!inputValid.email}
         />
         <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
-        <Box sx={{ display: "flex", alignItems: "center", gap: "8px", width: "100%" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            width: "100%",
+          }}
+        >
           <CustomDatePicker
             error={!inputValid.birthdate}
             sx={{
