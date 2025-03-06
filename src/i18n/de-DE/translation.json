@@ -15,6 +15,39 @@
     "TRAINER": "Trainer*in",
     "ADMIN": "Admin"
   },
+  "generic": {
+    "all": "Alle",
+    "discipline": "Disziplin",
+    "invalid": "Ungültig"
+  },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+        "label": "Stärke",
+        "icon": "💪"
+      },
+      "ENDURANCE": {
+        "label": "Ausdauer",
+        "icon": "⌚"
+      },
+      "SPEED": {
+        "label": "Geschwindigkeit",
+        "icon": "🏃‍♀️"
+      },
+      "COORDINATION": {
+        "label": "Koordination",
+        "icon": "♟"
+      }
+    }
+  },
+  "units": {
+    "seconds": "Sekunden",
+    "minutes": "Minuten",
+    "meters": "Meter"
+  },
+  "messages": {
+    "noEntriesFound": "Keine Einträge gefunden"
+  },
   "snackbar": {
     "login": {
       "loginFailed": "Login fehlgeschlagen"
@@ -30,12 +63,19 @@
     "inviteTrainer": {
       "failed": "Der Trainer konnte nicht eingeladen werden",
       "success": "Der Trainer wurde eingeladen"
+    },
+    "performanceRecording": {
+      "creationError": "Fehler beim anlegen von Leistungsaufnahme",
+      "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
     }
   },
   "pages": {
     "homePage": {
       "h1": "Medals",
       "h3": "Das Medaillen Management System der Zukunft"
+    },
+    "athleteDetailPage": {
+      "createPerformanceRecordingButton": "+ Leistung aufnehmen"
     },
     "athleteOverviewPage": {
       "header": "Athlet*innen",
@@ -132,6 +172,25 @@
         "/userRoleErrorPage": "fehlende Nutzungberechtigung"
       }
     },
+    "createPerformanceRecordingModal": {
+      "header": "Leistungsaufnahme hinzufügen",
+      "form": {
+        "discipline": "Disziplin",
+        "athlete": "Athlet*in",
+        "amount": "Erreichtes Ergebnis",
+        "dateOfRecording": "Tag der Aufnahme",
+        "ageAtRecording": "Berechnetes Alter bei Aufnahme: "
+      }
+    },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "birthdate": "Geburtstag",
+        "email": "E-Mail",
+        "gender": "Geschlecht"
+      }
+    },
     "navbar": {
       "logo": "Medals",
       "locationList": {
@@ -176,7 +235,8 @@
             "label": "Seiten Größe:",
             "inputPostfix": "Einträge"
           }
-        }
+        },
+        "empty": "Keine Einträge vorhanden"
       },
       "mobileList": {
         "pageControl": {
@@ -199,6 +259,17 @@
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
         }
+      },
+      "actions": {
+        "openDetails": "Details ansehen"
+      }
+    },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Titel",
+        "description": "Beschreibung",
+        "lastValue": "Letzter Wert",
+        "recordedAt": "Aufgenommen am"
       }
     },
     "trainerDatagrid": {
@@ -233,6 +304,7 @@
       "previous": "Vorheriges"
     },
     "passwordStrengthIndicator": {
+      "password": "Passwort",
       "is8Characters": "Passwort ist mindestens 8 Zeichen lang",
       "hasNumber": "Passwort enthält eine Zahl",
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",
@@ -241,6 +313,24 @@
     },
     "disclaimer": {
       "text": "Diese Anwendung ist ein Universitätsprojekt und kein offizieller Dienst (z.B. Sportabzeichen-Digital). Sie wird nicht von einer offiziellen Organisation unterstützt oder bereitgestellt. Es werden keine offiziellen Zertifizierungen oder Ansprüche bereitgestellt."
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Ausgewähltes Jahr"
+    },
+    "performanceRecordingDatagrid": {
+      "columns": {
+        "dateOfRecording": "Aufgenommen am",
+        "result": "Ergebnis"
+      },
+      "filters": {
+        "recordedIn": "Aufgenommen in"
+      },
+      "actions": {
+        "add": {
+          "text": "Hinzufügen",
+          "label": "+ aufnehmen"
+        }
+      }
     }
   }
 }
