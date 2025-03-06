@@ -15,6 +15,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
+import dayjs from "dayjs";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -154,6 +155,7 @@ const CreatePerformanceRecordingModal = (props: {
               "components.createPerformanceRecordingModal.form.discipline",
             )}
             options={disciplines}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionLabel={(d: Discipline) => d.name}
           />
         </FormControl>
@@ -182,7 +184,8 @@ const CreatePerformanceRecordingModal = (props: {
             error={false}
             value={undefined}
             onChange={(val) => {
-              const date = new Date(val.year(), val.month(), val.day());
+              const dayJsDate = dayjs(val);
+              const date = new Date(dayJsDate.unix() * 1000);
               setDate(date.getTime());
             }}
             format={undefined}
