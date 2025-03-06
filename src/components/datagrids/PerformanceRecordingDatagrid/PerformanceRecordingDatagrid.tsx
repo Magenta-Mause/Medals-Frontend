@@ -26,7 +26,7 @@ const PerformanceRecordingDatagrid = (
   props: PerformanceRecordingDatagridProps,
 ) => {
   const { t } = useTranslation();
-  const { formatValue, formatDate, formatNumber } = useFormatting();
+  const { formatValue, formatDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
 
   const columns: Column<PerformanceRecording>[] = [
