@@ -146,7 +146,7 @@ const ProfileModal = (props: {
               {selectedUser?.last_name.charAt(0)}
             </Typography>
           </Avatar>
-          <CardContent>
+          <Box>
             <Typography level="h3" gutterBottom sx={{ textAlign: "center" }}>
               {selectedUser?.first_name} {selectedUser?.last_name}
             </Typography>
@@ -168,29 +168,32 @@ const ProfileModal = (props: {
               label={t("pages.profilePage.email")}
               value={selectedUser?.email}
             />
-          </CardContent>
+          </Box>
           <Box
             sx={{
               display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
+              flexDirection: isMobile ? "column" : "row",
+              //alignItems: "center",
+              //justifyContent: "center",
               gap: 2,
-              mt: 8,
+              mt: 6,
             }}
           >
             <Button
               variant="outlined"
               onClick={() => navigate("/resetPassword")}
+              sx={{width: isMobile ? "none" : "50%"}}
             >
               {t("pages.profilePage.resetPasswordButton")}
             </Button>
+            
             <Button
               variant="outlined"
               color="danger"
               onClick={() => {
                 setDeletePopupOpen(true);
               }}
+              sx={{width: isMobile ? "none" : "50%"}}
             >
               {t("pages.profilePage.deleteProfileButton")}
             </Button>
