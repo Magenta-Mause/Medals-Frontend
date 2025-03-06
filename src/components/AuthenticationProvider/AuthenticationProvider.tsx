@@ -116,16 +116,25 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     if (authorizedUsers == null) {
       return;
     }
+    if (selectedUser === null) {
+      return;
+    }
     const user = authorizedUsers?.find(
       (user) => user.id == storageSelectedUser,
     );
-    if (user == undefined) {
+    if (user === undefined) {
       selectUser(null);
       enqueueSnackbar("User couldnt be found", { variant: "warning" });
     } else {
       selectUser(user);
     }
-  }, [authorizedUsers, selectUser, storageSelectedUser, enqueueSnackbar]);
+  }, [
+    authorizedUsers,
+    selectUser,
+    storageSelectedUser,
+    enqueueSnackbar,
+    selectedUser,
+  ]);
 
   useEffect(() => {
     refreshIdentityToken();
