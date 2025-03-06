@@ -11,6 +11,12 @@ const pad = (num: number, size: number) => {
 
 const useFormatting = () => {
   const { t, i18n } = useTranslation();
+  const formatNumber = useCallback(
+    (value: number) => {
+      return new Intl.NumberFormat(i18n.language).format(value);
+    },
+    [i18n.language],
+  );
   const formatValue = useCallback(
     (value: number, unit: string): string => {
       switch (unit) {
@@ -24,12 +30,12 @@ const useFormatting = () => {
           );
         }
         case "meters": {
-          return value + " " + t("units.meters");
+          return formatNumber(value) + " " + t("units.meters");
         }
       }
       return "";
     },
-    [t],
+    [t, formatNumber],
   );
 
   const formatDate = useCallback(
@@ -39,7 +45,7 @@ const useFormatting = () => {
     [i18n.language],
   );
 
-  return { formatValue, formatDate };
+  return { formatValue, formatDate, formatNumber };
 };
 
 export default useFormatting;

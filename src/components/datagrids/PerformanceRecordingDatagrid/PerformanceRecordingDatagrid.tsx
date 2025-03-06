@@ -1,3 +1,4 @@
+import CreatePerformanceRecordingModal from "@components/modals/CreatePerformanceRecordingModal/CreatePerformanceRecordingModal";
 import {
   Athlete,
   Discipline,
@@ -5,6 +6,7 @@ import {
 } from "@customTypes/backendTypes";
 import useFormatting from "@hooks/useFormatting";
 import { Chip, Typography } from "@mui/joy";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
@@ -12,8 +14,6 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import CreatePerformanceRecordingModal from "@components/modals/CreatePerformanceRecordingModal/CreatePerformanceRecordingModal";
-import { useState } from "react";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];
@@ -26,7 +26,7 @@ const PerformanceRecordingDatagrid = (
   props: PerformanceRecordingDatagridProps,
 ) => {
   const { t } = useTranslation();
-  const { formatValue, formatDate } = useFormatting();
+  const { formatValue, formatDate, formatNumber } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
 
   const columns: Column<PerformanceRecording>[] = [
