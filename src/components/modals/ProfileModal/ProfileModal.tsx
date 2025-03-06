@@ -172,8 +172,6 @@ const ProfileModal = (props: {
             sx={{
               display: "flex",
               flexDirection: isMobile ? "column" : "row",
-              //alignItems: "center",
-              //justifyContent: "center",
               gap: 2,
               mt: 6,
             }}
