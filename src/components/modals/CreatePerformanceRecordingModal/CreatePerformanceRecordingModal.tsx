@@ -43,8 +43,12 @@ const CreatePerformanceRecordingModal = (props: {
   const [selectedDiscipline, setSelectedDiscipline] = useState<number | null>(
     null,
   );
-  const [selectedAthlete, setSelectedAthlete] = useState<Athlete | null>(null);
-  const [discipline, setDiscipline] = useState<Discipline | null>(null);
+  const [selectedAthlete, setSelectedAthlete] = useState<Athlete | null>(
+    props.athlete ?? null,
+  );
+  const [discipline, setDiscipline] = useState<Discipline | null>(
+    props.discipline ?? null,
+  );
   const { t } = useTranslation();
   const { createPerformanceRecording } = useApi();
 
