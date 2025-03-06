@@ -106,7 +106,7 @@ const ResetPasswordPage = () => {
         <Button
           color="neutral"
           variant="soft"
-          onClick={() => navigate("/profile")}
+          onClick={() => navigate("/")}
         >
           {<ArrowBackIos />} Back
         </Button>
