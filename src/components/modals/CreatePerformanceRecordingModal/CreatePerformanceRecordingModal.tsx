@@ -101,7 +101,7 @@ const CreatePerformanceRecordingModal = (props: {
       setOpen={props.setOpen}
       disableEscape
       modalDialogSX={{
-        width: { md: "800px", xs: "90vw" },
+        width: { md: "500px", xs: "90vw" },
       }}
     >
       <form
