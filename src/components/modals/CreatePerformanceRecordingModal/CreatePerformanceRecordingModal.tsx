@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -69,7 +69,7 @@ const CreatePerformanceRecordingModal = (props: {
   useEffect(() => {
     setDiscipline(disciplines.filter((d) => d.id == selectedDiscipline)[0]);
   }, [selectedDiscipline, setDiscipline, disciplines]);
-  const [selectedDate, setDate] = useState<number | null>(null);
+  const [selectedDate, setDate] = useState<Dayjs | null>(dayjs());
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
 
@@ -94,6 +94,9 @@ const CreatePerformanceRecordingModal = (props: {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    console.log(selectedDate);
+  }, [selectedDate]);
 
   return (
     <GenericModal
@@ -110,9 +113,11 @@ const CreatePerformanceRecordingModal = (props: {
           e.preventDefault();
           submitPerformanceRecording({
             athlete_id: selectedAthlete!.id!,
-            rating_value: parseInt(e.currentTarget.elements.rating_value.value),
+            rating_value: parseFloat(
+              e.currentTarget.elements.rating_value.value,
+            ),
             discipline_id: discipline!.id,
-            date_of_performance: selectedDate!,
+            date_of_performance: selectedDate!.unix() * 1000,
           });
         }}
         style={{
@@ -182,11 +187,9 @@ const CreatePerformanceRecordingModal = (props: {
           <CustomDatePicker
             sx={{ width: "10%" }}
             error={false}
-            value={undefined}
+            value={selectedDate}
             onChange={(val) => {
-              const dayJsDate = dayjs(val);
-              const date = new Date(dayJsDate.unix() * 1000);
-              setDate(date.getTime());
+              setDate(dayjs(val));
             }}
             format={undefined}
           />
@@ -196,9 +199,9 @@ const CreatePerformanceRecordingModal = (props: {
                 "components.createPerformanceRecordingModal.form.ageAtRecording",
               )}
               {selectedDate && selectedAthlete
-                ? new Date(selectedDate).getFullYear() >
+                ? selectedDate.year() >
                   new Date(Date.parse(selectedAthlete.birthdate)).getFullYear()
-                  ? new Date(selectedDate).getFullYear() -
+                  ? selectedDate.year() -
                     new Date(
                       Date.parse(selectedAthlete.birthdate),
                     ).getFullYear()
