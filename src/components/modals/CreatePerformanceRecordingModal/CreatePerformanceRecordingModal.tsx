@@ -114,7 +114,7 @@ const CreatePerformanceRecordingModal = (props: {
           submitPerformanceRecording({
             athlete_id: selectedAthlete!.id!,
             rating_value: parseFloat(
-              e.currentTarget.elements.rating_value.value,
+              e.currentTarget.elements.rating_value.value.replace(",", "."),
             ),
             discipline_id: discipline!.id,
             date_of_performance: selectedDate!.unix() * 1000,
