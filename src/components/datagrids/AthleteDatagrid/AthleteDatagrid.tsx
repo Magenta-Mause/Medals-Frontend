@@ -25,14 +25,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const columns: Column<Athlete>[] = [
     {
-      columnName: t("components.athleteDatagrid.table.columns.athleteId"),
-      columnMapping(item) {
-        return <Typography color="primary">ATH-{item.id}</Typography>;
-      },
-      size: "s",
-      sortable: true,
-    },
-    {
       columnName: t("components.athleteDatagrid.table.columns.firstName"),
       columnMapping(item) {
         return <Typography>{item.first_name}</Typography>;

@@ -15,24 +15,19 @@ const AthleteDetailHeader = (props: {
   }[] = [
     {
       label: "name",
-      size: 2,
+      size: 3,
       mapping: (athlete) =>
         athlete ? `${athlete.first_name} ${athlete.last_name}` : "-",
     },
     {
-      label: "id",
-      size: 2,
-      mapping: (athlete) => (athlete ? String(athlete.id) : "-"),
-    },
-    {
       label: "birthdate",
-      size: 2,
+      size: 3,
       mapping: (athlete) =>
         athlete ? dateTimeFormatter.format(Date.parse(athlete.birthdate)) : "-",
     },
     {
       label: "gender",
-      size: 2,
+      size: 3,
       mapping: (athlete) => (athlete ? t("genders." + athlete.gender) : "-"),
     },
     {
