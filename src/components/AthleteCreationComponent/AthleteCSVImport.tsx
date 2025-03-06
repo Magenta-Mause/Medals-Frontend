@@ -1,18 +1,21 @@
 import { Box, Button, Modal, Sheet, Typography } from "@mui/joy";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-
+import useApi from "@hooks/useApi";
+import { Athlete } from "@customTypes/bffTypes";
 
 
 const AthleteCSVImport = () => {
   const { t } = useTranslation();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [csvData, setCsvData] = useState<any[]>([]);
+  const [csvData, setCsvData] = useState<Athlete[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const {checkAthleteExists} = useApi();
+  const [exists, setExists] = useState<boolean>(false);
 
    const  convertDateFormat = (dateStr: string)  => {
     // Split the input date string into an array [dd, mm, yyyy]
@@ -31,23 +34,29 @@ const AthleteCSVImport = () => {
   const isValidEmail = (email: string) => emailRegex.test(email);
   const isValidBirthdate = (birthdate: string) => BirthdateRegex.test(birthdate);
 
-  const isValidImport = (athlete: any) => {
-    if(athlete.firstName === null && athlete.firstName === ""){
+  const checkExists = useCallback(async (athlete: Athlete) => {
+    const result: boolean = await checkAthleteExists(athlete.email, athlete.birthdate);
+    setExists(result); 
+  }, [selectedFile]);
+  
+  const isValidImport = (athlete: Athlete) => {
+    if(athlete.first_name === null && athlete.first_name === ""){
       return false;
     }
-    if(athlete.lastName === null && athlete.lastName === ""){
+    if(athlete.last_name === null && athlete.last_name === ""){
       return false;
     }
     if(!isValidEmail(athlete.email)){
       return false;
     }
-    if(!isValidBirthdate(athlete.birthDate)){
+    if(!isValidBirthdate(athlete.birthdate)){
       return false;
     }
     if(athlete.gender !== "D" && athlete.gender !== "M" && athlete.gender !== "W"){
       return false;
     }
-    return true;
+    checkExists(athlete)
+    return exists;
   }
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,11 +99,11 @@ const AthleteCSVImport = () => {
         complete: (result) => {
           console.log("Raw Parsed Data:", result.data); // Debugging
 
-          const parsedData: any[] = result.data.map((row: any) => ({
-            firstName: row["Vorname"]?.trim() || "",
-            lastName: row["Nachname"]?.trim() || "",
+          const parsedData: Athlete[] = result.data.map((row: any) => ({
+            first_name: row["Vorname"]?.trim() || "",
+            last_name: row["Nachname"]?.trim() || "",
             email: row["E-Mail"]?.trim() || "",
-            birthDate: convertDateFormat(row["Geburtsdatum"]?.trim()) || "",
+            birthdate: convertDateFormat(row["Geburtsdatum"]?.trim()) || "",
             gender: row["Geschlecht"]?.trim().toUpperCase() || "", // Normalize gender formatting
           }));
           console.log(parsedData)
@@ -186,7 +195,7 @@ const AthleteCSVImport = () => {
           <ul>
         {csvData.map((athlete, index) => (
           <li key={index}>
-            <strong>{athlete.firstName} {athlete.lastName} {isValidImport(athlete)? <CheckIcon/> : <CloseIcon/>} </strong>
+            <strong>{athlete.first_name} {athlete.last_name} {isValidImport(athlete)? <CheckIcon/> : <CloseIcon/>} </strong>
             
           </li>
         ))}
