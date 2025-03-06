@@ -5,10 +5,12 @@ import { Athlete } from "@customTypes/backendTypes";
 import { Box, Button, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 const AthleteDetailPage = () => {
   const params = useParams();
+  const { t } = useTranslation();
   const [isPerformanceRecordingModalOpen, setPerformanceRecordingModalOpen] =
     useState(false);
   const athletes = useTypedSelector(
@@ -18,10 +20,10 @@ const AthleteDetailPage = () => {
     (ath) => ath.id == parseInt(params.athleteId ?? ""),
   );
   if (params.athleteId == "") {
-    return <Typography>Invalid Athlete ID</Typography>;
+    return <Typography>{t("errors.noAthleteIdSupplied")}</Typography>;
   }
   if (filteredAthletes.length == 0) {
-    return <Typography>No matching </Typography>;
+    return <Typography>{t("errors.athleteNotFound")}</Typography>;
   }
 
   return (
@@ -40,7 +42,7 @@ const AthleteDetailPage = () => {
           onClick={() => setPerformanceRecordingModalOpen(true)}
           sx={{ width: 200 }}
         >
-          + Add performance
+          {t("pages.athleteDetailPage.createPerformanceRecordingButton")}
         </Button>
         <AthletePerformanceAccordions athlete={filteredAthletes[0]} />
       </Box>

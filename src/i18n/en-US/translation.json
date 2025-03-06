@@ -75,6 +75,9 @@
       "h1": "Medals",
       "h3": "The soon to be Medal Management System"
     },
+    "athleteDetailPage": {
+      "createPerformanceRecordingButton": "+ record performance"
+    },
     "athleteOverviewPage": {
       "header": "Athletes",
       "createButton": "Create Athlete"
@@ -319,6 +322,7 @@
       "header": "Register performance recording",
       "form": {
         "discipline": "Discipline",
+        "athlete": "Athlete",
         "amount": "Achieved result",
         "dateOfRecording": "Date of recording",
         "ageAtRecording": "Calculated age at recording: "

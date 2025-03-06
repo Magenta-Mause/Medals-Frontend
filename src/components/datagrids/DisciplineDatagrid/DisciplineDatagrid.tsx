@@ -59,8 +59,8 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
       columnMapping(item) {
         const bestItem = item.performanceRecordings.sort(
           item.more_better
-            ? (a, b) => b.rating_value - a.rating_value
-            : (a, b) => a.rating_value - b.rating_value,
+            ? (a, b) => a.rating_value - b.rating_value
+            : (a, b) => b.rating_value - a.rating_value,
         )[0];
         return (
           <Typography>

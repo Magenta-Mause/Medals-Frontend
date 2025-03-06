@@ -225,7 +225,6 @@ const useApi = () => {
           "/performance-recordings",
           p,
         );
-        console.log(response);
         return response.status == 201;
       } catch {
         throw new Error("Error while creating performance recording");

@@ -218,7 +218,7 @@ const PageControl = (props: {
         )}
       </Typography>
       <Input
-        type={"tel"}
+        type={"number"}
         onChange={(e) =>
           e.target.value != "" &&
           e.target.value != "0" &&

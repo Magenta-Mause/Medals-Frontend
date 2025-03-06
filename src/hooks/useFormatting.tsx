@@ -24,7 +24,7 @@ const useFormatting = () => {
           return (
             pad(Math.floor(value / 60), 2) +
             ":" +
-            pad(value % 60, 2) +
+            pad(Math.floor(value % 60), 2) +
             " " +
             t("units.minutes")
           );

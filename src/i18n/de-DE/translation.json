@@ -74,6 +74,9 @@
       "h1": "Medals",
       "h3": "Das Medaillen Management System der Zukunft"
     },
+    "athleteDetailPage": {
+      "createPerformanceRecordingButton": "+ Leistung aufnehmen"
+    },
     "athleteOverviewPage": {
       "header": "Athlet*innen",
       "createButton": "Athlet*in erstellen"
@@ -174,7 +177,7 @@
       "form": {
         "discipline": "Disziplin",
         "athlete": "Athlet*in",
-        "amount": "Erreichtes Ergebniss",
+        "amount": "Erreichtes Ergebnis",
         "dateOfRecording": "Tag der Aufnahme",
         "ageAtRecording": "Berechnetes Alter bei Aufnahme: "
       }
@@ -264,7 +267,7 @@
     "disciplineDatagrid": {
       "columns": {
         "title": "Titel",
-        "description": "Description",
+        "description": "Beschreibung",
         "lastValue": "Letzter Wert",
         "recordedAt": "Aufgenommen am"
       }

@@ -72,6 +72,7 @@ const CreatePerformanceRecordingModal = (props: {
   const [selectedDate, setDate] = useState<Dayjs | null>(dayjs());
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState<string | null>(null);
 
   const submitPerformanceRecording = async (
     p: PerformanceRecordingCreationDto,
@@ -94,9 +95,6 @@ const CreatePerformanceRecordingModal = (props: {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    console.log(selectedDate);
-  }, [selectedDate]);
 
   return (
     <GenericModal
@@ -173,9 +171,13 @@ const CreatePerformanceRecordingModal = (props: {
             placeholder={t(
               "components.createPerformanceRecordingModal.form.amount",
             )}
-            type={"tel"}
+            type={"number"}
+            slotProps={{ input: { step: "any" } }}
             endDecorator={discipline ? t("units." + discipline.unit) : ""}
             name="rating_value"
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
           />
         </FormControl>
         <FormControl>
@@ -210,7 +212,18 @@ const CreatePerformanceRecordingModal = (props: {
             </Typography>
           </FormLabel>
         </FormControl>
-        <Button type={"submit"} disabled={loading}>
+        <Button
+          type={"submit"}
+          disabled={
+            loading ||
+            selectedDiscipline == null ||
+            selectedAthlete == null ||
+            selectedDate == null ||
+            value == null ||
+            value == undefined ||
+            value == ""
+          }
+        >
           {!loading ? "Submit" : "Loading"}
         </Button>
       </form>

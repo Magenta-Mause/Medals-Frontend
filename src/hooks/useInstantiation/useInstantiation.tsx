@@ -80,7 +80,16 @@ const useInstantiation = () => {
   );
 
   useEffect(() => {
-    setConnection(initiateClient(() => {}));
+    setConnection(
+      initiateClient((c) => {
+        c.onWebSocketClose(() => {
+          console.log("Websocket closed");
+        });
+        c.onWebSocketError((e: any) => {
+          console.log("Websocket error", e);
+        });
+      }),
+    );
   }, []);
 
   const instantiateAdmin = useCallback(async () => {
