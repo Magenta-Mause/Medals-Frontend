@@ -5,7 +5,6 @@ import {
   Avatar,
   Box,
   Button,
-  CardContent,
   Divider,
   Grid,
   Modal,
@@ -182,18 +181,18 @@ const ProfileModal = (props: {
             <Button
               variant="outlined"
               onClick={() => navigate("/resetPassword")}
-              sx={{width: isMobile ? "none" : "50%"}}
+              sx={{ width: isMobile ? "none" : "50%" }}
             >
               {t("pages.profilePage.resetPasswordButton")}
             </Button>
-            
+
             <Button
               variant="outlined"
               color="danger"
               onClick={() => {
                 setDeletePopupOpen(true);
               }}
-              sx={{width: isMobile ? "none" : "50%"}}
+              sx={{ width: isMobile ? "none" : "50%" }}
             >
               {t("pages.profilePage.deleteProfileButton")}
             </Button>

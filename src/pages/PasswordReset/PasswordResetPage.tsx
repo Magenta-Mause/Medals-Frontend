@@ -103,11 +103,7 @@ const ResetPasswordPage = () => {
   return (
     <SplitPageComponent>
       <Box display="flex">
-        <Button
-          color="neutral"
-          variant="soft"
-          onClick={() => navigate("/")}
-        >
+        <Button color="neutral" variant="soft" onClick={() => navigate("/")}>
           {<ArrowBackIos />} Back
         </Button>
       </Box>
