@@ -113,6 +113,15 @@
           "noCode": "E-Mail wurde versendet"
         }
       }
+    },
+    "profilePage": {
+      "header": "Mein Profil",
+      "birthdate": "Geburtstag",
+      "gender": "Geschlecht",
+      "email": "E-Mail",
+      "resetPasswordButton": "Password zurücksetzen",
+      "deleteProfileButton": "Account löschen",
+      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht."
     }
   },
   "components": {
@@ -238,6 +247,11 @@
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",
       "hasSpecial": "Passwort enthält ein Sonderzeichen",
       "required": "Verpflichtend"
+    },
+    "confirmationPopup": {
+      "header": "Account Löschen",
+      "cancelButton": "Abbrechen",
+      "deleteButton": "Löschen"
     },
     "disclaimer": {
       "text": "Diese Anwendung ist ein Universitätsprojekt und kein offizieller Dienst (z.B. Sportabzeichen-Digital). Sie wird nicht von einer offiziellen Organisation unterstützt oder bereitgestellt. Es werden keine offiziellen Zertifizierungen oder Ansprüche bereitgestellt."
