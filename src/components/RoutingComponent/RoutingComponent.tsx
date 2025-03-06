@@ -1,19 +1,19 @@
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import PageLayout from "@components/PageLayout/PageLayout";
+import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import AthleteOverviewPage from "@pages/Athletes/AthleteOverviewPage";
+import PdfDownloadPage from "@pages/Downloads/PdfDownloadPage";
 import HomePage from "@pages/Home/HomePage";
 import InDevelopmentPage from "@pages/InDevelopment/InDevelopmentPage";
-import PdfDownloadPage from "@pages/Downloads/PdfDownloadPage";
 import LoginPage from "@pages/Login/LoginPage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
-import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
-import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
-import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
+import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
+import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
+import { useContext } from "react";
 import ValidateInvitePage from "@pages/ValidateInvitePage/ValidateInvitePage";
 import { Route, Routes } from "react-router";
-import { useContext } from "react";
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
 const RoutingComponent = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -38,7 +38,6 @@ const RoutingComponent = () => {
 
           {/* ATHLETE */}
           <Route path="/dashboard" element={<InDevelopmentPage />} />
-          <Route path="/profile" element={<InDevelopmentPage />} />
           <Route path="/requirements" element={<InDevelopmentPage />} />
           <Route path="/performances" element={<InDevelopmentPage />} />
 

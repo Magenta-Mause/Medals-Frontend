@@ -118,6 +118,15 @@
         }
       }
     },
+    "profilePage": {
+      "header": "My Profile",
+      "birthdate": "Birthdate",
+      "gender": "Gender",
+      "email": "Email",
+      "resetPasswordButton": "Reset Password",
+      "deleteProfileButton": "Delete Account",
+      "confirmDeleteMessage": "By clicking 'Delete', your account and all associated data will be permanently removed."
+    },
     "validateInvitePage": {
       "loading": "Validating",
       "finished": "Validation successful"
@@ -254,6 +263,11 @@
     },
     "disclaimer": {
       "text": "This application is a university project and not an official service (e.g., Sportabzeichen-Digital). It is not endorsed or provided by any official organization. No official certifications or claims are provided."
+    },
+    "confirmationPopup": {
+      "header": "Are You Sure?",
+      "cancelButton": "Cancel",
+      "deleteButton": "Delete"
     }
   }
 }
