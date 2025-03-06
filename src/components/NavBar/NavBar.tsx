@@ -3,6 +3,8 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import ProfileModal from "@components/modals/ProfileModal/ProfileModal";
+import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
+import LanguageSelector from "@components/NavBar/LanguageSelector";
 import { UserType } from "@customTypes/enums";
 import useSidebar from "@hooks/useSidebar";
 import {
@@ -37,12 +39,6 @@ import {
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
-import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
-import LanguageSelector from "@components/NavBar/LanguageSelector";
-import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
-import { useContext } from "react";
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { UserType } from "@customTypes/enums";
 
 const sharedNavBarElements = [
   {
