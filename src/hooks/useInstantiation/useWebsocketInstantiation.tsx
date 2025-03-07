@@ -1,5 +1,5 @@
 import { Client } from "@stomp/stompjs";
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 
 const useGenericWebsocketInitialization = <T,>(
   client: Client | null,

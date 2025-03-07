@@ -27,11 +27,17 @@ interface AuthContextType {
 }
 
 const AuthInitialisationComponent = () => {
-  const { selectedUser } = useContext(AuthContext);
+  const { selectedUser, identityToken } = useContext(AuthContext);
   const { instantiateByType } = useInstantiation();
+  const [instantiatedUser, setInstantiatedUser] = useState<UserEntity | null>(
+    null,
+  );
   useEffect(() => {
-    instantiateByType(selectedUser?.type);
-  }, [selectedUser, instantiateByType]);
+    if (selectedUser && identityToken && selectedUser !== instantiatedUser) {
+      instantiateByType(selectedUser?.type);
+      setInstantiatedUser(selectedUser);
+    }
+  }, [selectedUser, instantiateByType, identityToken, instantiatedUser]);
 
   return <></>;
 };
@@ -75,6 +81,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
 
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {
+      console.log(user);
       setSelectedUser(user);
       setStorageSelectedUser(user?.id ?? null);
     },
@@ -113,6 +120,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     try {
       await logoutUser();
       setAuthorized(false);
+      console.log("Logged out");
       selectUser(null);
       setIdentityToken(null);
     } catch (error) {
@@ -121,21 +129,20 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   }, [selectUser, logoutUser]);
 
   useEffect(() => {
-    if (storageSelectedUser == null) {
-      selectUser(null);
+    if (storageSelectedUser === null) {
       return;
     }
-    if (authorizedUsers == null) {
+    if (authorizedUsers === null) {
       return;
     }
     const user = authorizedUsers?.find(
       (user) => user.id == storageSelectedUser,
     );
-    if (user == undefined) {
+    if (user === undefined) {
       selectUser(null);
       enqueueSnackbar("User couldnt be found", { variant: "warning" });
     } else {
-      if (selectedUser == null || selectedUser?.id != user.id) {
+      if (selectedUser === null || selectedUser?.id != user.id) {
         selectUser(user);
       }
     }
@@ -167,7 +174,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
         setSelectedUser: selectUser,
       }}
     >
-      <AuthInitialisationComponent />
       {authorized == undefined ? (
         <>
           <Box
@@ -185,6 +191,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       ) : (
         children
       )}
+      <AuthInitialisationComponent />
     </AuthContext.Provider>
   );
 };

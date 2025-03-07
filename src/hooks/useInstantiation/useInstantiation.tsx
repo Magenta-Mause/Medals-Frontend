@@ -2,9 +2,10 @@ import {
   Athlete,
   Discipline,
   PerformanceRecording,
+  Trainer,
 } from "@customTypes/backendTypes";
 import { UserType } from "@customTypes/enums";
-import { Client } from "@stomp/stompjs";
+import useStompClient from "@hooks/useStompClient";
 import {
   addAthlete,
   removeAthlete,
@@ -23,18 +24,21 @@ import {
   setPerformanceRecordings,
   updatePerformanceRecording,
 } from "@stores/slices/performanceRecordingSlice";
-import { setTrainers } from "@stores/slices/trainerSlice";
-import { useCallback, useEffect, useState } from "react";
+import {
+  addTrainer,
+  removeTrainer,
+  setTrainers,
+} from "@stores/slices/trainerSlice";
+import { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import initiateClient from "websockets/client";
 import useApi from "../useApi";
 import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
 
 const useInstantiation = () => {
   const dispatch = useDispatch();
-  const [client, setConnection] = useState<Client | null>(null);
   const { getAthletes, getPerformanceRecordings, getDisciplines, getTrainers } =
     useApi();
+  const client = useStompClient();
   const {
     initialize: initializeAthleteWebsocket,
     uninitialize: uninitializeAthleteWebsocket,
@@ -71,26 +75,13 @@ const useInstantiation = () => {
   const {
     initialize: initializeTrainerWebsocket,
     uninitialize: uninitializeTrainerWebsocket,
-  } = useGenericWebsocketInitialization<Athlete>(
+  } = useGenericWebsocketInitialization<Trainer>(
     client,
     "trainer",
-    (a) => dispatch(addAthlete(a)),
-    (a) => dispatch(updateAthlete(a)),
-    (id) => dispatch(removeAthlete({ id: id })),
+    (a) => dispatch(addTrainer(a)),
+    () => {},
+    (id) => dispatch(removeTrainer({ id: id })),
   );
-
-  useEffect(() => {
-    setConnection(
-      initiateClient((c) => {
-        c.onWebSocketClose(() => {
-          console.log("Websocket closed");
-        });
-        c.onWebSocketError((e: any) => {
-          console.log("Websocket error", e);
-        });
-      }),
-    );
-  }, []);
 
   const instantiateAdmin = useCallback(async () => {
     console.log("Initializing admin");
@@ -134,7 +125,7 @@ const useInstantiation = () => {
       initializeAthleteWebsocket();
       initializeDisciplineWebsocket();
       initializePerformanceRecordingWebsocket();
-    }, 500);
+    }, 700);
   }, [
     uninitializeTrainerWebsocket,
     dispatch,

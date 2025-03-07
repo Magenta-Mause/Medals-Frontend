@@ -30,7 +30,10 @@ const athleteSlice = createSlice({
       state.data = state.data.filter((item) => item.id !== action.payload.id);
     },
     setAthletes(state, action: PayloadAction<Athlete[]>) {
-      state.data = action.payload;
+      while (state.data.length > 0) {
+        state.data.pop();
+      }
+      action.payload.forEach((a) => state.data.push(a));
     },
   },
 });
