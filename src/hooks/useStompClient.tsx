@@ -6,13 +6,13 @@ import config from "../config";
 let previousClient: Client | null = null;
 
 const useStompClient = () => {
-  const { identityToken } = useContext(AuthContext);
+  const { identityToken, selectedUser } = useContext(AuthContext);
 
   return useMemo(() => {
     if (previousClient != null) {
       previousClient.deactivate();
     }
-    if (!identityToken) {
+    if (!identityToken || !selectedUser) {
       return null;
     }
 
@@ -22,13 +22,13 @@ const useStompClient = () => {
       debug: () => {},
       reconnectDelay: 5000,
       webSocketFactory: () =>
-        new SockJS(config.websocketFactory + "?authToken=" + identityToken),
+        new SockJS(config.websocketFactory + "?authToken=" + identityToken + "&selectedUser=" + selectedUser.id),
     });
     client.activate();
     console.log("Client activated");
     previousClient = client;
     return client;
-  }, [identityToken]);
+  }, [identityToken, selectedUser]);
 };
 
 export default useStompClient;
