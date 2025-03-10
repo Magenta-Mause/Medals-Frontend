@@ -45,6 +45,7 @@ const useInstantiation = () => {
   } = useGenericWebsocketInitialization<Athlete>(
     client,
     "athlete",
+    true,
     (a) => dispatch(addAthlete(a)),
     (a) => dispatch(updateAthlete(a)),
     (id) => dispatch(removeAthlete({ id: id })),
@@ -56,6 +57,7 @@ const useInstantiation = () => {
   } = useGenericWebsocketInitialization<Discipline>(
     client,
     "discipline",
+    false,
     (d) => dispatch(addDiscipline(d)),
     (d) => dispatch(updateDiscipline(d)),
     (id) => dispatch(removeDiscipline({ id: id })),
@@ -67,6 +69,7 @@ const useInstantiation = () => {
   } = useGenericWebsocketInitialization<PerformanceRecording>(
     client,
     "performance-recording",
+    true,
     (p) => dispatch(addPerformanceRecording(p)),
     (p) => dispatch(updatePerformanceRecording(p)),
     (id) => dispatch(removePerformanceRecording({ id: id })),
@@ -78,6 +81,7 @@ const useInstantiation = () => {
   } = useGenericWebsocketInitialization<Trainer>(
     client,
     "trainer",
+    true,
     (a) => dispatch(addTrainer(a)),
     () => {},
     (id) => dispatch(removeTrainer({ id: id })),
