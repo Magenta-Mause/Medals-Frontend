@@ -130,10 +130,6 @@
       "resetPasswordButton": "Reset Password",
       "deleteProfileButton": "Delete Account",
       "confirmDeleteMessage": "By clicking 'Delete', your account and all associated data will be permanently removed."
-    },
-    "validateInvitePage": {
-      "loading": "Validating",
-      "finished": "Validation successful"
     }
   },
   "components": {
