@@ -1,3 +1,4 @@
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import {
   Athlete,
   Discipline,
@@ -29,13 +30,14 @@ import {
   removeTrainer,
   setTrainers,
 } from "@stores/slices/trainerSlice";
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 import { useDispatch } from "react-redux";
 import useApi from "../useApi";
 import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
 
 const useInstantiation = () => {
   const dispatch = useDispatch();
+  const { selectedUser } = useContext(AuthContext);
   const { getAthletes, getPerformanceRecordings, getDisciplines, getTrainers } =
     useApi();
   const client = useStompClient();
@@ -85,6 +87,9 @@ const useInstantiation = () => {
     (a) => dispatch(addTrainer(a)),
     () => {},
     (id) => dispatch(removeTrainer({ id: id })),
+    selectedUser?.type == UserType.ADMIN
+      ? (methode) => "/topics/trainer/" + methode + "/admin"
+      : undefined,
   );
 
   const instantiateAdmin = useCallback(async () => {

@@ -9,6 +9,7 @@ const useGenericWebsocketInitialization = <T,>(
   insertCallback: (item: T) => void,
   updateCallback: (item: T) => void,
   deleteCallback: (id: number) => void,
+  buildTopicString?: (methode: string) => string,
 ) => {
   const [isConnected, setConnected] = useState(false);
   const { selectedUser } = useContext(AuthContext);
@@ -22,33 +23,40 @@ const useGenericWebsocketInitialization = <T,>(
     }
     setConnected(true);
     client.subscribe(
-      "/topics/" +
-        topic +
-        "/creation" +
-        (includeUser ? "/" + selectedUser!.id : ""),
+      buildTopicString
+        ? buildTopicString("creation")
+        : "/topics/" +
+            topic +
+            "/creation" +
+            (includeUser ? "/" + selectedUser!.id : ""),
       (message) => {
         insertCallback(JSON.parse(message.body) as T);
       },
     );
     client.subscribe(
-      "/topics/" +
-        topic +
-        "/update" +
-        (includeUser ? "/" + selectedUser!.id : ""),
+      buildTopicString
+        ? buildTopicString("update")
+        : "/topics/" +
+            topic +
+            "/update" +
+            (includeUser ? "/" + selectedUser!.id : ""),
       (message) => {
         updateCallback(JSON.parse(message.body) as T);
       },
     );
     client.subscribe(
-      "/topics/" +
-        topic +
-        "/deletion" +
-        (includeUser ? "/" + selectedUser!.id : ""),
+      buildTopicString
+        ? buildTopicString("deletion")
+        : "/topics/" +
+            topic +
+            "/deletion" +
+            (includeUser ? "/" + selectedUser!.id : ""),
       (message) => {
         deleteCallback(JSON.parse(message.body) as number);
       },
     );
   }, [
+    buildTopicString,
     client,
     isConnected,
     insertCallback,
