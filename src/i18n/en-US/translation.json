@@ -153,6 +153,15 @@
           "noCode": "Verification email sent"
         }
       }
+    },
+    "profilePage": {
+      "header": "My Profile",
+      "birthdate": "Birthdate",
+      "gender": "Gender",
+      "email": "Email",
+      "resetPasswordButton": "Reset Password",
+      "deleteProfileButton": "Delete Account",
+      "confirmDeleteMessage": "By clicking 'Delete', your account and all associated data will be permanently removed."
     }
   },
   "components": {
@@ -327,6 +336,11 @@
         "dateOfRecording": "Date of recording",
         "ageAtRecording": "Calculated age at recording: "
       }
+    },
+    "confirmationPopup": {
+      "header": "Are You Sure?",
+      "cancelButton": "Cancel",
+      "deleteButton": "Delete"
     }
   }
 }
