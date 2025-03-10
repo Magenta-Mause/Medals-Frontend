@@ -1,11 +1,6 @@
 import { PerformanceRecording } from "@customTypes/backendTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface PerformanceRecordingSliceState {
-  data: PerformanceRecording[];
-  state: "idle" | "loading" | "failed";
-  error: string | null;
-}
+import { SliceState } from "..";
 
 const performanceRecordingSlice = createSlice({
   name: "performanceRecordingSlice",
@@ -13,7 +8,7 @@ const performanceRecordingSlice = createSlice({
     data: [],
     state: "idle",
     error: null,
-  } as PerformanceRecordingSliceState,
+  } as SliceState<PerformanceRecording>,
   reducers: {
     addPerformanceRecording(
       state,
