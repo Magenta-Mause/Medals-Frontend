@@ -22,7 +22,13 @@ const useStompClient = () => {
       debug: () => {},
       reconnectDelay: 5000,
       webSocketFactory: () =>
-        new SockJS(config.websocketFactory + "?authToken=" + identityToken + "&selectedUser=" + selectedUser.id),
+        new SockJS(
+          config.websocketFactory +
+            "?authToken=" +
+            identityToken +
+            "&selectedUser=" +
+            selectedUser.id,
+        ),
     });
     client.activate();
     console.log("Client activated");
