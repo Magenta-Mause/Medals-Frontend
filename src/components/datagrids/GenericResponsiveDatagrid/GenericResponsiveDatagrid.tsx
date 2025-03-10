@@ -46,7 +46,7 @@ export interface ToolbarAction extends Action<null> {
   operation: () => void;
   icon?: React.ReactNode;
   collapseToText?: boolean;
-  content: string;
+  content: React.ReactNode;
   label: string;
 }
 

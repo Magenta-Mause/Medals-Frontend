@@ -63,7 +63,7 @@
       "success": "Der Trainer wurde eingeladen"
     },
     "performanceRecording": {
-      "creationError": "Fehler beim anlegen von Leistungsaufnahme",
+      "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
     }
   },
@@ -73,7 +73,7 @@
       "h3": "Das Medaillen Management System der Zukunft"
     },
     "athleteDetailPage": {
-      "createPerformanceRecordingButton": "+ Leistung aufnehmen"
+      "createPerformanceRecordingButton": "Leistung aufnehmen"
     },
     "athleteOverviewPage": {
       "header": "Athlet*innen",

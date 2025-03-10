@@ -74,7 +74,7 @@
       "h3": "The soon to be Medal Management System"
     },
     "athleteDetailPage": {
-      "createPerformanceRecordingButton": "+ record performance"
+      "createPerformanceRecordingButton": "Record performance"
     },
     "athleteOverviewPage": {
       "header": "Athletes",
