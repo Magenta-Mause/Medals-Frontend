@@ -30,6 +30,10 @@
     "inviteTrainer": {
       "failed": "Failed to invite trainer",
       "success": "Trainer was invited successfully"
+    },
+    "validateAthleteInvite": {
+      "failed": "Could not accept the invite",
+      "success": "Invite accepted"
     }
   },
   "pages": {
@@ -39,7 +43,8 @@
     },
     "athleteOverviewPage": {
       "header": "Athletes",
-      "createButton": "Create Athlete"
+      "createButton": "Create Athlete",
+      "inviteButton": "Invite Athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -112,6 +117,10 @@
           "noCode": "Verification email sent"
         }
       }
+    },
+    "validateInvitePage": {
+      "loading": "Validating",
+      "finished": "Validation successful"
     },
     "profilePage": {
       "header": "My Profile",
@@ -207,6 +216,11 @@
           "birthYear": "Birth year",
           "gender": "Gender"
         }
+      },
+      "inviteModal": {
+        "searchAthlete": "Name or Email",
+        "notFound": "No athletes found",
+        "inviteAthleteButton": "Invite"
       }
     },
     "trainerDatagrid": {
