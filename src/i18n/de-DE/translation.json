@@ -275,7 +275,7 @@
       "columns": {
         "title": "Titel",
         "description": "Beschreibung",
-        "lastValue": "Letzter Wert",
+        "bestValue": "Bester Wert",
         "recordedAt": "Aufgenommen am"
       }
     },

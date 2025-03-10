@@ -55,7 +55,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
       sortable: true,
     },
     {
-      columnName: t("components.disciplineDatagrid.columns.lastValue"),
+      columnName: t("components.disciplineDatagrid.columns.bestValue"),
       columnMapping(item) {
         const bestItem = item.performanceRecordings.sort(
           item.more_better
