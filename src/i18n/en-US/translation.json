@@ -63,6 +63,10 @@
       "failed": "Failed to invite trainer",
       "success": "Trainer was invited successfully"
     },
+    "validateAthleteInvite": {
+      "failed": "Could not accept the invite",
+      "success": "Invite accepted"
+    },
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"
@@ -345,6 +349,11 @@
           "birthYear": "Birth year",
           "gender": "Gender"
         }
+      },
+      "inviteModal": {
+        "searchAthlete": "Name or Email",
+        "notFound": "No athletes found",
+        "inviteAthleteButton": "Invite"
       },
       "actions": {
         "openDetails": "Details"

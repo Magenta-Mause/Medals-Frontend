@@ -65,6 +65,10 @@
       "failed": "Der Trainer konnte nicht eingeladen werden",
       "success": "Der Trainer wurde eingeladen"
     },
+    "validateAthleteInvite": {
+      "failed": "Die Zuweisung konnte nicht erfolgen",
+      "success": "Du wurdest zugewiesen"
+    },
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
@@ -350,6 +354,11 @@
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
         }
+      },
+      "inviteModal": {
+        "searchAthlete": "Name oder Email",
+        "notFound": "Kein Athleten gefunden",
+        "inviteAthleteButton": "Zuweisen"
       },
       "actions": {
         "openDetails": "Details"
