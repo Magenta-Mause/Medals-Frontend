@@ -50,13 +50,6 @@ const CustomDatePicker = (props: {
           InputProps: {
             sx: {
               height: { sx: "3vh", md: "5vh", xs: "5vh" },
-              width: {
-                xs: "70vw",
-                sm: "35vw",
-                md: "30vw",
-                lg: "30vw",
-                xl: "30vw",
-              },
               borderRadius: "7px",
               backgroundColor: mode === "dark" ? "#0b0d0e" : "white",
               color: props.error

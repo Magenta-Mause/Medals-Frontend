@@ -14,7 +14,7 @@ import {
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
-  PersonAddAlt,
+  PersonAdd,
   SearchRounded,
   SpaceDashboard,
   SupervisedUserCircleOutlined,
@@ -93,7 +93,7 @@ const navBarElements = new Map<
       },
       {
         path: "/assignAthlete",
-        icon: <PersonAddAlt />,
+        icon: <PersonAdd />,
       },
     ],
   ],
@@ -203,7 +203,7 @@ const NavBar = () => {
       <Box
         sx={{
           minHeight: 0,
-          overflow: "hidden auto",
+          overflow: { md: "hidden hidden", xs: "hidden auto" },
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",

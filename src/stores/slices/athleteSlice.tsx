@@ -1,11 +1,6 @@
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete } from "@customTypes/backendTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface AthleteSliceState {
-  data: Athlete[];
-  state: "idle" | "loading" | "failed";
-  error: string | null;
-}
+import { SliceState } from "..";
 
 const athleteSlice = createSlice({
   name: "athleteSlice",
@@ -13,7 +8,7 @@ const athleteSlice = createSlice({
     data: [],
     state: "idle",
     error: null,
-  } as AthleteSliceState,
+  } as SliceState<Athlete>,
   reducers: {
     addAthlete(state, action: PayloadAction<Athlete>) {
       state.data.push(action.payload);
@@ -29,14 +24,14 @@ const athleteSlice = createSlice({
     removeAthlete(state, action: PayloadAction<{ id: number }>) {
       state.data = state.data.filter((item) => item.id !== action.payload.id);
     },
-    setAthltes(state, action: PayloadAction<Athlete[]>) {
+    setAthletes(state, action: PayloadAction<Athlete[]>) {
       state.data = action.payload;
     },
   },
 });
 
-const { addAthlete, updateAthlete, removeAthlete, setAthltes } =
+const { addAthlete, updateAthlete, removeAthlete, setAthletes } =
   athleteSlice.actions;
 
-export { addAthlete, removeAthlete, setAthltes, updateAthlete };
+export { addAthlete, removeAthlete, setAthletes, updateAthlete };
 export default athleteSlice.reducer;

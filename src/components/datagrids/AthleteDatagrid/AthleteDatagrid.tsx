@@ -1,9 +1,10 @@
+import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import { Athlete } from "@customTypes/bffTypes";
 import { Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
@@ -19,17 +20,10 @@ interface AthleteDatagridProps {
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const { deleteAthlete } = useApi();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const columns: Column<Athlete>[] = [
-    {
-      columnName: t("components.athleteDatagrid.table.columns.athleteId"),
-      columnMapping(item) {
-        return <Typography color="primary">ATH-{item.id}</Typography>;
-      },
-      size: "s",
-      sortable: true,
-    },
     {
       columnName: t("components.athleteDatagrid.table.columns.firstName"),
       columnMapping(item) {
@@ -148,7 +142,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       label: <>Delete</>,
       color: "danger",
       key: "delete",
-      variant: "solid",
+      variant: "outlined",
       operation: function (item): void {
         dispatch(removeAthlete({ id: item.id! }));
         deleteAthlete(item.id!);
@@ -157,8 +151,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
   ];
 
+  const itemCallback = (item: Athlete) => {
+    navigate("/athletes/" + item.id);
+  };
+
   const mobileRendering: MobileTableRendering<Athlete> = {
-    avatar: (athlete) => <>{athlete.id}</>,
+    avatar: (athlete) => (
+      <Chip size="lg" sx={{ aspectRatio: 1 }}>
+        {athlete.id}
+      </Chip>
+    ),
     h1: (athlete) => (
       <>
         {athlete.first_name} {athlete.last_name}
@@ -168,7 +170,15 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     h3: (athlete) => (
       <Typography level="body-xs">{athlete.birthdate}</Typography>
     ),
-    bottomButtons: actions,
+    bottomButtons: [
+      {
+        key: "openDetails",
+        label: t("components.athleteDatagrid.actions.openDetails"),
+        operation: itemCallback,
+        color: "primary",
+      },
+      ...actions,
+    ],
     topRightInfo: (athlete) => (
       <Chip
         size="md"
@@ -203,19 +213,24 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
       type: "TEXT",
     },
+    onElementClick: itemCallback,
   };
 
   return (
-    <GenericResponsiveDatagrid
-      isLoading={props.isLoading}
-      data={props.athletes}
-      columns={columns}
-      filters={filters}
-      actionMenu={actions}
-      itemSelectionActions={actions}
-      keyOf={(item) => item.id!}
-      mobileRendering={mobileRendering}
-    />
+    <>
+      <GenericResponsiveDatagrid
+        isLoading={props.isLoading}
+        data={props.athletes}
+        columns={columns}
+        filters={filters}
+        actionMenu={actions}
+        itemSelectionActions={actions}
+        keyOf={(item) => item.id!}
+        mobileRendering={mobileRendering}
+        onItemClick={itemCallback}
+        disablePaging={false}
+      />
+    </>
   );
 };
 

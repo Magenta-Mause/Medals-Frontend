@@ -1,8 +1,8 @@
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
+  Button,
   IconButton,
-  Link,
   List,
   ListDivider,
   ListItem,
@@ -10,12 +10,11 @@ import {
   ListItemDecorator,
   Typography,
 } from "@mui/joy";
-import { Action } from "./GenericResponsiveDatagrid";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { Key, ReactNode } from "react";
-import RowMenu from "./RowMenu";
-import { Filter } from "./GenericResponsiveDatagridFilterComponent";
 import { useTranslation } from "react-i18next";
+import { Action } from "./GenericResponsiveDatagrid";
+import { Filter } from "./GenericResponsiveDatagridFilterComponent";
+import RowMenu from "./RowMenu";
 
 export interface MobileTableRendering<T> {
   avatar?: (row: T) => ReactNode;
@@ -25,11 +24,14 @@ export interface MobileTableRendering<T> {
   bottomButtons?: Action<T>[];
   additionalActions?: Action<T>[];
   topRightInfo?: (row: T) => ReactNode;
-  searchFilter: Filter<T>;
+  searchFilter?: Filter<T>;
+  onElementClick?: (row: T) => void;
 }
 
 const Row = <T,>(props: {
   item: T;
+  totalCount: number;
+  index: number;
   rendering: MobileTableRendering<T>;
   keyOf: (item: T) => Key;
 }) => {
@@ -41,12 +43,35 @@ const Row = <T,>(props: {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "start",
+          backgroundColor: props.rendering.onElementClick
+            ? "var(--joy-palette-background-level1)"
+            : "initial",
+          padding: 1,
+          borderRadius: 5,
+          ":active": {
+            backgroundColor: props.rendering.onElementClick
+              ? "var(--joy-palette-background-level2)"
+              : "initial",
+          },
+        }}
+        onClick={(e) => {
+          if (props.rendering.onElementClick) {
+            e.stopPropagation();
+            props.rendering.onElementClick(props.item);
+          }
         }}
       >
-        <ListItemContent sx={{ display: "flex", gap: 2, alignItems: "start" }}>
+        <ListItemContent
+          sx={{
+            display: "flex",
+            gap: 2,
+            alignItems: "start",
+            pl: props.rendering.avatar ? 0 : "10px",
+          }}
+        >
           {props.rendering.avatar ? (
             <ListItemDecorator>
-              <Avatar size="sm">{props.rendering.avatar(props.item)}</Avatar>
+              {props.rendering.avatar(props.item)}
             </ListItemDecorator>
           ) : (
             <></>
@@ -90,15 +115,17 @@ const Row = <T,>(props: {
               }}
             >
               {props.rendering.bottomButtons?.map((action) => (
-                <Link
-                  level="body-sm"
+                <Button
                   color={action.color}
                   key={action.key}
-                  component="button"
-                  onClick={() => action.operation(props.item)}
+                  variant={action.variant ?? "plain"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    action.operation(props.item);
+                  }}
                 >
                   {action.label}
-                </Link>
+                </Button>
               ))}
               {props.rendering.additionalActions ? (
                 <RowMenu
@@ -117,7 +144,11 @@ const Row = <T,>(props: {
           <></>
         )}
       </ListItem>
-      <ListDivider key={props.keyOf(props.item) + "divider"} />
+      {props.index < props.totalCount - 1 ? (
+        <ListDivider key={props.keyOf(props.item) + "divider"} />
+      ) : (
+        <></>
+      )}
     </>
   );
 };
@@ -129,57 +160,71 @@ const MobileTable = <T,>(props: {
   setCurrentPage: (callback: (prevNumber: number) => number) => void;
   keyOf: (item: T) => Key;
   maxPage: number;
+  disablePaging: boolean;
 }) => {
   const { t } = useTranslation();
 
   return (
     <>
       <List size="sm" sx={{ "--ListItem-paddingX": 0 }}>
-        {props.rows.map((listItem) => (
+        {props.rows.map((listItem, index) => (
           <Row
             item={listItem}
+            index={index}
             keyOf={props.keyOf}
+            totalCount={props.rows.length}
             rendering={props.rendering}
             key={props.keyOf(listItem)}
-          ></Row>
+          />
         ))}
+        {props.rows.length == 0 ? (
+          <Typography color="neutral" textAlign={"center"} p={2}>
+            {t("components.genericResponsiveDatagrid.fullScreenTable.empty")}
+          </Typography>
+        ) : (
+          <></>
+        )}
       </List>
-      <Box
-        className="Pagination-mobile"
-        sx={{
-          display: { xs: "flex", md: "none" },
-          alignItems: "center",
-          py: 2,
-        }}
-      >
-        <IconButton
-          aria-label="previous page"
-          variant="outlined"
-          color="neutral"
-          size="sm"
-          disabled={props.currentPage == 0}
-          onClick={() => props.setCurrentPage((prevPage) => prevPage - 1)}
+      {!props.disablePaging ? (
+        <Box
+          className="Pagination-mobile"
+          sx={{
+            display: { xs: "flex", md: "none" },
+            alignItems: "center",
+            py: 2,
+          }}
         >
-          <KeyboardArrowLeft />
-        </IconButton>
-        <Typography level="body-sm" sx={{ mx: "auto" }}>
-          {t(
-            "components.genericResponsiveDatagrid.mobileList.pageControl.pageLabels",
-          )
-            .replace("{currPage}", (props.currentPage + 1).toString())
-            .replace("{maxPage}", props.maxPage.toString())}
-        </Typography>
-        <IconButton
-          aria-label="next page"
-          variant="outlined"
-          color="neutral"
-          size="sm"
-          disabled={props.currentPage >= props.maxPage - 1}
-          onClick={() => props.setCurrentPage((prevPage) => prevPage + 1)}
-        >
-          <KeyboardArrowRight />
-        </IconButton>
-      </Box>
+          <IconButton
+            aria-label="previous page"
+            variant="outlined"
+            color="neutral"
+            size="sm"
+            disabled={props.currentPage == 0}
+            onClick={() => props.setCurrentPage((prevPage) => prevPage - 1)}
+          >
+            <KeyboardArrowLeft />
+          </IconButton>
+          <Typography level="body-sm" sx={{ mx: "auto" }}>
+            {t(
+              "components.genericResponsiveDatagrid.mobileList.pageControl.pageLabels",
+            )
+              .replace("{currPage}", (props.currentPage + 1).toString())
+              .replace("{maxPage}", props.maxPage.toString())}
+          </Typography>
+          <IconButton
+            aria-label="next page"
+            variant="outlined"
+            color="neutral"
+            size="sm"
+            disabled={props.currentPage >= props.maxPage - 1}
+            onClick={() => props.setCurrentPage((prevPage) => prevPage + 1)}
+          >
+            <KeyboardArrowRight />
+          </IconButton>
+        </Box>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
