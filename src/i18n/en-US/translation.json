@@ -78,7 +78,7 @@
     },
     "athleteOverviewPage": {
       "header": "Athletes",
-      "createButton": "Create Athlete"
+      "createButton": "Create athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -264,6 +264,9 @@
           "birthYear": "Birth year",
           "gender": "Gender"
         }
+      },
+      "actions": {
+        "openDetails": "Details"
       }
     },
     "trainerDatagrid": {

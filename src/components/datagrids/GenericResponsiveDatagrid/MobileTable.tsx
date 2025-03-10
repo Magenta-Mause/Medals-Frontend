@@ -1,6 +1,7 @@
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import {
   Box,
+  Button,
   IconButton,
   Link,
   List,
@@ -25,6 +26,7 @@ export interface MobileTableRendering<T> {
   additionalActions?: Action<T>[];
   topRightInfo?: (row: T) => ReactNode;
   searchFilter?: Filter<T>;
+  onElementClick?: (row: T) => void;
 }
 
 const Row = <T,>(props: {
@@ -42,6 +44,22 @@ const Row = <T,>(props: {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "start",
+          backgroundColor: props.rendering.onElementClick
+            ? "var(--joy-palette-background-level1)"
+            : "initial",
+          padding: 1,
+          borderRadius: 5,
+          ":active": {
+            backgroundColor: props.rendering.onElementClick
+              ? "var(--joy-palette-background-level2)"
+              : "initial",
+          },
+        }}
+        onClick={(e) => {
+          if (props.rendering.onElementClick) {
+            e.stopPropagation();
+            props.rendering.onElementClick(props.item);
+          }
         }}
       >
         <ListItemContent
@@ -98,16 +116,17 @@ const Row = <T,>(props: {
               }}
             >
               {props.rendering.bottomButtons?.map((action) => (
-                <Link
-                  level="body-sm"
+                <Button
                   color={action.color}
                   key={action.key}
                   variant={action.variant ?? "plain"}
-                  component="button"
-                  onClick={() => action.operation(props.item)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    action.operation(props.item);
+                  }}
                 >
                   {action.label}
-                </Link>
+                </Button>
               ))}
               {props.rendering.additionalActions ? (
                 <RowMenu

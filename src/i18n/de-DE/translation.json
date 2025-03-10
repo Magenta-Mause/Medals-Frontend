@@ -268,7 +268,7 @@
         }
       },
       "actions": {
-        "openDetails": "Details ansehen"
+        "openDetails": "Details"
       }
     },
     "disciplineDatagrid": {

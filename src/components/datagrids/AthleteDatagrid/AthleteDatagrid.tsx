@@ -142,7 +142,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       label: <>Delete</>,
       color: "danger",
       key: "delete",
-      variant: "solid",
+      variant: "outlined",
       operation: function (item): void {
         dispatch(removeAthlete({ id: item.id! }));
         deleteAthlete(item.id!);
@@ -213,6 +213,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
       type: "TEXT",
     },
+    onElementClick: itemCallback,
   };
 
   return (

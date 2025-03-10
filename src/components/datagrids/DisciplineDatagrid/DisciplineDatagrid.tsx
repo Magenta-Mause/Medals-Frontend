@@ -116,6 +116,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
           operation: props.onDisciplineClick ?? (() => {}),
         },
       ],
+      onElementClick: props.onDisciplineClick ?? undefined,
     };
 
   return (
