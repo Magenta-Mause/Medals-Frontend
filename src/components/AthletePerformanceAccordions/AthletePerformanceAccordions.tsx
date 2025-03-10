@@ -94,8 +94,8 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                     pl: 2,
                     "> svg": {
                       height: "30px",
-                      width: "30px"
-                    }
+                      width: "30px",
+                    },
                   }}
                 >
                   {DisciplineIcons[category]}
