@@ -215,7 +215,7 @@
         "title": "Title",
         "description": "Description",
         "bestValue": "Best value",
-        "recordedAt": "Recorded At"
+        "recordedAt": "Recorded at"
       }
     },
     "downloadCard": {
@@ -308,7 +308,7 @@
       "text": "This application is a university project and not an official service (e.g., Sportabzeichen-Digital). It is not endorsed or provided by any official organization. No official certifications or claims are provided."
     },
     "athletePerformanceAccordions": {
-      "selectedYear": "Selected Year"
+      "selectedYear": "Selected year"
     },
     "performanceRecordingDatagrid": {
       "columns": {
