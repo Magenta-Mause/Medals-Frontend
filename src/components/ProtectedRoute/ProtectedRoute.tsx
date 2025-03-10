@@ -40,6 +40,7 @@ const rolePermissions = new Map<UserType | undefined, string[]>([
       "/performances",
       "/downloads",
       "/help",
+      "validateInvite",
     ],
   ],
 ]);

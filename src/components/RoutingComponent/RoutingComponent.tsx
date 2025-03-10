@@ -10,6 +10,7 @@ import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
+import ValidateInvitePage from "@pages/ValidateInvitePage/ValidateInvitePage";
 import { Route, Routes } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
@@ -22,6 +23,7 @@ const RoutingComponent = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/setPassword" element={<SetPasswordPage />} />
       <Route path="/resetPassword" element={<ResetPasswordPage />} />
+      <Route path="/validateInvite" element={<ValidateInvitePage />} />
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
 

@@ -30,6 +30,10 @@
     "inviteTrainer": {
       "failed": "Der Trainer konnte nicht eingeladen werden",
       "success": "Der Trainer wurde eingeladen"
+    },
+    "validateAthleteInvite": {
+      "failed": "Die Zuweisung konnte nicht erfolgen",
+      "success": "Du wurdest zugewiesen"
     }
   },
   "pages": {
@@ -39,7 +43,8 @@
     },
     "athleteOverviewPage": {
       "header": "Athlet*innen",
-      "createButton": "Athlet*in erstellen"
+      "createButton": "Athlet*in erstellen",
+      "inviteButton": "Athlet*in zuweisen"
     },
     "athleteCreationPage": {
       "firstName": "Vorname",
@@ -113,6 +118,10 @@
           "noCode": "E-Mail wurde versendet"
         }
       }
+    },
+    "validateInvitePage": {
+      "loading": "Validierung erfolgt",
+      "finished": "Validierung erfolgreich"
     }
   },
   "components": {
@@ -199,6 +208,11 @@
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
         }
+      },
+      "inviteModal": {
+        "searchAthlete": "Name oder Email",
+        "notFound": "Kein Athleten gefunden",
+        "inviteAthleteButton": "Zuweisen"
       }
     },
     "trainerDatagrid": {
