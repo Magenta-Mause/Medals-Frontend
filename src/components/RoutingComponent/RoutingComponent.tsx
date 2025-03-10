@@ -11,8 +11,9 @@ import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
-import { useContext } from "react";
 import ValidateInvitePage from "@pages/ValidateInvitePage/ValidateInvitePage";
+import { useContext } from "react";
+
 import { Route, Routes } from "react-router";
 
 const RoutingComponent = () => {
