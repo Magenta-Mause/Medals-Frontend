@@ -118,6 +118,10 @@
         }
       }
     },
+    "validateInvitePage": {
+      "loading": "Validating",
+      "finished": "Validation successful"
+    },
     "profilePage": {
       "header": "My Profile",
       "birthdate": "Birthdate",

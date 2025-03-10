@@ -119,6 +119,10 @@
         }
       }
     },
+    "validateInvitePage": {
+      "loading": "Validierung erfolgt",
+      "finished": "Validierung erfolgreich"
+    },
     "profilePage": {
       "header": "Mein Profil",
       "birthdate": "Geburtstag",
