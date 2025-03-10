@@ -80,6 +80,8 @@ interface GenericResponsiveDatagridProps<T> {
  * @param {(item: T) => Key} keyOf - Function to derive a unique key for each data item.
  * @param {number} [elementsPerPage=5] - Number of rows to display per page. Defaults to 5.
  * @param {MobileTableRendering<T>} mobileRendering - Configuration for rendering the grid on smaller screens.
+ * @param {(item: T) => void} onItemClick - Methode which gets called when clicking on a table entry
+ * @param {boolean} disablePaging - Disable the "paging" functionality (this will show all entries on one page and disable the page controll buttons)
  *
  * @description
  * This component supports:
