@@ -18,25 +18,23 @@
   "generic": {
     "all": "Alle",
     "discipline": "Disziplin",
-    "invalid": "Ungültig"
+    "invalid": "Ungültig",
+    "loading": "Lädt...",
+    "submit": "Absenden"
   },
   "disciplines": {
     "categories": {
       "STRENGTH": {
-        "label": "Stärke",
-        "icon": "💪"
+        "label": "Stärke"
       },
       "ENDURANCE": {
-        "label": "Ausdauer",
-        "icon": "⌚"
+        "label": "Ausdauer"
       },
       "SPEED": {
-        "label": "Geschwindigkeit",
-        "icon": "🏃‍♀️"
+        "label": "Geschwindigkeit"
       },
       "COORDINATION": {
-        "label": "Koordination",
-        "icon": "♟"
+        "label": "Koordination"
       }
     }
   },
@@ -334,7 +332,8 @@
     "performanceRecordingDatagrid": {
       "columns": {
         "dateOfRecording": "Aufgenommen am",
-        "result": "Ergebnis"
+        "result": "Ergebnis",
+        "medal": "Erreichte Medaille"
       },
       "filters": {
         "recordedIn": "Aufgenommen in"

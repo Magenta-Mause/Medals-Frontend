@@ -58,7 +58,7 @@ const PerformanceRecordingDatagrid = (
       sortable: true,
     },
     {
-      columnName: "Medal",
+      columnName: t("components.performanceRecordingDatagrid.columns.medal"),
       columnMapping() {
         return "Not implemented yet";
       },

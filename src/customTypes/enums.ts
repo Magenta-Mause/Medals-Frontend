@@ -16,8 +16,8 @@ export enum MetricUnits {
 }
 
 export enum DisciplineCategories {
-  STRENGTH = "STRENGTH",
+  COORDINATION = "COORDINATION",
   ENDURANCE = "ENDURANCE",
   SPEED = "SPEED",
-  COORDINATION = "COORDINATION",
+  STRENGTH = "STRENGTH",
 }

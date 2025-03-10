@@ -26,20 +26,16 @@
   "disciplines": {
     "categories": {
       "STRENGTH": {
-        "label": "Strength",
-        "icon": "💪"
+        "label": "Strength"
       },
       "ENDURANCE": {
-        "label": "Endurance",
-        "icon": "⌚"
+        "label": "Endurance"
       },
       "SPEED": {
-        "label": "Speed",
-        "icon": "🏃‍♀️"
+        "label": "Speed"
       },
       "COORDINATION": {
-        "label": "Coordination",
-        "icon": "♟"
+        "label": "Coordination"
       }
     }
   },
@@ -47,7 +43,9 @@
     "all": "All",
     "discipline": "Discipline",
     "tooYoung": "to young",
-    "invalid": "invalid"
+    "invalid": "invalid",
+    "loading": "Loading...",
+    "submit": "Submit"
   },
   "snackbar": {
     "login": {
@@ -315,7 +313,8 @@
     "performanceRecordingDatagrid": {
       "columns": {
         "dateOfRecording": "Recorded on",
-        "result": "Achieved result"
+        "result": "Achieved result",
+        "medal": "Achieved medal"
       },
       "filters": {
         "recordedIn": "Recorded in"
