@@ -163,6 +163,9 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [refreshIdentityToken, tokenExpirationDate]);
 
+  useEffect(() => {
+    console.log(authorized);
+  }, [authorized])
   return (
     <AuthContext.Provider
       value={{

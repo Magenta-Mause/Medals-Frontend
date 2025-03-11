@@ -17,6 +17,7 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import GenericModal from "../GenericModal";
 
 const infoCardDesktop = ({
   label,
@@ -105,108 +106,98 @@ const ProfileModal = (props: {
   const InfoCard = isMobile ? infoCardMobile : infoCardDesktop;
 
   return (
-    <Modal
+    <GenericModal
       open={props.isOpen}
-      sx={{
-        transform: {
-          md: "translateX(calc(var(--Sidebar-width) / 2))",
-          xs: "none",
-        },
+      setOpen={props.setOpen}
+      header={t("pages.profilePage.header")}
+      modalDialogSX={{
+        width: "500px",
       }}
-      onClose={() => props.setOpen(false)}
     >
-      <ModalDialog
+      <Box>
+        <Typography component="h1"></Typography>
+        <Divider />
+        <ModalClose />
+      </Box>
+      <Box
         sx={{
-          width: "500px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          p: "0 50px",
+          overflowY: "scroll",
         }}
       >
-        <Box>
-          <Typography component="h1">
-            {t("pages.profilePage.header")}
+        <Avatar
+          sx={{ width: 100, height: 100, margin: "0 auto", mb: 2, mt: 4 }}
+        >
+          <Typography sx={{ fontSize: "2rem" }}>
+            {selectedUser?.first_name.charAt(0)}
+            {selectedUser?.last_name.charAt(0)}
           </Typography>
-          <Divider />
-          <ModalClose />
+        </Avatar>
+        <Box>
+          <Typography level="h3" gutterBottom sx={{ textAlign: "center" }}>
+            {selectedUser?.first_name} {selectedUser?.last_name}
+          </Typography>
+          <InfoCard label="ID" value={selectedUser?.id} />
+
+          {selectedUser?.type === "ATHLETE" && (
+            <>
+              <InfoCard
+                label={t("pages.profilePage.birthdate")}
+                value={formattedDate}
+              />
+              <InfoCard
+                label={t("pages.profilePage.gender")}
+                value={t("genders." + selectedAthlete?.gender)}
+              />
+            </>
+          )}
+          <InfoCard
+            label={t("pages.profilePage.email")}
+            value={selectedUser?.email}
+          />
         </Box>
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            p: "0 50px",
-            overflowY: "scroll",
+            flexDirection: isMobile ? "column" : "row",
+            gap: 2,
+            mt: 6,
           }}
         >
-          <Avatar
-            sx={{ width: 100, height: 100, margin: "0 auto", mb: 2, mt: 4 }}
+          <Button
+            variant="outlined"
+            onClick={() => navigate("/resetPassword")}
+            sx={{ width: isMobile ? "none" : "50%" }}
           >
-            <Typography sx={{ fontSize: "2rem" }}>
-              {selectedUser?.first_name.charAt(0)}
-              {selectedUser?.last_name.charAt(0)}
-            </Typography>
-          </Avatar>
-          <Box>
-            <Typography level="h3" gutterBottom sx={{ textAlign: "center" }}>
-              {selectedUser?.first_name} {selectedUser?.last_name}
-            </Typography>
-            <InfoCard label="ID" value={selectedUser?.id} />
+            {t("pages.profilePage.resetPasswordButton")}
+          </Button>
 
-            {selectedUser?.type === "ATHLETE" && (
-              <>
-                <InfoCard
-                  label={t("pages.profilePage.birthdate")}
-                  value={formattedDate}
-                />
-                <InfoCard
-                  label={t("pages.profilePage.gender")}
-                  value={t("genders." + selectedAthlete?.gender)}
-                />
-              </>
-            )}
-            <InfoCard
-              label={t("pages.profilePage.email")}
-              value={selectedUser?.email}
-            />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: isMobile ? "column" : "row",
-              gap: 2,
-              mt: 6,
+          <Button
+            variant="outlined"
+            color="danger"
+            onClick={() => {
+              setDeletePopupOpen(true);
             }}
+            sx={{ width: isMobile ? "none" : "50%" }}
           >
-            <Button
-              variant="outlined"
-              onClick={() => navigate("/resetPassword")}
-              sx={{ width: isMobile ? "none" : "50%" }}
-            >
-              {t("pages.profilePage.resetPasswordButton")}
-            </Button>
-
-            <Button
-              variant="outlined"
-              color="danger"
-              onClick={() => {
-                setDeletePopupOpen(true);
-              }}
-              sx={{ width: isMobile ? "none" : "50%" }}
-            >
-              {t("pages.profilePage.deleteProfileButton")}
-            </Button>
-          </Box>
+            {t("pages.profilePage.deleteProfileButton")}
+          </Button>
         </Box>
+      </Box>
 
-        <ConfirmationPopup
-          open={isDeletePopupOpen}
-          onClose={() => {
-            setDeletePopupOpen(false);
-          }}
-          onConfirm={handleConfirmDelete}
-          message={t("pages.profilePage.confirmDeleteMessage")}
-        />
-      </ModalDialog>
-    </Modal>
+      <ConfirmationPopup
+        open={isDeletePopupOpen}
+        onClose={() => {
+          setDeletePopupOpen(false);
+        }}
+        onConfirm={handleConfirmDelete}
+        message={t("pages.profilePage.confirmDeleteMessage")}
+      />
+    </GenericModal>
   );
 };
 
