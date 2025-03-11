@@ -26,7 +26,6 @@ const TrainerInvitationModal = (props: TrainerInvitationModalProps) => {
   const handleSubmitTrainerInvitation = async (
     data: TrainerInvitationObject,
   ): Promise<void> => {
-    console.log("Inviting trainer..");
     setTrainerInviteSubmitted(true);
 
     // send request here

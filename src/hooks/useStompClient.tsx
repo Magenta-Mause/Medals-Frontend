@@ -31,7 +31,6 @@ const useStompClient = () => {
         ),
     });
     client.activate();
-    console.log("Client activated");
     previousClient = client;
     return client;
   }, [identityToken, selectedUser]);

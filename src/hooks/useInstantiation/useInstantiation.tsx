@@ -93,8 +93,6 @@ const useInstantiation = () => {
   );
 
   const instantiateAdmin = useCallback(async () => {
-    console.log("Initializing admin");
-
     dispatch(setTrainers((await getTrainers()) ?? []));
     dispatch(setAthletes((await getAthletes()) ?? []));
     dispatch(setDisciplines((await getDisciplines()) ?? []));
@@ -121,8 +119,6 @@ const useInstantiation = () => {
   ]);
 
   const instantiateTrainer = useCallback(async () => {
-    console.log("Initializing trainer");
-
     dispatch(setAthletes((await getAthletes()) ?? []));
     dispatch(setDisciplines((await getDisciplines()) ?? []));
     dispatch(
@@ -147,7 +143,6 @@ const useInstantiation = () => {
   ]);
 
   const instantiateAthlete = useCallback(async () => {
-    console.log("Initializing athlete");
     uninitializeAthleteWebsocket();
     uninitializeDisciplineWebsocket();
     uninitializeTrainerWebsocket();

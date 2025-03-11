@@ -28,7 +28,6 @@ const CreatePasswordComponent = (props: {
   const { t } = useTranslation();
 
   useEffect(() => {
-    console.log("validating")
     props.setPasswordValid(valid);
   }, [valid]);
 
