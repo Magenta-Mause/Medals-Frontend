@@ -1,11 +1,6 @@
 import { Discipline } from "@customTypes/backendTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface DisciplineSliceState {
-  data: Discipline[];
-  state: "idle" | "loading" | "failed";
-  error: string | null;
-}
+import { SliceState } from "..";
 
 const disciplineSlice = createSlice({
   name: "disciplineSlice",
@@ -13,7 +8,7 @@ const disciplineSlice = createSlice({
     data: [],
     state: "idle",
     error: null,
-  } as DisciplineSliceState,
+  } as SliceState<Discipline>,
   reducers: {
     addDiscipline(state, action: PayloadAction<Discipline>) {
       state.data.push(action.payload);

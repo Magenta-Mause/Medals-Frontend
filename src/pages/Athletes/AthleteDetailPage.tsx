@@ -7,6 +7,7 @@ import { useTypedSelector } from "@stores/rootReducer";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
+import { IoIosCreate } from "react-icons/io";
 
 const AthleteDetailPage = () => {
   const params = useParams();
@@ -40,8 +41,9 @@ const AthleteDetailPage = () => {
       >
         <Button
           onClick={() => setPerformanceRecordingModalOpen(true)}
-          sx={{ width: 200 }}
+          sx={{ width: 200, display: "flex", justifyContent: "space-around" }}
         >
+          <IoIosCreate />
           {t("pages.athleteDetailPage.createPerformanceRecordingButton")}
         </Button>
         <AthletePerformanceAccordions athlete={filteredAthletes[0]} />

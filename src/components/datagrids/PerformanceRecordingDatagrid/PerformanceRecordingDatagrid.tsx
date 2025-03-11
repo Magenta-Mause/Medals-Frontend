@@ -14,6 +14,7 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import { IoIosCreate } from "react-icons/io";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];
@@ -58,7 +59,7 @@ const PerformanceRecordingDatagrid = (
       sortable: true,
     },
     {
-      columnName: "Medal",
+      columnName: t("components.performanceRecordingDatagrid.columns.medal"),
       columnMapping() {
         return "Not implemented yet";
       },
@@ -106,27 +107,23 @@ const PerformanceRecordingDatagrid = (
     },
   ];
 
-  // @ts-expect-error typescript be buggin
-  const actions: ToolbarAction[] = [
-    ...(props.athlete
-      ? [
-          {
-            label: t(
-              "components.performanceRecordingDatagrid.actions.add.text",
-            ),
-            key: "addRecording",
-            operation: () => {
-              setCreationModalOpen(true);
-            },
-            content: t(
-              "components.performanceRecordingDatagrid.actions.add.label",
-            ),
-            color: "primary",
-            variant: "solid",
+  const actions: ToolbarAction[] = props.athlete
+    ? [
+        {
+          label: t("pages.athleteDetailPage.createPerformanceRecordingButton"),
+          key: "addRecording",
+          operation: () => {
+            setCreationModalOpen(true);
           },
-        ]
-      : []),
-  ];
+          icon: <IoIosCreate />,
+          content: t(
+            "components.performanceRecordingDatagrid.actions.add.text",
+          ),
+          color: "primary",
+          variant: "solid",
+        },
+      ]
+    : [];
 
   return (
     <>

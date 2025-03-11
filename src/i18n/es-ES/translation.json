@@ -1,8 +1,8 @@
 {
   "languages": {
-    "de": "Alemán",
-    "en": "Inglés",
-    "es": "Español"
+    "de": "Deutsch",
+    "en": "English",
+    "es": "Española"
   },
   "genders": {
     "DIVERSE": "No binario",
@@ -95,18 +95,21 @@
         }
       }
     },
-    "profilePage":{
+    "profilePage": {
       "header": "Mi Perfil",
       "birthdate": "Fecha de nacimiento",
-      "gender":"Género",
-      "email":"Correo electrónico",
+      "gender": "Género",
+      "email": "Correo electrónico",
       "resetPasswordButton": "Restablecer contraseña",
       "deleteProfileButton": "Eliminar Cuenta",
       "confirmDeleteMessage": "Al hacer clic en 'Eliminar', su cuenta y todos sus datos asociados se eliminarán de forma permanente."
+<<<<<<< HEAD
     },
     "imprintPage": {
       "title": "Pie de imprenta",
       "contact": "Contacto"
+=======
+>>>>>>> e82ba21217bb1febce0d9162a7e7bd1a5d4e2490
     }
   },
   "components": {
@@ -230,7 +233,6 @@
       "header": "¿Está seguro?",
       "cancelButton": "Cancelar",
       "deleteButton": "Eliminar"
-}
-
+    }
   }
 }

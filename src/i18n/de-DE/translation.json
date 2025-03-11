@@ -1,8 +1,8 @@
 {
   "languages": {
     "de": "Deutsch",
-    "en": "Englisch",
-    "es": "Spanisch"
+    "en": "English",
+    "es": "Española"
   },
   "genders": {
     "DIVERSE": "Divers",
@@ -18,25 +18,23 @@
   "generic": {
     "all": "Alle",
     "discipline": "Disziplin",
-    "invalid": "Ungültig"
+    "invalid": "Ungültig",
+    "loading": "Lädt...",
+    "submit": "Absenden"
   },
   "disciplines": {
     "categories": {
       "STRENGTH": {
-        "label": "Stärke",
-        "icon": "💪"
+        "label": "Stärke"
       },
       "ENDURANCE": {
-        "label": "Ausdauer",
-        "icon": "⌚"
+        "label": "Ausdauer"
       },
       "SPEED": {
-        "label": "Geschwindigkeit",
-        "icon": "🏃‍♀️"
+        "label": "Geschwindigkeit"
       },
       "COORDINATION": {
-        "label": "Koordination",
-        "icon": "♟"
+        "label": "Koordination"
       }
     }
   },
@@ -65,7 +63,7 @@
       "success": "Der Trainer wurde eingeladen"
     },
     "performanceRecording": {
-      "creationError": "Fehler beim anlegen von Leistungsaufnahme",
+      "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
     }
   },
@@ -75,7 +73,7 @@
       "h3": "Das Medaillen Management System der Zukunft"
     },
     "athleteDetailPage": {
-      "createPerformanceRecordingButton": "+ Leistung aufnehmen"
+      "createPerformanceRecordingButton": "Leistung aufnehmen"
     },
     "athleteOverviewPage": {
       "header": "Athlet*innen",
@@ -331,14 +329,14 @@
         }
       },
       "actions": {
-        "openDetails": "Details ansehen"
+        "openDetails": "Details"
       }
     },
     "disciplineDatagrid": {
       "columns": {
         "title": "Titel",
         "description": "Beschreibung",
-        "lastValue": "Letzter Wert",
+        "bestValue": "Bester Wert",
         "recordedAt": "Aufgenommen am"
       }
     },
@@ -395,7 +393,8 @@
     "performanceRecordingDatagrid": {
       "columns": {
         "dateOfRecording": "Aufgenommen am",
-        "result": "Ergebnis"
+        "result": "Ergebnis",
+        "medal": "Erreichte Medaille"
       },
       "filters": {
         "recordedIn": "Aufgenommen in"

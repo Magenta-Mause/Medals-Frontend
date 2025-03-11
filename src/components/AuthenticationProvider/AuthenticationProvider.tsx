@@ -26,7 +26,7 @@ interface AuthContextType {
   setSelectedUser: (user: UserEntity | null | undefined) => void;
 }
 
-const AuthInitialisationComponent = () => {
+const AuthInitializationComponent = () => {
   const { selectedUser, identityToken } = useContext(AuthContext);
   const { instantiateByType } = useInstantiation();
   const [instantiatedUser, setInstantiatedUser] = useState<UserEntity | null>(
@@ -143,7 +143,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     );
     if (user === undefined) {
       selectUser(null);
-      enqueueSnackbar("User couldnt be found", { variant: "warning" });
+      enqueueSnackbar("User couldn't be found", { variant: "warning" });
     } else {
       if (selectedUser === null || selectedUser?.id != user.id) {
         selectUser(user);
@@ -194,7 +194,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       ) : (
         children
       )}
-      <AuthInitialisationComponent />
+      <AuthInitializationComponent />
     </AuthContext.Provider>
   );
 };
