@@ -117,7 +117,7 @@ const useApi = () => {
   };
 
   const inviteAthlete = async (athleteId: number, trainerId: number) => {
-    const request = await axiosInstance!.post(`/trainers/inviteAthlete`, {
+    const request = await axiosInstance!.post(`/trainers/invite-athlete`, {
       athleteId: athleteId,
       trainerId: trainerId,
     });
@@ -127,7 +127,7 @@ const useApi = () => {
   const getSimilarAthlete = async (athlete: string) => {
     try {
       const request = await axiosInstance!.get(
-        `/trainers/searchAthletes?athleteSearch=${athlete}`,
+        `/trainers/search-athletes?athleteSearch=${athlete}`,
       );
       return request.data.data as Athlete[];
     } catch (error) {
