@@ -3,6 +3,7 @@ import { Button, Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import { Action } from "./GenericResponsiveDatagrid";
 
 const RowMenu = <T,>(props: { item: T; actionMenu: Action<T>[] }) => {
+  console.log(props.actionMenu);
   return (
     <Dropdown>
       <MenuButton
@@ -13,11 +14,13 @@ const RowMenu = <T,>(props: { item: T; actionMenu: Action<T>[] }) => {
         sx={{
           backgroundColor: "rgba(0, 0, 0, .1)",
         }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         <MoreHorizRounded />
       </MenuButton>
-      <Menu size="sm" sx={{ minWidth: 140 }}>
+      <Menu size="sm" sx={{ minWidth: 140, zIndex: 99999999999}}>
         {props.actionMenu?.map((action) => (
           <MenuItem
             color={action.color ?? "neutral"}
