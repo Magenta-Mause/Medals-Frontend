@@ -191,7 +191,7 @@
         "/help": "Help",
         "/imprint": "Imprint",
         "/privacyPolicy": "Privacy Policy",
-        "/credits": "Our thanks go to ...",
+        "/credits": "Credits",
         "/userRoleErrorPage": "User Role Error"
       }
     },
@@ -220,7 +220,7 @@
         "title": "Legal",
         "imprint": "Imprint",
         "privacyPolicy": "Privacy Policy",
-        "credits": "Our thanks go to"
+        "credits": "Credits"
       }
     },
     "downloadCard": {
