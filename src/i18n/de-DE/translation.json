@@ -192,7 +192,7 @@
         "/help": "Hilfe",
         "/imprint": "Impressum",
         "/privacyPolicy": "Datenschutz",
-        "/credits": "Unser Dank geht an ...",
+        "/credits": "Danksagungen",
         "/userRoleErrorPage": "fehlende Nutzungberechtigung"
       }
     },
@@ -221,7 +221,7 @@
         "title": "Rechtliches",
         "imprint": "Impressum",
         "privacyPolicy": "Datenschutz",
-        "credits": "Unser Dank geht an"
+        "credits": "Danksagung"
       }
     },
     "downloadCard": {
