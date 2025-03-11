@@ -3,11 +3,8 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import ProfileModal from "@components/modals/ProfileModal/ProfileModal";
-<<<<<<< HEAD
 import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
 import LanguageSelector from "@components/NavBar/LanguageSelector";
-=======
->>>>>>> e82ba21217bb1febce0d9162a7e7bd1a5d4e2490
 import { UserType } from "@customTypes/enums";
 import useSidebar from "@hooks/useSidebar";
 import {

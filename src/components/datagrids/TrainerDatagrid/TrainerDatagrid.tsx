@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 import useApi from "@hooks/useApi";
 import { Add } from "@mui/icons-material";
->>>>>>> e82ba21217bb1febce0d9162a7e7bd1a5d4e2490
 import { Typography } from "@mui/joy";
 import { removeTrainer } from "@stores/slices/trainerSlice";
 import { useTranslation } from "react-i18next";
@@ -14,16 +11,9 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-<<<<<<< HEAD
-import { Add } from "@mui/icons-material";
 import { useState } from "react";
 import { Trainer } from "@customTypes/backendTypes";
 import TrainerInvitationModal from "@components/modals/TrainerInvitationModal/TrainerInvitatonModal";
-import useApi from "@hooks/useApi";
-=======
-import TrainerInvitationModal from "@components/modals/TrainerInvitationModal/TrainerInvitatonModal";
-import { Trainer } from "@customTypes/backendTypes";
->>>>>>> e82ba21217bb1febce0d9162a7e7bd1a5d4e2490
 
 interface TrainerDatagridProps {
   trainers: Trainer[];

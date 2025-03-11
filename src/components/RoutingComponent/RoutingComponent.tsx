@@ -8,10 +8,7 @@ import LoginPage from "@pages/Login/LoginPage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
-<<<<<<< HEAD
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-=======
->>>>>>> e82ba21217bb1febce0d9162a7e7bd1a5d4e2490
 import AthleteDetailPage from "@pages/Athletes/AthleteDetailPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
