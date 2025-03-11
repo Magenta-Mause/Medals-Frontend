@@ -20,7 +20,6 @@ const rolePermissions = new Map<UserType | undefined, string[]>([
     [
       "/",
       "/dashboard",
-      "/profile",
       "/requirements",
       "/performances",
       "/downloads",
@@ -37,7 +36,6 @@ const rolePermissions = new Map<UserType | undefined, string[]>([
       "/performanceMetrics",
       "/assignAthlete",
       "/dashboard",
-      "/profile",
       "/requirements",
       "/performances",
       "/downloads",

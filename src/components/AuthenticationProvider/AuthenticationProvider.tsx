@@ -135,6 +135,9 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     if (authorizedUsers === null) {
       return;
     }
+    if (selectedUser === null) {
+      return;
+    }
     const user = authorizedUsers?.find(
       (user) => user.id == storageSelectedUser,
     );

@@ -1,4 +1,3 @@
-import useApi from "@hooks/useApi";
 import { Typography } from "@mui/joy";
 import { removeTrainer } from "@stores/slices/trainerSlice";
 import { useTranslation } from "react-i18next";
@@ -14,6 +13,7 @@ import { Add } from "@mui/icons-material";
 import { useState } from "react";
 import { Trainer } from "@customTypes/backendTypes";
 import TrainerInvitationModal from "@components/modals/TrainerInvitationModal/TrainerInvitatonModal";
+import useApi from "@hooks/useApi";
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
