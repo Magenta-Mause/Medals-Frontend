@@ -1,5 +1,3 @@
-import { Modal, ModalDialog, IconButton } from "@mui/joy";
-import { Close } from "@mui/icons-material";
 import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
 import GenericModal from "@components/modals/GenericModal";
 import { useTranslation } from "react-i18next";
@@ -19,7 +17,7 @@ const PrivacyPolicyModal = ({
       setOpen={setOpen}
       header={t("pages.privacyPolicyPage.title")}
       modalDialogSX={{ maxWidth: "90vw", maxHeight: "90vh" }}
-      modalSX={{left: 0}}
+      modalSX={{ left: 0 }}
     >
       <PrivacyPolicyPage />
     </GenericModal>

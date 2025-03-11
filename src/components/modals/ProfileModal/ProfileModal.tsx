@@ -7,9 +7,7 @@ import {
   Button,
   Divider,
   Grid,
-  Modal,
   ModalClose,
-  ModalDialog,
   Typography,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";

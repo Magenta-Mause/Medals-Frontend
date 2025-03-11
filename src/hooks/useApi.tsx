@@ -278,7 +278,7 @@ const useApi = () => {
     getTrainers,
     inviteTrainer,
     createPerformanceRecording,
-    deletePerformanceRecording
+    deletePerformanceRecording,
   };
 };
 
