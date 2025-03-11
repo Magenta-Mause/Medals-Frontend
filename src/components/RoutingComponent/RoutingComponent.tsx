@@ -11,6 +11,9 @@ import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
+import CreditsPage from "@pages/Legal/CreditsPage";
+import ImprintPage from "@pages/Legal/ImprintPage";
+import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
 import { useContext } from "react";
 import { Route, Routes } from "react-router";
 
@@ -24,6 +27,9 @@ const RoutingComponent = () => {
       <Route path="/resetPassword" element={<ResetPasswordPage />} />
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="/imprint" element={<ImprintPage />} />
+        <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
+        <Route path="/credits" element={<CreditsPage />} />
 
         <Route element={<ProtectedRoute userRole={selectedUser?.type} />}>
           {/* ADMIN */}
