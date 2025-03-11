@@ -20,7 +20,7 @@ const RowMenu = <T,>(props: { item: T; actionMenu: Action<T>[] }) => {
       >
         <MoreHorizRounded />
       </MenuButton>
-      <Menu size="sm" sx={{ minWidth: 140, zIndex: 99999999999}}>
+      <Menu size="sm" sx={{ minWidth: 140, zIndex: 99999999999 }}>
         {props.actionMenu?.map((action) => (
           <MenuItem
             color={action.color ?? "neutral"}
