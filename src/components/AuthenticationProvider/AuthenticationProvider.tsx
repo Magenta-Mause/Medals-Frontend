@@ -176,6 +176,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
         setSelectedUser: selectUser,
       }}
     >
+      <AuthInitializationComponent />
       {authorized == undefined ? (
         <>
           <Box

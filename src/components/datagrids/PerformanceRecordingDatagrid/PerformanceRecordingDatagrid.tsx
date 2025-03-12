@@ -4,10 +4,12 @@ import {
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
+import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
 import { Chip, Typography } from "@mui/joy";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { IoIosCreate } from "react-icons/io";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
@@ -15,8 +17,6 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { IoIosCreate } from "react-icons/io";
-import useApi from "@hooks/useApi";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];

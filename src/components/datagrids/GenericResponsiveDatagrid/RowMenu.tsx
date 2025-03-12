@@ -14,9 +14,7 @@ const RowMenu = <T,>(props: { item: T; actionMenu: Action<T>[] }) => {
         sx={{
           backgroundColor: "rgba(0, 0, 0, .1)",
         }}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
+        onClick={(e) => e.stopPropagation()}
       >
         <MoreHorizRounded />
       </MenuButton>
