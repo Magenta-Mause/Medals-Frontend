@@ -35,7 +35,7 @@ const materialTheme = materialExtendTheme();
 
 const App = () => {
   const queryClient = new QueryClient();
-  const [_, setLanguage] = useLocalStorage<string>("language");
+  const [, setLanguage] = useLocalStorage<string>("language");
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
   const { i18n } = useTranslation();
 
