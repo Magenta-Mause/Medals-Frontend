@@ -1,15 +1,7 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import useApi from "@hooks/useApi";
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Grid,
-  ModalClose,
-  Typography,
-} from "@mui/joy";
+import { Avatar, Box, Button, Grid, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import React, { useContext, useState } from "react";
@@ -62,9 +54,9 @@ const ProfileModal = (props: {
   isOpen: boolean;
   setOpen: (open: boolean) => void;
 }) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
   const athletes = useTypedSelector((state) => state.athletes.data);
   const { selectedUser, setSelectedUser } = useContext(AuthContext);
+  const isMobile = useMediaQuery("(max-width:600px)");
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
@@ -112,11 +104,6 @@ const ProfileModal = (props: {
         width: "500px",
       }}
     >
-      <Box>
-        <Typography component="h1"></Typography>
-        <Divider />
-        <ModalClose />
-      </Box>
       <Box
         sx={{
           display: "flex",
@@ -161,7 +148,7 @@ const ProfileModal = (props: {
         <Box
           sx={{
             display: "flex",
-            flexDirection: isMobile ? "column" : "row",
+            flexDirection: { md: "column", sx: "row" },
             gap: 2,
             mt: 6,
           }}
@@ -169,7 +156,7 @@ const ProfileModal = (props: {
           <Button
             variant="outlined"
             onClick={() => navigate("/resetPassword")}
-            sx={{ width: isMobile ? "none" : "50%" }}
+            sx={{ width: { md: "50%", sx: "none" } }}
           >
             {t("pages.profilePage.resetPasswordButton")}
           </Button>
@@ -180,7 +167,7 @@ const ProfileModal = (props: {
             onClick={() => {
               setDeletePopupOpen(true);
             }}
-            sx={{ width: isMobile ? "none" : "50%" }}
+            sx={{ width: { sx: "none", md: "50%" } }}
           >
             {t("pages.profilePage.deleteProfileButton")}
           </Button>
