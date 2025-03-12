@@ -3,6 +3,7 @@ import { Client } from "@stomp/stompjs";
 import { useContext, useMemo } from "react";
 import SockJS from "sockjs-client";
 import config from "../config";
+
 let previousClient: Client | null = null;
 
 const useStompClient = () => {
@@ -10,8 +11,10 @@ const useStompClient = () => {
 
   return useMemo(() => {
     if (previousClient != null) {
+      console.log("stopping previous client");
       previousClient.deactivate();
     }
+
     if (!identityToken || !selectedUser) {
       return null;
     }
@@ -19,7 +22,7 @@ const useStompClient = () => {
     const client = new Client({
       brokerURL: config.backendBrokerUrl,
       connectHeaders: {},
-      debug: () => {},
+      debug: console.log,
       reconnectDelay: 5000,
       webSocketFactory: () =>
         new SockJS(
@@ -30,6 +33,14 @@ const useStompClient = () => {
             selectedUser.id,
         ),
     });
+
+    client.onStompError = (error) => {
+      console.log("stomp error:", error);
+    };
+
+    client.onWebSocketClose = (e: CloseEvent) => {
+      console.log("websocket closed:", e);
+    };
     client.activate();
     previousClient = client;
     return client;

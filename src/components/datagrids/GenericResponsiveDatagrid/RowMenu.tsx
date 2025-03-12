@@ -3,7 +3,6 @@ import { Button, Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import { Action } from "./GenericResponsiveDatagrid";
 
 const RowMenu = <T,>(props: { item: T; actionMenu: Action<T>[] }) => {
-  console.log(props.actionMenu);
   return (
     <Dropdown>
       <MenuButton
