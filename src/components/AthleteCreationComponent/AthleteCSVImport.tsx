@@ -2,67 +2,80 @@ import { Box, Button, Modal, Sheet, Typography } from "@mui/joy";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/bffTypes";
 
+interface AthleteWithValidity extends Athlete {
+  valid: boolean | undefined;
+}
 
 const AthleteCSVImport = () => {
   const { t } = useTranslation();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [csvData, setCsvData] = useState<Athlete[]>([]);
+  const [csvData, setCsvData] = useState<AthleteWithValidity[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const {checkAthleteExists} = useApi();
+  const { checkAthleteExists } = useApi();
   const [exists, setExists] = useState<boolean>(false);
 
-   const  convertDateFormat = (dateStr: string)  => {
+  const convertDateFormat = (dateStr: string) => {
     // Split the input date string into an array [dd, mm, yyyy]
-    const [day, month, year] = dateStr.split('.');
-  
+    const [day, month, year] = dateStr.split(".");
+
     // Return the date in yyyy-mm-dd format
-    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-  }
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  };
 
   const emailRegex = // eslint-disable-next-line no-control-regex
-  /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])/i;
+    /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])/i;
 
   const BirthdateRegex = // eslint-disable-next-line no-control-regex
-  /^\d{4}-\d{2}-\d{2}$/;
+    /^\d{4}-\d{2}-\d{2}$/;
 
   const isValidEmail = (email: string) => emailRegex.test(email);
-  const isValidBirthdate = (birthdate: string) => BirthdateRegex.test(birthdate);
+  const isValidBirthdate = (birthdate: string) =>
+    BirthdateRegex.test(birthdate);
 
-  const checkExists = useCallback(async (athlete: Athlete) => {
-    const result: boolean = await checkAthleteExists(athlete.email, athlete.birthdate);
-    setExists(result); 
-  }, [selectedFile]);
-  
-  const isValidImport = (athlete: Athlete) => {
-    if(athlete.first_name === null && athlete.first_name === ""){
+  const checkExists = useCallback(
+    async (athlete: Athlete) => {
+      const result: boolean = await checkAthleteExists(
+        athlete.email,
+        athlete.birthdate,
+      );
+      return result;
+    },
+    [selectedFile, checkAthleteExists],
+  );
+
+  const isValidImport = async (athlete: Athlete) => {
+    if (athlete.first_name === null && athlete.first_name === "") {
       return false;
     }
-    if(athlete.last_name === null && athlete.last_name === ""){
+    if (athlete.last_name === null && athlete.last_name === "") {
       return false;
     }
-    if(!isValidEmail(athlete.email)){
+    if (!isValidEmail(athlete.email)) {
       return false;
     }
-    if(!isValidBirthdate(athlete.birthdate)){
+    if (!isValidBirthdate(athlete.birthdate)) {
       return false;
     }
-    if(athlete.gender !== "D" && athlete.gender !== "M" && athlete.gender !== "W"){
+    if (
+      athlete.gender !== "D" &&
+      athlete.gender !== "M" &&
+      athlete.gender !== "W"
+    ) {
       return false;
     }
-    checkExists(athlete)
-    return exists;
-  }
+    return !(await checkExists(athlete));
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[  0];
-  
+      const file = event.target.files[0];
+
       // Check file extension OR MIME type
       if (file.name.endsWith(".csv") || file.type === "text/csv") {
         setSelectedFile(file);
@@ -106,21 +119,35 @@ const AthleteCSVImport = () => {
             birthdate: convertDateFormat(row["Geburtsdatum"]?.trim()) || "",
             gender: row["Geschlecht"]?.trim().toUpperCase() || "", // Normalize gender formatting
           }));
-          console.log(parsedData)
-          setCsvData(parsedData);
-        },
-        error: (error: Error) => {
-          setError("Error parsing CSV file.");
-          console.error(error);
+          console.log(parsedData);
+
+          const setData = async () => {
+            setCsvData(
+              parsedData.map((row: Athlete) => {
+                return {
+                  ...row,
+                  valid: undefined,
+                };
+              }),
+            );
+            const athletesWithBumms = [];
+            for (const athlete of parsedData) {
+              athletesWithBumms.push({
+                ...athlete,
+                valid: await isValidImport(athlete),
+              });
+            }
+            setCsvData(athletesWithBumms);
+          };
+          setData();
         },
       });
-    };
 
-    reader.onerror = () => {
-      setError("Error reading file.");
+      reader.onerror = () => {
+        setError("Error reading file.");
+      };
     };
   };
-
   return (
     <>
       <Button color="primary" onClick={() => setPopupOpen(true)}>
@@ -193,14 +220,16 @@ const AthleteCSVImport = () => {
             )}
           </Box>
           <ul>
-        {csvData.map((athlete, index) => (
-          <li key={index}>
-            <strong>{athlete.first_name} {athlete.last_name} {isValidImport(athlete)? <CheckIcon/> : <CloseIcon/>} </strong>
-            
-          </li>
-        ))}
-      </ul>
-      <Button fullWidth> import Athletes</Button>
+            {csvData.map((athlete, index) => (
+              <li key={index}>
+                <strong>
+                  {athlete.first_name} {athlete.last_name}{" "}
+                  {athlete.valid ? <CheckIcon /> : <CloseIcon />}{" "}
+                </strong>
+              </li>
+            ))}
+          </ul>
+          <Button fullWidth> import Athletes</Button>
         </Sheet>
       </Modal>
     </>
