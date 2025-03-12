@@ -1,19 +1,20 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import PageLayout from "@components/PageLayout/PageLayout";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
+import AthleteDetailPage from "@pages/Athletes/AthleteDetailPage";
 import AthleteOverviewPage from "@pages/Athletes/AthleteOverviewPage";
 import PdfDownloadPage from "@pages/Downloads/PdfDownloadPage";
 import HomePage from "@pages/Home/HomePage";
 import InDevelopmentPage from "@pages/InDevelopment/InDevelopmentPage";
+import CreditsPage from "@pages/Legal/CreditsPage";
+import ImprintPage from "@pages/Legal/ImprintPage";
+import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
 import LoginPage from "@pages/Login/LoginPage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
-import CreditsPage from "@pages/Legal/CreditsPage";
-import ImprintPage from "@pages/Legal/ImprintPage";
-import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
 import { useContext } from "react";
 import { Route, Routes } from "react-router";
 
@@ -37,6 +38,7 @@ const RoutingComponent = () => {
 
           {/* TRAINER */}
           <Route path="/athletes" element={<AthleteOverviewPage />} />
+          <Route path="/athletes/:athleteId" element={<AthleteDetailPage />} />
           <Route path="/performanceMetrics" element={<InDevelopmentPage />} />
           <Route path="/assignAthlete" element={<InDevelopmentPage />} />
 

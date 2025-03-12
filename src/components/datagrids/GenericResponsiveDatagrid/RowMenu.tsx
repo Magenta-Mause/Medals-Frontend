@@ -1,5 +1,5 @@
 import { MoreHorizRounded } from "@mui/icons-material";
-import { Dropdown, MenuButton, Button, Menu, MenuItem } from "@mui/joy";
+import { Button, Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import { Action } from "./GenericResponsiveDatagrid";
 
 const RowMenu = <T,>(props: { item: T; actionMenu: Action<T>[] }) => {
@@ -13,6 +13,7 @@ const RowMenu = <T,>(props: { item: T; actionMenu: Action<T>[] }) => {
         sx={{
           backgroundColor: "rgba(0, 0, 0, .1)",
         }}
+        onClick={(e) => e.stopPropagation()}
       >
         <MoreHorizRounded />
       </MenuButton>
@@ -20,7 +21,10 @@ const RowMenu = <T,>(props: { item: T; actionMenu: Action<T>[] }) => {
         {props.actionMenu?.map((action) => (
           <MenuItem
             color={action.color ?? "neutral"}
-            onClick={() => action.operation(props.item)}
+            onClick={(e) => {
+              e.stopPropagation();
+              action.operation(props.item);
+            }}
             key={action.key}
           >
             {action.label}

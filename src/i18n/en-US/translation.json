@@ -1,8 +1,8 @@
 {
   "languages": {
-    "de": "German",
+    "de": "Deutsch",
     "en": "English",
-    "es": "Spanish"
+    "es": "Española"
   },
   "genders": {
     "DIVERSE": "Diverse",
@@ -14,6 +14,38 @@
     "ATHLETE": "Athlete",
     "TRAINER": "Trainer",
     "ADMIN": "Admin"
+  },
+  "units": {
+    "minutes": "minutes",
+    "seconds": "seconds",
+    "meters": "meters"
+  },
+  "messages": {
+    "noEntriesFound": "No entries found"
+  },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+        "label": "Strength"
+      },
+      "ENDURANCE": {
+        "label": "Endurance"
+      },
+      "SPEED": {
+        "label": "Speed"
+      },
+      "COORDINATION": {
+        "label": "Coordination"
+      }
+    }
+  },
+  "generic": {
+    "all": "All",
+    "discipline": "Discipline",
+    "tooYoung": "to young",
+    "invalid": "invalid",
+    "loading": "Loading...",
+    "submit": "Submit"
   },
   "snackbar": {
     "login": {
@@ -30,6 +62,10 @@
     "inviteTrainer": {
       "failed": "Failed to invite trainer",
       "success": "Trainer was invited successfully"
+    },
+    "performanceRecording": {
+      "creationError": "Error while registering performance recording",
+      "creationSuccess": "Performance recording successfully registered"
     }
   },
   "pages": {
@@ -37,9 +73,12 @@
       "h1": "Medals",
       "h3": "The soon to be Medal Management System"
     },
+    "athleteDetailPage": {
+      "createPerformanceRecordingButton": "Record performance"
+    },
     "athleteOverviewPage": {
       "header": "Athletes",
-      "createButton": "Create Athlete"
+      "createButton": "Create athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -195,6 +234,15 @@
         "/userRoleErrorPage": "User Role Error"
       }
     },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "birthdate": "Birthdate",
+        "email": "Email",
+        "gender": "Gender"
+      }
+    },
     "navbar": {
       "logo": "Medals",
       "locationList": {
@@ -223,6 +271,14 @@
         "credits": "Credits"
       }
     },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Title",
+        "description": "Description",
+        "bestValue": "Best value",
+        "recordedAt": "Recorded at"
+      }
+    },
     "downloadCard": {
       "downloadButton": "Download",
       "items": {
@@ -245,7 +301,8 @@
             "label": "Page Size:",
             "inputPostfix": "Entries"
           }
-        }
+        },
+        "empty": "No entries found"
       },
       "mobileList": {
         "pageControl": {
@@ -268,6 +325,9 @@
           "birthYear": "Birth year",
           "gender": "Gender"
         }
+      },
+      "actions": {
+        "openDetails": "Details"
       }
     },
     "trainerDatagrid": {
@@ -303,6 +363,7 @@
     },
     "passwordStrengthIndicator": {
       "is8Characters": "Password is at least 8 characters long",
+      "password": "Password",
       "hasNumber": "Password contains a number",
       "hasUpperCase": "Password contains an uppercase letter",
       "hasSpecial": "Password contains a special character",
@@ -310,6 +371,35 @@
     },
     "disclaimer": {
       "text": "This application is a university project and not an official service (e.g., Sportabzeichen-Digital). It is not endorsed or provided by any official organization. No official certifications or claims are provided."
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Selected year"
+    },
+    "performanceRecordingDatagrid": {
+      "columns": {
+        "dateOfRecording": "Recorded on",
+        "result": "Achieved result",
+        "medal": "Achieved medal"
+      },
+      "filters": {
+        "recordedIn": "Recorded in"
+      },
+      "actions": {
+        "add": {
+          "text": "Add performance recording",
+          "label": "+ add"
+        }
+      }
+    },
+    "createPerformanceRecordingModal": {
+      "header": "Register performance recording",
+      "form": {
+        "discipline": "Discipline",
+        "athlete": "Athlete",
+        "amount": "Achieved result",
+        "dateOfRecording": "Date of recording",
+        "ageAtRecording": "Calculated age at recording: "
+      }
     },
     "confirmationPopup": {
       "header": "Are You Sure?",
