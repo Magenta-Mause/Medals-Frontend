@@ -1,13 +1,7 @@
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
-const pad = (num: number, size: number) => {
-  let res = num.toString();
-  while (res.length < size) {
-    res = "0" + res;
-  }
-  return res;
-};
+const pad = (num: number, size: number) => num.toString().padStart(size, "0");
 
 const useFormatting = () => {
   const { t, i18n } = useTranslation();

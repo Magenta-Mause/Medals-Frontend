@@ -1,11 +1,6 @@
 import { Trainer } from "@customTypes/backendTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface TrainerSliceState {
-  data: Trainer[];
-  state: "idle" | "loading" | "failed";
-  error: string | null;
-}
+import { SliceState } from "..";
 
 const trainerSlice = createSlice({
   name: "trainerSlice",
@@ -13,7 +8,7 @@ const trainerSlice = createSlice({
     data: [],
     state: "idle",
     error: null,
-  } as TrainerSliceState,
+  } as SliceState<Trainer>,
   reducers: {
     addTrainer(state, action: PayloadAction<Trainer>) {
       state.data.push(action.payload);

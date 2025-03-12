@@ -224,7 +224,7 @@ const CreatePerformanceRecordingModal = (props: {
             value == ""
           }
         >
-          {!loading ? "Submit" : "Loading"}
+          {!loading ? t("generic.submit") : t("generic.loading")}
         </Button>
       </form>
     </GenericModal>

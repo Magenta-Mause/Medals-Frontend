@@ -14,8 +14,18 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { GiJumpingRope } from "react-icons/gi";
+import { FaRunning, FaStopwatch } from "react-icons/fa";
+import { BiDumbbell } from "react-icons/bi";
+
+const DisciplineIcons: Record<DisciplineCategories, ReactNode> = {
+  COORDINATION: <GiJumpingRope />,
+  ENDURANCE: <FaRunning />,
+  SPEED: <FaStopwatch />,
+  STRENGTH: <BiDumbbell />,
+};
 
 const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
   const performances = useTypedSelector(
@@ -68,20 +78,37 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
               }}
             >
               <AccordionSummary
-                sx={{ marginY: 1, borderRadius: 25 }}
+                sx={{
+                  marginY: 1,
+                  borderRadius: 25,
+                }}
                 slotProps={{ button: { sx: { borderRadius: 10 } } }}
               >
-                <Typography
-                  level="h3"
+                <Box
                   sx={{
-                    borderRadius: "10px",
-                    padding: "10px",
+                    display: "flex",
+                    alignContent: "center",
+                    alignItems: "center",
+                    justifyItems: "flex-start",
+                    gap: 5,
+                    pl: 2,
+                    "> svg": {
+                      height: "30px",
+                      width: "30px",
+                    },
                   }}
                 >
-                  {t("disciplines.categories." + category + ".icon") +
-                    " " +
-                    t("disciplines.categories." + category + ".label")}
-                </Typography>
+                  {DisciplineIcons[category]}
+                  <Typography
+                    level="h3"
+                    sx={{
+                      borderRadius: "10px",
+                      padding: "10px",
+                    }}
+                  >
+                    {t("disciplines.categories." + category + ".label")}
+                  </Typography>
+                </Box>
               </AccordionSummary>
               <AccordionDetails>
                 <DisciplineDatagrid

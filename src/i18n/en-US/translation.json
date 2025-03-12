@@ -1,8 +1,8 @@
 {
   "languages": {
-    "de": "German",
+    "de": "Deutsch",
     "en": "English",
-    "es": "Spanish"
+    "es": "Española"
   },
   "genders": {
     "DIVERSE": "Diverse",
@@ -26,20 +26,16 @@
   "disciplines": {
     "categories": {
       "STRENGTH": {
-        "label": "Strength",
-        "icon": "💪"
+        "label": "Strength"
       },
       "ENDURANCE": {
-        "label": "Endurance",
-        "icon": "⌚"
+        "label": "Endurance"
       },
       "SPEED": {
-        "label": "Speed",
-        "icon": "🏃‍♀️"
+        "label": "Speed"
       },
       "COORDINATION": {
-        "label": "Coordination",
-        "icon": "♟"
+        "label": "Coordination"
       }
     }
   },
@@ -47,7 +43,9 @@
     "all": "All",
     "discipline": "Discipline",
     "tooYoung": "to young",
-    "invalid": "invalid"
+    "invalid": "invalid",
+    "loading": "Loading...",
+    "submit": "Submit"
   },
   "snackbar": {
     "login": {
@@ -76,11 +74,11 @@
       "h3": "The soon to be Medal Management System"
     },
     "athleteDetailPage": {
-      "createPerformanceRecordingButton": "+ record performance"
+      "createPerformanceRecordingButton": "Record performance"
     },
     "athleteOverviewPage": {
       "header": "Athletes",
-      "createButton": "Create Athlete"
+      "createButton": "Create athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -277,8 +275,8 @@
       "columns": {
         "title": "Title",
         "description": "Description",
-        "lastValue": "Last Value",
-        "recordedAt": "Recorded At"
+        "bestValue": "Best value",
+        "recordedAt": "Recorded at"
       }
     },
     "downloadCard": {
@@ -327,6 +325,9 @@
           "birthYear": "Birth year",
           "gender": "Gender"
         }
+      },
+      "actions": {
+        "openDetails": "Details"
       }
     },
     "trainerDatagrid": {
@@ -372,12 +373,13 @@
       "text": "This application is a university project and not an official service (e.g., Sportabzeichen-Digital). It is not endorsed or provided by any official organization. No official certifications or claims are provided."
     },
     "athletePerformanceAccordions": {
-      "selectedYear": "Selected Year"
+      "selectedYear": "Selected year"
     },
     "performanceRecordingDatagrid": {
       "columns": {
         "dateOfRecording": "Recorded on",
-        "result": "Achieved result"
+        "result": "Achieved result",
+        "medal": "Achieved medal"
       },
       "filters": {
         "recordedIn": "Recorded in"

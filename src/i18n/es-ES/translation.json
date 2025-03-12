@@ -1,8 +1,8 @@
 {
   "languages": {
-    "de": "Alemán",
-    "en": "Inglés",
-    "es": "Español"
+    "de": "Deutsch",
+    "en": "English",
+    "es": "Española"
   },
   "genders": {
     "DIVERSE": "No binario",
@@ -95,11 +95,11 @@
         }
       }
     },
-    "profilePage":{
+    "profilePage": {
       "header": "Mi Perfil",
       "birthdate": "Fecha de nacimiento",
-      "gender":"Género",
-      "email":"Correo electrónico",
+      "gender": "Género",
+      "email": "Correo electrónico",
       "resetPasswordButton": "Restablecer contraseña",
       "deleteProfileButton": "Eliminar Cuenta",
       "confirmDeleteMessage": "Al hacer clic en 'Eliminar', su cuenta y todos sus datos asociados se eliminarán de forma permanente."
@@ -230,7 +230,6 @@
       "header": "¿Está seguro?",
       "cancelButton": "Cancelar",
       "deleteButton": "Eliminar"
-}
-
+    }
   }
 }
