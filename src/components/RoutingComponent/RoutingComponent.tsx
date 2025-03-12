@@ -1,18 +1,21 @@
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import PageLayout from "@components/PageLayout/PageLayout";
+import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
+import AthleteDetailPage from "@pages/Athletes/AthleteDetailPage";
 import AthleteOverviewPage from "@pages/Athletes/AthleteOverviewPage";
+import PdfDownloadPage from "@pages/Downloads/PdfDownloadPage";
 import HomePage from "@pages/Home/HomePage";
 import InDevelopmentPage from "@pages/InDevelopment/InDevelopmentPage";
-import PdfDownloadPage from "@pages/Downloads/PdfDownloadPage";
+import CreditsPage from "@pages/Legal/CreditsPage";
+import ImprintPage from "@pages/Legal/ImprintPage";
+import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
 import LoginPage from "@pages/Login/LoginPage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
-import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
-import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
-import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
+import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
+import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
 import { useContext } from "react";
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import AthleteDetailPage from "@pages/Athletes/AthleteDetailPage";
 import { Route, Routes } from "react-router";
 
 const RoutingComponent = () => {
@@ -25,6 +28,9 @@ const RoutingComponent = () => {
       <Route path="/resetPassword" element={<ResetPasswordPage />} />
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="/imprint" element={<ImprintPage />} />
+        <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
+        <Route path="/credits" element={<CreditsPage />} />
 
         <Route element={<ProtectedRoute userRole={selectedUser?.type} />}>
           {/* ADMIN */}
@@ -38,7 +44,6 @@ const RoutingComponent = () => {
 
           {/* ATHLETE */}
           <Route path="/dashboard" element={<InDevelopmentPage />} />
-          <Route path="/profile" element={<InDevelopmentPage />} />
           <Route path="/requirements" element={<InDevelopmentPage />} />
           <Route path="/performances" element={<InDevelopmentPage />} />
 
