@@ -12,14 +12,14 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
-import { createContext, useEffect, useState } from "react";
-import { BrowserRouter } from "react-router";
+import { useLocalStorage } from "@uidotdev/usehooks";
 import "dayjs/locale/de";
 import "dayjs/locale/en";
 import "dayjs/locale/es";
+import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
+import { createContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocalStorage } from "@uidotdev/usehooks";
+import { BrowserRouter } from "react-router";
 
 type UtilContextType = {
   sideBarExtended: boolean;
@@ -35,8 +35,20 @@ const materialTheme = materialExtendTheme();
 
 const App = () => {
   const queryClient = new QueryClient();
-  const [language, setLanguage] = useLocalStorage<string>("language");
+  const [, setLanguage] = useLocalStorage<string>("language");
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    const language = window.localStorage.getItem("language");
+    if (language && i18n.language != language) {
+      i18n.changeLanguage(JSON.parse(language));
+    }
+  }, [i18n]);
+
+  useEffect(() => {
+    setLanguage(i18n.language);
+  }, [i18n.language, setLanguage]);
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>
@@ -54,17 +66,6 @@ const App = () => {
       </IconButton>
     </>
   );
-  const { i18n } = useTranslation();
-
-  useEffect(() => {
-    setLanguage(i18n.language);
-  }, [i18n.language, setLanguage]);
-
-  useEffect(() => {
-    if (language && i18n.language != language) {
-      i18n.changeLanguage(language);
-    }
-  }, [language, i18n]);
 
   return (
     <QueryClientProvider client={queryClient}>

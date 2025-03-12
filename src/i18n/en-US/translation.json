@@ -363,6 +363,7 @@
     },
     "passwordStrengthIndicator": {
       "is8Characters": "Password is at least 8 characters long",
+      "password": "Password",
       "hasNumber": "Password contains a number",
       "hasUpperCase": "Password contains an uppercase letter",
       "hasSpecial": "Password contains a special character",

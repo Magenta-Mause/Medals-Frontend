@@ -4,7 +4,6 @@ import InfoCard from "@components/InfoCard/InfoCard";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import ProfileModal from "@components/modals/ProfileModal/ProfileModal";
 import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
-import LanguageSelector from "@components/NavBar/LanguageSelector";
 import { UserType } from "@customTypes/enums";
 import useSidebar from "@hooks/useSidebar";
 import {
@@ -39,6 +38,7 @@ import {
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
+import LanguageSelector from "./LanguageSelector";
 
 const sharedNavBarElements = [
   {
@@ -204,7 +204,7 @@ const NavBar = () => {
       <Box
         sx={{
           minHeight: 0,
-          overflow: { md: "hidden hidden", xs: "hidden auto" },
+          overflow: { md: "hidden", xs: "hidden auto" },
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
