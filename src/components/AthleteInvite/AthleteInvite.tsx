@@ -16,7 +16,7 @@ import { AuthContext } from "@components/AuthenticationProvider/AuthenticationPr
 
 const AthleteInvite = () => {
   const { t } = useTranslation();
-  const { getSimilarAthlete, inviteAthlete } = useApi();
+  const { searchAthletes, inviteAthlete } = useApi();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
   const [filteredResults, setFilteredResults] = useState<Athlete[]>([]);
@@ -45,7 +45,7 @@ const AthleteInvite = () => {
       }
 
       try {
-        const athletes = await getSimilarAthlete(searchAthlete);
+        const athletes = await searchAthletes(searchAthlete);
         setFilteredResults(athletes);
       } catch (error) {
         console.error("Error fetching athletes", error);
@@ -58,7 +58,7 @@ const AthleteInvite = () => {
     }, 500);
 
     return () => clearTimeout(debounce);
-  }, [searchAthlete, getSimilarAthlete]);
+  }, [searchAthlete, searchAthletes]);
 
   return (
     <>

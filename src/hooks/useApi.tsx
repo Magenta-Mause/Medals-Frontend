@@ -107,12 +107,18 @@ const useApi = () => {
   };
 
   const acceptInvite = async (oneTimeCode: string) => {
-    const response = await axiosInstance!.post(
-      `/athletes/validate-invite?oneTimeCode=${oneTimeCode}`,
-    );
+    try {
+      const response = await axiosInstance!.post(
+        `/athletes/validate-invite?oneTimeCode=${oneTimeCode}`,
+      );
 
-    if (response.status !== 200) {
-      throw new Error(`Error during accepting invite: ${response.statusText}`);
+      if (response.status !== 200) {
+        throw new Error(
+          `Error during accepting invite: ${response.statusText}`,
+        );
+      }
+    } catch (error) {
+      console.error("Error while accepting invite");
     }
   };
 
@@ -124,7 +130,7 @@ const useApi = () => {
     return request.status == 200;
   };
 
-  const getSimilarAthlete = async (athlete: string) => {
+  const searchAthletes = async (athlete: string) => {
     try {
       const request = await axiosInstance!.get(
         `/trainers/search-athletes?athleteSearch=${athlete}`,
@@ -132,7 +138,7 @@ const useApi = () => {
       return request.data.data as Athlete[];
     } catch (error) {
       console.error(`Error while fetching trainer with id: ${athlete}`, error);
-      return [];
+      throw new Error("Error searching for athlete");
     }
   };
 
@@ -231,7 +237,7 @@ const useApi = () => {
     inviteTrainer,
     inviteAthlete,
     acceptInvite,
-    getSimilarAthlete,
+    searchAthletes,
   };
 };
 

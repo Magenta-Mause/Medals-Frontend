@@ -1,4 +1,5 @@
-import { StrictMode, useEffect, useState } from "react";
+import { StrictMode, useContext, useEffect, useState } from "react";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
 import { Box, Stack, Button } from "@mui/joy";
 import { useTranslation } from "react-i18next";
@@ -6,18 +7,32 @@ import { useNavigate, useSearchParams } from "react-router";
 import useApi from "@hooks/useApi";
 import { enqueueSnackbar } from "notistack";
 
-const ValidateInvitePage = () => {
+const AcceptTrainerAccessRequest = () => {
   const { t } = useTranslation();
   const { acceptInvite } = useApi();
   const [isValid, setValid] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { refreshIdentityToken } = useContext(AuthContext);
+
+  const checkAuthorization = async () => {
+    const token = await refreshIdentityToken();
+
+    if (token === null) {
+      console.log("Token is null, redirecting to login");
+      navigate("/login");
+      return;
+    }
+  };
 
   useEffect(() => {
+    checkAuthorization();
+
     const oneTimeCode = searchParams.get("oneTimeCode");
     const uuidRegex = new RegExp(
       "^[A-Za-z0-9_-]{10,}.[A-Za-z0-9_-]{10,}.[A-Za-z0-9_-]{10,}$",
     );
+
     if (!oneTimeCode || !uuidRegex.test(oneTimeCode)) {
       setValid(false);
       return;
@@ -27,11 +42,11 @@ const ValidateInvitePage = () => {
       try {
         setValid(true);
         acceptInvite(oneTimeCode);
-        enqueueSnackbar(t("snackbar.validateAthleteInvite.success"), {
+        enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.success"), {
           variant: "success",
         });
       } catch {
-        enqueueSnackbar(t("snackbar.validateAthleteInvite.failed"), {
+        enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.failed"), {
           variant: "error",
         });
       }
@@ -57,21 +72,21 @@ const ValidateInvitePage = () => {
           borderRadius: "sm",
         })}
       >
-        <StrictMode>
-          <Stack
-            sx={{
-              width: "100%",
-              maxWidth: 600,
-              textAlign: "center",
-              padding: 2,
-              borderRadius: "5px",
-              backgroundColor: "white",
-            }}
-          >
+        <Stack
+          sx={{
+            width: "100%",
+            maxWidth: 600,
+            textAlign: "center",
+            padding: 2,
+            borderRadius: "5px",
+            backgroundColor: "white",
+          }}
+        >
+          <StrictMode>
             {isValid ? (
               <Button
                 onClick={() => {
-                  navigate("/login");
+                  navigate("/");
                 }}
                 color="success"
               >
@@ -80,11 +95,11 @@ const ValidateInvitePage = () => {
             ) : (
               <Button disabled>{t("pages.validateInvitePage.loading")}</Button>
             )}
-          </Stack>
-        </StrictMode>
+          </StrictMode>
+        </Stack>
       </Box>
     </SplitPageComponent>
   );
 };
 
-export default ValidateInvitePage;
+export default AcceptTrainerAccessRequest;

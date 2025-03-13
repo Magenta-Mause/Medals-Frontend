@@ -31,9 +31,9 @@
       "failed": "Der Trainer konnte nicht eingeladen werden",
       "success": "Der Trainer wurde eingeladen"
     },
-    "validateAthleteInvite": {
-      "failed": "Die Zuweisung konnte nicht erfolgen",
-      "success": "Du wurdest zugewiesen"
+    "acceptTrainerAccessRequest": {
+      "failed": "Trainer Anfrage konnte nicht angenommen werden",
+      "success": "Trainer Anfrage erfolgreich angenommen"
     }
   },
   "pages": {
