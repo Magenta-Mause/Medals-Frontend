@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Sheet, Snackbar, Typography } from "@mui/joy";
+import { Box, Button, Modal, Sheet, Typography } from "@mui/joy";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
@@ -6,6 +6,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/bffTypes";
+import { useSnackbar } from "notistack";
 
 interface AthleteWithValidity extends Athlete {
   valid: boolean | undefined;
@@ -16,10 +17,10 @@ const AthleteCSVImport = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [csvData, setCsvData] = useState<AthleteWithValidity[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const { checkAthleteExists } = useApi();
-  const { createAthlete} = useApi();
- 
+  const { createAthlete } = useApi();
+  const { enqueueSnackbar } = useSnackbar();
+
   const convertDateFormat = (dateStr: string) => {
     // Split the input date string into an array [dd, mm, yyyy]
     const [day, month, year] = dateStr.split(".");
@@ -31,8 +32,7 @@ const AthleteCSVImport = () => {
   const emailRegex = // eslint-disable-next-line no-control-regex
     /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])/i;
 
-  const BirthdateRegex = // eslint-disable-next-line no-control-regex
-    /^\d{4}-\d{2}-\d{2}$/;
+  const BirthdateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
   const isValidEmail = (email: string) => emailRegex.test(email);
   const isValidBirthdate = (birthdate: string) =>
@@ -46,7 +46,7 @@ const AthleteCSVImport = () => {
       );
       return result;
     },
-    [selectedFile, checkAthleteExists],
+    [checkAthleteExists],
   );
 
   const isValidImport = async (athlete: Athlete) => {
@@ -72,27 +72,49 @@ const AthleteCSVImport = () => {
     return !(await checkExists(athlete));
   };
 
-  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   const stripValidity = (athlete: AthleteWithValidity): Athlete => {
-    const { valid, ...athleteWithoutValid } = athlete;
+    const { ...athleteWithoutValid } = athlete;
     return athleteWithoutValid; // This is now of type Athlete
   };
 
   const createAthletes = async (athletes: AthleteWithValidity[]) => {
-  for (const athlete of athletes) {
-    if (athlete.valid) {
-      try {
-        console.log("Sending athlete:", stripValidity(athlete)); // Log the payload
-        const response = await createAthlete(stripValidity(athlete));
-        console.log("Response:", response);
-      } catch (error: any) {
-        console.error(`Failed to create athlete ${athlete.last_name}:`, error.response?.data || error.message);
+    for (const athlete of athletes) {
+      if (athlete.valid) {
+        try {
+          await createAthlete(stripValidity(athlete));
+          enqueueSnackbar(
+            t("pages.athleteImportPage.feedback1") +
+              athlete.first_name +
+              " " +
+              athlete.last_name +
+              t("pages.athleteImportPage.feedback2"),
+            { variant: "success" },
+          );
+        } catch (error: any) {
+          console.log(error);
+          enqueueSnackbar(
+            t("pages.athleteImportPage.failedFeedback") +
+              athlete.first_name +
+              " " +
+              athlete.last_name,
+            { variant: "error" },
+          );
+        }
+        await delay(500); // ⏳ Add 1-second delay between requests
+      } else {
+        enqueueSnackbar(
+          t("pages.athleteImportPage.failedFeedback") +
+            athlete.first_name +
+            " " +
+            athlete.last_name,
+          { variant: "error" },
+        );
       }
-      await delay(1000); // ⏳ Add 1-second delay between requests
     }
-  }
-};
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -124,11 +146,11 @@ const AthleteCSVImport = () => {
   const normalizeGender = (gender: string | undefined): string => {
     if (!gender) return ""; // Default to empty if undefined/null
     const normalized = gender.trim().toLowerCase();
-  
+
     if (normalized === "m") return "MALE";
     if (normalized === "w") return "FEMALE";
     if (normalized === "d") return "DIVERSE";
-  
+
     return "UNKNOWN"; // Default for unexpected values
   };
 
@@ -177,7 +199,7 @@ const AthleteCSVImport = () => {
       });
 
       reader.onerror = () => {
-        setError("Error reading file.");
+        console.log("Error reading File");
       };
     };
   };
@@ -262,7 +284,18 @@ const AthleteCSVImport = () => {
               </li>
             ))}
           </ul>
-          <Button fullWidth onClick={() => createAthletes(csvData)}> import Athletes</Button>
+          <Button
+            fullWidth
+            onClick={() => {
+              createAthletes(csvData);
+              setCsvData([]);
+              setSelectedFile(null);
+              setPopupOpen(false);
+            }}
+          >
+            {" "}
+            import Athletes
+          </Button>
         </Sheet>
       </Modal>
     </>

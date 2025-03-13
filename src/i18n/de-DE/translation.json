@@ -51,7 +51,10 @@
       "createHeader": "Athlet*in erstellen"
     },
     "athleteImportPage":{
-      "importButton": "importiere Athlet*in"
+      "importButton": "importiere Athlet*in",
+      "feedback1": "Athlet*in ",
+      "feedback2": " erstellt",
+      "failedFeedback": "Fehler beim erstellen von Athlet*in "
     },
     "trainerOverviewPage": {
       "header": "Trainer*innen"

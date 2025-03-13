@@ -51,7 +51,10 @@
       "createHeader": "Create Athlete"
     },
     "athleteImportPage":{
-      "importButton": "Import Athlete"
+      "importButton": "Import Athlete",
+      "feedback1": "Athlete ",
+      "feedback2": " created",
+       "failedFeedback": "Failed to create "
     },
     "trainerOverviewPage": {
       "header": "Trainers"
