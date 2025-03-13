@@ -108,7 +108,7 @@ const useApi = () => {
 
   const acceptInvite = async (oneTimeCode: string) => {
     const response = await axiosInstance!.post(
-      `/athletes/validateInvite?oneTimeCode=${oneTimeCode}`,
+      `/athletes/validate-invite?oneTimeCode=${oneTimeCode}`,
     );
 
     if (response.status !== 200) {
