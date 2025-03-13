@@ -14,7 +14,7 @@ import { ListItemText } from "@mui/material";
 import { Athlete } from "@customTypes/bffTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
-const AthleteInvite = () => {
+const AthleteInviteButton = () => {
   const { t } = useTranslation();
   const { searchAthletes, inviteAthlete } = useApi();
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -146,4 +146,4 @@ const AthleteInvite = () => {
   );
 };
 
-export default AthleteInvite;
+export default AthleteInviteButton;
