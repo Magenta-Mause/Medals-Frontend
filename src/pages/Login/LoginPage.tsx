@@ -20,7 +20,7 @@ const LoginPage = () => {
   const loginCallback = async (loginData: {
     email: string;
     password: string;
-    persistent: boolean;
+    privacyPolicy: boolean;
   }) => {
     try {
       const res = await loginUser(loginData.email, loginData.password);

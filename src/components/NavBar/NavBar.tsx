@@ -1,5 +1,10 @@
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
+import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
+import ProfileModal from "@components/modals/ProfileModal/ProfileModal";
+import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
+import { UserType } from "@customTypes/enums";
 import useSidebar from "@hooks/useSidebar";
 import {
   Article,
@@ -10,14 +15,14 @@ import {
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
-  Person,
-  PersonAddAlt,
+  PersonAdd,
   SearchRounded,
   SpaceDashboard,
   SupervisedUserCircleOutlined,
 } from "@mui/icons-material";
 import {
   Box,
+  Button,
   Divider,
   GlobalStyles,
   IconButton,
@@ -30,13 +35,10 @@ import {
   Sheet,
   Typography,
 } from "@mui/joy";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
-import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
-import { useContext } from "react";
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { UserType } from "@customTypes/enums";
 
 const sharedNavBarElements = [
   {
@@ -92,7 +94,7 @@ const navBarElements = new Map<
       },
       {
         path: "/assignAthlete",
-        icon: <PersonAddAlt />,
+        icon: <PersonAdd />,
       },
     ],
   ],
@@ -106,10 +108,6 @@ const navBarElements = new Map<
       {
         path: "/dashboard",
         icon: <SpaceDashboard />,
-      },
-      {
-        path: "/profile",
-        icon: <Person />,
       },
       {
         path: "/requirements",
@@ -132,6 +130,7 @@ const NavBar = () => {
   const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
     useContext(AuthContext);
   const userRole = selectedUser?.type;
+  const [isProfileOpen, setProfileOpen] = useState(false);
 
   return (
     <Sheet
@@ -205,7 +204,7 @@ const NavBar = () => {
       <Box
         sx={{
           minHeight: 0,
-          overflow: "hidden auto",
+          overflow: { md: "hidden", xs: "hidden auto" },
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -254,6 +253,7 @@ const NavBar = () => {
             padding: "none",
           }}
         >
+          <LegalLinksSelector collapseSidebar={collapseSidebar} />
           <LanguageSelector />
           {warning ? (
             <InfoCard
@@ -269,14 +269,30 @@ const NavBar = () => {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography level="title-sm">
-            {selectedUser?.first_name} {selectedUser?.last_name}
-          </Typography>
-          <Typography level="body-xs" noWrap>
-            {email}
-          </Typography>
-        </Box>
+        <Button
+          variant="plain"
+          color="neutral"
+          size="sm"
+          sx={{
+            p: 0.5,
+            textAlign: "left",
+            flex: 1,
+            minWidth: 0,
+          }}
+          onClick={() => {
+            setProfileOpen(true);
+            collapseSidebar();
+          }}
+        >
+          <Box sx={{ minWidth: 0, flex: 1 }}>
+            <Typography level="title-sm">
+              {selectedUser?.first_name} {selectedUser?.last_name}
+            </Typography>
+            <Typography level="body-xs" noWrap sx={{ maxWidth: "100%" }}>
+              {email}
+            </Typography>
+          </Box>
+        </Button>
         {(authorizedUsers?.length ?? 0) > 1 ? (
           <IconButton
             about="Switch user"
@@ -294,6 +310,7 @@ const NavBar = () => {
           <LogoutRounded />
         </IconButton>
       </Box>
+      <ProfileModal isOpen={isProfileOpen} setOpen={setProfileOpen} />
     </Sheet>
   );
 };

@@ -1,6 +1,7 @@
 import CreatePasswordComponent from "@components/CreatePasswordComponent/CreatePasswordComponent";
 import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
 import useApi from "@hooks/useApi";
+import { ArrowBackIos } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -12,9 +13,10 @@ import {
 } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
 interface ResetPasswordFormElement extends HTMLFormElement {
   readonly elements: ResetPasswordFormElements;
@@ -34,6 +36,7 @@ const ResetPasswordPage = () => {
   const [emailValid, setEmailValid] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
 
   const initiatePasswordResetCallback = async (email: string) => {
     try {
@@ -99,6 +102,11 @@ const ResetPasswordPage = () => {
 
   return (
     <SplitPageComponent>
+      <Box display="flex">
+        <Button color="neutral" variant="soft" onClick={() => navigate("/")}>
+          {<ArrowBackIos />} Back
+        </Button>
+      </Box>
       <Box
         component="main"
         sx={(theme) => ({
@@ -151,6 +159,7 @@ const ResetPasswordPage = () => {
                   };
 
                   setPassword(data);
+                  logout();
                 } else {
                   navigate("/login");
                 }

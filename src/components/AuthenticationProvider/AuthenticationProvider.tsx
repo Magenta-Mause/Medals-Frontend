@@ -1,5 +1,6 @@
-import { JwtTokenBody, UserEntity } from "@customTypes/bffTypes";
+import { JwtTokenBody, UserEntity } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
+import useInstantiation from "@hooks/useInstantiation/useInstantiation";
 import { Box, CircularProgress } from "@mui/joy";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { jwtDecode } from "jwt-decode";
@@ -8,6 +9,7 @@ import {
   createContext,
   ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -23,6 +25,16 @@ interface AuthContextType {
   logout: () => void;
   setSelectedUser: (user: UserEntity | null | undefined) => void;
 }
+
+const AuthInitializationComponent = () => {
+  const { selectedUser } = useContext(AuthContext);
+  const { instantiateByType } = useInstantiation();
+  useEffect(() => {
+    instantiateByType(selectedUser?.type);
+  }, [selectedUser, instantiateByType]);
+
+  return <></>;
+};
 
 const AuthContext = createContext<AuthContextType>({
   identityToken: null,
@@ -116,20 +128,33 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     if (authorizedUsers == null) {
       return;
     }
+    if (selectedUser === null) {
+      return;
+    }
     const user = authorizedUsers?.find(
       (user) => user.id == storageSelectedUser,
     );
-    if (user == undefined) {
+    if (user === undefined) {
       selectUser(null);
-      enqueueSnackbar("User couldnt be found", { variant: "warning" });
+      enqueueSnackbar("User couldn't be found", { variant: "warning" });
     } else {
-      selectUser(user);
+      if (selectedUser == null || selectedUser?.id != user.id) {
+        selectUser(user);
+      }
     }
-  }, [authorizedUsers, selectUser, storageSelectedUser, enqueueSnackbar]);
+  }, [
+    authorizedUsers,
+    selectUser,
+    storageSelectedUser,
+    enqueueSnackbar,
+    selectedUser,
+  ]);
 
   useEffect(() => {
-    refreshIdentityToken();
-  }, [refreshIdentityToken]);
+    if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {
+      refreshIdentityToken();
+    }
+  }, [refreshIdentityToken, tokenExpirationDate]);
 
   return (
     <AuthContext.Provider
@@ -145,6 +170,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
         setSelectedUser: selectUser,
       }}
     >
+      <AuthInitializationComponent />
       {authorized == undefined ? (
         <>
           <Box

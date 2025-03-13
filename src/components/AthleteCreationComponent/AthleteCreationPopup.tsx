@@ -1,4 +1,4 @@
-import { Athlete } from "@customTypes/bffTypes";
+import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import {
   Box,

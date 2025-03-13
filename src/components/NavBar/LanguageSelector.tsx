@@ -1,52 +1,14 @@
 import { KeyboardArrowDown, LanguageOutlined } from "@mui/icons-material";
 import {
-  Box,
   List,
   ListItem,
   ListItemButton,
   ListItemContent,
   Typography,
 } from "@mui/joy";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-
-const Toggler = ({
-  defaultExpanded = false,
-  overridenOpen = false,
-  renderToggle,
-  children,
-}: {
-  defaultExpanded?: boolean;
-  overridenOpen?: boolean;
-  children: React.ReactNode;
-  renderToggle: (params: {
-    open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  }) => React.ReactNode;
-}) => {
-  const [open, setOpen] = useState(defaultExpanded);
-  return (
-    <Fragment>
-      {renderToggle({ open, setOpen })}
-      <Box
-        sx={[
-          {
-            display: "grid",
-            transition: "0.2s ease",
-            "& > *": {
-              overflow: "hidden",
-            },
-          },
-          (overridenOpen ?? open)
-            ? { gridTemplateRows: "1fr" }
-            : { gridTemplateRows: "0fr" },
-        ]}
-      >
-        {children}
-      </Box>
-    </Fragment>
-  );
-};
+import Toggler from "@components/NavBar/Toggler";
 
 const LanguageSelector = () => {
   const { t, i18n } = useTranslation();
