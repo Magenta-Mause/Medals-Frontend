@@ -114,18 +114,21 @@ const AthleteCSVImport = () => {
     }
   };
 
+  const checkValidFile = (file:File) => {
+    if (file.name.endsWith(".csv") || file.type === "text/csv") {
+      setSelectedFile(file);
+      parseCSV(file);
+    } else {
+      enqueueSnackbar("Only CSV-files are allowed", {variant:"error"})
+    }
+  }
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
 
       // Check file extension OR MIME type
-      if (file.name.endsWith(".csv") || file.type === "text/csv") {
-        setSelectedFile(file);
-        parseCSV(file);
-      } else {
-        enqueueSnackbar("Only CSV-files are allowed", {variant:"error"})
-        event.target.value = "";
-      }
+      checkValidFile(file)
     }
   };
 
@@ -133,12 +136,7 @@ const AthleteCSVImport = () => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
 
-    if (file && file.name.endsWith(".csv")) {
-      setSelectedFile(file);
-      parseCSV(file);
-    } else {
-      enqueueSnackbar("Only CSV-files are allowed", {variant:"error"})
-    }
+    checkValidFile(file)
   };
 
   const normalizeGender = (gender: string | undefined): string => {
