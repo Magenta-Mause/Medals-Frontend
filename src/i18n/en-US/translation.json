@@ -245,6 +245,8 @@
     },
     "navbar": {
       "logo": "Medals",
+      "colorSchemeToggleTooltip": "Switch light-/darkmode",
+      "profileButton": "Account Settings",
       "locationList": {
         "/": "Home",
         "/athletes": "Athletes",

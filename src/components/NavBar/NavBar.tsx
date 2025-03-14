@@ -39,6 +39,7 @@ import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
+import Tooltip from "@components/Tooltip/Tooltip";
 
 const sharedNavBarElements = [
   {
@@ -194,7 +195,9 @@ const NavBar = () => {
           <MedalsIcon size="inline" />
         </IconButton>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
-        <ColorSchemeToggle sx={{ ml: "auto" }} />
+        <Tooltip text={t("components.navbar.colorSchemeToggleTooltip")}>
+          <ColorSchemeToggle sx={{ ml: "auto" }} />
+        </Tooltip>
       </Box>
       <Input
         size="sm"
@@ -269,30 +272,32 @@ const NavBar = () => {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <Button
-          variant="plain"
-          color="neutral"
-          size="sm"
-          sx={{
-            p: 0.5,
-            textAlign: "left",
-            flex: 1,
-            minWidth: 0,
-          }}
-          onClick={() => {
-            setProfileOpen(true);
-            collapseSidebar();
-          }}
-        >
-          <Box sx={{ minWidth: 0, flex: 1 }}>
-            <Typography level="title-sm">
-              {selectedUser?.first_name} {selectedUser?.last_name}
-            </Typography>
-            <Typography level="body-xs" noWrap sx={{ maxWidth: "100%" }}>
-              {email}
-            </Typography>
-          </Box>
-        </Button>
+        <Tooltip text={t("components.navbar.profileButton")}>
+          <Button
+            variant="plain"
+            color="neutral"
+            size="sm"
+            sx={{
+              p: 0.5,
+              textAlign: "left",
+              flex: 1,
+              minWidth: 0,
+            }}
+            onClick={() => {
+              setProfileOpen(true);
+              collapseSidebar();
+            }}
+          >
+            <Box sx={{ minWidth: 0, flex: 1 }}>
+              <Typography level="title-sm">
+                {selectedUser?.first_name} {selectedUser?.last_name}
+              </Typography>
+              <Typography level="body-xs" noWrap sx={{ maxWidth: "100%" }}>
+                {email}
+              </Typography>
+            </Box>
+          </Button>
+        </Tooltip>
         {(authorizedUsers?.length ?? 0) > 1 ? (
           <IconButton
             about="Switch user"

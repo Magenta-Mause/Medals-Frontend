@@ -255,6 +255,8 @@
     },
     "navbar": {
       "logo": "Medals",
+      "colorSchemeToggleTooltip": "Wechseln zwischen Light-/Darkmode",
+      "profileButton": "Account Einstellungen",
       "locationList": {
         "/": "Start",
         "/athletes": "Athlet*innen",
