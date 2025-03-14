@@ -21,3 +21,9 @@ export enum DisciplineCategories {
   SPEED = "SPEED",
   STRENGTH = "STRENGTH",
 }
+
+export enum Gender {
+  w = "FEMALE",
+  m = "MALE",
+  d = "DIVERSE",
+}

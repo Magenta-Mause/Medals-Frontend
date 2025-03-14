@@ -10,6 +10,7 @@ import { useSnackbar } from "notistack";
 import UploadIcon from "@mui/icons-material/Upload";
 import GenericModal from "../GenericModal";
 import { emailRegex, BirthdateRegex } from "@components/Regex/Regex";
+import { Gender } from "@customTypes/enums";
 
 interface AthleteWithValidityToAthlete extends Athlete {
   valid: boolean | undefined;
@@ -140,14 +141,8 @@ const AthleteCSVImport = () => {
   };
 
   const normalizeGender = (gender: string | undefined): string => {
-    if (!gender) return "";
-    const normalized = gender.trim().toLowerCase();
-
-    if (normalized === "m") return "MALE";
-    if (normalized === "w") return "FEMALE";
-    if (normalized === "d") return "DIVERSE";
-
-    return "UNKNOWN"; // Default for unexpected values
+    const normalized = gender?.trim().toLowerCase();
+      return Gender[normalized as keyof typeof Gender];
   };
 
   const parseCSV = (file: File) => {
