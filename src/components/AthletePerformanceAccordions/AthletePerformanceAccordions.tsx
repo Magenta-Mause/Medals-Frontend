@@ -5,7 +5,7 @@ import {
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
-import { DisciplineCategories } from "@customTypes/enums";
+import { DisciplineCategories, Medals } from "@customTypes/enums";
 import {
   Accordion,
   AccordionDetails,
@@ -14,12 +14,16 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
-import { ReactNode, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GiJumpingRope } from "react-icons/gi";
 import { FaRunning, FaStopwatch } from "react-icons/fa";
 import { BiDumbbell } from "react-icons/bi";
 import { IconType } from "react-icons";
+import {
+  calculatePerformanceRecordingMedal,
+  convertMedalToNumber,
+} from "@utils/medalCalculation";
 
 const DisciplineIcons: Record<DisciplineCategories, IconType> = {
   COORDINATION: GiJumpingRope,
@@ -29,7 +33,7 @@ const DisciplineIcons: Record<DisciplineCategories, IconType> = {
 };
 
 const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
-  const performances = useTypedSelector(
+  const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
   const disciplines = useTypedSelector(
@@ -38,6 +42,39 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
   const { t } = useTranslation();
   const [selectedDiscipline, setSelectedDiscipline] = useState<Discipline>();
   const [isDisciplineOpen, setDisciplineOpen] = useState(false);
+  const [achievedCategoryMedal, setAchievedCategoryMedal] = useState<Record<
+    DisciplineCategories,
+    Medals
+  > | null>(null);
+  useEffect(() => {
+    const newAchievedCategoryMedal: Record<DisciplineCategories, Medals> = {
+      [DisciplineCategories.COORDINATION]: Medals.NONE,
+      [DisciplineCategories.ENDURANCE]: Medals.NONE,
+      [DisciplineCategories.SPEED]: Medals.NONE,
+      [DisciplineCategories.STRENGTH]: Medals.NONE,
+    };
+    disciplines.forEach((d) => {
+      const bestEntry = performanceRecordings
+        .filter((p) => p.discipline_rating_metric.discipline.id == d.id)
+        .sort(
+          d.more_better
+            ? (a, b) => b.rating_value - a.rating_value
+            : (a, b) => a.rating_value - b.rating_value,
+        )[0];
+      console.log(bestEntry);
+      if (bestEntry == undefined) {
+        return;
+      }
+      const medal = calculatePerformanceRecordingMedal(bestEntry);
+      if (
+        convertMedalToNumber(medal) >
+        convertMedalToNumber(newAchievedCategoryMedal[d.category])
+      ) {
+        newAchievedCategoryMedal[d.category] = medal;
+      }
+    });
+    setAchievedCategoryMedal(newAchievedCategoryMedal);
+  }, [performanceRecordings, disciplines]);
 
   return (
     <>
@@ -52,7 +89,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
         <DisciplineDetailModal
           athlete={props.athlete}
           setOpen={setDisciplineOpen}
-          performanceRecordings={performances.filter(
+          performanceRecordings={performanceRecordings.filter(
             (p) =>
               p.athlete_id == props.athlete.id &&
               (selectedDiscipline
@@ -99,21 +136,24 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                     },
                   }}
                 >
-                  {(DisciplineIcons[category] as IconType)({})}
+                  {DisciplineIcons[category]({})}
                   <Typography
                     level="h3"
                     sx={{
                       borderRadius: "10px",
-                      padding: "10px",
+                      padding: "10px 0",
                     }}
                   >
-                    {t("disciplines.categories." + category + ".label")}
+                    {t("disciplines.categories." + category + ".label")} -{" "}
+                    {achievedCategoryMedal
+                      ? t("medals." + achievedCategoryMedal[category])
+                      : Medals.NONE}
                   </Typography>
                 </Box>
               </AccordionSummary>
               <AccordionDetails>
                 <DisciplineDatagrid
-                  performanceRecordings={performances.filter(
+                  performanceRecordings={performanceRecordings.filter(
                     (p) => p.athlete_id == props.athlete.id,
                   )}
                   disciplines={disciplines.filter(

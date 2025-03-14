@@ -12,7 +12,6 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useLocalStorage } from "@uidotdev/usehooks";
 import "dayjs/locale/de";
 import "dayjs/locale/en";
 import "dayjs/locale/es";
@@ -35,20 +34,20 @@ const materialTheme = materialExtendTheme();
 
 const App = () => {
   const queryClient = new QueryClient();
-  const [, setLanguage] = useLocalStorage<string>("language");
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
   const { i18n } = useTranslation();
 
   useEffect(() => {
     const language = window.localStorage.getItem("language");
+    console.log("Getting language");
     if (language && i18n.language != language) {
-      i18n.changeLanguage(JSON.parse(language));
+      i18n.changeLanguage(language);
     }
   }, [i18n]);
 
   useEffect(() => {
-    setLanguage(i18n.language);
-  }, [i18n.language, setLanguage]);
+    window.localStorage.setItem("language", i18n.language);
+  }, [i18n.language]);
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>

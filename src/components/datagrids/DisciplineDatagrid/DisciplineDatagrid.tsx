@@ -1,11 +1,14 @@
 import { Discipline, PerformanceRecording } from "@customTypes/backendTypes";
 import useFormatting from "@hooks/useFormatting";
-import { Typography } from "@mui/joy";
+import { Box, Typography } from "@mui/joy";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import { calculatePerformanceRecordingMedal } from "@utils/medalCalculation";
+import MedalIcon from "@components/MedalIcon/MedalIcon";
+import { Medals } from "@customTypes/enums";
 
 interface DisciplineDatagridProps {
   disciplines: Discipline[];
@@ -59,15 +62,32 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
       columnMapping(item) {
         const bestItem = item.performanceRecordings.sort(
           item.more_better
-            ? (a, b) => a.rating_value - b.rating_value
-            : (a, b) => b.rating_value - a.rating_value,
+            ? (a, b) => b.rating_value - a.rating_value
+            : (a, b) => a.rating_value - b.rating_value,
         )[0];
         return (
-          <Typography>
-            {item.performanceRecordings.length > 0
-              ? formatValue(bestItem.rating_value, item.unit)
-              : t("messages.noEntriesFound")}
-          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <MedalIcon
+              category={item.category}
+              medalType={
+                bestItem
+                  ? calculatePerformanceRecordingMedal(bestItem)
+                  : Medals.NONE
+              }
+            />
+            <Typography>
+              {item.performanceRecordings.length > 0
+                ? formatValue(bestItem.rating_value, item.unit)
+                : t("messages.noEntriesFound")}
+            </Typography>
+          </Box>
         );
       },
     },
@@ -76,8 +96,8 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
       columnMapping(item) {
         const bestItem = item.performanceRecordings.sort(
           item.more_better
-            ? (a, b) => b.rating_value - a.rating_value
-            : (a, b) => a.rating_value - b.rating_value,
+            ? (a, b) => a.rating_value - b.rating_value
+            : (a, b) => b.rating_value - a.rating_value,
         )[0];
         return (
           <Typography>
@@ -96,8 +116,8 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
       h2: (discipline) => {
         const bestItem = discipline.performanceRecordings.sort(
           discipline.more_better
-            ? (a, b) => b.rating_value - a.rating_value
-            : (a, b) => a.rating_value - b.rating_value,
+            ? (a, b) => a.rating_value - b.rating_value
+            : (a, b) => b.rating_value - a.rating_value,
         )[0];
 
         return (

@@ -1,4 +1,4 @@
-import { Genders, MetricUnits } from "./enums";
+import { DisciplineCategories, Genders, MetricUnits } from "./enums";
 
 export interface Athlete {
   id?: number;

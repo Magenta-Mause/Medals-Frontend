@@ -31,4 +31,14 @@ const calculatePerformanceRecordingMedal = (
   }
 };
 
-export { calculatePerformanceRecordingMedal };
+const convertMedalToNumber = (medal: Medals) => {
+  return medal == Medals.GOLD
+    ? 3
+    : medal == Medals.SILVER
+      ? 2
+      : medal == Medals.BRONZE
+        ? 1
+        : 0;
+};
+
+export { calculatePerformanceRecordingMedal, convertMedalToNumber };

@@ -1,12 +1,13 @@
 import { DisciplineIcons } from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
 import { DisciplineCategories, Medals } from "@customTypes/enums";
 import { Box } from "@mui/joy";
+import { IoMdClose } from "react-icons/io";
 
 const MedalColors: Record<Medals, string> = {
-  [Medals.GOLD]: "gold",
-  [Medals.SILVER]: "silver",
-  [Medals.BRONZE]: "bronze",
-  [Medals.NONE]: "transparent",
+  [Medals.GOLD]: "#EFC75E",
+  [Medals.SILVER]: "#E4E7E7",
+  [Medals.BRONZE]: "#ED9D5D",
+  [Medals.NONE]: "white",
 };
 
 const MedalIcon = (props: {
@@ -20,16 +21,22 @@ const MedalIcon = (props: {
       sx={{
         background: MedalColors[props.medalType],
         border: "gray solid thin",
-        width: "30px",
-        height: "30px",
         borderRadius: "100%",
+        height: "100%",
+        margin: 0,
+        width: "auto",
+        aspectRatio: "1",
         padding: "5px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
-      <DisciplineIcon width={"15px"} height={"15px"} fill={"rgba(0,0,0,0.5)"} />
+      {props.medalType == Medals.NONE ? (
+        <IoMdClose />
+      ) : (
+        <DisciplineIcon fill={"rgba(0,0,0,0.5)"} />
+      )}
     </Box>
   );
 };

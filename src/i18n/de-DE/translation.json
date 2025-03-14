@@ -38,6 +38,12 @@
       }
     }
   },
+  "medals": {
+    "GOLD": "Gold",
+    "SILVER": "Silber",
+    "BRONZE": "Bronze",
+    "NONE": "Keine Medailie erreicht"
+  },
   "units": {
     "seconds": "Sekunden",
     "minutes": "Minuten",

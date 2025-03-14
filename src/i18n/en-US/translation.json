@@ -39,6 +39,12 @@
       }
     }
   },
+  "medals": {
+    "GOLD": "Gold",
+    "SILVER": "Silver",
+    "BRONZE": "Bronze",
+    "NONE": "No medal achieved"
+  },
   "generic": {
     "all": "All",
     "discipline": "Discipline",
