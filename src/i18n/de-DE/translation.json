@@ -42,7 +42,7 @@
     "GOLD": "Gold",
     "SILVER": "Silber",
     "BRONZE": "Bronze",
-    "NONE": "Keine Medailie erreicht"
+    "NONE": "Keine Medaille erreicht"
   },
   "units": {
     "seconds": "Sekunden",
