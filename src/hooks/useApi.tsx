@@ -82,7 +82,7 @@ const useApi = () => {
       console.error("Error while fetching trainers", error);
     }
   }, [axiosInstance]);
-  
+
   const getTrainer = useCallback(
     async (trainerId: string) => {
       try {

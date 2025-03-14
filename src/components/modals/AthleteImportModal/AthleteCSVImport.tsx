@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Sheet, Table, Typography } from "@mui/joy";
+import { Box, Button, Sheet, Table, Typography } from "@mui/joy";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
@@ -115,21 +115,21 @@ const AthleteCSVImport = () => {
     }
   };
 
-  const checkValidFile = (file:File) => {
+  const checkValidFile = (file: File) => {
     if (file.name.endsWith(".csv") || file.type === "text/csv") {
       setSelectedFile(file);
       parseCSV(file);
     } else {
-      enqueueSnackbar("Only CSV-files are allowed", {variant:"error"})
+      enqueueSnackbar("Only CSV-files are allowed", { variant: "error" });
     }
-  }
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
 
       // Check file extension OR MIME type
-      checkValidFile(file)
+      checkValidFile(file);
     }
   };
 
@@ -137,12 +137,12 @@ const AthleteCSVImport = () => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
 
-    checkValidFile(file)
+    checkValidFile(file);
   };
 
   const normalizeGender = (gender: string | undefined): string => {
     const normalized = gender?.trim().toLowerCase();
-      return Gender[normalized as keyof typeof Gender];
+    return Gender[normalized as keyof typeof Gender];
   };
 
   const parseCSV = (file: File) => {
@@ -185,7 +185,7 @@ const AthleteCSVImport = () => {
         },
       });
       reader.onerror = () => {
-        enqueueSnackbar("error reading file", {variant:"error"})
+        enqueueSnackbar("error reading file", { variant: "error" });
       };
     };
   };
@@ -195,11 +195,11 @@ const AthleteCSVImport = () => {
         {t("pages.athleteImportPage.importButton")}
       </Button>
       <GenericModal
-      header={t("pages.athleteImportPage.importButton") }
-      open={isPopupOpen}
-      setOpen={setPopupOpen}
-      modalDialogSX={{ minWidth: "30%" }}
-    >
+        header={t("pages.athleteImportPage.importButton")}
+        open={isPopupOpen}
+        setOpen={setPopupOpen}
+        modalDialogSX={{ minWidth: "30%" }}
+      >
         {selectedFile === null ? (
           <Sheet
             variant="outlined"

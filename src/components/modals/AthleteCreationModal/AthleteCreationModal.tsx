@@ -1,12 +1,6 @@
 import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import {
-  Box,
-  Button,
-  FormLabel,
-  Input,
-  Typography,
-} from "@mui/joy";
+import { Box, Button, FormLabel, Input, Typography } from "@mui/joy";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -132,149 +126,149 @@ const AthleteCreationForm = () => {
         {t("pages.athleteOverviewPage.createButton")}
       </Button>
       <GenericModal
-      header={t("pages.athleteOverviewPage.createButton")}
-      open={isPopupOpen}
-      setOpen={setPopupOpen}
-      modalDialogSX={{ minWidth: "30%" }}
-    >
-          <Typography level="h2" component="h1">
-            {t("pages.athleteCreationPage.createHeader")}
-          </Typography>
-          <Box sx={{ gap: "8px", alignItems: "center" }}>
-            <FormLabel sx={{ marginTop: "4vh" }}>
-              {t("pages.athleteCreationPage.firstName")}
-            </FormLabel>
-            <Input
-              sx={{
-                width: { sx: "60vw", md: "25vw" },
-                marginBottom: "2vh",
-                height: { sx: "3vh", md: "5vh", xs: "5vh" },
-              }}
-              placeholder={t("pages.athleteCreationPage.firstName")}
-              size="lg"
-              variant="outlined"
-              value={athlete.first_name}
-              onChange={(e) =>
-                setAthlete((prevUser: Athlete) => ({
-                  ...prevUser,
-                  first_name: e.target.value,
-                }))
-              }
-              error={!inputValid.first_name}
-            />
-            <FormLabel>{t("pages.athleteCreationPage.lastName")}</FormLabel>
-            <Input
-              sx={{
-                width: { sx: "60vw", md: "25vw" },
-                marginBottom: "2vh",
-                height: { sx: "3vh", md: "5vh", xs: "5vh" },
-              }}
-              placeholder={t("pages.athleteCreationPage.lastName")}
-              size="lg"
-              error={!inputValid.last_name}
-              variant="outlined"
-              value={athlete.last_name}
-              onChange={(e) =>
-                setAthlete((prevUser: Athlete) => ({
-                  ...prevUser,
-                  last_name: e.target.value,
-                }))
-              }
-            />
-            <FormLabel>{t("pages.athleteCreationPage.email")}</FormLabel>
-            <Input
-              sx={{
-                width: { sx: "60vw", md: "25vw" },
-                marginBottom: "2vh",
-                height: { sx: "3vh", md: "5vh", xs: "5vh" },
-              }}
-              placeholder={t("pages.athleteCreationPage.email")}
-              size="lg"
-              variant="outlined"
-              value={athlete.email}
-              onChange={(e) =>
-                setAthlete((prevUser: Athlete) => ({
-                  ...prevUser,
-                  email: e.target.value,
-                }))
-              }
-              error={!inputValid.email}
-            />
-            <Box sx={{ marginTop: "2vh" }}>
-              <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
-              <Select
-                placeholder={t("pages.athleteCreationPage.gender")}
-                sx={{
-                  height: { sx: "3vh", md: "5vh" },
-                  width: { sx: "60vw", md: "25vw" },
-                }}
-                onChange={handleChangeGender}
-                color={inputValid.gender ? "neutral" : "danger"}
-              >
-                <Option value="FEMALE">{t("genders.FEMALE")}</Option>
-                <Option value="MALE">{t("genders.MALE")}</Option>
-                <Option value="DIVERSE">{t("genders.DIVERSE")}</Option>
-              </Select>
-            </Box>
-            <FormLabel sx={{ marginTop: "2vh" }}>
-              {t("pages.athleteCreationPage.birthdate")}
-            </FormLabel>
-            <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <CustomDatePicker
-                error={!inputValid.birthdate}
-                sx={{
-                  width: { sx: "60vw", md: "25vw" },
-                  marginBottom: "1vh",
-                  position: "relative",
-                }}
-                value={null}
-                onChange={(newDate: any) => {
-                  const localDate = new Date(newDate);
-                  const adjustedDate: any = new Date(
-                    localDate.getTime() - localDate.getTimezoneOffset() * 60000,
-                  );
-                  setAthlete((prevUser: Athlete) => ({
-                    ...prevUser,
-                    birthdate: adjustedDate,
-                  }));
-                }}
-                format="DD/MM/YYYY"
-              />
-            </Box>
-          </Box>
-          <Button
-            disabled={!isAccepted()}
+        header={t("pages.athleteOverviewPage.createButton")}
+        open={isPopupOpen}
+        setOpen={setPopupOpen}
+        modalDialogSX={{ minWidth: "30%" }}
+      >
+        <Typography level="h2" component="h1">
+          {t("pages.athleteCreationPage.createHeader")}
+        </Typography>
+        <Box sx={{ gap: "8px", alignItems: "center" }}>
+          <FormLabel sx={{ marginTop: "4vh" }}>
+            {t("pages.athleteCreationPage.firstName")}
+          </FormLabel>
+          <Input
             sx={{
-              marginTop: "5vh",
-              marginBottom: "2vh",
-              color: "primary",
               width: { sx: "60vw", md: "25vw" },
+              marginBottom: "2vh",
+              height: { sx: "3vh", md: "5vh", xs: "5vh" },
             }}
-            onClick={() => {
-              {
-                createAthlete(athlete);
-                enqueueSnackbar(
-                  t("pages.athleteImportPage.feedback1") +
-                    athlete.first_name +
-                    " " +
-                    athlete.last_name +
-                    t("pages.athleteImportPage.feedback2"),
-                  { variant: "success" },
+            placeholder={t("pages.athleteCreationPage.firstName")}
+            size="lg"
+            variant="outlined"
+            value={athlete.first_name}
+            onChange={(e) =>
+              setAthlete((prevUser: Athlete) => ({
+                ...prevUser,
+                first_name: e.target.value,
+              }))
+            }
+            error={!inputValid.first_name}
+          />
+          <FormLabel>{t("pages.athleteCreationPage.lastName")}</FormLabel>
+          <Input
+            sx={{
+              width: { sx: "60vw", md: "25vw" },
+              marginBottom: "2vh",
+              height: { sx: "3vh", md: "5vh", xs: "5vh" },
+            }}
+            placeholder={t("pages.athleteCreationPage.lastName")}
+            size="lg"
+            error={!inputValid.last_name}
+            variant="outlined"
+            value={athlete.last_name}
+            onChange={(e) =>
+              setAthlete((prevUser: Athlete) => ({
+                ...prevUser,
+                last_name: e.target.value,
+              }))
+            }
+          />
+          <FormLabel>{t("pages.athleteCreationPage.email")}</FormLabel>
+          <Input
+            sx={{
+              width: { sx: "60vw", md: "25vw" },
+              marginBottom: "2vh",
+              height: { sx: "3vh", md: "5vh", xs: "5vh" },
+            }}
+            placeholder={t("pages.athleteCreationPage.email")}
+            size="lg"
+            variant="outlined"
+            value={athlete.email}
+            onChange={(e) =>
+              setAthlete((prevUser: Athlete) => ({
+                ...prevUser,
+                email: e.target.value,
+              }))
+            }
+            error={!inputValid.email}
+          />
+          <Box sx={{ marginTop: "2vh" }}>
+            <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
+            <Select
+              placeholder={t("pages.athleteCreationPage.gender")}
+              sx={{
+                height: { sx: "3vh", md: "5vh" },
+                width: { sx: "60vw", md: "25vw" },
+              }}
+              onChange={handleChangeGender}
+              color={inputValid.gender ? "neutral" : "danger"}
+            >
+              <Option value="FEMALE">{t("genders.FEMALE")}</Option>
+              <Option value="MALE">{t("genders.MALE")}</Option>
+              <Option value="DIVERSE">{t("genders.DIVERSE")}</Option>
+            </Select>
+          </Box>
+          <FormLabel sx={{ marginTop: "2vh" }}>
+            {t("pages.athleteCreationPage.birthdate")}
+          </FormLabel>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <CustomDatePicker
+              error={!inputValid.birthdate}
+              sx={{
+                width: { sx: "60vw", md: "25vw" },
+                marginBottom: "1vh",
+                position: "relative",
+              }}
+              value={null}
+              onChange={(newDate: any) => {
+                const localDate = new Date(newDate);
+                const adjustedDate: any = new Date(
+                  localDate.getTime() - localDate.getTimezoneOffset() * 60000,
                 );
-                setPopupOpen(false);
                 setAthlete((prevUser: Athlete) => ({
                   ...prevUser,
-                  first_name: "",
-                  last_name: "",
-                  email: "",
-                  gender: "",
-                  birthdate: "",
+                  birthdate: adjustedDate,
                 }));
-              }
-            }}
-          >
-            {t("pages.athleteCreationPage.createButton")}
-          </Button>
+              }}
+              format="DD/MM/YYYY"
+            />
+          </Box>
+        </Box>
+        <Button
+          disabled={!isAccepted()}
+          sx={{
+            marginTop: "5vh",
+            marginBottom: "2vh",
+            color: "primary",
+            width: { sx: "60vw", md: "25vw" },
+          }}
+          onClick={() => {
+            {
+              createAthlete(athlete);
+              enqueueSnackbar(
+                t("pages.athleteImportPage.feedback1") +
+                  athlete.first_name +
+                  " " +
+                  athlete.last_name +
+                  t("pages.athleteImportPage.feedback2"),
+                { variant: "success" },
+              );
+              setPopupOpen(false);
+              setAthlete((prevUser: Athlete) => ({
+                ...prevUser,
+                first_name: "",
+                last_name: "",
+                email: "",
+                gender: "",
+                birthdate: "",
+              }));
+            }
+          }}
+        >
+          {t("pages.athleteCreationPage.createButton")}
+        </Button>
       </GenericModal>
     </>
   );
