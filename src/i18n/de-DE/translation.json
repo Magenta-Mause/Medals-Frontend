@@ -92,7 +92,13 @@
       "importButton": "Athlet*in importieren",
       "feedback1": "Athlet*in ",
       "feedback2": " erstellt",
-      "failedFeedback": "Fehler beim erstellen von Athlet*in "
+      "failedFeedback": "Fehler beim erstellen von Athlet*in ",
+      "DropFile": "Datei hier ablegen",
+      "changeFile": "andere Datei auswählen",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "valid": "Gültig",
+      "athleteList": "Athletenliste"
     },
     "trainerOverviewPage": {
       "header": "Trainer*innen"

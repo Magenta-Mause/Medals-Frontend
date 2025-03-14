@@ -241,7 +241,7 @@ const AthleteCSVImport = () => {
                   alignItems="center"
                 >
                   <UploadIcon fontSize="large" />
-                  Drag & Drop a file here
+                  {t("pages.athleteImportPage.DropFile")}
                 </Typography>
               </Box>
             </label>
@@ -259,14 +259,14 @@ const AthleteCSVImport = () => {
             }}
           >
             <Typography level="h4" sx={{ mb: 2 }}>
-              Athlete List
+              {t("pages.athleteImportPage.athleteList")}
             </Typography>
             <Table borderAxis="bothBetween" stripe="odd" stickyHeader hoverRow>
               <thead>
                 <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Valid</th>
+                  <th>{t("pages.athleteImportPage.firstName")}</th>
+                  <th>{t("pages.athleteImportPage.lastName")}</th>
+                  <th>{t("pages.athleteImportPage.valid")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -299,7 +299,7 @@ const AthleteCSVImport = () => {
                   setSelectedFile(null);
                 }}
               >
-                upload other File
+                {t("pages.athleteImportPage.changeFile")}
               </Button>
               <Button
                 sx={{ marginTop: "1vh" }}
@@ -310,7 +310,7 @@ const AthleteCSVImport = () => {
                   setPopupOpen(false);
                 }}
               >
-                import Athletes
+                {t("pages.athleteImportPage.importButton")}
               </Button>
             </Box>
           </Sheet>

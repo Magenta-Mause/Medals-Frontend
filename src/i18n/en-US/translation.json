@@ -93,7 +93,13 @@
       "importButton": "Import Athlete",
       "feedback1": "Athlete ",
       "feedback2": " created",
-       "failedFeedback": "Failed to create "
+       "failedFeedback": "Failed to create ",
+       "DropFile": "Drag & Drop your file here",
+       "changeFile": "change uploaded file",
+       "firstName": "First Name",
+      "lastName": "Last Name",
+      "valid": "Vaild",
+      "athleteList": "Athlete List"
     },
     "trainerOverviewPage": {
       "header": "Trainers"
