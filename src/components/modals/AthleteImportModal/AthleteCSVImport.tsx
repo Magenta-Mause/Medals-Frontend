@@ -183,14 +183,14 @@ const AthleteCSVImport = () => {
                 };
               }),
             );
-            const athletesWithBumms = [];
+            const athletesWithValidity = [];
             for (const athlete of parsedData) {
-              athletesWithBumms.push({
+              athletesWithValidity.push({
                 ...athlete,
                 valid: await isValidImport(athlete),
               });
             }
-            setCsvData(athletesWithBumms);
+            setCsvData(athletesWithValidity);
           };
           setData();
         },
