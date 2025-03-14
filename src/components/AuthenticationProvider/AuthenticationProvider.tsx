@@ -154,7 +154,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {
       refreshIdentityToken();
     }
-  }, [refreshIdentityToken]);
+  }, [refreshIdentityToken, tokenExpirationDate]);
 
   return (
     <AuthContext.Provider
