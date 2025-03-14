@@ -89,7 +89,7 @@
       "createHeader": "Athlet*in erstellen"
     },
     "athleteImportPage":{
-      "importButton": "importiere Athlet*in",
+      "importButton": "Athlet*in importieren",
       "feedback1": "Athlet*in ",
       "feedback2": " erstellt",
       "failedFeedback": "Fehler beim erstellen von Athlet*in "
