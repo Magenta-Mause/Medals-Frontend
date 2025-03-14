@@ -196,7 +196,7 @@ const AthleteCSVImport = () => {
         },
       });
       reader.onerror = () => {
-        console.log("Error reading File");
+        enqueueSnackbar("error reading file", {variant:"error"})
       };
     };
   };
