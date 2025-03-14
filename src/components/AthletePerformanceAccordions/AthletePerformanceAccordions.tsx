@@ -19,12 +19,13 @@ import { useTranslation } from "react-i18next";
 import { GiJumpingRope } from "react-icons/gi";
 import { FaRunning, FaStopwatch } from "react-icons/fa";
 import { BiDumbbell } from "react-icons/bi";
+import { IconType } from "react-icons";
 
-const DisciplineIcons: Record<DisciplineCategories, ReactNode> = {
-  COORDINATION: <GiJumpingRope />,
-  ENDURANCE: <FaRunning />,
-  SPEED: <FaStopwatch />,
-  STRENGTH: <BiDumbbell />,
+const DisciplineIcons: Record<DisciplineCategories, IconType> = {
+  COORDINATION: GiJumpingRope,
+  ENDURANCE: FaRunning,
+  SPEED: FaStopwatch,
+  STRENGTH: BiDumbbell,
 };
 
 const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
@@ -98,7 +99,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                     },
                   }}
                 >
-                  {DisciplineIcons[category]}
+                  {(DisciplineIcons[category] as IconType)({})}
                   <Typography
                     level="h3"
                     sx={{
@@ -135,3 +136,5 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
 };
 
 export default AthletePerformanceAccordions;
+
+export { DisciplineIcons };

@@ -21,3 +21,16 @@ export enum DisciplineCategories {
   SPEED = "SPEED",
   STRENGTH = "STRENGTH",
 }
+
+export enum Medals {
+  GOLD = "GOLD",
+  SILVER = "SILVER",
+  BRONZE = "BRONZE",
+  NONE = "NONE"
+}
+
+export enum Genders {
+  DIVERSE = "DIVERSE",
+  FEMALE = "FEMALE",
+  MALE = "MALE"
+}
