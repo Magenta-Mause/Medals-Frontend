@@ -9,7 +9,7 @@ import { Athlete } from "@customTypes/backendTypes";
 import { useSnackbar } from "notistack";
 import UploadIcon from "@mui/icons-material/Upload";
 
-interface AthleteWithValidity extends Athlete {
+interface AthleteWithValidityToAthlete extends Athlete {
   valid: boolean | undefined;
 }
 
@@ -17,7 +17,7 @@ const AthleteCSVImport = () => {
   const { t } = useTranslation();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [csvData, setCsvData] = useState<AthleteWithValidity[]>([]);
+  const [csvData, setCsvData] = useState<AthleteWithValidityToAthlete[]>([]);
   const { checkAthleteExists } = useApi();
   const { createAthlete } = useApi();
   const { enqueueSnackbar } = useSnackbar();
@@ -76,12 +76,12 @@ const AthleteCSVImport = () => {
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
-  const stripValidity = (athlete: AthleteWithValidity): Athlete => {
+  const stripValidity = (athlete: AthleteWithValidityToAthlete): Athlete => {
     const { ...athleteWithoutValid } = athlete;
-    return athleteWithoutValid; // This is now of type Athlete
+    return athleteWithoutValid;
   };
 
-  const createAthletes = async (athletes: AthleteWithValidity[]) => {
+  const createAthletes = async (athletes: AthleteWithValidityToAthlete[]) => {
     for (const athlete of athletes) {
       if (athlete.valid) {
         try {
@@ -104,7 +104,7 @@ const AthleteCSVImport = () => {
             { variant: "error" },
           );
         }
-        await delay(500); // ⏳ Add 1-second delay between requests
+        await delay(500); // ⏳ Add 0.5-second delay between requests
       } else {
         enqueueSnackbar(
           t("pages.athleteImportPage.failedFeedback") +
@@ -126,8 +126,8 @@ const AthleteCSVImport = () => {
         setSelectedFile(file);
         parseCSV(file);
       } else {
-        alert("Only CSV files are allowed.");
-        event.target.value = ""; // Clear the input
+        enqueueSnackbar("Only CSV-files are allowed", {variant:"error"})
+        event.target.value = "";
       }
     }
   };
@@ -140,12 +140,12 @@ const AthleteCSVImport = () => {
       setSelectedFile(file);
       parseCSV(file);
     } else {
-      alert("Only CSV files are allowed.");
+      enqueueSnackbar("Only CSV-files are allowed", {variant:"error"})
     }
   };
 
   const normalizeGender = (gender: string | undefined): string => {
-    if (!gender) return ""; // Default to empty if undefined/null
+    if (!gender) return "";
     const normalized = gender.trim().toLowerCase();
 
     if (normalized === "m") return "MALE";
@@ -166,8 +166,6 @@ const AthleteCSVImport = () => {
         header: true, // Use CSV headers as keys
         skipEmptyLines: true,
         complete: (result) => {
-          console.log("Raw Parsed Data:", result.data); // Debugging
-
           const parsedData: Athlete[] = result.data.map((row: any) => ({
             first_name: row["Vorname"]?.trim() || "",
             last_name: row["Nachname"]?.trim() || "",
@@ -175,8 +173,6 @@ const AthleteCSVImport = () => {
             birthdate: convertDateFormat(row["Geburtsdatum"]?.trim()) || "",
             gender: normalizeGender(row["Geschlecht"]),
           }));
-          console.log(parsedData);
-
           const setData = async () => {
             setCsvData(
               parsedData.map((row: Athlete) => {
