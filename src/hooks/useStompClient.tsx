@@ -11,7 +11,6 @@ const useStompClient = () => {
 
   return useMemo(() => {
     if (previousClient != null) {
-      console.log("stopping previous client");
       previousClient.deactivate();
     }
 
@@ -33,13 +32,6 @@ const useStompClient = () => {
         ),
     });
 
-    client.onStompError = (error) => {
-      console.log("stomp error:", error);
-    };
-
-    client.onWebSocketClose = (e: CloseEvent) => {
-      console.log("websocket closed:", e);
-    };
     client.activate();
     previousClient = client;
     return client;
