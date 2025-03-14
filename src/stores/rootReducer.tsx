@@ -16,9 +16,7 @@ const appReducer = combineReducers({
 const rootReducer: Reducer = (state, action: Action) => {
   const intermediateState = appReducer(state, action);
 
-  return {
-    ...intermediateState,
-  };
+  return intermediateState;
 };
 
 const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;

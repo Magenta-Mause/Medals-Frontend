@@ -42,7 +42,11 @@ const LoginPage = () => {
     mutationFn: loginCallback,
   });
 
-  if (authorized !== false && selectedUser !== null) {
+  if (
+    authorized !== false &&
+    selectedUser !== null &&
+    selectedUser !== undefined
+  ) {
     return <Navigate to="/" />;
   }
 

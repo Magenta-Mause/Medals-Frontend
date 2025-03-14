@@ -29,7 +29,7 @@ const CreatePasswordComponent = (props: {
 
   useEffect(() => {
     props.setPasswordValid(valid);
-  }, [props, valid]);
+  }, [valid, props]);
 
   return (
     <>

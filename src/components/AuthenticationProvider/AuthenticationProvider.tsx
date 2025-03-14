@@ -27,11 +27,17 @@ interface AuthContextType {
 }
 
 const AuthInitializationComponent = () => {
-  const { selectedUser } = useContext(AuthContext);
+  const { selectedUser, identityToken } = useContext(AuthContext);
   const { instantiateByType } = useInstantiation();
+  const [instantiatedUser, setInstantiatedUser] = useState<UserEntity | null>(
+    null,
+  );
   useEffect(() => {
-    instantiateByType(selectedUser?.type);
-  }, [selectedUser, instantiateByType]);
+    if (selectedUser && identityToken && selectedUser !== instantiatedUser) {
+      instantiateByType(selectedUser?.type);
+      setInstantiatedUser(selectedUser);
+    }
+  }, [selectedUser, instantiateByType, identityToken, instantiatedUser]);
 
   return <></>;
 };
@@ -102,7 +108,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       processJwtToken(token);
       return token;
     } catch {
-      console.log("Not authorized");
       setIdentityToken(null);
       setAuthorized(false);
       return null;
@@ -121,11 +126,10 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   }, [selectUser, logoutUser]);
 
   useEffect(() => {
-    if (storageSelectedUser == null) {
-      selectUser(null);
+    if (storageSelectedUser === null) {
       return;
     }
-    if (authorizedUsers == null) {
+    if (authorizedUsers === null) {
       return;
     }
     if (selectedUser === null) {
@@ -136,9 +140,8 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     );
     if (user === undefined) {
       selectUser(null);
-      enqueueSnackbar("User couldn't be found", { variant: "warning" });
     } else {
-      if (selectedUser == null || selectedUser?.id != user.id) {
+      if (selectedUser === null || selectedUser?.id != user.id) {
         selectUser(user);
       }
     }
@@ -188,6 +191,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       ) : (
         children
       )}
+      <AuthInitializationComponent />
     </AuthContext.Provider>
   );
 };

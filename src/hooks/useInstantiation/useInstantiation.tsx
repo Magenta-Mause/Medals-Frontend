@@ -1,10 +1,12 @@
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import {
   Athlete,
   Discipline,
   PerformanceRecording,
+  Trainer,
 } from "@customTypes/backendTypes";
 import { UserType } from "@customTypes/enums";
-import { Client } from "@stomp/stompjs";
+import useStompClient from "@hooks/useStompClient";
 import {
   addAthlete,
   removeAthlete,
@@ -23,24 +25,29 @@ import {
   setPerformanceRecordings,
   updatePerformanceRecording,
 } from "@stores/slices/performanceRecordingSlice";
-import { setTrainers } from "@stores/slices/trainerSlice";
-import { useCallback, useEffect, useState } from "react";
+import {
+  addTrainer,
+  removeTrainer,
+  setTrainers,
+} from "@stores/slices/trainerSlice";
+import { useCallback, useContext } from "react";
 import { useDispatch } from "react-redux";
-import initiateClient from "websockets/client";
 import useApi from "../useApi";
 import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
 
 const useInstantiation = () => {
   const dispatch = useDispatch();
-  const [client, setConnection] = useState<Client | null>(null);
+  const { selectedUser } = useContext(AuthContext);
   const { getAthletes, getPerformanceRecordings, getDisciplines, getTrainers } =
     useApi();
+  const client = useStompClient();
   const {
     initialize: initializeAthleteWebsocket,
     uninitialize: uninitializeAthleteWebsocket,
   } = useGenericWebsocketInitialization<Athlete>(
     client,
     "athlete",
+    true,
     (a) => dispatch(addAthlete(a)),
     (a) => dispatch(updateAthlete(a)),
     (id) => dispatch(removeAthlete({ id: id })),
@@ -52,6 +59,7 @@ const useInstantiation = () => {
   } = useGenericWebsocketInitialization<Discipline>(
     client,
     "discipline",
+    false,
     (d) => dispatch(addDiscipline(d)),
     (d) => dispatch(updateDiscipline(d)),
     (id) => dispatch(removeDiscipline({ id: id })),
@@ -63,6 +71,7 @@ const useInstantiation = () => {
   } = useGenericWebsocketInitialization<PerformanceRecording>(
     client,
     "performance-recording",
+    true,
     (p) => dispatch(addPerformanceRecording(p)),
     (p) => dispatch(updatePerformanceRecording(p)),
     (id) => dispatch(removePerformanceRecording({ id: id })),
@@ -71,30 +80,19 @@ const useInstantiation = () => {
   const {
     initialize: initializeTrainerWebsocket,
     uninitialize: uninitializeTrainerWebsocket,
-  } = useGenericWebsocketInitialization<Athlete>(
+  } = useGenericWebsocketInitialization<Trainer>(
     client,
     "trainer",
-    (a) => dispatch(addAthlete(a)),
-    (a) => dispatch(updateAthlete(a)),
-    (id) => dispatch(removeAthlete({ id: id })),
+    true,
+    (a) => dispatch(addTrainer(a)),
+    () => {},
+    (id) => dispatch(removeTrainer({ id: id })),
+    selectedUser?.type == UserType.ADMIN
+      ? (methode) => "/topics/trainer/" + methode + "/admin"
+      : undefined,
   );
 
-  useEffect(() => {
-    setConnection(
-      initiateClient((c) => {
-        c.onWebSocketClose(() => {
-          console.log("Websocket closed");
-        });
-        c.onWebSocketError((e: any) => {
-          console.log("Websocket error", e);
-        });
-      }),
-    );
-  }, []);
-
   const instantiateAdmin = useCallback(async () => {
-    console.log("Initializing admin");
-
     dispatch(setTrainers((await getTrainers()) ?? []));
     dispatch(setAthletes((await getAthletes()) ?? []));
     dispatch(setDisciplines((await getDisciplines()) ?? []));
@@ -121,8 +119,6 @@ const useInstantiation = () => {
   ]);
 
   const instantiateTrainer = useCallback(async () => {
-    console.log("Initializing trainer");
-
     dispatch(setAthletes((await getAthletes()) ?? []));
     dispatch(setDisciplines((await getDisciplines()) ?? []));
     dispatch(
@@ -134,7 +130,7 @@ const useInstantiation = () => {
       initializeAthleteWebsocket();
       initializeDisciplineWebsocket();
       initializePerformanceRecordingWebsocket();
-    }, 500);
+    }, 700);
   }, [
     uninitializeTrainerWebsocket,
     dispatch,
@@ -147,7 +143,6 @@ const useInstantiation = () => {
   ]);
 
   const instantiateAthlete = useCallback(async () => {
-    console.log("Initializing athlete");
     uninitializeAthleteWebsocket();
     uninitializeDisciplineWebsocket();
     uninitializeTrainerWebsocket();

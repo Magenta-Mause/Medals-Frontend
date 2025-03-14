@@ -5,7 +5,7 @@ import { CssVarsProvider, IconButton } from "@mui/joy";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
   THEME_ID as MATERIAL_THEME_ID,
-  Experimental_CssVarsProvider as MaterialCssVarsProvider,
+  ThemeProvider as MaterialCssVarsProvider,
   extendTheme as materialExtendTheme,
   ThemeProvider,
 } from "@mui/material/styles";

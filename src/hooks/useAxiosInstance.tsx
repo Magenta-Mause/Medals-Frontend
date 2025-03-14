@@ -1,30 +1,25 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import axios, { AxiosInstance } from "axios";
-import { useCallback, useContext, useEffect, useRef } from "react";
+import { useContext, useMemo } from "react";
 
 const useAxiosInstance = (baseUrl: string): AxiosInstance => {
-  const axiosRef = useRef<AxiosInstance | null>(null);
-  const { identityToken, authorized } = useContext(AuthContext);
+  const { identityToken, authorized, selectedUser } = useContext(AuthContext);
 
-  const getAuthorizationHeader = useCallback(() => {
-    return authorized ? `Bearer ${identityToken}` : null;
-  }, [authorized, identityToken]);
+  return useMemo(() => {
+    const instance = axios.create({ baseURL: baseUrl });
 
-  useEffect(() => {
-    const newAxiosInstance = axios.create({ baseURL: baseUrl });
-    const authHeader = getAuthorizationHeader();
-    newAxiosInstance.interceptors.request.use(
+    const authHeader = authorized ? `Bearer ${identityToken}` : null;
+    instance.interceptors.request.use(
       (config) => {
         config.headers.Authorization = authHeader;
+        config.headers["X-Selected-User"] = selectedUser?.id;
         return config;
       },
       (error) => Promise.reject(error),
     );
 
-    axiosRef.current = newAxiosInstance;
-  }, [baseUrl, getAuthorizationHeader]);
-
-  return axiosRef.current ?? axios.create({ baseURL: baseUrl });
+    return instance;
+  }, [baseUrl, authorized, identityToken, selectedUser]);
 };
 
 export default useAxiosInstance;

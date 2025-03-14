@@ -121,7 +121,7 @@ const LoginForm = (props: {
       </form>
       <PrivacyPolicyModal
         open={privacyPolicyModalOpen}
-        onClose={() => setPrivacyPolicyModalOpen(false)}
+        setOpen={(open: boolean) => setPrivacyPolicyModalOpen(open)}
       />
     </>
   );

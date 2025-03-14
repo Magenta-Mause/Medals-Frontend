@@ -16,6 +16,9 @@
     "ADMIN": "Administrador"
   },
   "snackbar": {
+    "authProvider": {
+      "userLoggedOut": "Sie wurden abgemeldet"
+    },
     "login": {
       "loginFailed": "Error de inicio de sesión"
     },
