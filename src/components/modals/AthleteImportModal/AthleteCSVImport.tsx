@@ -8,6 +8,7 @@ import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import { useSnackbar } from "notistack";
 import UploadIcon from "@mui/icons-material/Upload";
+import GenericModal from "../GenericModal";
 
 interface AthleteWithValidityToAthlete extends Athlete {
   valid: boolean | undefined;
@@ -204,21 +205,12 @@ const AthleteCSVImport = () => {
       <Button color="primary" onClick={() => setPopupOpen(true)}>
         {t("pages.athleteImportPage.importButton")}
       </Button>
-      <Modal
-        aria-labelledby="modal-title"
-        aria-describedby="modal-desc"
-        open={isPopupOpen}
-        onClose={() => setPopupOpen(false)}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          left: {
-            md: "var(--Sidebar-width)",
-            sm: "0",
-          },
-        }}
-      >
+      <GenericModal
+      header={t("pages.athleteImportPage.importButton") }
+      open={isPopupOpen}
+      setOpen={setPopupOpen}
+      modalDialogSX={{ minWidth: "30%" }}
+    >
         {selectedFile === null ? (
           <Sheet
             variant="outlined"
@@ -334,7 +326,7 @@ const AthleteCSVImport = () => {
             </Box>
           </Sheet>
         )}
-      </Modal>
+      </GenericModal>
     </>
   );
 };
