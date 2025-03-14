@@ -198,7 +198,11 @@ const AthleteCSVImport = () => {
         header={t("pages.athleteImportPage.importButton")}
         open={isPopupOpen}
         setOpen={setPopupOpen}
-        modalDialogSX={{ minWidth: "30%" }}
+        modalDialogSX={{
+          minWidth: "30%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         {selectedFile === null ? (
           <Sheet
@@ -229,7 +233,7 @@ const AthleteCSVImport = () => {
                   p: 4,
                   textAlign: "center",
                   width: "40vw",
-                  height: "20vh",
+                  height: "30vh",
                   cursor: "pointer",
                   bgcolor: "background.level1",
                   "&:hover": { bgcolor: "background.level2" },
@@ -238,7 +242,13 @@ const AthleteCSVImport = () => {
                 <Typography
                   display="flex"
                   flexDirection="column"
+                  textAlign={"center"}
+                  justifyContent="center"
                   alignItems="center"
+                  padding={9}
+                  border={1}
+                  borderColor="inherit"
+                  borderRadius={"50px"}
                 >
                   <UploadIcon fontSize="large" />
                   {t("pages.athleteImportPage.DropFile")}
