@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
 import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
+import AthleteCSVImport from "@components/modals/AthleteImportModal/AthleteCSVImport";
 
 const AthleteOverviewPage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
@@ -25,7 +26,10 @@ const AthleteOverviewPage = () => {
         <Typography level="h2" component="h1">
           {t("pages.athleteOverviewPage.header")}
         </Typography>
-        <AthleteCreationForm />
+        <Box sx={{ display: "flex", gap: 2 }}>
+          <AthleteCreationForm />
+          <AthleteCSVImport />
+        </Box>
       </Box>
       <AthleteDatagrid
         athletes={athletes}
