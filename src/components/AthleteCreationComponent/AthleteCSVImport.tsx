@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Sheet, Typography } from "@mui/joy";
+import { Box, Button, Modal, Sheet, Table, Typography } from "@mui/joy";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
@@ -7,6 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import { useSnackbar } from "notistack";
+import UploadIcon from "@mui/icons-material/Upload";
 
 interface AthleteWithValidity extends Athlete {
   valid: boolean | undefined;
@@ -197,7 +198,6 @@ const AthleteCSVImport = () => {
           setData();
         },
       });
-
       reader.onerror = () => {
         console.log("Error reading File");
       };
@@ -223,80 +223,121 @@ const AthleteCSVImport = () => {
           },
         }}
       >
-        <Sheet
-          variant="outlined"
-          sx={{
-            maxWidth: 1000,
-            borderRadius: "md",
-            p: 3,
-            boxShadow: "lg",
-            gap: 2,
-            justifyContent: "center",
-          }}
-        >
-          <input
-            type="file"
-            id="file-upload"
-            style={{ display: "none", justifyContent: "center" }}
-            onChange={handleFileChange}
-          />
-          <label htmlFor="file-upload">
-            <Button
-              component="span"
-              variant="solid"
-              color="primary"
-              fullWidth
-              sx={{ marginBottom: "2vh" }}
-            >
-              Choose File
-            </Button>
-          </label>
-          <Box
-            onDragOver={(event) => event.preventDefault()}
-            onDrop={handleDrop}
+        {selectedFile === null ? (
+          <Sheet
+            variant="outlined"
             sx={{
-              border: "2px dashed",
-              borderColor: "neutral.outlinedBorder",
+              maxWidth: 1000,
               borderRadius: "md",
-              p: 4,
-              textAlign: "center",
-              width: "40vw",
-              height: "20vh",
-              cursor: "pointer",
-              bgcolor: "background.level1",
-              "&:hover": { bgcolor: "background.level2" },
+              p: 3,
+              boxShadow: "lg",
+              gap: 2,
+              justifyContent: "center",
             }}
           >
-            <Typography>Drag & Drop a file here</Typography>
-            {selectedFile && (
-              <Typography sx={{ mt: 2 }}>
-                Selected: {selectedFile.name}
-              </Typography>
-            )}
-          </Box>
-          <ul>
-            {csvData.map((athlete, index) => (
-              <li key={index}>
-                <strong>
-                  {athlete.first_name} {athlete.last_name}{" "}
-                  {athlete.valid ? <CheckIcon /> : <CloseIcon />}{" "}
-                </strong>
-              </li>
-            ))}
-          </ul>
-          <Button
-            fullWidth
-            onClick={() => {
-              createAthletes(csvData);
-              setCsvData([]);
-              setSelectedFile(null);
-              setPopupOpen(false);
+            <input
+              type="file"
+              id="file-upload"
+              style={{ display: "none", justifyContent: "center" }}
+              onChange={handleFileChange}
+            />
+            <label htmlFor="file-upload">
+              <Box
+                onDragOver={(event) => event.preventDefault()}
+                onDrop={handleDrop}
+                sx={{
+                  border: "2px dashed",
+                  borderColor: "neutral.outlinedBorder",
+                  borderRadius: "md",
+                  p: 4,
+                  textAlign: "center",
+                  width: "40vw",
+                  height: "20vh",
+                  cursor: "pointer",
+                  bgcolor: "background.level1",
+                  "&:hover": { bgcolor: "background.level2" },
+                }}
+              >
+                <Typography
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                >
+                  <UploadIcon fontSize="large" />
+                  Drag & Drop a file here
+                </Typography>
+              </Box>
+            </label>
+          </Sheet>
+        ) : (
+          <Sheet
+            variant="outlined"
+            sx={{
+              maxWidth: 1000,
+              borderRadius: "md",
+              p: 3,
+              boxShadow: "lg",
+              gap: 2,
+              justifyContent: "center",
             }}
           >
-            {" "}
-            import Athletes
-          </Button>
-        </Sheet>
+            <Typography level="h4" sx={{ mb: 2 }}>
+              Athlete List
+            </Typography>
+            <Table borderAxis="bothBetween" stripe="odd" stickyHeader hoverRow>
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Valid</th>
+                </tr>
+              </thead>
+              <tbody>
+                {csvData.map((athlete, index) => (
+                  <tr key={index}>
+                    <td>{athlete.first_name}</td>
+                    <td>{athlete.last_name}</td>
+                    <td>
+                      {athlete.valid ? (
+                        <CheckIcon color="success" />
+                      ) : (
+                        <CloseIcon color="error" />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+                alignItems: "center",
+                flexDirection: "row",
+              }}
+            >
+              <Button
+                sx={{ marginTop: "1vh" }}
+                onClick={() => {
+                  setSelectedFile(null);
+                }}
+              >
+                upload other File
+              </Button>
+              <Button
+                sx={{ marginTop: "1vh" }}
+                onClick={() => {
+                  createAthletes(csvData);
+                  setCsvData([]);
+                  setSelectedFile(null);
+                  setPopupOpen(false);
+                }}
+              >
+                import Athletes
+              </Button>
+            </Box>
+          </Sheet>
+        )}
       </Modal>
     </>
   );
