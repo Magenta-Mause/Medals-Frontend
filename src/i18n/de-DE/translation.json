@@ -47,6 +47,9 @@
     "noEntriesFound": "Keine Einträge gefunden"
   },
   "snackbar": {
+    "authProvider": {
+      "userLoggedOut": "Sie wurden abgemeldet"
+    },
     "login": {
       "loginFailed": "Login fehlgeschlagen"
     },

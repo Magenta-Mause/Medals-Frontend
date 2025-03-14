@@ -13,6 +13,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
 
 interface AuthContextType {
   identityToken: string | null;
@@ -75,6 +76,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [authorized, setAuthorized] = useState<boolean | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const { logoutUser, fetchIdentityToken } = useApi();
+  const { t } = useTranslation();
   const [tokenExpirationDate, setTokenExpirationDate] = useState<number | null>(
     null,
   );
@@ -108,7 +110,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       processJwtToken(token);
       return token;
     } catch {
-      console.log("Not authorized");
       setIdentityToken(null);
       setAuthorized(false);
       return null;
@@ -119,7 +120,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     try {
       await logoutUser();
       setAuthorized(false);
-      console.log("Logged out");
       selectUser(null);
       setIdentityToken(null);
     } catch (error) {
@@ -142,7 +142,9 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     );
     if (user === undefined) {
       selectUser(null);
-      enqueueSnackbar("User couldn't be found", { variant: "warning" });
+      enqueueSnackbar(t("snackbar.authProvider.userLoggedOut"), {
+        variant: "warning",
+      });
     } else {
       if (selectedUser === null || selectedUser?.id != user.id) {
         selectUser(user);
