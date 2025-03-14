@@ -112,7 +112,7 @@ const PerformanceRecordingDatagrid = (
 
   const options: Action<PerformanceRecording>[] = [
     {
-      label: "delete",
+      label: t("components.performanceRecordingDatagrid.actions.delete"),
       key: "delete",
       operation: (item) => {
         deletePerformanceRecording(item.id);

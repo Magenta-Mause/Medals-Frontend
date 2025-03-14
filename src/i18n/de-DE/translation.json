@@ -406,7 +406,8 @@
         "add": {
           "text": "Hinzufügen",
           "label": "+ aufnehmen"
-        }
+        },
+        "delete": "Löschen"
       }
     }
   }

@@ -388,7 +388,8 @@
         "add": {
           "text": "Add performance recording",
           "label": "+ add"
-        }
+        },
+        "delete": "Delete"
       }
     },
     "createPerformanceRecordingModal": {
