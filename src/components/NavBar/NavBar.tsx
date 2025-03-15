@@ -196,7 +196,7 @@ const NavBar = () => {
         </IconButton>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
         <Tooltip text={t("components.navbar.colorSchemeToggleTooltip")}>
-          <ColorSchemeToggle sx={{ ml: "auto" }} />
+          <Sheet sx={{ ml: "auto" }}><ColorSchemeToggle/></Sheet>
         </Tooltip>
       </Box>
       <Input
@@ -299,6 +299,7 @@ const NavBar = () => {
           </Button>
         </Tooltip>
         {(authorizedUsers?.length ?? 0) > 1 ? (
+          <Tooltip text={t("components.navbar.switchUserButton")}>
           <IconButton
             about="Switch user"
             onClick={() => {
@@ -308,12 +309,15 @@ const NavBar = () => {
           >
             <SupervisedUserCircleOutlined />
           </IconButton>
+          </Tooltip>
         ) : (
           <></>
         )}
+        <Tooltip text={t("components.navbar.logoutButton")}>
         <IconButton size="sm" variant="plain" color="neutral" onClick={logout}>
           <LogoutRounded />
         </IconButton>
+        </Tooltip>
       </Box>
       <ProfileModal isOpen={isProfileOpen} setOpen={setProfileOpen} />
     </Sheet>
