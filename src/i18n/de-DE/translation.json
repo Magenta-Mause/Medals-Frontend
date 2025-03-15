@@ -257,6 +257,8 @@
       "logo": "Medals",
       "colorSchemeToggleTooltip": "Wechseln zwischen Light-/Darkmode",
       "profileButton": "Account Einstellungen",
+      "switchUserButton": "Benutzer wechseln",
+      "logoutButton":"Abmelden",
       "locationList": {
         "/": "Start",
         "/athletes": "Athlet*innen",
@@ -331,6 +333,8 @@
         }
       },
       "actions": {
+        "delete":"Löschen",
+        "edit": "Bearbeiten",
         "openDetails": "Details"
       }
     },
@@ -367,7 +371,10 @@
         "lastName": "Nachname",
         "lastNamePlaceholder": "Mustermann",
         "confirm": "Trainer Einladen"
-      }
+      },
+      "actions":{
+          "delete":"Löschen"
+        }
     },
     "buttons": {
       "next": "Nächstes",

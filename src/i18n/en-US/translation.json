@@ -247,6 +247,8 @@
       "logo": "Medals",
       "colorSchemeToggleTooltip": "Switch light-/darkmode",
       "profileButton": "Account Settings",
+      "switchUserButton": "Switch User",
+      "logoutButton":"Logout",
       "locationList": {
         "/": "Home",
         "/athletes": "Athletes",
@@ -329,6 +331,8 @@
         }
       },
       "actions": {
+        "delete":"Delete",
+        "edit": "Edit",
         "openDetails": "Details"
       }
     },
@@ -357,7 +361,10 @@
         "lastName": "Lastname",
         "lastNamePlaceholder": "Doe",
         "confirm": "Invite Trainer"
-      }
+      },
+      "actions":{
+          "delete":"Delete"
+        }
     },
     "buttons": {
       "next": "Next",
