@@ -196,7 +196,9 @@ const NavBar = () => {
         </IconButton>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
         <Tooltip text={t("components.navbar.colorSchemeToggleTooltip")}>
-          <Sheet sx={{ ml: "auto" }}><ColorSchemeToggle/></Sheet>
+          <Box sx={{ ml: "auto" }}>
+            <ColorSchemeToggle />
+          </Box>
         </Tooltip>
       </Box>
       <Input
@@ -300,23 +302,28 @@ const NavBar = () => {
         </Tooltip>
         {(authorizedUsers?.length ?? 0) > 1 ? (
           <Tooltip text={t("components.navbar.switchUserButton")}>
-          <IconButton
-            about="Switch user"
-            onClick={() => {
-              setSelectedUser(null);
-              navigate("/login");
-            }}
-          >
-            <SupervisedUserCircleOutlined />
-          </IconButton>
+            <IconButton
+              about="Switch user"
+              onClick={() => {
+                setSelectedUser(null);
+                navigate("/login");
+              }}
+            >
+              <SupervisedUserCircleOutlined />
+            </IconButton>
           </Tooltip>
         ) : (
           <></>
         )}
         <Tooltip text={t("components.navbar.logoutButton")}>
-        <IconButton size="sm" variant="plain" color="neutral" onClick={logout}>
-          <LogoutRounded />
-        </IconButton>
+          <IconButton
+            size="sm"
+            variant="plain"
+            color="neutral"
+            onClick={logout}
+          >
+            <LogoutRounded />
+          </IconButton>
         </Tooltip>
       </Box>
       <ProfileModal isOpen={isProfileOpen} setOpen={setProfileOpen} />
