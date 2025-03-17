@@ -112,6 +112,7 @@ const ProfileModal = (props: {
           justifyContent: "center",
           p: "0 50px",
           overflowY: "scroll",
+          overflowX: "hidden",
         }}
       >
         <Avatar
