@@ -212,6 +212,9 @@
       "2024MedalsCard": "2024MedalsCard",
       "2025MedalsCard": "2025MedalsCard",
       "photoBy": "Photo by"
+    },
+    "performanceMetricsPage": {
+      "title": "Performance Metrics"
     }
   },
   "components": {

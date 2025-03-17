@@ -212,6 +212,9 @@
       "2024MedalsCard": "2024 Medaillenkarte",
       "2025MedalsCard": "2025 Medaillenkarte",
       "photoBy": "Foto von"
+    },
+    "performanceMetricsPage": {
+      "title": "Leistungswerte"
     }
   },
   "components": {
