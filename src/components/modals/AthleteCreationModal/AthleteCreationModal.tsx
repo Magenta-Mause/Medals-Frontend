@@ -11,12 +11,16 @@ import { useSnackbar } from "notistack";
 import GenericModal from "../GenericModal";
 import { emailRegex } from "@components/Regex/Regex";
 
+interface ModalProps{
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 const isValidEmail = (email: string) => emailRegex.test(email);
 
-const AthleteCreationForm = () => {
+const AthleteCreationForm = (props: ModalProps) => {
   const { t } = useTranslation();
   const { createAthlete } = useApi();
-  const [isPopupOpen, setPopupOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
@@ -122,13 +126,10 @@ const AthleteCreationForm = () => {
 
   return (
     <>
-      <Button color="primary" onClick={() => setPopupOpen(true)}>
-        {t("pages.athleteOverviewPage.createButton")}
-      </Button>
       <GenericModal
         header={t("pages.athleteOverviewPage.createButton")}
-        open={isPopupOpen}
-        setOpen={setPopupOpen}
+        open={props.isOpen}
+        setOpen={props.setOpen}
         modalDialogSX={{ minWidth: "30%" }}
       >
         <Typography level="h2" component="h1">
@@ -255,7 +256,7 @@ const AthleteCreationForm = () => {
                   t("pages.athleteImportPage.feedback2"),
                 { variant: "success" },
               );
-              setPopupOpen(false);
+              props.setOpen(false);
               setAthlete((prevUser: Athlete) => ({
                 ...prevUser,
                 first_name: "",

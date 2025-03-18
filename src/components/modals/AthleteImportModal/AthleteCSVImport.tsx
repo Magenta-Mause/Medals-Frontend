@@ -16,9 +16,13 @@ interface AthleteWithValidityToAthlete extends Athlete {
   valid: boolean | undefined;
 }
 
-const AthleteCSVImport = () => {
+interface ModalProps{
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AthleteCSVImport = (props: ModalProps) => {
   const { t } = useTranslation();
-  const [isPopupOpen, setPopupOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [csvData, setCsvData] = useState<AthleteWithValidityToAthlete[]>([]);
   const { checkAthleteExists } = useApi();
@@ -187,13 +191,10 @@ const AthleteCSVImport = () => {
   };
   return (
     <>
-      <Button color="primary" onClick={() => setPopupOpen(true)}>
-        {t("pages.athleteImportPage.importButton")}
-      </Button>
       <GenericModal
         header={t("pages.athleteImportPage.importButton")}
-        open={isPopupOpen}
-        setOpen={setPopupOpen}
+        open={props.isOpen}
+        setOpen={props.setOpen}
         modalDialogSX={{
           minWidth: "30%",
           justifyContent: "center",
@@ -312,7 +313,7 @@ const AthleteCSVImport = () => {
                   createAthletes(csvData);
                   setCsvData([]);
                   setSelectedFile(null);
-                  setPopupOpen(false);
+                  props.setOpen(false);
                 }}
               >
                 {t("pages.athleteImportPage.importButton")}
