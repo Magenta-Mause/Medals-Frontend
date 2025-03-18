@@ -9,24 +9,21 @@ import { enqueueSnackbar } from "notistack";
 
 const AcceptTrainerAccessRequest = () => {
   const { t } = useTranslation();
-  const { acceptInvite } = useApi();
+  const { approveRequest } = useApi();
   const [isValid, setValid] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { refreshIdentityToken } = useContext(AuthContext);
 
-  const checkAuthorization = async () => {
-    const token = await refreshIdentityToken();
+  useEffect(() => {
+    const token = refreshIdentityToken();
 
     if (token === null) {
       console.log("Token is null, redirecting to login");
+      enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.noLogin"));
       navigate("/login");
       return;
     }
-  };
-
-  useEffect(() => {
-    checkAuthorization();
 
     const oneTimeCode = searchParams.get("oneTimeCode");
     const uuidRegex = new RegExp(
@@ -41,7 +38,7 @@ const AcceptTrainerAccessRequest = () => {
     const debounce = setTimeout(() => {
       try {
         setValid(true);
-        acceptInvite(oneTimeCode);
+        approveRequest(oneTimeCode);
         enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.success"), {
           variant: "success",
         });
@@ -53,7 +50,7 @@ const AcceptTrainerAccessRequest = () => {
     }, 400);
 
     return () => clearTimeout(debounce);
-  }, [searchParams, t]);
+  }, [searchParams, approveRequest, t]);
 
   return (
     <SplitPageComponent>

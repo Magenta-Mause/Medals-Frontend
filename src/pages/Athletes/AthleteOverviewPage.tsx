@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
 import AthleteCreationForm from "@components/AthleteCreationComponent/AthleteCreationPopup";
-import AthleteInviteButton from "@components/AthleteInviteButton/AthleteInviteButton";
+import AthleteRequestButton from "@components/AthleteRequestButton/AthleteRequestButton";
 
 const AthleteOverviewPage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
@@ -35,7 +35,7 @@ const AthleteOverviewPage = () => {
           }}
         >
           <AthleteCreationForm />
-          <AthleteInviteButton />
+          <AthleteRequestButton />
         </Box>
       </Box>
       <AthleteDatagrid

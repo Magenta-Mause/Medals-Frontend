@@ -24,7 +24,7 @@ const RoutingComponent = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/setPassword" element={<SetPasswordPage />} />
       <Route path="/resetPassword" element={<ResetPasswordPage />} />
-      <Route path="/validate-invite" element={<ValidateInvitePage />} />
+      <Route path="/approve-request" element={<ValidateInvitePage />} />
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
 

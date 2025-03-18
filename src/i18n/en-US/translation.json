@@ -32,6 +32,7 @@
       "success": "Trainer was invited successfully"
     },
     "validateAthleteInvite": {
+      "noLogin": "Login and accept the invitation again",
       "failed": "Could not accept the invite",
       "success": "Invite accepted"
     }
@@ -220,7 +221,8 @@
       "inviteModal": {
         "searchAthlete": "Name or Email",
         "notFound": "No athletes found",
-        "inviteAthleteButton": "Invite"
+        "inviteAthleteButton": "Invite",
+        "loading": "Loading..."
       }
     },
     "trainerDatagrid": {

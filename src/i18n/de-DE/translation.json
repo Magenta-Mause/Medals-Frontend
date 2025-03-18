@@ -32,6 +32,7 @@
       "success": "Der Trainer wurde eingeladen"
     },
     "acceptTrainerAccessRequest": {
+      "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
       "failed": "Trainer Anfrage konnte nicht angenommen werden",
       "success": "Trainer Anfrage erfolgreich angenommen"
     }
@@ -221,7 +222,8 @@
       "inviteModal": {
         "searchAthlete": "Name oder Email",
         "notFound": "Kein Athleten gefunden",
-        "inviteAthleteButton": "Zuweisen"
+        "inviteAthleteButton": "Zuweisen",
+        "loading": "Loading..."
       }
     },
     "trainerDatagrid": {

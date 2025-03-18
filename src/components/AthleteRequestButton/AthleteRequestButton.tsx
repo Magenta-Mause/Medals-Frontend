@@ -10,17 +10,18 @@ import {
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useContext } from "react";
-import { ListItemText } from "@mui/material";
+import { ListItemText, debounce } from "@mui/material";
 import { Athlete } from "@customTypes/bffTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
 const AthleteInviteButton = () => {
   const { t } = useTranslation();
-  const { searchAthletes, inviteAthlete } = useApi();
+  const { searchAthletes, requestAthlete } = useApi();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
   const [filteredResults, setFilteredResults] = useState<Athlete[]>([]);
   const { selectedUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const handleInvite = (
     athleteId: number | undefined,
@@ -34,31 +35,41 @@ const AthleteInviteButton = () => {
       throw new Error("Trainer ID is required");
     }
 
-    inviteAthlete(athleteId, trainerId);
+    requestAthlete(athleteId, trainerId);
+  };
+
+  const fetchAthletes = async (searchTerm: string) => {
+    try {
+      const athletes = await searchAthletes(searchTerm);
+      setFilteredResults(athletes);
+    } catch (error) {
+      console.error("Error fetching athletes", error);
+      setFilteredResults([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = e.target.value;
+    setSearchAthlete(searchTerm);
   };
 
   useEffect(() => {
-    const fetchAthletes = async () => {
-      if (searchAthlete.trim() === "") {
-        setFilteredResults([]);
-        return;
-      }
+    if (searchAthlete.trim() === "") {
+      setFilteredResults([]);
+      setLoading(false);
+      return;
+    }
 
-      try {
-        const athletes = await searchAthletes(searchAthlete);
-        setFilteredResults(athletes);
-      } catch (error) {
-        console.error("Error fetching athletes", error);
-        setFilteredResults([]);
-      }
-    };
+    setLoading(true);
 
-    const debounce = setTimeout(() => {
-      fetchAthletes();
-    }, 500);
+    const delayDebounceFn = setTimeout(() => {
+      fetchAthletes(searchAthlete);
+    }, 800);
 
-    return () => clearTimeout(debounce);
-  }, [searchAthlete, searchAthletes]);
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchAthlete]);
 
   return (
     <>
@@ -81,12 +92,15 @@ const AthleteInviteButton = () => {
         }}
       >
         <Box
-          sx={{
+          sx={(thema) => ({
             padding: "2rem",
             width: { md: "35vw" },
-            backgroundColor: "white",
             borderRadius: "8px",
-          }}
+            background: "white",
+            [thema.getColorSchemeSelector("dark")]: {
+              background: "rgba(19 19 24 / 0.8)",
+            },
+          })}
         >
           <Input
             sx={{
@@ -99,7 +113,7 @@ const AthleteInviteButton = () => {
             )}
             size="lg"
             value={searchAthlete}
-            onChange={(e) => setSearchAthlete(e.target.value)}
+            onChange={handleSearchChange}
           />
           <List
             sx={{
@@ -108,7 +122,12 @@ const AthleteInviteButton = () => {
               overflowY: "auto",
             }}
           >
-            {filteredResults.length === 0 && (
+            {filteredResults.length > 0 && loading && (
+              <Typography>
+                {t("components.athleteDatagrid.inviteModal.loading")}
+              </Typography>
+            )}
+            {filteredResults.length === 0 && !loading && (
               <Typography>
                 {t("components.athleteDatagrid.inviteModal.notFound")}
               </Typography>
@@ -116,21 +135,34 @@ const AthleteInviteButton = () => {
             {filteredResults.map((athlete, index) => (
               <ListItem
                 key={index}
-                sx={{
+                sx={(thema) => ({
                   padding: 0,
                   paddingBottom: 2,
                   width: { md: "28vw" },
-                }}
+                  borderRadius: 10,
+                  "&:hover": {
+                    width: { md: "29vw" },
+                    background: "rgba(199, 199, 199, 0.8)",
+                  },
+                  [thema.getColorSchemeSelector("dark")]: {
+                    "&:hover": {
+                      background: "rgba(64, 64, 64, 0.8)",
+                    },
+                  },
+                })}
               >
                 <ListItemText
                   primary={`${athlete.first_name} ${athlete.last_name}`}
-                  secondary={athlete.email}
+                  secondary={athlete.birthdate}
                 />
                 <Button
                   onClick={() => {
                     handleInvite(athlete.id, selectedUser?.id);
                     setPopupOpen(false);
                     setSearchAthlete("");
+                  }}
+                  sx={{
+                    cursor: "pointer",
                   }}
                 >
                   {t(

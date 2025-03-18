@@ -106,10 +106,10 @@ const useApi = () => {
     }
   };
 
-  const acceptInvite = async (oneTimeCode: string) => {
+  const approveRequest = async (oneTimeCode: string) => {
     try {
       const response = await axiosInstance!.post(
-        `/athletes/validate-invite?oneTimeCode=${oneTimeCode}`,
+        `/athletes/approve-request?oneTimeCode=${oneTimeCode}`,
       );
 
       if (response.status !== 200) {
@@ -118,12 +118,13 @@ const useApi = () => {
         );
       }
     } catch (error) {
-      console.error("Error while accepting invite");
+      console.error(`Error while accepting invite`, error);
+      throw error;
     }
   };
 
-  const inviteAthlete = async (athleteId: number, trainerId: number) => {
-    const request = await axiosInstance!.post(`/trainers/invite-athlete`, {
+  const requestAthlete = async (athleteId: number, trainerId: number) => {
+    const request = await axiosInstance!.post(`/trainers/request-athlete`, {
       athleteId: athleteId,
       trainerId: trainerId,
     });
@@ -235,8 +236,8 @@ const useApi = () => {
     getTrainer,
     getTrainers,
     inviteTrainer,
-    inviteAthlete,
-    acceptInvite,
+    approveRequest,
+    requestAthlete,
     searchAthletes,
   };
 };
