@@ -137,31 +137,31 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   ];
 
   const toolbarActions: ToolbarAction[] = [
-      {
-        label: t("pages.athleteOverviewPage.createButton"),
-        content: t("pages.athleteOverviewPage.createButton"),
-        icon: <Add />,
-        collapseToText: true,
-        color: "primary",
-        key: "create-athlete",
-        variant: "solid",
-        operation: function (): void {
-          setCreationModalOpen(true)
-        },
+    {
+      label: t("pages.athleteOverviewPage.createButton"),
+      content: t("pages.athleteOverviewPage.createButton"),
+      icon: <Add />,
+      collapseToText: true,
+      color: "primary",
+      key: "create-athlete",
+      variant: "solid",
+      operation: function (): void {
+        setCreationModalOpen(true);
       },
-      {
-        label: t("pages.athleteImportPage.importButton"),
-        content: t("pages.athleteImportPage.importButton"),
-        icon: <Add />,
-        collapseToText: true,
-        color: "primary",
-        key: "import-athlete",
-        variant: "solid",
-        operation: function (): void {
-          setImportModalOpen(true);
-        },
-      }
-    ];
+    },
+    {
+      label: t("pages.athleteImportPage.importButton"),
+      content: t("pages.athleteImportPage.importButton"),
+      icon: <Add />,
+      collapseToText: true,
+      color: "primary",
+      key: "import-athlete",
+      variant: "solid",
+      operation: function (): void {
+        setImportModalOpen(true);
+      },
+    },
+  ];
 
   const actions: Action<Athlete>[] = [
     {
@@ -273,8 +273,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         isOpen={addCreationModalOpen}
         setOpen={setCreationModalOpen}
       />
-
-      
     </>
   );
 };

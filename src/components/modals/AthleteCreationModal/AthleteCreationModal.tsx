@@ -11,7 +11,7 @@ import { useSnackbar } from "notistack";
 import GenericModal from "../GenericModal";
 import { emailRegex } from "@components/Regex/Regex";
 
-interface ModalProps{
+interface ModalProps {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

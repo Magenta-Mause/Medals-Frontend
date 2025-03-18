@@ -78,7 +78,7 @@
     },
     "athleteOverviewPage": {
       "header": "Athletes",
-      "createButton": "Create athlete"
+      "createButton": "Create Athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",

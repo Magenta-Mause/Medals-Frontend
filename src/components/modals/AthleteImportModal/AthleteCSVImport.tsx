@@ -16,7 +16,7 @@ interface AthleteWithValidityToAthlete extends Athlete {
   valid: boolean | undefined;
 }
 
-interface ModalProps{
+interface ModalProps {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
