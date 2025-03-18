@@ -195,7 +195,7 @@ const NavBar = () => {
           <MedalsIcon size="inline" />
         </IconButton>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
-            <ColorSchemeToggle sx={{ ml: "auto" }} />
+        <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
       <Input
         size="sm"

@@ -3,9 +3,14 @@ import type { TooltipProps as MuiTooltipProps } from "@mui/joy/Tooltip";
 interface TooltipProps {
   text: string;
   children: React.ReactElement;
-  position?: MuiTooltipProps["placement"];}
+  position?: MuiTooltipProps["placement"];
+}
 
-const Tooltip: React.FC<TooltipProps> = ({ text, position= "top", children }) => {
+const Tooltip: React.FC<TooltipProps> = ({
+  text,
+  position = "top",
+  children,
+}) => {
   return (
     <MuiTooltip
       title={text}
