@@ -1,3 +1,4 @@
+import Tooltip from "@components/Tooltip/Tooltip";
 import { Check, LanguageOutlined } from "@mui/icons-material";
 import {
   Dropdown,
@@ -16,12 +17,18 @@ const LanguageSelectionButton = (props: MenuButtonProps) => {
 
   return (
     <Dropdown>
-      <MenuButton
-        sx={[...(Array.isArray(sx) ? sx : [sx]), { aspectRatio: 1, p: 0 }]}
-        {...other}
+      <Tooltip
+        text={t("components.tooltip.languageSelectionButton")}
+        position="right"
       >
-        <LanguageOutlined />
-      </MenuButton>
+        <MenuButton
+          sx={[...(Array.isArray(sx) ? sx : [sx]), { aspectRatio: 1, p: 0 }]}
+          {...other}
+        >
+          <LanguageOutlined />
+        </MenuButton>
+      </Tooltip>
+
       <Menu size="sm" placement="top-end">
         {Object.keys(i18n.options.resources ?? []).map((language) => (
           <MenuItem

@@ -415,7 +415,8 @@
       "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
       "profileButton": "Account Einstellungen",
       "switchUserButton": "Benutzer wechseln",
-      "logoutButton":"Abmelden"
+      "logoutButton":"Abmelden",
+      "languageSelectionButton": "Sprache ändern"
     }
   }
 }
