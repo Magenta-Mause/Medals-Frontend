@@ -25,7 +25,7 @@ const AthleteCreationForm = () => {
     birthdate: "",
     gender: "",
   });
-  const [inputValid, setinputValid] = useState({
+  const [inputValid, setInputValid] = useState({
     first_name: false,
     last_name: false,
     email: false,
@@ -54,56 +54,56 @@ const AthleteCreationForm = () => {
 
   useEffect(() => {
     if (athlete.first_name.length! > 255 || athlete.first_name !== "") {
-      setinputValid((prevUser: any) => ({
+      setInputValid((prevUser: any) => ({
         ...prevUser,
         first_name: true,
       }));
     } else {
-      setinputValid((prevUser: any) => ({
+      setInputValid((prevUser: any) => ({
         ...prevUser,
         first_name: false,
       }));
     }
     if (athlete.last_name.length! > 255 || athlete.last_name !== "") {
-      setinputValid((prevUser: any) => ({
+      setInputValid((prevUser: any) => ({
         ...prevUser,
         last_name: true,
       }));
     } else {
-      setinputValid((prevUser: any) => ({
+      setInputValid((prevUser: any) => ({
         ...prevUser,
         last_name: false,
       }));
     }
     if (isValidEmail(athlete.email)) {
-      setinputValid((prevUser: any) => ({
+      setInputValid((prevUser: any) => ({
         ...prevUser,
         email: true,
       }));
     } else {
-      setinputValid((prevUser: any) => ({
+      setInputValid((prevUser: any) => ({
         ...prevUser,
         email: false,
       }));
     }
     if (athlete.birthdate !== "") {
-      setinputValid((prevUser: any) => ({
+      setInputValid((prevUser: any) => ({
         ...prevUser,
         birthdate: true,
       }));
     } else {
-      setinputValid((prevUser: any) => ({
+      setInputValid((prevUser: any) => ({
         ...prevUser,
         birthdate: false,
       }));
     }
     if (athlete.gender !== "") {
-      setinputValid((prevUser: any) => ({
+      setInputValid((prevUser: any) => ({
         ...prevUser,
         gender: true,
       }));
     } else {
-      setinputValid((prevUser: any) => ({
+      setInputValid((prevUser: any) => ({
         ...prevUser,
         gender: false,
       }));

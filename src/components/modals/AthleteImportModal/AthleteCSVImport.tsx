@@ -71,9 +71,6 @@ const AthleteCSVImport = () => {
     return !(await checkExists(athlete));
   };
 
-  const delay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
-
   const stripValidity = (athlete: AthleteWithValidityToAthlete): Athlete => {
     const { ...athleteWithoutValid } = athlete;
     return athleteWithoutValid;
@@ -102,7 +99,6 @@ const AthleteCSVImport = () => {
             { variant: "error" },
           );
         }
-        await delay(500); // ⏳ Add 0.5-second delay between requests
       } else {
         enqueueSnackbar(
           t("pages.athleteImportPage.failedFeedback") +
@@ -200,7 +196,6 @@ const AthleteCSVImport = () => {
         setOpen={setPopupOpen}
         modalDialogSX={{
           minWidth: "30%",
-          alignItems: "center",
           justifyContent: "center",
         }}
       >

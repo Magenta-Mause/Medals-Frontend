@@ -94,7 +94,7 @@
       "feedback1": "Athlete ",
       "feedback2": " created",
        "failedFeedback": "Failed to create ",
-       "DropFile": "Drag & Drop your file here",
+       "DropFile": "Drag & Drop your file here or click",
        "changeFile": "change uploaded file",
        "firstName": "First Name",
       "lastName": "Last Name",
