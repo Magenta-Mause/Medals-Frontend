@@ -131,7 +131,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const actions: Action<Athlete>[] = [
     {
-      label: <>Edit</>,
+      label: <>{t("components.athleteDatagrid.actions.edit")}</>,
       color: "primary",
       key: "edit",
       operation: function (item): void {
@@ -139,7 +139,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
     },
     {
-      label: <>Delete</>,
+      label: <>{t("components.athleteDatagrid.actions.delete")}</>,
       color: "danger",
       key: "delete",
       variant: "outlined",
