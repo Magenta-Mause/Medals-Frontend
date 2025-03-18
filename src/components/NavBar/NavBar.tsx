@@ -195,11 +195,7 @@ const NavBar = () => {
           <MedalsIcon size="inline" />
         </IconButton>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
-        <Tooltip text={t("components.navbar.colorSchemeToggleTooltip")}>
-          <Box sx={{ ml: "auto" }}>
-            <ColorSchemeToggle />
-          </Box>
-        </Tooltip>
+            <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
       <Input
         size="sm"
@@ -274,7 +270,7 @@ const NavBar = () => {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <Tooltip text={t("components.navbar.profileButton")}>
+        <Tooltip text={t("components.tooltip.profileButton")}>
           <Button
             variant="plain"
             color="neutral"
@@ -301,7 +297,7 @@ const NavBar = () => {
           </Button>
         </Tooltip>
         {(authorizedUsers?.length ?? 0) > 1 ? (
-          <Tooltip text={t("components.navbar.switchUserButton")}>
+          <Tooltip text={t("components.tooltip.switchUserButton")}>
             <IconButton
               about="Switch user"
               onClick={() => {
@@ -315,7 +311,7 @@ const NavBar = () => {
         ) : (
           <></>
         )}
-        <Tooltip text={t("components.navbar.logoutButton")}>
+        <Tooltip text={t("components.tooltip.logoutButton")}>
           <IconButton
             size="sm"
             variant="plain"

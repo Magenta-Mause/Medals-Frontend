@@ -1,6 +1,8 @@
+import Tooltip from "@components/Tooltip/Tooltip";
 import { DarkModeRounded, LightModeRounded } from "@mui/icons-material";
 import { IconButton, IconButtonProps, useColorScheme } from "@mui/joy";
 import { useColorScheme as useMuiColorScheme } from "@mui/material";
+import { t } from "i18next";
 import { useEffect, useState } from "react";
 
 const ColorSchemeToggle = (props: IconButtonProps) => {
@@ -25,6 +27,7 @@ const ColorSchemeToggle = (props: IconButtonProps) => {
     );
   }
   return (
+    <Tooltip text={t("components.tooltip.colorSchemeToggle")} position="right">
     <IconButton
       data-screenshot="toggle-mode"
       size="sm"
@@ -55,6 +58,8 @@ const ColorSchemeToggle = (props: IconButtonProps) => {
       <DarkModeRounded />
       <LightModeRounded />
     </IconButton>
+    </Tooltip>
+    
   );
 };
 
