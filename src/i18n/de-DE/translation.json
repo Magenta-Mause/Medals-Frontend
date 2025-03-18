@@ -255,10 +255,6 @@
     },
     "navbar": {
       "logo": "Medals",
-      "colorSchemeToggleTooltip": "Wechseln zwischen Light-/Darkmode",
-      "profileButton": "Account Einstellungen",
-      "switchUserButton": "Benutzer wechseln",
-      "logoutButton":"Abmelden",
       "locationList": {
         "/": "Start",
         "/athletes": "Athlet*innen",
@@ -414,6 +410,12 @@
           "label": "+ aufnehmen"
         }
       }
+    },
+    "tooltip": {
+      "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
+      "profileButton": "Account Einstellungen",
+      "switchUserButton": "Benutzer wechseln",
+      "logoutButton":"Abmelden"
     }
   }
 }

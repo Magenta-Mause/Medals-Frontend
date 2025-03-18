@@ -245,10 +245,6 @@
     },
     "navbar": {
       "logo": "Medals",
-      "colorSchemeToggleTooltip": "Switch light-/darkmode",
-      "profileButton": "Account Settings",
-      "switchUserButton": "Switch User",
-      "logoutButton":"Logout",
       "locationList": {
         "/": "Home",
         "/athletes": "Athletes",
@@ -414,6 +410,12 @@
       "header": "Are You Sure?",
       "cancelButton": "Cancel",
       "deleteButton": "Delete"
+    },
+    "tooltip": {
+      "colorSchemeToggle": "Switch light-/darkmode",
+      "profileButton": "Account Settings",
+      "switchUserButton": "Switch User",
+      "logoutButton":"Logout"
     }
   }
 }
