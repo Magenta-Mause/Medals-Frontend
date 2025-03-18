@@ -195,10 +195,13 @@ const NavBar = () => {
           <MedalsIcon size="inline" />
         </IconButton>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
-        <Tooltip text={t("components.navbar.colorSchemeToggleTooltip")}>
-          <Box sx={{ ml: "auto" }}>
-            <ColorSchemeToggle />
-          </Box>
+        <Tooltip
+          text={t("components.navbar.colorSchemeToggleTooltip")}
+          sx={{
+            marginLeft: "auto",
+          }}
+        >
+          <ColorSchemeToggle />
         </Tooltip>
       </Box>
       <Input
@@ -284,6 +287,7 @@ const NavBar = () => {
               textAlign: "left",
               flex: 1,
               minWidth: 0,
+              height: "1rem",
             }}
             onClick={() => {
               setProfileOpen(true);
@@ -304,6 +308,11 @@ const NavBar = () => {
           <Tooltip text={t("components.navbar.switchUserButton")}>
             <IconButton
               about="Switch user"
+              sx={{
+                height: "1rem",
+                aspectRatio: 1,
+                width: "auto",
+              }}
               onClick={() => {
                 setSelectedUser(null);
                 navigate("/login");
