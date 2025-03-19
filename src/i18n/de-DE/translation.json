@@ -92,15 +92,15 @@
       "createHeader": "Athlet*in erstellen"
     },
     "athleteImportPage":{
-      "importButton": "Athlet*in importieren",
+      "importButton": "Athlet*innen importieren",
       "feedback1": "Athlet*in ",
       "feedback2": " erstellt",
-      "failedFeedback": "Fehler beim erstellen von Athlet*in ",
+      "failedFeedback": "Fehler beim Erstellen von Athlet*in ",
       "DropFile": "Datei hier ablegen oder klicken",
-      "changeFile": "andere Datei auswählen",
+      "changeFile": "Zurück",
       "firstName": "Vorname",
       "lastName": "Nachname",
-      "valid": "Gültig",
+      "valid": "Status",
       "athleteList": "Athletenliste"
     },
     "trainerOverviewPage": {

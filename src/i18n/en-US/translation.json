@@ -90,15 +90,15 @@
       "createHeader": "Create Athlete"
     },
     "athleteImportPage":{
-      "importButton": "Import Athlete",
+      "importButton": "Import Athletes",
       "feedback1": "Athlete ",
       "feedback2": " created",
        "failedFeedback": "Failed to create ",
        "DropFile": "Drag & Drop your file here or click",
-       "changeFile": "change uploaded file",
+       "changeFile": "Back",
        "firstName": "First Name",
       "lastName": "Last Name",
-      "valid": "Vaild",
+      "valid": "Status",
       "athleteList": "Athlete List"
     },
     "trainerOverviewPage": {

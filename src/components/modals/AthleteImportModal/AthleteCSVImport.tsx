@@ -1,4 +1,4 @@
-import { Box, Button, Sheet, Table, Typography } from "@mui/joy";
+import { Box, Button, Table, Typography } from "@mui/joy";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
@@ -201,17 +201,7 @@ const AthleteCSVImport = (props: ModalProps) => {
         }}
       >
         {selectedFile === null ? (
-          <Sheet
-            variant="outlined"
-            sx={{
-              maxWidth: 1000,
-              borderRadius: "md",
-              p: 3,
-              boxShadow: "lg",
-              gap: 2,
-              justifyContent: "center",
-            }}
-          >
+          <>
             <input
               type="file"
               id="file-upload"
@@ -223,7 +213,7 @@ const AthleteCSVImport = (props: ModalProps) => {
                 onDragOver={(event) => event.preventDefault()}
                 onDrop={handleDrop}
                 sx={{
-                  border: "2px dashed",
+                  border: "2px",
                   borderColor: "neutral.outlinedBorder",
                   borderRadius: "md",
                   p: 4,
@@ -242,44 +232,35 @@ const AthleteCSVImport = (props: ModalProps) => {
                   justifyContent="center"
                   alignItems="center"
                   padding={9}
-                  border={1}
+                  border={2}
                   borderColor="inherit"
                   borderRadius={"50px"}
+                  sx={{ borderStyle: "dashed" }}
                 >
                   <UploadIcon fontSize="large" />
                   {t("pages.athleteImportPage.DropFile")}
                 </Typography>
               </Box>
             </label>
-          </Sheet>
+          </>
         ) : (
-          <Sheet
-            variant="outlined"
-            sx={{
-              maxWidth: 1000,
-              borderRadius: "md",
-              p: 3,
-              boxShadow: "lg",
-              gap: 2,
-              justifyContent: "center",
-            }}
-          >
+          <>
             <Typography level="h4" sx={{ mb: 2 }}>
               {t("pages.athleteImportPage.athleteList")}
             </Typography>
             <Table borderAxis="bothBetween" stripe="odd" stickyHeader hoverRow>
               <thead>
                 <tr>
+                  <th style={{ width: "70px" }}>
+                    {t("pages.athleteImportPage.valid")}
+                  </th>
                   <th>{t("pages.athleteImportPage.firstName")}</th>
                   <th>{t("pages.athleteImportPage.lastName")}</th>
-                  <th>{t("pages.athleteImportPage.valid")}</th>
                 </tr>
               </thead>
               <tbody>
                 {csvData.map((athlete, index) => (
                   <tr key={index}>
-                    <td>{athlete.first_name}</td>
-                    <td>{athlete.last_name}</td>
                     <td>
                       {athlete.valid ? (
                         <CheckIcon color="success" />
@@ -287,6 +268,8 @@ const AthleteCSVImport = (props: ModalProps) => {
                         <CloseIcon color="error" />
                       )}
                     </td>
+                    <td>{athlete.first_name}</td>
+                    <td>{athlete.last_name}</td>
                   </tr>
                 ))}
               </tbody>
@@ -319,7 +302,7 @@ const AthleteCSVImport = (props: ModalProps) => {
                 {t("pages.athleteImportPage.importButton")}
               </Button>
             </Box>
-          </Sheet>
+          </>
         )}
       </GenericModal>
     </>

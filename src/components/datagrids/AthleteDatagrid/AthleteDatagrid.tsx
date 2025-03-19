@@ -16,6 +16,7 @@ import { Add } from "@mui/icons-material";
 import AthleteCSVImport from "@components/modals/AthleteImportModal/AthleteCSVImport";
 import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
 import { useState } from "react";
+import UploadIcon from "@mui/icons-material/Upload";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -152,7 +153,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     {
       label: t("pages.athleteImportPage.importButton"),
       content: t("pages.athleteImportPage.importButton"),
-      icon: <Add />,
+      icon: <UploadIcon />,
       collapseToText: true,
       color: "primary",
       key: "import-athlete",
