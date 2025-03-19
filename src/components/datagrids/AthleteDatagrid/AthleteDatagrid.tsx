@@ -11,6 +11,8 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import { useState } from "react";
+import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -22,6 +24,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [isExportModalOpen, setExportModalOpen] = useState(false)
+  const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
+
 
   const columns: Column<Athlete>[] = [
     {
@@ -139,6 +144,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
     },
     {
+      label: <>{t("components.athleteDatagrid.actions.export")}</>,
+      color: "primary",
+      key: "export",
+      variant: "outlined",
+      operation: function (item): void {
+        setExportModalOpen(true);
+        console.log("Exporting Athlete:", item);
+      },
+    },
+    {
       label: <>Delete</>,
       color: "danger",
       key: "delete",
@@ -230,8 +245,15 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         onItemClick={itemCallback}
         disablePaging={false}
       />
+      <AthleteExportModal 
+      isOpen={isExportModalOpen} 
+      setOpen={setExportModalOpen} 
+      selectedAthletes={selectedAthletes}
+    />
     </>
   );
 };
 
 export default AthleteDatagrid;
+
+

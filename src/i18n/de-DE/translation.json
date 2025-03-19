@@ -332,7 +332,8 @@
         }
       },
       "actions": {
-        "openDetails": "Details"
+        "openDetails": "Details",
+        "export": "Exportieren"
       }
     },
     "disciplineDatagrid": {

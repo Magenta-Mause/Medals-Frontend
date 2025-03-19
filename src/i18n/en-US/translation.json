@@ -327,7 +327,9 @@
         }
       },
       "actions": {
-        "openDetails": "Details"
+        "openDetails": "Details",
+        "export": "Export"
+
       }
     },
     "trainerDatagrid": {
