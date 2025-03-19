@@ -59,6 +59,21 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const checkAthleteExists = useCallback(
+    async (email: string, birthdate: string) => {
+      try {
+        const response = await axiosInstance!.get("athletes/exists", {
+          params: { email, birthdate },
+        });
+        return response.data.data;
+      } catch (error) {
+        console.error("Error checking athlete existence:", error);
+        return false;
+      }
+    },
+    [axiosInstance],
+  );
+
   const getTrainers = useCallback(async () => {
     try {
       const request = await axiosInstance!.get(`/trainers`);
@@ -277,6 +292,7 @@ const useApi = () => {
     getTrainer,
     getTrainers,
     inviteTrainer,
+    checkAthleteExists,
     createPerformanceRecording,
     deletePerformanceRecording,
   };
