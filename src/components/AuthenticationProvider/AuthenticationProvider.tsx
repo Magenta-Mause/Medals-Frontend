@@ -13,7 +13,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useTranslation } from "react-i18next";
 
 interface AuthContextType {
   identityToken: string | null;
@@ -76,7 +75,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [authorized, setAuthorized] = useState<boolean | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const { logoutUser, fetchIdentityToken } = useApi();
-  const { t } = useTranslation();
   const [tokenExpirationDate, setTokenExpirationDate] = useState<number | null>(
     null,
   );

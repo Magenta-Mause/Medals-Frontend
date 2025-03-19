@@ -24,6 +24,7 @@ import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
 } from "@utils/medalCalculation";
+import MedalIcon from "@components/MedalIcon/MedalIcon";
 
 const DisciplineIcons: Record<DisciplineCategories, IconType> = {
   COORDINATION: GiJumpingRope,
@@ -55,13 +56,13 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
     };
     disciplines.forEach((d) => {
       const bestEntry = performanceRecordings
+        .filter((p) => p.athlete_id == props.athlete.id)
         .filter((p) => p.discipline_rating_metric.discipline.id == d.id)
         .sort(
           d.more_better
             ? (a, b) => b.rating_value - a.rating_value
             : (a, b) => a.rating_value - b.rating_value,
         )[0];
-      console.log(bestEntry);
       if (bestEntry == undefined) {
         return;
       }
@@ -74,7 +75,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
       }
     });
     setAchievedCategoryMedal(newAchievedCategoryMedal);
-  }, [performanceRecordings, disciplines]);
+  }, [performanceRecordings, disciplines, props.athlete.id]);
 
   return (
     <>
@@ -130,6 +131,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                     justifyItems: "flex-start",
                     gap: 5,
                     pl: 2,
+                    width: "100%",
                     "> svg": {
                       height: "30px",
                       width: "30px",
@@ -144,10 +146,19 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                       padding: "10px 0",
                     }}
                   >
-                    {t("disciplines.categories." + category + ".label")} -{" "}
-                    {achievedCategoryMedal
-                      ? t("medals." + achievedCategoryMedal[category])
-                      : Medals.NONE}
+                    {t("disciplines.categories." + category + ".label")}
+                  </Typography>
+                  <Typography
+                    sx={{ position: "relative", right: 0, ml: "auto" }}
+                  >
+                    <MedalIcon
+                      category={category}
+                      medalType={
+                        achievedCategoryMedal
+                          ? achievedCategoryMedal[category]
+                          : Medals.NONE
+                      }
+                    />
                   </Typography>
                 </Box>
               </AccordionSummary>

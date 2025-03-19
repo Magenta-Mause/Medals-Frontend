@@ -1,6 +1,6 @@
-import { Athlete } from "@customTypes/backendTypes";
+import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import { Chip, Typography } from "@mui/joy";
+import { Box, Chip, Typography } from "@mui/joy";
 import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,13 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import { useTypedSelector } from "@stores/rootReducer";
+import { DisciplineCategories, Medals } from "@customTypes/enums";
+import {
+  calculatePerformanceRecordingMedal,
+  convertMedalToNumber,
+} from "@utils/medalCalculation";
+import MedalIcon from "@components/MedalIcon/MedalIcon";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -19,6 +26,9 @@ interface AthleteDatagridProps {
 
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const { deleteAthlete } = useApi();
+  const performanceRecordings = useTypedSelector(
+    (state) => state.performanceRecordings.data,
+  ) as PerformanceRecording[];
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -69,6 +79,44 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
       sortable: true,
     },
+    {
+      columnName: t("components.athleteDatagrid.table.columns.medals"),
+      size: "l",
+      disableSpan: true,
+      columnMapping(item) {
+        const performanceRecordingsOfAthlete = performanceRecordings.filter(
+          (p) => p.athlete_id == item.id,
+        );
+        return (
+          <Box
+            sx={{
+              height: "25px",
+              gap: "10px",
+              display: "flex",
+              justifyContent: "left",
+            }}
+          >
+            {Object.values(DisciplineCategories).map((category) => {
+              const performanceRecordingsOfCategory =
+                performanceRecordingsOfAthlete.filter(
+                  (p) =>
+                    p.discipline_rating_metric.discipline.category == category,
+                );
+              const bestValue = performanceRecordingsOfCategory
+                .map((p) => calculatePerformanceRecordingMedal(p))
+                .sort((m) => convertMedalToNumber(m))[0];
+              return (
+                <MedalIcon
+                  category={category}
+                  medalType={bestValue ?? Medals.NONE}
+                  stillShowIconWhenNone
+                />
+              );
+            })}
+          </Box>
+        );
+      },
+    },
   ];
 
   const filters: Filter<Athlete>[] = [
@@ -105,7 +153,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       apply(filterParameter) {
         return (athlete) =>
           filterParameter == "" ||
-          athlete.gender.toUpperCase() == filterParameter.toUpperCase();
+          athlete.gender!.toUpperCase() == filterParameter.toUpperCase();
       },
       type: "SELECTION",
       selection: [
@@ -192,7 +240,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           textAlign: "center",
         }}
       >
-        {athlete.gender.slice(0, 1).toUpperCase()}
+        {athlete.gender!.slice(0, 1).toUpperCase()}
       </Chip>
     ),
     searchFilter: {

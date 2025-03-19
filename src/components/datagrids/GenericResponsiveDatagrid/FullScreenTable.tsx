@@ -26,6 +26,7 @@ export interface Column<T> {
   columnMapping: (item: T) => React.ReactNode;
   sortable?: boolean;
   size?: keyof typeof COLUMN_SIZES;
+  disableSpan?: boolean;
 }
 
 const PageButton = (props: {
@@ -363,7 +364,9 @@ const FullScreenTable = <T,>(props: {
               }}
               key={column.columnName}
             >
-              <Typography sx={{ paddingLeft: 2 }}>
+              <Typography
+                sx={{ paddingLeft: column.disableSpan ? 0 : 2, width: "100%" }}
+              >
                 {column.columnName}
               </Typography>
             </th>
@@ -453,17 +456,22 @@ const FullScreenTable = <T,>(props: {
               )}
               {props.columns.map((column) => (
                 <td key={column.columnName}>
-                  <Typography
-                    level="body-xs"
-                    sx={{
-                      padding: 1,
-                      paddingLeft: 2,
-                      alignContent: "center",
-                      display: "flex",
-                    }}
-                  >
-                    {column.columnMapping(row as T)}
-                  </Typography>
+                  {column.disableSpan ? (
+                    column.columnMapping(row as T)
+                  ) : (
+                    <Typography
+                      level="body-xs"
+                      sx={{
+                        padding: 1,
+                        paddingLeft: 2,
+                        alignContent: "center",
+                        display: "flex",
+                        width: "100%",
+                      }}
+                    >
+                      {column.columnMapping(row as T)}
+                    </Typography>
+                  )}
                 </td>
               ))}
               {props.actionMenu ? (
