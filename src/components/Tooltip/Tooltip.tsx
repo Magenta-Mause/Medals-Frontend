@@ -1,21 +1,29 @@
 import MuiTooltip from "@mui/joy/Tooltip";
+import { SxProps } from "@mui/material";
+import type { TooltipProps as MuiTooltipProps } from "@mui/joy/Tooltip";
 import { Box } from "@mui/joy";
-import { SxProps } from "@mui/joy/styles/types";
 
 interface TooltipProps {
   text: string;
   children: React.ReactElement;
   sx?: SxProps | undefined;
+  position?: MuiTooltipProps["placement"];
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ text, children, sx }) => {
+const Tooltip: React.FC<TooltipProps> = ({
+  text,
+  position = "top",
+  sx,
+  children,
+}) => {
   return (
     <MuiTooltip
       title={text}
       variant="soft"
       color="primary"
       size="sm"
-      placement="top"
+      placement={position}
+      enterDelay={700}
       sx={{
         ...sx,
         zIndex: 20000,
