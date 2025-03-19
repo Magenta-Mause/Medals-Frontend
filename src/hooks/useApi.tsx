@@ -257,6 +257,23 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const deletePerformanceRecording = useCallback(
+    async (performanceRecordingId: number) => {
+      try {
+        const response = await axiosInstance!.delete(
+          "/performance-recordings/" + performanceRecordingId,
+        );
+        return response.status == 204;
+      } catch {
+        throw new Error(
+          "Error while deleting performance recording with id: " +
+            performanceRecordingId,
+        );
+      }
+    },
+    [axiosInstance],
+  );
+
   return {
     loginUser,
     logoutUser,
@@ -277,6 +294,7 @@ const useApi = () => {
     inviteTrainer,
     checkAthleteExists,
     createPerformanceRecording,
+    deletePerformanceRecording,
   };
 };
 

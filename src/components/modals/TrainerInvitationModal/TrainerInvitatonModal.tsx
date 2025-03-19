@@ -2,8 +2,8 @@ import useApi from "@hooks/useApi";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import TrainerInvitationForm from "./TrainerInvitationForm";
 import GenericModal from "../GenericModal";
+import TrainerInvitationForm from "./TrainerInvitationForm";
 
 interface TrainerInvitationModalProps {
   isOpen: boolean;
@@ -26,7 +26,6 @@ const TrainerInvitationModal = (props: TrainerInvitationModalProps) => {
   const handleSubmitTrainerInvitation = async (
     data: TrainerInvitationObject,
   ): Promise<void> => {
-    console.log("Inviting trainer..");
     setTrainerInviteSubmitted(true);
 
     // send request here

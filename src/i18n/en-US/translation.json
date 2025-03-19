@@ -113,7 +113,7 @@
       "headerText": "Here are the most important downloads just a click away"
     },
     "inDevelopment": {
-      "h1": "404",
+      "h1": "501",
       "h2": "Page in development"
     },
     "userRoleError": {
@@ -400,7 +400,8 @@
         "add": {
           "text": "Add performance recording",
           "label": "+ add"
-        }
+        },
+        "delete": "Delete"
       }
     },
     "createPerformanceRecordingModal": {

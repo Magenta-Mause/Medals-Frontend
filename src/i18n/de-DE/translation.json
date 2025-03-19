@@ -47,6 +47,9 @@
     "noEntriesFound": "Keine Einträge gefunden"
   },
   "snackbar": {
+    "authProvider": {
+      "userLoggedOut": "Sie wurden abgemeldet"
+    },
     "login": {
       "loginFailed": "Login fehlgeschlagen"
     },
@@ -112,7 +115,7 @@
       "headerText": "Hier die wichtigsten Downloads nur einen Klick entfernt"
     },
     "inDevelopment": {
-      "h1": "404",
+      "h1": "501",
       "h2": "Seite in der Entwicklung"
     },
     "userRoleError": {
@@ -415,7 +418,8 @@
         "add": {
           "text": "Hinzufügen",
           "label": "+ aufnehmen"
-        }
+        },
+        "delete": "Löschen"
       }
     }
   }
