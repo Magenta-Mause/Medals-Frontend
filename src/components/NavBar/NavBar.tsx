@@ -3,6 +3,7 @@ import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
 import InfoCard from "@components/InfoCard/InfoCard";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import ProfileModal from "@components/modals/ProfileModal/ProfileModal";
+import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
 import { UserType } from "@customTypes/enums";
 import useSidebar from "@hooks/useSidebar";
 import {
@@ -14,7 +15,7 @@ import {
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
-  PersonAddAlt,
+  PersonAdd,
   SearchRounded,
   SpaceDashboard,
   SupervisedUserCircleOutlined,
@@ -93,7 +94,7 @@ const navBarElements = new Map<
       },
       {
         path: "/assignAthlete",
-        icon: <PersonAddAlt />,
+        icon: <PersonAdd />,
       },
     ],
   ],
@@ -203,7 +204,7 @@ const NavBar = () => {
       <Box
         sx={{
           minHeight: 0,
-          overflow: "hidden auto",
+          overflow: { md: "hidden", xs: "hidden auto" },
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -252,6 +253,7 @@ const NavBar = () => {
             padding: "none",
           }}
         >
+          <LegalLinksSelector collapseSidebar={collapseSidebar} />
           <LanguageSelector />
           {warning ? (
             <InfoCard

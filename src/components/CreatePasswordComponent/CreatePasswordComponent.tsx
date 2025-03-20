@@ -5,17 +5,18 @@ import usePasswordValidation, {
 } from "@hooks/usePasswordValidation";
 import { Check, Close } from "@mui/icons-material";
 import {
+  FormControl,
+  FormLabel,
   Input,
-  Typography,
   List,
   ListItem,
-  ListItemDecorator,
   ListItemContent,
+  ListItemDecorator,
   Tooltip,
-  FormLabel,
+  Typography,
 } from "@mui/joy";
-import { t } from "i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const CreatePasswordComponent = (props: {
   isPending: boolean;
@@ -24,57 +25,60 @@ const CreatePasswordComponent = (props: {
 }) => {
   const [currentPassword, setCurrentPassword] = useState("");
   const { checks, strength, valid } = usePasswordValidation(currentPassword);
+  const { t } = useTranslation();
 
   useEffect(() => {
     props.setPasswordValid(valid);
-  }, [props, valid]);
+  }, [valid, props]);
 
   return (
     <>
-      <FormLabel>Password</FormLabel>
-      <Input
-        type="password"
-        name="password"
-        disabled={props.isPending || props.isSuccess}
-        onChange={(event) => setCurrentPassword(event.target.value)}
-      />
+      <FormControl>
+        <FormLabel>
+          {t("components.passwordStrengthIndicator.password")}
+        </FormLabel>
+        <Input
+          type="password"
+          name="password"
+          disabled={props.isPending || props.isSuccess}
+          onChange={(event) => setCurrentPassword(event.target.value)}
+        />
+      </FormControl>
       <PasswordStrengthBar passwordStrength={strength} />
-      <Typography level="body-sm" textAlign={"left"}>
-        <List>
-          {Object.keys(checks).map((key) => (
-            <ListItem key={key}>
-              <ListItemDecorator>
-                {checks[key as PasswordStrengthChecks] ? (
-                  <Check
-                    sx={{
-                      fill: "green",
-                    }}
-                  />
-                ) : (
-                  <Close />
-                )}
-              </ListItemDecorator>
-              <ListItemContent sx={{ display: "flex" }}>
-                <Typography level="body-sm">
-                  {t("components.passwordStrengthIndicator." + key)}
-                </Typography>
-                <Tooltip
-                  title={t("components.passwordStrengthIndicator.required")}
+      <List>
+        {Object.keys(checks).map((key) => (
+          <ListItem key={key}>
+            <ListItemDecorator>
+              {checks[key as PasswordStrengthChecks] ? (
+                <Check
                   sx={{
-                    userSelect: "none",
+                    fill: "green",
                   }}
-                >
-                  <Typography level="body-sm">
-                    {requiredPasswordChecks[key as PasswordStrengthChecks]
-                      ? "*"
-                      : ""}
-                  </Typography>
-                </Tooltip>
-              </ListItemContent>
-            </ListItem>
-          ))}
-        </List>
-      </Typography>
+                />
+              ) : (
+                <Close />
+              )}
+            </ListItemDecorator>
+            <ListItemContent sx={{ display: "flex" }}>
+              <Typography level="body-sm">
+                {t("components.passwordStrengthIndicator." + key)}
+              </Typography>
+              <Tooltip
+                title={t("components.passwordStrengthIndicator.required")}
+                sx={{
+                  userSelect: "none",
+                }}
+              >
+                <Typography level="body-sm">
+                  {requiredPasswordChecks[key as PasswordStrengthChecks]
+                    ? "*"
+                    : ""}
+                </Typography>
+              </Tooltip>
+            </ListItemContent>
+          </ListItem>
+        ))}
+      </List>
       <Typography level="body-xs" color="neutral">
         * Constraint is required
       </Typography>

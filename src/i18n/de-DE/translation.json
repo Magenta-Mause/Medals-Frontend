@@ -1,8 +1,8 @@
 {
   "languages": {
     "de": "Deutsch",
-    "en": "Englisch",
-    "es": "Spanisch"
+    "en": "English",
+    "es": "Española"
   },
   "genders": {
     "DIVERSE": "Divers",
@@ -15,7 +15,41 @@
     "TRAINER": "Trainer*in",
     "ADMIN": "Admin"
   },
+  "generic": {
+    "all": "Alle",
+    "discipline": "Disziplin",
+    "invalid": "Ungültig",
+    "loading": "Lädt...",
+    "submit": "Absenden"
+  },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+        "label": "Stärke"
+      },
+      "ENDURANCE": {
+        "label": "Ausdauer"
+      },
+      "SPEED": {
+        "label": "Geschwindigkeit"
+      },
+      "COORDINATION": {
+        "label": "Koordination"
+      }
+    }
+  },
+  "units": {
+    "seconds": "Sekunden",
+    "minutes": "Minuten",
+    "meters": "Meter"
+  },
+  "messages": {
+    "noEntriesFound": "Keine Einträge gefunden"
+  },
   "snackbar": {
+    "authProvider": {
+      "userLoggedOut": "Sie wurden abgemeldet"
+    },
     "login": {
       "loginFailed": "Login fehlgeschlagen"
     },
@@ -31,6 +65,10 @@
       "failed": "Der Trainer konnte nicht eingeladen werden",
       "success": "Der Trainer wurde eingeladen"
     },
+    "performanceRecording": {
+      "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
+      "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
+    },
     "acceptTrainerAccessRequest": {
       "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
       "failed": "Trainer Anfrage konnte nicht angenommen werden",
@@ -41,6 +79,9 @@
     "homePage": {
       "h1": "Medals",
       "h3": "Das Medaillen Management System der Zukunft"
+    },
+    "athleteDetailPage": {
+      "createPerformanceRecordingButton": "Leistung aufnehmen"
     },
     "athleteOverviewPage": {
       "header": "Athlet*innen",
@@ -68,7 +109,7 @@
       "headerText": "Hier die wichtigsten Downloads nur einen Klick entfernt"
     },
     "inDevelopment": {
-      "h1": "404",
+      "h1": "501",
       "h2": "Seite in der Entwicklung"
     },
     "userRoleError": {
@@ -85,7 +126,7 @@
           "password": "Passwort"
         },
         "forgotPassword": "Passwort vergessen?",
-        "rememberMe": "Login speichern",
+        "privacyPolicy": "Datenschutz",
         "submit": "Anmelden",
         "loginFailedWarning": "Anmeldung fehlgeschlagen",
         "logoutButton": "Abmelden",
@@ -132,6 +173,58 @@
       "resetPasswordButton": "Password zurücksetzen",
       "deleteProfileButton": "Account löschen",
       "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht."
+    },
+    "imprintPage": {
+      "title": "Impressum",
+      "contact": "Kontakt"
+    },
+    "privacyPolicyPage": {
+      "title": "Datenschutzerklärung",
+      "introduction": "In dieser Datenschutzerklärung informieren wir Sie über die Verarbeitung personenbezogener Daten bei der Nutzung dieser Website.",
+      "controller": "Verantwortlicher",
+      "controllerIntro": "Verantwortlich für die Datenverarbeitung ist:",
+      "controllerEmail": "E-Mail",
+      "personalData": "Personenbezogene Daten",
+      "personalDataDetails": "Personenbezogene Daten sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person (betroffene Person) beziehen. Als identifizierbar wird eine natürliche Person angesehen, die direkt oder indirekt, insbesondere mittels Zuordnung zu einer Kennung wie einem Namen, zu einer Kennnummer, zu Standortdaten, zu einer Online-Kennung oder zu einem oder mehreren besonderen Merkmalen identifiziert werden kann, die Ausdruck der physischen, physiologischen, genetischen, psychischen, wirtschaftlichen, kulturellen oder sozialen Identität dieser natürlichen Person sind.",
+      "dataOnWebsiteVisit": "Daten beim Websiteaufruf",
+      "dataOnWebsiteVisitDetails": {
+        "intro": "Wenn Sie diese Website nur nutzen, um sich zu informieren und keine Daten angeben, dann verarbeiten wir nur die Daten, die zur Anzeige der Website auf dem von Ihnen verwendeten internetfähigen Gerät erforderlich sind. Das sind insbesondere:",
+        "ipAddress": "IP-Adresse",
+        "dateAndTime": "Datum und Uhrzeit der Anfrage",
+        "dataVolume": "jeweils übertragene Datenmenge",
+        "referrer": "die Website, von der die Anforderung kommt",
+        "browser": "Browsertyp und Browserversion",
+        "os": "Betriebssystem",
+        "legalBasis": "Rechtsgrundlage für die Verarbeitung dieser Daten sind berechtigte Interessen gemäß Art. 6 Abs. 1 lit. f) DSGVO, um die Darstellung der Website grundsätzlich zu ermöglichen."
+      },
+      "yourRights": "Ihre Rechte",
+      "yourRightsDetails": {
+        "intro": "Als betroffene Person haben Sie folgende Rechte:",
+        "access": "Sie haben ein Auskunftsrecht bezüglich der Sie betreffenden personenbezogenen Daten, die der Verantwortliche verarbeitet (Art. 15 DSGVO).",
+        "rectification": "Sie haben das Recht auf Berichtigung der Sie betreffenden Daten, wenn diese unrichtig oder unvollständig gespeichert werden (Art. 16 DSGVO).",
+        "erasure": "Sie haben das Recht auf Löschung (Art. 17 DSGVO).",
+        "restriction": "Sie haben das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen (Art. 18 DSGVO).",
+        "dataPortability": "Sie haben das Recht auf Datenübertragbarkeit (Art. 20 DSGVO).",
+        "objection": "Sie haben ein Widerspruchsrecht gegen die Verarbeitung der Sie betreffenden personenbezogenen Daten (Art. 21 DSGVO).",
+        "automatedDecisionMaking": "Sie haben das Recht, nicht einer ausschließlich auf einer automatisierten Verarbeitung – einschließlich Profiling – beruhenden Entscheidung unterworfen zu werden, die Ihnen gegenüber rechtliche Wirkung entfaltet oder Sie in ähnlicher Weise erheblich beeinträchtigt (Art. 22 DSGVO).",
+        "complaint": "Sie haben das Recht, sich bei einem vermuteten Verstoß gegen das Datenschutzrecht bei der zuständigen Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Zuständig ist die Aufsichtsbehörde an Ihrem üblichen Aufenthaltsort, Arbeitsplatz oder am Ort des vermuteten Verstoßes."
+      },
+      "source": "Quelle: Muster-Datenschutzerklärung von anwalt.de"
+    },
+    "creditsPage": {
+      "title": "Danksagungen",
+      "loginPage": "Hintergrundbilder auf der Login-Seite",
+      "lightMode": "Heller Modus",
+      "darkMode": "Dunkler Modus",
+      "downloadPage": "Download-Seite",
+      "swimmingCard": "Schwimmkarte",
+      "singleAthletesCard": "Einzelathletenkarte",
+      "groupAthletesCard": "Gruppenathletenkarte",
+      "2020MedalsCard": "2020 Medaillenkarte",
+      "2023MedalsCard": "2023 Medaillenkarte",
+      "2024MedalsCard": "2024 Medaillenkarte",
+      "2025MedalsCard": "2025 Medaillenkarte",
+      "photoBy": "Foto von"
     }
   },
   "components": {
@@ -148,7 +241,29 @@
         "/performances": "Leistungen",
         "/downloads": "Downloads",
         "/help": "Hilfe",
+        "/imprint": "Impressum",
+        "/privacyPolicy": "Datenschutz",
+        "/credits": "Danksagungen",
         "/userRoleErrorPage": "fehlende Nutzungberechtigung"
+      }
+    },
+    "createPerformanceRecordingModal": {
+      "header": "Leistungsaufnahme hinzufügen",
+      "form": {
+        "discipline": "Disziplin",
+        "athlete": "Athlet*in",
+        "amount": "Erreichtes Ergebnis",
+        "dateOfRecording": "Tag der Aufnahme",
+        "ageAtRecording": "Berechnetes Alter bei Aufnahme: "
+      }
+    },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "birthdate": "Geburtstag",
+        "email": "E-Mail",
+        "gender": "Geschlecht"
       }
     },
     "navbar": {
@@ -171,6 +286,12 @@
       "bottomInfoCard": {
         "header": "Warnung",
         "text": "Warnung!"
+      },
+      "legalLinks": {
+        "title": "Rechtliches",
+        "imprint": "Impressum",
+        "privacyPolicy": "Datenschutz",
+        "credits": "Danksagung"
       }
     },
     "downloadCard": {
@@ -195,7 +316,8 @@
             "label": "Seiten Größe:",
             "inputPostfix": "Einträge"
           }
-        }
+        },
+        "empty": "Keine Einträge vorhanden"
       },
       "mobileList": {
         "pageControl": {
@@ -218,6 +340,17 @@
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
         }
+      },
+      "actions": {
+        "openDetails": "Details"
+      }
+    },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Titel",
+        "description": "Beschreibung",
+        "bestValue": "Bester Wert",
+        "recordedAt": "Aufgenommen am"
       },
       "inviteModal": {
         "searchAthlete": "Name oder Email",
@@ -258,6 +391,7 @@
       "previous": "Vorheriges"
     },
     "passwordStrengthIndicator": {
+      "password": "Passwort",
       "is8Characters": "Passwort ist mindestens 8 Zeichen lang",
       "hasNumber": "Passwort enthält eine Zahl",
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",
@@ -271,6 +405,26 @@
     },
     "disclaimer": {
       "text": "Diese Anwendung ist ein Universitätsprojekt und kein offizieller Dienst (z.B. Sportabzeichen-Digital). Sie wird nicht von einer offiziellen Organisation unterstützt oder bereitgestellt. Es werden keine offiziellen Zertifizierungen oder Ansprüche bereitgestellt."
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Ausgewähltes Jahr"
+    },
+    "performanceRecordingDatagrid": {
+      "columns": {
+        "dateOfRecording": "Aufgenommen am",
+        "result": "Ergebnis",
+        "medal": "Erreichte Medaille"
+      },
+      "filters": {
+        "recordedIn": "Aufgenommen in"
+      },
+      "actions": {
+        "add": {
+          "text": "Hinzufügen",
+          "label": "+ aufnehmen"
+        },
+        "delete": "Löschen"
+      }
     }
   }
 }

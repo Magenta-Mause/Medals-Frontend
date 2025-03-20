@@ -1,8 +1,8 @@
 {
   "languages": {
-    "de": "German",
+    "de": "Deutsch",
     "en": "English",
-    "es": "Spanish"
+    "es": "Española"
   },
   "genders": {
     "DIVERSE": "Diverse",
@@ -14,6 +14,38 @@
     "ATHLETE": "Athlete",
     "TRAINER": "Trainer",
     "ADMIN": "Admin"
+  },
+  "units": {
+    "minutes": "minutes",
+    "seconds": "seconds",
+    "meters": "meters"
+  },
+  "messages": {
+    "noEntriesFound": "No entries found"
+  },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+        "label": "Strength"
+      },
+      "ENDURANCE": {
+        "label": "Endurance"
+      },
+      "SPEED": {
+        "label": "Speed"
+      },
+      "COORDINATION": {
+        "label": "Coordination"
+      }
+    }
+  },
+  "generic": {
+    "all": "All",
+    "discipline": "Discipline",
+    "tooYoung": "to young",
+    "invalid": "invalid",
+    "loading": "Loading...",
+    "submit": "Submit"
   },
   "snackbar": {
     "login": {
@@ -31,6 +63,10 @@
       "failed": "Failed to invite trainer",
       "success": "Trainer was invited successfully"
     },
+    "performanceRecording": {
+      "creationError": "Error while registering performance recording",
+      "creationSuccess": "Performance recording successfully registered"
+    },
     "validateAthleteInvite": {
       "noLogin": "Login and accept the invitation again",
       "failed": "Could not accept the invite",
@@ -42,10 +78,13 @@
       "h1": "Medals",
       "h3": "The soon to be Medal Management System"
     },
+    "athleteDetailPage": {
+      "createPerformanceRecordingButton": "Record performance"
+    },
     "athleteOverviewPage": {
       "header": "Athletes",
-      "createButton": "Create Athlete",
-      "inviteButton": "Invite Athlete"
+      "createButton": "Create athlete",
+      "inviteButton": "Invite athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -68,7 +107,7 @@
       "headerText": "Here are the most important downloads just a click away"
     },
     "inDevelopment": {
-      "h1": "404",
+      "h1": "501",
       "h2": "Page in development"
     },
     "userRoleError": {
@@ -85,7 +124,7 @@
           "password": "Password"
         },
         "forgotPassword": "Forgot password?",
-        "rememberMe": "Remember me",
+        "privacyPolicy": "Privacy Policy",
         "submit": "Login",
         "loginFailedWarning": "Login failed",
         "logoutButton": "Logout",
@@ -131,6 +170,58 @@
       "resetPasswordButton": "Reset Password",
       "deleteProfileButton": "Delete Account",
       "confirmDeleteMessage": "By clicking 'Delete', your account and all associated data will be permanently removed."
+    },
+    "imprintPage": {
+      "title": "Imprint",
+      "contact": "Contact"
+    },
+    "privacyPolicyPage": {
+      "title": "Privacy Policy",
+      "introduction": "In this privacy policy, we inform you about the processing of personal data when using this website.",
+      "controller": "Controller",
+      "controllerIntro": "The controller responsible for data processing is:",
+      "controllerEmail": "Email",
+      "personalData": "Personal Data",
+      "personalDataDetails": "Personal data is any information that relates to an identified or identifiable natural person (data subject). An identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person.",
+      "dataOnWebsiteVisit": "Data on Website Visit",
+      "dataOnWebsiteVisitDetails": {
+        "intro": "When you use this website for informational purposes only and do not provide any data, we only process the data that is necessary to display the website on the internet-enabled device you are using. This includes in particular:",
+        "ipAddress": "IP address",
+        "dateAndTime": "Date and time of the request",
+        "dataVolume": "Amount of data transferred",
+        "referrer": "The website from which the request originated",
+        "browser": "Browser type and version",
+        "os": "Operating system",
+        "legalBasis": "The legal basis for processing this data is legitimate interests pursuant to Art. 6(1)(f) GDPR to enable the display of the website."
+      },
+      "yourRights": "Your Rights",
+      "yourRightsDetails": {
+        "intro": "As a data subject, you have the following rights:",
+        "access": "You have the right to access the personal data concerning you that the controller processes (Art. 15 GDPR).",
+        "rectification": "You have the right to rectification of inaccurate or incomplete data concerning you (Art. 16 GDPR).",
+        "erasure": "You have the right to erasure (Art. 17 GDPR).",
+        "restriction": "You have the right to restrict the processing of your personal data (Art. 18 GDPR).",
+        "dataPortability": "You have the right to data portability (Art. 20 GDPR).",
+        "objection": "You have the right to object to the processing of your personal data (Art. 21 GDPR).",
+        "automatedDecisionMaking": "You have the right not to be subject to a decision based solely on automated processing – including profiling – that produces legal effects concerning you or similarly significantly affects you (Art. 22 GDPR).",
+        "complaint": "You have the right to lodge a complaint with a supervisory authority if you believe that the processing of your personal data infringes data protection law (Art. 77 GDPR). The competent supervisory authority is the one at your habitual residence, place of work or place of the alleged infringement."
+      },
+      "source": "Source: Sample Privacy Policy from anwalt.de"
+    },
+    "creditsPage": {
+      "title": "Credits",
+      "loginPage": "Background Images on Login Page",
+      "lightMode": "LightMode",
+      "darkMode": "DarkMode",
+      "downloadPage": "Download Page",
+      "swimmingCard": "SwimmingCard",
+      "singleAthletesCard": "SingleAthletesCard",
+      "groupAthletesCard": "GroupAthletesCard",
+      "2020MedalsCard": "2020MedalsCard",
+      "2023MedalsCard": "2023MedalsCard",
+      "2024MedalsCard": "2024MedalsCard",
+      "2025MedalsCard": "2025MedalsCard",
+      "photoBy": "Photo by"
     }
   },
   "components": {
@@ -147,7 +238,19 @@
         "/performances": "Performances",
         "/downloads": "Downloads",
         "/help": "Help",
+        "/imprint": "Imprint",
+        "/privacyPolicy": "Privacy Policy",
+        "/credits": "Credits",
         "/userRoleErrorPage": "User Role Error"
+      }
+    },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "birthdate": "Birthdate",
+        "email": "Email",
+        "gender": "Gender"
       }
     },
     "navbar": {
@@ -170,6 +273,20 @@
       "bottomInfoCard": {
         "header": "Warning",
         "text": "Warning!"
+      },
+      "legalLinks": {
+        "title": "Legal",
+        "imprint": "Imprint",
+        "privacyPolicy": "Privacy Policy",
+        "credits": "Credits"
+      }
+    },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Title",
+        "description": "Description",
+        "bestValue": "Best value",
+        "recordedAt": "Recorded at"
       }
     },
     "downloadCard": {
@@ -194,7 +311,8 @@
             "label": "Page Size:",
             "inputPostfix": "Entries"
           }
-        }
+        },
+        "empty": "No entries found"
       },
       "mobileList": {
         "pageControl": {
@@ -217,6 +335,9 @@
           "birthYear": "Birth year",
           "gender": "Gender"
         }
+      },
+      "actions": {
+        "openDetails": "Details"
       },
       "inviteModal": {
         "searchAthlete": "Name or Email",
@@ -258,6 +379,7 @@
     },
     "passwordStrengthIndicator": {
       "is8Characters": "Password is at least 8 characters long",
+      "password": "Password",
       "hasNumber": "Password contains a number",
       "hasUpperCase": "Password contains an uppercase letter",
       "hasSpecial": "Password contains a special character",
@@ -265,6 +387,36 @@
     },
     "disclaimer": {
       "text": "This application is a university project and not an official service (e.g., Sportabzeichen-Digital). It is not endorsed or provided by any official organization. No official certifications or claims are provided."
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Selected year"
+    },
+    "performanceRecordingDatagrid": {
+      "columns": {
+        "dateOfRecording": "Recorded on",
+        "result": "Achieved result",
+        "medal": "Achieved medal"
+      },
+      "filters": {
+        "recordedIn": "Recorded in"
+      },
+      "actions": {
+        "add": {
+          "text": "Add performance recording",
+          "label": "+ add"
+        },
+        "delete": "Delete"
+      }
+    },
+    "createPerformanceRecordingModal": {
+      "header": "Register performance recording",
+      "form": {
+        "discipline": "Discipline",
+        "athlete": "Athlete",
+        "amount": "Achieved result",
+        "dateOfRecording": "Date of recording",
+        "ageAtRecording": "Calculated age at recording: "
+      }
     },
     "confirmationPopup": {
       "header": "Are You Sure?",

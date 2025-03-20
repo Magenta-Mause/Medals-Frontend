@@ -1,8 +1,8 @@
 {
   "languages": {
-    "de": "Alemán",
-    "en": "Inglés",
-    "es": "Español"
+    "de": "Deutsch",
+    "en": "English",
+    "es": "Española"
   },
   "genders": {
     "DIVERSE": "No binario",
@@ -16,6 +16,9 @@
     "ADMIN": "Administrador"
   },
   "snackbar": {
+    "authProvider": {
+      "userLoggedOut": "Han sido dados de baja"
+    },
     "login": {
       "loginFailed": "Error de inicio de sesión"
     },
@@ -95,15 +98,18 @@
         }
       }
     },
-    "profilePage":{
+    "profilePage": {
       "header": "Mi Perfil",
       "birthdate": "Fecha de nacimiento",
-      "gender":"Género",
-      "email":"Correo electrónico",
+      "gender": "Género",
+      "email": "Correo electrónico",
       "resetPasswordButton": "Restablecer contraseña",
       "deleteProfileButton": "Eliminar Cuenta",
       "confirmDeleteMessage": "Al hacer clic en 'Eliminar', su cuenta y todos sus datos asociados se eliminarán de forma permanente."
-
+    },
+    "imprintPage": {
+      "title": "Pie de imprenta",
+      "contact": "Contacto"
     }
   },
   "components": {
@@ -130,6 +136,12 @@
       "bottomInfoCard": {
         "header": "Advertencia",
         "text": "¡Advertencia!"
+      },
+      "legalLinks": {
+        "title": "Legal",
+        "imprint": "Pie de imprenta",
+        "privacyPolicy": "Política de privacidad",
+        "credits": "Muchas gracias a"
       }
     },
     "downloadCard": {
@@ -221,7 +233,6 @@
       "header": "¿Está seguro?",
       "cancelButton": "Cancelar",
       "deleteButton": "Eliminar"
-}
-
+    }
   }
 }

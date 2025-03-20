@@ -1,5 +1,6 @@
-import { JwtTokenBody, UserEntity } from "@customTypes/bffTypes";
+import { JwtTokenBody, UserEntity } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
+import useInstantiation from "@hooks/useInstantiation/useInstantiation";
 import { Box, CircularProgress } from "@mui/joy";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { jwtDecode } from "jwt-decode";
@@ -8,6 +9,7 @@ import {
   createContext,
   ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -23,6 +25,22 @@ interface AuthContextType {
   logout: () => void;
   setSelectedUser: (user: UserEntity | null | undefined) => void;
 }
+
+const AuthInitializationComponent = () => {
+  const { selectedUser, identityToken } = useContext(AuthContext);
+  const { instantiateByType } = useInstantiation();
+  const [instantiatedUser, setInstantiatedUser] = useState<UserEntity | null>(
+    null,
+  );
+  useEffect(() => {
+    if (selectedUser && identityToken && selectedUser !== instantiatedUser) {
+      instantiateByType(selectedUser?.type);
+      setInstantiatedUser(selectedUser);
+    }
+  }, [selectedUser, instantiateByType, identityToken, instantiatedUser]);
+
+  return <></>;
+};
 
 const AuthContext = createContext<AuthContextType>({
   identityToken: null,
@@ -90,7 +108,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       processJwtToken(token);
       return token;
     } catch {
-      console.log("Not authorized");
       setIdentityToken(null);
       setAuthorized(false);
       return null;
@@ -109,11 +126,10 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   }, [selectUser, logoutUser]);
 
   useEffect(() => {
-    if (storageSelectedUser == null) {
-      selectUser(null);
+    if (storageSelectedUser === null) {
       return;
     }
-    if (authorizedUsers == null) {
+    if (authorizedUsers === null) {
       return;
     }
     if (selectedUser === null) {
@@ -124,9 +140,10 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     );
     if (user === undefined) {
       selectUser(null);
-      enqueueSnackbar("User couldnt be found", { variant: "warning" });
     } else {
-      selectUser(user);
+      if (selectedUser === null || selectedUser?.id != user.id) {
+        selectUser(user);
+      }
     }
   }, [
     authorizedUsers,
@@ -137,8 +154,10 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   ]);
 
   useEffect(() => {
-    refreshIdentityToken();
-  }, [refreshIdentityToken]);
+    if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {
+      refreshIdentityToken();
+    }
+  }, [refreshIdentityToken, tokenExpirationDate]);
 
   return (
     <AuthContext.Provider
@@ -154,6 +173,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
         setSelectedUser: selectUser,
       }}
     >
+      <AuthInitializationComponent />
       {authorized == undefined ? (
         <>
           <Box
@@ -171,6 +191,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       ) : (
         children
       )}
+      <AuthInitializationComponent />
     </AuthContext.Provider>
   );
 };

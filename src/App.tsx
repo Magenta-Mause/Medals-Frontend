@@ -1,23 +1,24 @@
 import AuthenticationProvider from "@components/AuthenticationProvider/AuthenticationProvider";
 import RoutingComponent from "@components/RoutingComponent/RoutingComponent";
-import useApi from "@hooks/useApi";
 import { Close } from "@mui/icons-material";
 import { CssVarsProvider, IconButton } from "@mui/joy";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
   THEME_ID as MATERIAL_THEME_ID,
-  Experimental_CssVarsProvider as MaterialCssVarsProvider,
-  ThemeProvider,
+  ThemeProvider as MaterialCssVarsProvider,
   extendTheme as materialExtendTheme,
+  ThemeProvider,
 } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { setAthltes as setAthletes } from "@stores/slices/athleteSlice";
-import { setTrainers } from "@stores/slices/trainerSlice";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import "dayjs/locale/de";
+import "dayjs/locale/en";
+import "dayjs/locale/es";
 import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
 import { createContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { BrowserRouter } from "react-router";
 
 type UtilContextType = {
@@ -34,17 +35,20 @@ const materialTheme = materialExtendTheme();
 
 const App = () => {
   const queryClient = new QueryClient();
+  const [, setLanguage] = useLocalStorage<string>("language");
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
-  const { getAthletes, getTrainers } = useApi();
-  const dispatch = useDispatch();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch(setAthletes((await getAthletes()) || []));
-      dispatch(setTrainers((await getTrainers()) || []));
-    };
-    fetchData();
-  }, [dispatch, getAthletes, getTrainers]);
+    const language = window.localStorage.getItem("language");
+    if (language && i18n.language != language) {
+      i18n.changeLanguage(JSON.parse(language));
+    }
+  }, [i18n]);
+
+  useEffect(() => {
+    setLanguage(i18n.language);
+  }, [i18n.language, setLanguage]);
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>
@@ -69,7 +73,10 @@ const App = () => {
         <ThemeProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
           <CssVarsProvider>
             <CssBaseline enableColorScheme />
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider
+              dateAdapter={AdapterDayjs}
+              adapterLocale={i18n.language}
+            >
               <UtilContext.Provider
                 value={{
                   sideBarExtended: isSideBarOpen,

@@ -20,7 +20,7 @@ const LoginPage = () => {
   const loginCallback = async (loginData: {
     email: string;
     password: string;
-    persistent: boolean;
+    privacyPolicy: boolean;
   }) => {
     try {
       const res = await loginUser(loginData.email, loginData.password);
@@ -42,7 +42,11 @@ const LoginPage = () => {
     mutationFn: loginCallback,
   });
 
-  if (authorized !== false && selectedUser !== null) {
+  if (
+    authorized !== false &&
+    selectedUser !== null &&
+    selectedUser !== undefined
+  ) {
     return <Navigate to="/" />;
   }
 
