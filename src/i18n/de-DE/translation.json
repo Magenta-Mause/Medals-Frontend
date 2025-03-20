@@ -343,6 +343,13 @@
       },
       "actions": {
         "openDetails": "Details"
+      },
+      "inviteModal": {
+        "header": "Athlet*innen zuweisen",
+        "searchAthlete": "Name oder Email",
+        "notFound": "Kein Athleten gefunden",
+        "inviteAthleteButton": "Zuweisen",
+        "loading": "Loading..."
       }
     },
     "disciplineDatagrid": {
@@ -351,12 +358,6 @@
         "description": "Beschreibung",
         "bestValue": "Bester Wert",
         "recordedAt": "Aufgenommen am"
-      },
-      "inviteModal": {
-        "searchAthlete": "Name oder Email",
-        "notFound": "Kein Athleten gefunden",
-        "inviteAthleteButton": "Zuweisen",
-        "loading": "Loading..."
       }
     },
     "trainerDatagrid": {

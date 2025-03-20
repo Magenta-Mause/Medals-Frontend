@@ -50,7 +50,7 @@ const AcceptTrainerAccessRequest = () => {
     }, 400);
 
     return () => clearTimeout(debounce);
-  }, [searchParams, approveRequest, t]);
+  }, [searchParams, approveRequest, navigate, refreshIdentityToken, t]);
 
   return (
     <SplitPageComponent>

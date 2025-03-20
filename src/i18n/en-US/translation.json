@@ -340,6 +340,7 @@
         "openDetails": "Details"
       },
       "inviteModal": {
+        "header": "Request access to Athlete",
         "searchAthlete": "Name or Email",
         "notFound": "No athletes found",
         "inviteAthleteButton": "Invite",
