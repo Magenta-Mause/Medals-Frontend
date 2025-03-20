@@ -2,6 +2,7 @@ import { DisciplineIcons } from "@components/AthletePerformanceAccordions/Athlet
 import { DisciplineCategories, Medals } from "@customTypes/enums";
 import { Box, useColorScheme } from "@mui/joy";
 import { IoMdClose } from "react-icons/io";
+import { SxProps } from "@mui/joy/styles/types";
 
 const MedalColors: Record<Medals, string | undefined> = {
   [Medals.GOLD]: "#EFC75E",
@@ -13,6 +14,7 @@ const MedalColors: Record<Medals, string | undefined> = {
 const MedalIcon = (props: {
   category: DisciplineCategories;
   medalType: Medals;
+  sx?: SxProps;
   stillShowIconWhenNone?: boolean;
 }) => {
   const DisciplineIcon = DisciplineIcons[props.category];
@@ -46,6 +48,7 @@ const MedalIcon = (props: {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        ...props.sx,
       }}
     >
       {props.medalType == Medals.NONE && !props.stillShowIconWhenNone ? (

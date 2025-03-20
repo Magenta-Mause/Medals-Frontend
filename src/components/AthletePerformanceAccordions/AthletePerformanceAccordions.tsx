@@ -120,6 +120,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                 sx={{
                   marginY: 1,
                   borderRadius: 25,
+                  gap: { md: 3, xs: 1 },
                 }}
                 slotProps={{ button: { sx: { borderRadius: 10 } } }}
               >
@@ -129,8 +130,8 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                     alignContent: "center",
                     alignItems: "center",
                     justifyItems: "flex-start",
-                    gap: 5,
-                    pl: 2,
+                    gap: { md: 5, xs: 1.5 },
+                    pl: { md: 2, xs: 1 },
                     width: "100%",
                     "> svg": {
                       height: "30px",
@@ -143,7 +144,8 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                     level="h3"
                     sx={{
                       borderRadius: "10px",
-                      padding: "10px 0",
+                      p: "10px 0",
+                      pr: "0",
                     }}
                   >
                     {t("disciplines.categories." + category + ".label")}
@@ -153,6 +155,9 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                   >
                     <MedalIcon
                       category={category}
+                      sx={{
+                        height: "35px",
+                      }}
                       medalType={
                         achievedCategoryMedal
                           ? achievedCategoryMedal[category]
