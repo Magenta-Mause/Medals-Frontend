@@ -52,4 +52,8 @@ const getBestPerformanceRecording = (
   )[0];
 };
 
-export { calculatePerformanceRecordingMedal, convertMedalToNumber, getBestPerformanceRecording };
+export {
+  calculatePerformanceRecordingMedal,
+  convertMedalToNumber,
+  getBestPerformanceRecording,
+};
