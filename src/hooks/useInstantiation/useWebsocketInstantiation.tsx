@@ -19,7 +19,7 @@ const useGenericWebsocketInitialization = <T,>(
       return;
     }
     if (client == null || !client.connected) {
-      throw new Error("Client not ready yet");
+      return;
     }
     setConnected(true);
     client.subscribe(
@@ -72,7 +72,7 @@ const useGenericWebsocketInitialization = <T,>(
       return;
     }
     if (client == null || !client.connected) {
-      throw new Error("Client not ready yet");
+      return;
     }
     client.unsubscribe(
       "/topics/" +

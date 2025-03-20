@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "../../CustomDatePicker/CustomDatePicker";
 import GenericModal from "../GenericModal";
+import { Genders } from "@customTypes/enums";
 
 const emailRegex = // eslint-disable-next-line no-control-regex
   /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])/i;
@@ -23,7 +24,7 @@ const AthleteCreationForm = () => {
     last_name: "",
     email: "",
     birthdate: "",
-    gender: "",
+    gender: undefined,
   });
   const [inputValid, setInputValid] = useState({
     first_name: false,
@@ -46,7 +47,7 @@ const AthleteCreationForm = () => {
     if (athlete.birthdate === "tt.mm.jjjj" || athlete.birthdate === "") {
       return false;
     }
-    if (athlete.gender === "") {
+    if (athlete.gender === undefined) {
       return false;
     }
     return true;
@@ -97,7 +98,7 @@ const AthleteCreationForm = () => {
         birthdate: false,
       }));
     }
-    if (athlete.gender !== "") {
+    if (athlete.gender !== undefined) {
       setInputValid((prevUser: any) => ({
         ...prevUser,
         gender: true,
@@ -116,7 +117,7 @@ const AthleteCreationForm = () => {
   ) => {
     setAthlete((prevUser: Athlete) => ({
       ...prevUser,
-      gender: newGender!,
+      gender: newGender! as Genders,
     }));
   };
 
@@ -234,9 +235,9 @@ const AthleteCreationForm = () => {
             onChange={handleChangeGender}
             color={inputValid.gender ? "neutral" : "danger"}
           >
-            <Option value="FEMALE">{t("genders.FEMALE")}</Option>
-            <Option value="MALE">{t("genders.MALE")}</Option>
-            <Option value="DIVERSE">{t("genders.DIVERSE")}</Option>
+            <Option value={Genders.FEMALE}>{t("genders.FEMALE")}</Option>
+            <Option value={Genders.MALE}>{t("genders.MALE")}</Option>
+            <Option value={Genders.DIVERSE}>{t("genders.DIVERSE")}</Option>
           </Select>
         </Box>
         <Button
@@ -252,14 +253,13 @@ const AthleteCreationForm = () => {
             {
               createAthlete(athlete);
               setPopupOpen(false);
-              setAthlete((prevUser: Athlete) => ({
-                ...prevUser,
+              setAthlete({
                 first_name: "",
                 last_name: "",
                 email: "",
-                gender: "",
+                gender: undefined,
                 birthdate: "",
-              }));
+              });
             }
           }}
         >

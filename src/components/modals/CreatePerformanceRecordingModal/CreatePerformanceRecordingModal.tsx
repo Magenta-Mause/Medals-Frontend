@@ -140,7 +140,9 @@ const CreatePerformanceRecordingModal = (props: {
             )}
             options={athletes}
             getOptionLabel={(a: Athlete) => a.first_name + " " + a.last_name}
-            slotProps={{ listbox: { sx: { maxHeight: 200 } } }}
+            slotProps={{
+              listbox: { sx: { maxHeight: 200 } },
+            }}
           />
         </FormControl>
         <AthleteDetailHeader athlete={selectedAthlete} scalingFactor={2} />
@@ -153,7 +155,6 @@ const CreatePerformanceRecordingModal = (props: {
               setSelectedDiscipline(newVal?.id ?? null)
             }
             defaultValue={props.discipline}
-            autoSelect
             placeholder={t(
               "components.createPerformanceRecordingModal.form.discipline",
             )}

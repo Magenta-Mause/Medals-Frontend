@@ -13,8 +13,8 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
     "/assets/images/splitPage/pexels-photo-9501967.jpeg",
   ]);
   const imageUrlDarkmode = useImageLoading([
-    "/assets/images/splitPage/pexels-photo-9501967-low-quality.jpeg",
-    "/assets/images/splitPage/pexels-photo-9501967.jpeg",
+    "/assets/images/splitPage/pexels-photo-1564420-low-quality.jpeg",
+    "/assets/images/splitPage/pexels-photo-1564420.jpeg",
   ]);
   const { t } = useTranslation();
   const navigate = useNavigate();

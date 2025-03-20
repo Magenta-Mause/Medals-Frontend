@@ -47,6 +47,7 @@ const FilterComponent = <T,>(props: {
                 props.setFilter(filter.name, newValue as string);
               }}
               value={props.filterValues[filter.name]}
+              sx={{ minHeight: "35px" }}
             >
               {filter.selection?.map((value) => {
                 if (value instanceof String) {
@@ -77,7 +78,10 @@ const FilterComponent = <T,>(props: {
                 }
               }}
             >
-              <Button sx={{ flexGrow: 1 }} value="button">
+              <Button
+                sx={{ flexGrow: 1, minHeight: "35px", p: "2px" }}
+                value="button"
+              >
                 {filter.option ?? filter.label}
               </Button>
             </ToggleButtonGroup>
@@ -87,6 +91,7 @@ const FilterComponent = <T,>(props: {
                 size="sm"
                 placeholder={filter.label ?? filter.name}
                 startDecorator={<Search />}
+                sx={{ minHeight: "35px", p: "2px" }}
                 value={props.filterValues[filter.name]}
                 onChange={(event) => {
                   props.setFilter(filter.name, () => event.target.value);

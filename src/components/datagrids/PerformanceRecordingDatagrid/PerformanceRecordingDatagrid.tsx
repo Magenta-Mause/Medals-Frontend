@@ -17,6 +17,8 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import MedalIcon from "@components/MedalIcon/MedalIcon";
+import { calculatePerformanceRecordingMedal } from "@utils/calculationUtil";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];
@@ -63,8 +65,13 @@ const PerformanceRecordingDatagrid = (
     },
     {
       columnName: t("components.performanceRecordingDatagrid.columns.medal"),
-      columnMapping() {
-        return "Not implemented yet";
+      columnMapping(item) {
+        return (
+          <MedalIcon
+            category={item.discipline_rating_metric.discipline.category}
+            medalType={calculatePerformanceRecordingMedal(item)}
+          />
+        );
       },
     },
   ];
@@ -155,6 +162,7 @@ const PerformanceRecordingDatagrid = (
         toolbarActions={actions}
         actionMenu={options}
         itemSelectionActions={options}
+        disablePaging
       />
       {props.athlete ? (
         <CreatePerformanceRecordingModal
