@@ -66,6 +66,11 @@
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"
+    },
+    "validateAthleteInvite": {
+      "noLogin": "Login and accept the invitation again",
+      "failed": "Could not accept the invite",
+      "success": "Invite accepted"
     }
   },
   "pages": {
@@ -78,7 +83,8 @@
     },
     "athleteOverviewPage": {
       "header": "Athletes",
-      "createButton": "Create athlete"
+      "createButton": "Create athlete",
+      "inviteButton": "Invite athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -151,6 +157,10 @@
           "noCode": "Verification email sent"
         }
       }
+    },
+    "validateInvitePage": {
+      "loading": "Validating",
+      "finished": "Validation successful"
     },
     "profilePage": {
       "header": "My Profile",
@@ -328,6 +338,13 @@
       },
       "actions": {
         "openDetails": "Details"
+      },
+      "inviteModal": {
+        "header": "Request access to Athlete",
+        "searchAthlete": "Name or Email",
+        "notFound": "No athletes found",
+        "inviteAthleteButton": "Invite",
+        "loading": "Loading..."
       }
     },
     "trainerDatagrid": {

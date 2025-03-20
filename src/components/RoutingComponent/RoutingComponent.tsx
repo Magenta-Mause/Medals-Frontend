@@ -15,7 +15,9 @@ import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
+import ValidateInvitePage from "@pages/ValidateInvitePage/ValidateInvitePage";
 import { useContext } from "react";
+
 import { Route, Routes } from "react-router";
 
 const RoutingComponent = () => {
@@ -26,6 +28,7 @@ const RoutingComponent = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/setPassword" element={<SetPasswordPage />} />
       <Route path="/resetPassword" element={<ResetPasswordPage />} />
+      <Route path="/approve-request" element={<ValidateInvitePage />} />
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/imprint" element={<ImprintPage />} />
