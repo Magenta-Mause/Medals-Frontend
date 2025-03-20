@@ -1,4 +1,4 @@
-import { PerformanceRecording } from "@customTypes/backendTypes";
+import { Discipline, PerformanceRecording } from "@customTypes/backendTypes";
 import { Genders, Medals } from "@customTypes/enums";
 
 const calculatePerformanceRecordingMedal = (
@@ -41,4 +41,15 @@ const convertMedalToNumber = (medal: Medals) => {
         : 0;
 };
 
-export { calculatePerformanceRecordingMedal, convertMedalToNumber };
+const getBestPerformanceRecording = (
+  performanceRecordings: PerformanceRecording[],
+  discipline: Discipline,
+) => {
+  return performanceRecordings.sort(
+    discipline.more_better
+      ? (a, b) => b.rating_value - a.rating_value
+      : (a, b) => a.rating_value - b.rating_value,
+  )[0];
+};
+
+export { calculatePerformanceRecordingMedal, convertMedalToNumber, getBestPerformanceRecording };

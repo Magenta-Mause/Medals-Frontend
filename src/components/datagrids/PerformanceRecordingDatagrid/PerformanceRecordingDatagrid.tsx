@@ -18,7 +18,7 @@ import GenericResponsiveDatagrid, {
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
-import { calculatePerformanceRecordingMedal } from "@utils/medalCalculation";
+import { calculatePerformanceRecordingMedal } from "@utils/calculationUtil";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];

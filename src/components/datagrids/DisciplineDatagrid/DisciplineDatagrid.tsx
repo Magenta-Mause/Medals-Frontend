@@ -6,7 +6,10 @@ import { useTranslation } from "react-i18next";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { calculatePerformanceRecordingMedal } from "@utils/medalCalculation";
+import {
+  calculatePerformanceRecordingMedal,
+  getBestPerformanceRecording,
+} from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
 import { Medals } from "@customTypes/enums";
 
@@ -59,12 +62,11 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
     },
     {
       columnName: t("components.disciplineDatagrid.columns.bestValue"),
-      columnMapping(item) {
-        const bestItem = item.performanceRecordings.sort(
-          item.more_better
-            ? (a, b) => b.rating_value - a.rating_value
-            : (a, b) => a.rating_value - b.rating_value,
-        )[0];
+      columnMapping(discipline) {
+        const bestItem = getBestPerformanceRecording(
+          discipline.performanceRecordings,
+          discipline,
+        );
         return (
           <Box
             sx={{
@@ -75,7 +77,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
             }}
           >
             <MedalIcon
-              category={item.category}
+              category={discipline.category}
               medalType={
                 bestItem
                   ? calculatePerformanceRecordingMedal(bestItem)
@@ -83,8 +85,8 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
               }
             />
             <Typography>
-              {item.performanceRecordings.length > 0
-                ? formatValue(bestItem.rating_value, item.unit)
+              {discipline.performanceRecordings.length > 0
+                ? formatValue(bestItem.rating_value, discipline.unit)
                 : t("messages.noEntriesFound")}
             </Typography>
           </Box>
@@ -94,11 +96,10 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
     {
       columnName: t("components.disciplineDatagrid.columns.recordedAt"),
       columnMapping(item) {
-        const bestItem = item.performanceRecordings.sort(
-          item.more_better
-            ? (a, b) => a.rating_value - b.rating_value
-            : (a, b) => b.rating_value - a.rating_value,
-        )[0];
+        const bestItem = getBestPerformanceRecording(
+          item.performanceRecordings,
+          item,
+        );
         return (
           <Typography>
             {item.performanceRecordings.length > 0
@@ -114,11 +115,10 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
     {
       h1: (discipline) => <>{discipline.name}</>,
       h2: (discipline) => {
-        const bestItem = discipline.performanceRecordings.sort(
-          discipline.more_better
-            ? (a, b) => a.rating_value - b.rating_value
-            : (a, b) => b.rating_value - a.rating_value,
-        )[0];
+        const bestItem = getBestPerformanceRecording(
+          discipline.performanceRecordings,
+          discipline,
+        );
 
         return (
           <>

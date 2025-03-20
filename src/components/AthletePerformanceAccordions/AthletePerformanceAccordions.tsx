@@ -23,7 +23,7 @@ import { IconType } from "react-icons";
 import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
-} from "@utils/medalCalculation";
+} from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
 
 const DisciplineIcons: Record<DisciplineCategories, IconType> = {

@@ -16,7 +16,7 @@ import { DisciplineCategories, Medals } from "@customTypes/enums";
 import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
-} from "@utils/medalCalculation";
+} from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
 
 interface AthleteDatagridProps {
