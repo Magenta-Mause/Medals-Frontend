@@ -94,20 +94,18 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
     {
       h1: (discipline) => <>{discipline.name}</>,
       h2: (discipline) => {
-        const bestItem = discipline.performanceRecordings.sort(
+        if (discipline.performanceRecordings.length === 0) {
+          return <>{t("messages.noEntriesFound")}</>;
+        }
+      
+        const sortedRecordings = [...discipline.performanceRecordings].sort(
           discipline.more_better
             ? (a, b) => b.rating_value - a.rating_value
-            : (a, b) => a.rating_value - b.rating_value,
-        )[0];
-
-        return (
-          <>
-            {(discipline.description ??
-            discipline.performanceRecordings.length > 0)
-              ? formatValue(bestItem.rating_value, discipline.unit)
-              : t("messages.noEntriesFound")}
-          </>
+            : (a, b) => a.rating_value - b.rating_value
         );
+        const bestItem = sortedRecordings[0];
+      
+        return <>{formatValue(bestItem.rating_value, discipline.unit)}</>;
       },
       bottomButtons: [
         {
