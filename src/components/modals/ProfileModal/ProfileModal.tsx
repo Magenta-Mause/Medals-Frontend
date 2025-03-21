@@ -112,6 +112,7 @@ const ProfileModal = (props: {
           justifyContent: "center",
           p: "0 50px",
           overflowY: "scroll",
+          overflowX: "hidden",
         }}
       >
         <Avatar
@@ -148,7 +149,7 @@ const ProfileModal = (props: {
         <Box
           sx={{
             display: "flex",
-            flexDirection: { md: "column", sx: "row" },
+            flexDirection: { sx: "row" },
             gap: 2,
             mt: 6,
           }}
@@ -156,7 +157,7 @@ const ProfileModal = (props: {
           <Button
             variant="outlined"
             onClick={() => navigate("/resetPassword")}
-            sx={{ width: { md: "50%", sx: "none" } }}
+            sx={{ width: { md: "150px", sx: "none" } }}
           >
             {t("pages.profilePage.resetPasswordButton")}
           </Button>
@@ -167,7 +168,7 @@ const ProfileModal = (props: {
             onClick={() => {
               setDeletePopupOpen(true);
             }}
-            sx={{ width: { sx: "none", md: "50%" } }}
+            sx={{ width: { sx: "none", md: "150px" } }}
           >
             {t("pages.profilePage.deleteProfileButton")}
           </Button>

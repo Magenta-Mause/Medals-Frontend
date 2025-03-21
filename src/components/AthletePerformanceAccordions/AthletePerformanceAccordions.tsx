@@ -23,7 +23,8 @@ import { IconType } from "react-icons";
 import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
-} from "@utils/medalCalculation";
+} from "@utils/calculationUtil";
+import MedalIcon from "@components/MedalIcon/MedalIcon";
 
 const DisciplineIcons: Record<DisciplineCategories, IconType> = {
   COORDINATION: GiJumpingRope,
@@ -55,13 +56,13 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
     };
     disciplines.forEach((d) => {
       const bestEntry = performanceRecordings
+        .filter((p) => p.athlete_id == props.athlete.id)
         .filter((p) => p.discipline_rating_metric.discipline.id == d.id)
         .sort(
           d.more_better
             ? (a, b) => b.rating_value - a.rating_value
             : (a, b) => a.rating_value - b.rating_value,
         )[0];
-      console.log(bestEntry);
       if (bestEntry == undefined) {
         return;
       }
@@ -74,7 +75,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
       }
     });
     setAchievedCategoryMedal(newAchievedCategoryMedal);
-  }, [performanceRecordings, disciplines]);
+  }, [performanceRecordings, disciplines, props.athlete.id]);
 
   return (
     <>
@@ -119,6 +120,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                 sx={{
                   marginY: 1,
                   borderRadius: 25,
+                  gap: { md: 3, xs: 1 },
                 }}
                 slotProps={{ button: { sx: { borderRadius: 10 } } }}
               >
@@ -128,8 +130,9 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                     alignContent: "center",
                     alignItems: "center",
                     justifyItems: "flex-start",
-                    gap: 5,
-                    pl: 2,
+                    gap: { md: 5, xs: 1.5 },
+                    pl: { md: 2, xs: 1 },
+                    width: "100%",
                     "> svg": {
                       height: "30px",
                       width: "30px",
@@ -141,13 +144,26 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                     level="h3"
                     sx={{
                       borderRadius: "10px",
-                      padding: "10px 0",
+                      p: "10px 0",
+                      pr: "0",
                     }}
                   >
-                    {t("disciplines.categories." + category + ".label")} -{" "}
-                    {achievedCategoryMedal
-                      ? t("medals." + achievedCategoryMedal[category])
-                      : Medals.NONE}
+                    {t("disciplines.categories." + category + ".label")}
+                  </Typography>
+                  <Typography
+                    sx={{ position: "relative", right: 0, ml: "auto" }}
+                  >
+                    <MedalIcon
+                      category={category}
+                      sx={{
+                        height: "35px",
+                      }}
+                      medalType={
+                        achievedCategoryMedal
+                          ? achievedCategoryMedal[category]
+                          : Medals.NONE
+                      }
+                    />
                   </Typography>
                 </Box>
               </AccordionSummary>

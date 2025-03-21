@@ -329,7 +329,8 @@
           "lastName": "Nachname",
           "birthdate": "Geburtstag",
           "email": "E-Mail",
-          "gender": "Geschlecht"
+          "gender": "Geschlecht",
+          "medals": "Medaillen"
         },
         "filters": {
           "search": "Suche",

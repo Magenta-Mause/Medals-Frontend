@@ -6,7 +6,7 @@ export interface Athlete {
   last_name: string;
   email: string;
   birthdate: string;
-  gender: Genders;
+  gender?: Genders;
 }
 
 export interface UserEntity {

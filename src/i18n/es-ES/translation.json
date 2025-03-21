@@ -17,7 +17,7 @@
   },
   "snackbar": {
     "authProvider": {
-      "userLoggedOut": "Sie wurden abgemeldet"
+      "userLoggedOut": "Han sido dados de baja"
     },
     "login": {
       "loginFailed": "Error de inicio de sesión"

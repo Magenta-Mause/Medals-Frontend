@@ -39,7 +39,6 @@ const App = () => {
 
   useEffect(() => {
     const language = window.localStorage.getItem("language");
-    console.log("Getting language");
     if (language && i18n.language != language) {
       i18n.changeLanguage(language);
     }
