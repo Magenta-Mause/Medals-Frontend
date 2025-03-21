@@ -1,7 +1,7 @@
 import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Chip, Typography } from "@mui/joy";
-import { removeAthlete } from "@stores/slices/athleteSlice";
+import { removeAthlete, setAthletes } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
@@ -11,7 +11,7 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 
 interface AthleteDatagridProps {
@@ -149,8 +149,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       key: "export",
       variant: "outlined",
       operation: function (item): void {
+        setSelectedAthletes((prev)=> [...prev, item]);
         setExportModalOpen(true);
-        console.log("Exporting Athlete:", item);
+        console.log("Selected Athletes:", item)
       },
     },
     {
@@ -230,6 +231,12 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     onElementClick: itemCallback,
   };
+
+  useEffect(()=>{
+    if (!isExportModalOpen){
+      setSelectedAthletes([]);
+    }
+  }, [isExportModalOpen]);
 
   return (
     <>
