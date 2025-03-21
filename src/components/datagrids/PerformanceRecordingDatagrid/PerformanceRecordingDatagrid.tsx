@@ -4,17 +4,19 @@ import {
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
+import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
 import { Chip, Typography } from "@mui/joy";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { IoIosCreate } from "react-icons/io";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
+  Action,
   ToolbarAction,
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import { IoIosCreate } from "react-icons/io";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];
@@ -26,6 +28,7 @@ interface PerformanceRecordingDatagridProps {
 const PerformanceRecordingDatagrid = (
   props: PerformanceRecordingDatagridProps,
 ) => {
+  const { deletePerformanceRecording } = useApi();
   const { t } = useTranslation();
   const { formatValue, formatDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
@@ -107,6 +110,17 @@ const PerformanceRecordingDatagrid = (
     },
   ];
 
+  const options: Action<PerformanceRecording>[] = [
+    {
+      label: t("components.performanceRecordingDatagrid.actions.delete"),
+      key: "delete",
+      operation: (item) => {
+        deletePerformanceRecording(item.id);
+      },
+      color: "danger",
+    },
+  ];
+
   const actions: ToolbarAction[] = props.athlete
     ? [
         {
@@ -139,6 +153,8 @@ const PerformanceRecordingDatagrid = (
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
         toolbarActions={actions}
+        actionMenu={options}
+        itemSelectionActions={options}
       />
       {props.athlete ? (
         <CreatePerformanceRecordingModal

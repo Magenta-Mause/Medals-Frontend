@@ -16,6 +16,9 @@
     "ADMIN": "Administrador"
   },
   "snackbar": {
+    "authProvider": {
+      "userLoggedOut": "Han sido dados de baja"
+    },
     "login": {
       "loginFailed": "Error de inicio de sesión"
     },
