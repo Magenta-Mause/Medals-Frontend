@@ -3,6 +3,7 @@ import {
   PerformanceRecording,
   PerformanceRecordingCreationDto,
   Trainer,
+  DisciplineRatingMetric
 } from "@customTypes/backendTypes";
 import { useCallback } from "react";
 import config from "../config";
@@ -259,6 +260,19 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const getDisciplineMetrics = useCallback(
+    async (selectedYear: number = 0) => { // default = 0 is current year
+      try {
+        const response = await axiosInstance!.get("/disciplines/metrics", {
+          params: { selected_year: selectedYear }
+        });
+        return response.data.data as DisciplineRatingMetric[];
+      } catch(error) {
+        console.error("Error while fetching discipline metrics", error);
+      }
+    }, [axiosInstance]
+  );
+
   return {
     loginUser,
     logoutUser,
@@ -279,6 +293,7 @@ const useApi = () => {
     inviteTrainer,
     createPerformanceRecording,
     deletePerformanceRecording,
+    getDisciplineMetrics,
   };
 };
 

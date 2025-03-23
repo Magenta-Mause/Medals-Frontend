@@ -58,7 +58,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
       columnName: t("components.disciplineDatagrid.columns.bestValue"),
       columnMapping(item) {
         const bestItem = item.performanceRecordings.sort(
-          item.more_better
+          item.is_more_better
             ? (a, b) => a.rating_value - b.rating_value
             : (a, b) => b.rating_value - a.rating_value,
         )[0];
@@ -75,7 +75,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
       columnName: t("components.disciplineDatagrid.columns.recordedAt"),
       columnMapping(item) {
         const bestItem = item.performanceRecordings.sort(
-          item.more_better
+          item.is_more_better
             ? (a, b) => b.rating_value - a.rating_value
             : (a, b) => a.rating_value - b.rating_value,
         )[0];
@@ -99,7 +99,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         }
       
         const sortedRecordings = [...discipline.performanceRecordings].sort(
-          discipline.more_better
+          discipline.is_more_better
             ? (a, b) => b.rating_value - a.rating_value
             : (a, b) => a.rating_value - b.rating_value
         );

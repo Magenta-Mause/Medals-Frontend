@@ -4,6 +4,7 @@ import {
   Discipline,
   PerformanceRecording,
   Trainer,
+  DisciplineRatingMetric,
 } from "@customTypes/backendTypes";
 import { UserType } from "@customTypes/enums";
 import useStompClient from "@hooks/useStompClient";
@@ -30,6 +31,7 @@ import {
   removeTrainer,
   setTrainers,
 } from "@stores/slices/trainerSlice";
+import { setDisciplineMetrics } from "@stores/slices/disciplineRatingMetricSlice";
 import { useCallback, useContext } from "react";
 import { useDispatch } from "react-redux";
 import useApi from "../useApi";
@@ -38,8 +40,13 @@ import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
 const useInstantiation = () => {
   const dispatch = useDispatch();
   const { selectedUser } = useContext(AuthContext);
-  const { getAthletes, getPerformanceRecordings, getDisciplines, getTrainers } =
-    useApi();
+  const {
+    getAthletes,
+    getPerformanceRecordings,
+    getDisciplines,
+    getTrainers,
+    getDisciplineMetrics,
+  } = useApi();
   const client = useStompClient();
   const {
     initialize: initializeAthleteWebsocket,
@@ -96,8 +103,8 @@ const useInstantiation = () => {
     dispatch(setTrainers((await getTrainers()) ?? []));
     dispatch(setAthletes((await getAthletes()) ?? []));
     dispatch(setDisciplines((await getDisciplines()) ?? []));
-    dispatch(
-      setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
+    dispatch(setPerformanceRecordings((await getPerformanceRecordings()) ?? []));
+    dispatch(setDisciplineMetrics((await getDisciplineMetrics(new Date().getFullYear())) ?? [],),
     );
 
     setTimeout(() => {
@@ -113,6 +120,7 @@ const useInstantiation = () => {
     getDisciplines,
     getTrainers,
     getPerformanceRecordings,
+    getDisciplineMetrics,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
     initializePerformanceRecordingWebsocket,
@@ -121,9 +129,8 @@ const useInstantiation = () => {
   const instantiateTrainer = useCallback(async () => {
     dispatch(setAthletes((await getAthletes()) ?? []));
     dispatch(setDisciplines((await getDisciplines()) ?? []));
-    dispatch(
-      setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
-    );
+    dispatch(setPerformanceRecordings((await getPerformanceRecordings()) ?? []));
+    dispatch(setDisciplineMetrics((await getDisciplineMetrics(new Date().getFullYear())) ?? []),);
 
     setTimeout(() => {
       uninitializeTrainerWebsocket();
@@ -137,6 +144,7 @@ const useInstantiation = () => {
     getAthletes,
     getDisciplines,
     getPerformanceRecordings,
+    getDisciplineMetrics,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
     initializePerformanceRecordingWebsocket,

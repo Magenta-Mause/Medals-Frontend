@@ -32,7 +32,7 @@ export interface Discipline {
   category: DisciplineCategories;
   description: string | null;
   unit: MetricUnits;
-  more_better: boolean;
+  is_more_better: boolean;
 }
 
 export interface RatingMetric {
