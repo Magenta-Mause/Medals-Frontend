@@ -1,56 +1,75 @@
-import { StrictMode, useContext, useEffect, useState } from "react";
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
-import { Box, Stack, Button } from "@mui/joy";
-import { useTranslation } from "react-i18next";
-import { useNavigate, useSearchParams } from "react-router";
 import useApi from "@hooks/useApi";
+import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
+import { useContext, useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { Box, Stack, Button } from "@mui/joy";
 import { enqueueSnackbar } from "notistack";
+import { useNavigate, useSearchParams } from "react-router";
+import LoginForm from "@pages/Login/LoginForm";
 
 const AcceptTrainerAccessRequest = () => {
   const { t } = useTranslation();
-  const { approveRequest } = useApi();
+  const { approveRequest, loginUser } = useApi();
   const [isValid, setValid] = useState(false);
   const [searchParams] = useSearchParams();
+  const { refreshIdentityToken, authorized } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { refreshIdentityToken } = useContext(AuthContext);
 
   useEffect(() => {
-    const token = refreshIdentityToken();
+    if (authorized && !isValid) {
+      const oneTimeCode = searchParams.get("oneTimeCode");
+      const uuidRegex = new RegExp(
+        "^[A-Za-z0-9_-]{10,}.[A-Za-z0-9_-]{10,}.[A-Za-z0-9_-]{10,}$",
+      );
 
-    if (token === null) {
-      console.log("Token is null, redirecting to login");
-      enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.noLogin"));
-      navigate("/login");
-      return;
+      if (!oneTimeCode || !uuidRegex.test(oneTimeCode)) {
+        setValid(false);
+        return;
+      }
+
+      setTimeout(async () => {
+        try {
+          setValid(true);
+          await approveRequest(oneTimeCode);
+          enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.success"), {
+            variant: "success",
+          });
+        } catch {
+          setValid(false);
+          enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.failed"), {
+            variant: "error",
+          });
+        }
+      }, 500);
     }
+  }, [t, searchParams, approveRequest, authorized, isValid]);
 
-    const oneTimeCode = searchParams.get("oneTimeCode");
-    const uuidRegex = new RegExp(
-      "^[A-Za-z0-9_-]{10,}.[A-Za-z0-9_-]{10,}.[A-Za-z0-9_-]{10,}$",
-    );
+  const loginCallback = async (loginData: {
+    email: string;
+    password: string;
+    privacyPolicy: boolean;
+  }) => {
+    try {
+      const res = await loginUser(loginData.email, loginData.password);
 
-    if (!oneTimeCode || !uuidRegex.test(oneTimeCode)) {
-      setValid(false);
-      return;
-    }
-
-    const debounce = setTimeout(() => {
-      try {
-        setValid(true);
-        approveRequest(oneTimeCode);
-        enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.success"), {
-          variant: "success",
-        });
-      } catch {
-        enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.failed"), {
+      if (res) {
+        await refreshIdentityToken();
+      } else {
+        enqueueSnackbar("Login failed", {
           variant: "error",
         });
       }
-    }, 400);
+    } catch (error) {
+      console.log("Error during login", error);
+      enqueueSnackbar(t("snackbar.login.loginFailed"), { variant: "error" });
+    }
+  };
 
-    return () => clearTimeout(debounce);
-  }, [searchParams, approveRequest, navigate, refreshIdentityToken, t]);
+  const { isPending, mutate: login } = useMutation({
+    mutationFn: loginCallback,
+  });
 
   return (
     <SplitPageComponent>
@@ -79,20 +98,28 @@ const AcceptTrainerAccessRequest = () => {
             backgroundColor: "white",
           }}
         >
-          <StrictMode>
-            {isValid ? (
-              <Button
-                onClick={() => {
-                  navigate("/");
-                }}
-                color="success"
-              >
-                {t("pages.validateInvitePage.finished")}
-              </Button>
+          <Stack sx={{ gap: 4, mt: 0 }}>
+            {!authorized ? (
+              <LoginForm loginCallback={login} isPending={isPending} />
             ) : (
-              <Button disabled>{t("pages.validateInvitePage.loading")}</Button>
+              <Stack>
+                {isValid ? (
+                  <Button
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                    color="success"
+                  >
+                    {t("pages.validateInvitePage.finished")}
+                  </Button>
+                ) : (
+                  <Button disabled>
+                    {t("pages.validateInvitePage.loading")}
+                  </Button>
+                )}
+              </Stack>
             )}
-          </StrictMode>
+          </Stack>
         </Stack>
       </Box>
     </SplitPageComponent>

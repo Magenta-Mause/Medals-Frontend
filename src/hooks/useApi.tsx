@@ -141,42 +141,59 @@ const useApi = () => {
     }
   };
 
-  const approveRequest = async (oneTimeCode: string) => {
-    try {
-      const response = await axiosInstance!.post(
-        `/athletes/approve-request?oneTimeCode=${oneTimeCode}`,
-      );
-
-      if (response.status !== 200) {
-        throw new Error(
-          `Error during accepting invite: ${response.statusText}`,
+  const approveRequest = useCallback(
+    async (oneTimeCode: string) => {
+      try {
+        const response = await axiosInstance!.post(
+          `/athletes/approve-access?oneTimeCode=${oneTimeCode}`,
         );
+
+        if (response.status !== 200) {
+          throw new Error(
+            `Error during accepting invite: ${response.statusText}`,
+          );
+        }
+      } catch (error) {
+        console.error(`Error while accepting invite`, error);
+        throw error;
       }
-    } catch (error) {
-      console.error(`Error while accepting invite`, error);
-      throw error;
-    }
-  };
+    },
+    [axiosInstance],
+  );
 
   const requestAthlete = async (athleteId: number, trainerId: number) => {
-    const request = await axiosInstance!.post(`/trainers/request-athlete`, {
-      athleteId: athleteId,
-      trainerId: trainerId,
-    });
-    return request.status == 200;
-  };
-
-  const searchAthletes = async (athlete: string) => {
     try {
-      const request = await axiosInstance!.get(
-        `/trainers/search-athletes?athleteSearch=${athlete}`,
+      const response = await axiosInstance!.post(
+        "/trainers/request-athlete-access",
+        {
+          athleteId: athleteId,
+          trainerId: trainerId,
+        },
       );
-      return request.data.data as Athlete[];
+      return response.status === 200;
     } catch (error) {
-      console.error(`Error while fetching trainer with id: ${athlete}`, error);
-      throw new Error("Error searching for athlete");
+      console.error("Error requesting athlete:", error);
+      return false;
     }
   };
+
+  const searchAthletes = useCallback(
+    async (athlete: string) => {
+      try {
+        const request = await axiosInstance!.get(
+          `/trainers/search-athletes?athleteSearch=${athlete}`,
+        );
+        return request.data.data as Athlete[];
+      } catch (error) {
+        console.error(
+          `Error while fetching trainer with id: ${athlete}`,
+          error,
+        );
+        throw new Error("Error searching for athlete");
+      }
+    },
+    [axiosInstance],
+  );
 
   const loginUser = useCallback(
     async (email: string, password: string) => {

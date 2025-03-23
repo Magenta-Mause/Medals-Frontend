@@ -67,10 +67,14 @@
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"
     },
-    "validateAthleteInvite": {
+    "acceptTrainerAccessRequest": {
       "noLogin": "Login and accept the invitation again",
-      "failed": "Could not accept the invite",
-      "success": "Invite accepted"
+      "failed": "Could not accept the request",
+      "success": "Request accepted"
+    },
+    "requestAthleteAccess": {
+      "failed": "Failed sending the request",
+      "success": "Request has been send"
     }
   },
   "pages": {
@@ -84,7 +88,7 @@
     "athleteOverviewPage": {
       "header": "Athletes",
       "createButton": "Create athlete",
-      "inviteButton": "Invite athlete"
+      "requestAccessButton": "Request athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -158,7 +162,7 @@
         }
       }
     },
-    "validateInvitePage": {
+    "validateRequestPage": {
       "loading": "Validating",
       "finished": "Validation successful"
     },
@@ -243,6 +247,12 @@
         "/credits": "Credits",
         "/userRoleErrorPage": "User Role Error"
       }
+    },
+    "requestAthleteModal": {
+      "header": "Request access to Athlete",
+      "searchAthlete": "Name or Email",
+      "notFound": "No athletes found",
+      "requestAthleteButton": "Request Access"
     },
     "athleteDetailHeader": {
       "columns": {
@@ -338,13 +348,6 @@
       },
       "actions": {
         "openDetails": "Details"
-      },
-      "inviteModal": {
-        "header": "Request access to Athlete",
-        "searchAthlete": "Name or Email",
-        "notFound": "No athletes found",
-        "inviteAthleteButton": "Invite",
-        "loading": "Loading..."
       }
     },
     "trainerDatagrid": {

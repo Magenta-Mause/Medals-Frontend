@@ -73,6 +73,10 @@
       "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
       "failed": "Trainer Anfrage konnte nicht angenommen werden",
       "success": "Trainer Anfrage erfolgreich angenommen"
+    },
+    "requestAthleteAccess": {
+      "failed": "Anfrange fehlgeschlagen",
+      "success": "Anfrage gesendet"
     }
   },
   "pages": {
@@ -86,7 +90,7 @@
     "athleteOverviewPage": {
       "header": "Athlet*innen",
       "createButton": "Athlet*in erstellen",
-      "inviteButton": "Athlet*in zuweisen"
+      "requestAccessButton": "Athlet*in zuweisen"
     },
     "athleteCreationPage": {
       "firstName": "Vorname",
@@ -161,7 +165,7 @@
         }
       }
     },
-    "validateInvitePage": {
+    "validateRequestPage": {
       "loading": "Validierung erfolgt",
       "finished": "Validierung erfolgreich"
     },
@@ -257,6 +261,12 @@
         "ageAtRecording": "Berechnetes Alter bei Aufnahme: "
       }
     },
+    "requestAthleteModal": {
+      "header": "Athlet*innen zuweisen",
+      "searchAthlete": "Name oder Email",
+      "notFound": "Kein Athleten gefunden",
+      "requestAthleteButton": "Zuweisen"
+    },
     "athleteDetailHeader": {
       "columns": {
         "id": "ID",
@@ -343,13 +353,6 @@
       },
       "actions": {
         "openDetails": "Details"
-      },
-      "inviteModal": {
-        "header": "Athlet*innen zuweisen",
-        "searchAthlete": "Name oder Email",
-        "notFound": "Kein Athleten gefunden",
-        "inviteAthleteButton": "Zuweisen",
-        "loading": "Loading..."
       }
     },
     "disciplineDatagrid": {

@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
 import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
-import AthleteRequestButton from "@components/AthleteRequestButton/AthleteRequestButton";
+import AthleteRequestButton from "@components/modals/AthleteRequestButton/AthleteRequestButton";
 
 const AthleteOverviewPage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
