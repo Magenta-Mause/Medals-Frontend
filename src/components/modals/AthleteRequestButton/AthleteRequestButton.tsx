@@ -62,7 +62,7 @@ const AthleteRequestButton = () => {
         setFilteredResults([]);
       }
       setLoading(false);
-    }, 800);
+    }, 500);
 
     setLoading(true);
     return () => clearTimeout(delayDebounceFn);

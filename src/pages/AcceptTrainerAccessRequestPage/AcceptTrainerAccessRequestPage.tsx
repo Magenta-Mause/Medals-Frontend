@@ -110,11 +110,11 @@ const AcceptTrainerAccessRequest = () => {
                     }}
                     color="success"
                   >
-                    {t("pages.validateInvitePage.finished")}
+                    {t("pages.validateRequestPage.finished")}
                   </Button>
                 ) : (
                   <Button disabled>
-                    {t("pages.validateInvitePage.loading")}
+                    {t("pages.validateRequestPage.loading")}
                   </Button>
                 )}
               </Stack>
