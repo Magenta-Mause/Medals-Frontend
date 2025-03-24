@@ -1,7 +1,6 @@
 import { DisciplineIcons } from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
 import { DisciplineCategories, Medals } from "@customTypes/enums";
 import { Box, useColorScheme } from "@mui/joy";
-import { IoMdClose } from "react-icons/io";
 import { SxProps } from "@mui/joy/styles/types";
 
 const MedalColors: Record<Medals, string | undefined> = {
