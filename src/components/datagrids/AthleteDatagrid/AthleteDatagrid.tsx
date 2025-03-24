@@ -109,7 +109,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
                 <MedalIcon
                   category={category}
                   medalType={bestValue ?? Medals.NONE}
-                  stillShowIconWhenNone
                 />
               );
             })}

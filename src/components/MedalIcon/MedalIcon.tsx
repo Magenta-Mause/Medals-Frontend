@@ -14,7 +14,6 @@ const MedalIcon = (props: {
   category: DisciplineCategories;
   medalType: Medals;
   sx?: SxProps;
-  stillShowIconWhenNone?: boolean;
 }) => {
   const DisciplineIcon = DisciplineIcons[props.category];
   const colorScheme = useColorScheme();
