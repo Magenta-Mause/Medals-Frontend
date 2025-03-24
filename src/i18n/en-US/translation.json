@@ -254,7 +254,7 @@
     },
     "requestAthleteModal": {
       "header": "Request access to Athlete",
-      "searchAthlete": "Name or Email",
+      "searchAthlete": "Name",
       "notFound": "No athletes found",
       "requestAthleteButton": "Request Access"
     },

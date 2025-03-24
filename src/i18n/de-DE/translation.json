@@ -79,7 +79,7 @@
       "success": "Trainer Anfrage erfolgreich angenommen"
     },
     "requestAthleteAccess": {
-      "failed": "Anfrange fehlgeschlagen",
+      "failed": "Anfrage fehlgeschlagen",
       "success": "Anfrage gesendet"
     }
   },
@@ -94,7 +94,7 @@
     "athleteOverviewPage": {
       "header": "Athlet*innen",
       "createButton": "Athlet*in erstellen",
-      "requestAccessButton": "Athlet*in zuweisen"
+      "requestAccessButton": "Athlet*in anfragen"
     },
     "athleteCreationPage": {
       "firstName": "Vorname",
@@ -267,9 +267,9 @@
     },
     "requestAthleteModal": {
       "header": "Athlet*innen zuweisen",
-      "searchAthlete": "Name oder Email",
+      "searchAthlete": "Name",
       "notFound": "Kein Athleten gefunden",
-      "requestAthleteButton": "Zuweisen"
+      "requestAthleteButton": "Anfragen"
     },
     "athleteDetailHeader": {
       "columns": {
@@ -355,8 +355,8 @@
           "gender": "Geschlecht"
         }
       },
-      "inviteModal": {
-        "searchAthlete": "Name oder Email",
+      "requestAthleteModal": {
+        "searchAthlete": "Name",
         "notFound": "Kein Athleten gefunden",
         "inviteAthleteButton": "Zuweisen"
       },

@@ -31,11 +31,14 @@ const AthleteRequestButton = () => {
 
     try {
       await requestAthlete(athleteId, trainerId);
-      enqueueSnackbar(t("snackbar.requestAthleteAccess.send"), {
+      enqueueSnackbar(t("snackbar.requestAthleteAccess.success"), {
         variant: "success",
       });
     } catch (error) {
       console.error("Error inviting athlete", error);
+      enqueueSnackbar(t("snackbar.requestAthleteAccess.success"), {
+        variant: "success",
+      });
     }
   };
 
@@ -127,7 +130,7 @@ const AthleteRequestButton = () => {
                 sx={{
                   position: "absolute",
                   top: "50%",
-                  left: "50%",
+                  right: "5%",
                   marginTop: "-12px",
                   marginLeft: "-12px",
                 }}
@@ -170,7 +173,6 @@ const AthleteRequestButton = () => {
                   <Button
                     onClick={() => {
                       handleInvite(athlete.id, selectedUser?.id);
-                      setPopupOpen(false);
                       setSearchAthlete("");
                     }}
                     sx={{
