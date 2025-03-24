@@ -12,6 +12,7 @@ const ColorSchemeToggle = (props: IconButtonProps) => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
   if (!mounted) {
     return (
       <IconButton
