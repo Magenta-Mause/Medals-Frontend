@@ -410,6 +410,12 @@
         },
         "delete": "Löschen"
       }
+    },
+    "athleteExportModal": {
+      "header": "Athlet*innen Export",
+      "previewButton": "Datei Vorschau",
+      "previewHeader": "Vorschau",
+      "exportButton": "Export"
     }
   }
 }

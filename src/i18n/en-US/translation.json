@@ -408,6 +408,12 @@
       "header": "Are You Sure?",
       "cancelButton": "Cancel",
       "deleteButton": "Delete"
+    },
+    "athleteExportModal": {
+      "header": "Athlete Export",
+      "previewButton": "File Preview",
+      "previewHeader": "Preview",
+      "exportButton": "Export"
     }
   }
 }

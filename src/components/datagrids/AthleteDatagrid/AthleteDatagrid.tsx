@@ -1,7 +1,7 @@
 import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Chip, Typography } from "@mui/joy";
-import { removeAthlete, setAthletes } from "@stores/slices/athleteSlice";
+import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
@@ -24,9 +24,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [isExportModalOpen, setExportModalOpen] = useState(false)
+  const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
-
 
   const columns: Column<Athlete>[] = [
     {
@@ -149,9 +148,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       key: "export",
       variant: "outlined",
       operation: function (item): void {
-        setSelectedAthletes((prev)=> [...prev, item]);
+        setSelectedAthletes((prev) => [...prev, item]);
         setExportModalOpen(true);
-        console.log("Selected Athletes:", item)
+        console.log("Selected Athletes:", item);
       },
     },
     {
@@ -232,8 +231,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     onElementClick: itemCallback,
   };
 
-  useEffect(()=>{
-    if (!isExportModalOpen){
+  useEffect(() => {
+    if (!isExportModalOpen) {
       setSelectedAthletes([]);
     }
   }, [isExportModalOpen]);
@@ -252,15 +251,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         onItemClick={itemCallback}
         disablePaging={false}
       />
-      <AthleteExportModal 
-      isOpen={isExportModalOpen} 
-      setOpen={setExportModalOpen} 
-      selectedAthletes={selectedAthletes}
-    />
+      <AthleteExportModal
+        isOpen={isExportModalOpen}
+        setOpen={setExportModalOpen}
+        selectedAthletes={selectedAthletes}
+      />
     </>
   );
 };
 
 export default AthleteDatagrid;
-
-
