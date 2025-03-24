@@ -102,8 +102,8 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
 
         return (
           <>
-            {(discipline.description ??
-            discipline.performanceRecordings.length > 0)
+            {discipline.description &&
+            discipline.performanceRecordings.length > 0
               ? formatValue(bestItem.rating_value, discipline.unit)
               : t("messages.noEntriesFound")}
           </>
