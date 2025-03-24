@@ -69,10 +69,6 @@
       "failed": "Failed to invite trainer",
       "success": "Trainer was invited successfully"
     },
-    "validateAthleteInvite": {
-      "failed": "Could not accept the invite",
-      "success": "Invite accepted"
-    },
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"
