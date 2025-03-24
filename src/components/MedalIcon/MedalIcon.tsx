@@ -30,13 +30,13 @@ const MedalIcon = (props: {
   const grayedOutColor =
     colorScheme.colorScheme == "dark"
       ? "rgba(0, 0, 0, 0.5)"
-      : "rgba(255, 255, 255, 0.5)";
+      : "rgba(255, 255, 255, 1)";
   return (
     <Box
       sx={{
         background: MedalColors[props.medalType] ?? backgroundColor,
         border:
-          props.medalType == Medals.NONE && props.stillShowIconWhenNone
+          props.medalType == Medals.NONE
             ? "rgba(0,0,0,0.2) solid thin"
             : "gray solid thin",
         borderRadius: "100%",
@@ -51,12 +51,10 @@ const MedalIcon = (props: {
         ...props.sx,
       }}
     >
-      {props.medalType == Medals.NONE && !props.stillShowIconWhenNone ? (
-        <IoMdClose />
-      ) : props.medalType != Medals.NONE ? (
-        <DisciplineIcon fill={mainColor} />
-      ) : (
+      {props.medalType == Medals.NONE ? (
         <DisciplineIcon fill={grayedOutColor} />
+      ) : (
+        <DisciplineIcon fill={mainColor} />
       )}
     </Box>
   );
