@@ -44,6 +44,7 @@ const PerformanceMetricsPage = () => {
   const { getDisciplineMetrics } = useApi();
 
   // Fetch all discipline metrics on mount.
+  // TODO> use the state instead of bussy loading
   useEffect(() => {
     const fetchMetrics = async () => {
       const metrics = await getDisciplineMetrics();
@@ -54,7 +55,6 @@ const PerformanceMetricsPage = () => {
     fetchMetrics();
   }, [getDisciplineMetrics]);
 
-  // Calculate available years from the data using the 'valid_in' field.
   const availableYears = useMemo(() => {
     const yearsSet = new Set<number>();
     disciplineRatingMetrics.forEach((metric) => {
@@ -64,13 +64,6 @@ const PerformanceMetricsPage = () => {
     });
     return Array.from(yearsSet).sort((a, b) => b - a);
   }, [disciplineRatingMetrics]);
-
-  // Update selectedYear if it's not among available years.
-  useEffect(() => {
-    if (availableYears.length > 0 && !availableYears.includes(selectedYear)) {
-      setSelectedYear(availableYears[0]);
-    }
-  }, [availableYears, selectedYear]);
 
   // Filter metrics by the selected valid_in year and age range.
   const filteredMetrics = useMemo(() => {
