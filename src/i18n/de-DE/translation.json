@@ -339,6 +339,8 @@
         }
       },
       "actions": {
+        "delete":"Löschen",
+        "edit": "Bearbeiten",
         "openDetails": "Details"
       }
     },
@@ -375,7 +377,10 @@
         "lastName": "Nachname",
         "lastNamePlaceholder": "Mustermann",
         "confirm": "Trainer Einladen"
-      }
+      },
+      "actions":{
+          "delete":"Löschen"
+        }
     },
     "buttons": {
       "next": "Nächstes",
@@ -416,6 +421,13 @@
         },
         "delete": "Löschen"
       }
+    },
+    "tooltip": {
+      "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
+      "profileButton": "Account Einstellungen",
+      "switchUserButton": "Benutzer wechseln",
+      "logoutButton":"Abmelden",
+      "languageSelectionButton": "Sprache ändern"
     }
   }
 }

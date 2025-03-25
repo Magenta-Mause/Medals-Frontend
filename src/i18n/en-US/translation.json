@@ -334,6 +334,8 @@
         }
       },
       "actions": {
+        "delete":"Delete",
+        "edit": "Edit",
         "openDetails": "Details"
       }
     },
@@ -362,7 +364,10 @@
         "lastName": "Lastname",
         "lastNamePlaceholder": "Doe",
         "confirm": "Invite Trainer"
-      }
+      },
+      "actions":{
+          "delete":"Delete"
+        }
     },
     "buttons": {
       "next": "Next",
@@ -413,6 +418,13 @@
       "header": "Are You Sure?",
       "cancelButton": "Cancel",
       "deleteButton": "Delete"
+    },
+    "tooltip": {
+      "colorSchemeToggle": "Switch light-/darkmode",
+      "profileButton": "Account Settings",
+      "switchUserButton": "Switch User",
+      "logoutButton":"Logout",
+      "languageSelectionButton": "Change language"
     }
   }
 }
