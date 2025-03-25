@@ -14,10 +14,11 @@ import {
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, useMemo} from "react";
+import { useState, useEffect, useMemo } from "react";
 import useApi from "@hooks/useApi";
 import GenericResponsiveDatagrid from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
+import MedalRatings, { CustomChip } from "@components/MedalRatings/MedalRatings";
 
 const ageRangeOptions: AgeRange[] = [
   { label: "6-7", min: 6, max: 7 },
@@ -74,8 +75,7 @@ const PerformanceMetricsPage = () => {
   const filteredMetrics = useMemo(() => {
     return disciplineRatingMetrics.filter((metric) => {
       const isYearMatch = metric.valid_in === selectedYear;
-      const isAgeMatch =
-        metric.start_age <= selectedAgeRange.min && metric.end_age >= selectedAgeRange.max;
+      const isAgeMatch = metric.start_age <= selectedAgeRange.min && metric.end_age >= selectedAgeRange.max;
       return isYearMatch && isAgeMatch;
     });
   }, [disciplineRatingMetrics, selectedYear, selectedAgeRange]);
@@ -95,60 +95,56 @@ const PerformanceMetricsPage = () => {
   // Define the columns for the datagrid.
   const columns: Column<DisciplineRatingMetric>[] = [
     {
-      columnName: "Discipline",
+      columnName: t("generic.discipline"),
       columnMapping: (metric: DisciplineRatingMetric) => metric.discipline.name,
       size: "m",
     },
     {
-      columnName: "Gold",
-      columnMapping: (metric: DisciplineRatingMetric) =>
-        (selectedGender !== Genders.FEMALE)
-          ? metric.rating_male?.gold_rating ?? "–"
-          : metric.rating_female?.gold_rating ?? "–",
+      columnName: t("medals.GOLD"),
+      columnMapping: (metric: DisciplineRatingMetric) => {
+        const goldRating =
+          selectedGender !== Genders.FEMALE
+            ? metric.rating_male?.gold_rating ?? "–"
+            : metric.rating_female?.gold_rating ?? "–";
+        // Pass the full unit (e.g. "seconds", "meters", "points") to CustomChip.
+        const unit = metric.discipline.unit;
+        return <CustomChip value={goldRating} color="#FFD700" unit={unit} />;
+      },
       size: "s",
     },
     {
-      columnName: "Silver",
-      columnMapping: (metric: DisciplineRatingMetric) =>
-        (selectedGender !== Genders.FEMALE)
-          ? metric.rating_male?.silver_rating ?? "–"
-          : metric.rating_female?.silver_rating ?? "–",
+      columnName: t("medals.SILVER"),
+      columnMapping: (metric: DisciplineRatingMetric) => {
+        const silverRating =
+          selectedGender !== Genders.FEMALE
+            ? metric.rating_male?.silver_rating ?? "–"
+            : metric.rating_female?.silver_rating ?? "–";
+        const unit = metric.discipline.unit;
+        return <CustomChip value={silverRating} color="#C0C0C0" unit={unit} />;
+      },
       size: "s",
     },
     {
-      columnName: "Bronze",
-      columnMapping: (metric: DisciplineRatingMetric) =>
-        (selectedGender !== Genders.FEMALE)
-          ? metric.rating_male?.bronze_rating ?? "–"
-          : metric.rating_female?.bronze_rating ?? "–",
+      columnName: t("medals.BRONZE"),
+      columnMapping: (metric: DisciplineRatingMetric) => {
+        const bronzeRating =
+          selectedGender !== Genders.FEMALE
+            ? metric.rating_male?.bronze_rating ?? "–"
+            : metric.rating_female?.bronze_rating ?? "–";
+        const unit = metric.discipline.unit;
+        return <CustomChip value={bronzeRating} color="#CD7F32" unit={unit} />;
+      },
       size: "s",
     },
   ];
 
-// Mobile rendering configuration with explicit type casting on searchFilter.type.
-const mobileRendering = {
-  h1: (metric: DisciplineRatingMetric) => <Typography>{metric.discipline.name}</Typography>,
-  h2: (metric: DisciplineRatingMetric) => (
-    <Typography>
-      Gold:{" "}
-      {(selectedGender !== Genders.FEMALE)
-        ? metric.rating_male?.gold_rating ?? "–"
-        : metric.rating_female?.gold_rating ?? "–"}
-    </Typography>
-  ),
-  h3: (metric: DisciplineRatingMetric) => (
-    <Typography>
-      Silver:{" "}
-      {(selectedGender !== Genders.FEMALE)
-        ? metric.rating_male?.silver_rating ?? "–"
-        : metric.rating_female?.silver_rating ?? "–"}{" "}
-      / Bronze:{" "}
-      {(selectedGender !== Genders.FEMALE)
-        ? metric.rating_male?.bronze_rating ?? "–"
-        : metric.rating_female?.bronze_rating ?? "–"}
-    </Typography>
-  ),
-};
+  // Mobile rendering configuration.
+  const mobileRendering = {
+    h1: (metric: DisciplineRatingMetric) => <Typography>{metric.discipline.name}</Typography>,
+    h2: (metric: DisciplineRatingMetric) => (
+      <MedalRatings metric={metric} selectedGender={selectedGender} />
+    ),
+  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
@@ -177,22 +173,13 @@ const mobileRendering = {
           }
         }}
       >
-        <Button
-          value={Genders.MALE}
-          variant={selectedGender === Genders.MALE ? "solid" : "outlined"}
-        >
-          {t("genders." + Genders.MALE)}
-        </Button>
-        <Button
-          value={Genders.FEMALE}
-          variant={selectedGender === Genders.FEMALE ? "solid" : "outlined"}
-        >
+        <Button value={Genders.FEMALE} variant={selectedGender === Genders.FEMALE ? "solid" : "outlined"}>
           {t("genders." + Genders.FEMALE)}
         </Button>
-        <Button
-          value={Genders.DIVERSE}
-          variant={selectedGender === Genders.DIVERSE ? "solid" : "outlined"}
-        >
+        <Button value={Genders.MALE} variant={selectedGender === Genders.MALE ? "solid" : "outlined"}>
+          {t("genders." + Genders.MALE)}
+        </Button>
+        <Button value={Genders.DIVERSE} variant={selectedGender === Genders.DIVERSE ? "solid" : "outlined"}>
           {t("genders." + Genders.DIVERSE)}
         </Button>
       </ToggleButtonGroup>
@@ -212,8 +199,26 @@ const mobileRendering = {
       </Select>
       {/* Render an accordion per discipline category */}
       {Object.entries(groupedMetrics).map(([category, metrics]) => (
-        <Accordion key={category} defaultExpanded>
-          <AccordionSummary sx={{ p: 1 }}>
+        <Accordion
+          key={category}
+          defaultExpanded
+          sx={(theme) => ({
+            background: "rgba(0, 0, 0, 0.05)",
+            padding: 1,
+            borderRadius: 10,
+            [theme.getColorSchemeSelector("dark")]: {
+              background: "rgba(255, 255, 255, 0.08)",
+            },
+          })}
+        >
+          <AccordionSummary
+            sx={{
+              marginY: 1,
+              borderRadius: 25,
+              gap: { md: 3, xs: 1 },
+            }}
+            slotProps={{ button: { sx: { borderRadius: 10 } } }}
+          >
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
               {DisciplineIcons[category as DisciplineCategories]({})}
               <Typography level="h3">
@@ -228,7 +233,6 @@ const mobileRendering = {
               keyOf={(metric) => metric.id}
               isLoading={false}
               mobileRendering={mobileRendering}
-              onItemClick={() => {}}
               disablePaging={true}
             />
           </AccordionDetails>
