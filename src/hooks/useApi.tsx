@@ -261,11 +261,9 @@ const useApi = () => {
   );
 
   const getDisciplineMetrics = useCallback(
-    async (selectedYear: number = 0) => { // default = 0 is current year
+    async () => {
       try {
-        const response = await axiosInstance!.get("/disciplines/metrics", {
-          params: { selected_year: selectedYear }
-        });
+        const response = await axiosInstance!.get("/disciplines/metrics");
         return response.data.data as DisciplineRatingMetric[];
       } catch(error) {
         console.error("Error while fetching discipline metrics", error);

@@ -1,4 +1,4 @@
-import { Discipline, DisciplineRatingMetric } from "@customTypes/backendTypes";
+import { DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { DisciplineCategories } from "@customTypes/enums";
 import {
   Box,
@@ -13,7 +13,7 @@ import {
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, useMemo, ReactNode } from "react";
 import useApi from "@hooks/useApi";
 import FullScreenTable, { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import { Key } from "react";
@@ -60,26 +60,31 @@ const PerformanceMetricsPage = () => {
   const { t } = useTranslation();
   const { getDisciplineMetrics } = useApi();
 
-  // Fetch discipline metrics when the selected year changes.
+  // Fetch all discipline metrics on mount (no need to refetch on year change).
   useEffect(() => {
     const fetchMetrics = async () => {
-      const metrics = await getDisciplineMetrics(selectedYear);
+      const metrics = await getDisciplineMetrics();
       if (metrics) {
         setDisciplineRatingMetrics(metrics);
       }
     };
     fetchMetrics();
-  }, [selectedYear, getDisciplineMetrics]);
+  }, [getDisciplineMetrics]);
 
   // Create an array of recent years (e.g., last 10 years).
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from({ length: 10 }, (_, i) => currentYear - i);
 
-  // Apply the age range filter.
-  const filteredMetrics = disciplineRatingMetrics.filter((metric) => {
-    // Check if the metric's valid age range fully covers the selected age range.
-    return metric.start_age <= selectedAgeRange.min && metric.end_age >= selectedAgeRange.max;
-  });
+  // Filter metrics by the selected year and age range.
+  const filteredMetrics = useMemo(() => {
+    return disciplineRatingMetrics.filter((metric) => {
+      // Ensure metric is for the selected year (assumes metric.year exists).
+      const isYearMatch = metric.valid_in === selectedYear;
+      // Check if the metric's valid age range fully covers the selected age range.
+      const isAgeMatch = metric.start_age <= selectedAgeRange.min && metric.end_age >= selectedAgeRange.max;
+      return isYearMatch && isAgeMatch;
+    });
+  }, [disciplineRatingMetrics, selectedYear, selectedAgeRange]);
 
   // Group the filtered metrics by discipline category.
   const groupedMetrics = filteredMetrics.reduce((acc, metric) => {
