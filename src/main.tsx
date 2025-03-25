@@ -6,7 +6,6 @@ import App from "./App";
 import "./i18n";
 import store from "./stores";
 
-// @ts-expect-error this global is needed for sock js to work properly
 window.global = window;
 
 createRoot(document.getElementById("root")!).render(
