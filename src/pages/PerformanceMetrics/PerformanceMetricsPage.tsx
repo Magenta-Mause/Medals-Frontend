@@ -148,20 +148,6 @@ const mobileRendering = {
         : metric.rating_female?.bronze_rating ?? "–"}
     </Typography>
   ),
-  searchFilter: {
-    name: "search",
-    label: t("components.performanceMetricsPage.search"),
-    apply: (filterParameter: string | undefined) => {
-      if (!filterParameter) return () => true;
-      const lower = filterParameter.toLowerCase();
-      return (metric: DisciplineRatingMetric) =>
-        metric.discipline.name.toLowerCase().includes(lower);
-    },
-    type: "TEXT" as const,
-  },
-  onElementClick: (metric: DisciplineRatingMetric) => {
-    // Optionally handle mobile row clicks.
-  },
 };
 
   return (
@@ -229,7 +215,7 @@ const mobileRendering = {
         <Accordion key={category} defaultExpanded>
           <AccordionSummary sx={{ p: 1 }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              {DisciplineIcons[category]({})}
+              {DisciplineIcons[category as DisciplineCategories]({})}
               <Typography level="h3">
                 {t("disciplines.categories." + category + ".label")}
               </Typography>
