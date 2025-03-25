@@ -10,10 +10,12 @@ import { useSnackbar } from "notistack";
 import UploadIcon from "@mui/icons-material/Upload";
 import GenericModal from "../GenericModal";
 import { emailRegex, BirthdateRegex } from "@components/Regex/Regex";
-import { Gender } from "@customTypes/enums";
+import { Genders } from "@customTypes/enums";
+import SyncIcon from "@mui/icons-material/Sync";
 
 interface AthleteWithValidityToAthlete extends Athlete {
   valid: boolean | undefined;
+  uploaded: boolean | undefined;
 }
 
 interface ModalProps {
@@ -28,6 +30,7 @@ const AthleteCSVImport = (props: ModalProps) => {
   const { checkAthleteExists } = useApi();
   const { createAthlete } = useApi();
   const { enqueueSnackbar } = useSnackbar();
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
   const convertDateFormat = (dateStr: string) => {
     // Split the input date string into an array [dd, mm, yyyy]
@@ -81,18 +84,12 @@ const AthleteCSVImport = (props: ModalProps) => {
   };
 
   const createAthletes = async (athletes: AthleteWithValidityToAthlete[]) => {
+    setIsUploading(true);
     for (const athlete of athletes) {
       if (athlete.valid) {
         try {
           await createAthlete(stripValidity(athlete));
-          enqueueSnackbar(
-            t("pages.athleteImportPage.feedback1") +
-              athlete.first_name +
-              " " +
-              athlete.last_name +
-              t("pages.athleteImportPage.feedback2"),
-            { variant: "success" },
-          );
+          athlete.uploaded = true;
         } catch (error: any) {
           console.log(error);
           enqueueSnackbar(
@@ -140,9 +137,9 @@ const AthleteCSVImport = (props: ModalProps) => {
     checkValidFile(file);
   };
 
-  const normalizeGender = (gender: string | undefined): string => {
+  const normalizeGender = (gender: string | undefined) => {
     const normalized = gender?.trim().toLowerCase();
-    return Gender[normalized as keyof typeof Gender];
+    return Genders[normalized as keyof typeof Genders];
   };
 
   const parseCSV = (file: File) => {
@@ -169,6 +166,7 @@ const AthleteCSVImport = (props: ModalProps) => {
                 return {
                   ...row,
                   valid: undefined,
+                  uploaded: undefined,
                 };
               }),
             );
@@ -177,6 +175,7 @@ const AthleteCSVImport = (props: ModalProps) => {
               athletesWithValidity.push({
                 ...athlete,
                 valid: await isValidImport(athlete),
+                uploaded: undefined,
               });
             }
             setCsvData(athletesWithValidity);
@@ -218,8 +217,8 @@ const AthleteCSVImport = (props: ModalProps) => {
                   borderRadius: "md",
                   p: 4,
                   textAlign: "center",
-                  width: "40vw",
-                  height: "30vh",
+                  width: { sx: "60vw", md: "40vw" },
+                  height: { sx: "40vh", md: "30vh" },
                   cursor: "pointer",
                   bgcolor: "background.level1",
                   "&:hover": { bgcolor: "background.level2" },
@@ -235,7 +234,10 @@ const AthleteCSVImport = (props: ModalProps) => {
                   border={2}
                   borderColor="inherit"
                   borderRadius={"50px"}
-                  sx={{ borderStyle: "dashed" }}
+                  sx={{
+                    borderStyle: "dashed",
+                    height: { sx: "25vh", md: "25vh" },
+                  }}
                 >
                   <UploadIcon fontSize="large" />
                   {t("pages.athleteImportPage.DropFile")}
@@ -262,7 +264,13 @@ const AthleteCSVImport = (props: ModalProps) => {
                 {csvData.map((athlete, index) => (
                   <tr key={index}>
                     <td>
-                      {athlete.valid ? (
+                      {isUploading ? (
+                        athlete.uploaded ? (
+                          <UploadIcon color="success" />
+                        ) : (
+                          <SyncIcon />
+                        )
+                      ) : athlete.valid ? (
                         <CheckIcon color="success" />
                       ) : (
                         <CloseIcon color="error" />
@@ -286,17 +294,16 @@ const AthleteCSVImport = (props: ModalProps) => {
                 sx={{ marginTop: "1vh" }}
                 onClick={() => {
                   setSelectedFile(null);
+                  setIsUploading(false);
                 }}
               >
                 {t("pages.athleteImportPage.changeFile")}
               </Button>
               <Button
                 sx={{ marginTop: "1vh" }}
+                disabled={isUploading}
                 onClick={() => {
                   createAthletes(csvData);
-                  setCsvData([]);
-                  setSelectedFile(null);
-                  props.setOpen(false);
                 }}
               >
                 {t("pages.athleteImportPage.importButton")}

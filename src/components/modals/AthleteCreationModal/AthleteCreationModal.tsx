@@ -10,6 +10,7 @@ import Option from "@mui/joy/Option";
 import { useSnackbar } from "notistack";
 import GenericModal from "../GenericModal";
 import { emailRegex } from "@components/Regex/Regex";
+import { Genders } from "@customTypes/enums";
 
 interface ModalProps {
   isOpen: boolean;
@@ -27,7 +28,7 @@ const AthleteCreationForm = (props: ModalProps) => {
     last_name: "",
     email: "",
     birthdate: "",
-    gender: "",
+    gender: undefined,
   });
   const [inputValid, setInputValid] = useState({
     first_name: false,
@@ -50,7 +51,7 @@ const AthleteCreationForm = (props: ModalProps) => {
     if (athlete.birthdate === "tt.mm.jjjj" || athlete.birthdate === "") {
       return false;
     }
-    if (athlete.gender === "") {
+    if (athlete.gender === undefined) {
       return false;
     }
     return true;
@@ -101,7 +102,7 @@ const AthleteCreationForm = (props: ModalProps) => {
         birthdate: false,
       }));
     }
-    if (athlete.gender !== "") {
+    if (athlete.gender !== undefined) {
       setInputValid((prevUser: any) => ({
         ...prevUser,
         gender: true,
@@ -120,7 +121,7 @@ const AthleteCreationForm = (props: ModalProps) => {
   ) => {
     setAthlete((prevUser: Athlete) => ({
       ...prevUser,
-      gender: newGender!,
+      gender: newGender! as Genders,
     }));
   };
 
@@ -237,6 +238,22 @@ const AthleteCreationForm = (props: ModalProps) => {
             />
           </Box>
         </Box>
+        <Box sx={{ marginTop: "2vh" }}>
+          <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
+          <Select
+            placeholder={t("pages.athleteCreationPage.gender")}
+            sx={{
+              height: { sx: "3vh", md: "5vh" },
+              width: { sx: "60vw", md: "25vw" },
+            }}
+            onChange={handleChangeGender}
+            color={inputValid.gender ? "neutral" : "danger"}
+          >
+            <Option value={Genders.w}>{t("genders.FEMALE")}</Option>
+            <Option value={Genders.m}>{t("genders.MALE")}</Option>
+            <Option value={Genders.d}>{t("genders.DIVERSE")}</Option>
+          </Select>
+        </Box>
         <Button
           disabled={!isAccepted()}
           sx={{
@@ -262,7 +279,7 @@ const AthleteCreationForm = (props: ModalProps) => {
                 first_name: "",
                 last_name: "",
                 email: "",
-                gender: "",
+                gender: undefined,
                 birthdate: "",
               }));
             }

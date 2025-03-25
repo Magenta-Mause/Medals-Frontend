@@ -40,9 +40,13 @@ const App = () => {
   useEffect(() => {
     const language = window.localStorage.getItem("language");
     if (language && i18n.language != language) {
-      i18n.changeLanguage(JSON.parse(language));
+      i18n.changeLanguage(language);
     }
   }, [i18n]);
+
+  useEffect(() => {
+    window.localStorage.setItem("language", i18n.language);
+  }, [i18n.language]);
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>

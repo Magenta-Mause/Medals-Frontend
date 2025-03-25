@@ -38,6 +38,12 @@
       }
     }
   },
+  "medals": {
+    "GOLD": "Gold",
+    "SILVER": "Silber",
+    "BRONZE": "Bronze",
+    "NONE": "Keine Medaille erreicht"
+  },
   "units": {
     "seconds": "Sekunden",
     "minutes": "Minuten",
@@ -335,7 +341,8 @@
           "lastName": "Nachname",
           "birthdate": "Geburtstag",
           "email": "E-Mail",
-          "gender": "Geschlecht"
+          "gender": "Geschlecht",
+          "medals": "Medaillen"
         },
         "filters": {
           "search": "Suche",

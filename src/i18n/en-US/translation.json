@@ -39,6 +39,12 @@
       }
     }
   },
+  "medals": {
+    "GOLD": "Gold",
+    "SILVER": "Silver",
+    "BRONZE": "Bronze",
+    "NONE": "No medal achieved"
+  },
   "generic": {
     "all": "All",
     "discipline": "Discipline",
@@ -330,7 +336,8 @@
           "lastName": "Last Name",
           "birthdate": "Birthdate",
           "email": "Email",
-          "gender": "Gender"
+          "gender": "Gender",
+          "medals": "Medals"
         },
         "filters": {
           "search": "Search",

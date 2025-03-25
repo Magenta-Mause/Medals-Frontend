@@ -1,9 +1,3 @@
-export enum MedalType {
-  GOLD = "GOLD",
-  SILVER = "SILVER",
-  BRONZE = "BRONZE",
-}
-
 export enum UserType {
   ADMIN = "ADMIN",
   TRAINER = "TRAINER",
@@ -22,8 +16,15 @@ export enum DisciplineCategories {
   STRENGTH = "STRENGTH",
 }
 
-export enum Gender {
+export enum Medals {
+  GOLD = "GOLD",
+  SILVER = "SILVER",
+  BRONZE = "BRONZE",
+  NONE = "NONE",
+}
+
+export enum Genders {
+  d = "DIVERSE",
   w = "FEMALE",
   m = "MALE",
-  d = "DIVERSE",
 }
