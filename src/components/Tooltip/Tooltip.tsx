@@ -18,8 +18,8 @@ const Tooltip: React.FC<TooltipProps> = ({
       color="primary"
       size="sm"
       placement={position}
-      enterDelay={500}
-      enterNextDelay={1000}
+      enterDelay={700}
+      enterNextDelay={700}
       sx={{
         zIndex: 20000,
       }}
