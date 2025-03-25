@@ -4,9 +4,9 @@ import { Close } from "@mui/icons-material";
 import { CssVarsProvider, IconButton } from "@mui/joy";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
+  extendTheme as materialExtendTheme,
   THEME_ID as MATERIAL_THEME_ID,
   ThemeProvider as MaterialCssVarsProvider,
-  extendTheme as materialExtendTheme,
   ThemeProvider,
 } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -39,8 +39,13 @@ const App = () => {
 
   useEffect(() => {
     const language = window.localStorage.getItem("language");
-    if (language && i18n.language != language) {
-      i18n.changeLanguage(language);
+    if (!["en", "de", "es"].includes(language ?? "")) {
+      window.localStorage.setItem("language", "de");
+      i18n.changeLanguage("de");
+    } else {
+      if (language && i18n.language != language) {
+        i18n.changeLanguage(language);
+      }
     }
   }, [i18n]);
 
