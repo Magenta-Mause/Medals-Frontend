@@ -94,9 +94,7 @@
       "createPerformanceRecordingButton": "Leistung aufnehmen"
     },
     "athleteOverviewPage": {
-      "header": "Athlet*innen",
-      "createButton": "Athlet*in erstellen",
-      "requestAccessButton": "Athlet*in anfragen"
+      "header": "Athlet*innen"
     },
     "athleteCreationPage": {
       "firstName": "Vorname",
@@ -356,15 +354,20 @@
           "search": "Suche",
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
+        },
+        "toolbar": {
+          "addAthlete": {
+            "label": "Anfragen",
+            "content": "Athlet*innen anfragen"
+          },
+          "createAthlete": {
+            "label": "Erstellen",
+            "content": "Athlet*in erstellen"
+          }
         }
       },
-      "requestAthleteModal": {
-        "searchAthlete": "Name",
-        "notFound": "Kein Athleten gefunden",
-        "inviteAthleteButton": "Zuweisen"
-      },
       "actions": {
-        "delete":"Löschen",
+        "delete": "Löschen",
         "edit": "Bearbeiten",
         "openDetails": "Details"
       }
@@ -403,9 +406,9 @@
         "lastNamePlaceholder": "Mustermann",
         "confirm": "Trainer Einladen"
       },
-      "actions":{
-          "delete":"Löschen"
-        }
+      "actions": {
+        "delete": "Löschen"
+      }
     },
     "buttons": {
       "next": "Nächstes",
@@ -451,7 +454,7 @@
       "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
       "profileButton": "Account Einstellungen",
       "switchUserButton": "Benutzer wechseln",
-      "logoutButton":"Abmelden",
+      "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern"
     }
   }

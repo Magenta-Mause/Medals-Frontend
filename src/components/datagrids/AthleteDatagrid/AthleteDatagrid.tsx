@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
+  ToolbarAction,
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
@@ -18,6 +19,10 @@ import {
   convertMedalToNumber,
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
+import { useState } from "react";
+import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
+import { PersonSearch, PersonAdd } from "@mui/icons-material";
+import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -32,6 +37,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
+    useState(false);
+  const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
 
   const columns: Column<Athlete>[] = [
     {
@@ -176,6 +184,35 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
   ];
 
+  const toolbarActions: ToolbarAction[] = [
+    {
+      label: t("components.athleteDatagrid.table.toolbar.createAthlete.label"),
+      content: t(
+        "components.athleteDatagrid.table.toolbar.createAthlete.content",
+      ),
+      icon: <PersonAdd />,
+      collapseToText: true,
+      color: "primary",
+      key: "invite-trainer",
+      variant: "solid",
+      operation: function (): void {
+        setCreateAthleteModalOpen(true);
+      },
+    },
+    {
+      label: t("components.athleteDatagrid.table.toolbar.addAthlete.label"),
+      content: t("components.athleteDatagrid.table.toolbar.addAthlete.content"),
+      icon: <PersonSearch />,
+      collapseToText: true,
+      color: "primary",
+      key: "invite-trainer",
+      variant: "solid",
+      operation: function (): void {
+        setAddAthleteRequestModalOpen(true);
+      },
+    },
+  ];
+
   const actions: Action<Athlete>[] = [
     {
       label: <>{t("components.athleteDatagrid.actions.edit")}</>,
@@ -270,12 +307,21 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         data={props.athletes}
         columns={columns}
         filters={filters}
+        toolbarActions={toolbarActions}
         actionMenu={actions}
         itemSelectionActions={actions}
         keyOf={(item) => item.id!}
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
         disablePaging={false}
+      />
+      <AthleteRequestButton
+        isOpen={addAthleteRequestModalOpen}
+        setOpen={setAddAthleteRequestModalOpen}
+      />
+      <AthleteCreationForm
+        isOpen={createAthletModalOpen}
+        setOpen={setCreateAthleteModalOpen}
       />
     </>
   );

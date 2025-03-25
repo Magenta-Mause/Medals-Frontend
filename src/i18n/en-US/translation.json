@@ -92,9 +92,7 @@
       "createPerformanceRecordingButton": "Record performance"
     },
     "athleteOverviewPage": {
-      "header": "Athletes",
-      "createButton": "Create athlete",
-      "requestAccessButton": "Request athlete"
+      "header": "Athletes"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -257,8 +255,7 @@
     "requestAthleteModal": {
       "header": "Request access to Athlete",
       "searchAthlete": "Name",
-      "notFound": "No athletes found",
-      "requestAthleteButton": "Request Access"
+      "notFound": "No athletes found"
     },
     "athleteDetailHeader": {
       "columns": {
@@ -351,15 +348,20 @@
           "search": "Search",
           "birthYear": "Birth year",
           "gender": "Gender"
+        },
+        "toolbar": {
+          "addAthlete": {
+            "label": "Request",
+            "content": "Request athletes"
+          },
+          "createAthlete": {
+            "label": "Create",
+            "content": "Create athlete"
+          }
         }
       },
-      "inviteModal": {
-        "searchAthlete": "Name or Email",
-        "notFound": "No athletes found",
-        "inviteAthleteButton": "Invite"
-      },
       "actions": {
-        "delete":"Delete",
+        "delete": "Delete",
         "edit": "Edit",
         "openDetails": "Details"
       }
@@ -390,9 +392,9 @@
         "lastNamePlaceholder": "Doe",
         "confirm": "Invite Trainer"
       },
-      "actions":{
-          "delete":"Delete"
-        }
+      "actions": {
+        "delete": "Delete"
+      }
     },
     "buttons": {
       "next": "Next",
@@ -448,7 +450,7 @@
       "colorSchemeToggle": "Switch light-/darkmode",
       "profileButton": "Account Settings",
       "switchUserButton": "Switch User",
-      "logoutButton":"Logout",
+      "logoutButton": "Logout",
       "languageSelectionButton": "Change language"
     }
   }

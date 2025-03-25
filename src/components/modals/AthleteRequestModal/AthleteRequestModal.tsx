@@ -10,7 +10,12 @@ import GenericModal from "@components/modals/GenericModal";
 import { enqueueSnackbar } from "notistack";
 import React from "react";
 
-const AthleteRequestButton = () => {
+interface AthleteRequestModalProps {
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AthleteRequestButton = (props: AthleteRequestModalProps) => {
   const { t } = useTranslation();
   const { searchAthletes, requestAthlete } = useApi();
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -84,14 +89,10 @@ const AthleteRequestButton = () => {
 
   return (
     <>
-      <Button color="primary" onClick={() => setPopupOpen(true)}>
-        {t("pages.athleteOverviewPage.requestAccessButton")}
-      </Button>
-
       <GenericModal
         header={t("components.requestAthleteModal.header")}
-        open={isPopupOpen}
-        setOpen={setPopupOpen}
+        open={props.isOpen}
+        setOpen={props.setOpen}
         modalSX={{
           display: "flex",
           justifyContent: "center",

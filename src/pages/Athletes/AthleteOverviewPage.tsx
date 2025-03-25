@@ -2,8 +2,6 @@ import AthleteDatagrid from "@components/datagrids/AthleteDatagrid/AthleteDatagr
 import { Box, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
-import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
-import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
 
 const AthleteOverviewPage = () => {
   const athletes = useTypedSelector((state) => state.athletes.data);
@@ -26,17 +24,6 @@ const AthleteOverviewPage = () => {
         <Typography level="h2" component="h1">
           {t("pages.athleteOverviewPage.header")}
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            height: 100,
-            flexDirection: "column",
-            justifyContent: "space-around",
-          }}
-        >
-          <AthleteCreationForm />
-          <AthleteRequestButton />
-        </Box>
       </Box>
       <AthleteDatagrid
         athletes={athletes}
