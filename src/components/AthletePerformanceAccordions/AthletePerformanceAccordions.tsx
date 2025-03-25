@@ -59,7 +59,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
         .filter((p) => p.athlete_id == props.athlete.id)
         .filter((p) => p.discipline_rating_metric.discipline.id == d.id)
         .sort(
-          d.more_better
+          d.is_more_better
             ? (a, b) => b.rating_value - a.rating_value
             : (a, b) => a.rating_value - b.rating_value,
         )[0];
