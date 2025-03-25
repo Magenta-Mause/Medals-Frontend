@@ -42,7 +42,10 @@ const App = () => {
     if (["en", "de", "es"].includes(language) && i18n.language !== language) {
       window.localStorage.setItem("language", language);
       i18n.changeLanguage(language);
-    } else if (i18n.language != "de") {
+    } else if (
+      i18n.language != "de" &&
+      !["en", "de", "es"].includes(i18n.language)
+    ) {
       window.localStorage.setItem("language", "de");
       i18n.changeLanguage("de");
     }
