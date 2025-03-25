@@ -42,10 +42,8 @@ const App = () => {
     if (!["en", "de", "es"].includes(language ?? "")) {
       window.localStorage.setItem("language", "de");
       i18n.changeLanguage("de");
-    } else {
-      if (language && i18n.language != language) {
-        i18n.changeLanguage(language);
-      }
+    } else if (language != i18n.language) {
+      i18n.changeLanguage(language);
     }
   }, [i18n]);
 
