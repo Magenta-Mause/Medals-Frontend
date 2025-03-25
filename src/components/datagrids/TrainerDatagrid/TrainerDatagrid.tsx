@@ -94,7 +94,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
 
   const actions: Action<Trainer>[] = [
     {
-      label: <>Delete</>,
+      label: <>{t("components.trainerDatagrid.actions.delete")}</>,
       color: "danger",
       key: "delete",
       variant: "solid",

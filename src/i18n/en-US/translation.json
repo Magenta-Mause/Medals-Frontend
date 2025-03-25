@@ -39,6 +39,12 @@
       }
     }
   },
+  "medals": {
+    "GOLD": "Gold",
+    "SILVER": "Silver",
+    "BRONZE": "Bronze",
+    "NONE": "No medal achieved"
+  },
   "generic": {
     "all": "All",
     "discipline": "Discipline",
@@ -321,7 +327,8 @@
           "lastName": "Last Name",
           "birthdate": "Birthdate",
           "email": "Email",
-          "gender": "Gender"
+          "gender": "Gender",
+          "medals": "Medals"
         },
         "filters": {
           "search": "Search",
@@ -330,6 +337,8 @@
         }
       },
       "actions": {
+        "delete":"Delete",
+        "edit": "Edit",
         "openDetails": "Details"
       }
     },
@@ -358,7 +367,10 @@
         "lastName": "Lastname",
         "lastNamePlaceholder": "Doe",
         "confirm": "Invite Trainer"
-      }
+      },
+      "actions":{
+          "delete":"Delete"
+        }
     },
     "buttons": {
       "next": "Next",
@@ -409,6 +421,13 @@
       "header": "Are You Sure?",
       "cancelButton": "Cancel",
       "deleteButton": "Delete"
+    },
+    "tooltip": {
+      "colorSchemeToggle": "Switch light-/darkmode",
+      "profileButton": "Account Settings",
+      "switchUserButton": "Switch User",
+      "logoutButton":"Logout",
+      "languageSelectionButton": "Change language"
     }
   }
 }

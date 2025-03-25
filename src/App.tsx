@@ -4,15 +4,14 @@ import { Close } from "@mui/icons-material";
 import { CssVarsProvider, IconButton } from "@mui/joy";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
+  extendTheme as materialExtendTheme,
   THEME_ID as MATERIAL_THEME_ID,
   ThemeProvider as MaterialCssVarsProvider,
-  extendTheme as materialExtendTheme,
   ThemeProvider,
 } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useLocalStorage } from "@uidotdev/usehooks";
 import "dayjs/locale/de";
 import "dayjs/locale/en";
 import "dayjs/locale/es";
@@ -35,20 +34,27 @@ const materialTheme = materialExtendTheme();
 
 const App = () => {
   const queryClient = new QueryClient();
-  const [, setLanguage] = useLocalStorage<string>("language");
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    const language = window.localStorage.getItem("language");
-    if (language && i18n.language != language) {
-      i18n.changeLanguage(JSON.parse(language));
+    const language = window.localStorage.getItem("language") ?? "de";
+    const acceptedLanguages = ["en", "de", "es"];
+    if (acceptedLanguages.includes(language) && i18n.language !== language) {
+      window.localStorage.setItem("language", language);
+      i18n.changeLanguage(language);
+    } else if (
+      i18n.language != "de" &&
+      !acceptedLanguages.includes(i18n.language)
+    ) {
+      window.localStorage.setItem("language", "de");
+      i18n.changeLanguage("de");
     }
   }, [i18n]);
 
   useEffect(() => {
-    setLanguage(i18n.language);
-  }, [i18n.language, setLanguage]);
+    window.localStorage.setItem("language", i18n.language);
+  }, [i18n.language]);
 
   const snackBarActions = (snackbarId: SnackbarKey) => (
     <>
