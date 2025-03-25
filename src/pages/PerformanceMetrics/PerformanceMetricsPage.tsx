@@ -36,7 +36,7 @@ const PerformanceMetricsPage = () => {
 
   // Local state for selected year, gender, metrics and age range.
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
-  const [selectedGender, setSelectedGender] = useState<Genders>(Genders.MALE);
+  const [selectedGender, setSelectedGender] = useState<Genders>(Genders.FEMALE);
   const [disciplineRatingMetrics, setDisciplineRatingMetrics] = useState<DisciplineRatingMetric[]>([]);
   const [selectedAgeRange, setSelectedAgeRange] = useState<AgeRange>(ageRangeOptions[0]);
 
