@@ -40,8 +40,11 @@ const App = () => {
   useEffect(() => {
     const language = window.localStorage.getItem("language") ?? "de";
     if (language !== language && ["en", "de", "es"].includes(language)) {
-      window.localStorage.setItem("language", i18n.language);
+      window.localStorage.setItem("language", language);
       i18n.changeLanguage(language);
+    } else {
+      window.localStorage.setItem("language", "de");
+      i18n.changeLanguage("de");
     }
   }, [i18n]);
 
