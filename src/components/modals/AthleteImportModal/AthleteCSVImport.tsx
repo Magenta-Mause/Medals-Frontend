@@ -83,6 +83,15 @@ const AthleteCSVImport = (props: ModalProps) => {
     return athleteWithoutValid;
   };
 
+  const checkEmptyImport = (athletes: AthleteWithValidityToAthlete[]) => {
+    for (const athlete of athletes) {
+      if (athlete.valid === true) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   const createAthletes = async (athletes: AthleteWithValidityToAthlete[]) => {
     setIsUploading(true);
     for (const athlete of athletes) {
@@ -311,7 +320,7 @@ const AthleteCSVImport = (props: ModalProps) => {
               </Button>
               <Button
                 sx={{ marginTop: "1vh" }}
-                disabled={isUploading}
+                disabled={checkEmptyImport(csvData) || isUploading}
                 onClick={() => {
                   createAthletes(csvData);
                 }}
