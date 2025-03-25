@@ -73,3 +73,9 @@ export interface PerformanceRecordingCreationDto {
   discipline_id: number;
   date_of_performance: number;
 }
+
+export interface AgeRange {
+  label: string;
+  min: number;
+  max: number;
+}

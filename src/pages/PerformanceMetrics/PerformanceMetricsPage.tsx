@@ -1,5 +1,6 @@
-import { DisciplineRatingMetric } from "@customTypes/backendTypes";
-import { DisciplineCategories } from "@customTypes/enums";
+import { AgeRange, DisciplineRatingMetric } from "@customTypes/backendTypes";
+import { DisciplineCategories, Genders } from "@customTypes/enums";
+import { DisciplineIcons } from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
 import {
   Box,
   Typography,
@@ -13,27 +14,10 @@ import {
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, useMemo, ReactNode } from "react";
+import { useState, useEffect, useMemo} from "react";
 import useApi from "@hooks/useApi";
-import FullScreenTable, { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
-import { Key } from "react";
-import { GiJumpingRope } from "react-icons/gi";
-import { FaRunning, FaStopwatch } from "react-icons/fa";
-import { BiDumbbell } from "react-icons/bi";
-
-// Map discipline categories to icons.
-const DisciplineIcons: Record<DisciplineCategories, ReactNode> = {
-  COORDINATION: <GiJumpingRope />,
-  ENDURANCE: <FaRunning />,
-  SPEED: <FaStopwatch />,
-  STRENGTH: <BiDumbbell />,
-};
-
-interface AgeRange {
-  label: string;
-  min: number;
-  max: number;
-}
+import GenericResponsiveDatagrid from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
+import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 
 const ageRangeOptions: AgeRange[] = [
   { label: "6-7", min: 6, max: 7 },
@@ -48,19 +32,16 @@ const PerformanceMetricsPage = () => {
   // Optionally available from Redux.
   const disciplines = useTypedSelector((state) => state.disciplines.data) as any[];
 
-  // Local state for selected year, gender, discipline metrics, and selection.
+  // Local state for selected year, gender, metrics and age range.
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
-  const [selectedGender, setSelectedGender] = useState<"male" | "female">("male");
+  const [selectedGender, setSelectedGender] = useState<Genders>(Genders.MALE);
   const [disciplineRatingMetrics, setDisciplineRatingMetrics] = useState<DisciplineRatingMetric[]>([]);
-  const [selected, setSelected] = useState<Key[]>([]);
-
-  // Age range filter: using a dropdown with predefined age ranges.
   const [selectedAgeRange, setSelectedAgeRange] = useState<AgeRange>(ageRangeOptions[0]);
 
   const { t } = useTranslation();
   const { getDisciplineMetrics } = useApi();
 
-  // Fetch all discipline metrics on mount (no need to refetch on year change).
+  // Fetch all discipline metrics on mount.
   useEffect(() => {
     const fetchMetrics = async () => {
       const metrics = await getDisciplineMetrics();
@@ -71,8 +52,6 @@ const PerformanceMetricsPage = () => {
     fetchMetrics();
   }, [getDisciplineMetrics]);
 
-  // Create an array of recent years (e.g., last 10 years).
-  const currentYear = new Date().getFullYear();
   // Calculate available years from the data using the 'valid_in' field.
   const availableYears = useMemo(() => {
     const yearsSet = new Set<number>();
@@ -83,30 +62,37 @@ const PerformanceMetricsPage = () => {
     });
     return Array.from(yearsSet).sort((a, b) => b - a);
   }, [disciplineRatingMetrics]);
-  
 
-  // Filter metrics by the selected year and age range.
+  // Update selectedYear if it's not among available years.
+  useEffect(() => {
+    if (availableYears.length > 0 && !availableYears.includes(selectedYear)) {
+      setSelectedYear(availableYears[0]);
+    }
+  }, [availableYears, selectedYear]);
+
+  // Filter metrics by the selected valid_in year and age range.
   const filteredMetrics = useMemo(() => {
     return disciplineRatingMetrics.filter((metric) => {
-      // Ensure metric is for the selected year (assumes metric.year exists).
       const isYearMatch = metric.valid_in === selectedYear;
-      // Check if the metric's valid age range fully covers the selected age range.
-      const isAgeMatch = metric.start_age <= selectedAgeRange.min && metric.end_age >= selectedAgeRange.max;
+      const isAgeMatch =
+        metric.start_age <= selectedAgeRange.min && metric.end_age >= selectedAgeRange.max;
       return isYearMatch && isAgeMatch;
     });
   }, [disciplineRatingMetrics, selectedYear, selectedAgeRange]);
 
   // Group the filtered metrics by discipline category.
-  const groupedMetrics = filteredMetrics.reduce((acc, metric) => {
-    const category = metric.discipline.category;
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(metric);
-    return acc;
-  }, {} as Record<string, DisciplineRatingMetric[]>);
+  const groupedMetrics = useMemo(() => {
+    return filteredMetrics.reduce((acc, metric) => {
+      const category = metric.discipline.category;
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(metric);
+      return acc;
+    }, {} as Record<string, DisciplineRatingMetric[]>);
+  }, [filteredMetrics]);
 
-  // Define table columns using your FullScreenTable Column interface.
+  // Define the columns for the datagrid.
   const columns: Column<DisciplineRatingMetric>[] = [
     {
       columnName: "Discipline",
@@ -116,7 +102,7 @@ const PerformanceMetricsPage = () => {
     {
       columnName: "Gold",
       columnMapping: (metric: DisciplineRatingMetric) =>
-        selectedGender === "male"
+        (selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
           ? metric.rating_male?.gold_rating ?? "–"
           : metric.rating_female?.gold_rating ?? "–",
       size: "s",
@@ -124,7 +110,7 @@ const PerformanceMetricsPage = () => {
     {
       columnName: "Silver",
       columnMapping: (metric: DisciplineRatingMetric) =>
-        selectedGender === "male"
+        (selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
           ? metric.rating_male?.silver_rating ?? "–"
           : metric.rating_female?.silver_rating ?? "–",
       size: "s",
@@ -132,12 +118,51 @@ const PerformanceMetricsPage = () => {
     {
       columnName: "Bronze",
       columnMapping: (metric: DisciplineRatingMetric) =>
-        selectedGender === "male"
+        (selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
           ? metric.rating_male?.bronze_rating ?? "–"
           : metric.rating_female?.bronze_rating ?? "–",
       size: "s",
     },
   ];
+
+// Mobile rendering configuration with explicit type casting on searchFilter.type.
+const mobileRendering = {
+  h1: (metric: DisciplineRatingMetric) => <Typography>{metric.discipline.name}</Typography>,
+  h2: (metric: DisciplineRatingMetric) => (
+    <Typography>
+      Gold:{" "}
+      {(selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
+        ? metric.rating_male?.gold_rating ?? "–"
+        : metric.rating_female?.gold_rating ?? "–"}
+    </Typography>
+  ),
+  h3: (metric: DisciplineRatingMetric) => (
+    <Typography>
+      Silver:{" "}
+      {(selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
+        ? metric.rating_male?.silver_rating ?? "–"
+        : metric.rating_female?.silver_rating ?? "–"}{" "}
+      / Bronze:{" "}
+      {(selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
+        ? metric.rating_male?.bronze_rating ?? "–"
+        : metric.rating_female?.bronze_rating ?? "–"}
+    </Typography>
+  ),
+  searchFilter: {
+    name: "search",
+    label: t("components.performanceMetricsPage.search"),
+    apply: (filterParameter: string | undefined) => {
+      if (!filterParameter) return () => true;
+      const lower = filterParameter.toLowerCase();
+      return (metric: DisciplineRatingMetric) =>
+        metric.discipline.name.toLowerCase().includes(lower);
+    },
+    type: "TEXT" as const,
+  },
+  onElementClick: (metric: DisciplineRatingMetric) => {
+    // Optionally handle mobile row clicks.
+  },
+};
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
@@ -162,18 +187,30 @@ const PerformanceMetricsPage = () => {
         value={selectedGender}
         onChange={(_e, newGender) => {
           if (newGender !== null) {
-            setSelectedGender(newGender);
+            setSelectedGender(newGender as Genders);
           }
         }}
       >
-        <Button value="male" variant={selectedGender === "male" ? "solid" : "outlined"}>
-          Male
+        <Button
+          value={Genders.MALE}
+          variant={selectedGender === Genders.MALE ? "solid" : "outlined"}
+        >
+          {t("genders." + Genders.MALE)}
         </Button>
-        <Button value="female" variant={selectedGender === "female" ? "solid" : "outlined"}>
-          Female
+        <Button
+          value={Genders.FEMALE}
+          variant={selectedGender === Genders.FEMALE ? "solid" : "outlined"}
+        >
+          {t("genders." + Genders.FEMALE)}
+        </Button>
+        <Button
+          value={Genders.DIVERSE}
+          variant={selectedGender === Genders.DIVERSE ? "solid" : "outlined"}
+        >
+          {t("genders." + Genders.DIVERSE)}
         </Button>
       </ToggleButtonGroup>
-      {/* Age range filter drop-down */}
+      {/* Age range filter */}
       <Select
         value={selectedAgeRange.label}
         onChange={(_e, newValue) => {
@@ -187,35 +224,26 @@ const PerformanceMetricsPage = () => {
           </Option>
         ))}
       </Select>
-      {/* Grouped metrics by discipline category */}
+      {/* Render an accordion per discipline category */}
       {Object.entries(groupedMetrics).map(([category, metrics]) => (
         <Accordion key={category} defaultExpanded>
-          <AccordionSummary
-            sx={{
-              padding: 1,
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-              }}
-            >
-              {DisciplineIcons[category as DisciplineCategories]}
+          <AccordionSummary sx={{ p: 1 }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              {DisciplineIcons[category]({})}
               <Typography level="h3">
                 {t("disciplines.categories." + category + ".label")}
               </Typography>
             </Box>
           </AccordionSummary>
           <AccordionDetails>
-            <FullScreenTable<DisciplineRatingMetric>
-              selected={selected}
-              setSelected={setSelected}
-              renderedPage={metrics}
-              allItems={metrics}
+            <GenericResponsiveDatagrid<DisciplineRatingMetric>
+              data={metrics}
               columns={columns}
-              keyOf={(metric: DisciplineRatingMetric) => metric.id}
+              keyOf={(metric) => metric.id}
+              isLoading={false}
+              mobileRendering={mobileRendering}
+              onItemClick={() => {}}
+              disablePaging={true}
             />
           </AccordionDetails>
         </Accordion>
