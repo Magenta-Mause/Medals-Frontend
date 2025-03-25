@@ -16,6 +16,7 @@ import SyncIcon from "@mui/icons-material/Sync";
 interface AthleteWithValidityToAthlete extends Athlete {
   valid: boolean | undefined;
   uploaded: boolean | undefined;
+  failed: boolean | undefined;
 }
 
 interface ModalProps {
@@ -110,13 +111,7 @@ const AthleteCSVImport = (props: ModalProps) => {
           );
         }
       } else {
-        enqueueSnackbar(
-          t("pages.athleteImportPage.failedFeedback") +
-            athlete.first_name +
-            " " +
-            athlete.last_name,
-          { variant: "error" },
-        );
+        athlete.failed = true;
       }
     }
   };
@@ -181,6 +176,7 @@ const AthleteCSVImport = (props: ModalProps) => {
                   ...row,
                   valid: undefined,
                   uploaded: undefined,
+                  failed: undefined,
                 };
               }),
             );
@@ -190,6 +186,7 @@ const AthleteCSVImport = (props: ModalProps) => {
                 ...athlete,
                 valid: await isValidImport(athlete),
                 uploaded: undefined,
+                failed: undefined,
               });
             }
             setCsvData(athletesWithValidity);
@@ -281,9 +278,26 @@ const AthleteCSVImport = (props: ModalProps) => {
               </thead>
               <tbody>
                 {csvData.map((athlete, index) => (
-                  <tr key={index}>
+                  <tr
+                    key={index}
+                    style={{
+                      border: "10px solid", // Solid border
+                      borderColor: athlete.uploaded
+                        ? "green" // Fully opaque green border
+                        : athlete.valid
+                          ? "orange" // Fully opaque orange border
+                          : "red", // Fully opaque red border
+                      backgroundColor: athlete.uploaded
+                        ? "rgba(0, 128, 0, 0.1)" // Green with 30% opacity
+                        : athlete.valid
+                          ? "rgba(255, 165, 0, 0.1)" // Orange (warning) with 30% opacity
+                          : "rgba(255, 0, 0, 0.1)", // Red with 30% opacity
+                    }}
+                  >
                     <td>
-                      {isUploading ? (
+                      {athlete.failed ? (
+                        <CloseIcon color="error" />
+                      ) : isUploading ? (
                         athlete.uploaded ? (
                           <UploadIcon color="success" />
                         ) : (
@@ -297,7 +311,7 @@ const AthleteCSVImport = (props: ModalProps) => {
                             }}
                           />
                         )
-                      ) : athlete.valid ? (
+                      ) : (athlete.valid ?? false) ? ( // Handle undefined `valid`
                         <CheckIcon color="success" />
                       ) : (
                         <CloseIcon color="error" />
