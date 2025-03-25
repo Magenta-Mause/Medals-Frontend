@@ -121,6 +121,11 @@ const AthleteCSVImport = (props: ModalProps) => {
     }
   };
 
+  const handleModalClose = () => {
+    setSelectedFile(null);
+    setIsUploading(false);
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -193,7 +198,12 @@ const AthleteCSVImport = (props: ModalProps) => {
       <GenericModal
         header={t("pages.athleteImportPage.importButton")}
         open={props.isOpen}
-        setOpen={props.setOpen}
+        setOpen={(isOpen) => {
+          if (!isOpen) {
+            handleModalClose();
+          }
+          props.setOpen(isOpen);
+        }}
         modalDialogSX={{
           minWidth: "30%",
           justifyContent: "center",
