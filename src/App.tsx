@@ -38,7 +38,7 @@ const App = () => {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    const language = window.localStorage.getItem("language");
+    const language = window.localStorage.getItem("language") ?? "de";
     if (!["en", "de", "es"].includes(language ?? "")) {
       window.localStorage.setItem("language", "de");
       i18n.changeLanguage("de");
