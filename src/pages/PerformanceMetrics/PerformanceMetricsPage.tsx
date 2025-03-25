@@ -102,7 +102,7 @@ const PerformanceMetricsPage = () => {
     {
       columnName: "Gold",
       columnMapping: (metric: DisciplineRatingMetric) =>
-        (selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
+        (selectedGender !== Genders.FEMALE)
           ? metric.rating_male?.gold_rating ?? "–"
           : metric.rating_female?.gold_rating ?? "–",
       size: "s",
@@ -110,7 +110,7 @@ const PerformanceMetricsPage = () => {
     {
       columnName: "Silver",
       columnMapping: (metric: DisciplineRatingMetric) =>
-        (selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
+        (selectedGender !== Genders.FEMALE)
           ? metric.rating_male?.silver_rating ?? "–"
           : metric.rating_female?.silver_rating ?? "–",
       size: "s",
@@ -118,7 +118,7 @@ const PerformanceMetricsPage = () => {
     {
       columnName: "Bronze",
       columnMapping: (metric: DisciplineRatingMetric) =>
-        (selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
+        (selectedGender !== Genders.FEMALE)
           ? metric.rating_male?.bronze_rating ?? "–"
           : metric.rating_female?.bronze_rating ?? "–",
       size: "s",
@@ -131,7 +131,7 @@ const mobileRendering = {
   h2: (metric: DisciplineRatingMetric) => (
     <Typography>
       Gold:{" "}
-      {(selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
+      {(selectedGender !== Genders.FEMALE)
         ? metric.rating_male?.gold_rating ?? "–"
         : metric.rating_female?.gold_rating ?? "–"}
     </Typography>
@@ -139,11 +139,11 @@ const mobileRendering = {
   h3: (metric: DisciplineRatingMetric) => (
     <Typography>
       Silver:{" "}
-      {(selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
+      {(selectedGender !== Genders.FEMALE)
         ? metric.rating_male?.silver_rating ?? "–"
         : metric.rating_female?.silver_rating ?? "–"}{" "}
       / Bronze:{" "}
-      {(selectedGender === Genders.MALE || selectedGender === Genders.DIVERSE)
+      {(selectedGender !== Genders.FEMALE)
         ? metric.rating_male?.bronze_rating ?? "–"
         : metric.rating_female?.bronze_rating ?? "–"}
     </Typography>
