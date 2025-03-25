@@ -73,7 +73,17 @@ const PerformanceMetricsPage = () => {
 
   // Create an array of recent years (e.g., last 10 years).
   const currentYear = new Date().getFullYear();
-  const yearOptions = Array.from({ length: 10 }, (_, i) => currentYear - i);
+  // Calculate available years from the data using the 'valid_in' field.
+  const availableYears = useMemo(() => {
+    const yearsSet = new Set<number>();
+    disciplineRatingMetrics.forEach((metric) => {
+      if (metric.valid_in) {
+        yearsSet.add(metric.valid_in);
+      }
+    });
+    return Array.from(yearsSet).sort((a, b) => b - a);
+  }, [disciplineRatingMetrics]);
+  
 
   // Filter metrics by the selected year and age range.
   const filteredMetrics = useMemo(() => {
@@ -139,7 +149,7 @@ const PerformanceMetricsPage = () => {
         value={selectedYear.toString()}
         onChange={(e, newValue) => setSelectedYear(Number(newValue))}
       >
-        {yearOptions.map((year) => (
+        {availableYears.map((year) => (
           <Option key={year} value={year.toString()}>
             {year}
           </Option>
