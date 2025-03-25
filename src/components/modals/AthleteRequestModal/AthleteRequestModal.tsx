@@ -18,7 +18,6 @@ interface AthleteRequestModalProps {
 const AthleteRequestButton = (props: AthleteRequestModalProps) => {
   const { t } = useTranslation();
   const { searchAthletes, requestAthlete } = useApi();
-  const [isPopupOpen, setPopupOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [icon, setShowScrollIcon] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
