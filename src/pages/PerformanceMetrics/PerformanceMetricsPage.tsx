@@ -19,6 +19,7 @@ import useApi from "@hooks/useApi";
 import GenericResponsiveDatagrid from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import MedalRatings, { CustomChip } from "@components/MedalRatings/MedalRatings";
+import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 
 const ageRangeOptions: AgeRange[] = [
   { label: "6-7", min: 6, max: 7 },
@@ -106,7 +107,6 @@ const PerformanceMetricsPage = () => {
           selectedGender !== Genders.FEMALE
             ? metric.rating_male?.gold_rating ?? "–"
             : metric.rating_female?.gold_rating ?? "–";
-        // Pass the full unit (e.g. "seconds", "meters", "points") to CustomChip.
         const unit = metric.discipline.unit;
         return <CustomChip value={goldRating} color="#FFD700" unit={unit} />;
       },
@@ -138,9 +138,10 @@ const PerformanceMetricsPage = () => {
     },
   ];
 
-  // Mobile rendering configuration.
-  const mobileRendering = {
-    h1: (metric: DisciplineRatingMetric) => <Typography>{metric.discipline.name}</Typography>,
+  const mobileRendering: MobileTableRendering<DisciplineRatingMetric> = {
+    h1: (metric: DisciplineRatingMetric) => (
+      <Typography>{metric.discipline.name}</Typography>
+    ),
     h2: (metric: DisciplineRatingMetric) => (
       <MedalRatings metric={metric} selectedGender={selectedGender} />
     ),
