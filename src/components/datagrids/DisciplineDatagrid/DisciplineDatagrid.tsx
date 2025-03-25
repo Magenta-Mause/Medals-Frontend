@@ -128,8 +128,6 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
               : t("messages.noEntriesFound")}
           </>
         );
-      
-        return <>{formatValue(bestItem.rating_value, discipline.unit)}</>;
       },
       bottomButtons: [
         {
