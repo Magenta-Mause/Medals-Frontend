@@ -38,12 +38,10 @@ const App = () => {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    const language = window.localStorage.getItem("language") ?? "";
-    if (language != i18n.language) {
+    const language = window.localStorage.getItem("language") ?? "de";
+    if (language !== language && ["en", "de", "es"].includes(language)) {
+      window.localStorage.setItem("language", i18n.language);
       i18n.changeLanguage(language);
-    } else if (!["en", "de", "es"].includes(language)) {
-      window.localStorage.setItem("language", "de");
-      i18n.changeLanguage("de");
     }
   }, [i18n]);
 
