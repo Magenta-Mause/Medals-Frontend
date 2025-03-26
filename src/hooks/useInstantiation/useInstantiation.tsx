@@ -132,11 +132,7 @@ const useInstantiation = () => {
     dispatch(
       setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
     );
-    dispatch(
-      setDisciplineMetrics(
-        (await getDisciplineMetrics()) ?? [],
-      ),
-    );
+    dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
 
     setTimeout(() => {
       uninitializeTrainerWebsocket();
