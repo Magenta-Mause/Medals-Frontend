@@ -33,17 +33,25 @@ const hexToRGBA = (hex: string, alpha: number) => {
 };
 
 export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
+  const { i18n } = useTranslation();
   let displayValue = value;
 
-  if (typeof value === "number" && unit) {
-    const abbrev = unitAbbreviation(unit);
-    if (abbrev === "s" && value >= 60) {
-      const minutes = Math.floor(value / 60);
-      const seconds = value % 60;
-      displayValue =
-        seconds !== 0 ? `${minutes} min ${seconds} s` : `${minutes} min`;
+  if (typeof value === "number") {
+    const locale = i18n.language;
+    if (unit) {
+      const abbrev = unitAbbreviation(unit);
+      if (abbrev === "s" && value >= 60) {
+        const minutes = Math.floor(value / 60);
+        const seconds = value % 60;
+        displayValue =
+          seconds !== 0
+            ? `${minutes} min ${seconds} s`
+            : `${minutes} min`;
+      } else {
+        displayValue = `${value.toLocaleString(locale)} ${abbrev}`;
+      }
     } else {
-      displayValue = `${value} ${abbrev}`;
+      displayValue = value.toLocaleString(locale);
     }
   }
 
