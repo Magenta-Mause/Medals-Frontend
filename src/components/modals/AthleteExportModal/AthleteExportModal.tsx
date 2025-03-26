@@ -1,7 +1,19 @@
 import { t } from "i18next";
 import GenericModal from "../GenericModal";
-import { Box, Button, Chip, Switch, Typography } from "@mui/joy";
-import { Athlete, Discipline, PerformanceRecording } from "@customTypes/backendTypes";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Chip,
+  Sheet,
+  Switch,
+  Typography,
+} from "@mui/joy";
+import {
+  Athlete,
+  Discipline,
+  PerformanceRecording,
+} from "@customTypes/backendTypes";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
@@ -21,8 +33,12 @@ const AthleteExportModal = (props: {
   const [csvPreview, setCsvPreview] = useState<string | null>(null);
   const [showPreviewDialog, setShowPreviewDialog] = useState(false);
   const [withPerformance, setWithPerformance] = useState(false);
-  const performances = useTypedSelector((state)=> state.performanceRecordings.data,) as PerformanceRecording[];
-  const disciplines = useTypedSelector((state)=> state.disciplines.data,) as Discipline[];
+  const performances = useTypedSelector(
+    (state) => state.performanceRecordings.data,
+  ) as PerformanceRecording[];
+  const disciplines = useTypedSelector(
+    (state) => state.disciplines.data,
+  ) as Discipline[];
 
   const columns: Column<Athlete>[] = [
     {
@@ -127,15 +143,17 @@ const AthleteExportModal = (props: {
 
     const rows = data
       .map((item) => {
-        if (!withPerformance){
+        if (!withPerformance) {
           return columns.map((col) => item[col] || "").join(";");
         }
 
         const athletePerformances = performances.filter(
-          (p) => p.athlete_id === item.id
+          (p) => p.athlete_id === item.id,
         );
-        const birthdate = item.birthdate ? new Date (item.birthdate) : null;
-        const birthyear = birthdate ? birthdate.getFullYear().toString() : "N/A";
+        const birthdate = item.birthdate ? new Date(item.birthdate) : null;
+        const birthyear = birthdate
+          ? birthdate.getFullYear().toString()
+          : "N/A";
         const birthday = birthdate ? birthdate.toString() : "N/A";
 
         if (athletePerformances.length === 0) {
@@ -143,37 +161,40 @@ const AthleteExportModal = (props: {
         }
 
         return athletePerformances
-        .map((perf) => {
-          const discipline = disciplines.find(
-            (d)=> d.id === perf.discipline_rating_metric.discipline.id
-          );
-          return columns
-          .map((col)=>{
-            switch (col) {
-              case "first_name":
-                return item.first_name ||"N/A";
-              case "last_name":
-                return item.last_name ||"N/A";
-              case "gender":
-                return item.gender ||"N/A";
-              case "birthyear":
-                return  birthyear ||"N/A"; 
-              case "birthday":
-                return item.birthdate ||"N/A";  
-              case "discipline":
-                return discipline?.name ||"N/A";
-              case "category":
-                return discipline?.category ||"N/A";
-              case "date":
-                return perf.date_of_performance ||"N/A";
-              case "result":
-                return perf.rating_value||"N/A";
-              case "points":
-                return "N/A";
-            }
-          }).join(";");
-        }).join("\n");
-      }).join("\n");
+          .map((perf) => {
+            const discipline = disciplines.find(
+              (d) => d.id === perf.discipline_rating_metric.discipline.id,
+            );
+            return columns
+              .map((col) => {
+                switch (col) {
+                  case "first_name":
+                    return item.first_name || "N/A";
+                  case "last_name":
+                    return item.last_name || "N/A";
+                  case "gender":
+                    return item.gender || "N/A";
+                  case "birthyear":
+                    return birthyear || "N/A";
+                  case "birthday":
+                    return item.birthdate || "N/A";
+                  case "discipline":
+                    return discipline?.name || "N/A";
+                  case "category":
+                    return discipline?.category || "N/A";
+                  case "date":
+                    return perf.date_of_performance || "N/A";
+                  case "result":
+                    return perf.rating_value || "N/A";
+                  case "points":
+                    return "N/A";
+                }
+              })
+              .join(";");
+          })
+          .join("\n");
+      })
+      .join("\n");
 
     const csvContent = header + rows;
     return csvContent;
@@ -185,9 +206,17 @@ const AthleteExportModal = (props: {
     setShowPreviewDialog(true);
   };
 
-  const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setWithPerformance(event.target.checked);
-  };
+  const handleExport = () => {
+    const csvContent = generateCSV(athletes, withPerformance);
+    const blob = new Blob([csvContent], {type: "text/csv;charset=utf-8;"});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href =url;
+    link.setAttribute("download", withPerformance? "athletePerformance_export.csv" :"athlete_export.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 
   return (
     <GenericModal
@@ -201,19 +230,23 @@ const AthleteExportModal = (props: {
       <Box
         sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
       >
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography
-            component="label"
-            endDecorator={
-              <Switch
-                sx={{ ml: 1 }}
-                checked={withPerformance}
-                onChange={handleSwitchChange}
-              />
-            }
-          >
-            include Athlete Performance
-          </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            "& > div": { p: 1, borderRadius: "md", display: "flex" },
+          }}
+        >
+          <Sheet variant="plain">
+            <Checkbox
+              variant="outlined"
+              color="primary"
+              overlay
+              label={t("components.athleteExportModal.performanceCheckbox")}
+              checked={withPerformance}
+              onChange={(event) => setWithPerformance(event.target.checked)}
+                />
+          </Sheet>
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -223,7 +256,7 @@ const AthleteExportModal = (props: {
           </Button>
         </Box>
       </Box>
-      <Box>
+      <Box sx={{overflow: "auto", maxHeight: "450px"}}>
         <GenericResponsiveDatagrid
           isLoading={loading}
           data={athletes}
@@ -231,15 +264,15 @@ const AthleteExportModal = (props: {
           keyOf={(athlete) => athlete.id!}
           mobileRendering={mobileRendering}
           actionMenu={actions}
-          disablePaging
+          disablePaging={true}
         />
       </Box>
-      <Button fullWidth color="primary" onClick={() => {}}>
+      <Button fullWidth color="primary" onClick={handleExport}>
         {t("components.athleteExportModal.exportButton")}
       </Button>
 
       <GenericModal
-        header={t("components.athleteExport.previewHeader")}
+        header={t("components.athleteExportModal.previewHeader")}
         open={showPreviewDialog}
         setOpen={setShowPreviewDialog}
       >
@@ -256,12 +289,14 @@ const AthleteExportModal = (props: {
           >
             {csvPreview}
           </Box>
+          <Box sx={{display: "flex", justifyContent: "flex-end"}}>
           <Button
             onClick={() => setShowPreviewDialog(false)}
             sx={{ marginTop: 2 }}
           >
-            Schließen
+            {t("components.athleteExportModal.closePreviewButton")}
           </Button>
+          </Box>
         </Box>
       </GenericModal>
     </GenericModal>

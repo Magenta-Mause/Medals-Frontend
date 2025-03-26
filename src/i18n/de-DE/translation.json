@@ -415,7 +415,10 @@
       "header": "Athlet*innen Export",
       "previewButton": "Datei Vorschau",
       "previewHeader": "Vorschau",
-      "exportButton": "Export"
+      "closePreviewButton": "Schließen",
+      "exportButton": "Export",
+      "performanceCheckbox": "Leistungswerte einschließen"
+
     }
   }
 }

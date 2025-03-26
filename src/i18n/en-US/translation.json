@@ -413,7 +413,9 @@
       "header": "Athlete Export",
       "previewButton": "File Preview",
       "previewHeader": "Preview",
-      "exportButton": "Export"
+      "closePreviewButton": "Close",
+      "exportButton": "Export",
+      "performanceCheckbox": "include Performance Metrics"
     }
   }
 }
