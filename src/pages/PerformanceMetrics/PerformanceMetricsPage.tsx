@@ -99,14 +99,15 @@ const PerformanceMetricsPage = () => {
       name: "gender",
       label: t("pages.performanceMetricsPage.filters.gender"),
       type: "SELECTION",
-      selection: [t("genders.FEMALE"), t("genders.MALE"), t("genders.DIVERSE")],
+      selection: [
+        { value: Genders.FEMALE, displayValue: t("genders.FEMALE") },
+        { value: Genders.MALE, displayValue: t("genders.MALE") },
+        { value: Genders.DIVERSE, displayValue: t("genders.DIVERSE") },
+      ],
       apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
         if (filterParam === Genders.FEMALE) {
           return item.rating_female !== null;
-        } else if (
-          filterParam === Genders.MALE ||
-          filterParam === Genders.DIVERSE
-        ) {
+        } else if (filterParam === Genders.MALE || filterParam === Genders.DIVERSE) {
           return item.rating_male !== null;
         }
         return true;
