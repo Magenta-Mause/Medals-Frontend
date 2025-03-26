@@ -223,7 +223,12 @@
       "photoBy": "Foto von"
     },
     "performanceMetricsPage": {
-      "title": "Leistungswerte"
+      "title": "Leistungswerte",
+      "filters": {
+        "year": "Jahr", 
+        "ageGroup": "Altersgruppe",
+        "gender": "Geschlecht"
+      }
     }
   },
   "components": {

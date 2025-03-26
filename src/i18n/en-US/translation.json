@@ -220,7 +220,12 @@
       "photoBy": "Photo by"
     },
     "performanceMetricsPage": {
-      "title": "Performance Metrics"
+      "title": "Performance Metrics",
+      "filters": {
+        "year": "Year", 
+        "ageGroup": "Age Group",
+        "gender": "Gender"
+      }
     }
   },
   "components": {

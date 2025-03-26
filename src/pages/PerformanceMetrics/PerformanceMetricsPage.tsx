@@ -70,7 +70,7 @@ const PerformanceMetricsPage = () => {
   const filters: Filter<DisciplineRatingMetric>[] = [
     {
       name: "year",
-      label: t("filters.year"),
+      label: t("pages.performanceMetricsPage.filters.year"),
       type: "SELECTION",
       selection: availableYears.map((year) => year.toString()),
       apply: (filterParam: string) => (item: DisciplineRatingMetric) =>
@@ -78,7 +78,7 @@ const PerformanceMetricsPage = () => {
     },
     {
       name: "age",
-      label: t("filters.age_group"),
+      label: t("pages.performanceMetricsPage.filters.ageGroup"),
       type: "SELECTION",
       selection: ageRangeOptions.map((opt) => opt.label),
       apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
@@ -89,18 +89,14 @@ const PerformanceMetricsPage = () => {
     },
     {
       name: "gender",
-      label: t("filters.gender"),
+      label: t("pages.performanceMetricsPage.filters.gender"),
       type: "SELECTION",
-      selection: [Genders.MALE, Genders.FEMALE, Genders.DIVERSE],
+      selection: [t("genders.FEMALE"), t("genders.MALE"), t("genders.DIVERSE")],
       apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
-        // For gender filtering, we include items that have a valid rating for the selected gender.
-        if (filterParam === Genders.MALE) {
-          return item.rating_male && item.rating_male !== "–";
-        } else if (filterParam === Genders.FEMALE) {
-          return item.rating_female && item.rating_female !== "–";
-        } else if (filterParam === Genders.DIVERSE) {
-          // If diverse filtering isn't explicitly defined, show all items.
-          return true;
+        if (filterParam === Genders.FEMALE) {
+          return item.rating_female !== null;
+        } else if (filterParam === Genders.MALE || filterParam === Genders.DIVERSE) {
+          return item.rating_male !== null;
         }
         return true;
       },
