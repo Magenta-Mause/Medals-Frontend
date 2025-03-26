@@ -53,7 +53,7 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
       variant="soft"
       size="sm"
       sx={{
-        backgroundColor: hexToRGBA(color, 0.5),
+        backgroundColor: hexToRGBA(color, 0.6),
         color: "#000",
         fontWeight: "bold",
         minWidth: "80px",
