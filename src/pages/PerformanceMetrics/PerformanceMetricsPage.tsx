@@ -35,7 +35,7 @@ const ageRangeOptions: AgeRange[] = [
 
 const PerformanceMetricsPage = () => {
   const disciplineRatingMetrics = useTypedSelector(
-    (state) => state.disciplineMetrics.data
+    (state) => state.disciplineMetrics.data,
   ) as DisciplineRatingMetric[];
 
   const [filterValues, setFilterValues] = useState<Record<string, string>>({
@@ -87,9 +87,9 @@ const PerformanceMetricsPage = () => {
         label: t("pages.performanceMetricsPage.filters.gender"),
         type: "SELECTION",
         selection: [
-          t("genders.FEMALE"),
-          t("genders.MALE"),
-          t("genders.DIVERSE"),
+          { value: Genders.FEMALE, displayValue: t("genders.FEMALE") },
+          { value: Genders.MALE, displayValue: t("genders.MALE") },
+          { value: Genders.DIVERSE, displayValue: t("genders.DIVERSE") },
         ],
         apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
           if (filterParam === Genders.FEMALE) {
