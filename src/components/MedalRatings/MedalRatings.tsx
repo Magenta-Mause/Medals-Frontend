@@ -2,6 +2,7 @@ import { Box, Chip, Typography } from "@mui/joy";
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { Genders, MetricUnits } from "@customTypes/enums";
 import { useTranslation } from "react-i18next";
+import HoverTooltip from "@components/Tooltip/HoverTooltip";
 
 interface MedalRatingsProps {
   metric: DisciplineRatingMetric;
@@ -23,7 +24,7 @@ const UNIT_MAP: Record<string, string> = {
 const unitAbbreviation = (unit: string): string => UNIT_MAP[unit] || unit;
 
 // Helper function to convert hex color to rgba with given opacity
-const hexToRGBA = (hex: string, alpha: number = 0.7) => {
+const hexToRGBA = (hex: string, alpha: number) => {
   if (hex.startsWith("#") && hex.length === 7) {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
@@ -38,22 +39,28 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
 
   if (typeof value === "number" && unit) {
     const abbrev = unitAbbreviation(unit);
-    displayValue =
-      abbrev === "s" && value >= 60
-        ? `${Math.floor(value / 60)} m ${value % 60} s`
-        : `${value} ${abbrev}`;
+    if (abbrev === "s" && value >= 60) {
+      const minutes = Math.floor(value / 60);
+      const seconds = value % 60;
+      displayValue = seconds !== 0 
+        ? `${minutes} min ${seconds} s`
+        : `${minutes} min`;
+    } else {
+      displayValue = `${value} ${abbrev}`;
+    }
   }
+  
 
   return (
     <Chip
       variant="soft"
       size="sm"
       sx={{
-        backgroundColor: hexToRGBA(color, 0.7),
+        backgroundColor: hexToRGBA(color, 0.5),
         color: "#000",
         fontWeight: "bold",
-        minWidth: "80px", // fixed minimum width for uniformity
-        textAlign: "center", // center the text
+        minWidth: "80px",
+        textAlign: "center",
       }}
     >
       {displayValue}
@@ -101,12 +108,12 @@ const MedalRatings = ({ metric, selectedGender }: MedalRatingsProps) => {
             alignItems: "center",
           }}
         >
-          <Typography level="body-sm">{medalRating.label}</Typography>
           <CustomChip
             value={medalRating.value}
             color={medalRating.color}
             unit={unit}
           />
+          <Typography level="body-sm">{medalRating.label}</Typography>
         </Box>
       ))}
     </Box>
