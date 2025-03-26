@@ -17,7 +17,7 @@ interface CustomChipProps {
 const UNIT_MAP: Record<string, string> = {
   [MetricUnits.SECONDS]: "s",
   [MetricUnits.METERS]: "m",
-  [MetricUnits.POINTS]: "p",
+  [MetricUnits.POINTS]: "p.",
 };
 
 const unitAbbreviation = (unit: string): string => UNIT_MAP[unit] || unit;
@@ -29,8 +29,8 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
     const abbrev = unitAbbreviation(unit);
     displayValue =
       abbrev === "s" && value >= 60
-        ? `${Math.floor(value / 60)}m ${value % 60}s`
-        : `${value}${abbrev}`;
+        ? `${Math.floor(value / 60)} m ${value % 60} s`
+        : `${value} ${abbrev}`;
   }
 
   return (
