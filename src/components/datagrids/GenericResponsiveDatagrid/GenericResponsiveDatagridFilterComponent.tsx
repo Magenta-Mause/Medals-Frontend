@@ -8,7 +8,7 @@ import {
   Select,
   ToggleButtonGroup,
 } from "@mui/joy";
-import React from "react";
+import React, { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 export interface Filter<T> {
@@ -16,7 +16,7 @@ export interface Filter<T> {
   apply: (filterParameter: string) => (item: T) => boolean;
   type: "TEXT" | "SELECTION" | "TOGGLE";
   selection?: (string | FilterValue)[];
-  label?: string;
+  label?: string | ReactNode;
   option?: string;
 }
 
@@ -86,7 +86,7 @@ const FilterComponent = <T,>(props: {
             <FormControl sx={{ flex: 1 }} size="sm">
               <Input
                 size="sm"
-                placeholder={filter.label ?? filter.name}
+                placeholder={String(filter.label ?? filter.name)}
                 startDecorator={<Search />}
                 sx={{ minHeight: "35px", p: "2px" }}
                 value={props.filterValues[filter.name]}

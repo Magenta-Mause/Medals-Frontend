@@ -8,6 +8,7 @@ import FilterComponent, {
 } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { useTypedSelector } from "@stores/rootReducer";
 import PerformanceMetricDatagrid from "@components/datagrids/PerformanceMetricDatagrid/PerformanceMetricDatagrid";
+import { InfoTooltip } from "@components/InfoTooltip/InfoTooltip";
 
 const ageRangeOptions: AgeRange[] = [
   { label: "6-7", min: 6, max: 7 },
@@ -69,7 +70,18 @@ const PerformanceMetricsPage = () => {
       },
       {
         name: "gender",
-        label: t("pages.performanceMetricsPage.filters.gender"),
+        label: (
+          <span
+            style={{ display: "inline-flex", alignItems: "center", gap: 4 }}
+          >
+            {t("pages.performanceMetricsPage.filters.gender")}
+            <InfoTooltip
+              text={t("pages.performanceMetricsPage.tooltips.genderDiversInfo")}
+              position="top"
+              iconProps={{ fontSize: "small" }}
+            />
+          </span>
+        ),
         type: "SELECTION",
         selection: [
           { value: Genders.FEMALE, displayValue: t("genders.FEMALE") },

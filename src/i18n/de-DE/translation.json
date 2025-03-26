@@ -229,6 +229,9 @@
         "year": "Jahr",
         "ageGroup": "Altersgruppe",
         "gender": "Geschlecht"
+      },
+      "tooltips": {
+        "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die Werte für Männer verwendet und auch in die Bewertung einbezogen."
       }
     }
   },

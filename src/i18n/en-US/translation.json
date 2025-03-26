@@ -226,6 +226,9 @@
         "year": "Year",
         "ageGroup": "Age Group",
         "gender": "Gender"
+      },
+      "tooltips": {
+        "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used and also considered in the evaluation."
       }
     }
   },
