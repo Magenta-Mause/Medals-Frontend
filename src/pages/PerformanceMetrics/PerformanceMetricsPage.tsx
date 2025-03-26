@@ -70,50 +70,55 @@ const PerformanceMetricsPage = () => {
     return Array.from(yearsSet).sort((a, b) => b - a);
   }, [disciplineRatingMetrics]);
 
-  // Define filters for year, age group, and gender.
-  const filters: Filter<DisciplineRatingMetric>[] = [
-    {
-      name: "year",
-      label: t("pages.performanceMetricsPage.filters.year"),
-      type: "SELECTION",
-      selection: availableYears.map((year) => year.toString()),
-      apply: (filterParam: string) => (item: DisciplineRatingMetric) =>
-        item.valid_in.toString() === filterParam,
-    },
-    {
-      name: "age",
-      label: t("pages.performanceMetricsPage.filters.ageGroup"),
-      type: "SELECTION",
-      selection: ageRangeOptions.map((opt) => opt.label),
-      apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
-        const selectedAge = ageRangeOptions.find(
-          (opt) => opt.label === filterParam,
-        );
-        if (!selectedAge) return true;
-        return (
-          item.start_age <= selectedAge.min && item.end_age >= selectedAge.max
-        );
+  const filters = useMemo<Filter<DisciplineRatingMetric>[]>(
+    () => [
+      {
+        name: "year",
+        label: t("pages.performanceMetricsPage.filters.year"),
+        type: "SELECTION",
+        selection: availableYears.map((year) => year.toString()),
+        apply: (filterParam: string) => (item: DisciplineRatingMetric) =>
+          item.valid_in.toString() === filterParam,
       },
-    },
-    {
-      name: "gender",
-      label: t("pages.performanceMetricsPage.filters.gender"),
-      type: "SELECTION",
-      selection: [
-        { value: Genders.FEMALE, displayValue: t("genders.FEMALE") },
-        { value: Genders.MALE, displayValue: t("genders.MALE") },
-        { value: Genders.DIVERSE, displayValue: t("genders.DIVERSE") },
-      ],
-      apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
-        if (filterParam === Genders.FEMALE) {
-          return item.rating_female !== null;
-        } else if (filterParam === Genders.MALE || filterParam === Genders.DIVERSE) {
-          return item.rating_male !== null;
-        }
-        return true;
+      {
+        name: "age",
+        label: t("pages.performanceMetricsPage.filters.ageGroup"),
+        type: "SELECTION",
+        selection: ageRangeOptions.map((opt) => opt.label),
+        apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
+          const selectedAge = ageRangeOptions.find(
+            (opt) => opt.label === filterParam,
+          );
+          if (!selectedAge) return true;
+          return (
+            item.start_age <= selectedAge.min && item.end_age >= selectedAge.max
+          );
+        },
       },
-    },
-  ];
+      {
+        name: "gender",
+        label: t("pages.performanceMetricsPage.filters.gender"),
+        type: "SELECTION",
+        selection: [
+          t("genders.FEMALE"),
+          t("genders.MALE"),
+          t("genders.DIVERSE"),
+        ],
+        apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
+          if (filterParam === Genders.FEMALE) {
+            return item.rating_female !== null;
+          } else if (
+            filterParam === Genders.MALE ||
+            filterParam === Genders.DIVERSE
+          ) {
+            return item.rating_male !== null;
+          }
+          return true;
+        },
+      },
+    ],
+    [availableYears, t],
+  );
 
   // Apply all filters to the metrics.
   const finalFilteredMetrics = useMemo(() => {
