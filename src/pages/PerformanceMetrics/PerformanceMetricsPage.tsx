@@ -8,15 +8,20 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/joy";
-import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useMemo } from "react";
 import useApi from "@hooks/useApi";
 import GenericResponsiveDatagrid from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
-import MedalRatings, { CustomChip } from "@components/MedalRatings/MedalRatings";
+import MedalRatings, {
+  CustomChip,
+} from "@components/MedalRatings/MedalRatings";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
-import FilterComponent, { Filter } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
+import FilterComponent, {
+  Filter,
+} from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
+import Tooltip from "@mui/material/Tooltip";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 // Options for age range filtering.
 const ageRangeOptions: AgeRange[] = [
@@ -29,16 +34,15 @@ const ageRangeOptions: AgeRange[] = [
 ];
 
 const PerformanceMetricsPage = () => {
-  // Optionally available from Redux.
-  const disciplines = useTypedSelector((state) => state.disciplines.data) as any[];
-
   // Metrics state.
-  const [disciplineRatingMetrics, setDisciplineRatingMetrics] = useState<DisciplineRatingMetric[]>([]);
+  const [disciplineRatingMetrics, setDisciplineRatingMetrics] = useState<
+    DisciplineRatingMetric[]
+  >([]);
   // Remove separate gender ToggleButtonGroup and include gender in FilterComponent.
   const [filterValues, setFilterValues] = useState<Record<string, string>>({
     year: new Date().getFullYear().toString(),
     age: ageRangeOptions[0].label,
-    gender: Genders.FEMALE, // default gender
+    gender: Genders.FEMALE,
   });
 
   const { t } = useTranslation();
@@ -140,8 +144,8 @@ const PerformanceMetricsPage = () => {
       columnMapping: (metric: DisciplineRatingMetric) => {
         const goldRating =
           filterValues.gender === Genders.FEMALE
-            ? metric.rating_female?.gold_rating ?? "–"
-            : metric.rating_male?.gold_rating ?? "–";
+            ? (metric.rating_female?.gold_rating ?? "–")
+            : (metric.rating_male?.gold_rating ?? "–");
         const unit = metric.discipline.unit;
         return <CustomChip value={goldRating} color="#FFD700" unit={unit} />;
       },
@@ -152,8 +156,8 @@ const PerformanceMetricsPage = () => {
       columnMapping: (metric: DisciplineRatingMetric) => {
         const silverRating =
           filterValues.gender === Genders.FEMALE
-            ? metric.rating_female?.silver_rating ?? "–"
-            : metric.rating_male?.silver_rating ?? "–";
+            ? (metric.rating_female?.silver_rating ?? "–")
+            : (metric.rating_male?.silver_rating ?? "–");
         const unit = metric.discipline.unit;
         return <CustomChip value={silverRating} color="#C0C0C0" unit={unit} />;
       },
@@ -164,8 +168,8 @@ const PerformanceMetricsPage = () => {
       columnMapping: (metric: DisciplineRatingMetric) => {
         const bronzeRating =
           filterValues.gender === Genders.FEMALE
-            ? metric.rating_female?.bronze_rating ?? "–"
-            : metric.rating_male?.bronze_rating ?? "–";
+            ? (metric.rating_female?.bronze_rating ?? "–")
+            : (metric.rating_male?.bronze_rating ?? "–");
         const unit = metric.discipline.unit;
         return <CustomChip value={bronzeRating} color="#CD7F32" unit={unit} />;
       },
@@ -182,14 +186,17 @@ const PerformanceMetricsPage = () => {
       <Typography>{metric.discipline.description}</Typography>
     ),
     h3: (metric: DisciplineRatingMetric) => (
-      <MedalRatings metric={metric} selectedGender={filterValues.gender as Genders} />
+      <MedalRatings
+        metric={metric}
+        selectedGender={filterValues.gender as Genders}
+      />
     ),
   };
 
   // Helper to update filter values.
   const setFilter = (
     key: string,
-    value: string | ((oldVal: string) => string)
+    value: string | ((oldVal: string) => string),
   ) => {
     setFilterValues((prev) => ({
       ...prev,
