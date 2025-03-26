@@ -50,19 +50,16 @@ const FilterComponent = <T,>(props: {
               sx={{ minHeight: "35px" }}
             >
               {filter.selection?.map((value) => {
-                if (value instanceof String) {
+                if (typeof value === "string") {
                   return (
-                    <Option value={value} key={value as string}>
-                      <>{value}</>
+                    <Option value={value} key={value}>
+                      {value}
                     </Option>
                   );
                 }
                 return (
-                  <Option
-                    value={(value as FilterValue).value}
-                    key={(value as FilterValue).value}
-                  >
-                    {(value as FilterValue).displayValue}
+                  <Option value={value.value} key={value.value}>
+                    {value.displayValue}
                   </Option>
                 );
               })}
