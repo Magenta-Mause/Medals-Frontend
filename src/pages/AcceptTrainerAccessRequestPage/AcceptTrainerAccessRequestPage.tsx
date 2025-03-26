@@ -44,7 +44,7 @@ const AcceptTrainerAccessRequest = () => {
       enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.success"), {
         variant: "success",
       });
-    } catch (error) {
+    } catch {
       enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.failed"), {
         variant: "error",
       });
