@@ -179,6 +179,9 @@ const PerformanceMetricsPage = () => {
       <Typography>{metric.discipline.name}</Typography>
     ),
     h2: (metric: DisciplineRatingMetric) => (
+      <Typography>{metric.discipline.description}</Typography>
+    ),
+    h3: (metric: DisciplineRatingMetric) => (
       <MedalRatings metric={metric} selectedGender={filterValues.gender as Genders} />
     ),
   };
