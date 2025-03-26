@@ -44,9 +44,7 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
         const minutes = Math.floor(value / 60);
         const seconds = value % 60;
         displayValue =
-          seconds !== 0
-            ? `${minutes} min ${seconds} s`
-            : `${minutes} min`;
+          seconds !== 0 ? `${minutes} min ${seconds} s` : `${minutes} min`;
       } else {
         displayValue = `${value.toLocaleString(locale)} ${abbrev}`;
       }

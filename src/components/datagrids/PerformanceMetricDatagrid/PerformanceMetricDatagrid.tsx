@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
 import {
   Box,
   Typography,
@@ -9,7 +9,9 @@ import {
 import { useTranslation } from "react-i18next";
 import GenericResponsiveDatagrid from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
-import MedalRatings, { CustomChip } from "@components/MedalRatings/MedalRatings";
+import MedalRatings, {
+  CustomChip,
+} from "@components/MedalRatings/MedalRatings";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { DisciplineCategories, Genders } from "@customTypes/enums";
@@ -27,69 +29,78 @@ const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const renderMedalChip = (
-    metric: DisciplineRatingMetric,
-    medal: "gold" | "silver" | "bronze",
-    chipColor: string
-  ) => {
-    const ratingKey = `${medal}_rating` as "gold_rating" | "silver_rating" | "bronze_rating";
-    const ratingValue =
-      gender === Genders.FEMALE
-        ? metric.rating_female?.[ratingKey] ?? "–"
-        : metric.rating_male?.[ratingKey] ?? "–";
-    const unit = metric.discipline.unit;
-    return <CustomChip value={ratingValue} color={chipColor} unit={unit} />;
-  };
+  // Wrap renderMedalChip in useCallback so its reference remains stable.
+  const renderMedalChip = useCallback(
+    (
+      metric: DisciplineRatingMetric,
+      medal: "gold" | "silver" | "bronze",
+      chipColor: string,
+    ) => {
+      const ratingKey = `${medal}_rating` as
+        | "gold_rating"
+        | "silver_rating"
+        | "bronze_rating";
+      // Adjust the implementation as needed.
+      // Here, we assume CustomChip accepts a "rating" and "color" prop.
+      return <CustomChip rating={metric[ratingKey]} color={chipColor} />;
+    },
+    [],
+  );
 
-  const columns: Column<DisciplineRatingMetric>[] = useMemo(() => [
-    {
-      columnName: t("generic.discipline"),
-      columnMapping: (metric: DisciplineRatingMetric) => (
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography>{metric.discipline.name}</Typography>
-          {metric.discipline.description && (
-            <InfoTooltip
-              text={metric.discipline.description}
-              position="right"
-              iconProps={{ sx: { ml: 1 }, fontSize: "small" }}
-            />
-          )}
-        </Box>
+  const columns: Column<DisciplineRatingMetric>[] = useMemo(
+    () => [
+      {
+        columnName: t("generic.discipline"),
+        columnMapping: (metric: DisciplineRatingMetric) => (
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography>{metric.discipline.name}</Typography>
+            {metric.discipline.description && (
+              <InfoTooltip
+                text={metric.discipline.description}
+                position="right"
+                iconProps={{ sx: { ml: 1 }, fontSize: "small" }}
+              />
+            )}
+          </Box>
+        ),
+        size: "m",
+      },
+      {
+        columnName: t("medals.GOLD"),
+        columnMapping: (metric: DisciplineRatingMetric) =>
+          renderMedalChip(metric, "gold", "#FFD700"),
+        size: "s",
+      },
+      {
+        columnName: t("medals.SILVER"),
+        columnMapping: (metric: DisciplineRatingMetric) =>
+          renderMedalChip(metric, "silver", "#C0C0C0"),
+        size: "s",
+      },
+      {
+        columnName: t("medals.BRONZE"),
+        columnMapping: (metric: DisciplineRatingMetric) =>
+          renderMedalChip(metric, "bronze", "#CD7F32"),
+        size: "s",
+      },
+    ],
+    [renderMedalChip, t],
+  );
+
+  const mobileRendering: MobileTableRendering<DisciplineRatingMetric> = useMemo(
+    () => ({
+      h1: (metric: DisciplineRatingMetric) => (
+        <Typography>{metric.discipline.name}</Typography>
       ),
-      size: "m",
-    },
-    {
-      columnName: t("medals.GOLD"),
-      columnMapping: (metric: DisciplineRatingMetric) =>
-        renderMedalChip(metric, "gold", "#FFD700"),
-      size: "s",
-    },
-    {
-      columnName: t("medals.SILVER"),
-      columnMapping: (metric: DisciplineRatingMetric) =>
-        renderMedalChip(metric, "silver", "#C0C0C0"),
-      size: "s",
-    },
-    {
-      columnName: t("medals.BRONZE"),
-      columnMapping: (metric: DisciplineRatingMetric) =>
-        renderMedalChip(metric, "bronze", "#CD7F32"),
-      size: "s",
-    },
-  ], [gender, t]);
-
-  // Define mobile rendering configuration.
-  const mobileRendering: MobileTableRendering<DisciplineRatingMetric> = useMemo(() => ({
-    h1: (metric: DisciplineRatingMetric) => (
-      <Typography>{metric.discipline.name}</Typography>
-    ),
-    h2: (metric: DisciplineRatingMetric) => (
-      <Typography>{metric.discipline.description}</Typography>
-    ),
-    h3: (metric: DisciplineRatingMetric) => (
-      <MedalRatings metric={metric} selectedGender={gender} />
-    ),
-  }), [gender]);
+      h2: (metric: DisciplineRatingMetric) => (
+        <Typography>{metric.discipline.description}</Typography>
+      ),
+      h3: (metric: DisciplineRatingMetric) => (
+        <MedalRatings metric={metric} selectedGender={gender} />
+      ),
+    }),
+    [gender],
+  );
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
