@@ -1,7 +1,7 @@
 import { t } from "i18next";
 import GenericModal from "../GenericModal";
 import { Box, Button, Chip, Switch, Typography } from "@mui/joy";
-import { Athlete } from "@customTypes/backendTypes";
+import { Athlete, Discipline, PerformanceRecording } from "@customTypes/backendTypes";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
@@ -9,6 +9,7 @@ import GenericResponsiveDatagrid, {
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 import React, { useEffect, useState } from "react";
 import { Preview } from "@mui/icons-material";
+import { useTypedSelector } from "@stores/rootReducer";
 
 const AthleteExportModal = (props: {
   isOpen: boolean;
@@ -20,6 +21,8 @@ const AthleteExportModal = (props: {
   const [csvPreview, setCsvPreview] = useState<string | null>(null);
   const [showPreviewDialog, setShowPreviewDialog] = useState(false);
   const [withPerformance, setWithPerformance] = useState(false);
+  const performances = useTypedSelector((state)=> state.performanceRecordings.data,) as PerformanceRecording[];
+  const disciplines = useTypedSelector((state)=> state.disciplines.data,) as Discipline[];
 
   const columns: Column<Athlete>[] = [
     {
@@ -123,8 +126,54 @@ const AthleteExportModal = (props: {
       "\n";
 
     const rows = data
-      .map((item) => columns.map((col) => item[col] || "").join(";"))
-      .join("\n");
+      .map((item) => {
+        if (!withPerformance){
+          return columns.map((col) => item[col] || "").join(";");
+        }
+
+        const athletePerformances = performances.filter(
+          (p) => p.athlete_id === item.id
+        );
+        const birthdate = item.birthdate ? new Date (item.birthdate) : null;
+        const birthyear = birthdate ? birthdate.getFullYear().toString() : "N/A";
+        const birthday = birthdate ? birthdate.toString() : "N/A";
+
+        if (athletePerformances.length === 0) {
+          return columns.map((col) => item[col] || "").join(";");
+        }
+
+        return athletePerformances
+        .map((perf) => {
+          const discipline = disciplines.find(
+            (d)=> d.id === perf.discipline_rating_metric.discipline.id
+          );
+          return columns
+          .map((col)=>{
+            switch (col) {
+              case "first_name":
+                return item.first_name ||"N/A";
+              case "last_name":
+                return item.last_name ||"N/A";
+              case "gender":
+                return item.gender ||"N/A";
+              case "birthyear":
+                return  birthyear ||"N/A"; 
+              case "birthday":
+                return item.birthdate ||"N/A";  
+              case "discipline":
+                return discipline?.name ||"N/A";
+              case "category":
+                return discipline?.category ||"N/A";
+              case "date":
+                return perf.date_of_performance ||"N/A";
+              case "result":
+                return perf.rating_value||"N/A";
+              case "points":
+                return "N/A";
+            }
+          }).join(";");
+        }).join("\n");
+      }).join("\n");
 
     const csvContent = header + rows;
     return csvContent;
