@@ -231,7 +231,7 @@
         "gender": "Geschlecht"
       },
       "tooltips": {
-        "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die Werte für Männer verwendet und auch in die Bewertung einbezogen."
+        "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet und auch in die Bewertung einbezogen."
       }
     }
   },
