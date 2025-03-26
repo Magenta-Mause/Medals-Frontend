@@ -14,44 +14,23 @@ interface CustomChipProps {
   unit?: string;
 }
 
-/**
- * Maps full unit strings to abbreviations using the MetricUnits enum.
- */
-const unitAbbreviation = (unit: string): string => {
-  if (unit === MetricUnits.SECONDS) {
-    return "s";
-  } else if (unit === MetricUnits.METERS) {
-    return "m";
-  } else if (unit === MetricUnits.POINTS) {
-    return "p";
-  }
-  return unit;
+const UNIT_MAP: Record<string, string> = {
+  [MetricUnits.SECONDS]: "s",
+  [MetricUnits.METERS]: "m",
+  [MetricUnits.POINTS]: "p",
 };
 
-/**
- * A generic chip component that displays a number (plus an optional unit).
- * - If the unit (after abbreviation) is "s" (seconds) and the number is 60 or more,
- *   it recalculates to show minutes and seconds.
- * - Otherwise, it appends the abbreviated unit to the number.
- */
+const unitAbbreviation = (unit: string): string => UNIT_MAP[unit] || unit;
+
 export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
   let displayValue = value;
 
   if (typeof value === "number" && unit) {
     const abbrev = unitAbbreviation(unit);
-    if (abbrev === "s") {
-      // If seconds are 60 or more, recalc as minutes and seconds
-      if (value >= 60) {
-        const minutes = Math.floor(value / 60);
-        const seconds = value % 60;
-        displayValue = `${minutes}m ${seconds}s`;
-      } else {
-        displayValue = `${value}s`;
-      }
-    } else {
-      // For meters or points, append the unit abbreviation.
-      displayValue = `${value}${abbrev}`;
-    }
+    displayValue =
+      abbrev === "s" && value >= 60
+        ? `${Math.floor(value / 60)}m ${value % 60}s`
+        : `${value}${abbrev}`;
   }
 
   return (
@@ -67,43 +46,52 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
 
 const MedalRatings = ({ metric, selectedGender }: MedalRatingsProps) => {
   const { t } = useTranslation();
-
-  // Use the full unit string (e.g. "seconds", "meters", "points")
   const unit = metric.discipline.unit || "";
 
+  const getRating = (ratingMale: any, ratingFemale: any) =>
+    selectedGender !== Genders.FEMALE ? ratingMale : ratingFemale;
+
   const goldRating =
-    selectedGender !== Genders.FEMALE
-      ? (metric.rating_male?.gold_rating ?? "–")
-      : (metric.rating_female?.gold_rating ?? "–");
+    getRating(
+      metric.rating_male?.gold_rating,
+      metric.rating_female?.gold_rating,
+    ) ?? "–";
   const silverRating =
-    selectedGender !== Genders.FEMALE
-      ? (metric.rating_male?.silver_rating ?? "–")
-      : (metric.rating_female?.silver_rating ?? "–");
+    getRating(
+      metric.rating_male?.silver_rating,
+      metric.rating_female?.silver_rating,
+    ) ?? "–";
   const bronzeRating =
-    selectedGender !== Genders.FEMALE
-      ? (metric.rating_male?.bronze_rating ?? "–")
-      : (metric.rating_female?.bronze_rating ?? "–");
+    getRating(
+      metric.rating_male?.bronze_rating,
+      metric.rating_female?.bronze_rating,
+    ) ?? "–";
+
+  const medalsRating = [
+    { label: t("medals.GOLD"), value: goldRating, color: "#FFD700" },
+    { label: t("medals.SILVER"), value: silverRating, color: "#C0C0C0" },
+    { label: t("medals.BRONZE"), value: bronzeRating, color: "#CD7F32" },
+  ];
 
   return (
     <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        <Typography level="body-sm">{t("medals.GOLD")}</Typography>
-        <CustomChip value={goldRating} color="#FFD700" unit={unit} />
-      </Box>
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        <Typography level="body-sm">{t("medals.SILVER")}</Typography>
-        <CustomChip value={silverRating} color="#C0C0C0" unit={unit} />
-      </Box>
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        <Typography level="body-sm">{t("medals.BRONZE")}</Typography>
-        <CustomChip value={bronzeRating} color="#CD7F32" unit={unit} />
-      </Box>
+      {medalsRating.map((medalRating, index) => (
+        <Box
+          key={index}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography level="body-sm">{medalRating.label}</Typography>
+          <CustomChip
+            value={medalRating.value}
+            color={medalRating.color}
+            unit={unit}
+          />
+        </Box>
+      ))}
     </Box>
   );
 };
