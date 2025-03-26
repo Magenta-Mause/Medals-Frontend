@@ -19,9 +19,8 @@ import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDat
 import FilterComponent, {
   Filter,
 } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
-import Tooltip from "@mui/material/Tooltip";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useTypedSelector } from "@stores/rootReducer";
+import { InfoTooltip } from "@components/Tooltip/InfoTooltip";
 
 // Options for age range filtering.
 const ageRangeOptions: AgeRange[] = [
@@ -143,9 +142,11 @@ const PerformanceMetricsPage = () => {
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Typography>{metric.discipline.name}</Typography>
           {metric.discipline.description && (
-            <Tooltip title={metric.discipline.description}>
-              <InfoOutlinedIcon sx={{ ml: 1 }} fontSize="small" />
-            </Tooltip>
+            <InfoTooltip
+              text={metric.discipline.description}
+              position="right"
+              iconProps={{ sx: { ml: 1 }, fontSize: "small" }}
+            />
           )}
         </Box>
       ),

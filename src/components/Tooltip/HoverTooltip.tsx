@@ -1,12 +1,14 @@
+import React from "react";
 import MuiTooltip from "@mui/joy/Tooltip";
 import type { TooltipProps as MuiTooltipProps } from "@mui/joy/Tooltip";
-interface TooltipProps {
+
+interface HoverTooltipProps {
   text: string;
   children: React.ReactElement;
   position?: MuiTooltipProps["placement"];
 }
 
-const Tooltip: React.FC<TooltipProps> = ({
+export const HoverTooltip: React.FC<HoverTooltipProps> = ({
   text,
   position = "top",
   children,
@@ -20,13 +22,11 @@ const Tooltip: React.FC<TooltipProps> = ({
       placement={position}
       enterDelay={700}
       enterNextDelay={700}
-      sx={{
-        zIndex: 20000,
-      }}
+      sx={{ zIndex: 20000 }}
     >
       {children}
     </MuiTooltip>
   );
 };
 
-export default Tooltip;
+export default HoverTooltip;

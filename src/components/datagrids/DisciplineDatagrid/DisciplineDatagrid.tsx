@@ -12,6 +12,7 @@ import {
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
 import { Medals } from "@customTypes/enums";
+import { InfoTooltip } from "@components/Tooltip/InfoTooltip";
 
 interface DisciplineDatagridProps {
   disciplines: Discipline[];
@@ -47,18 +48,20 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
 
   const columns: Column<DisciplineWithPerformanceRecordings>[] = [
     {
-      columnName: t("components.disciplineDatagrid.columns.title"),
-      columnMapping(item) {
-        return <Typography>{item.name}</Typography>;
-      },
-      sortable: true,
-    },
-    {
-      columnName: t("components.disciplineDatagrid.columns.description"),
-      columnMapping(item) {
-        return <Typography>{item.description ?? "-"}</Typography>;
-      },
-      sortable: true,
+      columnName: t("generic.discipline"),
+      columnMapping: (discipline: Discipline) => (
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography>{discipline.name}</Typography>
+          {discipline.description && (
+            <InfoTooltip
+              text={discipline.description}
+              position="right"
+              iconProps={{ sx: { ml: 1 }, fontSize: "small" }}
+            />
+          )}
+        </Box>
+      ),
+      size: "m",
     },
     {
       columnName: t("components.disciplineDatagrid.columns.bestValue"),

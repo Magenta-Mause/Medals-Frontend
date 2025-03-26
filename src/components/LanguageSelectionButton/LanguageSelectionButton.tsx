@@ -1,4 +1,4 @@
-import Tooltip from "@components/Tooltip/Tooltip";
+import Tooltip from "@components/Tooltip/HoverTooltip";
 import { Check, LanguageOutlined } from "@mui/icons-material";
 import {
   Dropdown,

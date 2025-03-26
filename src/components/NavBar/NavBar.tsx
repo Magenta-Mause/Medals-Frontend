@@ -39,7 +39,7 @@ import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
-import Tooltip from "@components/Tooltip/Tooltip";
+import Tooltip from "@components/Tooltip/HoverTooltip";
 
 const sharedNavBarElements = [
   {
