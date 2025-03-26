@@ -134,7 +134,7 @@ const useInstantiation = () => {
     );
     dispatch(
       setDisciplineMetrics(
-        (await getDisciplineMetrics(new Date().getFullYear())) ?? [],
+        (await getDisciplineMetrics()) ?? [],
       ),
     );
 
