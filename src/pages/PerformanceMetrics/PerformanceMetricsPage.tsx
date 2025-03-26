@@ -86,9 +86,13 @@ const PerformanceMetricsPage = () => {
       type: "SELECTION",
       selection: ageRangeOptions.map((opt) => opt.label),
       apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
-        const selectedAge = ageRangeOptions.find((opt) => opt.label === filterParam);
+        const selectedAge = ageRangeOptions.find(
+          (opt) => opt.label === filterParam,
+        );
         if (!selectedAge) return true;
-        return item.start_age <= selectedAge.min && item.end_age >= selectedAge.max;
+        return (
+          item.start_age <= selectedAge.min && item.end_age >= selectedAge.max
+        );
       },
     },
     {
@@ -99,7 +103,10 @@ const PerformanceMetricsPage = () => {
       apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
         if (filterParam === Genders.FEMALE) {
           return item.rating_female !== null;
-        } else if (filterParam === Genders.MALE || filterParam === Genders.DIVERSE) {
+        } else if (
+          filterParam === Genders.MALE ||
+          filterParam === Genders.DIVERSE
+        ) {
           return item.rating_male !== null;
         }
         return true;
@@ -122,14 +129,17 @@ const PerformanceMetricsPage = () => {
 
   // Group the filtered metrics by discipline category.
   const groupedMetrics = useMemo(() => {
-    return finalFilteredMetrics.reduce((acc, metric) => {
-      const category = metric.discipline.category;
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(metric);
-      return acc;
-    }, {} as Record<string, DisciplineRatingMetric[]>);
+    return finalFilteredMetrics.reduce(
+      (acc, metric) => {
+        const category = metric.discipline.category;
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(metric);
+        return acc;
+      },
+      {} as Record<string, DisciplineRatingMetric[]>,
+    );
   }, [finalFilteredMetrics]);
 
   // Define the columns for the desktop datagrid.
