@@ -8,7 +8,7 @@
     "DIVERSE": "Divers",
     "FEMALE": "Weiblich",
     "MALE": "Männlich",
-    "": "Alle"
+    "ALL": "Alle"
   },
   "userTypes": {
     "ATHLETE": "Athlet*in",
