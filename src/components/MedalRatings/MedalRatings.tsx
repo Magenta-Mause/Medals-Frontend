@@ -22,7 +22,6 @@ const UNIT_MAP: Record<string, string> = {
 
 const unitAbbreviation = (unit: string): string => UNIT_MAP[unit] || unit;
 
-// Helper function to convert hex color to rgba with given opacity
 const hexToRGBA = (hex: string, alpha: number) => {
   if (hex.startsWith("#") && hex.length === 7) {
     const r = parseInt(hex.slice(1, 3), 16);
@@ -30,7 +29,7 @@ const hexToRGBA = (hex: string, alpha: number) => {
     const b = parseInt(hex.slice(5, 7), 16);
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
-  return hex; // fallback if not a hex value
+  return hex;
 };
 
 export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
