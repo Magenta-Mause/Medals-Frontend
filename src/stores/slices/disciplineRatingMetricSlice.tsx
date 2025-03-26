@@ -17,7 +17,10 @@ const disciplineMetricsSlice = createSlice({
   name: "disciplineMetrics",
   initialState,
   reducers: {
-    setDisciplineMetrics(state, action: PayloadAction<DisciplineRatingMetric[]>) {
+    setDisciplineMetrics(
+      state,
+      action: PayloadAction<DisciplineRatingMetric[]>,
+    ) {
       state.data = action.payload;
       state.state = "idle";
     },

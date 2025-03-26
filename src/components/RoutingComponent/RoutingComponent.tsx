@@ -40,7 +40,10 @@ const RoutingComponent = () => {
           {/* TRAINER */}
           <Route path="/athletes" element={<AthleteOverviewPage />} />
           <Route path="/athletes/:athleteId" element={<AthleteDetailPage />} />
-          <Route path="/performanceMetrics" element={<PerformanceMetricsPage />} />
+          <Route
+            path="/performanceMetrics"
+            element={<PerformanceMetricsPage />}
+          />
           <Route path="/assignAthlete" element={<InDevelopmentPage />} />
 
           {/* ATHLETE */}

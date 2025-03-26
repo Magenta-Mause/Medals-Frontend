@@ -4,7 +4,6 @@ import {
   Discipline,
   PerformanceRecording,
   Trainer,
-  DisciplineRatingMetric,
 } from "@customTypes/backendTypes";
 import { UserType } from "@customTypes/enums";
 import useStompClient from "@hooks/useStompClient";
@@ -103,9 +102,10 @@ const useInstantiation = () => {
     dispatch(setTrainers((await getTrainers()) ?? []));
     dispatch(setAthletes((await getAthletes()) ?? []));
     dispatch(setDisciplines((await getDisciplines()) ?? []));
-    dispatch(setPerformanceRecordings((await getPerformanceRecordings()) ?? []));
-    dispatch(setDisciplineMetrics((await getDisciplineMetrics(new Date().getFullYear())) ?? [],),
+    dispatch(
+      setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
     );
+    dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
 
     setTimeout(() => {
       initializeAthleteWebsocket();
@@ -129,8 +129,14 @@ const useInstantiation = () => {
   const instantiateTrainer = useCallback(async () => {
     dispatch(setAthletes((await getAthletes()) ?? []));
     dispatch(setDisciplines((await getDisciplines()) ?? []));
-    dispatch(setPerformanceRecordings((await getPerformanceRecordings()) ?? []));
-    dispatch(setDisciplineMetrics((await getDisciplineMetrics(new Date().getFullYear())) ?? []),);
+    dispatch(
+      setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
+    );
+    dispatch(
+      setDisciplineMetrics(
+        (await getDisciplineMetrics(new Date().getFullYear())) ?? [],
+      ),
+    );
 
     setTimeout(() => {
       uninitializeTrainerWebsocket();

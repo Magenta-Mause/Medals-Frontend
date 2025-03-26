@@ -70,31 +70,37 @@ const MedalRatings = ({ metric, selectedGender }: MedalRatingsProps) => {
 
   // Use the full unit string (e.g. "seconds", "meters", "points")
   const unit = metric.discipline.unit || "";
-  
+
   const goldRating =
     selectedGender !== Genders.FEMALE
-      ? metric.rating_male?.gold_rating ?? "–"
-      : metric.rating_female?.gold_rating ?? "–";
+      ? (metric.rating_male?.gold_rating ?? "–")
+      : (metric.rating_female?.gold_rating ?? "–");
   const silverRating =
     selectedGender !== Genders.FEMALE
-      ? metric.rating_male?.silver_rating ?? "–"
-      : metric.rating_female?.silver_rating ?? "–";
+      ? (metric.rating_male?.silver_rating ?? "–")
+      : (metric.rating_female?.silver_rating ?? "–");
   const bronzeRating =
     selectedGender !== Genders.FEMALE
-      ? metric.rating_male?.bronze_rating ?? "–"
-      : metric.rating_female?.bronze_rating ?? "–";
+      ? (metric.rating_male?.bronze_rating ?? "–")
+      : (metric.rating_female?.bronze_rating ?? "–");
 
   return (
     <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Box
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
         <Typography level="body-sm">{t("medals.GOLD")}</Typography>
         <CustomChip value={goldRating} color="#FFD700" unit={unit} />
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Box
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
         <Typography level="body-sm">{t("medals.SILVER")}</Typography>
         <CustomChip value={silverRating} color="#C0C0C0" unit={unit} />
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Box
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
         <Typography level="body-sm">{t("medals.BRONZE")}</Typography>
         <CustomChip value={bronzeRating} color="#CD7F32" unit={unit} />
       </Box>

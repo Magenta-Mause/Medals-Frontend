@@ -225,7 +225,7 @@
     "performanceMetricsPage": {
       "title": "Leistungswerte",
       "filters": {
-        "year": "Jahr", 
+        "year": "Jahr",
         "ageGroup": "Altersgruppe",
         "gender": "Geschlecht"
       }
@@ -347,7 +347,7 @@
         }
       },
       "actions": {
-        "delete":"Löschen",
+        "delete": "Löschen",
         "edit": "Bearbeiten",
         "openDetails": "Details"
       }
@@ -386,9 +386,9 @@
         "lastNamePlaceholder": "Mustermann",
         "confirm": "Trainer Einladen"
       },
-      "actions":{
-          "delete":"Löschen"
-        }
+      "actions": {
+        "delete": "Löschen"
+      }
     },
     "buttons": {
       "next": "Nächstes",
@@ -434,7 +434,7 @@
       "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
       "profileButton": "Account Einstellungen",
       "switchUserButton": "Benutzer wechseln",
-      "logoutButton":"Abmelden",
+      "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern"
     }
   }

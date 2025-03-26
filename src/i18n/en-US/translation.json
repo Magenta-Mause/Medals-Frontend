@@ -222,7 +222,7 @@
     "performanceMetricsPage": {
       "title": "Performance Metrics",
       "filters": {
-        "year": "Year", 
+        "year": "Year",
         "ageGroup": "Age Group",
         "gender": "Gender"
       }
@@ -342,7 +342,7 @@
         }
       },
       "actions": {
-        "delete":"Delete",
+        "delete": "Delete",
         "edit": "Edit",
         "openDetails": "Details"
       }
@@ -373,9 +373,9 @@
         "lastNamePlaceholder": "Doe",
         "confirm": "Invite Trainer"
       },
-      "actions":{
-          "delete":"Delete"
-        }
+      "actions": {
+        "delete": "Delete"
+      }
     },
     "buttons": {
       "next": "Next",
@@ -431,7 +431,7 @@
       "colorSchemeToggle": "Switch light-/darkmode",
       "profileButton": "Account Settings",
       "switchUserButton": "Switch User",
-      "logoutButton":"Logout",
+      "logoutButton": "Logout",
       "languageSelectionButton": "Change language"
     }
   }
