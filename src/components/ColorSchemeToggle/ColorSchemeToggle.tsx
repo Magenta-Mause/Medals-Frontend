@@ -1,4 +1,4 @@
-import HoverToolTip from "@components/Tooltip/HoverTooltip";
+import HoverToolTip from "@components/HoverTooltip/HoverTooltip";
 import { DarkModeRounded, LightModeRounded } from "@mui/icons-material";
 import { IconButton, IconButtonProps, useColorScheme } from "@mui/joy";
 import { useColorScheme as useMuiColorScheme } from "@mui/material";

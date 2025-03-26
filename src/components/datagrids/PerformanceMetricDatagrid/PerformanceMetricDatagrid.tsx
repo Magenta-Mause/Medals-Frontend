@@ -14,7 +14,7 @@ import { CustomChip } from "@components/MedalRatings/MedalRatings";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { DisciplineCategories, Genders } from "@customTypes/enums";
-import { InfoTooltip } from "@components/Tooltip/InfoTooltip";
+import { InfoTooltip } from "@components/InfoTooltip/InfoTooltip";
 import { DisciplineIcons } from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
 
 interface PerformanceMetricDatagridProps {

@@ -12,7 +12,7 @@ import {
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
 import { Medals } from "@customTypes/enums";
-import { InfoTooltip } from "@components/Tooltip/InfoTooltip";
+import { InfoTooltip } from "@components/InfoTooltip/InfoTooltip";
 
 interface DisciplineDatagridProps {
   disciplines: Discipline[];
