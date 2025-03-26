@@ -9,8 +9,7 @@ import {
   AccordionDetails,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, useMemo } from "react";
-import useApi from "@hooks/useApi";
+import { useState, useMemo } from "react";
 import GenericResponsiveDatagrid from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import MedalRatings, {
@@ -22,6 +21,7 @@ import FilterComponent, {
 } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import Tooltip from "@mui/material/Tooltip";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { useTypedSelector } from "@stores/rootReducer";
 
 // Options for age range filtering.
 const ageRangeOptions: AgeRange[] = [
@@ -34,11 +34,10 @@ const ageRangeOptions: AgeRange[] = [
 ];
 
 const PerformanceMetricsPage = () => {
-  // Metrics state.
-  const [disciplineRatingMetrics, setDisciplineRatingMetrics] = useState<
-    DisciplineRatingMetric[]
-  >([]);
-  // Remove separate gender ToggleButtonGroup and include gender in FilterComponent.
+  const disciplineRatingMetrics = useTypedSelector(
+    (state) => state.disciplineMetrics.data
+  ) as DisciplineRatingMetric[];
+
   const [filterValues, setFilterValues] = useState<Record<string, string>>({
     year: new Date().getFullYear().toString(),
     age: ageRangeOptions[0].label,
@@ -46,18 +45,6 @@ const PerformanceMetricsPage = () => {
   });
 
   const { t } = useTranslation();
-  const { getDisciplineMetrics } = useApi();
-
-  // Fetch metrics on mount.
-  useEffect(() => {
-    const fetchMetrics = async () => {
-      const metrics = await getDisciplineMetrics();
-      if (metrics) {
-        setDisciplineRatingMetrics(metrics);
-      }
-    };
-    fetchMetrics();
-  }, [getDisciplineMetrics]);
 
   // Compute available years from metrics.
   const availableYears = useMemo(() => {
