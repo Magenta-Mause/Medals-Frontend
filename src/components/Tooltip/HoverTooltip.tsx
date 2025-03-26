@@ -20,8 +20,8 @@ export const HoverTooltip: React.FC<HoverTooltipProps> = ({
       color="primary"
       size="sm"
       placement={position}
-      enterDelay={700}
-      enterNextDelay={700}
+      enterDelay={400}
+      enterNextDelay={400}
       sx={{ zIndex: 20000 }}
     >
       {children}
