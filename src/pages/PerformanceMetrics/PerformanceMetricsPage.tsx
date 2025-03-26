@@ -252,7 +252,21 @@ const PerformanceMetricsPage = () => {
             }}
             slotProps={{ button: { sx: { borderRadius: 10 } } }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignContent: "center",
+                alignItems: "center",
+                justifyItems: "flex-start",
+                gap: { md: 5, xs: 1.5 },
+                pl: { md: 2, xs: 1 },
+                width: "100%",
+                "> svg": {
+                  height: "30px",
+                  width: "30px",
+                },
+              }}
+            >
               {DisciplineIcons[category as DisciplineCategories]({})}
               <Typography level="h3">
                 {t("disciplines.categories." + category + ".label")}
