@@ -16,9 +16,10 @@
     "ADMIN": "Admin"
   },
   "units": {
-    "minutes": "minutes",
-    "seconds": "seconds",
-    "meters": "meters"
+    "MINUTES": "minutes",
+    "SECONDS": "seconds",
+    "METERS": "meters",
+    "POINTS": "points"
   },
   "messages": {
     "noEntriesFound": "No entries found"

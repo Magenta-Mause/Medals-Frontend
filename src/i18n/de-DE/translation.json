@@ -45,9 +45,10 @@
     "NONE": "Keine Medaille erreicht"
   },
   "units": {
-    "seconds": "Sekunden",
-    "minutes": "Minuten",
-    "meters": "Meter"
+    "SECONDS": "Sekunden",
+    "MINUTES": "Minuten",
+    "METERS": "Meter",
+    "POINTS": "Punkte"
   },
   "messages": {
     "noEntriesFound": "Keine Einträge gefunden"
