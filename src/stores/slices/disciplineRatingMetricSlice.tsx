@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
+import { SliceState } from "..";
 
-interface DisciplineMetricsState {
-  data: DisciplineRatingMetric[];
-  state: "idle" | "loading" | "error";
-  error: string | null;
-}
-
-const initialState: DisciplineMetricsState = {
+const initialState: SliceState<DisciplineRatingMetric> = {
   data: [],
   state: "idle",
   error: null,
