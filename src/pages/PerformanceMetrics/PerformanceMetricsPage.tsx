@@ -136,7 +136,16 @@ const PerformanceMetricsPage = () => {
   const columns: Column<DisciplineRatingMetric>[] = [
     {
       columnName: t("generic.discipline"),
-      columnMapping: (metric: DisciplineRatingMetric) => metric.discipline.name,
+      columnMapping: (metric: DisciplineRatingMetric) => (
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography>{metric.discipline.name}</Typography>
+          {metric.discipline.description && (
+            <Tooltip title={metric.discipline.description}>
+              <InfoOutlinedIcon sx={{ ml: 1 }} fontSize="small" />
+            </Tooltip>
+          )}
+        </Box>
+      ),
       size: "m",
     },
     {
