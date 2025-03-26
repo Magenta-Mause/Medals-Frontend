@@ -170,8 +170,8 @@
       }
     },
     "validateRequestPage": {
-      "loading": "Validierung erfolgt",
-      "finished": "Validierung erfolgreich"
+      "header": "hat Zugriff auf Sie angefordert.\n Möchten Sie die Anfrage annehmen?",
+      "accept": "Annehmen"
     },
     "profilePage": {
       "header": "Mein Profil",
@@ -269,7 +269,8 @@
       "header": "Athlet*innen anfragen",
       "searchAthlete": "Name",
       "notFound": "Kein Athleten gefunden",
-      "requestAthleteButton": "Anfragen"
+      "requestAthleteButton": "Senden",
+      "sendButton": "Gesendet"
     },
     "athleteDetailHeader": {
       "columns": {
