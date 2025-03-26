@@ -2,7 +2,6 @@ import { Box, Chip, Typography } from "@mui/joy";
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { Genders, MetricUnits } from "@customTypes/enums";
 import { useTranslation } from "react-i18next";
-import HoverTooltip from "@components/Tooltip/HoverTooltip";
 
 interface MedalRatingsProps {
   metric: DisciplineRatingMetric;
@@ -42,14 +41,12 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
     if (abbrev === "s" && value >= 60) {
       const minutes = Math.floor(value / 60);
       const seconds = value % 60;
-      displayValue = seconds !== 0 
-        ? `${minutes} min ${seconds} s`
-        : `${minutes} min`;
+      displayValue =
+        seconds !== 0 ? `${minutes} min ${seconds} s` : `${minutes} min`;
     } else {
       displayValue = `${value} ${abbrev}`;
     }
   }
-  
 
   return (
     <Chip
