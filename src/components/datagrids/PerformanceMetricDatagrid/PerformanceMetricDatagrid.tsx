@@ -21,19 +21,25 @@ interface PerformanceMetricDatagridProps {
   gender: Genders;
 }
 
-  export const DisciplineInfo = ({ name, description }: { name: string; description: string | null }) => (
-    <Box>
-      <Typography>{name}</Typography>
-      {description && (
-        <>
-          <br />
-          <Typography fontSize="10px" fontStyle="italic">
-            {description}
-          </Typography>
-        </>
-      )}
-    </Box>
-  );
+export const DisciplineInfo = ({
+  name,
+  description,
+}: {
+  name: string;
+  description: string | null;
+}) => (
+  <Box>
+    <Typography>{name}</Typography>
+    {description && (
+      <>
+        <br />
+        <Typography fontSize="10px" fontStyle="italic">
+          {description}
+        </Typography>
+      </>
+    )}
+  </Box>
+);
 
 const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
   groupedMetrics,

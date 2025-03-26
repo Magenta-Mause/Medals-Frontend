@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import MuiTooltip from "@mui/joy/Tooltip";
 import type { TooltipProps as MuiTooltipProps } from "@mui/joy/Tooltip";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import GenericModal from '@components/modals/GenericModal';
+import GenericModal from "@components/modals/GenericModal";
 
 interface InfoTooltipProps {
   text: string;
@@ -21,7 +21,7 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({
 
   const handleClick = () => {
     // Only open modal on touch devices
-    if ('ontouchstart' in window) {
+    if ("ontouchstart" in window) {
       setIsModalOpen(true);
     }
   };
@@ -29,7 +29,17 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({
   return (
     <>
       <MuiTooltip
-        title={<span style={{ maxWidth: 220, display: "inline-block", whiteSpace: "normal" }}>{text}</span>}
+        title={
+          <span
+            style={{
+              maxWidth: 220,
+              display: "inline-block",
+              whiteSpace: "normal",
+            }}
+          >
+            {text}
+          </span>
+        }
         variant="soft"
         color="primary"
         size="sm"
@@ -38,24 +48,20 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({
         enterNextDelay={400}
         sx={{ zIndex: 20000 }}
       >
-        <InfoOutlinedIcon 
+        <InfoOutlinedIcon
           onClick={handleClick}
-          style={{ 
+          style={{
             cursor: "pointer",
             // Increase touch target size for mobile
-            padding: '4px',
-            margin: '-4px'
-          }} 
-          fontSize="small" 
-          {...iconProps} 
+            padding: "4px",
+            margin: "-4px",
+          }}
+          fontSize="small"
+          {...iconProps}
         />
       </MuiTooltip>
 
-      <GenericModal
-        open={isModalOpen}
-        setOpen={setIsModalOpen}
-        header={header}
-      >
+      <GenericModal open={isModalOpen} setOpen={setIsModalOpen} header={header}>
         {text}
       </GenericModal>
     </>
