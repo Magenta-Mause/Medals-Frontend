@@ -12,7 +12,7 @@ import {
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
 import { Medals } from "@customTypes/enums";
-import { InfoTooltip } from "@components/InfoTooltip/InfoTooltip";
+import { DisciplineInfo } from "@components/datagrids/PerformanceMetricDatagrid/PerformanceMetricDatagrid";
 
 interface DisciplineDatagridProps {
   disciplines: Discipline[];
@@ -50,16 +50,10 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
     {
       columnName: t("generic.discipline"),
       columnMapping: (discipline: Discipline) => (
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography>{discipline.name}</Typography>
-          {discipline.description && (
-            <InfoTooltip
-              text={discipline.description}
-              position="right"
-              iconProps={{ sx: { ml: 1 }, fontSize: "small" }}
-            />
-          )}
-        </Box>
+        <DisciplineInfo
+          name={discipline.name}
+          description={discipline.description}
+        />
       ),
       size: "m",
     },

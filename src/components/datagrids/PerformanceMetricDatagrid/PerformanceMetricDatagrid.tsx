@@ -14,13 +14,26 @@ import { CustomChip } from "@components/MedalRatings/MedalRatings";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { DisciplineCategories, Genders } from "@customTypes/enums";
-import { InfoTooltip } from "@components/InfoTooltip/InfoTooltip";
 import { DisciplineIcons } from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
 
 interface PerformanceMetricDatagridProps {
   groupedMetrics: Record<string, DisciplineRatingMetric[]>;
   gender: Genders;
 }
+
+  export const DisciplineInfo = ({ name, description }: { name: string; description: string | null }) => (
+    <Box>
+      <Typography>{name}</Typography>
+      {description && (
+        <>
+          <br />
+          <Typography fontSize="10px" fontStyle="italic">
+            {description}
+          </Typography>
+        </>
+      )}
+    </Box>
+  );
 
 const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
   groupedMetrics,
@@ -58,16 +71,10 @@ const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
       {
         columnName: t("generic.discipline"),
         columnMapping: (metric: DisciplineRatingMetric) => (
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography>{metric.discipline.name}</Typography>
-            {metric.discipline.description && (
-              <InfoTooltip
-                text={metric.discipline.description}
-                position="right"
-                iconProps={{ sx: { ml: 1 }, fontSize: "small" }}
-              />
-            )}
-          </Box>
+          <DisciplineInfo
+            name={metric.discipline.name}
+            description={metric.discipline.description}
+          />
         ),
         size: "m",
       },
