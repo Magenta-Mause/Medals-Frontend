@@ -22,6 +22,17 @@ const UNIT_MAP: Record<string, string> = {
 
 const unitAbbreviation = (unit: string): string => UNIT_MAP[unit] || unit;
 
+// Helper function to convert hex color to rgba with given opacity
+const hexToRGBA = (hex: string, alpha: number = 0.7) => {
+  if (hex.startsWith("#") && hex.length === 7) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+  return hex; // fallback if not a hex value
+};
+
 export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
   let displayValue = value;
 
@@ -37,7 +48,13 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
     <Chip
       variant="soft"
       size="sm"
-      sx={{ backgroundColor: color, color: "#000", fontWeight: "bold" }}
+      sx={{
+        backgroundColor: hexToRGBA(color, 0.7),
+        color: "#000",
+        fontWeight: "bold",
+        minWidth: "80px", // fixed minimum width for uniformity
+        textAlign: "center", // center the text
+      }}
     >
       {displayValue}
     </Chip>
@@ -49,7 +66,7 @@ const MedalRatings = ({ metric, selectedGender }: MedalRatingsProps) => {
   const unit = metric.discipline.unit || "";
 
   const getRating = (ratingMale: any, ratingFemale: any) =>
-    selectedGender == Genders.FEMALE ? ratingFemale: ratingMale;
+    selectedGender === Genders.FEMALE ? ratingFemale : ratingMale;
 
   const goldRating =
     getRating(

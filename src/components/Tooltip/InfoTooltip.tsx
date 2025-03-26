@@ -26,7 +26,10 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({
       enterNextDelay={700}
       sx={{ zIndex: 20000 }}
     >
-      <InfoOutlinedIcon {...iconProps} />
+      <InfoOutlinedIcon
+        style={{ cursor: "pointer" }}
+        {...iconProps}
+      />
     </MuiTooltip>
   );
 };
