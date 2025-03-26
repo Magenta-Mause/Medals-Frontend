@@ -9,9 +9,8 @@ import {
 import { useTranslation } from "react-i18next";
 import GenericResponsiveDatagrid from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
-import MedalRatings, {
-  CustomChip,
-} from "@components/MedalRatings/MedalRatings";
+import MedalRatings from "@components/MedalRatings/MedalRatings";
+import { CustomChip } from "@components/MedalRatings/MedalRatings";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { DisciplineCategories, Genders } from "@customTypes/enums";
@@ -29,7 +28,6 @@ const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  // Wrap renderMedalChip in useCallback so its reference remains stable.
   const renderMedalChip = useCallback(
     (
       metric: DisciplineRatingMetric,
@@ -40,11 +38,19 @@ const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
         | "gold_rating"
         | "silver_rating"
         | "bronze_rating";
-      // Adjust the implementation as needed.
-      // Here, we assume CustomChip accepts a "rating" and "color" prop.
-      return <CustomChip rating={metric[ratingKey]} color={chipColor} />;
+      const ratingValue =
+        gender === Genders.FEMALE
+          ? metric.rating_female?.[ratingKey]
+          : metric.rating_male?.[ratingKey];
+      return (
+        <CustomChip
+          value={ratingValue ?? "–"}
+          color={chipColor}
+          unit={metric.discipline.unit || ""}
+        />
+      );
     },
-    [],
+    [gender],
   );
 
   const columns: Column<DisciplineRatingMetric>[] = useMemo(
