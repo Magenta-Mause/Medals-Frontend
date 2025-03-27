@@ -113,7 +113,8 @@ if __name__ == '__main__':
     with open(args.english_source, 'r') as fp:
         translation_source = json.load(fp)
 
-    translation_target, translation_paths = mask_translation_tree(translation_source, args.exclude or [], mask='{{TRANSLATE}}')
+    exclude_specifiers = list(map(lambda s: s.replace('.', '\x00'), args.exclude or []))
+    translation_target, translation_paths = mask_translation_tree(translation_source, exclude_specifiers, mask='{{TRANSLATE}}')
     logging.info(f"Parsed {len(translation_paths)} entries to localize")
 
     logging.info("Setting up machine learning pipeline")
