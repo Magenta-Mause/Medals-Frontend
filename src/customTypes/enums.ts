@@ -1,9 +1,3 @@
-export enum MedalType {
-  GOLD = "GOLD",
-  SILVER = "SILVER",
-  BRONZE = "BRONZE",
-}
-
 export enum UserType {
   ADMIN = "ADMIN",
   TRAINER = "TRAINER",
@@ -11,8 +5,9 @@ export enum UserType {
 }
 
 export enum MetricUnits {
-  SECONDS = "seconds",
-  METERS = "meters",
+  SECONDS = "SECONDS",
+  METERS = "METERS",
+  POINTS = "POINTS",
 }
 
 export enum DisciplineCategories {
@@ -20,4 +15,17 @@ export enum DisciplineCategories {
   ENDURANCE = "ENDURANCE",
   SPEED = "SPEED",
   STRENGTH = "STRENGTH",
+}
+
+export enum Medals {
+  GOLD = "GOLD",
+  SILVER = "SILVER",
+  BRONZE = "BRONZE",
+  NONE = "NONE",
+}
+
+export enum Genders {
+  DIVERSE = "DIVERSE",
+  FEMALE = "FEMALE",
+  MALE = "MALE",
 }

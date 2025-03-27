@@ -90,7 +90,7 @@ const AthleteExportModal = (props: {
           textAlign: "center",
         }}
       >
-        {athlete.gender.slice(0, 1).toUpperCase()}
+        {athlete.gender!.slice(0, 1).toUpperCase()}
       </Chip>
     ),
   };

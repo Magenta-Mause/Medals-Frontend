@@ -39,6 +39,7 @@ import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
+import Tooltip from "@components/HoverTooltip/HoverTooltip";
 
 const sharedNavBarElements = [
   {
@@ -269,46 +270,57 @@ const NavBar = () => {
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <Button
-          variant="plain"
-          color="neutral"
-          size="sm"
-          sx={{
-            p: 0.5,
-            textAlign: "left",
-            flex: 1,
-            minWidth: 0,
-          }}
-          onClick={() => {
-            setProfileOpen(true);
-            collapseSidebar();
-          }}
-        >
-          <Box sx={{ minWidth: 0, flex: 1 }}>
-            <Typography level="title-sm">
-              {selectedUser?.first_name} {selectedUser?.last_name}
-            </Typography>
-            <Typography level="body-xs" noWrap sx={{ maxWidth: "100%" }}>
-              {email}
-            </Typography>
-          </Box>
-        </Button>
-        {(authorizedUsers?.length ?? 0) > 1 ? (
-          <IconButton
-            about="Switch user"
+        <Tooltip text={t("components.tooltip.profileButton")}>
+          <Button
+            variant="plain"
+            color="neutral"
+            size="sm"
+            sx={{
+              p: 0.5,
+              textAlign: "left",
+              flex: 1,
+              minWidth: 0,
+            }}
             onClick={() => {
-              setSelectedUser(null);
-              navigate("/login");
+              setProfileOpen(true);
+              collapseSidebar();
             }}
           >
-            <SupervisedUserCircleOutlined />
-          </IconButton>
+            <Box sx={{ minWidth: 0, flex: 1 }}>
+              <Typography level="title-sm">
+                {selectedUser?.first_name} {selectedUser?.last_name}
+              </Typography>
+              <Typography level="body-xs" noWrap sx={{ maxWidth: "100%" }}>
+                {email}
+              </Typography>
+            </Box>
+          </Button>
+        </Tooltip>
+        {(authorizedUsers?.length ?? 0) > 1 ? (
+          <Tooltip text={t("components.tooltip.switchUserButton")}>
+            <IconButton
+              about="Switch user"
+              onClick={() => {
+                setSelectedUser(null);
+                navigate("/login");
+              }}
+            >
+              <SupervisedUserCircleOutlined />
+            </IconButton>
+          </Tooltip>
         ) : (
           <></>
         )}
-        <IconButton size="sm" variant="plain" color="neutral" onClick={logout}>
-          <LogoutRounded />
-        </IconButton>
+        <Tooltip text={t("components.tooltip.logoutButton")}>
+          <IconButton
+            size="sm"
+            variant="plain"
+            color="neutral"
+            onClick={logout}
+          >
+            <LogoutRounded />
+          </IconButton>
+        </Tooltip>
       </Box>
       <ProfileModal isOpen={isProfileOpen} setOpen={setProfileOpen} />
     </Sheet>

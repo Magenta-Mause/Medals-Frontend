@@ -1,4 +1,4 @@
-import { MetricUnits } from "./enums";
+import { DisciplineCategories, Genders, MetricUnits } from "./enums";
 
 export interface Athlete {
   id?: number;
@@ -6,7 +6,7 @@ export interface Athlete {
   last_name: string;
   email: string;
   birthdate: string;
-  gender: string;
+  gender?: Genders;
 }
 
 export interface UserEntity {
@@ -32,7 +32,7 @@ export interface Discipline {
   category: DisciplineCategories;
   description: string | null;
   unit: MetricUnits;
-  more_better: boolean;
+  is_more_better: boolean;
 }
 
 export interface RatingMetric {
@@ -64,6 +64,7 @@ export interface PerformanceRecording {
   discipline_rating_metric: DisciplineRatingMetric;
   rating_value: number;
   date_of_performance: string;
+  athlete: Athlete;
 }
 
 export interface PerformanceRecordingCreationDto {
@@ -71,4 +72,10 @@ export interface PerformanceRecordingCreationDto {
   rating_value: number;
   discipline_id: number;
   date_of_performance: number;
+}
+
+export interface AgeRange {
+  label: string;
+  min: number;
+  max: number;
 }
