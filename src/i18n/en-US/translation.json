@@ -16,9 +16,10 @@
     "ADMIN": "Admin"
   },
   "units": {
-    "minutes": "minutes",
-    "seconds": "seconds",
-    "meters": "meters"
+    "MINUTES": "minutes",
+    "SECONDS": "seconds",
+    "METERS": "meters",
+    "POINTS": "points"
   },
   "messages": {
     "noEntriesFound": "No entries found"
@@ -230,6 +231,17 @@
       "2024MedalsCard": "2024MedalsCard",
       "2025MedalsCard": "2025MedalsCard",
       "photoBy": "Photo by"
+    },
+    "performanceMetricsPage": {
+      "title": "Performance Metrics",
+      "filters": {
+        "year": "Year",
+        "ageGroup": "Age Group",
+        "gender": "Gender"
+      },
+      "tooltips": {
+        "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used and also considered in the evaluation."
+      }
     }
   },
   "components": {
