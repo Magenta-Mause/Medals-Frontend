@@ -108,6 +108,11 @@ const useInstantiation = () => {
     dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
 
     setTimeout(() => {
+      uninitializeAthleteWebsocket();
+      uninitializeDisciplineWebsocket();
+      uninitializeTrainerWebsocket();
+      uninitializePerformanceRecordingWebsocket();
+
       initializeAthleteWebsocket();
       initializeDisciplineWebsocket();
       initializeTrainerWebsocket();
@@ -135,6 +140,11 @@ const useInstantiation = () => {
     dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
 
     setTimeout(() => {
+      uninitializeAthleteWebsocket();
+      uninitializeDisciplineWebsocket();
+      uninitializeTrainerWebsocket();
+      uninitializePerformanceRecordingWebsocket();
+
       uninitializeTrainerWebsocket();
       initializeAthleteWebsocket();
       initializeDisciplineWebsocket();
