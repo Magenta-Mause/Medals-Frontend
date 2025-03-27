@@ -34,7 +34,6 @@ const useFormatting = () => {
           return formatNumber(value);
         }
       }
-      return "";
     },
     [t, formatNumber],
   );
