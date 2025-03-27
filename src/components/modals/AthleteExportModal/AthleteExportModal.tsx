@@ -1,14 +1,6 @@
 import { t } from "i18next";
 import GenericModal from "../GenericModal";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Chip,
-  Sheet,
-  Switch,
-  Typography,
-} from "@mui/joy";
+import { Box, Button, Checkbox, Chip, Sheet } from "@mui/joy";
 import {
   Athlete,
   Discipline,
@@ -22,8 +14,10 @@ import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDat
 import React, { useEffect, useState } from "react";
 import { Preview } from "@mui/icons-material";
 import { useTypedSelector } from "@stores/rootReducer";
-import { calculatePerformanceRecordingMedal, convertMedalToNumber } from "@utils/calculationUtil";
-import { p } from "react-router/dist/development/fog-of-war-Ckdfl79L";
+import {
+  calculatePerformanceRecordingMedal,
+  convertMedalToNumber,
+} from "@utils/calculationUtil";
 
 const AthleteExportModal = (props: {
   isOpen: boolean;
@@ -35,7 +29,9 @@ const AthleteExportModal = (props: {
   const [loading, setLoading] = useState(true);
   const [csvPreview, setCsvPreview] = useState<string | null>(null);
   const [showPreviewDialog, setShowPreviewDialog] = useState(false);
-  const [withPerformance, setWithPerformance] = useState(props.includePerformance);
+  const [withPerformance, setWithPerformance] = useState(
+    props.includePerformance,
+  );
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
@@ -53,6 +49,23 @@ const AthleteExportModal = (props: {
       columnName: t("components.athleteDatagrid.table.columns.lastName"),
       columnMapping: (athlete) => athlete.last_name,
       sortable: true,
+    },
+    {
+      columnName: "",
+      columnMapping: (athlete) => (
+        <Button
+          variant="soft"
+          color="danger"
+          size="sm"
+          sx={{ fontSize: "0.75rem", minWidth: "auto" }}
+          onClick={() => {
+            setAthletes((prev) => prev.filter((a) => a.id !== athlete.id));
+            console.log("Removing Athlete from selection:", athlete);
+          }}
+        >
+          Remove from Selection
+        </Button>
+      ),
     },
   ];
 
@@ -152,7 +165,6 @@ const AthleteExportModal = (props: {
 
         console.log("Performance Recordings:", performanceRecordings);
 
-
         const performanceRecordingsOfAthlete = performanceRecordings.filter(
           (p) => p.athlete_id === item.id,
         );
@@ -170,7 +182,9 @@ const AthleteExportModal = (props: {
             const discipline = disciplines.find(
               (d) => d.id === perf.discipline_rating_metric.discipline.id,
             );
-            const points = convertMedalToNumber(calculatePerformanceRecordingMedal(perf))
+            const points = convertMedalToNumber(
+              calculatePerformanceRecordingMedal(perf),
+            );
             return columns
               .map((col) => {
                 switch (col) {
@@ -193,7 +207,7 @@ const AthleteExportModal = (props: {
                   case "result":
                     return perf.rating_value || "N/A";
                   case "points":
-                    return points ||"N/A";
+                    return points || "N/A";
                 }
               })
               .join(";");
@@ -214,15 +228,18 @@ const AthleteExportModal = (props: {
 
   const handleExport = () => {
     const csvContent = generateCSV(athletes, withPerformance);
-    const blob = new Blob([csvContent], {type: "text/csv;charset=utf-8;"});
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.href =url;
-    link.setAttribute("download", withPerformance? "athletePerformance_export.csv" :"athlete_export.csv");
+    link.href = url;
+    link.setAttribute(
+      "download",
+      withPerformance ? "athletePerformance_export.csv" : "athlete_export.csv",
+    );
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }
+  };
 
   return (
     <GenericModal
@@ -251,7 +268,7 @@ const AthleteExportModal = (props: {
               label={t("components.athleteExportModal.performanceCheckbox")}
               checked={withPerformance}
               onChange={(event) => setWithPerformance(event.target.checked)}
-                />
+            />
           </Sheet>
         </Box>
 
@@ -262,14 +279,13 @@ const AthleteExportModal = (props: {
           </Button>
         </Box>
       </Box>
-      <Box sx={{overflow: "auto", maxHeight: "450px"}}>
+      <Box sx={{ overflow: "auto", maxHeight: "450px" }}>
         <GenericResponsiveDatagrid
           isLoading={loading}
           data={athletes}
           columns={columns}
           keyOf={(athlete) => athlete.id!}
           mobileRendering={mobileRendering}
-          actionMenu={actions}
           disablePaging={true}
         />
       </Box>
@@ -295,13 +311,13 @@ const AthleteExportModal = (props: {
           >
             {csvPreview}
           </Box>
-          <Box sx={{display: "flex", justifyContent: "flex-end"}}>
-          <Button
-            onClick={() => setShowPreviewDialog(false)}
-            sx={{ marginTop: 2 }}
-          >
-            {t("components.athleteExportModal.closePreviewButton")}
-          </Button>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              onClick={() => setShowPreviewDialog(false)}
+              sx={{ marginTop: 2 }}
+            >
+              {t("components.athleteExportModal.closePreviewButton")}
+            </Button>
           </Box>
         </Box>
       </GenericModal>

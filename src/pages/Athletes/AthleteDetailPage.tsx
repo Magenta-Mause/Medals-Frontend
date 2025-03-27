@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { IoIosCreate } from "react-icons/io";
-import { IosShare, IosShareRounded } from "@mui/icons-material";
+import { IosShareRounded } from "@mui/icons-material";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 
 const AthleteDetailPage = () => {
@@ -17,7 +17,7 @@ const AthleteDetailPage = () => {
   const [isPerformanceRecordingModalOpen, setPerformanceRecordingModalOpen] =
     useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
-  
+
   const athletes = useTypedSelector(
     (state) => state.athletes.data,
   ) as Athlete[];
@@ -33,10 +33,19 @@ const AthleteDetailPage = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "flex-end", flexDirection: "column" }}>
-      <Button variant="soft" onClick={()=> setExportModalOpen(true)}
-        sx={{ display: "flex", justifyContent: "space-around"}}>
-          <IosShareRounded/>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "flex-end",
+          flexDirection: "column",
+        }}
+      >
+        <Button
+          variant="soft"
+          onClick={() => setExportModalOpen(true)}
+          sx={{ display: "flex", justifyContent: "space-around" }}
+        >
+          <IosShareRounded />
           {t("components.athleteExportModal.exportButton")}
         </Button>
       </Box>
