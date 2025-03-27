@@ -77,7 +77,7 @@ const LoginPage = () => {
             background: "rgba(19 19 24 / 0.8)",
           },
           p: 5,
-          pb: 4
+          pb: 4,
         })}
       >
         <Stack sx={{ gap: 4, mb: 2 }}>

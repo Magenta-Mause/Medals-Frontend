@@ -1,3 +1,4 @@
+import { MetricUnits } from "@customTypes/enums";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -12,19 +13,19 @@ const useFormatting = () => {
     [i18n.language],
   );
   const formatValue = useCallback(
-    (value: number, unit: string): string => {
+    (value: number, unit: MetricUnits): string => {
       switch (unit) {
-        case "seconds": {
+        case MetricUnits.SECONDS: {
           return (
             pad(Math.floor(value / 60), 2) +
             ":" +
             pad(Math.floor(value % 60), 2) +
             " " +
-            t("units.minutes")
+            t("units.MINUTES")
           );
         }
-        case "meters": {
-          return formatNumber(value) + " " + t("units.meters");
+        case MetricUnits.METERS: {
+          return formatNumber(value) + " " + t("units.METERS");
         }
       }
       return "";

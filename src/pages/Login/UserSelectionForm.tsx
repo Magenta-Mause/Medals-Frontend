@@ -1,15 +1,8 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import { UserEntity } from "@customTypes/backendTypes";
-import {
-  ArrowBack,
-  ArrowForward,
-  Login,
-  TransitEnterexit,
-} from "@mui/icons-material";
+import { ArrowForward } from "@mui/icons-material";
 import {
   Box,
-  Button,
   List,
   ListDivider,
   ListItemButton,
@@ -18,8 +11,6 @@ import {
 } from "@mui/joy";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { BiUser } from "react-icons/bi";
-import { GiHook } from "react-icons/gi";
 
 const UserRowMapping = (props: {
   user: UserEntity;

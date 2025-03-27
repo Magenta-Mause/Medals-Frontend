@@ -180,7 +180,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                     (d) => d.category == category,
                   )}
                   isLoading={false}
-                  onDisciplineClick={(d) => {
+                  onDisciplineClick={async (d) => {
                     setSelectedDiscipline(d);
                     setDisciplineOpen(true);
                   }}

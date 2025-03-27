@@ -17,7 +17,7 @@ import { DisciplineInfo } from "@components/datagrids/PerformanceMetricDatagrid/
 interface DisciplineDatagridProps {
   disciplines: Discipline[];
   performanceRecordings: PerformanceRecording[];
-  onDisciplineClick?: (d: Discipline) => void;
+  onDisciplineClick?: (d: Discipline) => Promise<void>;
   isLoading: boolean;
   disablePaging: boolean;
 }
@@ -130,7 +130,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         {
           label: "Details",
           key: "openDetails",
-          operation: props.onDisciplineClick ?? (() => {}),
+          operation: props.onDisciplineClick ?? (async () => {}),
         },
       ],
       onElementClick: props.onDisciplineClick ?? undefined,

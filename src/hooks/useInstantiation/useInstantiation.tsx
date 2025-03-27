@@ -119,15 +119,19 @@ const useInstantiation = () => {
       initializePerformanceRecordingWebsocket();
     }, 500);
   }, [
-    initializeTrainerWebsocket,
     dispatch,
     getAthletes,
     getDisciplines,
     getTrainers,
     getPerformanceRecordings,
     getDisciplineMetrics,
+    uninitializeAthleteWebsocket,
+    uninitializeDisciplineWebsocket,
+    uninitializePerformanceRecordingWebsocket,
+    uninitializeTrainerWebsocket,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
+    initializeTrainerWebsocket,
     initializePerformanceRecordingWebsocket,
   ]);
 
@@ -142,21 +146,21 @@ const useInstantiation = () => {
     setTimeout(() => {
       uninitializeAthleteWebsocket();
       uninitializeDisciplineWebsocket();
-      uninitializeTrainerWebsocket();
       uninitializePerformanceRecordingWebsocket();
 
-      uninitializeTrainerWebsocket();
       initializeAthleteWebsocket();
       initializeDisciplineWebsocket();
       initializePerformanceRecordingWebsocket();
     }, 700);
   }, [
-    uninitializeTrainerWebsocket,
     dispatch,
     getAthletes,
     getDisciplines,
     getPerformanceRecordings,
     getDisciplineMetrics,
+    uninitializeAthleteWebsocket,
+    uninitializeDisciplineWebsocket,
+    uninitializePerformanceRecordingWebsocket,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
     initializePerformanceRecordingWebsocket,
