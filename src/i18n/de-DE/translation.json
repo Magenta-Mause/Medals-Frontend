@@ -45,9 +45,10 @@
     "NONE": "Keine Medaille erreicht"
   },
   "units": {
-    "seconds": "Sekunden",
-    "minutes": "Minuten",
-    "meters": "Meter"
+    "SECONDS": "Sekunden",
+    "MINUTES": "Minuten",
+    "METERS": "Meter",
+    "POINTS": "Punkte"
   },
   "messages": {
     "noEntriesFound": "Keine Einträge gefunden"
@@ -221,6 +222,17 @@
       "2024MedalsCard": "2024 Medaillenkarte",
       "2025MedalsCard": "2025 Medaillenkarte",
       "photoBy": "Foto von"
+    },
+    "performanceMetricsPage": {
+      "title": "Leistungswerte",
+      "filters": {
+        "year": "Jahr",
+        "ageGroup": "Altersgruppe",
+        "gender": "Geschlecht"
+      },
+      "tooltips": {
+        "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet und auch in die Bewertung einbezogen."
+      }
     }
   },
   "components": {
@@ -339,7 +351,7 @@
         }
       },
       "actions": {
-        "delete":"Löschen",
+        "delete": "Löschen",
         "edit": "Bearbeiten",
         "openDetails": "Details"
       }
@@ -378,9 +390,9 @@
         "lastNamePlaceholder": "Mustermann",
         "confirm": "Trainer Einladen"
       },
-      "actions":{
-          "delete":"Löschen"
-        }
+      "actions": {
+        "delete": "Löschen"
+      }
     },
     "buttons": {
       "next": "Nächstes",
@@ -426,7 +438,7 @@
       "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
       "profileButton": "Account Einstellungen",
       "switchUserButton": "Benutzer wechseln",
-      "logoutButton":"Abmelden",
+      "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern"
     }
   }

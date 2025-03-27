@@ -16,9 +16,10 @@
     "ADMIN": "Admin"
   },
   "units": {
-    "minutes": "minutes",
-    "seconds": "seconds",
-    "meters": "meters"
+    "MINUTES": "minutes",
+    "SECONDS": "seconds",
+    "METERS": "meters",
+    "POINTS": "points"
   },
   "messages": {
     "noEntriesFound": "No entries found"
@@ -218,6 +219,17 @@
       "2024MedalsCard": "2024MedalsCard",
       "2025MedalsCard": "2025MedalsCard",
       "photoBy": "Photo by"
+    },
+    "performanceMetricsPage": {
+      "title": "Performance Metrics",
+      "filters": {
+        "year": "Year",
+        "ageGroup": "Age Group",
+        "gender": "Gender"
+      },
+      "tooltips": {
+        "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used and also considered in the evaluation."
+      }
     }
   },
   "components": {
@@ -334,7 +346,7 @@
         }
       },
       "actions": {
-        "delete":"Delete",
+        "delete": "Delete",
         "edit": "Edit",
         "openDetails": "Details"
       }
@@ -365,9 +377,9 @@
         "lastNamePlaceholder": "Doe",
         "confirm": "Invite Trainer"
       },
-      "actions":{
-          "delete":"Delete"
-        }
+      "actions": {
+        "delete": "Delete"
+      }
     },
     "buttons": {
       "next": "Next",
@@ -423,7 +435,7 @@
       "colorSchemeToggle": "Switch light-/darkmode",
       "profileButton": "Account Settings",
       "switchUserButton": "Switch User",
-      "logoutButton":"Logout",
+      "logoutButton": "Logout",
       "languageSelectionButton": "Change language"
     }
   }

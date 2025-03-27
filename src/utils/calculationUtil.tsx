@@ -10,7 +10,7 @@ const calculatePerformanceRecordingMedal = (
       ? performanceRecording.discipline_rating_metric.rating_female
       : performanceRecording.discipline_rating_metric.rating_male;
   const value = performanceRecording.rating_value;
-  if (performanceRecording.discipline_rating_metric.discipline.more_better) {
+  if (performanceRecording.discipline_rating_metric.discipline.is_more_better) {
     if (value >= metric.gold_rating) {
       return Medals.GOLD;
     } else if (value >= metric.silver_rating) {
@@ -46,7 +46,7 @@ const getBestPerformanceRecording = (
   discipline: Discipline,
 ) => {
   return performanceRecordings.sort(
-    discipline.more_better
+    discipline.is_more_better
       ? (a, b) => b.rating_value - a.rating_value
       : (a, b) => a.rating_value - b.rating_value,
   )[0];

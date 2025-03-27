@@ -30,6 +30,7 @@ import {
   removeTrainer,
   setTrainers,
 } from "@stores/slices/trainerSlice";
+import { setDisciplineMetrics } from "@stores/slices/disciplineRatingMetricSlice";
 import { useCallback, useContext } from "react";
 import { useDispatch } from "react-redux";
 import useApi from "../useApi";
@@ -38,8 +39,13 @@ import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
 const useInstantiation = () => {
   const dispatch = useDispatch();
   const { selectedUser } = useContext(AuthContext);
-  const { getAthletes, getPerformanceRecordings, getDisciplines, getTrainers } =
-    useApi();
+  const {
+    getAthletes,
+    getPerformanceRecordings,
+    getDisciplines,
+    getTrainers,
+    getDisciplineMetrics,
+  } = useApi();
   const client = useStompClient();
   const {
     initialize: initializeAthleteWebsocket,
@@ -99,6 +105,7 @@ const useInstantiation = () => {
     dispatch(
       setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
     );
+    dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
 
     setTimeout(() => {
       initializeAthleteWebsocket();
@@ -113,6 +120,7 @@ const useInstantiation = () => {
     getDisciplines,
     getTrainers,
     getPerformanceRecordings,
+    getDisciplineMetrics,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
     initializePerformanceRecordingWebsocket,
@@ -124,6 +132,7 @@ const useInstantiation = () => {
     dispatch(
       setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
     );
+    dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
 
     setTimeout(() => {
       uninitializeTrainerWebsocket();
@@ -137,6 +146,7 @@ const useInstantiation = () => {
     getAthletes,
     getDisciplines,
     getPerformanceRecordings,
+    getDisciplineMetrics,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
     initializePerformanceRecordingWebsocket,

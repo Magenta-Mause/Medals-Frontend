@@ -244,10 +244,10 @@ const GenericResponsiveDatagrid = <T,>(
         {props.mobileRendering.searchFilter != undefined ? (
           <Input
             size="sm"
-            placeholder={
+            placeholder={String(
               props.mobileRendering.searchFilter.label ??
-              props.mobileRendering.searchFilter.name
-            }
+                props.mobileRendering.searchFilter.name,
+            )}
             value={filterValues[props.mobileRendering.searchFilter.name]}
             startDecorator={<Search />}
             sx={{ flexGrow: 1 }}
