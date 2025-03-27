@@ -1,9 +1,12 @@
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import LanguageSelectionButton from "@components/LanguageSelectionButton/LanguageSelectionButton";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import useImageLoading from "@hooks/useImageLoading";
+import { Logout } from "@mui/icons-material";
 import { Box, GlobalStyles, IconButton, Typography } from "@mui/joy";
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
@@ -13,11 +16,12 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
     "/assets/images/splitPage/pexels-photo-9501967.jpeg",
   ]);
   const imageUrlDarkmode = useImageLoading([
-    "/assets/images/splitPage/pexels-photo-1564420-low-quality.jpeg",
-    "/assets/images/splitPage/pexels-photo-1564420.jpeg",
+    "/assets/images/splitPage/pexels-photo-6766999-low-quality.jpg",
+    "/assets/images/splitPage/pexels-photo-6766999.jpg",
   ]);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { authorized, logout } = useContext(AuthContext);
 
   return (
     <>
@@ -120,7 +124,25 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
             >
               © {t("pages.loginPage.logo")} {new Date().getFullYear()}
             </Typography>
-            <Box sx={{ px: 3 }}></Box>
+            {authorized ? (
+              <HoverTooltip text={t("components.tooltip.logoutButton")}>
+                <IconButton
+                  variant="outlined"
+                  sx={(theme) => ({
+                    background: "rgba(255, 255, 255, 0.3)",
+                    mr: "5px",
+                    [theme.getColorSchemeSelector("dark")]: {
+                      background: "rgba(0, 0, 0, 0.3)",
+                    },
+                  })}
+                  onClick={logout}
+                >
+                  <Logout />
+                </IconButton>
+              </HoverTooltip>
+            ) : (
+              <Box sx={{ width: "36px", height: 1 }}></Box>
+            )}
           </Box>
         </Box>
       </Box>

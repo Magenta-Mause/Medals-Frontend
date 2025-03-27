@@ -69,8 +69,8 @@
       "success": "Bestätigungs E-Mail gesendet"
     },
     "inviteTrainer": {
-      "failed": "Der Trainer konnte nicht eingeladen werden",
-      "success": "Der Trainer wurde eingeladen"
+      "failed": "Die Trainer*in konnte nicht eingeladen werden",
+      "success": "Die Trainer*in wurde eingeladen"
     },
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
@@ -119,6 +119,10 @@
     },
     "loginPage": {
       "logo": "Medals",
+      "userSelection": {
+        "header": "Profil auswählen",
+        "subheader": "Wähle aus mit welchem Profil du fortfahren willst"
+      },
       "signIn": {
         "header": "Anmelden",
         "subheader": "Medals - Das Medaillen Management System der Zukunft",
@@ -378,7 +382,7 @@
         "toolbar": {
           "addTrainer": {
             "label": "Einladen",
-            "content": "Trainer Einladen"
+            "content": "Trainer*in Einladen"
           }
         }
       },
@@ -388,7 +392,7 @@
         "firstNamePlaceholder": "Max",
         "lastName": "Nachname",
         "lastNamePlaceholder": "Mustermann",
-        "confirm": "Trainer Einladen"
+        "confirm": "Trainer*in Einladen"
       },
       "actions": {
         "delete": "Löschen"
@@ -439,7 +443,8 @@
       "profileButton": "Account Einstellungen",
       "switchUserButton": "Benutzer wechseln",
       "logoutButton": "Abmelden",
-      "languageSelectionButton": "Sprache ändern"
+      "languageSelectionButton": "Sprache ändern",
+      "selectUser": "Mit dieser Benutzer*in fortfahren"
     }
   }
 }

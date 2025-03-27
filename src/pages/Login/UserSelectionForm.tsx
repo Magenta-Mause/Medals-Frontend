@@ -1,5 +1,12 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import { UserEntity } from "@customTypes/backendTypes";
+import {
+  ArrowBack,
+  ArrowForward,
+  Login,
+  TransitEnterexit,
+} from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -11,14 +18,22 @@ import {
 } from "@mui/joy";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
+import { BiUser } from "react-icons/bi";
+import { GiHook } from "react-icons/gi";
 
 const UserRowMapping = (props: {
   user: UserEntity;
   setSelectedUser: (user: UserEntity) => void;
+  index: number;
 }) => {
   const { t } = useTranslation();
   return (
     <>
+      {props.index > 0 ? (
+        <ListDivider key={"seperator-" + props.user.id} />
+      ) : (
+        <></>
+      )}
       <ListItemButton
         key={props.user.id}
         sx={{
@@ -26,31 +41,50 @@ const UserRowMapping = (props: {
           justifyContent: "space-between",
           alignItems: "start",
           p: 1,
-          borderRadius: 5,
+          borderRadius: 3,
+          ":hover": {
+            background: "black",
+          },
         }}
         onClick={() => {
           props.setSelectedUser(props.user);
         }}
       >
-        <ListItemContent sx={{ display: "flex", gap: 2, alignItems: "start" }}>
-          <div>
-            <Typography gutterBottom sx={{ fontWeight: 600 }}>
+        <ListItemContent
+          sx={{
+            display: "flex",
+            gap: 2,
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: "55px",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              alignItems: "left",
+              height: "100%",
+              ml: 1,
+            }}
+          >
+            <Typography sx={{ fontWeight: 600 }}>
               {props.user.first_name} {props.user.last_name}
             </Typography>
-            <Typography level="body-xs" gutterBottom>
+            <Typography level="body-xs">
               {t("userTypes." + props.user.type)}
             </Typography>
-          </div>
+          </Box>
+          <ArrowForward sx={{ mr: 1 }} />
         </ListItemContent>
       </ListItemButton>
-      <ListDivider key={"seperator-" + props.user.id} />
     </>
   );
 };
 
 const UserSelectionForm = () => {
-  const { authorizedUsers, setSelectedUser, logout } = useContext(AuthContext);
-  const { t } = useTranslation();
+  const { authorizedUsers, setSelectedUser } = useContext(AuthContext);
 
   return (
     <>
@@ -63,17 +97,15 @@ const UserSelectionForm = () => {
             overflowY: "auto",
           }}
         >
-          {authorizedUsers?.map((user) => (
+          {authorizedUsers?.map((user, index) => (
             <UserRowMapping
               key={user.id}
               user={user}
               setSelectedUser={setSelectedUser}
+              index={index}
             />
           ))}
         </List>
-        <Button fullWidth color="neutral" onClick={logout}>
-          {t("pages.loginPage.signIn.logoutButton")}
-        </Button>
       </Box>
     </>
   );

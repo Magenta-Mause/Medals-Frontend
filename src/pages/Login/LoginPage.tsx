@@ -49,6 +49,7 @@ const LoginPage = () => {
   ) {
     return <Navigate to="/" />;
   }
+  const isUserSelection = selectedUser == null && authorized;
 
   return (
     <SplitPageComponent>
@@ -56,8 +57,6 @@ const LoginPage = () => {
         component="main"
         sx={(theme) => ({
           my: "auto",
-          py: 2,
-          pb: 5,
           display: "flex",
           flexDirection: "column",
           gap: 2,
@@ -73,20 +72,25 @@ const LoginPage = () => {
           [`& .MuiFormLabel-asterisk`]: {
             visibility: "hidden",
           },
-          background: "rgba(236 236 231 / 0.9)",
+          background: "rgba(236 236 231 / 1)",
           [theme.getColorSchemeSelector("dark")]: {
             background: "rgba(19 19 24 / 0.8)",
           },
           p: 5,
+          pb: 4
         })}
       >
         <Stack sx={{ gap: 4, mb: 2 }}>
           <Stack sx={{ gap: 1 }}>
             <Typography component="h1" level="h3">
-              {t("pages.loginPage.signIn.header")}
+              {isUserSelection
+                ? t("pages.loginPage.userSelection.header")
+                : t("pages.loginPage.signIn.header")}
             </Typography>
             <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
-              {t("pages.loginPage.signIn.subheader")}
+              {isUserSelection
+                ? t("pages.loginPage.userSelection.subheader")
+                : t("pages.loginPage.signIn.subheader")}
             </Typography>
           </Stack>
         </Stack>
@@ -96,7 +100,7 @@ const LoginPage = () => {
           ) : (
             <></>
           )}
-          {selectedUser == null && authorized ? <UserSelectionForm /> : <></>}
+          {isUserSelection ? <UserSelectionForm /> : <></>}
         </Stack>
       </Box>
     </SplitPageComponent>

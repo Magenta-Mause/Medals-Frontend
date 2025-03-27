@@ -117,6 +117,10 @@
     },
     "loginPage": {
       "logo": "Medals",
+      "userSelection": {
+        "header": "Choose your profile",
+        "subheader": "Pick the profile you want to continue with"
+      },
       "signIn": {
         "header": "Login",
         "subheader": "Medals - The soon to be Medal Management System",
@@ -436,7 +440,8 @@
       "profileButton": "Account Settings",
       "switchUserButton": "Switch User",
       "logoutButton": "Logout",
-      "languageSelectionButton": "Change language"
+      "languageSelectionButton": "Change language",
+      "selectUser": "Continue with this user"
     }
   }
 }
