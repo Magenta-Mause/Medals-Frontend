@@ -27,6 +27,12 @@ const useFormatting = () => {
         case MetricUnits.METERS: {
           return formatNumber(value) + " " + t("units.METERS");
         }
+        case MetricUnits.POINTS: {
+          return formatNumber(value) + " " + t("units.POINTS");
+        }
+        default: {
+          return formatNumber(value);
+        }
       }
       return "";
     },
