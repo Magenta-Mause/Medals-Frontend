@@ -13,6 +13,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useLocation, useNavigate } from "react-router";
 
 interface AuthContextType {
   identityToken: string | null;
@@ -75,9 +76,17 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [authorized, setAuthorized] = useState<boolean | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const { logoutUser, fetchIdentityToken } = useApi();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [tokenExpirationDate, setTokenExpirationDate] = useState<number | null>(
     null,
   );
+
+  useEffect(() => {
+    if (pathname !== "/login" && selectedUser === null && authorized) {
+      navigate("/login");
+    }
+  }, [pathname, navigate, selectedUser, authorized]);
 
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {

@@ -15,8 +15,8 @@ const CreditsPage = () => {
         },
         {
           description: t("pages.creditsPage.darkMode"),
-          author: "Rosemary Ketchum",
-          link: "https://www.pexels.com/photo/group-of-women-standing-outdoor-during-day-1564420/",
+          author: "Cottonbro Studio",
+          link: "https://www.pexels.com/photo/a-man-coaching-a-team-of-women-6766999/",
         },
       ],
     },

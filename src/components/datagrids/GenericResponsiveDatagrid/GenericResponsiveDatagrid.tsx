@@ -25,6 +25,7 @@ import FilterComponent, {
   Filter,
 } from "./GenericResponsiveDatagridFilterComponent";
 import MobileTable, { MobileTableRendering } from "./MobileTable";
+import { useTranslation } from "react-i18next";
 
 const ESTIMATED_HEIGHT_OF_ROW = 95;
 const DEFAULT_MAX_VISIBLE_ON_PAGE = Math.floor(
@@ -34,7 +35,7 @@ const DEFAULT_MAX_VISIBLE_ON_PAGE = Math.floor(
 export interface Action<T> {
   label: React.ReactNode;
   key: string;
-  operation: (item: T) => void;
+  operation: (item: T) => Promise<void>;
   color?: OverridableStringUnion<
     ColorPaletteProp,
     ListItemButtonPropsColorOverrides
@@ -43,7 +44,7 @@ export interface Action<T> {
 }
 
 export interface ToolbarAction extends Action<null> {
-  operation: () => void;
+  operation: () => Promise<void>;
   icon?: React.ReactNode;
   collapseToText?: boolean;
   content: React.ReactNode;
@@ -145,14 +146,9 @@ const GenericResponsiveDatagrid = <T,>(
     }
   }, [selected, props]);
 
-  const triggerActionForSelected = useCallback(
-    (action: (item: T) => void) => {
-      props.data
-        .filter((item) => selected.includes(props.keyOf(item)))
-        .forEach((item) => action(item));
-    },
-    [selected, props],
-  );
+  const getAllSelectedItems = useCallback(() => {
+    return props.data.filter((item) => selected.includes(props.keyOf(item)));
+  }, [selected, props]);
 
   const getFilteredContent = useCallback(() => {
     if (
@@ -381,15 +377,12 @@ const GenericResponsiveDatagrid = <T,>(
         >
           <ButtonGroup>
             {props.itemSelectionActions.map((action) => (
-              <Button
-                color={action.color ?? "neutral"}
-                onClick={() => triggerActionForSelected(action.operation)}
-                key={action.key}
+              <ActionButton
+                action={action}
                 disabled={selected.length == 0}
-                variant={action.variant ?? "outlined"}
-              >
-                {action.label}
-              </Button>
+                getSelectedItems={getAllSelectedItems}
+                key={action.key}
+              />
             ))}
           </ButtonGroup>
         </Box>
@@ -430,6 +423,36 @@ const GenericResponsiveDatagrid = <T,>(
         <></>
       )}
     </>
+  );
+};
+
+const ActionButton = <T,>(props: {
+  action: Action<T>;
+  getSelectedItems: () => T[];
+  disabled: boolean;
+}) => {
+  const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
+
+  const triggerActionForSelected = async () => {
+    setLoading(true);
+    const items = props.getSelectedItems();
+    for (const item of items) {
+      await props.action.operation(item);
+    }
+    setLoading(false);
+  };
+
+  return (
+    <Button
+      color={props.action.color ?? "neutral"}
+      onClick={() => triggerActionForSelected()}
+      key={props.action.key}
+      disabled={props.disabled || loading}
+      variant={props.action.variant ?? "outlined"}
+    >
+      {!loading ? props.action.label : t("generic.loading")}
+    </Button>
   );
 };
 

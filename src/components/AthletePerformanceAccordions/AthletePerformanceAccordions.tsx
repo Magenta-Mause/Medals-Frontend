@@ -150,8 +150,12 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                   >
                     {t("disciplines.categories." + category + ".label")}
                   </Typography>
-                  <Typography
-                    sx={{ position: "relative", right: 0, ml: "auto" }}
+                  <Box
+                    sx={{
+                      position: "relative",
+                      right: 0,
+                      ml: "auto",
+                    }}
                   >
                     <MedalIcon
                       category={category}
@@ -164,7 +168,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                           : Medals.NONE
                       }
                     />
-                  </Typography>
+                  </Box>
                 </Box>
               </AccordionSummary>
               <AccordionDetails>
@@ -176,7 +180,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                     (d) => d.category == category,
                   )}
                   isLoading={false}
-                  onDisciplineClick={(d) => {
+                  onDisciplineClick={async (d) => {
                     setSelectedDiscipline(d);
                     setDisciplineOpen(true);
                   }}
