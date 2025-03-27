@@ -168,8 +168,9 @@
       }
     },
     "validateRequestPage": {
-      "loading": "Validating",
-      "finished": "Validation successful"
+      "header": "Request",
+      "subheader": "has requested access to you,\n would you like to accept the request?",
+      "accept": "Accpet"
     },
     "profilePage": {
       "header": "My Profile",
@@ -267,7 +268,9 @@
     "requestAthleteModal": {
       "header": "Request access to Athlete",
       "searchAthlete": "Name",
-      "notFound": "No athletes found"
+      "notFound": "No athletes found",
+      "requestAthleteButton": "Send",
+      "sendButton": "Sendet"
     },
     "athleteDetailHeader": {
       "columns": {

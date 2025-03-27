@@ -1,8 +1,17 @@
 import useApi from "@hooks/useApi";
-import { Box, Button, List, Input, ListItem, Typography } from "@mui/joy";
+import {
+  Box,
+  Button,
+  List,
+  Input,
+  ListItem,
+  ListItemContent,
+  Typography,
+  Divider,
+} from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useContext, useRef } from "react";
-import { ListItemText, Divider, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import { Athlete } from "@customTypes/backendTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -19,6 +28,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
   const { t } = useTranslation();
   const { searchAthletes, requestAthlete } = useApi();
   const [loading, setLoading] = useState(false);
+  const [send, setSend] = useState(false);
   const [icon, setShowScrollIcon] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
   const [filteredResults, setFilteredResults] = useState<Athlete[]>([]);
@@ -166,24 +176,30 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
                     },
                   })}
                 >
-                  <ListItemText
-                    primary={`${athlete.first_name} ${athlete.last_name}`}
-                    secondary={`${athlete.birthdate}`}
-                  />
+                  <ListItemContent>
+                    <Typography level="title-sm">{`${athlete.first_name} ${athlete.last_name}`}</Typography>
+                    <Typography level="body-sm" noWrap>
+                      {`${athlete.birthdate}`}
+                    </Typography>
+                  </ListItemContent>
                   <Button
                     onClick={() => {
                       handleInvite(athlete.id, selectedUser?.id);
-                      setSearchAthlete("");
+                      setSend(true);
                     }}
                     sx={{
                       cursor: "pointer",
                     }}
-                    disabled={loading}
+                    disabled={loading || send}
                   >
-                    {t("components.requestAthleteModal.requestAthleteButton")}
+                    {send
+                      ? t("components.requestAthleteModal.sendButton")
+                      : t(
+                          "components.requestAthleteModal.requestAthleteButton",
+                        )}
                   </Button>
                 </ListItem>
-                <Divider sx={{ margin: 0.7 }} variant="middle" component="li" />
+                <Divider sx={{ margin: 0.7 }} component="li" />
               </>
             ))}
           </List>

@@ -4,47 +4,52 @@ import { useContext, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { Box, Stack, Button } from "@mui/joy";
+import { Box, Stack, Button, Typography } from "@mui/joy";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate, useSearchParams } from "react-router";
 import LoginForm from "@pages/Login/LoginForm";
+import { jwtDecode } from "jwt-decode";
+
+interface DecodeJWT {
+  trainerName: string;
+}
 
 const AcceptTrainerAccessRequest = () => {
   const { t } = useTranslation();
   const { approveRequest, loginUser } = useApi();
-  const [isValid, setValid] = useState(false);
+  const [trainerName, setTrainerName] = useState<string>("");
   const [searchParams] = useSearchParams();
   const { refreshIdentityToken, authorized } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authorized && !isValid) {
+    if (authorized) {
       const oneTimeCode = searchParams.get("oneTimeCode");
       const uuidRegex = new RegExp(
         "^[A-Za-z0-9_-]{10,}.[A-Za-z0-9_-]{10,}.[A-Za-z0-9_-]{10,}$",
       );
 
       if (!oneTimeCode || !uuidRegex.test(oneTimeCode)) {
-        setValid(false);
         return;
       }
 
-      setTimeout(async () => {
-        try {
-          setValid(true);
-          await approveRequest(oneTimeCode);
-          enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.success"), {
-            variant: "success",
-          });
-        } catch {
-          setValid(false);
-          enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.failed"), {
-            variant: "error",
-          });
-        }
-      }, 500);
+      const decoded = jwtDecode<DecodeJWT>(oneTimeCode);
+      setTrainerName(decoded.trainerName);
     }
-  }, [t, searchParams, approveRequest, authorized, isValid]);
+  }, [searchParams, authorized]);
+
+  const accept = async (oneTimeCode: string) => {
+    try {
+      await approveRequest(oneTimeCode);
+      enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.success"), {
+        variant: "success",
+      });
+    } catch {
+      enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.failed"), {
+        variant: "error",
+      });
+    }
+  };
 
   const loginCallback = async (loginData: {
     email: string;
@@ -75,52 +80,71 @@ const AcceptTrainerAccessRequest = () => {
     <SplitPageComponent>
       <Box
         component="main"
-        sx={() => ({
+        sx={(theme) => ({
           my: "auto",
           py: 2,
           pb: 5,
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          width: 450,
+          width: 400,
           maxWidth: "100%",
           mx: "auto",
           borderRadius: "sm",
+          "& form": {
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          },
+          background: "rgba(236 236 231 / 0.9)",
+          [theme.getColorSchemeSelector("dark")]: {
+            background: "rgba(19 19 24 / 0.8)",
+          },
+          p: 5,
         })}
       >
-        <Stack
-          sx={{
-            width: "100%",
-            maxWidth: 600,
-            textAlign: "center",
-            padding: 2,
-            borderRadius: "5px",
-            backgroundColor: "white",
-          }}
-        >
-          <Stack sx={{ gap: 4, mt: 0 }}>
-            {!authorized ? (
-              <LoginForm loginCallback={login} isPending={isPending} />
-            ) : (
-              <Stack>
-                {isValid ? (
-                  <Button
-                    onClick={() => {
-                      navigate("/");
-                    }}
-                    color="success"
-                  >
-                    {t("pages.validateRequestPage.finished")}
-                  </Button>
-                ) : (
-                  <Button disabled>
-                    {t("pages.validateRequestPage.loading")}
-                  </Button>
-                )}
+        {!authorized ? (
+          <>
+            <Stack sx={{ gap: 4, mb: 2 }}>
+              <Stack sx={{ gap: 1 }}>
+                <Typography component="h1" level="h3">
+                  {t("pages.loginPage.signIn.header")}
+                </Typography>
+                <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
+                  {t("pages.loginPage.signIn.subheader")}
+                </Typography>
               </Stack>
-            )}
+            </Stack>
+            <LoginForm loginCallback={login} isPending={isPending} />
+          </>
+        ) : (
+          <Stack>
+            <Stack sx={{ gap: 4, mb: 2 }}>
+              <Stack sx={{ gap: 1 }}>
+                <Typography component="h1" level="h3">
+                  {t("pages.validateRequestPage.header")}
+                </Typography>
+                <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
+                  <span style={{ fontWeight: "bold" }}>{trainerName}</span>{" "}
+                  {t("pages.validateRequestPage.subheader")}
+                </Typography>
+              </Stack>
+            </Stack>
+            <Button
+              onClick={() => {
+                const oneTimeCode = searchParams.get("oneTimeCode");
+                if (oneTimeCode) {
+                  accept(oneTimeCode);
+                  navigate("/");
+                }
+              }}
+              color="success"
+              disabled={!trainerName}
+            >
+              {t("pages.validateRequestPage.accept")}
+            </Button>
           </Stack>
-        </Stack>
+        )}
       </Box>
     </SplitPageComponent>
   );
