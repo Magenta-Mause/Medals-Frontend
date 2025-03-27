@@ -22,6 +22,8 @@ import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDat
 import React, { useEffect, useState } from "react";
 import { Preview } from "@mui/icons-material";
 import { useTypedSelector } from "@stores/rootReducer";
+import { calculatePerformanceRecordingMedal, convertMedalToNumber } from "@utils/calculationUtil";
+import { p } from "react-router/dist/development/fog-of-war-Ckdfl79L";
 
 const AthleteExportModal = (props: {
   isOpen: boolean;
@@ -33,7 +35,7 @@ const AthleteExportModal = (props: {
   const [csvPreview, setCsvPreview] = useState<string | null>(null);
   const [showPreviewDialog, setShowPreviewDialog] = useState(false);
   const [withPerformance, setWithPerformance] = useState(false);
-  const performances = useTypedSelector(
+  const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
   const disciplines = useTypedSelector(
@@ -147,24 +149,27 @@ const AthleteExportModal = (props: {
           return columns.map((col) => item[col] || "").join(";");
         }
 
-        const athletePerformances = performances.filter(
+        console.log("Performance Recordings:", performanceRecordings);
+
+
+        const performanceRecordingsOfAthlete = performanceRecordings.filter(
           (p) => p.athlete_id === item.id,
         );
+        if (performanceRecordingsOfAthlete.length === 0) {
+          return columns.map((col) => item[col] || "").join(";");
+        }
+
         const birthdate = item.birthdate ? new Date(item.birthdate) : null;
         const birthyear = birthdate
           ? birthdate.getFullYear().toString()
           : "N/A";
-        const birthday = birthdate ? birthdate.toString() : "N/A";
 
-        if (athletePerformances.length === 0) {
-          return columns.map((col) => item[col] || "").join(";");
-        }
-
-        return athletePerformances
+        return performanceRecordingsOfAthlete
           .map((perf) => {
             const discipline = disciplines.find(
               (d) => d.id === perf.discipline_rating_metric.discipline.id,
             );
+            const points = convertMedalToNumber(calculatePerformanceRecordingMedal(perf))
             return columns
               .map((col) => {
                 switch (col) {
@@ -187,7 +192,7 @@ const AthleteExportModal = (props: {
                   case "result":
                     return perf.rating_value || "N/A";
                   case "points":
-                    return "N/A";
+                    return points ||"N/A";
                 }
               })
               .join(";");
