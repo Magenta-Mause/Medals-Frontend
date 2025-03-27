@@ -170,7 +170,8 @@
       }
     },
     "validateRequestPage": {
-      "header": "hat Zugriff auf Sie angefordert.\n Möchten Sie die Anfrage annehmen?",
+      "header": "Anfrage",
+      "subheader": "will Sie verwalten.\n Möchten Sie die Anfrage annehmen?",
       "accept": "Annehmen"
     },
     "profilePage": {

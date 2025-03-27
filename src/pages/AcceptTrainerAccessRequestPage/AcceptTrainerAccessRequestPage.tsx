@@ -80,55 +80,71 @@ const AcceptTrainerAccessRequest = () => {
     <SplitPageComponent>
       <Box
         component="main"
-        sx={() => ({
+        sx={(theme) => ({
           my: "auto",
           py: 2,
           pb: 5,
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          width: 450,
+          width: 400,
           maxWidth: "100%",
           mx: "auto",
           borderRadius: "sm",
+          "& form": {
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          },
+          background: "rgba(236 236 231 / 0.9)",
+          [theme.getColorSchemeSelector("dark")]: {
+            background: "rgba(19 19 24 / 0.8)",
+          },
+          p: 5,
         })}
       >
-        <Stack
-          sx={{
-            width: "100%",
-            maxWidth: 600,
-            textAlign: "center",
-            padding: 2,
-            borderRadius: "5px",
-            backgroundColor: "white",
-          }}
-        >
-          <Stack sx={{ gap: 4, mt: 0 }}>
-            {!authorized ? (
-              <LoginForm loginCallback={login} isPending={isPending} />
-            ) : (
-              <Stack>
-                <Typography sx={{ whiteSpace: "pre-line", paddingBottom: 2 }}>
-                  <span style={{ fontWeight: "bold" }}>{trainerName}</span>{" "}
+        {!authorized ? (
+          <>
+            <Stack sx={{ gap: 4, mb: 2 }}>
+              <Stack sx={{ gap: 1 }}>
+                <Typography component="h1" level="h3">
+                  {t("pages.loginPage.signIn.header")}
+                </Typography>
+                <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
+                  {t("pages.loginPage.signIn.subheader")}
+                </Typography>
+              </Stack>
+            </Stack>
+            <LoginForm loginCallback={login} isPending={isPending} />
+          </>
+        ) : (
+          <Stack>
+            <Stack sx={{ gap: 4, mb: 2 }}>
+              <Stack sx={{ gap: 1 }}>
+                <Typography component="h1" level="h3">
                   {t("pages.validateRequestPage.header")}
                 </Typography>
-                <Button
-                  onClick={() => {
-                    const oneTimeCode = searchParams.get("oneTimeCode");
-                    if (oneTimeCode) {
-                      accept(oneTimeCode);
-                      navigate("/");
-                    }
-                  }}
-                  color="success"
-                  disabled={!trainerName}
-                >
-                  {t("pages.validateRequestPage.accept")}
-                </Button>
+                <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
+                  <span style={{ fontWeight: "bold" }}>{trainerName}</span>{" "}
+                  {t("pages.validateRequestPage.subheader")}
+                </Typography>
               </Stack>
-            )}
+            </Stack>
+            <Button
+              onClick={() => {
+                const oneTimeCode = searchParams.get("oneTimeCode");
+                if (oneTimeCode) {
+                  accept(oneTimeCode);
+                  navigate("/");
+                }
+              }}
+              color="success"
+              disabled={!trainerName}
+            >
+              {t("pages.validateRequestPage.accept")}
+            </Button>
           </Stack>
-        </Stack>
+        )}
       </Box>
     </SplitPageComponent>
   );

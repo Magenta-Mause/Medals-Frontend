@@ -167,7 +167,8 @@
       }
     },
     "validateRequestPage": {
-      "header": "has requested access to you,\n would you like to accept the request?",
+      "header": "Request",
+      "subheader": "has requested access to you,\n would you like to accept the request?",
       "accept": "Accpet"
     },
     "profilePage": {
