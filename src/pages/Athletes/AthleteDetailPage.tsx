@@ -8,12 +8,16 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { IoIosCreate } from "react-icons/io";
+import { IosShare, IosShareRounded } from "@mui/icons-material";
+import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 
 const AthleteDetailPage = () => {
   const params = useParams();
   const { t } = useTranslation();
   const [isPerformanceRecordingModalOpen, setPerformanceRecordingModalOpen] =
     useState(false);
+  const [isExportModalOpen, setExportModalOpen] = useState(false);
+  
   const athletes = useTypedSelector(
     (state) => state.athletes.data,
   ) as Athlete[];
@@ -29,7 +33,13 @@ const AthleteDetailPage = () => {
 
   return (
     <>
-      <Box sx={{ pt: 5 }}></Box>
+      <Box sx={{ display: "flex", alignItems: "flex-end", flexDirection: "column" }}>
+      <Button variant="soft" onClick={()=> setExportModalOpen(true)}
+        sx={{ display: "flex", justifyContent: "space-around"}}>
+          <IosShareRounded/>
+          {t("components.athleteExportModal.exportButton")}
+        </Button>
+      </Box>
       <AthleteDetailHeader athlete={filteredAthletes[0]} />
       <Box
         sx={{
@@ -52,6 +62,12 @@ const AthleteDetailPage = () => {
         open={isPerformanceRecordingModalOpen}
         setOpen={setPerformanceRecordingModalOpen}
         athlete={filteredAthletes[0]}
+      />
+      <AthleteExportModal
+        isOpen={isExportModalOpen}
+        setOpen={setExportModalOpen}
+        selectedAthletes={filteredAthletes}
+        includePerformance={true}
       />
     </>
   );

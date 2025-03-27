@@ -302,6 +302,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         isOpen={isExportModalOpen}
         setOpen={setExportModalOpen}
         selectedAthletes={selectedAthletes}
+        includePerformance={false}
       />
     </>
   );

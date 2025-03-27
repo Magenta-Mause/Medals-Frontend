@@ -29,12 +29,13 @@ const AthleteExportModal = (props: {
   isOpen: boolean;
   setOpen: (open: boolean) => void;
   selectedAthletes: Athlete[];
+  includePerformance: boolean;
 }) => {
   const [athletes, setAthletes] = useState(props.selectedAthletes);
   const [loading, setLoading] = useState(true);
   const [csvPreview, setCsvPreview] = useState<string | null>(null);
   const [showPreviewDialog, setShowPreviewDialog] = useState(false);
-  const [withPerformance, setWithPerformance] = useState(false);
+  const [withPerformance, setWithPerformance] = useState(props.includePerformance);
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
