@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import PrivacyPolicyModal from "@components/PrivacyPolicyModal/PrivacyPolicyModal";
+import PasswordInput from "@components/PasswordInput/PasswordInput";
 
 interface SignInFormElement extends HTMLFormElement {
   readonly elements: FormElements;
@@ -69,34 +70,20 @@ const LoginForm = (props: {
           <FormLabel>{t("pages.loginPage.signIn.input.email")}</FormLabel>
           <Input type="email" name="email" />
         </FormControl>
-        <FormControl required>
+        <FormControl required sx={{ position: "relative" }}>
           <FormLabel>{t("pages.loginPage.signIn.input.password")}</FormLabel>
-          <Input type="password" name="password" />
-        </FormControl>
-        <Stack sx={{ gap: 4, mt: 2 }}>
-          <Box
+          <PasswordInput placeholder="" />
+          <FormLabel
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              width: "100%",
+              textAlign: "right",
+              display: "block",
+              p: "5px",
+              pb: 0,
+              mb: 0,
             }}
+            slotProps={{ asterisk: { sx: { display: "none" } } }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <Checkbox
-                size="sm"
-                name="privacyPolicy"
-                checked={privacyPolicyChecked}
-                onChange={handleCheckboxChange}
-              />
-              <Typography level="body-sm">
-                <Link
-                  level="body-sm"
-                  onClick={() => setPrivacyPolicyModalOpen(true)}
-                >
-                  {t("pages.loginPage.signIn.privacyPolicy")}
-                </Link>
-              </Typography>
-            </Box>
             <Link
               level="title-sm"
               onClick={() => {
@@ -105,6 +92,60 @@ const LoginForm = (props: {
             >
               {t("pages.loginPage.signIn.forgotPassword")}
             </Link>
+          </FormLabel>
+        </FormControl>
+        <Stack sx={{ gap: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Box>
+              <FormControl
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
+                <Checkbox
+                  size="sm"
+                  name="privacyPolicy"
+                  checked={privacyPolicyChecked}
+                  onChange={handleCheckboxChange}
+                />
+                <FormLabel
+                  sx={{
+                    margin: 0,
+                  }}
+                >
+                  <Typography level="body-sm">
+                    {t("pages.loginPage.signIn.acceptOur")}
+                  </Typography>
+                  <Link
+                    level="body-sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      setPrivacyPolicyModalOpen(true);
+                    }}
+                    sx={{
+                      "::before": {
+                        content: '" "',
+                      },
+                    }}
+                  >
+                    <Typography>
+                      {t("pages.loginPage.signIn.privacyPolicy")}
+                    </Typography>
+                  </Link>
+                </FormLabel>
+              </FormControl>
+            </Box>
           </Box>
           <Button
             type="submit"

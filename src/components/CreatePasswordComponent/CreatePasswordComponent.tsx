@@ -1,3 +1,5 @@
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
+import PasswordInput from "@components/PasswordInput/PasswordInput";
 import PasswordStrengthBar from "@components/PasswordStrengthBar/PasswordStrengthBar";
 import usePasswordValidation, {
   PasswordStrengthChecks,
@@ -37,11 +39,9 @@ const CreatePasswordComponent = (props: {
         <FormLabel>
           {t("components.passwordStrengthIndicator.password")}
         </FormLabel>
-        <Input
-          type="password"
-          name="password"
+        <PasswordInput
+          onChange={setCurrentPassword}
           disabled={props.isPending || props.isSuccess}
-          onChange={(event) => setCurrentPassword(event.target.value)}
         />
       </FormControl>
       <PasswordStrengthBar passwordStrength={strength} />
@@ -63,24 +63,27 @@ const CreatePasswordComponent = (props: {
               <Typography level="body-sm">
                 {t("components.passwordStrengthIndicator." + key)}
               </Typography>
-              <Tooltip
-                title={t("components.passwordStrengthIndicator.required")}
-                sx={{
-                  userSelect: "none",
-                }}
-              >
-                <Typography level="body-sm">
-                  {requiredPasswordChecks[key as PasswordStrengthChecks]
-                    ? "*"
-                    : ""}
-                </Typography>
-              </Tooltip>
+
+              {requiredPasswordChecks[key as PasswordStrengthChecks] ? (
+                <HoverTooltip
+                  text={t("components.passwordStrengthIndicator.fieldRequired")}
+                >
+                  <Typography
+                    level="body-sm"
+                    sx={{ ml: "2px", userSelect: "none" }}
+                  >
+                    *
+                  </Typography>
+                </HoverTooltip>
+              ) : (
+                <></>
+              )}
             </ListItemContent>
           </ListItem>
         ))}
       </List>
-      <Typography level="body-xs" color="neutral">
-        * Constraint is required
+      <Typography level="body-xs" color="neutral" sx={{ userSelect: "none" }}>
+        * {t("components.passwordStrengthIndicator.fieldRequired")}
       </Typography>
     </>
   );

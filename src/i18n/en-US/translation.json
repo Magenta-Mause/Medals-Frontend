@@ -52,7 +52,8 @@
     "tooYoung": "to young",
     "invalid": "invalid",
     "loading": "Loading...",
-    "submit": "Submit"
+    "submit": "Submit",
+    "password": "Password"
   },
   "snackbar": {
     "login": {
@@ -129,6 +130,7 @@
           "password": "Password"
         },
         "forgotPassword": "Forgot password?",
+        "acceptOur": "I accept the",
         "privacyPolicy": "Privacy Policy",
         "submit": "Login",
         "loginFailedWarning": "Login failed",
@@ -395,7 +397,7 @@
       "hasNumber": "Password contains a number",
       "hasUpperCase": "Password contains an uppercase letter",
       "hasSpecial": "Password contains a special character",
-      "required": "Required"
+      "fieldRequired": "constraint is required"
     },
     "disclaimer": {
       "text": "This application is a university project and not an official service (e.g., Sportabzeichen-Digital). It is not endorsed or provided by any official organization. No official certifications or claims are provided."
@@ -441,7 +443,8 @@
       "switchUserButton": "Switch User",
       "logoutButton": "Logout",
       "languageSelectionButton": "Change language",
-      "selectUser": "Continue with this user"
+      "selectUser": "Continue with this user",
+      "showPassword": "Show/Hide password"
     }
   }
 }
