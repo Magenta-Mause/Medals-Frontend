@@ -225,7 +225,10 @@
       "photoBy": "Photo by"
     },
     "performanceMetricsPage": {
-      "title": "Performance Metrics",
+      "title": {
+        "default": "Performance Metrics",
+        "athlete": "Your Requirements"
+      },
       "filters": {
         "year": "Year",
         "ageGroup": "Age Group",
