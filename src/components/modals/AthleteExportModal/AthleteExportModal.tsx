@@ -7,13 +7,12 @@ import {
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import React, { useEffect, useState } from "react";
-import { Preview, Remove, RemoveCircle, RemoveCircleOutline, RemoveCircleOutlineOutlined, RemoveCircleOutlineRounded, RemoveCircleRounded, RemoveCircleSharp, RemoveCircleTwoTone } from "@mui/icons-material";
+import { Preview, RemoveCircle } from "@mui/icons-material";
 import { useTypedSelector } from "@stores/rootReducer";
 import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
 } from "@utils/calculationUtil";
-import { BiMinus } from "react-icons/bi";
 import { useMediaQuery } from "@uidotdev/usehooks";
 
 const AthleteExportModal = (props: {
@@ -22,7 +21,7 @@ const AthleteExportModal = (props: {
   selectedAthletes: Athlete[];
   includePerformance: boolean;
 }) => {
-  const isMobile = useMediaQuery("(max-width:600px)")
+  const isMobile = useMediaQuery("(max-width:600px)");
   const [athletes, setAthletes] = useState(props.selectedAthletes);
   const [loading, setLoading] = useState(true);
   const [csvPreview, setCsvPreview] = useState<string | null>(null);
@@ -205,53 +204,71 @@ const AthleteExportModal = (props: {
         </Box>
       </Box>
       <Box sx={{ overflow: "auto", maxHeight: "450px" }}>
-      <Sheet>
-        <Table
-        borderAxis="x"
-        color="neutral"
-        size="md"
-        stickyFooter={false}
-        stickyHeader
-        hoverRow
-        variant="plain"
-        sx={{
-          "--TableCell-headBackground": "var(--joy-palette-background-level1)",
-          "--Table-headerUnderlineThickness": "1px",
-          "--TableCell-paddingY": "4px",
-          "--TableCell-paddingX": "8px",
-          "--TableRow-hoverBackground": "var(--joy-palette-background-level1)",
-          pl:1,
-          pr:1
-        }}
-      >
-      <thead>
-        <th> {t("components.athleteDatagrid.table.columns.firstName")}</th>
-        <th> {t("components.athleteDatagrid.table.columns.lastName")} </th>
-        <th style={{width:"25%"}}></th>
-      </thead>
-      <tbody>
-        {athletes.map((athlete)=>(
-          <tr key={athlete.id}>
-            <td>{athlete.first_name}</td>
-            <td>{athlete.last_name}</td>
-            <td><Button
-          variant="soft"
-          color="danger"
-          size="sm"
-          sx={{ fontSize: "0.7rem", fontWeight: "100" }}
-          onClick={() => {
-            setAthletes((prev) => prev.filter((a) => a.id !== athlete.id));
-            console.log("Removing Athlete from selection:", athlete);
-          }}
-        >
-          <RemoveCircle sx={{pr: 0.5}}/>
-          {!isMobile && t("components.athleteExportModal.removeFromSelectionButton")}
-          </Button></td>
-          </tr>
-        ))}
-      </tbody>
-      </Table>
-</Sheet>
+        <Sheet>
+          <Table
+            borderAxis="x"
+            color="neutral"
+            size="md"
+            stickyFooter={false}
+            stickyHeader
+            hoverRow
+            variant="plain"
+            sx={{
+              "--TableCell-headBackground":
+                "var(--joy-palette-background-level1)",
+              "--Table-headerUnderlineThickness": "1px",
+              "--TableCell-paddingY": "4px",
+              "--TableCell-paddingX": "8px",
+              "--TableRow-hoverBackground":
+                "var(--joy-palette-background-level1)",
+              pl: 1,
+              pr: 1,
+            }}
+          >
+            <thead>
+              <th>
+                {" "}
+                {t("components.athleteDatagrid.table.columns.firstName")}
+              </th>
+              <th>
+                {" "}
+                {t("components.athleteDatagrid.table.columns.lastName")}{" "}
+              </th>
+              <th style={{ width: "25%" }}></th>
+            </thead>
+            <tbody>
+              {athletes.map((athlete) => (
+                <tr key={athlete.id}>
+                  <td>{athlete.first_name}</td>
+                  <td>{athlete.last_name}</td>
+                  <td>
+                    <Button
+                      variant="soft"
+                      color="danger"
+                      size="sm"
+                      sx={{ fontSize: "0.7rem", fontWeight: "100" }}
+                      onClick={() => {
+                        setAthletes((prev) =>
+                          prev.filter((a) => a.id !== athlete.id),
+                        );
+                        console.log(
+                          "Removing Athlete from selection:",
+                          athlete,
+                        );
+                      }}
+                    >
+                      <RemoveCircle sx={{ pr: 0.5 }} />
+                      {!isMobile &&
+                        t(
+                          "components.athleteExportModal.removeFromSelectionButton",
+                        )}
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Sheet>
       </Box>
       <Button fullWidth color="primary" onClick={handleExport}>
         {t("components.athleteExportModal.exportButton")}
