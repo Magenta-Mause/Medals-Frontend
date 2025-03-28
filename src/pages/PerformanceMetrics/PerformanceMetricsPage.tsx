@@ -123,7 +123,7 @@ const PerformanceMetricsPage = () => {
           >
             {t("pages.performanceMetricsPage.filters.gender")}
             <InfoTooltip
-              text={t("pages.performanceMetricsPage.tooltips.genderDiversInfo")}
+              text={t("components.tooltip.genderDiversInfo")}
               position="top"
               iconProps={{ fontSize: "small" }}
             />
