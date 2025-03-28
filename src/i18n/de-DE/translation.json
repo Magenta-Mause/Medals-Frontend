@@ -228,7 +228,10 @@
       "photoBy": "Foto von"
     },
     "performanceMetricsPage": {
-      "title": "Leistungswerte",
+      "title": {
+        "athlete": "Deine Anforderungen",
+        "default": "Leistungswerte"
+      },
       "filters": {
         "year": "Jahr",
         "ageGroup": "Altersgruppe",
@@ -236,7 +239,8 @@
       },
       "tooltips": {
         "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet und auch in die Bewertung einbezogen."
-      }
+      },
+      "resetFilter": "Filter zurücksetzen"
     }
   },
   "components": {

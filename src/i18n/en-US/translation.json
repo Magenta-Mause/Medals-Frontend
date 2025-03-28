@@ -233,7 +233,8 @@
       },
       "tooltips": {
         "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used and also considered in the evaluation."
-      }
+      },
+      "resetFilter": "Reset Filter"
     }
   },
   "components": {
