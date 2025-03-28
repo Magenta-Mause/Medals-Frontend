@@ -143,7 +143,7 @@ const LoginForm = (props: {
                   </Typography>
                   <Link
                     level="body-sm"
-                    onClick={(e) => {}}
+                    onClick={() => {}}
                     sx={{
                       "::before": {
                         content: '" "',
