@@ -85,7 +85,7 @@
     },
     "athleteOverviewPage": {
       "header": "Athletes",
-      "createButton": "Create athlete"
+      "createButton": "Create Athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -95,6 +95,18 @@
       "gender": "Gender",
       "createButton": "Create",
       "createHeader": "Create Athlete"
+    },
+    "athleteImportPage":{
+      "importButton": "Import Athletes",
+      "feedback1": "Athlete ",
+      "feedback2": " created",
+       "failedFeedback": "Failed to create ",
+       "DropFile": "Drag & Drop your file here or click",
+       "changeFile": "Back",
+       "firstName": "First Name",
+      "lastName": "Last Name",
+      "valid": "Status",
+      "athleteList": "Athlete List"
     },
     "trainerOverviewPage": {
       "header": "Trainers"

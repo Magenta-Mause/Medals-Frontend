@@ -25,7 +25,7 @@ export enum Medals {
 }
 
 export enum Genders {
-  DIVERSE = "DIVERSE",
-  FEMALE = "FEMALE",
-  MALE = "MALE",
+  d = "DIVERSE",
+  w = "FEMALE",
+  m = "MALE",
 }
