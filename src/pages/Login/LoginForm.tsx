@@ -141,15 +141,6 @@ const LoginForm = (props: {
                       {t("pages.loginPage.signIn.privacyPolicy")}
                     </span>
                   </Typography>
-                  <Link
-                    level="body-sm"
-                    onClick={() => {}}
-                    sx={{
-                      "::before": {
-                        content: '" "',
-                      },
-                    }}
-                  ></Link>
                 </FormLabel>
               </FormControl>
             </Box>
