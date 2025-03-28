@@ -1,14 +1,21 @@
-import { AgeRange, DisciplineRatingMetric } from "@customTypes/backendTypes";
-import { Genders } from "@customTypes/enums";
+import { useState, useMemo, useContext, useEffect } from "react";
+import { Box, Typography, Button } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import { useState, useMemo } from "react";
-import { Box, Typography } from "@mui/joy";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import useApi from "@hooks/useApi";
+import {
+  AgeRange,
+  Athlete,
+  DisciplineRatingMetric,
+} from "@customTypes/backendTypes";
+import { Genders } from "@customTypes/enums";
 import FilterComponent, {
   Filter,
 } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { useTypedSelector } from "@stores/rootReducer";
 import PerformanceMetricDatagrid from "@components/datagrids/PerformanceMetricDatagrid/PerformanceMetricDatagrid";
 import { InfoTooltip } from "@components/InfoTooltip/InfoTooltip";
+import { calculateAge } from "@utils/calculationUtil";
 
 const ageRangeOptions: AgeRange[] = [
   { label: "6-7", min: 6, max: 7 },
@@ -20,17 +27,62 @@ const ageRangeOptions: AgeRange[] = [
 ];
 
 const PerformanceMetricsPage = () => {
+  const { selectedUser } = useContext(AuthContext);
+  const { getAthlete } = useApi();
+  const userRole = selectedUser?.type;
+  const [athlete, setAthlete] = useState<Athlete | null>(null);
+
+  useEffect(() => {
+    if (selectedUser?.type === "ATHLETE" && selectedUser?.id != null) {
+      getAthlete(selectedUser.id.toString())
+        .then((data: Athlete | undefined) => {
+          if (data) {
+            setAthlete(data);
+          } else {
+            console.error("Athlete data is undefined");
+          }
+        })
+        .catch((error) => console.error("Error fetching athlete data:", error));
+    }
+  }, [selectedUser, getAthlete]);
+
   const disciplineRatingMetrics = useTypedSelector(
     (state) => state.disciplineMetrics.data,
   ) as DisciplineRatingMetric[];
 
-  const [filterValues, setFilterValues] = useState<Record<string, string>>({
-    year: new Date().getFullYear().toString(),
-    age: ageRangeOptions[0].label,
-    gender: Genders.FEMALE,
-  });
-
   const { t } = useTranslation();
+
+  // Compute default filter values based on athlete info (if available).
+  const defaultFilterValues = useMemo(() => {
+    const year = new Date().getFullYear().toString();
+    if (selectedUser?.type === "ATHLETE" && athlete?.birthdate) {
+      const age = calculateAge(athlete.birthdate);
+      const matchingAgeRange = ageRangeOptions.find(
+        (range) => age >= range.min && age <= range.max,
+      );
+      return {
+        year,
+        age: matchingAgeRange
+          ? matchingAgeRange.label
+          : ageRangeOptions[0].label,
+        gender: athlete.gender || Genders.FEMALE,
+      };
+    }
+    return {
+      year,
+      age: ageRangeOptions[0].label,
+      gender: Genders.FEMALE,
+    };
+  }, [selectedUser, athlete]);
+
+  const [filterValues, setFilterValues] =
+    useState<Record<string, string>>(defaultFilterValues);
+
+  useEffect(() => {
+    if (selectedUser?.type === "ATHLETE" && athlete) {
+      setFilterValues(defaultFilterValues);
+    }
+  }, [athlete, defaultFilterValues, selectedUser]);
 
   // Compute available years from metrics.
   const availableYears = useMemo(() => {
@@ -76,7 +128,7 @@ const PerformanceMetricsPage = () => {
           >
             {t("pages.performanceMetricsPage.filters.gender")}
             <InfoTooltip
-              text={t("pages.performanceMetricsPage.tooltips.genderDiversInfo")}
+              text={t("components.tooltip.genderDiversInfo")}
               position="top"
               iconProps={{ fontSize: "small" }}
             />
@@ -146,15 +198,32 @@ const PerformanceMetricsPage = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
       <Typography level="h2" component="h1">
-        {t("pages.performanceMetricsPage.title")}
+        {userRole === "ATHLETE"
+          ? t("pages.performanceMetricsPage.title.athlete")
+          : t("pages.performanceMetricsPage.title.default")}
       </Typography>
       {/* Filter section */}
-      <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: 2,
+          flexWrap: "wrap",
+          alignItems: "center",
+        }}
+      >
         <FilterComponent
           filters={filters}
           setFilter={setFilter}
           filterValues={filterValues}
         />
+        {selectedUser?.type === "ATHLETE" && (
+          <Button
+            sx={{ alignSelf: "flex-end" }}
+            onClick={() => setFilterValues(defaultFilterValues)}
+          >
+            {t("pages.performanceMetricsPage.resetFilter")}
+          </Button>
+        )}
       </Box>
       {/* Datagrid section */}
       <PerformanceMetricDatagrid
