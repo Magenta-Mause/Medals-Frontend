@@ -73,6 +73,15 @@
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"
+    },
+    "acceptTrainerAccessRequest": {
+      "noLogin": "Login and accept the invitation again",
+      "failed": "Could not accept the request",
+      "success": "Request accepted"
+    },
+    "requestAthleteAccess": {
+      "failed": "Failed sending the request",
+      "success": "Request has been send"
     }
   },
   "pages": {
@@ -84,8 +93,7 @@
       "createPerformanceRecordingButton": "Record performance"
     },
     "athleteOverviewPage": {
-      "header": "Athletes",
-      "createButton": "Create athlete"
+      "header": "Athletes"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -162,6 +170,11 @@
           "noCode": "Verification email sent"
         }
       }
+    },
+    "validateRequestPage": {
+      "header": "Request",
+      "subheader": "has requested access to you,\n would you like to accept the request?",
+      "accept": "Accpet"
     },
     "profilePage": {
       "header": "My Profile",
@@ -256,6 +269,13 @@
         "/userRoleErrorPage": "User Role Error"
       }
     },
+    "requestAthleteModal": {
+      "header": "Request access to Athlete",
+      "searchAthlete": "Name",
+      "notFound": "No athletes found",
+      "requestAthleteButton": "Send",
+      "sendButton": "Sendet"
+    },
     "athleteDetailHeader": {
       "columns": {
         "id": "ID",
@@ -347,6 +367,16 @@
           "search": "Search",
           "birthYear": "Birth year",
           "gender": "Gender"
+        },
+        "toolbar": {
+          "addAthlete": {
+            "label": "Request",
+            "content": "Request athletes"
+          },
+          "createAthlete": {
+            "label": "Create",
+            "content": "Create athlete"
+          }
         }
       },
       "actions": {
