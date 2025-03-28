@@ -46,6 +46,8 @@ const PerformanceMetricsPage = () => {
     }
   }, [selectedUser, getAthlete]);
 
+
+
   const disciplineRatingMetrics = useTypedSelector(
     (state) => state.disciplineMetrics.data,
   ) as DisciplineRatingMetric[];
@@ -75,9 +77,14 @@ const PerformanceMetricsPage = () => {
     };
   }, [selectedUser, athlete]);
 
-  // Initialize filter values with the default computed values.
   const [filterValues, setFilterValues] =
     useState<Record<string, string>>(defaultFilterValues);
+
+  useEffect(() => {
+    if (selectedUser?.type === "ATHLETE" && athlete) {
+      setFilterValues(defaultFilterValues);
+    }
+  }, [athlete, defaultFilterValues, selectedUser]);
 
   // Compute available years from metrics.
   const availableYears = useMemo(() => {
