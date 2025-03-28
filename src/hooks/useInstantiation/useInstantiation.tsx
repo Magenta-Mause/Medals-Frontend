@@ -174,6 +174,7 @@ const useInstantiation = () => {
     uninitializeTrainerWebsocket();
     uninitializePerformanceRecordingWebsocket();
   }, [
+    dispatch,
     getDisciplineMetrics,
     uninitializeTrainerWebsocket,
     uninitializeAthleteWebsocket,
