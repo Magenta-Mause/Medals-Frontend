@@ -20,7 +20,8 @@
     "discipline": "Disziplin",
     "invalid": "Ungültig",
     "loading": "Lädt...",
-    "submit": "Absenden"
+    "submit": "Absenden",
+    "confirm": "Bestätigen"
   },
   "disciplines": {
     "categories": {

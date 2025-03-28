@@ -26,6 +26,7 @@ import FilterComponent, {
 } from "./GenericResponsiveDatagridFilterComponent";
 import MobileTable, { MobileTableRendering } from "./MobileTable";
 import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const ESTIMATED_HEIGHT_OF_ROW = 95;
 const DEFAULT_MAX_VISIBLE_ON_PAGE = Math.floor(
@@ -285,7 +286,7 @@ const GenericResponsiveDatagrid = <T,>(
                     filterValues={filterValues}
                   />
                   <Button color="primary" onClick={() => setFilterOpen(false)}>
-                    Submit
+                    {t("generic.confirm")}
                   </Button>
                 </>
               ) : (
