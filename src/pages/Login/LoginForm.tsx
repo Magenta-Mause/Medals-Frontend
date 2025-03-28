@@ -125,24 +125,31 @@ const LoginForm = (props: {
                 >
                   <Typography level="body-sm">
                     {t("pages.loginPage.signIn.acceptOur")}
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        setPrivacyPolicyModalOpen(true);
+                      }}
+                      style={{
+                        cursor: "pointer",
+                        color:
+                          "var(--variant-plainColor, rgba(var(--joy-palette-primary-mainChannel) / 1))",
+                      }}
+                    >
+                      {" "}
+                      {t("pages.loginPage.signIn.privacyPolicy")}
+                    </span>
                   </Typography>
                   <Link
                     level="body-sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      setPrivacyPolicyModalOpen(true);
-                    }}
+                    onClick={(e) => {}}
                     sx={{
                       "::before": {
                         content: '" "',
                       },
                     }}
-                  >
-                    <Typography>
-                      {t("pages.loginPage.signIn.privacyPolicy")}
-                    </Typography>
-                  </Link>
+                  ></Link>
                 </FormLabel>
               </FormControl>
             </Box>
