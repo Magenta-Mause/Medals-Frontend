@@ -1,12 +1,12 @@
 import { t } from "i18next";
 import GenericModal from "../GenericModal";
-import { Box, Button, Checkbox, Chip, Sheet } from "@mui/joy";
+import { Box, Button, Checkbox, Chip, Sheet, Table } from "@mui/joy";
 import {
   Athlete,
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
-import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
+import FullScreenTable, { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
 } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
@@ -57,7 +57,7 @@ const AthleteExportModal = (props: {
           variant="soft"
           color="danger"
           size="sm"
-          sx={{ fontSize: "0.75rem", minWidth: "auto" }}
+          sx={{ fontSize: "0.7rem", fontWeight: "100" }}
           onClick={() => {
             setAthletes((prev) => prev.filter((a) => a.id !== athlete.id));
             console.log("Removing Athlete from selection:", athlete);
@@ -280,14 +280,52 @@ const AthleteExportModal = (props: {
         </Box>
       </Box>
       <Box sx={{ overflow: "auto", maxHeight: "450px" }}>
-        <GenericResponsiveDatagrid
-          isLoading={loading}
-          data={athletes}
-          columns={columns}
-          keyOf={(athlete) => athlete.id!}
-          mobileRendering={mobileRendering}
-          disablePaging={true}
-        />
+      <Sheet>
+        <Table
+        borderAxis="x"
+        color="neutral"
+        size="md"
+        stickyFooter={false}
+        stickyHeader
+        hoverRow
+        variant="plain"
+        sx={{
+          "--TableCell-headBackground": "var(--joy-palette-background-level1)",
+          "--Table-headerUnderlineThickness": "1px",
+          "--TableCell-paddingY": "4px",
+          "--TableCell-paddingX": "8px",
+          "--TableRow-hoverBackground": "var(--joy-palette-background-level1)",
+          pl:1,
+          pr:1
+        }}
+      >
+      <thead>
+        <th> {t("components.athleteDatagrid.table.columns.firstName")}</th>
+        <th> {t("components.athleteDatagrid.table.columns.lastName")} </th>
+        <th></th>
+      </thead>
+      <tbody>
+        {athletes.map((athlete)=>(
+          <tr key={athlete.id}>
+            <td>{athlete.first_name}</td>
+            <td>{athlete.last_name}</td>
+            <td><Button
+          variant="soft"
+          color="danger"
+          size="sm"
+          sx={{ fontSize: "0.7rem", fontWeight: "100" }}
+          onClick={() => {
+            setAthletes((prev) => prev.filter((a) => a.id !== athlete.id));
+            console.log("Removing Athlete from selection:", athlete);
+          }}
+        >
+          Remove from Selection
+        </Button></td>
+          </tr>
+        ))}
+      </tbody>
+      </Table>
+</Sheet>
       </Box>
       <Button fullWidth color="primary" onClick={handleExport}>
         {t("components.athleteExportModal.exportButton")}
