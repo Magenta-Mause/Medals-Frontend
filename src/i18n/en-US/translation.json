@@ -234,9 +234,6 @@
         "ageGroup": "Age Group",
         "gender": "Gender"
       },
-      "tooltips": {
-        "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used and also considered in the evaluation."
-      },
       "resetFilter": "Reset Filter"
     }
   },
@@ -445,7 +442,8 @@
       "switchUserButton": "Switch User",
       "logoutButton": "Logout",
       "languageSelectionButton": "Change language",
-      "selectUser": "Continue with this user"
+      "selectUser": "Continue with this user",
+      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
     }
   }
 }

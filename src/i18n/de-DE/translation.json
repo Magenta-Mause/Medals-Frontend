@@ -237,9 +237,6 @@
         "ageGroup": "Altersgruppe",
         "gender": "Geschlecht"
       },
-      "tooltips": {
-        "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet und auch in die Bewertung einbezogen."
-      },
       "resetFilter": "Filter zurücksetzen"
     }
   },
@@ -448,7 +445,8 @@
       "switchUserButton": "Benutzer wechseln",
       "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern",
-      "selectUser": "Mit dieser Benutzer*in fortfahren"
+      "selectUser": "Mit dieser Benutzer*in fortfahren",
+      "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     }
   }
 }
