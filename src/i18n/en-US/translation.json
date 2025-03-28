@@ -446,7 +446,8 @@
       "previewHeader": "Preview",
       "closePreviewButton": "Close",
       "exportButton": "Export",
-      "performanceCheckbox": "include Performance Metrics"
-    }
+      "performanceCheckbox": "include Performance Metrics",
+      "removeFromSelectionButton": "remove from selection"
+      }
   }
 }

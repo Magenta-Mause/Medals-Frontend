@@ -1,23 +1,20 @@
 import { t } from "i18next";
 import GenericModal from "../GenericModal";
-import { Box, Button, Checkbox, Chip, Sheet, Table } from "@mui/joy";
+import { Box, Button, Checkbox, Sheet, Table } from "@mui/joy";
 import {
   Athlete,
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
-import FullScreenTable, { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
-import GenericResponsiveDatagrid, {
-  Action,
-} from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
-import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 import React, { useEffect, useState } from "react";
-import { Preview } from "@mui/icons-material";
+import { Preview, Remove, RemoveCircle, RemoveCircleOutline, RemoveCircleOutlineOutlined, RemoveCircleOutlineRounded, RemoveCircleRounded, RemoveCircleSharp, RemoveCircleTwoTone } from "@mui/icons-material";
 import { useTypedSelector } from "@stores/rootReducer";
 import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
 } from "@utils/calculationUtil";
+import { BiMinus } from "react-icons/bi";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const AthleteExportModal = (props: {
   isOpen: boolean;
@@ -25,6 +22,7 @@ const AthleteExportModal = (props: {
   selectedAthletes: Athlete[];
   includePerformance: boolean;
 }) => {
+  const isMobile = useMediaQuery("(max-width:600px)")
   const [athletes, setAthletes] = useState(props.selectedAthletes);
   const [loading, setLoading] = useState(true);
   const [csvPreview, setCsvPreview] = useState<string | null>(null);
@@ -38,79 +36,6 @@ const AthleteExportModal = (props: {
   const disciplines = useTypedSelector(
     (state) => state.disciplines.data,
   ) as Discipline[];
-
-  const columns: Column<Athlete>[] = [
-    {
-      columnName: t("components.athleteDatagrid.table.columns.firstName"),
-      columnMapping: (athlete) => athlete.first_name,
-      sortable: true,
-    },
-    {
-      columnName: t("components.athleteDatagrid.table.columns.lastName"),
-      columnMapping: (athlete) => athlete.last_name,
-      sortable: true,
-    },
-    {
-      columnName: "",
-      columnMapping: (athlete) => (
-        <Button
-          variant="soft"
-          color="danger"
-          size="sm"
-          sx={{ fontSize: "0.7rem", fontWeight: "100" }}
-          onClick={() => {
-            setAthletes((prev) => prev.filter((a) => a.id !== athlete.id));
-            console.log("Removing Athlete from selection:", athlete);
-          }}
-        >
-          Remove from Selection
-        </Button>
-      ),
-    },
-  ];
-
-  const actions: Action<Athlete>[] = [
-    {
-      label: <>Remove from Selection</>,
-      color: "primary",
-      key: "remove",
-      operation: function (athlete): void {
-        setAthletes((prev) => prev.filter((a) => a.id !== athlete.id));
-        console.log("Removing Athlete from selection:", athlete);
-      },
-    },
-  ];
-  const mobileRendering: MobileTableRendering<Athlete> = {
-    avatar: (athlete) => (
-      <Chip size="lg" sx={{ aspectRatio: 1 }}>
-        {athlete.id}
-      </Chip>
-    ),
-    h1: (athlete) => (
-      <>
-        {athlete.first_name} {athlete.last_name}
-      </>
-    ),
-
-    bottomButtons: [...actions],
-    topRightInfo: (athlete) => (
-      <Chip
-        size="md"
-        sx={{
-          aspectRatio: 1,
-          p: 1,
-          height: "2rem",
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
-          textAlign: "center",
-        }}
-      >
-        {athlete.gender!.slice(0, 1).toUpperCase()}
-      </Chip>
-    ),
-  };
-
   useEffect(() => {
     if (props.isOpen) {
       setLoading(true);
@@ -302,7 +227,7 @@ const AthleteExportModal = (props: {
       <thead>
         <th> {t("components.athleteDatagrid.table.columns.firstName")}</th>
         <th> {t("components.athleteDatagrid.table.columns.lastName")} </th>
-        <th></th>
+        <th style={{width:"25%"}}></th>
       </thead>
       <tbody>
         {athletes.map((athlete)=>(
@@ -319,8 +244,9 @@ const AthleteExportModal = (props: {
             console.log("Removing Athlete from selection:", athlete);
           }}
         >
-          Remove from Selection
-        </Button></td>
+          <RemoveCircle sx={{pr: 0.5}}/>
+          {!isMobile && t("components.athleteExportModal.removeFromSelectionButton")}
+          </Button></td>
           </tr>
         ))}
       </tbody>

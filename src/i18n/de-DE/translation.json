@@ -448,7 +448,8 @@
       "previewHeader": "Vorschau",
       "closePreviewButton": "Schließen",
       "exportButton": "Export",
-      "performanceCheckbox": "Leistungswerte einschließen"
+      "performanceCheckbox": "Leistungswerte einschließen",
+      "removeFromSelectionButton": "aus Auswahl entfernen"
 
     }
   }
