@@ -44,7 +44,7 @@ def init_ml_libs():
             return path, text
     
 
-def translate_locale_full(target_tree: dict, target_paths: dict[str, str], target_language: str, model = None) -> None:
+def translate_locale_full(target_tree, target_paths, target_language, model = None):
     include_language_token = True
 
     if not model:
@@ -71,11 +71,11 @@ def translate_locale_full(target_tree: dict, target_paths: dict[str, str], targe
             replace_tree(target_tree, path, translated)
 
 
-def mask_translation_tree(source_tree: dict, exclude: list[str], mask: str = None) -> tuple[dict, dict[str, str]]:
+def mask_translation_tree(source_tree, exclude, mask = None):
     target_tree = copy.deepcopy(source_tree)
     translate_paths = {}
 
-    def check_modify_inplace(tree: dict[str, str|dict], level: str = ''):
+    def check_modify_inplace(tree, level = ''):
         # expects a str: str|dict structure ALWAYS, so no lists
         for k, v in tree.items():
             specifier_path = (level+'\x00'+k).strip('\x00')
