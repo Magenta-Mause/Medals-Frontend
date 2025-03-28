@@ -46,8 +46,6 @@ const PerformanceMetricsPage = () => {
     }
   }, [selectedUser, getAthlete]);
 
-
-
   const disciplineRatingMetrics = useTypedSelector(
     (state) => state.disciplineMetrics.data,
   ) as DisciplineRatingMetric[];
