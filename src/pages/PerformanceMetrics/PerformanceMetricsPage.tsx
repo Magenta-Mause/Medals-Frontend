@@ -3,7 +3,11 @@ import { Box, Typography, Button } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import useApi from "@hooks/useApi";
-import { AgeRange, Athlete, DisciplineRatingMetric } from "@customTypes/backendTypes";
+import {
+  AgeRange,
+  Athlete,
+  DisciplineRatingMetric,
+} from "@customTypes/backendTypes";
 import { Genders } from "@customTypes/enums";
 import FilterComponent, {
   Filter,
@@ -38,9 +42,7 @@ const PerformanceMetricsPage = () => {
             console.error("Athlete data is undefined");
           }
         })
-        .catch((error) =>
-          console.error("Error fetching athlete data:", error)
-        );
+        .catch((error) => console.error("Error fetching athlete data:", error));
     }
   }, [selectedUser, getAthlete]);
 
@@ -60,7 +62,9 @@ const PerformanceMetricsPage = () => {
       );
       return {
         year,
-        age: matchingAgeRange ? matchingAgeRange.label : ageRangeOptions[0].label,
+        age: matchingAgeRange
+          ? matchingAgeRange.label
+          : ageRangeOptions[0].label,
         gender: athlete.gender || Genders.FEMALE,
       };
     }
@@ -72,9 +76,8 @@ const PerformanceMetricsPage = () => {
   }, [selectedUser, athlete]);
 
   // Initialize filter values with the default computed values.
-  const [filterValues, setFilterValues] = useState<Record<string, string>>(
-    defaultFilterValues,
-  );
+  const [filterValues, setFilterValues] =
+    useState<Record<string, string>>(defaultFilterValues);
 
   // Compute available years from metrics.
   const availableYears = useMemo(() => {
@@ -87,56 +90,66 @@ const PerformanceMetricsPage = () => {
     return Array.from(yearsSet).sort((a, b) => b - a);
   }, [disciplineRatingMetrics]);
 
-  const filters = useMemo<Filter<DisciplineRatingMetric>[]>(() => [
-    {
-      name: "year",
-      label: t("pages.performanceMetricsPage.filters.year"),
-      type: "SELECTION",
-      selection: availableYears.map((year) => year.toString()),
-      apply: (filterParam: string) => (item: DisciplineRatingMetric) =>
-        item.valid_in.toString() === filterParam,
-    },
-    {
-      name: "age",
-      label: t("pages.performanceMetricsPage.filters.ageGroup"),
-      type: "SELECTION",
-      selection: ageRangeOptions.map((opt) => opt.label),
-      apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
-        const selectedAge = ageRangeOptions.find(
-          (opt) => opt.label === filterParam,
-        );
-        if (!selectedAge) return true;
-        return item.start_age <= selectedAge.min && item.end_age >= selectedAge.max;
+  const filters = useMemo<Filter<DisciplineRatingMetric>[]>(
+    () => [
+      {
+        name: "year",
+        label: t("pages.performanceMetricsPage.filters.year"),
+        type: "SELECTION",
+        selection: availableYears.map((year) => year.toString()),
+        apply: (filterParam: string) => (item: DisciplineRatingMetric) =>
+          item.valid_in.toString() === filterParam,
       },
-    },
-    {
-      name: "gender",
-      label: (
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
-          {t("pages.performanceMetricsPage.filters.gender")}
-          <InfoTooltip
-            text={t("pages.performanceMetricsPage.tooltips.genderDiversInfo")}
-            position="top"
-            iconProps={{ fontSize: "small" }}
-          />
-        </span>
-      ),
-      type: "SELECTION",
-      selection: [
-        { value: Genders.FEMALE, displayValue: t("genders.FEMALE") },
-        { value: Genders.MALE, displayValue: t("genders.MALE") },
-        { value: Genders.DIVERSE, displayValue: t("genders.DIVERSE") },
-      ],
-      apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
-        if (filterParam === Genders.FEMALE) {
-          return item.rating_female !== null;
-        } else if (filterParam === Genders.MALE || filterParam === Genders.DIVERSE) {
-          return item.rating_male !== null;
-        }
-        return true;
+      {
+        name: "age",
+        label: t("pages.performanceMetricsPage.filters.ageGroup"),
+        type: "SELECTION",
+        selection: ageRangeOptions.map((opt) => opt.label),
+        apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
+          const selectedAge = ageRangeOptions.find(
+            (opt) => opt.label === filterParam,
+          );
+          if (!selectedAge) return true;
+          return (
+            item.start_age <= selectedAge.min && item.end_age >= selectedAge.max
+          );
+        },
       },
-    },
-  ], [availableYears, t]);
+      {
+        name: "gender",
+        label: (
+          <span
+            style={{ display: "inline-flex", alignItems: "center", gap: 4 }}
+          >
+            {t("pages.performanceMetricsPage.filters.gender")}
+            <InfoTooltip
+              text={t("pages.performanceMetricsPage.tooltips.genderDiversInfo")}
+              position="top"
+              iconProps={{ fontSize: "small" }}
+            />
+          </span>
+        ),
+        type: "SELECTION",
+        selection: [
+          { value: Genders.FEMALE, displayValue: t("genders.FEMALE") },
+          { value: Genders.MALE, displayValue: t("genders.MALE") },
+          { value: Genders.DIVERSE, displayValue: t("genders.DIVERSE") },
+        ],
+        apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
+          if (filterParam === Genders.FEMALE) {
+            return item.rating_female !== null;
+          } else if (
+            filterParam === Genders.MALE ||
+            filterParam === Genders.DIVERSE
+          ) {
+            return item.rating_male !== null;
+          }
+          return true;
+        },
+      },
+    ],
+    [availableYears, t],
+  );
 
   // Apply all filters to the metrics.
   const finalFilteredMetrics = useMemo(() => {
@@ -199,7 +212,7 @@ const PerformanceMetricsPage = () => {
           filterValues={filterValues}
         />
         {selectedUser?.type === "ATHLETE" && (
-          <Button 
+          <Button
             sx={{ alignSelf: "flex-end" }}
             onClick={() => setFilterValues(defaultFilterValues)}
           >
