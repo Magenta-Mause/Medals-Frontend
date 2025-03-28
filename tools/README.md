@@ -31,3 +31,10 @@ python i18n_translate.py --to fi -F locale_en.json
 
 For a list of supported languages, please see `supported_languages.json`. `multi` contains the languages (codes) for the non-finetuned model
 while `fine-tuned` contains a list of finetuned models available for use.
+
+
+##### Troubleshooting
+Since `requirements.txt` and `requirements.cuda.txt` explicitly specify packet versions for one of the more newer python versions (3.11), installation on older python versions might fail, in that case try to install the dependencies manually like this (at the time of writing, this will not work for versions >3.11 because of the sentencepiece library which requires binaries that have been precompiled for windows for every supported python version):
+```
+pip install torch tqdm transformers numpy sentencepiece
+```
