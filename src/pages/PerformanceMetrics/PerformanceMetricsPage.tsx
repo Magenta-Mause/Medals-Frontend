@@ -253,7 +253,6 @@ const PerformanceMetricsPage = () => {
       )}
     </Box>
   );
-  
 };
 
 export default PerformanceMetricsPage;
