@@ -73,6 +73,10 @@
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"
+    },
+    "performanceMetrics": {
+      "athleteNotFound": "Athlete not found",
+      "fetchAthleteFailed": "Failed to fetch athlete data"
     }
   },
   "pages": {

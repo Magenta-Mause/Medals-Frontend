@@ -75,6 +75,10 @@
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
+    },
+    "performanceMetrics": {
+      "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
+      "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
     }
   },
   "pages": {

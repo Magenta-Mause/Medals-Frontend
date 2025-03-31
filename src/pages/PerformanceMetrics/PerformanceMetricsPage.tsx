@@ -16,6 +16,7 @@ import { useTypedSelector } from "@stores/rootReducer";
 import PerformanceMetricDatagrid from "@components/datagrids/PerformanceMetricDatagrid/PerformanceMetricDatagrid";
 import { InfoTooltip } from "@components/InfoTooltip/InfoTooltip";
 import { calculateAge } from "@utils/calculationUtil";
+import { useSnackbar } from "notistack";
 
 const ageRangeOptions: AgeRange[] = [
   { label: "6-7", min: 6, max: 7 },
@@ -31,6 +32,7 @@ const PerformanceMetricsPage = () => {
   const { getAthlete } = useApi();
   const userRole = selectedUser?.type;
   const [athlete, setAthlete] = useState<Athlete | null>(null);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (selectedUser?.type === "ATHLETE" && selectedUser?.id != null) {
@@ -39,10 +41,13 @@ const PerformanceMetricsPage = () => {
           if (data) {
             setAthlete(data);
           } else {
-            console.error("Athlete data is undefined");
+            enqueueSnackbar(t("snackbar.performanceMetrics.athleteNotFound"), { variant: "error" });
           }
         })
-        .catch((error) => console.error("Error fetching athlete data:", error));
+        .catch((error) => {
+          console.error("Error fetching athlete data:", error);
+          enqueueSnackbar(t("snackbar.performanceMetrics.fetchAthleteFailed"), { variant: "error" });
+        });
     }
   }, [selectedUser, getAthlete]);
 
