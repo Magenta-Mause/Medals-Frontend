@@ -173,7 +173,7 @@ const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
                 data={metrics}
                 columns={columns}
                 keyOf={(metric) => metric.id}
-                isLoading={true}
+                isLoading={false}
                 mobileRendering={mobileRendering}
                 disablePaging={true}
               />

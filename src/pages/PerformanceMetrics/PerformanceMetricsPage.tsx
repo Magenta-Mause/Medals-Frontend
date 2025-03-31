@@ -1,5 +1,5 @@
 import { useState, useMemo, useContext, useEffect } from "react";
-import { Box, Typography, Button } from "@mui/joy";
+import { Box, Typography, Button, CircularProgress } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import useApi from "@hooks/useApi";
@@ -34,6 +34,7 @@ const PerformanceMetricsPage = () => {
   const [athlete, setAthlete] = useState<Athlete | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation();
+  const [filtersReady, setFiltersReady] = useState(false);
 
   useEffect(() => {
     if (selectedUser?.type === "ATHLETE" && selectedUser?.id != null) {
@@ -56,11 +57,6 @@ const PerformanceMetricsPage = () => {
     }
   }, [selectedUser, getAthlete, enqueueSnackbar, t]);
 
-  const disciplineRatingMetrics = useTypedSelector(
-    (state) => state.disciplineMetrics.data,
-  ) as DisciplineRatingMetric[];
-
-  // Compute default filter values based on athlete info (if available).
   const defaultFilterValues = useMemo(() => {
     const year = new Date().getFullYear().toString();
     if (selectedUser?.type === "ATHLETE" && athlete?.birthdate) {
@@ -87,10 +83,23 @@ const PerformanceMetricsPage = () => {
     useState<Record<string, string>>(defaultFilterValues);
 
   useEffect(() => {
-    if (selectedUser?.type === "ATHLETE" && athlete) {
-      setFilterValues(defaultFilterValues);
+    if (selectedUser?.type === "ATHLETE") {
+      if (athlete) {
+        setFilterValues(defaultFilterValues);
+        setFiltersReady(true);
+      } else {
+        // Athlete data not loaded yet
+        setFiltersReady(false);
+      }
+    } else {
+      // For non-athlete users, filters are ready immediately.
+      setFiltersReady(true);
     }
   }, [athlete, defaultFilterValues, selectedUser]);
+
+  const disciplineRatingMetrics = useTypedSelector(
+    (state) => state.disciplineMetrics.data,
+  ) as DisciplineRatingMetric[];
 
   // Compute available years from metrics.
   const availableYears = useMemo(() => {
@@ -210,36 +219,41 @@ const PerformanceMetricsPage = () => {
           ? t("pages.performanceMetricsPage.title.athlete")
           : t("pages.performanceMetricsPage.title.default")}
       </Typography>
-      {/* Filter section */}
-      <Box
-        sx={{
-          display: "flex",
-          gap: 2,
-          flexWrap: "wrap",
-          alignItems: "center",
-        }}
-      >
-        <FilterComponent
-          filters={filters}
-          setFilter={setFilter}
-          filterValues={filterValues}
-        />
-        {selectedUser?.type === "ATHLETE" && (
-          <Button
-            sx={{ alignSelf: "flex-end" }}
-            onClick={() => setFilterValues(defaultFilterValues)}
+      {filtersReady ? (
+        <>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
           >
-            {t("pages.performanceMetricsPage.resetFilter")}
-          </Button>
-        )}
-      </Box>
-      {/* Datagrid section */}
-      <PerformanceMetricDatagrid
-        groupedMetrics={groupedMetrics}
-        gender={filterValues.gender as Genders}
-      />
+            <FilterComponent
+              filters={filters}
+              setFilter={setFilter}
+              filterValues={filterValues}
+            />
+            {selectedUser?.type === "ATHLETE" && (
+              <Button
+                sx={{ alignSelf: "flex-end" }}
+                onClick={() => setFilterValues(defaultFilterValues)}
+              >
+                {t("pages.performanceMetricsPage.resetFilter")}
+              </Button>
+            )}
+          </Box>
+          <PerformanceMetricDatagrid
+            groupedMetrics={groupedMetrics}
+            gender={filterValues.gender as Genders}
+          />
+        </>
+      ) : (
+        <CircularProgress />
+      )}
     </Box>
   );
+  
 };
 
 export default PerformanceMetricsPage;
