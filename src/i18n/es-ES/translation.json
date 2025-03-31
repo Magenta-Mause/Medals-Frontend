@@ -117,7 +117,7 @@
       "paths": {
         "/": "Inicio",
         "/athletes": "Atletas",
-        "/downloads": "Descargas",
+        "/materials": "Descargas",
         "/trainer": "Entrenadores",
         "/help": "Ayuda"
       }
@@ -128,7 +128,7 @@
         "/": "Inicio",
         "/athletes": "Atletas",
         "/trainer": "Entrenadores",
-        "/downloads": "Descargas",
+        "/materials": "Descargas",
         "/help": "Ayuda"
       },
       "search": "Buscar",

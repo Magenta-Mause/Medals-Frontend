@@ -107,9 +107,9 @@
       "h1": "404",
       "h2": "Page not found"
     },
-    "downloadPage": {
-      "header": "Downloads",
-      "headerText": "Here are the most important downloads just a click away"
+    "materialsDownloadPage": {
+      "header": "Materials",
+      "headerText": "Here are the most important materials just a click away"
     },
     "inDevelopment": {
       "h1": "501",
@@ -218,7 +218,7 @@
       "loginPage": "Background Images on Login Page",
       "lightMode": "LightMode",
       "darkMode": "DarkMode",
-      "downloadPage": "Download Page",
+      "materialsDownloadPage": "Materials Page",
       "swimmingCard": "SwimmingCard",
       "singleAthletesCard": "SingleAthletesCard",
       "groupAthletesCard": "GroupAthletesCard",
@@ -253,7 +253,7 @@
         "/profile": "Profile",
         "/requirements": "Requirements",
         "/performances": "Performances",
-        "/downloads": "Downloads",
+        "/materials": "Materials",
         "/help": "Help",
         "/imprint": "Imprint",
         "/privacyPolicy": "Privacy Policy",
@@ -282,7 +282,7 @@
         "/profile": "Profile",
         "/requirements": "Requirements",
         "/performances": "Performances",
-        "/downloads": "Downloads",
+        "/materials": "Materials",
         "/help": "Help"
       },
       "search": "Search",
