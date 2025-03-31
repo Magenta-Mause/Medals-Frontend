@@ -33,6 +33,7 @@ const PerformanceMetricsPage = () => {
   const userRole = selectedUser?.type;
   const [athlete, setAthlete] = useState<Athlete | null>(null);
   const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (selectedUser?.type === "ATHLETE" && selectedUser?.id != null) {
@@ -41,21 +42,23 @@ const PerformanceMetricsPage = () => {
           if (data) {
             setAthlete(data);
           } else {
-            enqueueSnackbar(t("snackbar.performanceMetrics.athleteNotFound"), { variant: "error" });
+            enqueueSnackbar(t("snackbar.performanceMetrics.athleteNotFound"), {
+              variant: "error",
+            });
           }
         })
         .catch((error) => {
           console.error("Error fetching athlete data:", error);
-          enqueueSnackbar(t("snackbar.performanceMetrics.fetchAthleteFailed"), { variant: "error" });
+          enqueueSnackbar(t("snackbar.performanceMetrics.fetchAthleteFailed"), {
+            variant: "error",
+          });
         });
     }
-  }, [selectedUser, getAthlete]);
+  }, [selectedUser, getAthlete, enqueueSnackbar, t]);
 
   const disciplineRatingMetrics = useTypedSelector(
     (state) => state.disciplineMetrics.data,
   ) as DisciplineRatingMetric[];
-
-  const { t } = useTranslation();
 
   // Compute default filter values based on athlete info (if available).
   const defaultFilterValues = useMemo(() => {
