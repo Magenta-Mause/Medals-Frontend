@@ -91,10 +91,7 @@ const PerformanceMetricsPage = () => {
         apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
           if (filterParam === Genders.w) {
             return item.rating_female !== null;
-          } else if (
-            filterParam === Genders.m ||
-            filterParam === Genders.d
-          ) {
+          } else if (filterParam === Genders.m || filterParam === Genders.d) {
             return item.rating_male !== null;
           }
           return true;
