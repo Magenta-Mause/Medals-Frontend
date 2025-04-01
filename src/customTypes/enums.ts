@@ -29,3 +29,10 @@ export enum Genders {
   w = "FEMALE",
   m = "MALE",
 }
+
+export enum AthleteValidityState {
+  VALID,
+  UPLOADED,
+  FAILED,
+  LOADING,
+}
