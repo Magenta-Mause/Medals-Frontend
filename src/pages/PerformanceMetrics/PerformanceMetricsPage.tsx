@@ -27,7 +27,7 @@ const PerformanceMetricsPage = () => {
   const [filterValues, setFilterValues] = useState<Record<string, string>>({
     year: new Date().getFullYear().toString(),
     age: ageRangeOptions[0].label,
-    gender: Genders.FEMALE,
+    gender: Genders.w,
   });
 
   const { t } = useTranslation();
@@ -84,16 +84,16 @@ const PerformanceMetricsPage = () => {
         ),
         type: "SELECTION",
         selection: [
-          { value: Genders.FEMALE, displayValue: t("genders.FEMALE") },
-          { value: Genders.MALE, displayValue: t("genders.MALE") },
-          { value: Genders.DIVERSE, displayValue: t("genders.DIVERSE") },
+          { value: Genders.w, displayValue: t("genders.FEMALE") },
+          { value: Genders.m, displayValue: t("genders.MALE") },
+          { value: Genders.d, displayValue: t("genders.DIVERSE") },
         ],
         apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
-          if (filterParam === Genders.FEMALE) {
+          if (filterParam === Genders.w) {
             return item.rating_female !== null;
           } else if (
-            filterParam === Genders.MALE ||
-            filterParam === Genders.DIVERSE
+            filterParam === Genders.m ||
+            filterParam === Genders.d
           ) {
             return item.rating_male !== null;
           }
