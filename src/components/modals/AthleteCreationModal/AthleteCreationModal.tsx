@@ -3,6 +3,7 @@ import useApi from "@hooks/useApi";
 import { Box, Button, FormLabel, Input, FormControl, FormHelperText } from "@mui/joy";
 import Option from "@mui/joy/Option";
 import Select from "@mui/joy/Select";
+import dayjs, { Dayjs } from 'dayjs';
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "../../CustomDatePicker/CustomDatePicker";
@@ -20,10 +21,27 @@ const getDateFormatForLocale = (locale: string): string => {
     'en': 'MM/DD/YYYY',
     'de': 'DD.MM.YYYY',
     'fr': 'DD/MM/YYYY',
-    // Add more locales as needed
+    'nl': 'DD-MM-YYYY',
+    'es': 'DD/MM/YYYY'
   };
-  return localeMap[locale.split('-')[0]] || 'DD/MM/YYYY'; // Default to European format
+  return localeMap[locale.split('-')[0]] || 'DD/MM/YYYY';
 };
+
+interface FormTouched {
+  first_name: boolean;
+  last_name: boolean;
+  email: boolean;
+  birthdate: boolean;
+  gender: boolean;
+}
+
+interface FormErrors {
+  first_name: string;
+  last_name: string;
+  email: string;
+  birthdate: string;
+  gender: string;
+}
 
 const AthleteCreationForm = () => {
   const { t, i18n } = useTranslation();
@@ -38,7 +56,7 @@ const AthleteCreationForm = () => {
   });
   
   // Track if field has been touched (to avoid showing errors initially)
-  const [touched, setTouched] = useState({
+  const [touched, setTouched] = useState<FormTouched>({
     first_name: false,
     last_name: false,
     email: false,
@@ -47,7 +65,7 @@ const AthleteCreationForm = () => {
   });
   
   // Form validation state
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<FormErrors>({
     first_name: "",
     last_name: "",
     email: "",
@@ -59,25 +77,25 @@ const AthleteCreationForm = () => {
   const dateFormat = getDateFormatForLocale(i18n.language);
 
   // Validate form fields
-  const validateField = (field: string, value: any): string => {
+  const validateField = (field: keyof FormErrors, value: any): string => {
     switch (field) {
       case 'first_name':
-        if (!value) return t("validation.required");
-        if (value.length > 255) return t("validation.tooLong");
+        if (!value) return t("generic.validation.required");
+        if (value.length > 255) return t("generic.validation.tooLong");
         return "";
       case 'last_name':
-        if (!value) return t("validation.required");
-        if (value.length > 255) return t("validation.tooLong");
+        if (!value) return t("generic.validation.required");
+        if (value.length > 255) return t("generic.validation.tooLong");
         return "";
       case 'email':
-        if (!value) return t("validation.required");
-        if (!isValidEmail(value)) return t("validation.invalidEmail");
+        if (!value) return t("generic.validation.required");
+        if (!isValidEmail(value)) return t("generic.validation.invalidEmail");
         return "";
       case 'birthdate':
-        if (!value) return t("validation.required");
+        if (!value) return t("generic.validation.required");
         return "";
       case 'gender':
-        if (value === undefined) return t("validation.required");
+        if (value === undefined) return t("generic.validation.required");
         return "";
       default:
         return "";
@@ -89,35 +107,57 @@ const AthleteCreationForm = () => {
     setAthlete(prev => ({ ...prev, [field]: value }));
     
     // Mark field as touched
-    if (!touched[field as keyof typeof touched]) {
+    if (!touched[field as keyof FormTouched]) {
       setTouched(prev => ({ ...prev, [field]: true }));
     }
     
     // Validate field
-    const error = validateField(field, value);
+    const error = validateField(field as keyof FormErrors, value);
     setErrors(prev => ({ ...prev, [field]: error }));
+  };
+
+  // Handle date change specifically
+  const handleDateChange = (date: Date | null) => {
+    // Mark as touched
+    if (!touched.birthdate) {
+      setTouched(prev => ({ ...prev, birthdate: true }));
+    }
+
+    if (date) {
+      // Format to ISO string for backend compatibility
+      const isoDate = date.toISOString();
+      handleFieldChange("birthdate", isoDate);
+    } else {
+      handleFieldChange("birthdate", "");
+    }
   };
 
   // Check if form is valid for submission
   const isFormValid = () => {
     return Object.values(errors).every(error => !error) && 
-           Object.keys(errors).every(field => touched[field as keyof typeof touched]);
+           Object.keys(errors).every(field => touched[field as keyof FormTouched]);
   };
 
   // Mark all fields as touched when submit button is clicked
   const handleSubmitAttempt = () => {
-    const allTouched = Object.keys(touched).reduce((acc, field) => {
-      acc[field as keyof typeof touched] = true;
-      return acc;
-    }, { ...touched });
+    const allTouched: FormTouched = {
+      first_name: true,
+      last_name: true,
+      email: true,
+      birthdate: true,
+      gender: true
+    };
     
     setTouched(allTouched);
     
     // Revalidate all fields
-    const newErrors = Object.keys(errors).reduce((acc, field) => {
-      acc[field] = validateField(field, athlete[field as keyof Athlete]);
-      return acc;
-    }, { ...errors });
+    const newErrors: FormErrors = {
+      first_name: validateField('first_name', athlete.first_name),
+      last_name: validateField('last_name', athlete.last_name),
+      email: validateField('email', athlete.email),
+      birthdate: validateField('birthdate', athlete.birthdate),
+      gender: validateField('gender', athlete.gender)
+    };
     
     setErrors(newErrors);
     
@@ -148,6 +188,23 @@ const AthleteCreationForm = () => {
       gender: "",
     });
   };
+
+  // Function to mark field as touched
+  const markTouched = (field: keyof FormTouched) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+  };
+
+  const getDatePickerValue = (): Dayjs | null => {
+    if (!athlete.birthdate) return null;
+    
+    try {
+      // Convert the ISO string (or Date) to a Dayjs object
+      return dayjs(athlete.birthdate);
+    } catch (e) {
+      console.error("Invalid date format:", athlete.birthdate);
+      return null;
+    }
+  }
 
   return (
     <>
@@ -184,7 +241,7 @@ const AthleteCreationForm = () => {
               variant="outlined"
               value={athlete.first_name}
               onChange={(e) => handleFieldChange("first_name", e.target.value)}
-              onBlur={() => setTouched(prev => ({ ...prev, first_name: true }))}
+              onBlur={() => markTouched("first_name")}
             />
             {touched.first_name && errors.first_name && (
               <FormHelperText>{errors.first_name}</FormHelperText>
@@ -199,7 +256,7 @@ const AthleteCreationForm = () => {
               variant="outlined"
               value={athlete.last_name}
               onChange={(e) => handleFieldChange("last_name", e.target.value)}
-              onBlur={() => setTouched(prev => ({ ...prev, last_name: true }))}
+              onBlur={() => markTouched("last_name")}
             />
             {touched.last_name && errors.last_name && (
               <FormHelperText>{errors.last_name}</FormHelperText>
@@ -214,7 +271,7 @@ const AthleteCreationForm = () => {
               variant="outlined"
               value={athlete.email}
               onChange={(e) => handleFieldChange("email", e.target.value)}
-              onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
+              onBlur={() => markTouched("email")}
             />
             {touched.email && errors.email && (
               <FormHelperText>{errors.email}</FormHelperText>
@@ -225,19 +282,8 @@ const AthleteCreationForm = () => {
             <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
             <CustomDatePicker
               sx={{ width: "100%" }}
-              value={athlete.birthdate || null}
-              onChange={(newDate) => {
-                if (newDate) {
-                  const localDate = new Date(newDate);
-                  const adjustedDate = new Date(
-                    localDate.getTime() - localDate.getTimezoneOffset() * 60000,
-                  );
-                  handleFieldChange("birthdate", adjustedDate);
-                } else {
-                  handleFieldChange("birthdate", "");
-                }
-              }}
-              onBlur={() => setTouched(prev => ({ ...prev, birthdate: true }))}
+              value={getDatePickerValue()}
+              onChange={handleDateChange}
               format={dateFormat}
               error={touched.birthdate && !!errors.birthdate}
             />
@@ -252,7 +298,7 @@ const AthleteCreationForm = () => {
               placeholder={t("pages.athleteCreationPage.gender")}
               value={athlete.gender}
               onChange={(_, newValue) => handleFieldChange("gender", newValue)}
-              onBlur={() => setTouched(prev => ({ ...prev, gender: true }))}
+              onBlur={() => markTouched("gender")}
             >
               <Option value={Genders.FEMALE}>{t("genders.FEMALE")}</Option>
               <Option value={Genders.MALE}>{t("genders.MALE")}</Option>

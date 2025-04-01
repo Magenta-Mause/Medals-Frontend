@@ -23,7 +23,12 @@
     "invalid": "Ungültig",
     "loading": "Lädt...",
     "submit": "Absenden",
-    "password": "Passwort"
+    "password": "Passwort",
+    "validation": {
+      "required": "Dieses Feld ist erforderlich.",
+      "tooLong": "Dieses Feld ist zu lang.",
+      "invalidEmail": "Ungültige E-Mail-Adresse."
+    }
   },
   "disciplines": {
     "categories": {

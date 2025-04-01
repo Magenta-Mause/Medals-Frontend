@@ -55,7 +55,12 @@
     "invalid": "invalid",
     "loading": "Loading...",
     "submit": "Submit",
-    "password": "Password"
+    "password": "Password",
+    "validation": {
+      "required": "This field is required.",
+      "tooLong": "This field is too long.",
+      "invalidEmail": "Invalid email address."
+    }
   },
   "snackbar": {
     "login": {
