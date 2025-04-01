@@ -296,7 +296,7 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
                 }}
                 color={"danger"}
               >
-                Zurücksetzen
+                {t("pages.athleteImportPage.changeFile")}
               </Button>
               <Button
                 color={isFinished() ? "success" : "primary"}
