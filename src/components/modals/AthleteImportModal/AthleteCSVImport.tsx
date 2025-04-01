@@ -13,9 +13,14 @@ import { Genders } from "@customTypes/enums";
 import SyncIcon from "@mui/icons-material/Sync";
 
 interface AthleteWithValidityToAthlete extends Athlete {
-  valid: boolean | undefined;
-  uploaded: boolean | undefined;
-  failed: boolean | undefined;
+  state: AthleteValidityState | undefined;
+}
+
+enum AthleteValidityState {
+  VALID,
+  UPLOADED,
+  FAILED,
+  LOADING,
 }
 
 interface ModalProps {
@@ -30,7 +35,7 @@ const AthleteCSVImport = (props: ModalProps) => {
   const { checkAthleteExists } = useApi();
   const { createAthlete } = useApi();
   const { enqueueSnackbar } = useSnackbar();
-  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [isBlocked, setIsBlocked] = useState<boolean>(false);
 
   const convertDateFormat = (dateStr: string) => {
     // Split the input date string into an array [dd, mm, yyyy]
@@ -85,7 +90,7 @@ const AthleteCSVImport = (props: ModalProps) => {
 
   const checkEmptyImport = (athletes: AthleteWithValidityToAthlete[]) => {
     for (const athlete of athletes) {
-      if (athlete.valid === true) {
+      if (athlete.state === AthleteValidityState.VALID) {
         return false;
       }
     }
@@ -93,12 +98,11 @@ const AthleteCSVImport = (props: ModalProps) => {
   };
 
   const createAthletes = async (athletes: AthleteWithValidityToAthlete[]) => {
-    setIsUploading(true);
     for (const athlete of athletes) {
-      if (athlete.valid) {
+      if (athlete.state === AthleteValidityState.VALID) {
         try {
           await createAthlete(stripValidity(athlete));
-          athlete.uploaded = true;
+          athlete.state = AthleteValidityState.UPLOADED;
         } catch (error: any) {
           console.log(error);
           enqueueSnackbar(
@@ -110,7 +114,7 @@ const AthleteCSVImport = (props: ModalProps) => {
           );
         }
       } else {
-        athlete.failed = true;
+        athlete.state = AthleteValidityState.FAILED;
       }
     }
   };
@@ -126,7 +130,7 @@ const AthleteCSVImport = (props: ModalProps) => {
 
   const handleModalClose = () => {
     setSelectedFile(null);
-    setIsUploading(false);
+    setIsBlocked(false);
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,9 +177,7 @@ const AthleteCSVImport = (props: ModalProps) => {
               parsedData.map((row: Athlete) => {
                 return {
                   ...row,
-                  valid: undefined,
-                  uploaded: undefined,
-                  failed: undefined,
+                  state: undefined,
                 };
               }),
             );
@@ -183,9 +185,9 @@ const AthleteCSVImport = (props: ModalProps) => {
             for (const athlete of parsedData) {
               athletesWithValidity.push({
                 ...athlete,
-                valid: await isValidImport(athlete),
-                uploaded: undefined,
-                failed: undefined,
+                state: (await isValidImport(athlete))
+                  ? AthleteValidityState.VALID
+                  : AthleteValidityState.FAILED,
               });
             }
             setCsvData(athletesWithValidity);
@@ -281,36 +283,37 @@ const AthleteCSVImport = (props: ModalProps) => {
                     key={index}
                     style={{
                       border: "10px solid", // Solid border
-                      borderColor: athlete.uploaded
-                        ? "green" // Fully opaque green border
-                        : athlete.valid
-                          ? "orange" // Fully opaque orange border
-                          : "red", // Fully opaque red border
-                      backgroundColor: athlete.uploaded
-                        ? "rgba(0, 128, 0, 0.1)" // Green with 30% opacity
-                        : athlete.valid
-                          ? "white"
-                          : "rgba(255, 0, 0, 0.1)", // Red with 30% opacity
+                      borderColor:
+                        athlete.state === AthleteValidityState.UPLOADED
+                          ? "green" // Fully opaque green border
+                          : athlete.state === AthleteValidityState.VALID
+                            ? "orange" // Fully opaque orange border
+                            : "red", // Fully opaque red border
+                      backgroundColor:
+                        athlete.state === AthleteValidityState.UPLOADED
+                          ? "rgba(0, 128, 0, 0.1)" // Green with 30% opacity
+                          : athlete.state === AthleteValidityState.VALID
+                            ? "white"
+                            : "rgba(255, 0, 0, 0.1)", // Red with 30% opacity
                     }}
                   >
                     <td>
-                      {athlete.failed ? (
+                      {athlete.state === AthleteValidityState.FAILED ? (
                         <CloseIcon color="error" />
-                      ) : isUploading ? (
-                        athlete.uploaded ? (
-                          <UploadIcon color="success" />
-                        ) : (
-                          <SyncIcon
-                            sx={{
-                              animation: "spin 1s linear infinite",
-                              "@keyframes spin": {
-                                "0%": { transform: "rotate(0deg)" },
-                                "100%": { transform: "rotate(-360deg)" },
-                              },
-                            }}
-                          />
-                        )
-                      ) : (athlete.valid ?? false) ? null : ( // Handle undefined `valid`
+                      ) : athlete.state === AthleteValidityState.LOADING ? (
+                        <SyncIcon
+                          sx={{
+                            animation: "spin 1s linear infinite",
+                            "@keyframes spin": {
+                              "0%": { transform: "rotate(0deg)" },
+                              "100%": { transform: "rotate(-360deg)" },
+                            },
+                          }}
+                        />
+                      ) : athlete.state === AthleteValidityState.UPLOADED ? (
+                        <UploadIcon color="success" />
+                      ) : athlete.state ===
+                        AthleteValidityState.VALID ? null : ( // Handle undefined `valid`
                         <CloseIcon color="error" />
                       )}
                     </td>
@@ -332,15 +335,15 @@ const AthleteCSVImport = (props: ModalProps) => {
                 sx={{ marginTop: "1vh" }}
                 onClick={() => {
                   setSelectedFile(null);
-                  setIsUploading(false);
                 }}
               >
                 {t("pages.athleteImportPage.changeFile")}
               </Button>
               <Button
                 sx={{ marginTop: "1vh" }}
-                disabled={checkEmptyImport(csvData) || isUploading}
+                disabled={checkEmptyImport(csvData) || isBlocked}
                 onClick={() => {
+                  setIsBlocked(true);
                   createAthletes(csvData);
                 }}
               >
