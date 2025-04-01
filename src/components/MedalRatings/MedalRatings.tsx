@@ -97,8 +97,16 @@ const MedalRatings = ({ metric, selectedGender }: MedalRatingsProps) => {
 
   const medalsRating = [
     { label: t("medals.GOLD"), value: goldRating, color: medalColors.gold },
-    { label: t("medals.SILVER"), value: silverRating, color: medalColors.silver },
-    { label: t("medals.BRONZE"), value: bronzeRating, color: medalColors.bronze },
+    {
+      label: t("medals.SILVER"),
+      value: silverRating,
+      color: medalColors.silver,
+    },
+    {
+      label: t("medals.BRONZE"),
+      value: bronzeRating,
+      color: medalColors.bronze,
+    },
   ];
 
   return (
