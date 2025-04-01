@@ -138,4 +138,4 @@ if __name__ == '__main__':
             translate_locale_full(lt_tree, translation_paths, target_language)
         
         with open(f'translation_{target_language}.json', 'w') as fp:
-            json.dump(lt_tree, fp, indent=4)
+            json.dump(lt_tree, fp, indent=2)
