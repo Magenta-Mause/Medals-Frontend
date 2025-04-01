@@ -9,9 +9,16 @@ output better translations while also demanding a more performant computer.
 ##### Setup
 To check out the options this script offers, proceed as follows:
 0. (Optionally) set up a virtual environment, certain libraries do not work with python versions >3.11
-1. Install the dependencies using `python -m pip install -r requirements.txt` (`requirements.cuda.txt` if you have an NVIDIA GPU)
+1. Install the dependencies using `python -m pip install -r requirements.txt` (if you have a NVIDIA GPU, check out the [CUDA installation](#cuda-setup))
 2. Obtain the source-locale (english)
 3. Run `python i18n_translate.py --help` to view a list of options the script offers
+
+#### CUDA Setup
+
+If you have a NVIDIA GPU, you can install the cuda version of the `torch` module for accelerated translation as follows:
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cu126
+```
 
 ##### Examples
 Translate the whole locale to spanish, chinese (simplified) and vietnamese:

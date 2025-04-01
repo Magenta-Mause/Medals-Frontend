@@ -12,11 +12,12 @@ import {
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
 import { Medals } from "@customTypes/enums";
+import { DisciplineInfo } from "@components/datagrids/PerformanceMetricDatagrid/PerformanceMetricDatagrid";
 
 interface DisciplineDatagridProps {
   disciplines: Discipline[];
   performanceRecordings: PerformanceRecording[];
-  onDisciplineClick?: (d: Discipline) => void;
+  onDisciplineClick?: (d: Discipline) => Promise<void>;
   isLoading: boolean;
   disablePaging: boolean;
 }
@@ -47,18 +48,14 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
 
   const columns: Column<DisciplineWithPerformanceRecordings>[] = [
     {
-      columnName: t("components.disciplineDatagrid.columns.title"),
-      columnMapping(item) {
-        return <Typography>{item.name}</Typography>;
-      },
-      sortable: true,
-    },
-    {
-      columnName: t("components.disciplineDatagrid.columns.description"),
-      columnMapping(item) {
-        return <Typography>{item.description ?? "-"}</Typography>;
-      },
-      sortable: true,
+      columnName: t("generic.discipline"),
+      columnMapping: (discipline: Discipline) => (
+        <DisciplineInfo
+          name={discipline.name}
+          description={discipline.description}
+        />
+      ),
+      size: "m",
     },
     {
       columnName: t("components.disciplineDatagrid.columns.bestValue"),
@@ -133,7 +130,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         {
           label: "Details",
           key: "openDetails",
-          operation: props.onDisciplineClick ?? (() => {}),
+          operation: props.onDisciplineClick ?? (async () => {}),
         },
       ],
       onElementClick: props.onDisciplineClick ?? undefined,

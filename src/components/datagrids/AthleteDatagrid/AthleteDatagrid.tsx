@@ -1,9 +1,7 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Box, Chip, Typography } from "@mui/joy";
-import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
@@ -29,7 +27,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -95,6 +92,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
               display: "flex",
               justifyContent: "left",
             }}
+            key={item.id}
           >
             {Object.values(DisciplineCategories).map((category) => {
               const performanceRecordingsOfCategory =
@@ -104,11 +102,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
                 );
               const bestValue = performanceRecordingsOfCategory
                 .map((p) => calculatePerformanceRecordingMedal(p))
-                .sort((m) => convertMedalToNumber(m))[0];
+                .sort((m) => convertMedalToNumber(m))
+                .reverse()[0];
               return (
                 <MedalIcon
                   category={category}
                   medalType={bestValue ?? Medals.NONE}
+                  key={item.id + category}
                 />
               );
             })}
@@ -181,7 +181,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       label: <>{t("components.athleteDatagrid.actions.edit")}</>,
       color: "primary",
       key: "edit",
-      operation: function (item): void {
+      operation: async (item) => {
         console.log("Editing Athlete:", item);
       },
     },
@@ -190,15 +190,14 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       color: "danger",
       key: "delete",
       variant: "outlined",
-      operation: function (item): void {
-        dispatch(removeAthlete({ id: item.id! }));
-        deleteAthlete(item.id!);
+      operation: async (item) => {
+        await deleteAthlete(item.id!);
         console.log("Deleted Athlete:", item);
       },
     },
   ];
 
-  const itemCallback = (item: Athlete) => {
+  const itemCallback = async (item: Athlete) => {
     navigate("/athletes/" + item.id);
   };
 

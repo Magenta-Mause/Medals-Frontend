@@ -18,9 +18,10 @@
     "ADMIN": "Admin"
   },
   "units": {
-    "minutes": "minutes",
-    "seconds": "seconds",
-    "meters": "meters"
+    "MINUTES": "minutes",
+    "SECONDS": "seconds",
+    "METERS": "meters",
+    "POINTS": "points"
   },
   "messages": {
     "noEntriesFound": "No entries found"
@@ -118,6 +119,10 @@
     },
     "loginPage": {
       "logo": "Medals",
+      "userSelection": {
+        "header": "Choose your profile",
+        "subheader": "Pick the profile you want to continue with"
+      },
       "signIn": {
         "header": "Login",
         "subheader": "Medals - The soon to be Medal Management System",
@@ -220,6 +225,17 @@
       "2024MedalsCard": "2024MedalsCard",
       "2025MedalsCard": "2025MedalsCard",
       "photoBy": "Photo by"
+    },
+    "performanceMetricsPage": {
+      "title": "Performance Metrics",
+      "filters": {
+        "year": "Year",
+        "ageGroup": "Age Group",
+        "gender": "Gender"
+      },
+      "tooltips": {
+        "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used and also considered in the evaluation."
+      }
     }
   },
   "components": {
@@ -426,7 +442,8 @@
       "profileButton": "Account Settings",
       "switchUserButton": "Switch User",
       "logoutButton": "Logout",
-      "languageSelectionButton": "Change language"
+      "languageSelectionButton": "Change language",
+      "selectUser": "Continue with this user"
     }
   }
 }
