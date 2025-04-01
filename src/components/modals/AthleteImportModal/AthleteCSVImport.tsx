@@ -2,7 +2,6 @@ import { Box, Button, Table, Typography } from "@mui/joy";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
-import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
@@ -311,9 +310,7 @@ const AthleteCSVImport = (props: ModalProps) => {
                             }}
                           />
                         )
-                      ) : (athlete.valid ?? false) ? ( // Handle undefined `valid`
-                        null
-                      ) : (
+                      ) : (athlete.valid ?? false) ? null : ( // Handle undefined `valid`
                         <CloseIcon color="error" />
                       )}
                     </td>
