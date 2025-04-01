@@ -2,13 +2,7 @@ import { DisciplineIcons } from "@components/AthletePerformanceAccordions/Athlet
 import { DisciplineCategories, Medals } from "@customTypes/enums";
 import { Box, useColorScheme } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
-
-const MedalColors: Record<Medals, string | undefined> = {
-  [Medals.GOLD]: "#EFC75E",
-  [Medals.SILVER]: "#E4E7E7",
-  [Medals.BRONZE]: "#ED9D5D",
-  [Medals.NONE]: undefined,
-};
+import { useMedalColors } from "@hooks/useMedalColors"; // adjust the import path as needed
 
 const MedalIcon = (props: {
   category: DisciplineCategories;
@@ -18,23 +12,43 @@ const MedalIcon = (props: {
   const DisciplineIcon = DisciplineIcons[props.category];
   const colorScheme = useColorScheme();
   const backgroundColor =
-    colorScheme.colorScheme == "dark"
+    colorScheme.colorScheme === "dark"
       ? "rgba(255, 255, 255, 0.3)"
       : "rgba(0, 0, 0, 0.2)";
   const mainColor =
-    colorScheme.colorScheme == "dark"
+    colorScheme.colorScheme === "dark"
       ? "rgba(0, 0, 0, 0.7)"
       : "rgba(0, 0, 0, 0.7)";
   const grayedOutColor =
-    colorScheme.colorScheme == "dark"
+    colorScheme.colorScheme === "dark"
       ? "rgba(0, 0, 0, 0.5)"
       : "rgba(255, 255, 255, 1)";
+
+  const medalColors = useMedalColors();
+
+  // Determine which color to use based on the medal type
+  let medalColor: string | undefined;
+  switch (props.medalType) {
+    case Medals.GOLD:
+      medalColor = medalColors.gold;
+      break;
+    case Medals.SILVER:
+      medalColor = medalColors.silver;
+      break;
+    case Medals.BRONZE:
+      medalColor = medalColors.bronze;
+      break;
+    case Medals.NONE:
+      medalColor = undefined;
+      break;
+  }
+
   return (
     <Box
       sx={{
-        background: MedalColors[props.medalType] ?? backgroundColor,
+        background: medalColor ?? backgroundColor,
         border:
-          props.medalType == Medals.NONE
+          props.medalType === Medals.NONE
             ? "rgba(0,0,0,0.2) solid thin"
             : "gray solid thin",
         borderRadius: "100%",
@@ -49,7 +63,7 @@ const MedalIcon = (props: {
         ...props.sx,
       }}
     >
-      {props.medalType == Medals.NONE ? (
+      {props.medalType === Medals.NONE ? (
         <DisciplineIcon fill={grayedOutColor} />
       ) : (
         <DisciplineIcon fill={mainColor} />
@@ -58,5 +72,4 @@ const MedalIcon = (props: {
   );
 };
 
-export { MedalColors };
 export default MedalIcon;
