@@ -1,13 +1,13 @@
 import { t } from "i18next";
 import GenericModal from "../GenericModal";
-import { Box, Button, Checkbox, Sheet, Table } from "@mui/joy";
+import { Box, Button, Checkbox, IconButton, Sheet, Table } from "@mui/joy";
 import {
   Athlete,
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import React, { useEffect, useState } from "react";
-import { Preview, RemoveCircle } from "@mui/icons-material";
+import { Preview, Remove, RemoveCircle } from "@mui/icons-material";
 import { useTypedSelector } from "@stores/rootReducer";
 import {
   calculatePerformanceRecordingMedal,
@@ -227,22 +227,21 @@ const AthleteExportModal = (props: {
           >
             <thead>
               <th>
-                {" "}
                 {t("components.athleteDatagrid.table.columns.firstName")}
               </th>
               <th>
-                {" "}
-                {t("components.athleteDatagrid.table.columns.lastName")}{" "}
+                {t("components.athleteDatagrid.table.columns.lastName")}
               </th>
-              <th style={{ width: "25%" }}></th>
+              <th style={{ width: "75px", textAlign: "right" }}> {t("components.athleteExportModal.removeFromSelectionButton")}</th>
             </thead>
             <tbody>
               {athletes.map((athlete) => (
                 <tr key={athlete.id}>
                   <td>{athlete.first_name}</td>
                   <td>{athlete.last_name}</td>
-                  <td>
-                    <Button
+                  <td style= {{textAlign: "right"}}>
+                    <IconButton
+                      about= "remove"
                       variant="soft"
                       color="danger"
                       size="sm"
@@ -251,18 +250,9 @@ const AthleteExportModal = (props: {
                         setAthletes((prev) =>
                           prev.filter((a) => a.id !== athlete.id),
                         );
-                        console.log(
-                          "Removing Athlete from selection:",
-                          athlete,
-                        );
-                      }}
-                    >
-                      <RemoveCircle sx={{ pr: 0.5 }} />
-                      {!isMobile &&
-                        t(
-                          "components.athleteExportModal.removeFromSelectionButton",
-                        )}
-                    </Button>
+                      }}>
+                        <Remove />
+                    </IconButton>
                   </td>
                 </tr>
               ))}
