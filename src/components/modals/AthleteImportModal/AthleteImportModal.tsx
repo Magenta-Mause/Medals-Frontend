@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
 import useApi from "@hooks/useApi";
@@ -88,13 +88,11 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
     async (athletes: AthleteWithValidity[]) => {
       let index = 0;
       for (const athlete of athletes) {
-        console.log("uploading", index);
         if (athlete.state === AthleteValidityState.VALID) {
           athletes[index].state = AthleteValidityState.LOADING;
           setCsvData([...athletes]);
           try {
             await createAthlete(athlete);
-            console.log("create athlete", athlete);
             athletes[index].state = AthleteValidityState.UPLOADED;
             setCsvData([...athletes]);
           } catch (error: any) {
@@ -115,10 +113,6 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
     },
     [setCsvData, createAthlete, enqueueSnackbar, t],
   );
-
-  useEffect(() => {
-    console.log(csvData);
-  }, [csvData]);
 
   const checkValidFile = (file: File) => {
     if (file.name.endsWith(".csv") || file.type === "text/csv") {
@@ -203,6 +197,23 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
       };
     };
   };
+
+  const isFinished = useCallback(() => {
+    return (
+      !csvData.reduce(
+        (prev, athlete) =>
+          prev || athlete.state === AthleteValidityState.LOADING,
+        false,
+      ) &&
+      isBlocked &&
+      !csvData.reduce(
+        (prev, athlete) =>
+          prev && athlete.state === AthleteValidityState.FAILED,
+        true,
+      )
+    );
+  }, [csvData, isBlocked]);
+
   return (
     <>
       <GenericModal
@@ -280,22 +291,37 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
               }}
             >
               <Button
-                sx={{ marginTop: "1vh" }}
                 onClick={() => {
                   setSelectedFile(null);
                 }}
+                color={"danger"}
               >
-                {t("pages.athleteImportPage.changeFile")}
+                Zurücksetzen
               </Button>
               <Button
-                sx={{ marginTop: "1vh" }}
-                disabled={checkEmptyImport(csvData) || isBlocked}
+                color={isFinished() ? "success" : "primary"}
+                disabled={
+                  (checkEmptyImport(csvData) || isBlocked) && !isFinished()
+                }
                 onClick={() => {
-                  setIsBlocked(true);
-                  uploadAthletes(csvData);
+                  if (isFinished()) {
+                    setSelectedFile(null);
+                    props.setOpen(false);
+                  } else {
+                    setIsBlocked(true);
+                    uploadAthletes(csvData);
+                  }
                 }}
               >
-                {t("pages.athleteImportPage.importButton")}
+                {isBlocked
+                  ? csvData.reduce(
+                      (prev, athlete) =>
+                        prev || athlete.state === AthleteValidityState.LOADING,
+                      false,
+                    )
+                    ? t("generic.loading")
+                    : t("generic.finished")
+                  : t("pages.athleteImportPage.importButton")}
               </Button>
             </Box>
           </>
