@@ -4,6 +4,7 @@ import {
   Checkbox,
   FormControl,
   FormLabel,
+  GlobalStyles,
   Input,
   Link,
   Stack,
@@ -11,7 +12,7 @@ import {
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import PrivacyPolicyModal from "@components/PrivacyPolicyModal/PrivacyPolicyModal";
 import PasswordInput from "@components/PasswordInput/PasswordInput";
 
@@ -53,6 +54,17 @@ const LoginForm = (props: {
 
   return (
     <>
+      <GlobalStyles
+        styles={(theme) => ({
+          [theme.getColorSchemeSelector("dark")]: {
+            colorScheme: "dark",
+          },
+          [theme.getColorSchemeSelector("light")]: {
+            colorScheme: "light",
+          },
+        })}
+      />
+
       <form
         onSubmit={(event: React.FormEvent<SignInFormElement>) => {
           event.preventDefault();
@@ -78,9 +90,6 @@ const LoginForm = (props: {
               width: "100%",
               textAlign: "right",
               display: "block",
-              p: "5px",
-              pb: 0,
-              mb: 0,
             }}
             slotProps={{ asterisk: { sx: { display: "none" } } }}
           >
@@ -88,6 +97,9 @@ const LoginForm = (props: {
               level="title-sm"
               onClick={() => {
                 navigate("/resetPassword");
+              }}
+              sx={{
+                fontSize: "13px",
               }}
             >
               {t("pages.loginPage.signIn.forgotPassword")}
@@ -149,6 +161,9 @@ const LoginForm = (props: {
             type="submit"
             fullWidth
             disabled={props.isPending || !privacyPolicyChecked}
+            sx={{
+              transition: "all ease .2s",
+            }}
           >
             {!props.isPending ? (
               t("pages.loginPage.signIn.submit")
@@ -165,5 +180,4 @@ const LoginForm = (props: {
     </>
   );
 };
-
 export default LoginForm;
