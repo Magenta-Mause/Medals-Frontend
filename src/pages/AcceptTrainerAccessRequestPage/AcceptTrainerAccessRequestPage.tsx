@@ -139,7 +139,6 @@ const AcceptTrainerAccessRequest = () => {
                 }
               }}
               color="success"
-              disabled={!trainerName}
             >
               {t("pages.validateRequestPage.accept")}
             </Button>
