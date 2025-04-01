@@ -195,7 +195,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       color: "primary",
       key: "invite-trainer",
       variant: "solid",
-      operation: function (): void {
+      operation: async () => {
         setCreateAthleteModalOpen(true);
       },
     },
@@ -207,7 +207,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       color: "primary",
       key: "invite-trainer",
       variant: "solid",
-      operation: function (): void {
+      operation: async () => {
         setAddAthleteRequestModalOpen(true);
       },
     },
