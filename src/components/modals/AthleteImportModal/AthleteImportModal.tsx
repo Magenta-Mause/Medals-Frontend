@@ -53,10 +53,10 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
   );
 
   const isValidImport = async (athlete: Athlete) => {
-    if (athlete.first_name === null && athlete.first_name === "") {
+    if (!athlete.first_name) {
       return false;
     }
-    if (athlete.last_name === null && athlete.last_name === "") {
+    if (!athlete.last_name) {
       return false;
     }
     if (!isValidEmail(athlete.email)) {
@@ -188,7 +188,6 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
             }
             setCsvData(athletesWithValidity);
           };
-
           setData();
         },
       });
