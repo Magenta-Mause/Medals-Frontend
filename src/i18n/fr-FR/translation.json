@@ -2,9 +2,9 @@
     "languages": {
         "de": "Deutsch",
         "en": "English",
-        "es": "Española",
-        "fr": "Français",
-        "nl": "Néerlandais"
+        "es": "Espa\u00c3\u00b1ola",
+        "fr": "Fran\u00c3\u00a7ais",
+        "nl": "N\u00c3\u00a9erlandais"
     },
     "genders": {
         "DIVERSE": "Divers",
@@ -18,9 +18,10 @@
         "ADMIN": "Administrateur"
     },
     "units": {
-        "minutes": "minutes",
-        "seconds": "secondes",
-        "meters": "m\u00e8tres"
+        "MINUTES": "minutes",
+        "SECONDS": "secondes",
+        "METERS": "m\u00e8tres",
+        "POINTS": "Paragraphes Page"
     },
     "messages": {
         "noEntriesFound": "Aucune entr\u00e9e trouv\u00e9e"
@@ -78,7 +79,7 @@
     },
     "pages": {
         "homePage": {
-            "h1": "Medals",
+            "h1": "M\u00e9dailles",
             "h3": "Le prochain syst\u00e8me de gestion des m\u00e9dailles"
         },
         "athleteDetailPage": {
@@ -118,6 +119,10 @@
         },
         "loginPage": {
             "logo": "Medals",
+            "userSelection": {
+                "header": "Choisissez votre profil",
+                "subheader": "Choisissez le profil que vous souhaitez continuer avec"
+            },
             "signIn": {
                 "header": "Connexion",
                 "subheader": "M\u00e9dailles - Le prochain syst\u00e8me de gestion des m\u00e9dailles",
@@ -220,6 +225,17 @@
             "2024MedalsCard": "2024M\u00e9dauxCard",
             "2025MedalsCard": "2025M\u00e9dauxCard",
             "photoBy": "Photo de"
+        },
+        "performanceMetricsPage": {
+            "title": "Mesure des performances",
+            "filters": {
+                "year": "Ann\u00e9e",
+                "ageGroup": "Groupe d ' \u00e2ge",
+                "gender": "Sexe"
+            },
+            "tooltips": {
+                "genderDiversInfo": "Pour l'option \u00ab Diversit\u00e9 \u00bb des sexes, les param\u00e8tres pour les hommes sont utilis\u00e9s et \u00e9galement pris en compte dans l'\u00e9valuation."
+            }
         }
     },
     "components": {
@@ -314,7 +330,7 @@
             },
             "mobileList": {
                 "pageControl": {
-                    "pageLabels": "Page {currPage} of {maxPage}"
+                    "pageLabels": "Page {currPage} de {maxPage}"
                 }
             }
         },
@@ -426,7 +442,8 @@
             "profileButton": "Param\u00e8tres du compte",
             "switchUserButton": "Changer d' utilisateur",
             "logoutButton": "D\u00e9connecter",
-            "languageSelectionButton": "Changer de langue"
+            "languageSelectionButton": "Changer de langue",
+            "selectUser": "Continuer avec cet utilisateur"
         }
     }
 }

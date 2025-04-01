@@ -2,9 +2,9 @@
     "languages": {
         "de": "Deutsch",
         "en": "English",
-        "es": "Española",
-        "fr": "Français",
-        "nl": "Néerlandais"
+        "es": "Espa\u00c3\u00b1ola",
+        "fr": "Fran\u00c3\u00a7ais",
+        "nl": "N\u00c3\u00a9erlandais"
     },
     "genders": {
         "DIVERSE": "Diversen",
@@ -18,9 +18,10 @@
         "ADMIN": "Beheerder"
     },
     "units": {
-        "minutes": "minuten",
-        "seconds": "seconden",
-        "meters": "metersunit synonyms for matching user input"
+        "MINUTES": "minuten",
+        "SECONDS": "seconden",
+        "METERS": "metersunit synonyms for matching user input",
+        "POINTS": "punten"
     },
     "messages": {
         "noEntriesFound": "Geen items gevonden"
@@ -78,7 +79,7 @@
     },
     "pages": {
         "homePage": {
-            "h1": "Medals",
+            "h1": "Medailles",
             "h3": "Het binnenkort Medal Management System te zijn"
         },
         "athleteDetailPage": {
@@ -118,6 +119,10 @@
         },
         "loginPage": {
             "logo": "Medals",
+            "userSelection": {
+                "header": "Kies uw profiel",
+                "subheader": "Kies het profiel waarmee u wilt doorgaan"
+            },
             "signIn": {
                 "header": "Aanmelden",
                 "subheader": "Medailles - Het binnenkort Medal Management System",
@@ -220,6 +225,17 @@
             "2024MedalsCard": "2024MedaillesCard",
             "2025MedalsCard": "2025MedaillesCard",
             "photoBy": "Foto door"
+        },
+        "performanceMetricsPage": {
+            "title": "Prestatiemetrics",
+            "filters": {
+                "year": "Jaar",
+                "ageGroup": "Leeftijdsgroep",
+                "gender": "Geslacht"
+            },
+            "tooltips": {
+                "genderDiversInfo": "Voor de genderoptie \"Diverse\" worden de metrieken voor mannen gebruikt en ook in de evaluatie overwogen."
+            }
         }
     },
     "components": {
@@ -314,7 +330,7 @@
             },
             "mobileList": {
                 "pageControl": {
-                    "pageLabels": "Page {currPage} of {maxPage}"
+                    "pageLabels": "Pagina {currPage} van {maxPage}"
                 }
             }
         },
@@ -426,7 +442,8 @@
             "profileButton": "Accountinstellingen",
             "switchUserButton": "Gebruiker wisselen",
             "logoutButton": "Afmelden",
-            "languageSelectionButton": "Taal wijzigen"
+            "languageSelectionButton": "Taal wijzigen",
+            "selectUser": "Ga verder met deze gebruiker"
         }
     }
 }

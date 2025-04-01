@@ -2,9 +2,9 @@
     "languages": {
         "de": "Deutsch",
         "en": "English",
-        "es": "Española",
-        "fr": "Français",
-        "nl": "Néerlandais"
+        "es": "Espa\u00c3\u00b1ola",
+        "fr": "Fran\u00c3\u00a7ais",
+        "nl": "N\u00c3\u00a9erlandais"
     },
     "genders": {
         "DIVERSE": "Diverso",
@@ -18,9 +18,10 @@
         "ADMIN": "Administraci\u00f3n"
     },
     "units": {
-        "minutes": "minutos",
-        "seconds": "segundos",
-        "meters": "metroskilometers"
+        "MINUTES": "minutos",
+        "SECONDS": "segundos",
+        "METERS": "metroskilometers",
+        "POINTS": "puntos"
     },
     "messages": {
         "noEntriesFound": "No se han encontrado entradas"
@@ -78,7 +79,7 @@
     },
     "pages": {
         "homePage": {
-            "h1": "Medals",
+            "h1": "Medallas",
             "h3": "El pronto ser\u00e1 el Sistema de Gesti\u00f3n de Medallas"
         },
         "athleteDetailPage": {
@@ -118,6 +119,10 @@
         },
         "loginPage": {
             "logo": "Medals",
+            "userSelection": {
+                "header": "Elija su perfil",
+                "subheader": "Elija el perfil con el que desea continuar"
+            },
             "signIn": {
                 "header": "Inicio de sesi\u00f3n",
                 "subheader": "Medallas - El Sistema de Gesti\u00f3n de Medallas que pronto ser\u00e1",
@@ -220,6 +225,17 @@
             "2024MedalsCard": "2024MedalsCard",
             "2025MedalsCard": "2025MedalsCard",
             "photoBy": "Foto de:"
+        },
+        "performanceMetricsPage": {
+            "title": "M\u00e9tricas de rendimiento",
+            "filters": {
+                "year": "A\u00f1o",
+                "ageGroup": "Grupo de edad",
+                "gender": "G\u00e9nero"
+            },
+            "tooltips": {
+                "genderDiversInfo": "Para la opci\u00f3n de g\u00e9nero \"Diversa\", se utilizan las m\u00e9tricas para los hombres y tambi\u00e9n se consideran en la evaluaci\u00f3n."
+            }
         }
     },
     "components": {
@@ -314,7 +330,7 @@
             },
             "mobileList": {
                 "pageControl": {
-                    "pageLabels": "Page {currPage} of {maxPage}"
+                    "pageLabels": "P\u00e1gina {correrP\u00e1gina} de {maxP\u00e1gina}"
                 }
             }
         },
@@ -426,7 +442,8 @@
             "profileButton": "Configuraci\u00f3n de la cuenta",
             "switchUserButton": "Cambiar usuario",
             "logoutButton": "Cerrar sesi\u00f3n",
-            "languageSelectionButton": "Cambiar idioma"
+            "languageSelectionButton": "Cambiar idioma",
+            "selectUser": "Continuar con este usuario"
         }
     }
 }
