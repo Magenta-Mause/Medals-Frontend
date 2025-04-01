@@ -1,9 +1,16 @@
 import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import { Box, Button, FormLabel, Input, FormControl, FormHelperText } from "@mui/joy";
+import {
+  Box,
+  Button,
+  FormLabel,
+  Input,
+  FormControl,
+  FormHelperText,
+} from "@mui/joy";
 import Option from "@mui/joy/Option";
 import Select from "@mui/joy/Select";
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "../../CustomDatePicker/CustomDatePicker";
@@ -18,13 +25,13 @@ const isValidEmail = (email: string) => emailRegex.test(email);
 // Default date format based on locale
 const getDateFormatForLocale = (locale: string): string => {
   const localeMap: Record<string, string> = {
-    'en': 'MM/DD/YYYY',
-    'de': 'DD.MM.YYYY',
-    'fr': 'DD/MM/YYYY',
-    'nl': 'DD-MM-YYYY',
-    'es': 'DD/MM/YYYY'
+    en: "MM/DD/YYYY",
+    de: "DD.MM.YYYY",
+    fr: "DD/MM/YYYY",
+    nl: "DD-MM-YYYY",
+    es: "DD/MM/YYYY",
   };
-  return localeMap[locale.split('-')[0]] || 'DD/MM/YYYY';
+  return localeMap[locale.split("-")[0]] || "DD/MM/YYYY";
 };
 
 interface FormTouched {
@@ -54,7 +61,7 @@ const AthleteCreationForm = () => {
     birthdate: "",
     gender: undefined,
   });
-  
+
   // Track if field has been touched (to avoid showing errors initially)
   const [touched, setTouched] = useState<FormTouched>({
     first_name: false,
@@ -63,7 +70,7 @@ const AthleteCreationForm = () => {
     birthdate: false,
     gender: false,
   });
-  
+
   // Form validation state
   const [errors, setErrors] = useState<FormErrors>({
     first_name: "",
@@ -79,22 +86,22 @@ const AthleteCreationForm = () => {
   // Validate form fields
   const validateField = (field: keyof FormErrors, value: any): string => {
     switch (field) {
-      case 'first_name':
+      case "first_name":
         if (!value) return t("generic.validation.required");
         if (value.length > 255) return t("generic.validation.tooLong");
         return "";
-      case 'last_name':
+      case "last_name":
         if (!value) return t("generic.validation.required");
         if (value.length > 255) return t("generic.validation.tooLong");
         return "";
-      case 'email':
+      case "email":
         if (!value) return t("generic.validation.required");
         if (!isValidEmail(value)) return t("generic.validation.invalidEmail");
         return "";
-      case 'birthdate':
+      case "birthdate":
         if (!value) return t("generic.validation.required");
         return "";
-      case 'gender':
+      case "gender":
         if (value === undefined) return t("generic.validation.required");
         return "";
       default:
@@ -104,23 +111,23 @@ const AthleteCreationForm = () => {
 
   // Handle field changes
   const handleFieldChange = (field: keyof Athlete, value: any) => {
-    setAthlete(prev => ({ ...prev, [field]: value }));
-    
+    setAthlete((prev) => ({ ...prev, [field]: value }));
+
     // Mark field as touched
     if (!touched[field as keyof FormTouched]) {
-      setTouched(prev => ({ ...prev, [field]: true }));
+      setTouched((prev) => ({ ...prev, [field]: true }));
     }
-    
+
     // Validate field
     const error = validateField(field as keyof FormErrors, value);
-    setErrors(prev => ({ ...prev, [field]: error }));
+    setErrors((prev) => ({ ...prev, [field]: error }));
   };
 
   // Handle date change specifically
   const handleDateChange = (date: Date | null) => {
     // Mark as touched
     if (!touched.birthdate) {
-      setTouched(prev => ({ ...prev, birthdate: true }));
+      setTouched((prev) => ({ ...prev, birthdate: true }));
     }
 
     if (date) {
@@ -134,8 +141,10 @@ const AthleteCreationForm = () => {
 
   // Check if form is valid for submission
   const isFormValid = () => {
-    return Object.values(errors).every(error => !error) && 
-           Object.keys(errors).every(field => touched[field as keyof FormTouched]);
+    return (
+      Object.values(errors).every((error) => !error) &&
+      Object.keys(errors).every((field) => touched[field as keyof FormTouched])
+    );
   };
 
   // Mark all fields as touched when submit button is clicked
@@ -145,22 +154,22 @@ const AthleteCreationForm = () => {
       last_name: true,
       email: true,
       birthdate: true,
-      gender: true
+      gender: true,
     };
-    
+
     setTouched(allTouched);
-    
+
     // Revalidate all fields
     const newErrors: FormErrors = {
-      first_name: validateField('first_name', athlete.first_name),
-      last_name: validateField('last_name', athlete.last_name),
-      email: validateField('email', athlete.email),
-      birthdate: validateField('birthdate', athlete.birthdate),
-      gender: validateField('gender', athlete.gender)
+      first_name: validateField("first_name", athlete.first_name),
+      last_name: validateField("last_name", athlete.last_name),
+      email: validateField("email", athlete.email),
+      birthdate: validateField("birthdate", athlete.birthdate),
+      gender: validateField("gender", athlete.gender),
     };
-    
+
     setErrors(newErrors);
-    
+
     return isFormValid();
   };
 
@@ -191,20 +200,20 @@ const AthleteCreationForm = () => {
 
   // Function to mark field as touched
   const markTouched = (field: keyof FormTouched) => {
-    setTouched(prev => ({ ...prev, [field]: true }));
+    setTouched((prev) => ({ ...prev, [field]: true }));
   };
 
   const getDatePickerValue = (): Dayjs | null => {
     if (!athlete.birthdate) return null;
-    
+
     try {
       // Convert the ISO string (or Date) to a Dayjs object
       return dayjs(athlete.birthdate);
     } catch (e) {
-      console.error("Invalid date format:", athlete.birthdate);
+      console.error("Invalid date format:", athlete.birthdate, e);
       return null;
     }
-  }
+  };
 
   return (
     <>
@@ -225,12 +234,12 @@ const AthleteCreationForm = () => {
           },
         }}
       >
-        <Box 
-          sx={{ 
-            display: "flex", 
-            flexDirection: "column", 
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
             gap: 2,
-            width: { xs: "100%", md: "30vw" }
+            width: { xs: "100%", md: "30vw" },
           }}
         >
           <FormControl error={touched.first_name && !!errors.first_name}>
