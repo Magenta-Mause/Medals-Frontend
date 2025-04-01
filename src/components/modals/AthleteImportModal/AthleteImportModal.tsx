@@ -1,37 +1,36 @@
-import { Box, Button, Table, Typography } from "@mui/joy";
-import { useCallback, useState } from "react";
+import { Box, Button, Typography } from "@mui/joy";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
-import CloseIcon from "@mui/icons-material/Close";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import { useSnackbar } from "notistack";
 import UploadIcon from "@mui/icons-material/Upload";
 import GenericModal from "../GenericModal";
-import { emailRegex, BirthdateRegex } from "@components/Regex/Regex";
+import { BirthdateRegex, emailRegex } from "@components/Regex/Regex";
 import { Genders } from "@customTypes/enums";
-import SyncIcon from "@mui/icons-material/Sync";
+import AthleteUploadDatagrid from "@components/datagrids/AthleteUploadDatagrid";
 
-interface AthleteWithValidityToAthlete extends Athlete {
+export interface AthleteWithValidity extends Athlete {
   state: AthleteValidityState | undefined;
 }
 
-enum AthleteValidityState {
+export enum AthleteValidityState {
   VALID,
   UPLOADED,
   FAILED,
   LOADING,
 }
 
-interface ModalProps {
+interface AthleteCsvImportModalProps {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AthleteCSVImport = (props: ModalProps) => {
+const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [csvData, setCsvData] = useState<AthleteWithValidityToAthlete[]>([]);
+  const [csvData, setCsvData] = useState<AthleteWithValidity[]>([]);
   const { checkAthleteExists } = useApi();
   const { createAthlete } = useApi();
   const { enqueueSnackbar } = useSnackbar();
@@ -83,12 +82,7 @@ const AthleteCSVImport = (props: ModalProps) => {
     return !(await checkExists(athlete));
   };
 
-  const stripValidity = (athlete: AthleteWithValidityToAthlete): Athlete => {
-    const { ...athleteWithoutValid } = athlete;
-    return athleteWithoutValid;
-  };
-
-  const checkEmptyImport = (athletes: AthleteWithValidityToAthlete[]) => {
+  const checkEmptyImport = (athletes: AthleteWithValidity[]) => {
     for (const athlete of athletes) {
       if (athlete.state === AthleteValidityState.VALID) {
         return false;
@@ -97,27 +91,41 @@ const AthleteCSVImport = (props: ModalProps) => {
     return true;
   };
 
-  const createAthletes = async (athletes: AthleteWithValidityToAthlete[]) => {
-    for (const athlete of athletes) {
-      if (athlete.state === AthleteValidityState.VALID) {
-        try {
-          await createAthlete(stripValidity(athlete));
-          athlete.state = AthleteValidityState.UPLOADED;
-        } catch (error: any) {
-          console.log(error);
-          enqueueSnackbar(
-            t("pages.athleteImportPage.failedFeedback") +
-              athlete.first_name +
-              " " +
-              athlete.last_name,
-            { variant: "error" },
-          );
+  const uploadAthletes = useCallback(
+    async (athletes: AthleteWithValidity[]) => {
+      let index = 0;
+      for (const athlete of athletes) {
+        console.log("uploading", index);
+        if (athlete.state === AthleteValidityState.VALID) {
+          athletes[index].state = AthleteValidityState.LOADING;
+          setCsvData([...athletes]);
+          try {
+            await createAthlete(athlete);
+            console.log("create athlete", athlete);
+            athletes[index].state = AthleteValidityState.UPLOADED;
+            setCsvData([...athletes]);
+          } catch (error: any) {
+            console.log(error);
+            enqueueSnackbar(
+              t("pages.athleteImportPage.failedFeedback") +
+                athlete.first_name +
+                " " +
+                athlete.last_name,
+              { variant: "error" },
+            );
+          }
+        } else {
+          athlete.state = AthleteValidityState.FAILED;
         }
-      } else {
-        athlete.state = AthleteValidityState.FAILED;
+        index += 1;
       }
-    }
-  };
+    },
+    [setCsvData, createAthlete, enqueueSnackbar, t],
+  );
+
+  useEffect(() => {
+    console.log(csvData);
+  }, [csvData]);
 
   const checkValidFile = (file: File) => {
     if (file.name.endsWith(".csv") || file.type === "text/csv") {
@@ -145,7 +153,6 @@ const AthleteCSVImport = (props: ModalProps) => {
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
-
     checkValidFile(file);
   };
 
@@ -177,11 +184,13 @@ const AthleteCSVImport = (props: ModalProps) => {
               parsedData.map((row: Athlete) => {
                 return {
                   ...row,
-                  state: undefined,
+                  state: AthleteValidityState.LOADING,
                 };
               }),
             );
+
             const athletesWithValidity = [];
+
             for (const athlete of parsedData) {
               athletesWithValidity.push({
                 ...athlete,
@@ -192,6 +201,7 @@ const AthleteCSVImport = (props: ModalProps) => {
             }
             setCsvData(athletesWithValidity);
           };
+
           setData();
         },
       });
@@ -267,62 +277,7 @@ const AthleteCSVImport = (props: ModalProps) => {
             <Typography level="h4" sx={{ mb: 2 }}>
               {t("pages.athleteImportPage.athleteList")}
             </Typography>
-            <Table borderAxis="bothBetween" stripe="odd" stickyHeader hoverRow>
-              <thead>
-                <tr>
-                  <th style={{ width: "70px" }}>
-                    {t("pages.athleteImportPage.valid")}
-                  </th>
-                  <th>{t("pages.athleteImportPage.firstName")}</th>
-                  <th>{t("pages.athleteImportPage.lastName")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {csvData.map((athlete, index) => (
-                  <tr
-                    key={index}
-                    style={{
-                      border: "10px solid", // Solid border
-                      borderColor:
-                        athlete.state === AthleteValidityState.UPLOADED
-                          ? "green" // Fully opaque green border
-                          : athlete.state === AthleteValidityState.VALID
-                            ? "orange" // Fully opaque orange border
-                            : "red", // Fully opaque red border
-                      backgroundColor:
-                        athlete.state === AthleteValidityState.UPLOADED
-                          ? "rgba(0, 128, 0, 0.1)" // Green with 30% opacity
-                          : athlete.state === AthleteValidityState.VALID
-                            ? "white"
-                            : "rgba(255, 0, 0, 0.1)", // Red with 30% opacity
-                    }}
-                  >
-                    <td>
-                      {athlete.state === AthleteValidityState.FAILED ? (
-                        <CloseIcon color="error" />
-                      ) : athlete.state === AthleteValidityState.LOADING ? (
-                        <SyncIcon
-                          sx={{
-                            animation: "spin 1s linear infinite",
-                            "@keyframes spin": {
-                              "0%": { transform: "rotate(0deg)" },
-                              "100%": { transform: "rotate(-360deg)" },
-                            },
-                          }}
-                        />
-                      ) : athlete.state === AthleteValidityState.UPLOADED ? (
-                        <UploadIcon color="success" />
-                      ) : athlete.state ===
-                        AthleteValidityState.VALID ? null : ( // Handle undefined `valid`
-                        <CloseIcon color="error" />
-                      )}
-                    </td>
-                    <td>{athlete.first_name}</td>
-                    <td>{athlete.last_name}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            <AthleteUploadDatagrid athletes={csvData} />
             <Box
               sx={{
                 display: "flex",
@@ -344,7 +299,7 @@ const AthleteCSVImport = (props: ModalProps) => {
                 disabled={checkEmptyImport(csvData) || isBlocked}
                 onClick={() => {
                   setIsBlocked(true);
-                  createAthletes(csvData);
+                  uploadAthletes(csvData);
                 }}
               >
                 {t("pages.athleteImportPage.importButton")}
@@ -356,4 +311,4 @@ const AthleteCSVImport = (props: ModalProps) => {
     </>
   );
 };
-export default AthleteCSVImport;
+export default AthleteImportModal;
