@@ -2,13 +2,15 @@
   "languages": {
     "de": "Deutsch",
     "en": "English",
-    "es": "Española"
+    "es": "Española",
+    "fr": "Français",
+    "nl": "Néerlandais"
   },
   "genders": {
     "DIVERSE": "Diverse",
     "FEMALE": "Female",
     "MALE": "Male",
-    "": "All"
+    "ALL": "All"
   },
   "userTypes": {
     "ATHLETE": "Athlete",
