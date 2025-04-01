@@ -23,7 +23,8 @@
     "invalid": "Ungültig",
     "loading": "Lädt...",
     "submit": "Absenden",
-    "password": "Passwort"
+    "password": "Passwort",
+    "finished": "Fertig"
   },
   "disciplines": {
     "categories": {
@@ -101,13 +102,13 @@
       "createButton": "Erstellen",
       "createHeader": "Athlet*in erstellen"
     },
-    "athleteImportPage":{
+    "athleteImportPage": {
       "importButton": "Athlet*innen importieren",
       "feedback1": "Athlet*in ",
       "feedback2": " erstellt",
       "failedFeedback": "Fehler beim Erstellen von Athlet*in ",
       "DropFile": "Datei hier ablegen oder klicken",
-      "changeFile": "Zurück",
+      "changeFile": "Datei zurücksetzen",
       "firstName": "Vorname",
       "lastName": "Nachname",
       "valid": "Status",
@@ -461,7 +462,13 @@
       "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern",
       "selectUser": "Mit dieser Benutzer*in fortfahren",
-      "showPassword": "Password anzeigen/ausblenden"
+      "showPassword": "Password anzeigen/ausblenden",
+      "athleteUploadDatagrid": {
+        "error": "Die angegebene Athlet*in existiert bereits oder ist inkorrekt",
+        "loading": "Lädt...",
+        "uploaded": "Athlet*in wurde hochgeladen",
+        "valid": "Athlet*in kann hochgeladen werden"
+      }
     }
   }
 }

@@ -8,6 +8,7 @@ import { CircularProgress } from "@mui/joy";
 import { Cloud } from "@mui/icons-material";
 import UploadIcon from "@mui/icons-material/Upload";
 import { AthleteValidityState } from "@customTypes/enums";
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 
 const AthleteUploadDatagrid = (props: { athletes: AthleteWithValidity[] }) => {
   const { t } = useTranslation();
@@ -16,13 +17,29 @@ const AthleteUploadDatagrid = (props: { athletes: AthleteWithValidity[] }) => {
       columnName: t("pages.athleteImportPage.valid"),
       columnMapping(athlete) {
         return athlete.state === AthleteValidityState.FAILED ? (
-          <CloseIcon color="error" />
+          <HoverTooltip
+            text={t("components.tooltip.athleteUploadDatagrid.error")}
+          >
+            <CloseIcon color="error" />
+          </HoverTooltip>
         ) : athlete.state === AthleteValidityState.LOADING ? (
-          <CircularProgress size={"sm"} />
+          <HoverTooltip
+            text={t("components.tooltip.athleteUploadDatagrid.loading")}
+          >
+            <CircularProgress size={"sm"} />
+          </HoverTooltip>
         ) : athlete.state === AthleteValidityState.UPLOADED ? (
-          <Cloud color="success" />
+          <HoverTooltip
+            text={t("components.tooltip.athleteUploadDatagrid.uploaded")}
+          >
+            <Cloud color="success" />
+          </HoverTooltip>
         ) : athlete.state === AthleteValidityState.VALID ? (
-          <UploadIcon />
+          <HoverTooltip
+            text={t("components.tooltip.athleteUploadDatagrid.valid")}
+          >
+            <UploadIcon />
+          </HoverTooltip>
         ) : (
           // Handle undefined `valid`
           <CloseIcon color="error" />
