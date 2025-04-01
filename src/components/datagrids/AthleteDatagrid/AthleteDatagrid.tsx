@@ -193,7 +193,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       color: "primary",
       key: "create-athlete",
       variant: "solid",
-      operation: function (): void {
+      operation: async () => {
         setCreationModalOpen(true);
       },
     },
@@ -205,7 +205,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       color: "primary",
       key: "import-athlete",
       variant: "solid",
-      operation: function (): void {
+      operation: async () => {
         setImportModalOpen(true);
       },
     },
