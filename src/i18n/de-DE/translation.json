@@ -2,13 +2,15 @@
   "languages": {
     "de": "Deutsch",
     "en": "English",
-    "es": "Española"
+    "es": "Española",
+    "fr": "Français",
+    "nl": "Néerlandais"
   },
   "genders": {
     "DIVERSE": "Divers",
     "FEMALE": "Weiblich",
     "MALE": "Männlich",
-    "": "Alle"
+    "ALL": "Alle"
   },
   "userTypes": {
     "ATHLETE": "Athlet*in",
@@ -20,7 +22,8 @@
     "discipline": "Disziplin",
     "invalid": "Ungültig",
     "loading": "Lädt...",
-    "submit": "Absenden"
+    "submit": "Absenden",
+    "password": "Passwort"
   },
   "disciplines": {
     "categories": {
@@ -135,7 +138,8 @@
           "password": "Passwort"
         },
         "forgotPassword": "Passwort vergessen?",
-        "privacyPolicy": "Datenschutz",
+        "privacyPolicy": "Datenschutzerklärung",
+        "acceptOur": "Ich akzeptiere die",
         "submit": "Anmelden",
         "loginFailedWarning": "Anmeldung fehlgeschlagen",
         "logoutButton": "Abmelden",
@@ -413,7 +417,7 @@
       "hasNumber": "Passwort enthält eine Zahl",
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",
       "hasSpecial": "Passwort enthält ein Sonderzeichen",
-      "required": "Verpflichtend"
+      "fieldRequired": "Bedingung ist verpflichtend"
     },
     "confirmationPopup": {
       "header": "Account Löschen",
@@ -450,6 +454,7 @@
       "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern",
       "selectUser": "Mit dieser Benutzer*in fortfahren",
+      "showPassword": "Password anzeigen/ausblenden",
       "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     }
   }
