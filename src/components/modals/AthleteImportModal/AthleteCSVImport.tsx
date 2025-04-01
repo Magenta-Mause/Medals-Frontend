@@ -290,7 +290,7 @@ const AthleteCSVImport = (props: ModalProps) => {
                       backgroundColor: athlete.uploaded
                         ? "rgba(0, 128, 0, 0.1)" // Green with 30% opacity
                         : athlete.valid
-                          ? "rgba(255, 165, 0, 0.1)" // Orange (warning) with 30% opacity
+                          ? "white"
                           : "rgba(255, 0, 0, 0.1)", // Red with 30% opacity
                     }}
                   >
@@ -312,7 +312,7 @@ const AthleteCSVImport = (props: ModalProps) => {
                           />
                         )
                       ) : (athlete.valid ?? false) ? ( // Handle undefined `valid`
-                        <CheckIcon color="success" />
+                        null
                       ) : (
                         <CloseIcon color="error" />
                       )}
