@@ -3,6 +3,7 @@ import {
   PerformanceRecording,
   PerformanceRecordingCreationDto,
   Trainer,
+  DisciplineRatingMetric,
 } from "@customTypes/backendTypes";
 import { useCallback } from "react";
 import config from "../config";
@@ -274,6 +275,15 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const getDisciplineMetrics = useCallback(async () => {
+    try {
+      const response = await axiosInstance!.get("/disciplines/metrics");
+      return response.data.data as DisciplineRatingMetric[];
+    } catch (error) {
+      console.error("Error while fetching discipline metrics", error);
+    }
+  }, [axiosInstance]);
+
   return {
     loginUser,
     logoutUser,
@@ -295,6 +305,7 @@ const useApi = () => {
     checkAthleteExists,
     createPerformanceRecording,
     deletePerformanceRecording,
+    getDisciplineMetrics,
   };
 };
 

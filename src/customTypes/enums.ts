@@ -5,8 +5,9 @@ export enum UserType {
 }
 
 export enum MetricUnits {
-  SECONDS = "seconds",
-  METERS = "meters",
+  SECONDS = "SECONDS",
+  METERS = "METERS",
+  POINTS = "POINTS",
 }
 
 export enum DisciplineCategories {

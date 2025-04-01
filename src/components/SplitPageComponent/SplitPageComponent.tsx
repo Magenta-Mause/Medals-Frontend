@@ -1,9 +1,12 @@
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import LanguageSelectionButton from "@components/LanguageSelectionButton/LanguageSelectionButton";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import useImageLoading from "@hooks/useImageLoading";
+import { Logout } from "@mui/icons-material";
 import { Box, GlobalStyles, IconButton, Typography } from "@mui/joy";
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
@@ -13,11 +16,12 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
     "/assets/images/splitPage/pexels-photo-9501967.jpeg",
   ]);
   const imageUrlDarkmode = useImageLoading([
-    "/assets/images/splitPage/pexels-photo-1564420-low-quality.jpeg",
-    "/assets/images/splitPage/pexels-photo-1564420.jpeg",
+    "/assets/images/splitPage/pexels-photo-6766999-low-quality.jpg",
+    "/assets/images/splitPage/pexels-photo-6766999.jpg",
   ]);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { authorized, logout } = useContext(AuthContext);
 
   return (
     <>
@@ -32,13 +36,13 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
       <Box
         sx={(theme) => ({
           width: { xs: "100%", md: "50vw" },
-          transition: "width var(--Transition-duration)",
           position: "relative",
           zIndex: 1,
           display: "flex",
           justifyContent: "flex-end",
           backdropFilter: "blur(12px)",
           background: "rgba(236 236 231 / 0.6)",
+          transition: "background ease .3s",
           [theme.getColorSchemeSelector("dark")]: {
             backgroundColor: "rgba(19 19 24 / 0.7)",
           },
@@ -120,7 +124,25 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
             >
               © {t("pages.loginPage.logo")} {new Date().getFullYear()}
             </Typography>
-            <Box sx={{ px: 3 }}></Box>
+            {authorized ? (
+              <HoverTooltip text={t("components.tooltip.logoutButton")}>
+                <IconButton
+                  variant="outlined"
+                  sx={(theme) => ({
+                    background: "rgba(255, 255, 255, 0.3)",
+                    mr: "5px",
+                    [theme.getColorSchemeSelector("dark")]: {
+                      background: "rgba(0, 0, 0, 0.3)",
+                    },
+                  })}
+                  onClick={logout}
+                >
+                  <Logout />
+                </IconButton>
+              </HoverTooltip>
+            ) : (
+              <Box sx={{ width: "36px", height: 1 }}></Box>
+            )}
           </Box>
         </Box>
       </Box>
@@ -132,9 +154,7 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
           top: 0,
           bottom: 0,
           left: { xs: 0, md: "50vw" },
-          transition:
-            "background-image var(--Transition-duration), left var(--Transition-duration) !important",
-          transitionDelay: "calc(var(--Transition-duration) + 0.1s)",
+          transition: "background-image ease .3s",
           backgroundColor: "background.level1",
           backgroundSize: "cover",
           backgroundPosition: "center",
