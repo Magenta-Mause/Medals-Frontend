@@ -2,7 +2,9 @@
   "languages": {
     "de": "Deutsch",
     "en": "English",
-    "es": "Española"
+    "es": "Española",
+    "fr": "Français",
+    "nl": "Néerlandais"
   },
   "genders": {
     "DIVERSE": "Divers",
@@ -339,7 +341,7 @@
         }
       },
       "actions": {
-        "delete":"Löschen",
+        "delete": "Löschen",
         "edit": "Bearbeiten",
         "openDetails": "Details"
       }
@@ -378,9 +380,9 @@
         "lastNamePlaceholder": "Mustermann",
         "confirm": "Trainer Einladen"
       },
-      "actions":{
-          "delete":"Löschen"
-        }
+      "actions": {
+        "delete": "Löschen"
+      }
     },
     "buttons": {
       "next": "Nächstes",
@@ -426,7 +428,7 @@
       "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
       "profileButton": "Account Einstellungen",
       "switchUserButton": "Benutzer wechseln",
-      "logoutButton":"Abmelden",
+      "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern"
     }
   }
