@@ -12,12 +12,14 @@ import { jwtDecode } from "jwt-decode";
 
 interface DecodeJWT {
   trainerName: string;
+  athleteId: number;
 }
 
 const AcceptTrainerAccessRequest = () => {
   const { t } = useTranslation();
   const { approveRequest, loginUser } = useApi();
   const [trainerName, setTrainerName] = useState<string>("");
+  const [athleteId, setAthleteId] = useState<number>();
   const [searchParams] = useSearchParams();
   const { refreshIdentityToken, authorized } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -35,12 +37,13 @@ const AcceptTrainerAccessRequest = () => {
 
       const decoded = jwtDecode<DecodeJWT>(oneTimeCode);
       setTrainerName(decoded.trainerName);
+      setAthleteId(decoded.athleteId);
     }
   }, [searchParams, authorized]);
 
-  const accept = async (oneTimeCode: string) => {
+  const accept = async (oneTimeCode: string, athleteId: number) => {
     try {
-      await approveRequest(oneTimeCode);
+      await approveRequest(oneTimeCode, athleteId);
       enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.success"), {
         variant: "success",
       });
@@ -133,8 +136,8 @@ const AcceptTrainerAccessRequest = () => {
             <Button
               onClick={() => {
                 const oneTimeCode = searchParams.get("oneTimeCode");
-                if (oneTimeCode) {
-                  accept(oneTimeCode);
+                if (oneTimeCode && athleteId) {
+                  accept(oneTimeCode, athleteId);
                   navigate("/");
                 }
               }}

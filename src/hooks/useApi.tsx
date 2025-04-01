@@ -143,10 +143,16 @@ const useApi = () => {
   };
 
   const approveRequest = useCallback(
-    async (oneTimeCode: string) => {
+    async (oneTimeCode: string, selectedUser: number) => {
       try {
         const response = await axiosInstance!.post(
           `/athletes/approve-access?oneTimeCode=${oneTimeCode}`,
+          {},
+          {
+            headers: {
+              "X-Selected-User": selectedUser,
+            },
+          },
         );
 
         if (response.status !== 200) {
