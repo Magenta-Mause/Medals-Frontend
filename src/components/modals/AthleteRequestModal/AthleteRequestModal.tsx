@@ -28,12 +28,21 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
   const { t } = useTranslation();
   const { searchAthletes, requestAthlete } = useApi();
   const [loading, setLoading] = useState(false);
-  const [send, setSend] = useState(false);
   const [icon, setShowScrollIcon] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
   const [filteredResults, setFilteredResults] = useState<Athlete[]>([]);
   const { selectedUser } = useContext(AuthContext);
+  const [buttonState, setButtonState] = useState<{
+    [key: number]: { loading: boolean; send: boolean };
+  }>({});
   const listRef = useRef<HTMLUListElement | null>(null);
+
+  const isButtonDisabled = (athleteId: number | undefined): boolean => {
+    if (athleteId === undefined) return true;
+
+    const athleteState = buttonState[athleteId];
+    return athleteState?.loading || athleteState?.send || false;
+  };
 
   const handleInvite = async (
     athleteId: number | undefined,
@@ -42,6 +51,10 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
     if (athleteId === undefined || trainerId === undefined) {
       return;
     }
+    setButtonState((prevState) => ({
+      ...prevState,
+      [athleteId]: { loading: true, send: true },
+    }));
 
     try {
       await requestAthlete(athleteId, trainerId);
@@ -185,14 +198,13 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
                   <Button
                     onClick={() => {
                       handleInvite(athlete.id, selectedUser?.id);
-                      setSend(true);
                     }}
                     sx={{
                       cursor: "pointer",
                     }}
-                    disabled={loading || send}
+                    disabled={isButtonDisabled(athlete.id)}
                   >
-                    {send
+                    {isButtonDisabled(athlete.id)
                       ? t("components.requestAthleteModal.sendButton")
                       : t(
                           "components.requestAthleteModal.requestAthleteButton",
