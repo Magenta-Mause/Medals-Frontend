@@ -7,13 +7,14 @@ import {
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import React, { useEffect, useState } from "react";
-import { Preview, Remove, RemoveCircle } from "@mui/icons-material";
+import { IosShareRounded, Preview, Remove } from "@mui/icons-material";
 import { useTypedSelector } from "@stores/rootReducer";
 import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
 } from "@utils/calculationUtil";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import { useLocation } from "react-router";
 
 const AthleteExportModal = (props: {
   isOpen: boolean;
@@ -22,6 +23,7 @@ const AthleteExportModal = (props: {
   includePerformance: boolean;
 }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
+  const location = useLocation();
   const [athletes, setAthletes] = useState(props.selectedAthletes);
   const [loading, setLoading] = useState(true);
   const [csvPreview, setCsvPreview] = useState<string | null>(null);
@@ -166,133 +168,161 @@ const AthleteExportModal = (props: {
   };
 
   return (
-    <GenericModal
-      open={props.isOpen}
-      setOpen={props.setOpen}
-      header={t("components.athleteExportModal.header")}
-      modalDialogSX={{
-        width: "600px",
-      }}
-    >
-      <Box
-        sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+    <>
+      {(isMobile || location.pathname.includes("/athletes/")) && (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "flex-end",
+            flexDirection: "column",
+          }}
+        >
+          <Button
+            variant="soft"
+            onClick={() => props.setOpen(true)}
+            sx={{ display: "flex", justifyContent: "space-around" }}
+          >
+            <IosShareRounded />
+            {t("components.athleteExportModal.exportButton")}
+          </Button>
+        </Box>
+      )}
+      <GenericModal
+        open={props.isOpen}
+        setOpen={props.setOpen}
+        header={t("components.athleteExportModal.header")}
+        modalDialogSX={{
+          width: "600px",
+        }}
       >
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
-            "& > div": { p: 1, borderRadius: "md", display: "flex" },
+            justifyContent: "space-between",
+            width: "100%",
           }}
         >
-          <Sheet variant="plain">
-            <Checkbox
-              variant="outlined"
-              color="primary"
-              overlay
-              label={t("components.athleteExportModal.performanceCheckbox")}
-              checked={withPerformance}
-              onChange={(event) => setWithPerformance(event.target.checked)}
-            />
-          </Sheet>
-        </Box>
-
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Button onClick={handlePreview}>
-            <Preview />
-            {t("components.athleteExportModal.previewButton")}
-          </Button>
-        </Box>
-      </Box>
-      <Box sx={{ overflow: "auto", maxHeight: "450px" }}>
-        <Sheet>
-          <Table
-            borderAxis="x"
-            color="neutral"
-            size="md"
-            stickyFooter={false}
-            stickyHeader
-            hoverRow
-            variant="plain"
-            sx={{
-              "--TableCell-headBackground":
-                "var(--joy-palette-background-level1)",
-              "--Table-headerUnderlineThickness": "1px",
-              "--TableCell-paddingY": "4px",
-              "--TableCell-paddingX": "8px",
-              "--TableRow-hoverBackground":
-                "var(--joy-palette-background-level1)",
-              pl: 1,
-              pr: 1,
-            }}
-          >
-            <thead>
-              <th>
-                {t("components.athleteDatagrid.table.columns.firstName")}
-              </th>
-              <th>
-                {t("components.athleteDatagrid.table.columns.lastName")}
-              </th>
-              <th style={{ width: "75px", textAlign: "right" }}> {t("components.athleteExportModal.removeFromSelectionButton")}</th>
-            </thead>
-            <tbody>
-              {athletes.map((athlete) => (
-                <tr key={athlete.id}>
-                  <td>{athlete.first_name}</td>
-                  <td>{athlete.last_name}</td>
-                  <td style= {{textAlign: "right"}}>
-                    <IconButton
-                      about= "remove"
-                      variant="soft"
-                      color="danger"
-                      size="sm"
-                      sx={{ fontSize: "0.7rem", fontWeight: "100" }}
-                      onClick={() => {
-                        setAthletes((prev) =>
-                          prev.filter((a) => a.id !== athlete.id),
-                        );
-                      }}>
-                        <Remove />
-                    </IconButton>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Sheet>
-      </Box>
-      <Button fullWidth color="primary" onClick={handleExport}>
-        {t("components.athleteExportModal.exportButton")}
-      </Button>
-
-      <GenericModal
-        header={t("components.athleteExportModal.previewHeader")}
-        open={showPreviewDialog}
-        setOpen={setShowPreviewDialog}
-      >
-        <Box sx={{ padding: 2 }}>
           <Box
             sx={{
-              border: "1px solid #ccc",
-              padding: "10px",
-              maxHeight: "400px",
-              overflowY: "auto",
-              fontFamily: "monospace",
-              whiteSpace: "pre-wrap",
+              display: "flex",
+              flexDirection: "column",
+              "& > div": { p: 1, borderRadius: "md", display: "flex" },
             }}
           >
-            {csvPreview}
+            <Sheet variant="plain">
+              <Checkbox
+                variant="outlined"
+                color="primary"
+                overlay
+                label={t("components.athleteExportModal.performanceCheckbox")}
+                checked={withPerformance}
+                onChange={(event) => setWithPerformance(event.target.checked)}
+              />
+            </Sheet>
           </Box>
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              onClick={() => setShowPreviewDialog(false)}
-              sx={{ marginTop: 2 }}
-            >
-              {t("components.athleteExportModal.closePreviewButton")}
+
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Button onClick={handlePreview}>
+              <Preview />
+              {t("components.athleteExportModal.previewButton")}
             </Button>
           </Box>
         </Box>
+        <Box sx={{ overflow: "auto", maxHeight: isMobile ? "300px" : "400px" }}>
+          <Sheet>
+            <Table
+              borderAxis="x"
+              color="neutral"
+              size="md"
+              stickyFooter={false}
+              stickyHeader
+              hoverRow
+              variant="plain"
+              sx={{
+                "--TableCell-headBackground":
+                  "var(--joy-palette-background-level1)",
+                "--Table-headerUnderlineThickness": "1px",
+                "--TableCell-paddingY": "4px",
+                "--TableCell-paddingX": "8px",
+                "--TableRow-hoverBackground":
+                  "var(--joy-palette-background-level1)",
+                pl: 1,
+                pr: 1,
+              }}
+            >
+              <thead>
+                <th>
+                  {t("components.athleteDatagrid.table.columns.firstName")}
+                </th>
+                <th>
+                  {t("components.athleteDatagrid.table.columns.lastName")}
+                </th>
+                <th style={{ width: "75px", textAlign: "right" }}>
+                  {" "}
+                  {t("components.athleteExportModal.removeFromSelectionButton")}
+                </th>
+              </thead>
+              <tbody>
+                {athletes.map((athlete) => (
+                  <tr key={athlete.id}>
+                    <td>{athlete.first_name}</td>
+                    <td>{athlete.last_name}</td>
+                    <td style={{ textAlign: "right" }}>
+                      <IconButton
+                        about="remove"
+                        variant="soft"
+                        color="danger"
+                        size="sm"
+                        sx={{ fontSize: "0.7rem", fontWeight: "100" }}
+                        onClick={() => {
+                          setAthletes((prev) =>
+                            prev.filter((a) => a.id !== athlete.id),
+                          );
+                        }}
+                      >
+                        <Remove />
+                      </IconButton>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Sheet>
+        </Box>
+        <Button fullWidth color="primary" onClick={handleExport}>
+          {t("components.athleteExportModal.exportButton")}
+        </Button>
+
+        <GenericModal
+          header={t("components.athleteExportModal.previewHeader")}
+          open={showPreviewDialog}
+          setOpen={setShowPreviewDialog}
+        >
+          <Box sx={{ padding: 2 }}>
+            <Box
+              sx={{
+                border: "1px solid #ccc",
+                padding: "10px",
+                maxHeight: "400px",
+                overflowY: "auto",
+                fontFamily: "monospace",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              {csvPreview}
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button
+                onClick={() => setShowPreviewDialog(false)}
+                sx={{ marginTop: 2 }}
+              >
+                {t("components.athleteExportModal.closePreviewButton")}
+              </Button>
+            </Box>
+          </Box>
+        </GenericModal>
       </GenericModal>
-    </GenericModal>
+    </>
   );
 };
 

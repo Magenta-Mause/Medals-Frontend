@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { IoIosCreate } from "react-icons/io";
-import { IosShareRounded } from "@mui/icons-material";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 
 const AthleteDetailPage = () => {
@@ -33,22 +32,12 @@ const AthleteDetailPage = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "flex-end",
-          flexDirection: "column",
-        }}
-      >
-        <Button
-          variant="soft"
-          onClick={() => setExportModalOpen(true)}
-          sx={{ display: "flex", justifyContent: "space-around" }}
-        >
-          <IosShareRounded />
-          {t("components.athleteExportModal.exportButton")}
-        </Button>
-      </Box>
+      <AthleteExportModal
+        isOpen={isExportModalOpen}
+        setOpen={setExportModalOpen}
+        selectedAthletes={filteredAthletes}
+        includePerformance={true}
+      />
       <AthleteDetailHeader athlete={filteredAthletes[0]} />
       <Box
         sx={{
@@ -71,12 +60,6 @@ const AthleteDetailPage = () => {
         open={isPerformanceRecordingModalOpen}
         setOpen={setPerformanceRecordingModalOpen}
         athlete={filteredAthletes[0]}
-      />
-      <AthleteExportModal
-        isOpen={isExportModalOpen}
-        setOpen={setExportModalOpen}
-        selectedAthletes={filteredAthletes}
-        includePerformance={true}
       />
     </>
   );

@@ -239,7 +239,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         operation: itemCallback,
         color: "primary",
       },
-      ...actions,
+      ...actions.filter((action) => action.key !== "export"),
     ],
     topRightInfo: (athlete) => (
       <Chip
@@ -286,6 +286,12 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   return (
     <>
+      <AthleteExportModal
+        isOpen={isExportModalOpen}
+        setOpen={setExportModalOpen}
+        selectedAthletes={selectedAthletes}
+        includePerformance={false}
+      />
       <GenericResponsiveDatagrid
         isLoading={props.isLoading}
         data={props.athletes}
@@ -297,12 +303,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
         disablePaging={false}
-      />
-      <AthleteExportModal
-        isOpen={isExportModalOpen}
-        setOpen={setExportModalOpen}
-        selectedAthletes={selectedAthletes}
-        includePerformance={false}
       />
     </>
   );
