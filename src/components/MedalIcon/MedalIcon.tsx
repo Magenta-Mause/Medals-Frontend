@@ -2,7 +2,7 @@ import { DisciplineIcons } from "@components/AthletePerformanceAccordions/Athlet
 import { DisciplineCategories, Medals } from "@customTypes/enums";
 import { Box, useColorScheme } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
-import { useMedalColors } from "@hooks/useMedalColors"; // adjust the import path as needed
+import { useMedalColors } from "@hooks/useMedalColors";
 
 const MedalIcon = (props: {
   category: DisciplineCategories;
