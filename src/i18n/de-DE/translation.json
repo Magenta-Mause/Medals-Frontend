@@ -78,6 +78,10 @@
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
+    },
+    "performanceMetrics": {
+      "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
+      "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
     }
   },
   "pages": {
@@ -232,15 +236,16 @@
       "photoBy": "Foto von"
     },
     "performanceMetricsPage": {
-      "title": "Leistungswerte",
+      "title": {
+        "athlete": "Deine Anforderungen",
+        "default": "Leistungswerte"
+      },
       "filters": {
         "year": "Jahr",
         "ageGroup": "Altersgruppe",
         "gender": "Geschlecht"
       },
-      "tooltips": {
-        "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet und auch in die Bewertung einbezogen."
-      }
+      "resetFilter": "Filter zurücksetzen"
     }
   },
   "components": {
@@ -449,7 +454,8 @@
       "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern",
       "selectUser": "Mit dieser Benutzer*in fortfahren",
-      "showPassword": "Password anzeigen/ausblenden"
+      "showPassword": "Password anzeigen/ausblenden",
+      "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     }
   }
 }
