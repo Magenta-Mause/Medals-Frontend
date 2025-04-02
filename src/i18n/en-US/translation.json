@@ -2,13 +2,15 @@
   "languages": {
     "de": "Deutsch",
     "en": "English",
-    "es": "Española"
+    "es": "Española",
+    "fr": "Français",
+    "nl": "Néerlandais"
   },
   "genders": {
     "DIVERSE": "Diverse",
     "FEMALE": "Female",
     "MALE": "Male",
-    "": "All"
+    "ALL": "All"
   },
   "userTypes": {
     "ATHLETE": "Athlete",
@@ -53,7 +55,13 @@
     "invalid": "invalid",
     "loading": "Loading...",
     "submit": "Submit",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "password": "Password",
+    "validation": {
+      "required": "This field is required.",
+      "tooLong": "This field is too long.",
+      "invalidEmail": "Invalid email address."
+    }
   },
   "snackbar": {
     "login": {
@@ -74,6 +82,10 @@
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"
+    },
+    "performanceMetrics": {
+      "athleteNotFound": "Athlete not found",
+      "fetchAthleteFailed": "Failed to fetch athlete data"
     }
   },
   "pages": {
@@ -104,9 +116,9 @@
       "h1": "404",
       "h2": "Page not found"
     },
-    "downloadPage": {
-      "header": "Downloads",
-      "headerText": "Here are the most important downloads just a click away"
+    "materialsDownloadPage": {
+      "header": "Materials",
+      "headerText": "Here are the most important materials just a click away"
     },
     "inDevelopment": {
       "h1": "501",
@@ -130,6 +142,7 @@
           "password": "Password"
         },
         "forgotPassword": "Forgot password?",
+        "acceptOur": "I accept the",
         "privacyPolicy": "Privacy Policy",
         "submit": "Login",
         "loginFailedWarning": "Login failed",
@@ -215,7 +228,7 @@
       "loginPage": "Background Images on Login Page",
       "lightMode": "LightMode",
       "darkMode": "DarkMode",
-      "downloadPage": "Download Page",
+      "materialsDownloadPage": "Materials Page",
       "swimmingCard": "SwimmingCard",
       "singleAthletesCard": "SingleAthletesCard",
       "groupAthletesCard": "GroupAthletesCard",
@@ -226,15 +239,16 @@
       "photoBy": "Photo by"
     },
     "performanceMetricsPage": {
-      "title": "Performance Metrics",
+      "title": {
+        "default": "Performance Metrics",
+        "athlete": "Your Requirements"
+      },
       "filters": {
         "year": "Year",
         "ageGroup": "Age Group",
         "gender": "Gender"
       },
-      "tooltips": {
-        "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used and also considered in the evaluation."
-      }
+      "resetFilter": "Reset Filter"
     }
   },
   "components": {
@@ -249,7 +263,7 @@
         "/profile": "Profile",
         "/requirements": "Requirements",
         "/performances": "Performances",
-        "/downloads": "Downloads",
+        "/materials": "Materials",
         "/help": "Help",
         "/imprint": "Imprint",
         "/privacyPolicy": "Privacy Policy",
@@ -278,7 +292,7 @@
         "/profile": "Profile",
         "/requirements": "Requirements",
         "/performances": "Performances",
-        "/downloads": "Downloads",
+        "/materials": "Materials",
         "/help": "Help"
       },
       "search": "Search",
@@ -396,7 +410,7 @@
       "hasNumber": "Password contains a number",
       "hasUpperCase": "Password contains an uppercase letter",
       "hasSpecial": "Password contains a special character",
-      "required": "Required"
+      "fieldRequired": "constraint is required"
     },
     "disclaimer": {
       "text": "This application is a university project and not an official service (e.g., Sportabzeichen-Digital). It is not endorsed or provided by any official organization. No official certifications or claims are provided."
@@ -442,7 +456,9 @@
       "switchUserButton": "Switch User",
       "logoutButton": "Logout",
       "languageSelectionButton": "Change language",
-      "selectUser": "Continue with this user"
+      "selectUser": "Continue with this user",
+      "showPassword": "Show/Hide password",
+      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
     }
   }
 }

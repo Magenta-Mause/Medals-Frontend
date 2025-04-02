@@ -15,6 +15,7 @@ import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDat
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { DisciplineCategories, Genders } from "@customTypes/enums";
 import { DisciplineIcons } from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
+import { useMedalColors } from "@hooks/useMedalColors";
 
 interface PerformanceMetricDatagridProps {
   groupedMetrics: Record<string, DisciplineRatingMetric[]>;
@@ -46,6 +47,7 @@ const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
   gender,
 }) => {
   const { t } = useTranslation();
+  const medalColors = useMedalColors();
 
   const renderMedalChip = useCallback(
     (
@@ -87,23 +89,23 @@ const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
       {
         columnName: t("medals.GOLD"),
         columnMapping: (metric: DisciplineRatingMetric) =>
-          renderMedalChip(metric, "gold", "#FFD700"),
+          renderMedalChip(metric, "gold", medalColors.gold),
         size: "s",
       },
       {
         columnName: t("medals.SILVER"),
         columnMapping: (metric: DisciplineRatingMetric) =>
-          renderMedalChip(metric, "silver", "#C0C0C0"),
+          renderMedalChip(metric, "silver", medalColors.silver),
         size: "s",
       },
       {
         columnName: t("medals.BRONZE"),
         columnMapping: (metric: DisciplineRatingMetric) =>
-          renderMedalChip(metric, "bronze", "#CD7F32"),
+          renderMedalChip(metric, "bronze", medalColors.bronze),
         size: "s",
       },
     ],
-    [renderMedalChip, t],
+    [renderMedalChip, t, medalColors],
   );
 
   const mobileRendering: MobileTableRendering<DisciplineRatingMetric> = useMemo(

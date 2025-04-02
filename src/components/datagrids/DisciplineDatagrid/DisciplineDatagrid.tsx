@@ -10,7 +10,7 @@ import {
   calculatePerformanceRecordingMedal,
   getBestPerformanceRecording,
 } from "@utils/calculationUtil";
-import MedalIcon from "@components/MedalIcon/MedalIcon";
+import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
 import { Medals } from "@customTypes/enums";
 import { DisciplineInfo } from "@components/datagrids/PerformanceMetricDatagrid/PerformanceMetricDatagrid";
 
