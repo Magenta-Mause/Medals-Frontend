@@ -3,6 +3,8 @@ import { DisciplineCategories, Medals } from "@customTypes/enums";
 import { Box, useColorScheme } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
 import { useMedalColors } from "@hooks/useMedalColors";
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
+import { t } from "i18next";
 
 const MedalIcon = (props: {
   category: DisciplineCategories;
@@ -43,7 +45,17 @@ const MedalIcon = (props: {
       break;
   }
 
-  return (
+  // Determine the tooltip text based on the medal type
+  const tooltipText =
+    props.medalType === Medals.GOLD
+      ? t("medals.GOLD")
+      : props.medalType === Medals.SILVER
+      ? t("medals.SILVER")
+      : props.medalType === Medals.BRONZE
+      ? t("medals.BRONZE")
+      : t("medals.NONE");
+
+  const iconBox = (
     <Box
       sx={{
         background: medalColor ?? backgroundColor,
@@ -52,11 +64,8 @@ const MedalIcon = (props: {
             ? "rgba(0,0,0,0.2) solid thin"
             : "gray solid thin",
         borderRadius: "100%",
-        height: "100%",
-        margin: 0,
-        width: "auto",
+        height: "2.5rem",
         aspectRatio: "1",
-        padding: "5px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -70,6 +79,8 @@ const MedalIcon = (props: {
       )}
     </Box>
   );
+
+  return <HoverTooltip text={tooltipText}>{iconBox}</HoverTooltip>;
 };
 
 export default MedalIcon;
