@@ -10,7 +10,6 @@ import GenericResponsiveDatagrid, {
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import { useTypedSelector } from "@stores/rootReducer";
-import {} from "@utils/calculationUtil";
 import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
 import MedalBox from "./MedalBox";
 
@@ -69,9 +68,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       size: "l",
       disableSpan: true,
       columnMapping(item) {
-        const performanceRecordingsOfAthlete = performanceRecordings.filter(
-          (p) => p.athlete_id == item.id,
-        );
         return (
           <MedalBox
             athlete={item}
