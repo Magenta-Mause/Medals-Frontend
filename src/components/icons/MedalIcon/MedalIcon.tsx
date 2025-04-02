@@ -13,7 +13,12 @@ interface MedalIconProps {
   iconSize?: string;
 }
 
-export const MedalIcon = ({ category, medalType, sx, iconSize }: MedalIconProps) => {
+export const MedalIcon = ({
+  category,
+  medalType,
+  sx,
+  iconSize,
+}: MedalIconProps) => {
   const DisciplineIcon = DisciplineIcons[category];
   const colorScheme = useColorScheme();
   const backgroundColor =
@@ -51,10 +56,10 @@ export const MedalIcon = ({ category, medalType, sx, iconSize }: MedalIconProps)
     medalType === Medals.GOLD
       ? t("medals.GOLD")
       : medalType === Medals.SILVER
-      ? t("medals.SILVER")
-      : medalType === Medals.BRONZE
-      ? t("medals.BRONZE")
-      : t("medals.NONE");
+        ? t("medals.SILVER")
+        : medalType === Medals.BRONZE
+          ? t("medals.BRONZE")
+          : t("medals.NONE");
 
   const iconBox = (
     <Box

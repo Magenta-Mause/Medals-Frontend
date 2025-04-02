@@ -1,6 +1,6 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import { Box, Typography } from "@mui/joy";
+import { Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -10,12 +10,7 @@ import GenericResponsiveDatagrid, {
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import { useTypedSelector } from "@stores/rootReducer";
-import { DisciplineCategories, Medals } from "@customTypes/enums";
-import {
-  calculatePerformanceRecordingMedal,
-  convertMedalToNumber,
-} from "@utils/calculationUtil";
-import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
+import {} from "@utils/calculationUtil";
 import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
 import MedalBox from "./MedalBox";
 
@@ -65,7 +60,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     {
       columnName: t("components.athleteDatagrid.table.columns.gender"),
       columnMapping(item) {
-          return <GenderIcon gender={item.gender} />;
+        return <GenderIcon gender={item.gender} />;
       },
       sortable: true,
     },
@@ -77,7 +72,12 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         const performanceRecordingsOfAthlete = performanceRecordings.filter(
           (p) => p.athlete_id == item.id,
         );
-        return <MedalBox athlete={item} performanceRecordings={performanceRecordings} />
+        return (
+          <MedalBox
+            athlete={item}
+            performanceRecordings={performanceRecordings}
+          />
+        );
       },
     },
   ];
@@ -211,7 +211,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     onElementClick: itemCallback,
   };
-  
 
   return (
     <>

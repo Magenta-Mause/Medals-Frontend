@@ -15,16 +15,21 @@ interface MedalBoxProps {
   iconSize?: string;
 }
 
-const MedalBox = ({ athlete, performanceRecordings, sx, iconSize }: MedalBoxProps) => {
+const MedalBox = ({
+  athlete,
+  performanceRecordings,
+  sx,
+  iconSize,
+}: MedalBoxProps) => {
   const performanceRecordingsOfAthlete = performanceRecordings.filter(
-    (p) => p.athlete_id === athlete.id
+    (p) => p.athlete_id === athlete.id,
   );
 
   return (
     <Box sx={{ display: "flex", gap: "10px", justifyContent: "left", ...sx }}>
       {Object.values(DisciplineCategories).map((category) => {
         const recordingsByCategory = performanceRecordingsOfAthlete.filter(
-          (p) => p.discipline_rating_metric.discipline.category === category
+          (p) => p.discipline_rating_metric.discipline.category === category,
         );
         const bestMedal = recordingsByCategory
           .map((p) => calculatePerformanceRecordingMedal(p))
