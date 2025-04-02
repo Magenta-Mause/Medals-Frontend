@@ -15,6 +15,7 @@ import {
 } from "@utils/calculationUtil";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useLocation } from "react-router";
+import { useSnackbar } from "notistack";
 
 const AthleteExportModal = (props: {
   isOpen: boolean;
@@ -28,6 +29,7 @@ const AthleteExportModal = (props: {
   const [loading, setLoading] = useState(true);
   const [csvPreview, setCsvPreview] = useState<string | null>(null);
   const [showPreviewDialog, setShowPreviewDialog] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const [withPerformance, setWithPerformance] = useState(
     props.includePerformance,
   );
@@ -153,18 +155,46 @@ const AthleteExportModal = (props: {
   };
 
   const handleExport = () => {
-    const csvContent = generateCSV(athletes, withPerformance);
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute(
-      "download",
-      withPerformance ? "athletePerformance_export.csv" : "athlete_export.csv",
-    );
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    try {
+      if (athletes.length === 0) {
+        enqueueSnackbar(t("snackbar.athleteExportModal.noAthleteSelected"), {
+          variant: "error",
+        });
+        return;
+      } else {
+        const csvContent = generateCSV(athletes, withPerformance);
+        if (!csvContent) {
+          enqueueSnackbar(t("snackbar.athleteExportModal.exportError"), {
+            variant: "error",
+          });
+          return;
+        }
+        const blob = new Blob([csvContent], {
+          type: "text/csv;charset=utf-8;",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute(
+          "download",
+          withPerformance
+            ? "athletePerformance_export.csv"
+            : "athlete_export.csv",
+        );
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        enqueueSnackbar(t("snackbar.athleteExportModal.success"), {
+          variant: "success",
+        });
+      }
+    } catch (error) {
+      console.error("unexpected Export error:", error);
+      enqueueSnackbar(t("snackbar.athleteExportModal.unexpectedError"), {
+        variant: "error",
+      });
+    }
   };
 
   return (
@@ -258,7 +288,6 @@ const AthleteExportModal = (props: {
                   {t("components.athleteDatagrid.table.columns.lastName")}
                 </th>
                 <th style={{ width: "75px", textAlign: "right" }}>
-                  {" "}
                   {t("components.athleteExportModal.removeFromSelectionButton")}
                 </th>
               </thead>
@@ -275,7 +304,7 @@ const AthleteExportModal = (props: {
                         size="sm"
                         sx={{ fontSize: "0.7rem", fontWeight: "100" }}
                         onClick={() => {
-                          setAthletes((prev) =>
+                          setAthletes((prev: any[]) =>
                             prev.filter((a) => a.id !== athlete.id),
                           );
                         }}
@@ -287,7 +316,7 @@ const AthleteExportModal = (props: {
                 ))}
               </tbody>
             </Table>
-          </Sheet>
+          </Sheet>{" "}
         </Box>
         <Button fullWidth color="primary" onClick={handleExport}>
           {t("components.athleteExportModal.exportButton")}

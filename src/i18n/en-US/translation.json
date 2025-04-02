@@ -73,6 +73,12 @@
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"
+    },
+    "athleteExportModal": {
+      "noAthleteSelected": "Please select at least one athlete.",
+      "exportError": "Error generating the CSV file.",
+      "unexpectedError": "An unexpected error occurred.",
+      "success": "Export successful!"
     }
   },
   "pages": {
