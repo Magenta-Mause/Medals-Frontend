@@ -448,9 +448,6 @@
     },
     "athleteExportModal": {
       "header": "Athlete Export",
-      "previewButton": "File Preview",
-      "previewHeader": "Preview",
-      "closePreviewButton": "Close",
       "exportButton": "Export",
       "performanceCheckbox": "include Performance Metrics",
       "removeFromSelectionButton": "Remove"

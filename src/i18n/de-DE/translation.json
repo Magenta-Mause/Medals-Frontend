@@ -450,9 +450,6 @@
     },
     "athleteExportModal": {
       "header": "Athlet*innen Export",
-      "previewButton": "Datei Vorschau",
-      "previewHeader": "Vorschau",
-      "closePreviewButton": "Schließen",
       "exportButton": "Export",
       "performanceCheckbox": "Leistungswerte einschließen",
       "removeFromSelectionButton": "Entfernen"

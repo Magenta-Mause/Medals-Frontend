@@ -199,7 +199,7 @@ const AthleteExportModal = (props: {
 
   return (
     <>
-      {(isMobile || location.pathname.includes("/athletes/")) && (
+      {(location.pathname.includes("/athletes/")) && (
         <Box
           sx={{
             display: "flex",
@@ -249,13 +249,6 @@ const AthleteExportModal = (props: {
                 onChange={(event) => setWithPerformance(event.target.checked)}
               />
             </Sheet>
-          </Box>
-
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Button onClick={handlePreview}>
-              <Preview />
-              {t("components.athleteExportModal.previewButton")}
-            </Button>
           </Box>
         </Box>
         <Box sx={{ overflow: "auto", maxHeight: isMobile ? "300px" : "400px" }}>
