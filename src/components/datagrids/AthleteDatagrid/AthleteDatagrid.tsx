@@ -1,6 +1,6 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import { Box, Chip, Typography } from "@mui/joy";
+import { Box, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -15,7 +15,9 @@ import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
 } from "@utils/calculationUtil";
-import MedalIcon from "@components/MedalIcon/MedalIcon";
+import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
+import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
+import MedalBox from "./MedalBox";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -63,16 +65,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     {
       columnName: t("components.athleteDatagrid.table.columns.gender"),
       columnMapping(item) {
-        return (
-          <Chip
-            size="sm"
-            sx={{ aspectRatio: 1, height: "2rem", textAlign: "center" }}
-          >
-            {t("genders." + item.gender)
-              .slice(0, 1)
-              .toUpperCase()}
-          </Chip>
-        );
+          return <GenderIcon gender={item.gender} />;
       },
       sortable: true,
     },
@@ -84,36 +77,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         const performanceRecordingsOfAthlete = performanceRecordings.filter(
           (p) => p.athlete_id == item.id,
         );
-        return (
-          <Box
-            sx={{
-              height: "25px",
-              gap: "10px",
-              display: "flex",
-              justifyContent: "left",
-            }}
-            key={item.id}
-          >
-            {Object.values(DisciplineCategories).map((category) => {
-              const performanceRecordingsOfCategory =
-                performanceRecordingsOfAthlete.filter(
-                  (p) =>
-                    p.discipline_rating_metric.discipline.category == category,
-                );
-              const bestValue = performanceRecordingsOfCategory
-                .map((p) => calculatePerformanceRecordingMedal(p))
-                .sort((m) => convertMedalToNumber(m))
-                .reverse()[0];
-              return (
-                <MedalIcon
-                  category={category}
-                  medalType={bestValue ?? Medals.NONE}
-                  key={item.id + category}
-                />
-              );
-            })}
-          </Box>
-        );
+        return <MedalBox athlete={item} performanceRecordings={performanceRecordings} />
       },
     },
   ];
@@ -202,11 +166,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   const mobileRendering: MobileTableRendering<Athlete> = {
-    avatar: (athlete) => (
-      <Chip size="lg" sx={{ aspectRatio: 1 }}>
-        {athlete.id}
-      </Chip>
-    ),
+    avatar: (athlete) => <GenderIcon gender={athlete.gender} />,
     h1: (athlete) => (
       <>
         {athlete.first_name} {athlete.last_name}
@@ -215,6 +175,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     h2: (athlete) => <>{athlete.email}</>,
     h3: (athlete) => (
       <Typography level="body-xs">{athlete.birthdate}</Typography>
+    ),
+    topRightInfo: (athlete) => (
+      <MedalBox
+        athlete={athlete}
+        performanceRecordings={performanceRecordings}
+        iconSize="2rem"
+      />
     ),
     bottomButtons: [
       {
@@ -225,22 +192,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
       ...actions,
     ],
-    topRightInfo: (athlete) => (
-      <Chip
-        size="md"
-        sx={{
-          aspectRatio: 1,
-          p: 1,
-          height: "2rem",
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
-          textAlign: "center",
-        }}
-      >
-        {athlete.gender!.slice(0, 1).toUpperCase()}
-      </Chip>
-    ),
     searchFilter: {
       name: "search",
       label: "Search",
@@ -249,7 +200,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           return () => true;
         }
         filterParameter = filterParameter.toLowerCase();
-
         return (athlete) =>
           athlete.first_name.toLowerCase().includes(filterParameter) ||
           athlete.last_name.toLowerCase().includes(filterParameter) ||
@@ -261,6 +211,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     onElementClick: itemCallback,
   };
+  
 
   return (
     <>

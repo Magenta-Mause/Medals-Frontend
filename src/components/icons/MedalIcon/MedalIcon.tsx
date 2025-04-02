@@ -6,12 +6,15 @@ import { useMedalColors } from "@hooks/useMedalColors";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import { t } from "i18next";
 
-const MedalIcon = (props: {
+interface MedalIconProps {
   category: DisciplineCategories;
   medalType: Medals;
   sx?: SxProps;
-}) => {
-  const DisciplineIcon = DisciplineIcons[props.category];
+  iconSize?: string;
+}
+
+export const MedalIcon = ({ category, medalType, sx, iconSize }: MedalIconProps) => {
+  const DisciplineIcon = DisciplineIcons[category];
   const colorScheme = useColorScheme();
   const backgroundColor =
     colorScheme.colorScheme === "dark"
@@ -28,9 +31,8 @@ const MedalIcon = (props: {
 
   const medalColors = useMedalColors();
 
-  // Determine which color to use based on the medal type
   let medalColor: string | undefined;
-  switch (props.medalType) {
+  switch (medalType) {
     case Medals.GOLD:
       medalColor = medalColors.gold;
       break;
@@ -45,13 +47,12 @@ const MedalIcon = (props: {
       break;
   }
 
-  // Determine the tooltip text based on the medal type
   const tooltipText =
-    props.medalType === Medals.GOLD
+    medalType === Medals.GOLD
       ? t("medals.GOLD")
-      : props.medalType === Medals.SILVER
+      : medalType === Medals.SILVER
       ? t("medals.SILVER")
-      : props.medalType === Medals.BRONZE
+      : medalType === Medals.BRONZE
       ? t("medals.BRONZE")
       : t("medals.NONE");
 
@@ -60,19 +61,19 @@ const MedalIcon = (props: {
       sx={{
         background: medalColor ?? backgroundColor,
         border:
-          props.medalType === Medals.NONE
+          medalType === Medals.NONE
             ? "rgba(0,0,0,0.2) solid thin"
             : "gray solid thin",
         borderRadius: "100%",
-        height: "2.5rem",
+        height: iconSize || "2.5rem",
         aspectRatio: "1",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        ...props.sx,
+        ...sx,
       }}
     >
-      {props.medalType === Medals.NONE ? (
+      {medalType === Medals.NONE ? (
         <DisciplineIcon fill={grayedOutColor} />
       ) : (
         <DisciplineIcon fill={mainColor} />
