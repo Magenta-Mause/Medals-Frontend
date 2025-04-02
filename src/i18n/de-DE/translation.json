@@ -23,7 +23,12 @@
     "invalid": "Ungültig",
     "loading": "Lädt...",
     "submit": "Absenden",
-    "password": "Passwort"
+    "password": "Passwort",
+    "validation": {
+      "required": "Dieses Feld ist erforderlich.",
+      "tooLong": "Dieses Feld ist zu lang.",
+      "invalidEmail": "Ungültige E-Mail-Adresse."
+    }
   },
   "disciplines": {
     "categories": {
@@ -78,6 +83,10 @@
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
+    },
+    "performanceMetrics": {
+      "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
+      "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
     }
   },
   "pages": {
@@ -108,9 +117,9 @@
       "h1": "404",
       "h2": "Seite konnte nicht gefunden werden"
     },
-    "downloadPage": {
-      "header": "Downloads",
-      "headerText": "Hier die wichtigsten Downloads nur einen Klick entfernt"
+    "materialsDownloadPage": {
+      "header": "Materialien",
+      "headerText": "Hier die wichtigsten Materialien nur einen Klick entfernt"
     },
     "inDevelopment": {
       "h1": "501",
@@ -221,7 +230,7 @@
       "loginPage": "Hintergrundbilder auf der Login-Seite",
       "lightMode": "Heller Modus",
       "darkMode": "Dunkler Modus",
-      "downloadPage": "Download-Seite",
+      "materialsDownloadPage": "Materialien-Seite",
       "swimmingCard": "Schwimmkarte",
       "singleAthletesCard": "Einzelathletenkarte",
       "groupAthletesCard": "Gruppenathletenkarte",
@@ -232,15 +241,16 @@
       "photoBy": "Foto von"
     },
     "performanceMetricsPage": {
-      "title": "Leistungswerte",
+      "title": {
+        "athlete": "Deine Anforderungen",
+        "default": "Leistungswerte"
+      },
       "filters": {
         "year": "Jahr",
         "ageGroup": "Altersgruppe",
         "gender": "Geschlecht"
       },
-      "tooltips": {
-        "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet und auch in die Bewertung einbezogen."
-      }
+      "resetFilter": "Filter zurücksetzen"
     }
   },
   "components": {
@@ -255,7 +265,7 @@
         "/profile": "Profil",
         "/requirements": "Anforderungen",
         "/performances": "Leistungen",
-        "/downloads": "Downloads",
+        "/materials": "Materialien",
         "/help": "Hilfe",
         "/imprint": "Impressum",
         "/privacyPolicy": "Datenschutz",
@@ -294,7 +304,7 @@
         "/profile": "Profil",
         "/requirements": "Anforderungen",
         "/performances": "Leistungen",
-        "/downloads": "Downloads",
+        "/materials": "Materialien",
         "/help": "Hilfe"
       },
       "search": "Suchen",
@@ -449,7 +459,8 @@
       "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern",
       "selectUser": "Mit dieser Benutzer*in fortfahren",
-      "showPassword": "Password anzeigen/ausblenden"
+      "showPassword": "Password anzeigen/ausblenden",
+      "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     }
   }
 }

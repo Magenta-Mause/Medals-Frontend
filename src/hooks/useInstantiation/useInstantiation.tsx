@@ -167,11 +167,15 @@ const useInstantiation = () => {
   ]);
 
   const instantiateAthlete = useCallback(async () => {
+    dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
+
     uninitializeAthleteWebsocket();
     uninitializeDisciplineWebsocket();
     uninitializeTrainerWebsocket();
     uninitializePerformanceRecordingWebsocket();
   }, [
+    dispatch,
+    getDisciplineMetrics,
     uninitializeTrainerWebsocket,
     uninitializeAthleteWebsocket,
     uninitializeDisciplineWebsocket,

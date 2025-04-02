@@ -24,7 +24,7 @@ import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
 } from "@utils/calculationUtil";
-import MedalIcon from "@components/MedalIcon/MedalIcon";
+import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
 
 const DisciplineIcons: Record<DisciplineCategories, IconType> = {
   COORDINATION: GiJumpingRope,

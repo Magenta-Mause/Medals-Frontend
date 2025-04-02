@@ -21,7 +21,7 @@ const CreditsPage = () => {
       ],
     },
     {
-      page: t("pages.creditsPage.downloadPage"),
+      page: t("pages.creditsPage.materialsDownloadPage"),
       credits: [
         {
           description: t("pages.creditsPage.swimmingCard"),
