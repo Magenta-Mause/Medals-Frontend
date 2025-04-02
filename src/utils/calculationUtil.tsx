@@ -52,8 +52,16 @@ const getBestPerformanceRecording = (
   )[0];
 };
 
+// Helper function to calculate the age that will be reached in the current year.
+const calculateAge = (birthdate: string): number => {
+  const birth = new Date(birthdate);
+  const currentYear = new Date().getFullYear();
+  return currentYear - birth.getFullYear();
+};
+
 export {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
   getBestPerformanceRecording,
+  calculateAge,
 };
