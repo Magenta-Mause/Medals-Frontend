@@ -7,7 +7,7 @@ import {
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import React, { useEffect, useState } from "react";
-import { IosShareRounded, Preview, Remove } from "@mui/icons-material";
+import { IosShareRounded, Remove } from "@mui/icons-material";
 import { useTypedSelector } from "@stores/rootReducer";
 import {
   calculatePerformanceRecordingMedal,
@@ -26,9 +26,7 @@ const AthleteExportModal = (props: {
   const isMobile = useMediaQuery("(max-width:600px)");
   const location = useLocation();
   const [athletes, setAthletes] = useState(props.selectedAthletes);
-  const [loading, setLoading] = useState(true);
-  const [csvPreview, setCsvPreview] = useState<string | null>(null);
-  const [showPreviewDialog, setShowPreviewDialog] = useState(false);
+  const [, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   const [withPerformance, setWithPerformance] = useState(
     props.includePerformance,
@@ -148,12 +146,6 @@ const AthleteExportModal = (props: {
     return csvContent;
   };
 
-  const handlePreview = () => {
-    const csvContent = generateCSV(athletes, withPerformance);
-    setCsvPreview(csvContent);
-    setShowPreviewDialog(true);
-  };
-
   const handleExport = () => {
     try {
       if (athletes.length === 0) {
@@ -199,7 +191,7 @@ const AthleteExportModal = (props: {
 
   return (
     <>
-      {(location.pathname.includes("/athletes/")) && (
+      {location.pathname.includes("/athletes/") && (
         <Box
           sx={{
             display: "flex",
@@ -309,40 +301,11 @@ const AthleteExportModal = (props: {
                 ))}
               </tbody>
             </Table>
-          </Sheet>{" "}
+          </Sheet>
         </Box>
         <Button fullWidth color="primary" onClick={handleExport}>
           {t("components.athleteExportModal.exportButton")}
         </Button>
-
-        <GenericModal
-          header={t("components.athleteExportModal.previewHeader")}
-          open={showPreviewDialog}
-          setOpen={setShowPreviewDialog}
-        >
-          <Box sx={{ padding: 2 }}>
-            <Box
-              sx={{
-                border: "1px solid #ccc",
-                padding: "10px",
-                maxHeight: "400px",
-                overflowY: "auto",
-                fontFamily: "monospace",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              {csvPreview}
-            </Box>
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                onClick={() => setShowPreviewDialog(false)}
-                sx={{ marginTop: 2 }}
-              >
-                {t("components.athleteExportModal.closePreviewButton")}
-              </Button>
-            </Box>
-          </Box>
-        </GenericModal>
       </GenericModal>
     </>
   );
