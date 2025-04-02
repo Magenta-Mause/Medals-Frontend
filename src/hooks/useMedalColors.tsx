@@ -6,7 +6,7 @@ export const useMedalColors = () => {
 
   return {
     gold: isDarkMode ? "#FFEB00" : "#FFD700",
-    silver: isDarkMode ? "#EEEEEE" : "#C0C0C0",
+    silver: isDarkMode ? "#EEEEEE" : "#dceff6",
     bronze: isDarkMode ? "#D84315" : "#CD7F32",
   };
 };
