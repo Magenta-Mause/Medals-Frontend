@@ -11,7 +11,7 @@ import {
 import Option from "@mui/joy/Option";
 import Select from "@mui/joy/Select";
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "../../CustomDatePicker/CustomDatePicker";
 import GenericModal from "../GenericModal";
@@ -22,7 +22,6 @@ const emailRegex = // eslint-disable-next-line no-control-regex
 
 const isValidEmail = (email: string) => emailRegex.test(email);
 
-// Default date format based on locale
 const getDateFormatForLocale = (locale: string): string => {
   const localeMap: Record<string, string> = {
     en: "MM/DD/YYYY",
@@ -62,7 +61,6 @@ const AthleteCreationForm = () => {
     gender: undefined,
   });
 
-  // Track if field has been touched (to avoid showing errors initially)
   const [touched, setTouched] = useState<FormTouched>({
     first_name: false,
     last_name: false,
@@ -71,7 +69,6 @@ const AthleteCreationForm = () => {
     gender: false,
   });
 
-  // Form validation state
   const [errors, setErrors] = useState<FormErrors>({
     first_name: "",
     last_name: "",
@@ -80,10 +77,8 @@ const AthleteCreationForm = () => {
     gender: "",
   });
 
-  // Get date format based on current locale
   const dateFormat = getDateFormatForLocale(i18n.language);
 
-  // Validate form fields
   const validateField = (field: keyof FormErrors, value: any): string => {
     switch (field) {
       case "first_name":
@@ -109,29 +104,23 @@ const AthleteCreationForm = () => {
     }
   };
 
-  // Handle field changes
   const handleFieldChange = (field: keyof Athlete, value: any) => {
     setAthlete((prev) => ({ ...prev, [field]: value }));
 
-    // Mark field as touched
     if (!touched[field as keyof FormTouched]) {
       setTouched((prev) => ({ ...prev, [field]: true }));
     }
 
-    // Validate field
     const error = validateField(field as keyof FormErrors, value);
     setErrors((prev) => ({ ...prev, [field]: error }));
   };
 
-  // Handle date change specifically
   const handleDateChange = (date: Date | null) => {
-    // Mark as touched
     if (!touched.birthdate) {
       setTouched((prev) => ({ ...prev, birthdate: true }));
     }
 
     if (date) {
-      // Format to ISO string for backend compatibility
       const isoDate = date.toISOString();
       handleFieldChange("birthdate", isoDate);
     } else {
@@ -139,7 +128,6 @@ const AthleteCreationForm = () => {
     }
   };
 
-  // Check if form is valid for submission
   const isFormValid = () => {
     return (
       Object.values(errors).every((error) => !error) &&
@@ -147,7 +135,6 @@ const AthleteCreationForm = () => {
     );
   };
 
-  // Mark all fields as touched when submit button is clicked
   const handleSubmitAttempt = () => {
     const allTouched: FormTouched = {
       first_name: true,
@@ -159,7 +146,6 @@ const AthleteCreationForm = () => {
 
     setTouched(allTouched);
 
-    // Revalidate all fields
     const newErrors: FormErrors = {
       first_name: validateField("first_name", athlete.first_name),
       last_name: validateField("last_name", athlete.last_name),
@@ -173,7 +159,7 @@ const AthleteCreationForm = () => {
     return isFormValid();
   };
 
-  // Reset form
+  // Reset form to its initial state
   const resetForm = () => {
     setAthlete({
       first_name: "",
@@ -198,22 +184,25 @@ const AthleteCreationForm = () => {
     });
   };
 
-  // Function to mark field as touched
   const markTouched = (field: keyof FormTouched) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
 
   const getDatePickerValue = (): Dayjs | null => {
     if (!athlete.birthdate) return null;
-
     try {
-      // Convert the ISO string (or Date) to a Dayjs object
       return dayjs(athlete.birthdate);
     } catch (e) {
       console.error("Invalid date format:", athlete.birthdate, e);
       return null;
     }
   };
+
+  useEffect(() => {
+    if (!isPopupOpen) {
+      resetForm();
+    }
+  }, [isPopupOpen]);
 
   return (
     <>
