@@ -29,6 +29,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const columns: Column<Athlete>[] = [
     {
       columnName: t("components.athleteDatagrid.table.columns.firstName"),
+      size: "s",
       columnMapping(item) {
         return <Typography>{item.first_name}</Typography>;
       },
@@ -36,6 +37,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.lastName"),
+      size: "s",
       columnMapping(item) {
         return <Typography>{item.last_name}</Typography>;
       },
@@ -51,13 +53,14 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.email"),
-      size: "l",
+      size: "m",
       columnMapping(item) {
         return <Typography noWrap>{item.email}</Typography>;
       },
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.gender"),
+      size: "xs",
       columnMapping(item) {
         return <GenderIcon gender={item.gender} />;
       },
