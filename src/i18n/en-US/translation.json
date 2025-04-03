@@ -58,7 +58,7 @@
     "password": "Password",
     "validation": {
       "required": "This field is required.",
-      "tooLong": "This field is too long.",
+      "tooLong": "This Entry is too long.",
       "invalidEmail": "Invalid email address."
     }
   },

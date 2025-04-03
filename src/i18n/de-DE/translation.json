@@ -26,7 +26,7 @@
     "password": "Passwort",
     "validation": {
       "required": "Dieses Feld ist erforderlich.",
-      "tooLong": "Dieses Feld ist zu lang.",
+      "tooLong": "Der Eintrag ist zu lang.",
       "invalidEmail": "Ungültige E-Mail-Adresse."
     }
   },
