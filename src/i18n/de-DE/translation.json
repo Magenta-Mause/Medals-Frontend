@@ -81,7 +81,7 @@
       "success": "Die Trainer*in wurde eingeladen"
     },
     "performanceRecording": {
-      "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
+      "creationError": "Leistungsaufnahme fehlgeschlagen",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
     },
     "performanceMetrics": {
