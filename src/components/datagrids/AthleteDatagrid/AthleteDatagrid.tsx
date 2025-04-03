@@ -165,7 +165,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       type: "SELECTION",
       selection: [
         {
-          displayValue: <Typography>{t("genders.")}</Typography>,
+          displayValue: <Typography>{t("genders.ALL")}</Typography>,
           value: "",
         },
         {
