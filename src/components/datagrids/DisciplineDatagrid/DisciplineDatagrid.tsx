@@ -33,7 +33,6 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
   const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
 
   useEffect(() => {
-    console.log("Before update:", data);
     const updated = props.disciplines.map((discipline) => {
       return {
         ...discipline,
@@ -43,9 +42,8 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         ),
       };
     });
-    console.log("updated:", updated);
     setData(updated);
-  }, [props.performanceRecordings, props.disciplines, data]);
+  }, [props.performanceRecordings, props.disciplines]);
 
   const columns: Column<DisciplineWithPerformanceRecordings>[] = [
     {
