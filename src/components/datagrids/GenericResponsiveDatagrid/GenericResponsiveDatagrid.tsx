@@ -181,7 +181,7 @@ const GenericResponsiveDatagrid = <T,>(
       currentPage * pageSize,
       (currentPage + 1) * pageSize,
     );
-  }, [currentPage, getFilteredContent, pageSize]);
+  }, [currentPage, getFilteredContent, pageSize, props.disablePaging]);
 
   const setFilter = (
     key: string,
