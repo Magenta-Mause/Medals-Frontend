@@ -43,6 +43,23 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
       };
     });
     console.log(updated);
+    console.log(
+      updated.sort(
+        (a, b) =>
+          Math.max(
+            0,
+            ...b.performanceRecordings.map((p) =>
+              parseInt(Date.parse(p.date_of_performance).toFixed()),
+            ),
+          ) -
+          Math.max(
+            0,
+            ...a.performanceRecordings.map((p) =>
+              parseInt(Date.parse(p.date_of_performance).toFixed()),
+            ),
+          ),
+      ),
+    );
     setData(updated);
   }, [props.performanceRecordings, props.disciplines]);
 
