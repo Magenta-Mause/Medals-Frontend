@@ -122,7 +122,6 @@ const GenericResponsiveDatagrid = <T,>(
   );
   const windowDimensions = useWindowDimensions();
   const [wasPageSizeChanged, setPageSizeChanged] = useState(false);
-  console.log("Datagrid: ", props.data);
   const setPageSize = useCallback(
     (elementsPerPage: number) => {
       setPageSizeInternal(elementsPerPage);
