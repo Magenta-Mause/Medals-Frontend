@@ -42,7 +42,6 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         ),
       };
     });
-    console.log(updated);
     console.log(
       updated.sort(
         (a, b) =>
