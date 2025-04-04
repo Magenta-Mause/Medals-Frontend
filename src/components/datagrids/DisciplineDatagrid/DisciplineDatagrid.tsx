@@ -33,18 +33,19 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
   const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
 
   useEffect(() => {
-    setData(
-      props.disciplines.map((discipline) => {
-        return {
-          ...discipline,
-          performanceRecordings: props.performanceRecordings.filter(
-            (recording) =>
-              recording.discipline_rating_metric.discipline.id == discipline.id,
-          ),
-        };
-      }),
-    );
-  }, [props.performanceRecordings, props.disciplines]);
+    console.log("Before update:", data);
+    const updated = props.disciplines.map((discipline) => {
+      return {
+        ...discipline,
+        performanceRecordings: props.performanceRecordings.filter(
+          (recording) =>
+            recording.discipline_rating_metric.discipline.id == discipline.id,
+        ),
+      };
+    });
+    console.log("updated:", updated);
+    setData(updated);
+  }, [props.performanceRecordings, props.disciplines, data]);
 
   const columns: Column<DisciplineWithPerformanceRecordings>[] = [
     {
@@ -144,13 +145,13 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
           (a, b) =>
             Math.max(
               0,
-              ...a.performanceRecordings.map((p) =>
+              ...b.performanceRecordings.map((p) =>
                 parseInt(Date.parse(p.date_of_performance).toFixed()),
               ),
             ) -
             Math.max(
               0,
-              ...b.performanceRecordings.map((p) =>
+              ...a.performanceRecordings.map((p) =>
                 parseInt(Date.parse(p.date_of_performance).toFixed()),
               ),
             ),
