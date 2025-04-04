@@ -33,16 +33,15 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
   const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
 
   useEffect(() => {
-    const updated = props.disciplines.map((discipline) => {
-      return {
+    setData(
+      props.disciplines.map((discipline) => ({
         ...discipline,
         performanceRecordings: props.performanceRecordings.filter(
           (recording) =>
             recording.discipline_rating_metric.discipline.id == discipline.id,
         ),
-      };
-    });
-    setData(updated);
+      })),
+    );
   }, [props.performanceRecordings, props.disciplines]);
 
   const columns: Column<DisciplineWithPerformanceRecordings>[] = [
@@ -163,5 +162,4 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
     </>
   );
 };
-
 export default DisciplineDatagrid;
