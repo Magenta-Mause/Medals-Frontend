@@ -136,6 +136,6 @@ if __name__ == '__main__':
             translate_locale_full(lt_tree, translation_paths, target_language, model=opus_pipeline)
         else:
             translate_locale_full(lt_tree, translation_paths, target_language)
-        
+
         with open(f'translation_{target_language}.json', 'w', encoding='utf-8') as fp:
             json.dump(lt_tree, fp, indent=4, ensure_ascii=False)

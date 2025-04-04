@@ -22,7 +22,8 @@
     "discipline": "Disziplin",
     "invalid": "Ungültig",
     "loading": "Lädt...",
-    "submit": "Absenden"
+    "submit": "Absenden",
+    "password": "Passwort"
   },
   "disciplines": {
     "categories": {
@@ -77,6 +78,10 @@
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
+    },
+    "performanceMetrics": {
+      "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
+      "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
     }
   },
   "pages": {
@@ -133,7 +138,8 @@
           "password": "Passwort"
         },
         "forgotPassword": "Passwort vergessen?",
-        "privacyPolicy": "Datenschutz",
+        "privacyPolicy": "Datenschutzerklärung",
+        "acceptOur": "Ich akzeptiere die",
         "submit": "Anmelden",
         "loginFailedWarning": "Anmeldung fehlgeschlagen",
         "logoutButton": "Abmelden",
@@ -230,15 +236,16 @@
       "photoBy": "Foto von"
     },
     "performanceMetricsPage": {
-      "title": "Leistungswerte",
+      "title": {
+        "athlete": "Deine Anforderungen",
+        "default": "Leistungswerte"
+      },
       "filters": {
         "year": "Jahr",
         "ageGroup": "Altersgruppe",
         "gender": "Geschlecht"
       },
-      "tooltips": {
-        "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet und auch in die Bewertung einbezogen."
-      }
+      "resetFilter": "Filter zurücksetzen"
     }
   },
   "components": {
@@ -410,7 +417,7 @@
       "hasNumber": "Passwort enthält eine Zahl",
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",
       "hasSpecial": "Passwort enthält ein Sonderzeichen",
-      "required": "Verpflichtend"
+      "fieldRequired": "Bedingung ist verpflichtend"
     },
     "confirmationPopup": {
       "header": "Account Löschen",
@@ -446,7 +453,9 @@
       "switchUserButton": "Benutzer wechseln",
       "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern",
-      "selectUser": "Mit dieser Benutzer*in fortfahren"
+      "selectUser": "Mit dieser Benutzer*in fortfahren",
+      "showPassword": "Password anzeigen/ausblenden",
+      "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     }
   }
 }

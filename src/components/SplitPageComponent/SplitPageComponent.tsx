@@ -36,13 +36,13 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
       <Box
         sx={(theme) => ({
           width: { xs: "100%", md: "50vw" },
-          transition: "width var(--Transition-duration)",
           position: "relative",
           zIndex: 1,
           display: "flex",
           justifyContent: "flex-end",
           backdropFilter: "blur(12px)",
           background: "rgba(236 236 231 / 0.6)",
+          transition: "background ease .3s",
           [theme.getColorSchemeSelector("dark")]: {
             backgroundColor: "rgba(19 19 24 / 0.7)",
           },
@@ -154,9 +154,7 @@ const SplitPageComponent = ({ children }: { children: ReactNode }) => {
           top: 0,
           bottom: 0,
           left: { xs: 0, md: "50vw" },
-          transition:
-            "background-image var(--Transition-duration), left var(--Transition-duration) !important",
-          transitionDelay: "calc(var(--Transition-duration) + 0.1s)",
+          transition: "background-image ease .3s",
           backgroundColor: "background.level1",
           backgroundSize: "cover",
           backgroundPosition: "center",

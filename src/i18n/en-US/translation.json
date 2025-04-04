@@ -54,7 +54,8 @@
     "tooYoung": "to young",
     "invalid": "invalid",
     "loading": "Loading...",
-    "submit": "Submit"
+    "submit": "Submit",
+    "password": "Password"
   },
   "snackbar": {
     "login": {
@@ -75,6 +76,10 @@
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"
+    },
+    "performanceMetrics": {
+      "athleteNotFound": "Athlete not found",
+      "fetchAthleteFailed": "Failed to fetch athlete data"
     }
   },
   "pages": {
@@ -131,6 +136,7 @@
           "password": "Password"
         },
         "forgotPassword": "Forgot password?",
+        "acceptOur": "I accept the",
         "privacyPolicy": "Privacy Policy",
         "submit": "Login",
         "loginFailedWarning": "Login failed",
@@ -227,15 +233,16 @@
       "photoBy": "Photo by"
     },
     "performanceMetricsPage": {
-      "title": "Performance Metrics",
+      "title": {
+        "default": "Performance Metrics",
+        "athlete": "Your Requirements"
+      },
       "filters": {
         "year": "Year",
         "ageGroup": "Age Group",
         "gender": "Gender"
       },
-      "tooltips": {
-        "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used and also considered in the evaluation."
-      }
+      "resetFilter": "Reset Filter"
     }
   },
   "components": {
@@ -397,7 +404,7 @@
       "hasNumber": "Password contains a number",
       "hasUpperCase": "Password contains an uppercase letter",
       "hasSpecial": "Password contains a special character",
-      "required": "Required"
+      "fieldRequired": "constraint is required"
     },
     "disclaimer": {
       "text": "This application is a university project and not an official service (e.g., Sportabzeichen-Digital). It is not endorsed or provided by any official organization. No official certifications or claims are provided."
@@ -443,7 +450,9 @@
       "switchUserButton": "Switch User",
       "logoutButton": "Logout",
       "languageSelectionButton": "Change language",
-      "selectUser": "Continue with this user"
+      "selectUser": "Continue with this user",
+      "showPassword": "Show/Hide password",
+      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
     }
   }
 }
