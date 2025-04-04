@@ -154,6 +154,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
 
   return (
     <>
+      {JSON.stringify(data)}
       <GenericResponsiveDatagrid
         isLoading={props.isLoading}
         data={data.sort(
