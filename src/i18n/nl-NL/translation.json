@@ -2,9 +2,9 @@
     "languages": {
         "de": "Deutsch",
         "en": "English",
-        "es": "Espa\u00c3\u00b1ola",
-        "fr": "Fran\u00c3\u00a7ais",
-        "nl": "N\u00c3\u00a9erlandais"
+        "es": "Española",
+        "fr": "Français",
+        "nl": "Néerlandais"
     },
     "genders": {
         "DIVERSE": "Diversen",
@@ -38,7 +38,7 @@
                 "label": "Snelheid"
             },
             "COORDINATION": {
-                "label": "Co\u00f6rdinatie"
+                "label": "Coördinatie"
             }
         }
     },
@@ -79,7 +79,7 @@
     },
     "pages": {
         "homePage": {
-            "h1": "Medailles",
+            "h1": "Medals",
             "h3": "Het binnenkort Medal Management System te zijn"
         },
         "athleteDetailPage": {
@@ -141,7 +141,7 @@
         "setPasswordPage": {
             "header": "Uw wachtwoord instellen",
             "subheader": "Stel uw wachtwoord in om uw account te gebruiken",
-            "invalidCode": "Ung\u00c31\u20444ltiger-code",
+            "invalidCode": "Ungültiger-code",
             "form": {
                 "passwordLabel": "Wachtwoord",
                 "submit": "Wachtwoord instellen",
@@ -185,7 +185,7 @@
             "controllerIntro": "De voor de verwerking van gegevens verantwoordelijke is:",
             "controllerEmail": "E-mail",
             "personalData": "Persoonlijke gegevens",
-            "personalDataDetails": "Persoonsgegevens zijn informatie die betrekking heeft op een ge\u00efdentificeerde of identificeerbare natuurlijke persoon (gegevenspersoon). Een identificeerbare natuurlijke persoon is een persoon die direct of indirect kan worden ge\u00efdentificeerd, met name door verwijzing naar een identificatiecode zoals een naam, een identificatienummer, locatiegegevens, een online identificatiecode of een of meer factoren die specifiek zijn voor de fysieke, fysiologische, genetische, mentale, economische, culturele of sociale identiteit van die natuurlijke persoon.",
+            "personalDataDetails": "Persoonsgegevens zijn informatie die betrekking heeft op een geïdentificeerde of identificeerbare natuurlijke persoon (gegevenspersoon). Een identificeerbare natuurlijke persoon is een persoon die direct of indirect kan worden geïdentificeerd, met name door verwijzing naar een identificatiecode zoals een naam, een identificatienummer, locatiegegevens, een online identificatiecode of een of meer factoren die specifiek zijn voor de fysieke, fysiologische, genetische, mentale, economische, culturele of sociale identiteit van die natuurlijke persoon.",
             "dataOnWebsiteVisit": "Gegevens op Website Bezoek",
             "dataOnWebsiteVisitDetails": {
                 "intro": "Wanneer u deze website alleen gebruikt voor informatieve doeleinden en geen gegevens verstrekt, verwerken wij alleen de gegevens die nodig zijn om de website weer te geven op het internetapparaat dat u gebruikt. Dit omvat met name:",
@@ -206,7 +206,7 @@
                 "restriction": "U heeft het recht om de verwerking van uw persoonsgegevens te beperken (art. 18 AVG).",
                 "dataPortability": "U heeft recht op gegevensportabiliteit (art. 20 AVG).",
                 "objection": "U heeft het recht bezwaar te maken tegen de verwerking van uw persoonsgegevens (art. 21 AVG).",
-                "automatedDecisionMaking": "U hebt het recht om niet onderworpen te zijn aan een beslissing uitsluitend gebaseerd op geautomatiseerde verwerking \u00e2 \u20ac ..., inclusief profiling \u00e2 \u20ac ... dat rechtsgevolgen met betrekking tot u of soortgelijke significante gevolgen voor u (Art. 22 AVG).",
+                "automatedDecisionMaking": "U heeft het recht om niet onderworpen te zijn aan een beslissing die uitsluitend gebaseerd is op geautomatiseerde verwerking, waaronder profilering .. die rechtsgevolgen voor u of soortgelijke significante gevolgen heeft voor u (art. 22 AVG).",
                 "complaint": "U heeft het recht om een klacht in te dienen bij een toezichthoudende autoriteit als u van mening bent dat de verwerking van uw persoonsgegevens in strijd is met het recht op gegevensbescherming (art. 77 AVG). De bevoegde toezichthoudende autoriteit is degene op uw gewone verblijfplaats, werkplek of plaats van de vermeende inbreuk."
             },
             "source": "Bron: Voorbeeld Privacybeleid van anwalt.de"
@@ -330,7 +330,7 @@
             },
             "mobileList": {
                 "pageControl": {
-                    "pageLabels": "Pagina {currPage} van {maxPage}"
+                    "pageLabels": "Page {currPage} of {maxPage}"
                 }
             }
         },
@@ -400,7 +400,7 @@
             "required": "Vereist"
         },
         "disclaimer": {
-            "text": "Deze aanvraag is een universitair project en geen offici\u00eble dienst (bijv. Sportabzeichen-Digital). Het wordt niet goedgekeurd of verstrekt door een offici\u00eble organisatie. Er worden geen offici\u00eble certificeringen of claims verstrekt."
+            "text": "Deze aanvraag is een universitair project en geen officiële dienst (bijv. Sportabzeichen-Digital). Het wordt niet goedgekeurd of verstrekt door een officiële organisatie. Er worden geen officiële certificeringen of claims verstrekt."
         },
         "athletePerformanceAccordions": {
             "selectedYear": "Geselecteerd jaar"
