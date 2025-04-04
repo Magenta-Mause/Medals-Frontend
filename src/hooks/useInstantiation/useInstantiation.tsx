@@ -181,6 +181,7 @@ const useInstantiation = () => {
 
   const instantiateAthlete = useCallback(async () => {
     if (currentlyInitialized != selectedUser?.id) {
+      setCurrentlyInitialized(selectedUser?.id ?? null);
       dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
 
       uninitializeAthleteWebsocket();
