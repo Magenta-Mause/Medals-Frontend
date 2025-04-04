@@ -42,6 +42,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         ),
       };
     });
+    console.log(updated);
     setData(updated);
   }, [props.performanceRecordings, props.disciplines]);
 
