@@ -22,7 +22,7 @@ export const HoverTooltip: React.FC<HoverTooltipProps> = ({
       placement={position}
       enterDelay={400}
       enterNextDelay={400}
-      sx={{ zIndex: 20000, cursor: "pointer", userSelect: "none" }}
+      sx={{ zIndex: 20000, userSelect: "none" }}
     >
       {children}
     </MuiTooltip>

@@ -58,7 +58,7 @@ const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
         | "silver_rating"
         | "bronze_rating";
       const ratingValue =
-        gender === Genders.FEMALE
+        gender === Genders.w
           ? metric.rating_female?.[ratingKey]
           : metric.rating_male?.[ratingKey];
       return (

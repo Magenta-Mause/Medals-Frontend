@@ -96,14 +96,14 @@ const PerformanceMetricsPage = () => {
         age: matchingAgeRange
           ? matchingAgeRange.label
           : ageRangeOptions[0].label,
-        gender: athlete.gender || Genders.FEMALE,
+        gender: athlete.gender || Genders.w,
       };
     }
 
     return {
       year,
       age: ageRangeOptions[0].label,
-      gender: Genders.FEMALE,
+      gender: Genders.w,
     };
   }, [selectedUser, athlete]);
 
@@ -173,17 +173,14 @@ const PerformanceMetricsPage = () => {
         ),
         type: "SELECTION",
         selection: [
-          { value: Genders.FEMALE, displayValue: t("genders.FEMALE") },
-          { value: Genders.MALE, displayValue: t("genders.MALE") },
-          { value: Genders.DIVERSE, displayValue: t("genders.DIVERSE") },
+          { value: Genders.w, displayValue: t("genders.FEMALE") },
+          { value: Genders.m, displayValue: t("genders.MALE") },
+          { value: Genders.d, displayValue: t("genders.DIVERSE") },
         ],
         apply: (filterParam: string) => (item: DisciplineRatingMetric) => {
-          if (filterParam === Genders.FEMALE) {
+          if (filterParam === Genders.w) {
             return item.rating_female !== null;
-          } else if (
-            filterParam === Genders.MALE ||
-            filterParam === Genders.DIVERSE
-          ) {
+          } else if (filterParam === Genders.m || filterParam === Genders.d) {
             return item.rating_male !== null;
           }
           return true;
