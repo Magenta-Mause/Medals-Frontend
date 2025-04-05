@@ -122,7 +122,6 @@ const GenericResponsiveDatagrid = <T,>(
   );
   const windowDimensions = useWindowDimensions();
   const [wasPageSizeChanged, setPageSizeChanged] = useState(false);
-
   const setPageSize = useCallback(
     (elementsPerPage: number) => {
       setPageSizeInternal(elementsPerPage);
@@ -130,12 +129,6 @@ const GenericResponsiveDatagrid = <T,>(
     },
     [setPageSizeInternal, setPageSizeChanged],
   );
-
-  useEffect(() => {
-    if (props.disablePaging) {
-      setPageSize(1000);
-    }
-  }, [props.disablePaging, setPageSize]);
 
   const cleanupSelection = useCallback(() => {
     const newSelected = selected.filter(
@@ -179,14 +172,15 @@ const GenericResponsiveDatagrid = <T,>(
     props.mobileRendering.searchFilter,
   ]);
 
-  const getRenderedPage = useCallback(
-    () =>
-      getFilteredContent().slice(
-        currentPage * pageSize,
-        (currentPage + 1) * pageSize,
-      ),
-    [currentPage, getFilteredContent, pageSize],
-  );
+  const getRenderedPage = useCallback(() => {
+    if (props.disablePaging) {
+      return getFilteredContent();
+    }
+    return getFilteredContent().slice(
+      currentPage * pageSize,
+      (currentPage + 1) * pageSize,
+    );
+  }, [currentPage, getFilteredContent, pageSize, props.disablePaging]);
 
   const setFilter = (
     key: string,
