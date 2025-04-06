@@ -373,8 +373,8 @@
       "table": {
         "columns": {
           "trainerId": "Trainer ID",
-          "firstName": "Firstname",
-          "lastName": "Lastname",
+          "firstName": "First Name",
+          "lastName": "Last Name",
           "email": "Email"
         },
         "filters": {
@@ -389,9 +389,9 @@
       },
       "inviteModal": {
         "email": "Email",
-        "firstName": "Firstname",
+        "firstName": "First Name",
         "firstNamePlaceholder": "John",
-        "lastName": "Lastname",
+        "lastName": "Last Name",
         "lastNamePlaceholder": "Doe",
         "confirm": "Invite Trainer"
       },
