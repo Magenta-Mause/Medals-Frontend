@@ -12,6 +12,7 @@ import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import { useTypedSelector } from "@stores/rootReducer";
 import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
 import MedalBox from "./MedalBox";
+import SwimCertificateIcon from "@components/icons/SwimCertificateIcon/SwimCertificateIcon";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -29,6 +30,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const columns: Column<Athlete>[] = [
     {
       columnName: t("components.athleteDatagrid.table.columns.firstName"),
+      size: "s",
       columnMapping(item) {
         return <Typography>{item.first_name}</Typography>;
       },
@@ -36,6 +38,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.lastName"),
+      size: "s",
       columnMapping(item) {
         return <Typography>{item.last_name}</Typography>;
       },
@@ -58,6 +61,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.gender"),
+      size: "s",
       columnMapping(item) {
         return <GenderIcon gender={item.gender} />;
       },
@@ -75,6 +79,18 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           />
         );
       },
+    },
+    {
+      columnName: t("components.athleteDatagrid.table.columns.swimCertificate"),
+      size: "s",
+      disableSpan: false,
+      columnMapping(item) {
+        return (
+          <>
+            <SwimCertificateIcon achieved={item.swimming_certificate} />
+          </>
+        );
+      }
     },
   ];
 
