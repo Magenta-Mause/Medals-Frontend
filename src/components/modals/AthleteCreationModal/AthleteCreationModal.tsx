@@ -56,6 +56,7 @@ interface AthleteCreateModalProps {
 
 const AthleteCreationForm = (props: AthleteCreateModalProps) => {
   const { t, i18n } = useTranslation();
+  const [isPopupOpen, setPopupOpen] = useState(false);
   const { createAthlete } = useApi();
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
