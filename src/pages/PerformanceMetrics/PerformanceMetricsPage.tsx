@@ -1,6 +1,16 @@
 import { useState, useMemo, useContext, useEffect } from "react";
 import { Box, Typography, Button, CircularProgress } from "@mui/joy";
+import { useState, useMemo, useContext, useEffect } from "react";
+import { Box, Typography, Button, CircularProgress } from "@mui/joy";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import useApi from "@hooks/useApi";
+import {
+  AgeRange,
+  Athlete,
+  DisciplineRatingMetric,
+} from "@customTypes/backendTypes";
+import { Genders } from "@customTypes/enums";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import useApi from "@hooks/useApi";
 import {
@@ -15,6 +25,8 @@ import FilterComponent, {
 import { useTypedSelector } from "@stores/rootReducer";
 import PerformanceMetricDatagrid from "@components/datagrids/PerformanceMetricDatagrid/PerformanceMetricDatagrid";
 import { InfoTooltip } from "@components/InfoTooltip/InfoTooltip";
+import { calculateAge } from "@utils/calculationUtil";
+import { useSnackbar } from "notistack";
 import { calculateAge } from "@utils/calculationUtil";
 import { useSnackbar } from "notistack";
 
@@ -111,6 +123,56 @@ const PerformanceMetricsPage = () => {
     });
     return Array.from(yearsSet).sort((a, b) => b - a);
   }, [disciplineRatingMetrics]);
+
+  const defaultFilterValues = useMemo(() => {
+    const year = new Date().getFullYear().toString();
+
+    if (selectedUser?.type === "ATHLETE" && athlete?.birthdate) {
+      const age = calculateAge(athlete.birthdate);
+      const matchingAgeRange = ageRangeOptions.find(
+        (range) => age >= range.min && age <= range.max,
+      );
+
+      return {
+        year,
+        age: matchingAgeRange
+          ? matchingAgeRange.label
+          : ageRangeOptions[0].label,
+        gender: athlete.gender || Genders.FEMALE,
+      };
+    }
+
+    return {
+      year,
+      age: ageRangeOptions[0].label,
+      gender: Genders.FEMALE,
+    };
+  }, [selectedUser, athlete]);
+
+  const [filterValues, setFilterValues] = useState<Record<string, string>>(
+    selectedUser?.type === "ATHLETE" ? {} : defaultFilterValues,
+  );
+
+  // Initialize filters once when athlete data is available or immediately for non-athletes
+  useEffect(() => {
+    if (!filtersInitialized) {
+      if (selectedUser?.type === "ATHLETE") {
+        if (athlete && !isLoading) {
+          setFilterValues(defaultFilterValues);
+          setFiltersInitialized(true);
+        }
+      } else {
+        setFilterValues(defaultFilterValues);
+        setFiltersInitialized(true);
+      }
+    }
+  }, [
+    athlete,
+    defaultFilterValues,
+    selectedUser,
+    isLoading,
+    filtersInitialized,
+  ]);
 
   const filters = useMemo<Filter<DisciplineRatingMetric>[]>(
     () => [
@@ -212,12 +274,35 @@ const PerformanceMetricsPage = () => {
     }));
   };
 
+  // Reset filters handler
+  const handleResetFilters = () => {
+    setFilterValues(defaultFilterValues);
+  };
+
+  // Show loading state until filters are properly initialized
+  if (isLoading || !filtersInitialized) {
+    return (
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
+        <Typography level="h2" component="h1">
+          {userRole === "ATHLETE"
+            ? t("pages.performanceMetricsPage.title.athlete")
+            : t("pages.performanceMetricsPage.title.default")}
+        </Typography>
+        <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
+          <CircularProgress />
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
       <Typography level="h2" component="h1">
         {userRole === "ATHLETE"
           ? t("pages.performanceMetricsPage.title.athlete")
-          : t("pages.performanceMetricsPage.title.default")}
+          : userRole === "ATHLETE"
+          ? t("pages.performanceMetricsPage.title.athlete")
+          : t("pages.performanceMetricsPage.title.default.default")}
       </Typography>
       {filtersReady ? (
         <>

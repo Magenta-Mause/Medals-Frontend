@@ -49,10 +49,14 @@ interface FormErrors {
   gender: string;
 }
 
-const AthleteCreationForm = () => {
+interface AthleteCreateModalProps {
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AthleteCreationForm = (props: AthleteCreateModalProps) => {
   const { t, i18n } = useTranslation();
   const { createAthlete } = useApi();
-  const [isPopupOpen, setPopupOpen] = useState(false);
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
     last_name: "",
@@ -206,13 +210,10 @@ const AthleteCreationForm = () => {
 
   return (
     <>
-      <Button color="primary" onClick={() => setPopupOpen(true)}>
-        {t("pages.athleteOverviewPage.createButton")}
-      </Button>
       <GenericModal
         header={t("pages.athleteCreationPage.createHeader")}
-        open={isPopupOpen}
-        setOpen={setPopupOpen}
+        open={props.isOpen}
+        setOpen={props.setOpen}
         modalSX={{
           display: "flex",
           justifyContent: "center",
