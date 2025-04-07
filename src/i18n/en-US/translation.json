@@ -176,7 +176,7 @@
     "validateRequestPage": {
       "header": "Request",
       "subheader": "has requested access to you,\n would you like to accept the request?",
-      "accept": "Accpet"
+      "accept": "Accept"
     },
     "profilePage": {
       "header": "My Profile",

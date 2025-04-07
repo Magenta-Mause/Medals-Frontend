@@ -62,8 +62,8 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
         variant: "success",
       });
     } catch (error) {
-      console.error("Error inviting athlete", error);
-      enqueueSnackbar(t("snackbar.requestAthleteAccess.success"), {
+      console.error("Error requesting athlete", error);
+      enqueueSnackbar(t("snackbar.requestAthleteAccess.failed"), {
         variant: "success",
       });
     }
