@@ -75,9 +75,9 @@
       "creationSuccess": "Performance recording successfully registered"
     },
     "athleteExportModal": {
-      "noAthleteSelected": "Please select at least one athlete.",
-      "exportError": "Error generating the CSV file.",
-      "unexpectedError": "An unexpected error occurred.",
+      "noAthleteSelected": "Please select at least one athlete",
+      "exportError": "Error generating the CSV file",
+      "unexpectedError": "An unexpected error occurred",
       "success": "Export successful!"
     }
   },
@@ -449,7 +449,7 @@
     "athleteExportModal": {
       "header": "Athlete Export",
       "exportButton": "Export",
-      "performanceCheckbox": "include Performance Metrics",
+      "performanceCheckbox": "Include Performance Metrics",
       "removeFromSelectionButton": "Remove"
       }
   }

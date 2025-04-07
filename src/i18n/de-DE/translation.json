@@ -77,9 +77,9 @@
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
     },
     "athleteExportModal": {
-      "noAthleteSelected": "Bitte wählen Sie mindestens einen Athleten aus.",
-      "exportError": "Fehler beim Erstellen der CSV-Datei.",
-      "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten.",
+      "noAthleteSelected": "Bitte wählen Sie mindestens einen Athleten aus",
+      "exportError": "Fehler beim Erstellen der CSV-Datei",
+      "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
       "success": "Export erfolgreich!"
     }
   },
