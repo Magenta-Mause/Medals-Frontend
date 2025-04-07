@@ -1,12 +1,6 @@
 import { t } from "i18next";
 import GenericModal from "../GenericModal";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Sheet,
-  Typography,
-} from "@mui/joy";
+import { Box, Button, Checkbox, Sheet, Typography } from "@mui/joy";
 import {
   Athlete,
   Discipline,
@@ -144,9 +138,7 @@ const AthleteExportModal = ({
         }
 
         const birthdate = item.birthdate ? new Date(item.birthdate) : null;
-        const birthyear = birthdate
-          ? birthdate.getFullYear().toString()
-          : "";
+        const birthyear = birthdate ? birthdate.getFullYear().toString() : "";
 
         return performanceRecordingsOfAthlete
           .map((performance) => {
