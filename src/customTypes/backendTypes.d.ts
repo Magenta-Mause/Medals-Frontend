@@ -7,6 +7,7 @@ export interface Athlete {
   email: string;
   birthdate: string;
   gender?: Genders;
+  swimming_certificate?: SwimmingCertificateType;
 }
 
 export interface UserEntity {
