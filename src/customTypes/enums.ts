@@ -30,6 +30,13 @@ export enum Genders {
   MALE = "MALE",
 }
 
+export enum AthleteValidityState {
+  VALID,
+  UPLOADED,
+  FAILED,
+  LOADING,
+}
+
 export enum AthleteExportColumn {
   FirstName = "first_name",
   LastName = "last_name",
