@@ -82,6 +82,15 @@
     "performanceMetrics": {
       "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
       "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
+    },
+    "acceptTrainerAccessRequest": {
+      "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
+      "failed": "Trainer Anfrage konnte nicht angenommen werden",
+      "success": "Trainer Anfrage erfolgreich angenommen"
+    },
+    "requestAthleteAccess": {
+      "failed": "Anfrage fehlgeschlagen",
+      "success": "Anfrage gesendet"
     }
   },
   "pages": {
@@ -93,8 +102,7 @@
       "createPerformanceRecordingButton": "Leistung aufnehmen"
     },
     "athleteOverviewPage": {
-      "header": "Athlet*innen",
-      "createButton": "Athlet*in erstellen"
+      "header": "Athlet*innen"
     },
     "athleteCreationPage": {
       "firstName": "Vorname",
@@ -173,6 +181,11 @@
           "noCode": "E-Mail wurde versendet"
         }
       }
+    },
+    "validateRequestPage": {
+      "header": "Anfrage",
+      "subheader": "will Sie verwalten.\n Möchten Sie die Anfrage annehmen?",
+      "accept": "Annehmen"
     },
     "profilePage": {
       "header": "Mein Profil",
@@ -278,6 +291,13 @@
         "ageAtRecording": "Berechnetes Alter bei Aufnahme: "
       }
     },
+    "requestAthleteModal": {
+      "header": "Athlet*innen anfragen",
+      "searchAthlete": "Name",
+      "notFound": "Kein Athleten gefunden",
+      "requestAthleteButton": "Senden",
+      "sendButton": "Gesendet"
+    },
     "athleteDetailHeader": {
       "columns": {
         "id": "ID",
@@ -361,6 +381,16 @@
           "search": "Suche",
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
+        },
+        "toolbar": {
+          "addAthlete": {
+            "label": "Anfragen",
+            "content": "Athlet*innen anfragen"
+          },
+          "createAthlete": {
+            "label": "Erstellen",
+            "content": "Athlet*in erstellen"
+          }
         }
       },
       "actions": {
