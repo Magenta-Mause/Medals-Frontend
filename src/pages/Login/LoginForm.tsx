@@ -13,7 +13,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import PrivacyPolicyModal from "@components/PrivacyPolicyModal/PrivacyPolicyModal";
+import PrivacyPolicyModal from "@components/modals/PrivacyPolicyModal/PrivacyPolicyModal";
 import PasswordInput from "@components/PasswordInput/PasswordInput";
 
 interface SignInFormElement extends HTMLFormElement {
