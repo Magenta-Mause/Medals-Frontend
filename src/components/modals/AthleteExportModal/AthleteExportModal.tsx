@@ -51,11 +51,11 @@ const AthleteExportModal = (props: {
     }
   }, [athletes]);
 
-  useEffect(()=> {
-    if(props.isOpen && athletes.length === 0){
+  useEffect(() => {
+    if (props.isOpen && athletes.length === 0) {
       props.setOpen(false);
     }
-  },[athletes.length, props.setOpen])
+  }, [athletes.length, props.setOpen]);
 
   const generateCSV = (data: any[], withPerformance: boolean) => {
     const attributeToGermanHeader: Record<string, string> = {
@@ -202,16 +202,15 @@ const AthleteExportModal = (props: {
         <Box
           sx={{
             display: "flex",
-            alignItems: "flex-end",
-            flexDirection: "column",
+            flexDirection: "row",
           }}
         >
           <Button
             variant="soft"
             onClick={() => props.setOpen(true)}
-            sx={{ display: "flex", justifyContent: "space-around" }}
+            sx={{ display: "flex", gap:0.5}}
           >
-            <IosShareRounded />
+            <IosShareRounded sx={{fontSize: "20px"}}/>
             {t("components.athleteExportModal.exportButton")}
           </Button>
         </Box>

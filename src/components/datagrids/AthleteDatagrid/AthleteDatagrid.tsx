@@ -196,8 +196,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       variant: "outlined",
       operation: function (item): void {
         setSelectedAthletes((prev) => [...prev, item]);
+        console.log("Selected Athletes for export:", item);
         setExportModalOpen(true);
-        console.log("Selected Athletes:", item);
       },
     },
     {
