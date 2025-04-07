@@ -34,7 +34,6 @@ const AthleteExportModal = ({
   selectedAthletes,
   includePerformance,
 }: AthleteExportModalProps) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
   const location = useLocation();
   const [athletes, setAthletes] = useState(selectedAthletes);
   const [, setLoading] = useState(true);
@@ -247,7 +246,7 @@ const AthleteExportModal = ({
             </Sheet>
           </Box>
         </Box>
-        <Box sx={{ overflow: "auto", maxHeight: isMobile ? "300px" : "400px" }}>
+        <Box sx={{ overflow: "auto", maxHeight: "400px" }}>
           <Sheet>
             <Table
               borderAxis="x"
