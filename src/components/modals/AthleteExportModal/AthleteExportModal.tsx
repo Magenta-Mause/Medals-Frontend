@@ -96,8 +96,6 @@ const AthleteExportModal = (props: {
           return columns.map((col) => item[col] || "").join(";");
         }
 
-        console.log("Performance Recordings:", performanceRecordings);
-
         const performanceRecordingsOfAthlete = performanceRecordings.filter(
           (p) => p.athlete_id === item.id,
         );
@@ -111,12 +109,12 @@ const AthleteExportModal = (props: {
           : "N/A";
 
         return performanceRecordingsOfAthlete
-          .map((perf) => {
+          .map((performance) => {
             const discipline = disciplines.find(
-              (d) => d.id === perf.discipline_rating_metric.discipline.id,
+              (d) => d.id === performance.discipline_rating_metric.discipline.id,
             );
             const points = convertMedalToNumber(
-              calculatePerformanceRecordingMedal(perf),
+              calculatePerformanceRecordingMedal(performance),
             );
             return columns
               .map((col) => {
@@ -136,9 +134,9 @@ const AthleteExportModal = (props: {
                   case "category":
                     return discipline?.category || "N/A";
                   case "date":
-                    return perf.date_of_performance || "N/A";
+                    return performance.date_of_performance || "N/A";
                   case "result":
-                    return perf.rating_value || "N/A";
+                    return performance.rating_value || "N/A";
                   case "points":
                     return points || "N/A";
                 }
