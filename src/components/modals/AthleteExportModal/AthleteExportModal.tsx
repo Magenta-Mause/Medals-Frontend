@@ -60,18 +60,19 @@ const AthleteExportModal = (props: {
 
   const generateCSV = (data: any[], withPerformance: boolean) => {
     const attributeToGermanHeader: Record<string, string> = {
-      first_name: "Vorname",
-      last_name: "Nachname",
-      email: "Email",
-      birthdate: "Geburtsdatum",
-      birthyear: "Geburtsjahr",
-      birthday: "Geburtstag",
-      gender: "Geschlecht",
-      discipline: "Übung",
-      category: "Kategorie",
-      date: "Datum",
-      result: "Ergebnis",
-      points: "Punkte",
+      [AthleteExportColumn.FirstName]: "Vorname",
+      [AthleteExportColumn.LastName]: "Nachname",
+      [AthleteExportColumn.Email]: "Email",
+      [AthleteExportColumn.Birthdate]: "Geburtsdatum",
+      [AthleteExportColumn.Gender]: "Geschlecht",
+    
+      [AthletePerformanceExportColumn.Birthyear]: "Geburtsjahr",
+      [AthletePerformanceExportColumn.Birthday]: "Geburtstag",
+      [AthletePerformanceExportColumn.Discipline]: "Übung",
+      [AthletePerformanceExportColumn.Category]: "Kategorie",
+      [AthletePerformanceExportColumn.Date]: "Datum",
+      [AthletePerformanceExportColumn.Result]: "Ergebnis",
+      [AthletePerformanceExportColumn.Points]: "Punkte",
     };
     const columns: string[] = withPerformance
       ? Object.values(AthletePerformanceExportColumn)
