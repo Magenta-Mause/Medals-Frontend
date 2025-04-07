@@ -55,7 +55,8 @@
     "invalid": "invalid",
     "loading": "Loading...",
     "submit": "Submit",
-    "password": "Password"
+    "password": "Password",
+    "finished": "Finished"
   },
   "snackbar": {
     "login": {
@@ -100,7 +101,8 @@
       "createPerformanceRecordingButton": "Record performance"
     },
     "athleteOverviewPage": {
-      "header": "Athletes"
+      "header": "Athletes",
+      "createButton": "Create Athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -110,6 +112,18 @@
       "gender": "Gender",
       "createButton": "Create",
       "createHeader": "Create Athlete"
+    },
+    "athleteImportPage": {
+      "importButton": "Import Athletes",
+      "feedback1": "Athlete ",
+      "feedback2": " created",
+      "failedFeedback": "Failed to create ",
+      "DropFile": "Drag & Drop your file here or click",
+      "changeFile": "Reset file",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "valid": "Status",
+      "athleteList": "Athlete List"
     },
     "trainerOverviewPage": {
       "header": "Trainers"
@@ -482,6 +496,12 @@
       "languageSelectionButton": "Change language",
       "selectUser": "Continue with this user",
       "showPassword": "Show/Hide password",
+      "athleteUploadDatagrid": {
+        "error": "Die angegebene Athlet*in existiert bereits oder ist inkorrekt",
+        "loading": "Lädt...",
+        "uploaded": "Athlet*in wurde hochgeladen",
+        "valid": "Athlet*in kann hochgeladen werden"
+      },
       "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
     }
   }

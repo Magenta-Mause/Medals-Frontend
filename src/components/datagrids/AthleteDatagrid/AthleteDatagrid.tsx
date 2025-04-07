@@ -10,6 +10,10 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import AthleteImportModal from "@components/modals/AthleteImportModal/AthleteImportModal";
+import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
+import { useState } from "react";
+import UploadIcon from "@mui/icons-material/Upload";
 import { useTypedSelector } from "@stores/rootReducer";
 import { DisciplineCategories, Medals } from "@customTypes/enums";
 import {
@@ -17,10 +21,8 @@ import {
   convertMedalToNumber,
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
-import { useState } from "react";
 import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
 import { PersonSearch, PersonAdd } from "@mui/icons-material";
-import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -34,6 +36,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   ) as PerformanceRecording[];
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [addImportModalOpen, setImportModalOpen] = useState(false);
   const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
     useState(false);
   const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
@@ -186,6 +189,18 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const toolbarActions: ToolbarAction[] = [
     {
+      label: t("pages.athleteImportPage.importButton"),
+      content: t("pages.athleteImportPage.importButton"),
+      icon: <UploadIcon />,
+      collapseToText: true,
+      color: "primary",
+      key: "import-athlete",
+      variant: "solid",
+      operation: async () => {
+        setImportModalOpen(true);
+      },
+    },
+    {
       label: t("components.athleteDatagrid.table.toolbar.createAthlete.label"),
       content: t(
         "components.athleteDatagrid.table.toolbar.createAthlete.content",
@@ -313,6 +328,10 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
         disablePaging={false}
+      />
+      <AthleteImportModal
+        isOpen={addImportModalOpen}
+        setOpen={setImportModalOpen}
       />
       <AthleteRequestButton
         isOpen={addAthleteRequestModalOpen}
