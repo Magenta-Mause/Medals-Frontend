@@ -127,26 +127,26 @@ const AthleteExportModal = ({
       ? Object.values(AthletePerformanceExportColumn)
       : Object.values(AthleteExportColumn);
     const header =
-      columns.map((col) => attributeToGermanHeader[col] || col).join(";") +
+      columns.map((col) => attributeToGermanHeader[col] || col).join(",") +
       "\n";
 
     const rows = data
       .map((item) => {
         if (!withPerformance) {
-          return columns.map((col) => item[col] || "").join(";");
+          return columns.map((col) => item[col] || "").join(",");
         }
 
         const performanceRecordingsOfAthlete = performanceRecordings.filter(
           (p) => p.athlete_id === item.id,
         );
         if (performanceRecordingsOfAthlete.length === 0) {
-          return columns.map((col) => item[col] || "").join(";");
+          return columns.map((col) => item[col] || "").join(",");
         }
 
         const birthdate = item.birthdate ? new Date(item.birthdate) : null;
         const birthyear = birthdate
           ? birthdate.getFullYear().toString()
-          : "N/A";
+          : "";
 
         return performanceRecordingsOfAthlete
           .map((performance) => {
@@ -161,28 +161,28 @@ const AthleteExportModal = ({
               .map((col) => {
                 switch (col) {
                   case "first_name":
-                    return item.first_name || "N/A";
+                    return item.first_name || "";
                   case "last_name":
-                    return item.last_name || "N/A";
+                    return item.last_name || "";
                   case "gender":
-                    return item.gender || "N/A";
+                    return item.gender || "";
                   case "birthyear":
-                    return birthyear || "N/A";
+                    return birthyear || "";
                   case "birthday":
-                    return item.birthdate || "N/A";
+                    return item.birthdate || "";
                   case "discipline":
-                    return discipline?.name || "N/A";
+                    return discipline?.name || "";
                   case "category":
-                    return discipline?.category || "N/A";
+                    return discipline?.category || "";
                   case "date":
-                    return performance.date_of_performance || "N/A";
+                    return performance.date_of_performance || "";
                   case "result":
-                    return performance.rating_value || "N/A";
+                    return performance.rating_value || "";
                   case "points":
-                    return points || "N/A";
+                    return points || "";
                 }
               })
-              .join(";");
+              .join(",");
           })
           .join("\n");
       })
