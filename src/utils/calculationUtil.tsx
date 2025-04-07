@@ -6,7 +6,7 @@ const calculatePerformanceRecordingMedal = (
 ) => {
   const athlete = performanceRecording.athlete;
   const metric =
-    athlete.gender == Genders.w
+    athlete.gender == Genders.FEMALE
       ? performanceRecording.discipline_rating_metric.rating_female
       : performanceRecording.discipline_rating_metric.rating_male;
   const value = performanceRecording.rating_value;

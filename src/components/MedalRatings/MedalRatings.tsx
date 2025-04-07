@@ -75,7 +75,7 @@ const MedalRatings = ({ metric, selectedGender }: MedalRatingsProps) => {
   const unit = metric.discipline.unit || "";
 
   const getRating = (ratingMale: any, ratingFemale: any) =>
-    selectedGender === Genders.w ? ratingFemale : ratingMale;
+    selectedGender === Genders.FEMALE ? ratingFemale : ratingMale;
 
   const goldRating =
     getRating(
