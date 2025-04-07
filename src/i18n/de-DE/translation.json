@@ -88,10 +88,6 @@
       "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
       "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
     },
-    "performanceMetrics": {
-      "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
-      "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
-    },
     "acceptTrainerAccessRequest": {
       "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
       "failed": "Trainer Anfrage konnte nicht angenommen werden",

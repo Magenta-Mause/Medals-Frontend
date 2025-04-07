@@ -86,10 +86,6 @@
       "athleteNotFound": "Athlete not found",
       "fetchAthleteFailed": "Failed to fetch athlete data"
     },
-    "performanceMetrics": {
-      "athleteNotFound": "Athlete not found",
-      "fetchAthleteFailed": "Failed to fetch athlete data"
-    },
     "acceptTrainerAccessRequest": {
       "noLogin": "Login and accept the invitation again",
       "failed": "Could not accept the request",
