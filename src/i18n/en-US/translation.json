@@ -81,6 +81,15 @@
     "performanceMetrics": {
       "athleteNotFound": "Athlete not found",
       "fetchAthleteFailed": "Failed to fetch athlete data"
+    },
+    "acceptTrainerAccessRequest": {
+      "noLogin": "Login and accept the invitation again",
+      "failed": "Could not accept the request",
+      "success": "Request accepted"
+    },
+    "requestAthleteAccess": {
+      "failed": "Failed sending the request",
+      "success": "Request has been send"
     }
   },
   "pages": {
@@ -184,6 +193,11 @@
         }
       }
     },
+    "validateRequestPage": {
+      "header": "Request",
+      "subheader": "has requested access to you,\n would you like to accept the request?",
+      "accept": "Accept"
+    },
     "profilePage": {
       "header": "My Profile",
       "birthdate": "Birthdate",
@@ -278,6 +292,13 @@
         "/userRoleErrorPage": "User Role Error"
       }
     },
+    "requestAthleteModal": {
+      "header": "Request access to Athlete",
+      "searchAthlete": "Name",
+      "notFound": "No athletes found",
+      "requestAthleteButton": "Send",
+      "sendButton": "Sendet"
+    },
     "athleteDetailHeader": {
       "columns": {
         "id": "ID",
@@ -369,6 +390,16 @@
           "search": "Search",
           "birthYear": "Birth year",
           "gender": "Gender"
+        },
+        "toolbar": {
+          "addAthlete": {
+            "label": "Request",
+            "content": "Request athletes"
+          },
+          "createAthlete": {
+            "label": "Create",
+            "content": "Create athlete"
+          }
         }
       },
       "actions": {

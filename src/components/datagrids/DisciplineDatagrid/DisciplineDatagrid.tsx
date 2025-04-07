@@ -34,15 +34,13 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
 
   useEffect(() => {
     setData(
-      props.disciplines.map((discipline) => {
-        return {
-          ...discipline,
-          performanceRecordings: props.performanceRecordings.filter(
-            (recording) =>
-              recording.discipline_rating_metric.discipline.id == discipline.id,
-          ),
-        };
-      }),
+      props.disciplines.map((discipline) => ({
+        ...discipline,
+        performanceRecordings: props.performanceRecordings.filter(
+          (recording) =>
+            recording.discipline_rating_metric.discipline.id == discipline.id,
+        ),
+      })),
     );
   }, [props.performanceRecordings, props.disciplines]);
 
@@ -144,13 +142,13 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
           (a, b) =>
             Math.max(
               0,
-              ...a.performanceRecordings.map((p) =>
+              ...b.performanceRecordings.map((p) =>
                 parseInt(Date.parse(p.date_of_performance).toFixed()),
               ),
             ) -
             Math.max(
               0,
-              ...b.performanceRecordings.map((p) =>
+              ...a.performanceRecordings.map((p) =>
                 parseInt(Date.parse(p.date_of_performance).toFixed()),
               ),
             ),
@@ -164,5 +162,4 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
     </>
   );
 };
-
 export default DisciplineDatagrid;

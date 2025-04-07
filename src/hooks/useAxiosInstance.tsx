@@ -12,7 +12,8 @@ const useAxiosInstance = (baseUrl: string): AxiosInstance => {
     instance.interceptors.request.use(
       (config) => {
         config.headers.Authorization = authHeader;
-        config.headers["X-Selected-User"] = selectedUser?.id;
+        config.headers["X-Selected-User"] =
+          config.headers["X-Selected-User"] ?? selectedUser?.id;
         return config;
       },
       (error) => Promise.reject(error),

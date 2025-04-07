@@ -7,22 +7,20 @@ import { useTranslation } from "react-i18next";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-import { useSnackbar } from "notistack";
 import GenericModal from "../GenericModal";
 import { emailRegex } from "@components/Regex/Regex";
 import { Genders } from "@customTypes/enums";
 
-interface ModalProps {
+const isValidEmail = (email: string) => emailRegex.test(email);
+
+interface AthleteCreateModalProps {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const isValidEmail = (email: string) => emailRegex.test(email);
-
-const AthleteCreationForm = (props: ModalProps) => {
+const AthleteCreationForm = (props: AthleteCreateModalProps) => {
   const { t } = useTranslation();
   const { createAthlete } = useApi();
-  const { enqueueSnackbar } = useSnackbar();
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
     last_name: "",
@@ -132,6 +130,15 @@ const AthleteCreationForm = (props: ModalProps) => {
         open={props.isOpen}
         setOpen={props.setOpen}
         modalDialogSX={{ minWidth: "30%" }}
+        modalSX={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          left: {
+            md: "var(--Sidebar-width)",
+            sm: "0",
+          },
+        }}
       >
         <Typography level="h2" component="h1">
           {t("pages.athleteCreationPage.createHeader")}
@@ -265,14 +272,6 @@ const AthleteCreationForm = (props: ModalProps) => {
           onClick={() => {
             {
               createAthlete(athlete);
-              enqueueSnackbar(
-                t("pages.athleteImportPage.feedback1") +
-                  athlete.first_name +
-                  " " +
-                  athlete.last_name +
-                  t("pages.athleteImportPage.feedback2"),
-                { variant: "success" },
-              );
               props.setOpen(false);
               setAthlete((prevUser: Athlete) => ({
                 ...prevUser,
