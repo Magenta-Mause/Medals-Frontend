@@ -51,6 +51,12 @@ const AthleteExportModal = (props: {
     }
   }, [athletes]);
 
+  useEffect(()=> {
+    if(props.isOpen && athletes.length === 0){
+      props.setOpen(false);
+    }
+  },[athletes.length, props.setOpen])
+
   const generateCSV = (data: any[], withPerformance: boolean) => {
     const attributeToGermanHeader: Record<string, string> = {
       first_name: "Vorname",
