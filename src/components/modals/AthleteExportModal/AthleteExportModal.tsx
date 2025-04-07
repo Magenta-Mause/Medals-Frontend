@@ -1,25 +1,35 @@
 import { t } from "i18next";
 import GenericModal from "../GenericModal";
-import { Box, Button, Checkbox, IconButton, Sheet, Table } from "@mui/joy";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Sheet,
+  Typography,
+} from "@mui/joy";
 import {
   Athlete,
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import React, { useEffect, useState } from "react";
-import { IosShareRounded, Remove } from "@mui/icons-material";
+import { IosShareRounded } from "@mui/icons-material";
 import { useTypedSelector } from "@stores/rootReducer";
 import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
 } from "@utils/calculationUtil";
-import { useMediaQuery } from "@uidotdev/usehooks";
 import { useLocation } from "react-router";
 import { useSnackbar } from "notistack";
 import {
   AthleteExportColumn,
   AthletePerformanceExportColumn,
 } from "@customTypes/enums";
+import GenericResponsiveDatagrid, {
+  Action,
+} from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
+import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
+import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 
 interface AthleteExportModalProps {
   isOpen: boolean;
@@ -36,7 +46,7 @@ const AthleteExportModal = ({
 }: AthleteExportModalProps) => {
   const location = useLocation();
   const [athletes, setAthletes] = useState(selectedAthletes);
-  const [, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   const [withPerformance, setWithPerformance] = useState(includePerformance);
   const performanceRecordings = useTypedSelector(
@@ -64,6 +74,38 @@ const AthleteExportModal = ({
       setOpen(false);
     }
   }, [athletes.length, setOpen, isOpen]);
+
+  const columns: Column<Athlete>[] = [
+    {
+      columnName: t("components.athleteDatagrid.table.columns.firstName"),
+      columnMapping(item) {
+        return <Typography>{item.first_name}</Typography>;
+      },
+      sortable: true,
+    },
+    {
+      columnName: t("components.athleteDatagrid.table.columns.lastName"),
+      columnMapping(item) {
+        return <Typography>{item.last_name}</Typography>;
+      },
+      sortable: true,
+    },
+  ];
+
+  const actions: Action<Athlete>[] = [
+    {
+      label: (
+        <>{t("components.athleteExportModal.removeFromSelectionButton")}</>
+      ),
+      color: "danger",
+      key: "remove",
+      operation: async (item) => {
+        setAthletes((prev: any[]) => prev.filter((a) => a.id !== item.id));
+      },
+    },
+  ];
+
+  const mobileRendering: MobileTableRendering<Athlete> = {};
 
   const generateCSV = (data: any[], withPerformance: boolean) => {
     const attributeToGermanHeader: Record<string, string> = {
@@ -223,88 +265,31 @@ const AthleteExportModal = ({
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
-            width: "100%",
+            flexDirection: "column",
+            "& > div": { p: 1, borderRadius: "md", display: "flex" },
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              "& > div": { p: 1, borderRadius: "md", display: "flex" },
-            }}
-          >
-            <Sheet variant="plain">
-              <Checkbox
-                variant="outlined"
-                color="primary"
-                overlay
-                label={t("components.athleteExportModal.performanceCheckbox")}
-                checked={withPerformance}
-                onChange={(event) => setWithPerformance(event.target.checked)}
-              />
-            </Sheet>
-          </Box>
+          <Sheet variant="plain">
+            <Checkbox
+              variant="outlined"
+              color="primary"
+              overlay
+              label={t("components.athleteExportModal.performanceCheckbox")}
+              checked={withPerformance}
+              onChange={(event) => setWithPerformance(event.target.checked)}
+            />
+          </Sheet>
         </Box>
         <Box sx={{ overflow: "auto", maxHeight: "400px" }}>
-          <Sheet>
-            <Table
-              borderAxis="x"
-              color="neutral"
-              size="md"
-              stickyFooter={false}
-              stickyHeader
-              hoverRow
-              variant="plain"
-              sx={{
-                "--TableCell-headBackground":
-                  "var(--joy-palette-background-level1)",
-                "--Table-headerUnderlineThickness": "1px",
-                "--TableCell-paddingY": "4px",
-                "--TableCell-paddingX": "8px",
-                "--TableRow-hoverBackground":
-                  "var(--joy-palette-background-level1)",
-                pl: 1,
-                pr: 1,
-              }}
-            >
-              <thead>
-                <th>
-                  {t("components.athleteDatagrid.table.columns.firstName")}
-                </th>
-                <th>
-                  {t("components.athleteDatagrid.table.columns.lastName")}
-                </th>
-                <th style={{ width: "120px", textAlign: "right" }}>
-                  {t("components.athleteExportModal.removeFromSelectionButton")}
-                </th>
-              </thead>
-              <tbody>
-                {athletes.map((athlete) => (
-                  <tr key={athlete.id}>
-                    <td>{athlete.first_name}</td>
-                    <td>{athlete.last_name}</td>
-                    <td style={{ textAlign: "right" }}>
-                      <IconButton
-                        about="remove"
-                        variant="soft"
-                        color="danger"
-                        size="sm"
-                        sx={{ fontSize: "0.7rem", fontWeight: "100" }}
-                        onClick={() => {
-                          setAthletes((prev: any[]) =>
-                            prev.filter((a) => a.id !== athlete.id),
-                          );
-                        }}
-                      >
-                        <Remove />
-                      </IconButton>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Sheet>
+          <GenericResponsiveDatagrid
+            isLoading={isLoading}
+            data={athletes}
+            columns={columns}
+            actionMenu={actions}
+            keyOf={(item) => item.id!}
+            mobileRendering={mobileRendering}
+            disablePaging={true}
+          />
         </Box>
         <Button fullWidth color="primary" onClick={handleExport}>
           {t("components.athleteExportModal.exportButton")}
