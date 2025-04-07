@@ -29,3 +29,24 @@ export enum Genders {
   FEMALE = "FEMALE",
   MALE = "MALE",
 }
+
+export enum AthleteExportColumn{
+    FirstName = "first_name",
+    LastName = "last_name",
+    Email = "email",
+    Birthdate = "birthdate",
+    Gender = "gender", 
+}
+
+export enum AthletePerformanceExportColumn {
+  FirstName = "first_name",
+  LastName = "last_name",
+  Gender = "gender",
+  Birthyear = "birthyear",
+  Birthday = "birthday",
+  Discipline = "discipline",
+  Category = "category",
+  Date = "date",
+  Result = "result",
+  Points = "points",  
+}

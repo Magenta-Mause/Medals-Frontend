@@ -16,6 +16,7 @@ import {
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useLocation } from "react-router";
 import { useSnackbar } from "notistack";
+import { AthleteExportColumn, AthletePerformanceExportColumn } from "@customTypes/enums";
 
 const AthleteExportModal = (props: {
   isOpen: boolean;
@@ -72,20 +73,9 @@ const AthleteExportModal = (props: {
       result: "Ergebnis",
       points: "Punkte",
     };
-    const columns = withPerformance
-      ? [
-          "first_name",
-          "last_name",
-          "gender",
-          "birthyear",
-          "birthday",
-          "discipline",
-          "category",
-          "date",
-          "result",
-          "points",
-        ]
-      : ["first_name", "last_name", "email", "birthdate", "gender"];
+    const columns: string[] = withPerformance
+      ? Object.values(AthletePerformanceExportColumn)
+      : Object.values(AthleteExportColumn)
     const header =
       columns.map((col) => attributeToGermanHeader[col] || col).join(";") +
       "\n";
