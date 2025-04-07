@@ -21,20 +21,25 @@ import {
   AthletePerformanceExportColumn,
 } from "@customTypes/enums";
 
-const AthleteExportModal = (props: {
+interface AthleteExportModalProps {
   isOpen: boolean;
   setOpen: (open: boolean) => void;
   selectedAthletes: Athlete[];
   includePerformance: boolean;
-}) => {
+}
+
+const AthleteExportModal = ({
+  isOpen,
+  setOpen,
+  selectedAthletes,
+  includePerformance,
+}: AthleteExportModalProps) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const location = useLocation();
-  const [athletes, setAthletes] = useState(props.selectedAthletes);
+  const [athletes, setAthletes] = useState(selectedAthletes);
   const [, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
-  const [withPerformance, setWithPerformance] = useState(
-    props.includePerformance,
-  );
+  const [withPerformance, setWithPerformance] = useState(includePerformance);
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
@@ -43,11 +48,11 @@ const AthleteExportModal = (props: {
   ) as Discipline[];
 
   useEffect(() => {
-    if (props.isOpen) {
+    if (isOpen) {
       setLoading(true);
-      setAthletes(props.selectedAthletes);
+      setAthletes(selectedAthletes);
     }
-  }, [props.isOpen, props.selectedAthletes]);
+  }, [isOpen, selectedAthletes]);
 
   useEffect(() => {
     if (athletes.length > 0) {
@@ -56,10 +61,10 @@ const AthleteExportModal = (props: {
   }, [athletes]);
 
   useEffect(() => {
-    if (props.isOpen && athletes.length === 0) {
-      props.setOpen(false);
+    if (isOpen && athletes.length === 0) {
+      setOpen(false);
     }
-  }, [athletes.length, props.setOpen]);
+  }, [athletes.length, setOpen, isOpen]);
 
   const generateCSV = (data: any[], withPerformance: boolean) => {
     const attributeToGermanHeader: Record<string, string> = {
@@ -200,7 +205,7 @@ const AthleteExportModal = (props: {
         >
           <Button
             variant="soft"
-            onClick={() => props.setOpen(true)}
+            onClick={() => setOpen(true)}
             sx={{ display: "flex", gap: 0.5 }}
           >
             <IosShareRounded sx={{ fontSize: "20px" }} />
@@ -209,8 +214,8 @@ const AthleteExportModal = (props: {
         </Box>
       )}
       <GenericModal
-        open={props.isOpen}
-        setOpen={props.setOpen}
+        open={isOpen}
+        setOpen={setOpen}
         header={t("components.athleteExportModal.header")}
         modalDialogSX={{
           width: "600px",
