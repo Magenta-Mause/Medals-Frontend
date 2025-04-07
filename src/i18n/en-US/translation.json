@@ -89,7 +89,7 @@
     },
     "requestAthleteAccess": {
       "failed": "Failed sending the request",
-      "success": "Request has been send"
+      "success": "Request has been sent"
     },
     "athleteExportModal": {
       "noAthleteSelected": "Please select at least one athlete",
@@ -303,7 +303,7 @@
       "searchAthlete": "Name",
       "notFound": "No athletes found",
       "requestAthleteButton": "Send",
-      "sendButton": "Sendet"
+      "sendButton": "Sent"
     },
     "athleteDetailHeader": {
       "columns": {
