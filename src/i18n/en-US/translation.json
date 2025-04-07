@@ -2,13 +2,15 @@
   "languages": {
     "de": "Deutsch",
     "en": "English",
-    "es": "Española"
+    "es": "Española",
+    "fr": "Français",
+    "nl": "Néerlandais"
   },
   "genders": {
     "DIVERSE": "Diverse",
     "FEMALE": "Female",
     "MALE": "Male",
-    "": "All"
+    "ALL": "All"
   },
   "userTypes": {
     "ATHLETE": "Athlete",
@@ -52,7 +54,8 @@
     "tooYoung": "to young",
     "invalid": "invalid",
     "loading": "Loading...",
-    "submit": "Submit"
+    "submit": "Submit",
+    "password": "Password"
   },
   "snackbar": {
     "login": {
@@ -74,6 +77,19 @@
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"
     },
+    "performanceMetrics": {
+      "athleteNotFound": "Athlete not found",
+      "fetchAthleteFailed": "Failed to fetch athlete data"
+    },
+    "acceptTrainerAccessRequest": {
+      "noLogin": "Login and accept the invitation again",
+      "failed": "Could not accept the request",
+      "success": "Request accepted"
+    },
+    "requestAthleteAccess": {
+      "failed": "Failed sending the request",
+      "success": "Request has been send"
+    },
     "athleteExportModal": {
       "noAthleteSelected": "Please select at least one athlete",
       "exportError": "Error generating the CSV file",
@@ -90,8 +106,7 @@
       "createPerformanceRecordingButton": "Record performance"
     },
     "athleteOverviewPage": {
-      "header": "Athletes",
-      "createButton": "Create athlete"
+      "header": "Athletes"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -123,6 +138,10 @@
     },
     "loginPage": {
       "logo": "Medals",
+      "userSelection": {
+        "header": "Choose your profile",
+        "subheader": "Pick the profile you want to continue with"
+      },
       "signIn": {
         "header": "Login",
         "subheader": "Medals - The soon to be Medal Management System",
@@ -131,6 +150,7 @@
           "password": "Password"
         },
         "forgotPassword": "Forgot password?",
+        "acceptOur": "I accept the",
         "privacyPolicy": "Privacy Policy",
         "submit": "Login",
         "loginFailedWarning": "Login failed",
@@ -164,6 +184,11 @@
           "noCode": "Verification email sent"
         }
       }
+    },
+    "validateRequestPage": {
+      "header": "Request",
+      "subheader": "has requested access to you,\n would you like to accept the request?",
+      "accept": "Accept"
     },
     "profilePage": {
       "header": "My Profile",
@@ -227,15 +252,16 @@
       "photoBy": "Photo by"
     },
     "performanceMetricsPage": {
-      "title": "Performance Metrics",
+      "title": {
+        "default": "Performance Metrics",
+        "athlete": "Your Requirements"
+      },
       "filters": {
         "year": "Year",
         "ageGroup": "Age Group",
         "gender": "Gender"
       },
-      "tooltips": {
-        "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used and also considered in the evaluation."
-      }
+      "resetFilter": "Reset Filter"
     }
   },
   "components": {
@@ -257,6 +283,13 @@
         "/credits": "Credits",
         "/userRoleErrorPage": "User Role Error"
       }
+    },
+    "requestAthleteModal": {
+      "header": "Request access to Athlete",
+      "searchAthlete": "Name",
+      "notFound": "No athletes found",
+      "requestAthleteButton": "Send",
+      "sendButton": "Sendet"
     },
     "athleteDetailHeader": {
       "columns": {
@@ -349,6 +382,16 @@
           "search": "Search",
           "birthYear": "Birth year",
           "gender": "Gender"
+        },
+        "toolbar": {
+          "addAthlete": {
+            "label": "Request",
+            "content": "Request athletes"
+          },
+          "createAthlete": {
+            "label": "Create",
+            "content": "Create athlete"
+          }
         }
       },
       "actions": {
@@ -399,7 +442,7 @@
       "hasNumber": "Password contains a number",
       "hasUpperCase": "Password contains an uppercase letter",
       "hasSpecial": "Password contains a special character",
-      "required": "Required"
+      "fieldRequired": "constraint is required"
     },
     "disclaimer": {
       "text": "This application is a university project and not an official service (e.g., Sportabzeichen-Digital). It is not endorsed or provided by any official organization. No official certifications or claims are provided."
@@ -444,7 +487,10 @@
       "profileButton": "Account Settings",
       "switchUserButton": "Switch User",
       "logoutButton": "Logout",
-      "languageSelectionButton": "Change language"
+      "languageSelectionButton": "Change language",
+      "selectUser": "Continue with this user",
+      "showPassword": "Show/Hide password",
+      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
     },
     "athleteExportModal": {
       "header": "Athlete Export",

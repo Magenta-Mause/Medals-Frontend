@@ -16,7 +16,10 @@ import {
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useLocation } from "react-router";
 import { useSnackbar } from "notistack";
-import { AthleteExportColumn, AthletePerformanceExportColumn } from "@customTypes/enums";
+import {
+  AthleteExportColumn,
+  AthletePerformanceExportColumn,
+} from "@customTypes/enums";
 
 const AthleteExportModal = (props: {
   isOpen: boolean;
@@ -65,7 +68,7 @@ const AthleteExportModal = (props: {
       [AthleteExportColumn.Email]: "Email",
       [AthleteExportColumn.Birthdate]: "Geburtsdatum",
       [AthleteExportColumn.Gender]: "Geschlecht",
-    
+
       [AthletePerformanceExportColumn.Birthyear]: "Geburtsjahr",
       [AthletePerformanceExportColumn.Birthday]: "Geburtstag",
       [AthletePerformanceExportColumn.Discipline]: "Übung",
@@ -76,7 +79,7 @@ const AthleteExportModal = (props: {
     };
     const columns: string[] = withPerformance
       ? Object.values(AthletePerformanceExportColumn)
-      : Object.values(AthleteExportColumn)
+      : Object.values(AthleteExportColumn);
     const header =
       columns.map((col) => attributeToGermanHeader[col] || col).join(";") +
       "\n";
@@ -102,7 +105,8 @@ const AthleteExportModal = (props: {
         return performanceRecordingsOfAthlete
           .map((performance) => {
             const discipline = disciplines.find(
-              (d) => d.id === performance.discipline_rating_metric.discipline.id,
+              (d) =>
+                d.id === performance.discipline_rating_metric.discipline.id,
             );
             const points = convertMedalToNumber(
               calculatePerformanceRecordingMedal(performance),
@@ -197,9 +201,9 @@ const AthleteExportModal = (props: {
           <Button
             variant="soft"
             onClick={() => props.setOpen(true)}
-            sx={{ display: "flex", gap:0.5}}
+            sx={{ display: "flex", gap: 0.5 }}
           >
-            <IosShareRounded sx={{fontSize: "20px"}}/>
+            <IosShareRounded sx={{ fontSize: "20px" }} />
             {t("components.athleteExportModal.exportButton")}
           </Button>
         </Box>

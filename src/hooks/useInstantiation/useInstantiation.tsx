@@ -31,7 +31,7 @@ import {
   setTrainers,
 } from "@stores/slices/trainerSlice";
 import { setDisciplineMetrics } from "@stores/slices/disciplineRatingMetricSlice";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import useApi from "../useApi";
 import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
@@ -39,6 +39,9 @@ import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
 const useInstantiation = () => {
   const dispatch = useDispatch();
   const { selectedUser } = useContext(AuthContext);
+  const [currentlyInitialized, setCurrentlyInitialized] = useState<
+    number | null
+  >(null);
   const {
     getAthletes,
     getPerformanceRecordings,
@@ -99,65 +102,98 @@ const useInstantiation = () => {
   );
 
   const instantiateAdmin = useCallback(async () => {
-    dispatch(setTrainers((await getTrainers()) ?? []));
-    dispatch(setAthletes((await getAthletes()) ?? []));
-    dispatch(setDisciplines((await getDisciplines()) ?? []));
-    dispatch(
-      setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
-    );
-    dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
+    if (currentlyInitialized != selectedUser?.id) {
+      setCurrentlyInitialized(selectedUser?.id ?? null);
+      dispatch(setTrainers((await getTrainers()) ?? []));
+      dispatch(setAthletes((await getAthletes()) ?? []));
+      dispatch(setDisciplines((await getDisciplines()) ?? []));
+      dispatch(
+        setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
+      );
+      dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
 
-    setTimeout(() => {
-      initializeAthleteWebsocket();
-      initializeDisciplineWebsocket();
-      initializeTrainerWebsocket();
-      initializePerformanceRecordingWebsocket();
-    }, 500);
+      setTimeout(() => {
+        uninitializeAthleteWebsocket();
+        uninitializeDisciplineWebsocket();
+        uninitializeTrainerWebsocket();
+        uninitializePerformanceRecordingWebsocket();
+
+        initializeAthleteWebsocket();
+        initializeDisciplineWebsocket();
+        initializeTrainerWebsocket();
+        initializePerformanceRecordingWebsocket();
+      }, 500);
+    }
   }, [
-    initializeTrainerWebsocket,
+    currentlyInitialized,
+    selectedUser,
     dispatch,
     getAthletes,
     getDisciplines,
     getTrainers,
     getPerformanceRecordings,
     getDisciplineMetrics,
+    uninitializeAthleteWebsocket,
+    uninitializeDisciplineWebsocket,
+    uninitializePerformanceRecordingWebsocket,
+    uninitializeTrainerWebsocket,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
+    initializeTrainerWebsocket,
     initializePerformanceRecordingWebsocket,
   ]);
 
   const instantiateTrainer = useCallback(async () => {
-    dispatch(setAthletes((await getAthletes()) ?? []));
-    dispatch(setDisciplines((await getDisciplines()) ?? []));
-    dispatch(
-      setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
-    );
-    dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
+    if (currentlyInitialized != selectedUser?.id) {
+      setCurrentlyInitialized(selectedUser?.id ?? null);
+      dispatch(setAthletes((await getAthletes()) ?? []));
+      dispatch(setDisciplines((await getDisciplines()) ?? []));
+      dispatch(
+        setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
+      );
+      dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
 
-    setTimeout(() => {
-      uninitializeTrainerWebsocket();
-      initializeAthleteWebsocket();
-      initializeDisciplineWebsocket();
-      initializePerformanceRecordingWebsocket();
-    }, 700);
+      setTimeout(() => {
+        uninitializeAthleteWebsocket();
+        uninitializeDisciplineWebsocket();
+        uninitializePerformanceRecordingWebsocket();
+
+        initializeAthleteWebsocket();
+        initializeDisciplineWebsocket();
+        initializePerformanceRecordingWebsocket();
+      }, 700);
+    }
   }, [
-    uninitializeTrainerWebsocket,
+    currentlyInitialized,
+    selectedUser,
     dispatch,
     getAthletes,
     getDisciplines,
     getPerformanceRecordings,
     getDisciplineMetrics,
+    uninitializeAthleteWebsocket,
+    uninitializeDisciplineWebsocket,
+    uninitializePerformanceRecordingWebsocket,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
     initializePerformanceRecordingWebsocket,
   ]);
 
   const instantiateAthlete = useCallback(async () => {
-    uninitializeAthleteWebsocket();
-    uninitializeDisciplineWebsocket();
-    uninitializeTrainerWebsocket();
-    uninitializePerformanceRecordingWebsocket();
+    if (currentlyInitialized != selectedUser?.id) {
+      setCurrentlyInitialized(selectedUser?.id ?? null);
+      dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
+
+      uninitializeAthleteWebsocket();
+      uninitializeDisciplineWebsocket();
+      uninitializeTrainerWebsocket();
+      uninitializePerformanceRecordingWebsocket();
+    }
   }, [
+    currentlyInitialized,
+    selectedUser,
+    dispatch,
+    getDisciplineMetrics,
     uninitializeTrainerWebsocket,
     uninitializeAthleteWebsocket,
     uninitializeDisciplineWebsocket,

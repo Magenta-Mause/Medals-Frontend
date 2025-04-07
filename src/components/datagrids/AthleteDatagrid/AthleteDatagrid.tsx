@@ -1,13 +1,12 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Box, Chip, Typography } from "@mui/joy";
-import { removeAthlete } from "@stores/slices/athleteSlice";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
+  ToolbarAction,
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
@@ -18,6 +17,9 @@ import {
   convertMedalToNumber,
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
+import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
+import { PersonSearch, PersonAdd } from "@mui/icons-material";
+import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
 import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 
@@ -31,9 +33,11 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
+    useState(false);
+  const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
 
@@ -99,6 +103,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
               display: "flex",
               justifyContent: "left",
             }}
+            key={item.id}
           >
             {Object.values(DisciplineCategories).map((category) => {
               const performanceRecordingsOfCategory =
@@ -108,11 +113,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
                 );
               const bestValue = performanceRecordingsOfCategory
                 .map((p) => calculatePerformanceRecordingMedal(p))
-                .sort((m) => convertMedalToNumber(m))[0];
+                .sort((m) => convertMedalToNumber(m))
+                .reverse()[0];
               return (
                 <MedalIcon
                   category={category}
                   medalType={bestValue ?? Medals.NONE}
+                  key={item.id + category}
                 />
               );
             })}
@@ -161,7 +168,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       type: "SELECTION",
       selection: [
         {
-          displayValue: <Typography>{t("genders.")}</Typography>,
+          displayValue: <Typography>{t("genders.ALL")}</Typography>,
           value: "",
         },
         {
@@ -180,12 +187,41 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
   ];
 
+  const toolbarActions: ToolbarAction[] = [
+    {
+      label: t("components.athleteDatagrid.table.toolbar.createAthlete.label"),
+      content: t(
+        "components.athleteDatagrid.table.toolbar.createAthlete.content",
+      ),
+      icon: <PersonAdd />,
+      collapseToText: true,
+      color: "primary",
+      key: "invite-trainer",
+      variant: "solid",
+      operation: async () => {
+        setCreateAthleteModalOpen(true);
+      },
+    },
+    {
+      label: t("components.athleteDatagrid.table.toolbar.addAthlete.label"),
+      content: t("components.athleteDatagrid.table.toolbar.addAthlete.content"),
+      icon: <PersonSearch />,
+      collapseToText: true,
+      color: "primary",
+      key: "invite-trainer",
+      variant: "solid",
+      operation: async () => {
+        setAddAthleteRequestModalOpen(true);
+      },
+    },
+  ];
+
   const actions: Action<Athlete>[] = [
     {
       label: <>{t("components.athleteDatagrid.actions.edit")}</>,
       color: "primary",
       key: "edit",
-      operation: function (item): void {
+      operation: async (item) => {
         console.log("Editing Athlete:", item);
       },
     },
@@ -194,7 +230,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       color: "primary",
       key: "export",
       variant: "outlined",
-      operation: function (item): void {
+      operation: async (item) => {
         setSelectedAthletes((prev) => [...prev, item]);
         console.log("Selected Athletes for export:", item);
         setExportModalOpen(true);
@@ -205,15 +241,14 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       color: "danger",
       key: "delete",
       variant: "outlined",
-      operation: function (item): void {
-        dispatch(removeAthlete({ id: item.id! }));
-        deleteAthlete(item.id!);
+      operation: async (item) => {
+        await deleteAthlete(item.id!);
         console.log("Deleted Athlete:", item);
       },
     },
   ];
 
-  const itemCallback = (item: Athlete) => {
+  const itemCallback = async (item: Athlete) => {
     navigate("/athletes/" + item.id);
   };
 
@@ -297,12 +332,21 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         data={props.athletes}
         columns={columns}
         filters={filters}
+        toolbarActions={toolbarActions}
         actionMenu={actions}
         itemSelectionActions={actions}
         keyOf={(item) => item.id!}
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
         disablePaging={false}
+      />
+      <AthleteRequestButton
+        isOpen={addAthleteRequestModalOpen}
+        setOpen={setAddAthleteRequestModalOpen}
+      />
+      <AthleteCreationForm
+        isOpen={createAthletModalOpen}
+        setOpen={setCreateAthleteModalOpen}
       />
     </>
   );

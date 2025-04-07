@@ -123,60 +123,63 @@ const PerformanceMetricDatagrid: React.FC<PerformanceMetricDatagridProps> = ({
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      {Object.entries(groupedMetrics).map(([category, metrics]) => (
-        <Accordion
-          key={category}
-          defaultExpanded
-          sx={(theme) => ({
-            background: "rgba(0, 0, 0, 0.05)",
-            padding: 1,
-            borderRadius: 10,
-            [theme.getColorSchemeSelector("dark")]: {
-              background: "rgba(255, 255, 255, 0.08)",
-            },
-          })}
-        >
-          <AccordionSummary
-            sx={{
-              marginY: 1,
-              borderRadius: 25,
-              gap: { md: 3, xs: 1 },
-            }}
-            slotProps={{ button: { sx: { borderRadius: 10 } } }}
+      {Object.entries(groupedMetrics)
+        .sort()
+        .map(([category, metrics]) => (
+          <Accordion
+            key={category}
+            defaultExpanded
+            sx={(theme) => ({
+              background: "rgba(0, 0, 0, 0.05)",
+              borderRadius: 10,
+              [theme.getColorSchemeSelector("dark")]: {
+                background: "rgba(255, 255, 255, 0.08)",
+              },
+              p: 1,
+            })}
           >
-            <Box
+            <AccordionSummary
               sx={{
-                display: "flex",
-                alignContent: "center",
-                alignItems: "center",
-                justifyItems: "flex-start",
-                gap: { md: 5, xs: 1.5 },
-                pl: { md: 2, xs: 1 },
-                width: "100%",
-                "> svg": {
-                  height: "30px",
-                  width: "30px",
-                },
+                marginY: 1,
+                borderRadius: 25,
+                gap: { md: 3, xs: 1 },
+                px: 1,
               }}
+              slotProps={{ button: { sx: { borderRadius: 10 } } }}
             >
-              {DisciplineIcons[category as DisciplineCategories]({})}
-              <Typography level="h3">
-                {t(`disciplines.categories.${category}.label`)}
-              </Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-            <GenericResponsiveDatagrid<DisciplineRatingMetric>
-              data={metrics}
-              columns={columns}
-              keyOf={(metric) => metric.id}
-              isLoading={false}
-              mobileRendering={mobileRendering}
-              disablePaging={true}
-            />
-          </AccordionDetails>
-        </Accordion>
-      ))}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignContent: "center",
+                  alignItems: "center",
+                  justifyItems: "flex-start",
+                  gap: { md: 5, xs: 1.5 },
+                  width: "100%",
+                  "> svg": {
+                    height: "30px",
+                    width: "30px",
+                  },
+                  p: 1,
+                }}
+              >
+                {DisciplineIcons[category as DisciplineCategories]({})}
+                <Typography level="h3">
+                  {t(`disciplines.categories.${category}.label`)}
+                </Typography>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              <GenericResponsiveDatagrid<DisciplineRatingMetric>
+                data={metrics}
+                columns={columns}
+                keyOf={(metric) => metric.id}
+                isLoading={false}
+                mobileRendering={mobileRendering}
+                disablePaging={true}
+              />
+            </AccordionDetails>
+          </Accordion>
+        ))}
     </Box>
   );
 };

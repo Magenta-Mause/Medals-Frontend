@@ -121,8 +121,8 @@ const PerformanceRecordingDatagrid = (
     {
       label: t("components.performanceRecordingDatagrid.actions.delete"),
       key: "delete",
-      operation: (item) => {
-        deletePerformanceRecording(item.id);
+      operation: async (item) => {
+        await deletePerformanceRecording(item.id);
       },
       color: "danger",
     },
@@ -133,8 +133,8 @@ const PerformanceRecordingDatagrid = (
         {
           label: t("pages.athleteDetailPage.createPerformanceRecordingButton"),
           key: "addRecording",
-          operation: () => {
-            setCreationModalOpen(true);
+          operation: async () => {
+            await setCreationModalOpen(true);
           },
           icon: <IoIosCreate />,
           content: t(

@@ -16,7 +16,9 @@ import PerformanceMetricsPage from "@pages/PerformanceMetrics/PerformanceMetrics
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
+import ValidateInvitePage from "@pages/AcceptTrainerAccessRequestPage/AcceptTrainerAccessRequestPage";
 import { useContext } from "react";
+
 import { Route, Routes } from "react-router";
 
 const RoutingComponent = () => {
@@ -27,6 +29,7 @@ const RoutingComponent = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/setPassword" element={<SetPasswordPage />} />
       <Route path="/resetPassword" element={<ResetPasswordPage />} />
+      <Route path="/approve-request" element={<ValidateInvitePage />} />
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/imprint" element={<ImprintPage />} />
@@ -48,7 +51,7 @@ const RoutingComponent = () => {
 
           {/* ATHLETE */}
           <Route path="/dashboard" element={<InDevelopmentPage />} />
-          <Route path="/requirements" element={<InDevelopmentPage />} />
+          <Route path="/requirements" element={<PerformanceMetricsPage />} />
           <Route path="/performances" element={<InDevelopmentPage />} />
 
           {/* Shared Pages */}
