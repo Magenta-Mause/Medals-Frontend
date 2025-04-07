@@ -143,7 +143,16 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
   };
 
   const normalizeGender = (gender: string | undefined) => {
-    const normalized = gender?.trim().toLowerCase();
+    let normalized = "";
+    if (gender?.trim().toLowerCase() === "m") {
+      normalized = "MALE";
+    }
+    if (gender?.trim().toLowerCase() === "d") {
+      normalized = "DIVERSE";
+    }
+    if (gender?.trim().toLowerCase() === "w") {
+      normalized = "FEMALE";
+    }
     return Genders[normalized as keyof typeof Genders];
   };
 

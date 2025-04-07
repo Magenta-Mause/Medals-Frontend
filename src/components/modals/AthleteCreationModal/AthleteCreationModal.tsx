@@ -256,9 +256,9 @@ const AthleteCreationForm = (props: AthleteCreateModalProps) => {
             onChange={handleChangeGender}
             color={inputValid.gender ? "neutral" : "danger"}
           >
-            <Option value={Genders.w}>{t("genders.FEMALE")}</Option>
-            <Option value={Genders.m}>{t("genders.MALE")}</Option>
-            <Option value={Genders.d}>{t("genders.DIVERSE")}</Option>
+            <Option value={Genders.FEMALE}>{t("genders.FEMALE")}</Option>
+            <Option value={Genders.MALE}>{t("genders.MALE")}</Option>
+            <Option value={Genders.DIVERSE}>{t("genders.DIVERSE")}</Option>
           </Select>
         </Box>
         <Button

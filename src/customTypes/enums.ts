@@ -25,9 +25,9 @@ export enum Medals {
 }
 
 export enum Genders {
-  d = "DIVERSE",
-  w = "FEMALE",
-  m = "MALE",
+  DIVERSE = "DIVERSE",
+  FEMALE = "FEMALE",
+  MALE = "MALE",
 }
 
 export enum AthleteValidityState {
