@@ -37,6 +37,7 @@ const AthleteExportModal = (props: {
   const disciplines = useTypedSelector(
     (state) => state.disciplines.data,
   ) as Discipline[];
+
   useEffect(() => {
     if (props.isOpen) {
       setLoading(true);
@@ -272,7 +273,7 @@ const AthleteExportModal = (props: {
                 <th>
                   {t("components.athleteDatagrid.table.columns.lastName")}
                 </th>
-                <th style={{ width: "75px", textAlign: "right" }}>
+                <th style={{ width: "120px", textAlign: "right" }}>
                   {t("components.athleteExportModal.removeFromSelectionButton")}
                 </th>
               </thead>
