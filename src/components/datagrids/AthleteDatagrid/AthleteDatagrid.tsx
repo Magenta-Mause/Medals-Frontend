@@ -171,7 +171,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       icon: <PersonAdd />,
       collapseToText: true,
       color: "primary",
-      key: "invite-trainer",
+      key: "create-athlete",
       variant: "solid",
       operation: async () => {
         setCreateAthleteModalOpen(true);
@@ -183,7 +183,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       icon: <PersonSearch />,
       collapseToText: true,
       color: "primary",
-      key: "invite-trainer",
+      key: "add-athlete",
       variant: "solid",
       operation: async () => {
         setAddAthleteRequestModalOpen(true);
