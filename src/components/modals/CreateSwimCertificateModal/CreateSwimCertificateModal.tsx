@@ -18,45 +18,45 @@ interface CreateSwimCertificateModalProps {
 const certificateOptions = [
   {
     value: SwimmingCertificateType.ENDURANCE,
-    labelKey: "components.createSwimCertificateModal.options.endurance.label",
+    labelKey: "components.createSwimCertificateModal.options.ENDURANCE.label",
     descriptionKey:
-      "components.createSwimCertificateModal.options.endurance.description",
+      "components.createSwimCertificateModal.options.ENDURANCE.description",
   },
   {
     value: SwimmingCertificateType.SPRINT,
-    labelKey: "components.createSwimCertificateModal.options.sprint.label",
+    labelKey: "components.createSwimCertificateModal.options.SPRINT.label",
     descriptionKey:
-      "components.createSwimCertificateModal.options.sprint.description",
+      "components.createSwimCertificateModal.options.SPRINT.description",
   },
   {
     value: SwimmingCertificateType.JUNIOR,
-    labelKey: "components.createSwimCertificateModal.options.junior.label",
+    labelKey: "components.createSwimCertificateModal.options.JUNIOR.label",
     descriptionKey:
-      "components.createSwimCertificateModal.options.junior.description",
+      "components.createSwimCertificateModal.options.JUNIOR.description",
   },
   {
     value: SwimmingCertificateType.SENIOR,
-    labelKey: "components.createSwimCertificateModal.options.senior.label",
+    labelKey: "components.createSwimCertificateModal.options.SENIOR.label",
     descriptionKey:
-      "components.createSwimCertificateModal.options.senior.description",
+      "components.createSwimCertificateModal.options.SENIOR.description",
   },
   {
     value: SwimmingCertificateType.SUSTAINED,
-    labelKey: "components.createSwimCertificateModal.options.sustained.label",
+    labelKey: "components.createSwimCertificateModal.options.SUSTAINED.label",
     descriptionKey:
-      "components.createSwimCertificateModal.options.sustained.description",
+      "components.createSwimCertificateModal.options.SUSTAINED.description",
   },
   {
     value: SwimmingCertificateType.CLOTHED,
-    labelKey: "components.createSwimCertificateModal.options.clothed.label",
+    labelKey: "components.createSwimCertificateModal.options.CLOTHED.label",
     descriptionKey:
-      "components.createSwimCertificateModal.options.clothed.description",
+      "components.createSwimCertificateModal.options.CLOTHED.description",
   },
   {
     value: SwimmingCertificateType.BADGES,
-    labelKey: "components.createSwimCertificateModal.options.badges.label",
+    labelKey: "components.createSwimCertificateModal.options.BADGES.label",
     descriptionKey:
-      "components.createSwimCertificateModal.options.badges.description",
+      "components.createSwimCertificateModal.options.BADGES.description",
   },
 ];
 
