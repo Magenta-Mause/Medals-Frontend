@@ -78,9 +78,15 @@ export const MedalIcon = ({
       }}
     >
       {medalType === Medals.NONE ? (
-        <DisciplineIcon fill={grayedOutColor} />
+        <DisciplineIcon
+          fill={grayedOutColor}
+          style={{ width: "70%", height: "70%" }}
+        />
       ) : (
-        <DisciplineIcon fill={mainColor} />
+        <DisciplineIcon
+          fill={mainColor}
+          style={{ width: "70%", height: "70%" }}
+        />
       )}
     </Box>
   );
