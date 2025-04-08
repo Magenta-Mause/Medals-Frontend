@@ -491,19 +491,43 @@
         "ageAtRecording": "Calculated age at recording: "
       }
     },
+    "swimCertificateSection": {
+      "noCertificateWarning": "No swim certificate achieved.",
+      "deleteButton": "Delete Certificate",
+      "certificateLabel": {
+        "endurance": "Endurance",
+        "sprint": "Sprint",
+        "junior": "<12 Years",
+        "senior": "≥12 Years",
+        "sustained": "Sustained Swimming",
+        "clothed": "Clothed Swimming",
+        "badges": "Swimming Badge"
+      }
+    },
     "confirmationPopup": {
       "header": "Are You Sure?",
       "cancelButton": "Cancel",
       "deleteButton": "Delete"
     },
     "tooltip": {
-      "colorSchemeToggle": "Switch light-/darkmode",
+      "colorSchemeToggle": "Switch between Light/Dark mode",
       "profileButton": "Account Settings",
       "switchUserButton": "Switch User",
-      "logoutButton": "Logout",
-      "languageSelectionButton": "Change language",
-      "selectUser": "Continue with this user",
-      "showPassword": "Show/Hide password"
+      "logoutButton": "Log Out",
+      "languageSelectionButton": "Change Language",
+      "selectUser": "Proceed with this user",
+      "swimCertificate": {
+        "achieved": "Swimming certificate achieved",
+        "notAchieved": "Swimming certificate not achieved"
+      },
+      "showPassword": "Show/Hide Password",
+      "athleteUploadDatagrid": {
+        "error": "The specified athlete already exists or is incorrect",
+        "loading": "Loading...",
+        "uploaded": "Athlete has been uploaded",
+        "valid": "Athlete can be uploaded"
+      },
+      "genderDiversInfo": "For the gender option 'Diverse', the male values are used."
     }
   }
 }

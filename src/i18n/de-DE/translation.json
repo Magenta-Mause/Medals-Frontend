@@ -92,7 +92,9 @@
     },
     "swimCertificate": {
       "creationSuccess": "Schwimmabzeichen erfolgreich hinzugefügt!",
-      "creationError": "Fehler beim Hinzufügen des Schwimmabzeichens."
+      "creationError": "Fehler beim Hinzufügen des Schwimmabzeichens.",
+      "deletionSuccess": "Schwimmnachweis erfolgreich gelöscht.",
+      "deletionError": "Fehler beim Löschen des Schwimmnachweises."
     },
     "acceptTrainerAccessRequest": {
       "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
@@ -502,6 +504,19 @@
         "delete": "Löschen"
       }
     },
+    "swimCertificateSection": {
+      "noCertificateWarning": "Kein Schwimmnachweis vorhanden.",
+      "deleteButton": "Schwimmnachweis löschen",
+      "certificateLabel": {
+        "ENDURANCE": "Ausdauer",
+        "SPRINT": "Schnelligkeit",
+        "JUNIOR": "<12 Jahre",
+        "SENIOR": "≥12 Jahre",
+        "SUSTAINED": "Dauerschwimmen",
+        "CLOTHED": "Kleiderschwimmen",
+        "BADGES": "Schwimmabzeichen"
+      }
+    },
     "createSwimCertificateModal": {
       "header": "Schwimmnachweis erstellen",
       "form": {
@@ -509,31 +524,31 @@
         "info": "Für das Deutsche Sportabzeichen für Kinder und Jugendliche genügt einmaliger Nachweis"
       },
       "options": {
-        "endurance": {
+        "ENDURANCE": {
           "label": "Ausdauer",
           "description": "Nachweis der Schwimmfertigkeit gilt, wenn eine Ausdauerstrecke vollständig durchschwommen wird, auch wenn die für Bronze nötige Zeit nicht erreicht wird."
         },
-        "sprint": {
+        "SPRINT": {
           "label": "Schnelligkeit",
           "description": "Nachweis der Schwimmfertigkeit gilt, wenn 25 m in der geforderten Zeit (oder schneller) durchschwommen werden."
         },
-        "junior": {
+        "JUNIOR": {
           "label": "<12 Jahre",
           "description": "<12 Jahre: 50 m am Stück schwimmen ohne Zeitlimit"
         },
-        "senior": {
+        "SENIOR": {
           "label": "≥12 Jahre",
           "description": "≥12 Jahre: 200 m in maximal 11 Min. am Stück schwimmen."
         },
-        "sustained": {
+        "SUSTAINED": {
           "label": "Dauerschwimmen",
           "description": "15 Min. Dauerschwimmen (auch im offenen Gewässer möglich), wobei eine kontinuierliche Fortbewegung im Wasser erkennbar sein muss."
         },
-        "clothed": {
+        "CLOTHED": {
           "label": "Kleiderschwimmen",
           "description": "100 m Kleiderschwimmen in höchstens 4 Min. mit anschließendem Entkleiden im Wasser (gemäß DLRG/DWRK-Richtlinien)."
         },
-        "badges": {
+        "BADGES": {
           "label": "Schwimmabzeichen",
           "description": "Nachweis durch ein anerkanntes Schwimmabzeichen (z.B. DLRG, DSV, etc.)."
         }
