@@ -24,7 +24,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   const hasCertificate = Boolean(
-    athlete.swimming_certificate && athlete.swimming_certificate !== ""
+    athlete.swimming_certificate && athlete.swimming_certificate !== "",
   );
 
   const handleDelete = async () => {
@@ -65,12 +65,12 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Typography>
               {t(
-                `components.swimCertificateSection.certificateLabel.${athlete.swimming_certificate}`
+                `components.swimCertificateSection.certificateLabel.${athlete.swimming_certificate}`,
               )}
             </Typography>
             <InfoTooltip
               text={t(
-                `components.createSwimCertificateModal.options.${athlete.swimming_certificate}.description`
+                `components.createSwimCertificateModal.options.${athlete.swimming_certificate}.description`,
               )}
               iconProps={{ fontSize: "medium" }}
             />
@@ -79,7 +79,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
           <Typography>
             {t(
               "components.swimCertificateSection.noCertificateWarning",
-              "No swim certificate achieved."
+              "No swim certificate achieved.",
             )}
           </Typography>
         )}
@@ -90,7 +90,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
           <Button onClick={handleDelete} disabled={loading}>
             {t(
               "components.swimCertificateSection.deleteButton",
-              "Delete Certificate"
+              "Delete Certificate",
             )}
           </Button>
         </Box>
@@ -101,7 +101,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
           <Button onClick={() => setModalOpen(true)}>
             {t(
               "pages.athleteDetailPage.createSwimCertificateButton",
-              "Schwimmnachweis erstellen"
+              "Schwimmnachweis erstellen",
             )}
           </Button>
         </Box>
