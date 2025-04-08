@@ -19,7 +19,6 @@ const MedalBox = ({
   athlete,
   performanceRecordings,
   sx,
-  iconSize,
 }: MedalBoxProps) => {
   const performanceRecordingsOfAthlete = performanceRecordings.filter(
     (p) => p.athlete_id === athlete.id,
@@ -40,7 +39,6 @@ const MedalBox = ({
             category={category}
             medalType={bestMedal ?? Medals.NONE}
             key={`${athlete.id}-${category}`}
-            iconSize={iconSize}
           />
         );
       })}

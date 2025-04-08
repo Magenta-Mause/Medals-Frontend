@@ -246,7 +246,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       <MedalBox
         athlete={athlete}
         performanceRecordings={performanceRecordings}
-        iconSize="2rem"
       />
     ),
     bottomButtons: [...actions],
