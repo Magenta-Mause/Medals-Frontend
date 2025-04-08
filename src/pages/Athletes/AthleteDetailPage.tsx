@@ -45,13 +45,6 @@ const AthleteDetailPage = () => {
       >
         <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
           <Button
-            onClick={() => setSwimCertificateModalOpen(true)}
-            sx={{ width: 185, display: "flex", justifyContent: "space-around" }}
-          >
-            <IoIosCreate />
-            {t("pages.athleteDetailPage.createSwimCertificateButton")}
-          </Button>
-          <Button
             onClick={() => setPerformanceRecordingModalOpen(true)}
             sx={{ width: 185, display: "flex", justifyContent: "space-around" }}
           >
