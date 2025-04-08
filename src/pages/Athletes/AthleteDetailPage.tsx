@@ -8,12 +8,14 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { IoIosCreate } from "react-icons/io";
+import CreateSwimCertificateModal from "@components/modals/CreateSwimCertificateModal/CreateSwimCertificateModal";
 
 const AthleteDetailPage = () => {
   const params = useParams();
   const { t } = useTranslation();
   const [isPerformanceRecordingModalOpen, setPerformanceRecordingModalOpen] =
     useState(false);
+  const [isSwimCertificateModalOpen, setSwimCertificateModalOpen] = useState(false);
   const athletes = useTypedSelector(
     (state) => state.athletes.data,
   ) as Athlete[];
@@ -39,19 +41,33 @@ const AthleteDetailPage = () => {
           alignItems: "flex-end",
         }}
       >
-        <Button
-          onClick={() => setPerformanceRecordingModalOpen(true)}
-          sx={{ width: 200, display: "flex", justifyContent: "space-around" }}
-        >
-          <IoIosCreate />
-          {t("pages.athleteDetailPage.createPerformanceRecordingButton")}
-        </Button>
+       <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+          <Button
+            onClick={() => setSwimCertificateModalOpen(true)}
+            sx={{ width: 185, display: "flex", justifyContent: "space-around" }}
+          >
+            <IoIosCreate />
+            {t("pages.athleteDetailPage.createSwimCertificateButton")}
+          </Button>
+          <Button
+            onClick={() => setPerformanceRecordingModalOpen(true)}
+            sx={{ width: 185, display: "flex", justifyContent: "space-around" }}
+          >
+            <IoIosCreate />
+            {t("pages.athleteDetailPage.createPerformanceRecordingButton")}
+          </Button>
+        </Box>
         <AthletePerformanceAccordions athlete={filteredAthletes[0]} />
       </Box>
       <CreatePerformanceRecordingModal
         open={isPerformanceRecordingModalOpen}
         setOpen={setPerformanceRecordingModalOpen}
         athlete={filteredAthletes[0]}
+      />
+      <CreateSwimCertificateModal
+        open={isSwimCertificateModalOpen}
+        setOpen={setSwimCertificateModalOpen}
+        athleteId={filteredAthletes[0].id!}
       />
     </>
   );
