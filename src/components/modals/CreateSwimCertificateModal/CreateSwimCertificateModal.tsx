@@ -4,8 +4,9 @@ import { Radio, RadioGroup, FormControl, FormLabel, Button } from "@mui/joy";
 import { FormControlLabel } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import useApi from "@hooks/useApi";
-import { SwimmingCertificateType } from "@customTypes/enums";
+import { SwimmingCertificateType } from "@customTypes/enums"; // Ensure this enum is defined in your frontend types.
 import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
+import { useSnackbar } from "notistack";
 
 interface CreateSwimCertificateModalProps {
   open: boolean;
@@ -13,7 +14,7 @@ interface CreateSwimCertificateModalProps {
   athleteId: number;
 }
 
-// Here we use the enum values as the option values.
+// Using enum values as the option values.
 const certificateOptions = [
   {
     value: SwimmingCertificateType.ENDURANCE,
@@ -65,9 +66,10 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
   athleteId,
 }) => {
   const { t } = useTranslation();
+  const { enqueueSnackbar } = useSnackbar();
   const { addSwimmingCertificate } = useApi();
   const [selectedOption, setSelectedOption] = useState<string>(
-    certificateOptions[0].value
+    certificateOptions[0].value,
   );
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -77,12 +79,16 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
     try {
       await addSwimmingCertificate(
         athleteId,
-        selectedOption as SwimmingCertificateType
+        selectedOption as SwimmingCertificateType,
       );
-      // Optionally: add a toast or notification on success.
+      enqueueSnackbar(t("snackbar.swimCertificate.creationSuccess"), {
+        variant: "success",
+      });
     } catch (error) {
       console.error("Error while adding swimming certificate:", error);
-      // Optionally: add a toast or notification on error.
+      enqueueSnackbar(t("snackbar.swimCertificate.creationError"), {
+        variant: "error",
+      });
     } finally {
       setLoading(false);
       setOpen(false);
