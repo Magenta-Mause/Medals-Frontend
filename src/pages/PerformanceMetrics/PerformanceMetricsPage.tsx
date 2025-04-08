@@ -8,7 +8,7 @@ import {
   Athlete,
   DisciplineRatingMetric,
 } from "@customTypes/backendTypes";
-import { Genders } from "@customTypes/enums";
+import { Genders, UserType } from "@customTypes/enums";
 import FilterComponent, {
   Filter,
 } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
@@ -37,7 +37,7 @@ const PerformanceMetricsPage = () => {
   const [filtersReady, setFiltersReady] = useState(false);
 
   useEffect(() => {
-    if (selectedUser?.type === "ATHLETE" && selectedUser?.id != null) {
+    if (selectedUser?.type === UserType.ATHLETE && selectedUser?.id != null) {
       getAthlete(selectedUser.id.toString())
         .then((data: Athlete | undefined) => {
           if (data) {
@@ -59,7 +59,7 @@ const PerformanceMetricsPage = () => {
 
   const defaultFilterValues = useMemo(() => {
     const year = new Date().getFullYear().toString();
-    if (selectedUser?.type === "ATHLETE" && athlete?.birthdate) {
+    if (selectedUser?.type === UserType.ATHLETE && athlete?.birthdate) {
       const age = calculateAge(athlete.birthdate);
       const matchingAgeRange = ageRangeOptions.find(
         (range) => age >= range.min && age <= range.max,
@@ -83,7 +83,7 @@ const PerformanceMetricsPage = () => {
     useState<Record<string, string>>(defaultFilterValues);
 
   useEffect(() => {
-    if (selectedUser?.type === "ATHLETE") {
+    if (selectedUser?.type === UserType.ATHLETE) {
       if (athlete) {
         setFilterValues(defaultFilterValues);
         setFiltersReady(true);
@@ -115,7 +115,7 @@ const PerformanceMetricsPage = () => {
   const defaultFilterValues = useMemo(() => {
     const year = new Date().getFullYear().toString();
 
-    if (selectedUser?.type === "ATHLETE" && athlete?.birthdate) {
+    if (selectedUser?.type === UserType.ATHLETE && athlete?.birthdate) {
       const age = calculateAge(athlete.birthdate);
       const matchingAgeRange = ageRangeOptions.find(
         (range) => age >= range.min && age <= range.max,
@@ -138,13 +138,13 @@ const PerformanceMetricsPage = () => {
   }, [selectedUser, athlete]);
 
   const [filterValues, setFilterValues] = useState<Record<string, string>>(
-    selectedUser?.type === "ATHLETE" ? {} : defaultFilterValues,
+    selectedUser?.type === UserType.ATHLETE ? {} : defaultFilterValues,
   );
 
   // Initialize filters once when athlete data is available or immediately for non-athletes
   useEffect(() => {
     if (!filtersInitialized) {
-      if (selectedUser?.type === "ATHLETE") {
+      if (selectedUser?.type === UserType.ATHLETE) {
         if (athlete && !isLoading) {
           setFilterValues(defaultFilterValues);
           setFiltersInitialized(true);
@@ -272,7 +272,7 @@ const PerformanceMetricsPage = () => {
     return (
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
         <Typography level="h2" component="h1">
-          {userRole === "ATHLETE"
+          {userRole === UserType.ATHLETE
             ? t("pages.performanceMetricsPage.title.athlete")
             : t("pages.performanceMetricsPage.title.default")}
         </Typography>
@@ -286,7 +286,7 @@ const PerformanceMetricsPage = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
       <Typography level="h2" component="h1">
-        {userRole === "ATHLETE"
+        {userRole === UserType.ATHLETE
           ? t("pages.performanceMetricsPage.title.athlete")
           : t("pages.performanceMetricsPage.title.default")}
       </Typography>
@@ -305,7 +305,7 @@ const PerformanceMetricsPage = () => {
               setFilter={setFilter}
               filterValues={filterValues}
             />
-            {selectedUser?.type === "ATHLETE" && (
+            {selectedUser?.type === UserType.ATHLETE && (
               <Button
                 sx={{ alignSelf: "flex-end" }}
                 onClick={() => setFilterValues(defaultFilterValues)}
