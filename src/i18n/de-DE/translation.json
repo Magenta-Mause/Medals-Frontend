@@ -25,6 +25,7 @@
     "submit": "Absenden",
     "confirm": "Bestätigen",
     "password": "Passwort",
+    "finished": "Fertig",
     "validation": {
       "required": "Dieses Feld ist erforderlich.",
       "tooLong": "Dieses Feld ist zu lang.",
@@ -92,6 +93,15 @@
     "swimCertificate": {
       "creationSuccess": "Schwimmabzeichen erfolgreich hinzugefügt!",
       "creationError": "Fehler beim Hinzufügen des Schwimmabzeichens."
+    },
+    "acceptTrainerAccessRequest": {
+      "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
+      "failed": "Trainer Anfrage konnte nicht angenommen werden",
+      "success": "Trainer Anfrage erfolgreich angenommen"
+    },
+    "requestAthleteAccess": {
+      "failed": "Anfrage fehlgeschlagen",
+      "success": "Anfrage gesendet"
     }
   },
   "pages": {
@@ -104,8 +114,7 @@
       "createPerformanceRecordingButton": "Leistung aufnehmen"
     },
     "athleteOverviewPage": {
-      "header": "Athlet*innen",
-      "createButton": "Athlet*in erstellen"
+      "header": "Athlet*innen"
     },
     "athleteCreationPage": {
       "firstName": "Vorname",
@@ -115,6 +124,18 @@
       "gender": "Geschlecht",
       "createButton": "Erstellen",
       "createHeader": "Athlet*in erstellen"
+    },
+    "athleteImportPage": {
+      "importButton": "Athlet*innen importieren",
+      "feedback1": "Athlet*in ",
+      "feedback2": " erstellt",
+      "failedFeedback": "Fehler beim Erstellen von Athlet*in ",
+      "DropFile": "Datei hier ablegen oder klicken",
+      "changeFile": "Datei zurücksetzen",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "valid": "Status",
+      "athleteList": "Athletenliste"
     },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
@@ -184,6 +205,11 @@
           "noCode": "E-Mail wurde versendet"
         }
       }
+    },
+    "validateRequestPage": {
+      "header": "Anfrage",
+      "subheader": "will Sie verwalten.\n Möchten Sie die Anfrage annehmen?",
+      "accept": "Annehmen"
     },
     "profilePage": {
       "header": "Mein Profil",
@@ -289,6 +315,13 @@
         "ageAtRecording": "Berechnetes Alter bei Aufnahme: "
       }
     },
+    "requestAthleteModal": {
+      "header": "Athlet*innen anfragen",
+      "searchAthlete": "Name",
+      "notFound": "Kein Athleten gefunden",
+      "requestAthleteButton": "Senden",
+      "sendButton": "Gesendet"
+    },
     "athleteDetailHeader": {
       "columns": {
         "id": "ID",
@@ -373,6 +406,16 @@
           "search": "Suche",
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
+        },
+        "toolbar": {
+          "addAthlete": {
+            "label": "Anfragen",
+            "content": "Athlet*innen anfragen"
+          },
+          "createAthlete": {
+            "label": "Erstellen",
+            "content": "Athlet*in erstellen"
+          }
         }
       },
       "actions": {
@@ -508,6 +551,12 @@
         "notAchieved": "Schwimmnachweis nicht vorhanden"
       },
       "showPassword": "Password anzeigen/ausblenden",
+      "athleteUploadDatagrid": {
+        "error": "Die angegebene Athlet*in existiert bereits oder ist inkorrekt",
+        "loading": "Lädt...",
+        "uploaded": "Athlet*in wurde hochgeladen",
+        "valid": "Athlet*in kann hochgeladen werden"
+      },
       "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     }
   }

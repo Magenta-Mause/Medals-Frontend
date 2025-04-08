@@ -57,6 +57,7 @@
     "submit": "Submit",
     "confirm": "Confirm",
     "password": "Password",
+    "finished": "Finished",
     "validation": {
       "required": "This field is required.",
       "tooLong": "This field is too long.",
@@ -86,6 +87,15 @@
     "performanceMetrics": {
       "athleteNotFound": "Athlete not found",
       "fetchAthleteFailed": "Failed to fetch athlete data"
+    },
+    "acceptTrainerAccessRequest": {
+      "noLogin": "Login and accept the invitation again",
+      "failed": "Could not accept the request",
+      "success": "Request accepted"
+    },
+    "requestAthleteAccess": {
+      "failed": "Failed sending the request",
+      "success": "Request has been send"
     }
   },
   "pages": {
@@ -99,7 +109,7 @@
     },
     "athleteOverviewPage": {
       "header": "Athletes",
-      "createButton": "Create athlete"
+      "createButton": "Create Athlete"
     },
     "athleteCreationPage": {
       "firstName": "First Name",
@@ -109,6 +119,18 @@
       "gender": "Gender",
       "createButton": "Create",
       "createHeader": "Create Athlete"
+    },
+    "athleteImportPage": {
+      "importButton": "Import Athletes",
+      "feedback1": "Athlete ",
+      "feedback2": " created",
+      "failedFeedback": "Failed to create ",
+      "DropFile": "Drag & Drop your file here or click",
+      "changeFile": "Reset file",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "valid": "Status",
+      "athleteList": "Athlete List"
     },
     "trainerOverviewPage": {
       "header": "Trainers"
@@ -177,6 +199,11 @@
           "noCode": "Verification email sent"
         }
       }
+    },
+    "validateRequestPage": {
+      "header": "Request",
+      "subheader": "has requested access to you,\n would you like to accept the request?",
+      "accept": "Accept"
     },
     "profilePage": {
       "header": "My Profile",
@@ -272,6 +299,13 @@
         "/userRoleErrorPage": "User Role Error"
       }
     },
+    "requestAthleteModal": {
+      "header": "Request access to Athlete",
+      "searchAthlete": "Name",
+      "notFound": "No athletes found",
+      "requestAthleteButton": "Send",
+      "sendButton": "Sendet"
+    },
     "athleteDetailHeader": {
       "columns": {
         "id": "ID",
@@ -364,6 +398,16 @@
           "search": "Search",
           "birthYear": "Birth year",
           "gender": "Gender"
+        },
+        "toolbar": {
+          "addAthlete": {
+            "label": "Request",
+            "content": "Request athletes"
+          },
+          "createAthlete": {
+            "label": "Create",
+            "content": "Create athlete"
+          }
         }
       },
       "actions": {
@@ -459,12 +503,7 @@
       "logoutButton": "Logout",
       "languageSelectionButton": "Change language",
       "selectUser": "Continue with this user",
-      "swimCertificate": {
-        "achieved": "Swimming certificate achieved",
-        "notAchieved": "Swimming certificate not achieved"
-      },
-      "showPassword": "Show/Hide password",
-      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
+      "showPassword": "Show/Hide password"
     }
   }
 }
