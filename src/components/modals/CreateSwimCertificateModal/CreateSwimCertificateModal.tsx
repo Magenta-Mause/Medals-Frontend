@@ -76,7 +76,7 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
   const { enqueueSnackbar } = useSnackbar();
   const { addSwimmingCertificate } = useApi();
   const [selectedOption, setSelectedOption] = useState<SwimmingCertificateType>(
-    certificateOptions[0].value
+    certificateOptions[0].value,
   );
   const [loading, setLoading] = useState<boolean>(false);
 

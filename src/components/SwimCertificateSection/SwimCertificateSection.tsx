@@ -87,7 +87,12 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
 
       {hasCertificate && (
         <Box>
-          <Button onClick={handleDelete} variant="outlined" color="danger" disabled={loading}>
+          <Button
+            onClick={handleDelete}
+            variant="outlined"
+            color="danger"
+            disabled={loading}
+          >
             {t(
               "components.swimCertificateSection.deleteButton",
               "Delete Certificate",
