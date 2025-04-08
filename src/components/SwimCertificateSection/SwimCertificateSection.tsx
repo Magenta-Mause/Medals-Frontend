@@ -6,6 +6,7 @@ import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import SwimCertificateIcon from "@components/icons/SwimCertificateIcon/SwimCertificateIcon";
 import CreateSwimCertificateModal from "@components/modals/CreateSwimCertificateModal/CreateSwimCertificateModal";
+import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 
 interface SwimCertificateSectionProps {
   athlete: Athlete;
@@ -58,43 +59,45 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
         gap: 2,
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 2,
-        }}
-      >
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         <SwimCertificateIcon achieved={hasCertificate} />
-        <Typography>
-          {hasCertificate
-            ? t(
-                `components.swimCertificateSection.certificateLabel.${athlete.swimming_certificate}`,
-                athlete.swimming_certificate
-              )
-            : t(
-                "components.swimCertificateSection.noCertificateWarning",
-                "No swim certificate achieved."
+        {hasCertificate ? (
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Typography>
+              {t(
+                `components.swimCertificateSection.certificateLabel.${athlete.swimming_certificate}`
               )}
-        </Typography>
+            </Typography>
+            <InfoTooltip
+              text={t(
+                `components.createSwimCertificateModal.options.${athlete.swimming_certificate}.description`
+              )}
+              iconProps={{ fontSize: "medium" }}
+            />
+          </Box>
+        ) : (
+          <Typography>
+            {t(
+              "components.swimCertificateSection.noCertificateWarning",
+              "No swim certificate achieved."
+            )}
+          </Typography>
+        )}
+      </Box>
 
-        {hasCertificate && (
+      {hasCertificate && (
+        <Box>
           <Button onClick={handleDelete} disabled={loading}>
             {t(
               "components.swimCertificateSection.deleteButton",
               "Delete Certificate"
             )}
           </Button>
-        )}
-      </Box>
+        </Box>
+      )}
 
       {!hasCertificate && (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button onClick={() => setModalOpen(true)}>
             {t(
               "pages.athleteDetailPage.createSwimCertificateButton",
