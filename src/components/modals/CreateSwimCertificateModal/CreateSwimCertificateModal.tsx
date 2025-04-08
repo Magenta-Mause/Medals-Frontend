@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import GenericModal from "../GenericModal";
-import { Radio, RadioGroup, FormControl, FormLabel, Button } from "@mui/joy";
-import { FormControlLabel } from "@mui/material";
+import { FormControl, FormLabel, Button, Box } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import useApi from "@hooks/useApi";
-import { SwimmingCertificateType } from "@customTypes/enums"; // Ensure this enum is defined in your frontend types.
+import { SwimmingCertificateType } from "@customTypes/enums";
 import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 import { useSnackbar } from "notistack";
+import CertificateOptionCard from "./CertificateOptionCard";
 
 interface CreateSwimCertificateModalProps {
   open: boolean;
@@ -68,8 +68,8 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const { addSwimmingCertificate } = useApi();
-  const [selectedOption, setSelectedOption] = useState<string>(
-    certificateOptions[0].value,
+  const [selectedOption, setSelectedOption] = useState<SwimmingCertificateType>(
+    certificateOptions[0].value
   );
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -77,10 +77,7 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
     e.preventDefault();
     setLoading(true);
     try {
-      await addSwimmingCertificate(
-        athleteId,
-        selectedOption as SwimmingCertificateType,
-      );
+      await addSwimmingCertificate(athleteId, selectedOption);
       enqueueSnackbar(t("snackbar.swimCertificate.creationSuccess"), {
         variant: "success",
       });
@@ -95,13 +92,17 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
     }
   };
 
+  const handleOptionClick = (value: SwimmingCertificateType) => {
+    setSelectedOption(value);
+  };
+
   return (
     <GenericModal
       header={t("components.createSwimCertificateModal.header")}
       open={open}
       setOpen={setOpen}
       disableEscape
-      modalDialogSX={{ width: { md: "500px", xs: "90vw" } }}
+      modalDialogSX={{ width: { md: "520px", xs: "95vw" } }}
     >
       <form
         onSubmit={handleSubmit}
@@ -112,13 +113,13 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
           width: "100%",
         }}
       >
-        {/* Shift the entire radio group + label to the right */}
-        <FormControl style={{ marginLeft: "20px" }}>
+        <FormControl>
           <FormLabel
-            style={{
+            sx={{
               display: "flex",
               alignItems: "center",
-              gap: "4px",
+              gap: "8px",
+              mb: 2,
             }}
           >
             {t("components.createSwimCertificateModal.form.selectCertificate")}
@@ -127,31 +128,31 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
               header={t("components.createSwimCertificateModal.header")}
             />
           </FormLabel>
-          <RadioGroup
-            value={selectedOption}
-            onChange={(e) => setSelectedOption(e.target.value)}
+
+          <Box
+            sx={{
+              maxHeight: "60vh",
+              overflowY: "auto",
+              pr: 1,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
           >
             {certificateOptions.map((option) => (
-              <FormControlLabel
+              <CertificateOptionCard
                 key={option.value}
-                value={option.value}
-                control={<Radio />}
-                label={
-                  <div>
-                    <strong style={{ marginLeft: "16px" }}>
-                      {t(option.labelKey)}
-                    </strong>
-                    <div style={{ fontSize: "0.8rem", marginLeft: "16px" }}>
-                      {t(option.descriptionKey)}
-                    </div>
-                  </div>
-                }
+                label={t(option.labelKey)}
+                description={t(option.descriptionKey)}
+                selected={selectedOption === option.value}
+                onClick={() => handleOptionClick(option.value)}
               />
             ))}
-          </RadioGroup>
+          </Box>
         </FormControl>
-        <Button type="submit" disabled={loading}>
-          {t("generic.submit")}
+
+        <Button type="submit" disabled={loading} sx={{ mt: 1 }}>
+          {loading ? t("generic.submitting") : t("generic.submit")}
         </Button>
       </form>
     </GenericModal>
