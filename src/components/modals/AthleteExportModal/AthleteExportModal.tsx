@@ -302,17 +302,15 @@ const AthleteExportModal = ({
             />
           </Sheet>
         </Box>
-        <Box sx={{ overflow: "auto", maxHeight: "400px" }}>
-          <GenericResponsiveDatagrid
-            isLoading={isLoading}
-            data={athletes}
-            columns={columns}
-            actionMenu={actions}
-            keyOf={(item) => item.id!}
-            mobileRendering={mobileRendering}
-            disablePaging={true}
-          />
-        </Box>
+        <GenericResponsiveDatagrid
+          isLoading={isLoading}
+          data={athletes}
+          columns={columns}
+          actionMenu={actions}
+          keyOf={(item) => item.id!}
+          mobileRendering={mobileRendering}
+          disablePaging={true}
+        />
         <Button fullWidth color="primary" onClick={handleExport}>
           {t("components.athleteExportModal.exportButton")}
         </Button>

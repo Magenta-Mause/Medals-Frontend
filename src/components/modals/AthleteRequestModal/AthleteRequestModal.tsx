@@ -116,7 +116,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
         setShowScrollIcon(scrollHeight > clientHeight);
       }
     };
-  
+
     checkScrollable();
   }, [filteredResults]);
 
