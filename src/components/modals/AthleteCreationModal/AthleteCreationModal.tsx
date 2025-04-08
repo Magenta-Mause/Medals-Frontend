@@ -15,8 +15,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import GenericModal from "../GenericModal";
-import { emailRegex } from "@components/Regex/Regex";
 import { Genders } from "@customTypes/enums";
+import { emailRegex } from "constants/regex";
 
 const isValidEmail = (email: string) => emailRegex.test(email);
 

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import type { SxProps } from "@mui/joy/styles/types";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import { Genders } from "@customTypes/enums";
+import { ICON_SIZE } from "constants/iconSize";
 
 interface GenderChipProps {
   gender: Genders | undefined;
@@ -21,7 +22,8 @@ const GenderChip: React.FC<GenderChipProps> = ({ gender, sx }) => {
         size="sm"
         sx={{
           aspectRatio: 1,
-          height: { xs: "2rem", md: "2.5rem" },
+          height: ICON_SIZE,
+          width: ICON_SIZE,
           border: "gray solid thin",
           textAlign: "center",
           ...sx,

@@ -4,6 +4,7 @@ import PoolIcon from "@mui/icons-material/Pool";
 import type { SxProps } from "@mui/joy/styles/types";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import { t } from "i18next";
+import { ICON_SIZE } from "constants/iconSize";
 
 export interface SwimCertificateIconProps {
   achieved?: boolean;
@@ -30,18 +31,16 @@ const SwimCertificateIcon: React.FC<SwimCertificateIconProps> = ({
           background: backgroundColor,
           border: "gray solid thin",
           borderRadius: "100%",
-          height: "100%",
-          margin: 0,
-          width: "auto",
-          aspectRatio: "1",
-          padding: "5px",
+          height: ICON_SIZE,
+          width: ICON_SIZE,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          padding: "5px",
           ...sx,
         }}
       >
-        <PoolIcon sx={{ fill: detailColor }} />
+        <PoolIcon sx={{ fill: detailColor, height: "100%", width: "100%" }} />
       </Box>
     </HoverTooltip>
   );

@@ -1,23 +1,22 @@
-import { DisciplineIcons } from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
-import { DisciplineCategories, Medals } from "@customTypes/enums";
 import { Box, useColorScheme } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
+import { DisciplineIcons } from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
+import { DisciplineCategories, Medals } from "@customTypes/enums";
 import { useMedalColors } from "@hooks/useMedalColors";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import { t } from "i18next";
+import { ICON_SIZE } from "constants/iconSize";
 
 interface MedalIconProps {
   category: DisciplineCategories;
   medalType: Medals;
   sx?: SxProps;
-  iconSize?: string;
 }
 
 export const MedalIcon = ({
   category,
   medalType,
   sx,
-  iconSize,
 }: MedalIconProps) => {
   const DisciplineIcon = DisciplineIcons[category];
   const colorScheme = useColorScheme();
@@ -56,10 +55,10 @@ export const MedalIcon = ({
     medalType === Medals.GOLD
       ? t("medals.GOLD")
       : medalType === Medals.SILVER
-        ? t("medals.SILVER")
-        : medalType === Medals.BRONZE
-          ? t("medals.BRONZE")
-          : t("medals.NONE");
+      ? t("medals.SILVER")
+      : medalType === Medals.BRONZE
+      ? t("medals.BRONZE")
+      : t("medals.NONE");
 
   const iconBox = (
     <Box
@@ -70,8 +69,8 @@ export const MedalIcon = ({
             ? "rgba(0,0,0,0.2) solid thin"
             : "gray solid thin",
         borderRadius: "100%",
-        height: iconSize || "2.5rem",
-        aspectRatio: "1",
+        height: ICON_SIZE,
+        width: ICON_SIZE,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
