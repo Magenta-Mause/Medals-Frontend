@@ -139,8 +139,7 @@ const PerformanceMetricsPage = () => {
           );
           if (!selectedAge) return true;
           return (
-            item.start_age <= selectedAge.min &&
-            item.end_age >= selectedAge.max
+            item.start_age <= selectedAge.min && item.end_age >= selectedAge.max
           );
         },
       },
@@ -258,7 +257,10 @@ const PerformanceMetricsPage = () => {
               filterValues={filterValues}
             />
             {selectedUser?.type === UserType.ATHLETE && (
-              <Button sx={{ alignSelf: "flex-end" }} onClick={handleResetFilters}>
+              <Button
+                sx={{ alignSelf: "flex-end" }}
+                onClick={handleResetFilters}
+              >
                 {t("pages.performanceMetricsPage.resetFilter")}
               </Button>
             )}

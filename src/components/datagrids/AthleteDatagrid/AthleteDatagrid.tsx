@@ -247,9 +247,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         iconSize="2rem"
       />
     ),
-    bottomButtons: [
-      ...actions,
-    ],
+    bottomButtons: [...actions],
     searchFilter: {
       name: "search",
       label: "Search",
