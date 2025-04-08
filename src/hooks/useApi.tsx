@@ -276,7 +276,7 @@ const useApi = () => {
         const response = await axiosInstance!.post(
           `/athletes/${athleteId}/swimming-certificate`,
           JSON.stringify(certificate),
-          { headers: { "Content-Type": "application/json" } }
+          { headers: { "Content-Type": "application/json" } },
         );
         return response.data.data as Athlete;
       } catch (error) {
