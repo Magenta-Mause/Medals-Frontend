@@ -5,6 +5,7 @@ import { useSnackbar } from "notistack";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import SwimCertificateIcon from "@components/icons/SwimCertificateIcon/SwimCertificateIcon";
+import CreateSwimCertificateModal from "@components/modals/CreateSwimCertificateModal/CreateSwimCertificateModal";
 
 interface SwimCertificateSectionProps {
   athlete: Athlete;
@@ -19,9 +20,10 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
   const { enqueueSnackbar } = useSnackbar();
   const { deleteSwimmingCertificate } = useApi();
   const [loading, setLoading] = useState<boolean>(false);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   const hasCertificate = Boolean(
-    athlete.swimming_certificate && athlete.swimming_certificate !== "",
+    athlete.swimming_certificate && athlete.swimming_certificate !== ""
   );
 
   const handleDelete = async () => {
@@ -44,59 +46,71 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
     }
   };
 
-  if (!hasCertificate) {
-    return (
-      <Box
-        sx={{
-          marginTop: 2,
-          padding: 2,
-          border: "1px solid",
-          borderColor: "warning.main",
-          borderRadius: 1,
-          textAlign: "center",
-        }}
-      >
-        <Typography color="warning">
-          {t(
-            "components.swimCertificateSection.noCertificateWarning",
-            "No swim certificate achieved.",
-          )}
-        </Typography>
-      </Box>
-    );
-  }
-
   return (
     <Box
       sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: 2,
         marginTop: 2,
         padding: 2,
-        border: "1px solid",
-        borderColor: "success.main",
-        borderRadius: 1,
+        borderRadius: 10,
+        background: "rgba(0, 0, 0, 0.05)",
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
       }}
     >
-      {/* Display the achieved certificate icon */}
-      <SwimCertificateIcon achieved={true} />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <SwimCertificateIcon achieved={hasCertificate} />
+        <Typography>
+          {hasCertificate
+            ? t(
+                `components.swimCertificateSection.certificateLabel.${athlete.swimming_certificate}`,
+                athlete.swimming_certificate
+              )
+            : t(
+                "components.swimCertificateSection.noCertificateWarning",
+                "No swim certificate achieved."
+              )}
+        </Typography>
 
-      {/* Show the certificate label from translation based on the certificate type value */}
-      <Typography>
-        {t(
-          `components.swimCertificateSection.certificateLabel.${athlete.swimming_certificate}`,
-          athlete.swimming_certificate,
+        {hasCertificate && (
+          <Button onClick={handleDelete} disabled={loading}>
+            {t(
+              "components.swimCertificateSection.deleteButton",
+              "Delete Certificate"
+            )}
+          </Button>
         )}
-      </Typography>
+      </Box>
 
-      {/* Delete button */}
-      <Button onClick={handleDelete} disabled={loading}>
-        {t(
-          "components.swimCertificateSection.deleteButton",
-          "Delete Certificate",
-        )}
-      </Button>
+      {!hasCertificate && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Button onClick={() => setModalOpen(true)}>
+            {t(
+              "pages.athleteDetailPage.createSwimCertificateButton",
+              "Schwimmnachweis erstellen"
+            )}
+          </Button>
+        </Box>
+      )}
+
+      {!hasCertificate && (
+        <CreateSwimCertificateModal
+          open={isModalOpen}
+          setOpen={setModalOpen}
+          athleteId={athlete.id!}
+        />
+      )}
     </Box>
   );
 };
