@@ -1,6 +1,7 @@
 import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 import AthletePerformanceAccordions from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
 import CreatePerformanceRecordingModal from "@components/modals/CreatePerformanceRecordingModal/CreatePerformanceRecordingModal";
+import CreateSwimCertificateModal from "@components/modals/CreateSwimCertificateModal/CreateSwimCertificateModal";
 import { Athlete } from "@customTypes/backendTypes";
 import { Box, Button, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
@@ -8,14 +9,15 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { IoIosCreate } from "react-icons/io";
-import CreateSwimCertificateModal from "@components/modals/CreateSwimCertificateModal/CreateSwimCertificateModal";
+import SwimCertificateSection from "@components/SwimCertificateSection/SwimCertificateSection";
 
 const AthleteDetailPage = () => {
   const params = useParams();
   const { t } = useTranslation();
   const [isPerformanceRecordingModalOpen, setPerformanceRecordingModalOpen] =
     useState(false);
-  const [isSwimCertificateModalOpen, setSwimCertificateModalOpen] = useState(false);
+  const [isSwimCertificateModalOpen, setSwimCertificateModalOpen] =
+    useState(false);
   const athletes = useTypedSelector(
     (state) => state.athletes.data,
   ) as Athlete[];
@@ -41,7 +43,7 @@ const AthleteDetailPage = () => {
           alignItems: "flex-end",
         }}
       >
-       <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+        <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
           <Button
             onClick={() => setSwimCertificateModalOpen(true)}
             sx={{ width: 185, display: "flex", justifyContent: "space-around" }}
@@ -58,6 +60,7 @@ const AthleteDetailPage = () => {
           </Button>
         </Box>
         <AthletePerformanceAccordions athlete={filteredAthletes[0]} />
+        <SwimCertificateSection athlete={filteredAthletes[0]} />
       </Box>
       <CreatePerformanceRecordingModal
         open={isPerformanceRecordingModalOpen}
