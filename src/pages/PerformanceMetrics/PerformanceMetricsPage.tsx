@@ -30,32 +30,14 @@ const ageRangeOptions: AgeRange[] = [
 const PerformanceMetricsPage = () => {
   const { selectedUser } = useContext(AuthContext);
   const { getAthlete } = useApi();
-  const userRole = selectedUser?.type;
-  const [athlete, setAthlete] = useState<Athlete | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation();
-  const [filtersReady, setFiltersReady] = useState(false);
 
-  useEffect(() => {
-    if (selectedUser?.type === UserType.ATHLETE && selectedUser?.id != null) {
-      getAthlete(selectedUser.id.toString())
-        .then((data: Athlete | undefined) => {
-          if (data) {
-            setAthlete(data);
-          } else {
-            enqueueSnackbar(t("snackbar.performanceMetrics.athleteNotFound"), {
-              variant: "error",
-            });
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching athlete data:", error);
-          enqueueSnackbar(t("snackbar.performanceMetrics.fetchAthleteFailed"), {
-            variant: "error",
-          });
-        });
-    }
-  }, [selectedUser, getAthlete, enqueueSnackbar, t]);
+  const userRole = selectedUser?.type;
+
+  const [athlete, setAthlete] = useState<Athlete | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [filtersReady, setFiltersReady] = useState(false);
 
   const defaultFilterValues = useMemo(() => {
     const year = new Date().getFullYear().toString();
@@ -83,16 +65,41 @@ const PerformanceMetricsPage = () => {
     useState<Record<string, string>>(defaultFilterValues);
 
   useEffect(() => {
+    if (selectedUser?.type === UserType.ATHLETE && selectedUser?.id != null) {
+      setIsLoading(true);
+      getAthlete(selectedUser.id.toString())
+        .then((data: Athlete | undefined) => {
+          if (data) {
+            setAthlete(data);
+          } else {
+            enqueueSnackbar(t("snackbar.performanceMetrics.athleteNotFound"), {
+              variant: "error",
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching athlete data:", error);
+          enqueueSnackbar(t("snackbar.performanceMetrics.fetchAthleteFailed"), {
+            variant: "error",
+          });
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
+    }
+  }, [selectedUser, getAthlete, enqueueSnackbar, t]);
+
+  useEffect(() => {
     if (selectedUser?.type === UserType.ATHLETE) {
       if (athlete) {
         setFilterValues(defaultFilterValues);
         setFiltersReady(true);
       } else {
-        // Athlete data not loaded yet
         setFiltersReady(false);
       }
     } else {
-      // For non-athlete users, filters are ready immediately.
       setFiltersReady(true);
     }
   }, [athlete, defaultFilterValues, selectedUser]);
@@ -101,7 +108,6 @@ const PerformanceMetricsPage = () => {
     (state) => state.disciplineMetrics.data,
   ) as DisciplineRatingMetric[];
 
-  // Compute available years from metrics.
   const availableYears = useMemo(() => {
     const yearsSet = new Set<number>();
     disciplineRatingMetrics.forEach((metric) => {
@@ -111,56 +117,6 @@ const PerformanceMetricsPage = () => {
     });
     return Array.from(yearsSet).sort((a, b) => b - a);
   }, [disciplineRatingMetrics]);
-
-  const defaultFilterValues = useMemo(() => {
-    const year = new Date().getFullYear().toString();
-
-    if (selectedUser?.type === UserType.ATHLETE && athlete?.birthdate) {
-      const age = calculateAge(athlete.birthdate);
-      const matchingAgeRange = ageRangeOptions.find(
-        (range) => age >= range.min && age <= range.max,
-      );
-
-      return {
-        year,
-        age: matchingAgeRange
-          ? matchingAgeRange.label
-          : ageRangeOptions[0].label,
-        gender: athlete.gender || Genders.FEMALE,
-      };
-    }
-
-    return {
-      year,
-      age: ageRangeOptions[0].label,
-      gender: Genders.FEMALE,
-    };
-  }, [selectedUser, athlete]);
-
-  const [filterValues, setFilterValues] = useState<Record<string, string>>(
-    selectedUser?.type === UserType.ATHLETE ? {} : defaultFilterValues,
-  );
-
-  // Initialize filters once when athlete data is available or immediately for non-athletes
-  useEffect(() => {
-    if (!filtersInitialized) {
-      if (selectedUser?.type === UserType.ATHLETE) {
-        if (athlete && !isLoading) {
-          setFilterValues(defaultFilterValues);
-          setFiltersInitialized(true);
-        }
-      } else {
-        setFilterValues(defaultFilterValues);
-        setFiltersInitialized(true);
-      }
-    }
-  }, [
-    athlete,
-    defaultFilterValues,
-    selectedUser,
-    isLoading,
-    filtersInitialized,
-  ]);
 
   const filters = useMemo<Filter<DisciplineRatingMetric>[]>(
     () => [
@@ -183,7 +139,8 @@ const PerformanceMetricsPage = () => {
           );
           if (!selectedAge) return true;
           return (
-            item.start_age <= selectedAge.min && item.end_age >= selectedAge.max
+            item.start_age <= selectedAge.min &&
+            item.end_age >= selectedAge.max
           );
         },
       },
@@ -223,7 +180,6 @@ const PerformanceMetricsPage = () => {
     [availableYears, t],
   );
 
-  // Apply all filters to the metrics.
   const finalFilteredMetrics = useMemo(() => {
     return disciplineRatingMetrics.filter((metric) => {
       return filters.every((filter) => {
@@ -236,7 +192,6 @@ const PerformanceMetricsPage = () => {
     });
   }, [disciplineRatingMetrics, filters, filterValues]);
 
-  // Group the filtered metrics by discipline category.
   const groupedMetrics = useMemo(() => {
     return finalFilteredMetrics.reduce(
       (acc, metric) => {
@@ -251,7 +206,6 @@ const PerformanceMetricsPage = () => {
     );
   }, [finalFilteredMetrics]);
 
-  // Helper to update filter values.
   const setFilter = (
     key: string,
     value: string | ((oldVal: string) => string),
@@ -262,13 +216,11 @@ const PerformanceMetricsPage = () => {
     }));
   };
 
-  // Reset filters handler
   const handleResetFilters = () => {
     setFilterValues(defaultFilterValues);
   };
 
-  // Show loading state until filters are properly initialized
-  if (isLoading || !filtersInitialized) {
+  if (isLoading || !filtersReady) {
     return (
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
         <Typography level="h2" component="h1">
@@ -306,10 +258,7 @@ const PerformanceMetricsPage = () => {
               filterValues={filterValues}
             />
             {selectedUser?.type === UserType.ATHLETE && (
-              <Button
-                sx={{ alignSelf: "flex-end" }}
-                onClick={() => setFilterValues(defaultFilterValues)}
-              >
+              <Button sx={{ alignSelf: "flex-end" }} onClick={handleResetFilters}>
                 {t("pages.performanceMetricsPage.resetFilter")}
               </Button>
             )}
