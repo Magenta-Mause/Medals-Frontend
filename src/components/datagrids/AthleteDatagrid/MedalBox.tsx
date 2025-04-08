@@ -15,11 +15,7 @@ interface MedalBoxProps {
   iconSize?: string;
 }
 
-const MedalBox = ({
-  athlete,
-  performanceRecordings,
-  sx,
-}: MedalBoxProps) => {
+const MedalBox = ({ athlete, performanceRecordings, sx }: MedalBoxProps) => {
   const performanceRecordingsOfAthlete = performanceRecordings.filter(
     (p) => p.athlete_id === athlete.id,
   );
