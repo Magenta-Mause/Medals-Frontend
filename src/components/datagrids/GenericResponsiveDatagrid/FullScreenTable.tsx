@@ -362,8 +362,8 @@ const FullScreenTable = <T,>(props: {
               style={{
                 width: column.size ? COLUMN_SIZES[column.size] : 150,
                 padding: "12px 6px",
-                whiteSpace: "normal",       // Allow text to wrap
-                wordBreak: "break-word",    // Break long words if needed
+                whiteSpace: "normal", // Allow text to wrap
+                wordBreak: "break-word", // Break long words if needed
               }}
             >
               <Typography
