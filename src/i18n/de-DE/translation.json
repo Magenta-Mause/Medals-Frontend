@@ -550,7 +550,7 @@
         },
         "BADGES": {
           "label": "Schwimmabzeichen",
-          "description": "Nachweis durch ein anerkanntes Schwimmabzeichen (z.B. DLRG, DSV, etc.)."
+          "description": "Nachweis durch ein anerkanntes Schwimmabzeichen"
         }
       }
     },
