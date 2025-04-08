@@ -146,9 +146,7 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
   const isFormValid = () => {
     return (
       Object.values(errors).every((error) => !error) &&
-      Object.keys(errors).every(
-        (field) => touched[field as keyof FormTouched]
-      )
+      Object.keys(errors).every((field) => touched[field as keyof FormTouched])
     );
   };
 

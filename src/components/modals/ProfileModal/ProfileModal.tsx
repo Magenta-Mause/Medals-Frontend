@@ -77,7 +77,7 @@ const ProfileModal = (props: {
   const handleConfirmDelete = async () => {
     try {
       let success = undefined;
-      if (selectedUser?.type === UserType.ATHLETE  {
+      if (selectedUser?.type === UserType.ATHLETE)  {
         success = await deleteAthlete(selectedUser.id);
       } else if (selectedUser?.type === "TRAINER") {
         success = await deleteTrainer(selectedUser.id);
