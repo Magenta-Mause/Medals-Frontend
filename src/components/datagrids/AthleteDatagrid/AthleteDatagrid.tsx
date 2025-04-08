@@ -230,7 +230,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   const mobileRendering: MobileTableRendering<Athlete> = {
-    avatar: (athlete) => <SwimCertificateIcon achieved={athlete.swimming_certificate} />,
+    avatar: (athlete) => (
+      <SwimCertificateIcon achieved={athlete.swimming_certificate} />
+    ),
     h1: (athlete) => (
       <>
         {athlete.first_name} {athlete.last_name}
