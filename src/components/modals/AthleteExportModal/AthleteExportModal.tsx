@@ -291,7 +291,7 @@ const AthleteExportModal = ({
             "& > div": { p: 1, borderRadius: "md", display: "flex" },
           }}
         >
-          <Sheet variant="plain" >
+          <Sheet variant="plain">
             <Checkbox
               variant="outlined"
               color="primary"
