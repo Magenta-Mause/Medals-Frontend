@@ -248,12 +248,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       />
     ),
     bottomButtons: [
-      {
-        key: "openDetails",
-        label: t("components.athleteDatagrid.actions.openDetails"),
-        operation: itemCallback,
-        color: "primary",
-      },
       ...actions,
     ],
     searchFilter: {
