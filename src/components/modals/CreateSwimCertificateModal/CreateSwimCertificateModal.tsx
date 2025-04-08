@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import GenericModal from "../GenericModal";
-import { FormControl, FormLabel, Button, Box } from "@mui/joy";
+import {
+  FormControl,
+  FormLabel,
+  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemContent,
+  Divider,
+} from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import useApi from "@hooks/useApi";
 import { SwimmingCertificateType } from "@customTypes/enums";
 import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 import { useSnackbar } from "notistack";
-import CertificateOptionCard from "./CertificateOptionCard";
 
 interface CreateSwimCertificateModalProps {
   open: boolean;
@@ -14,7 +22,7 @@ interface CreateSwimCertificateModalProps {
   athleteId: number;
 }
 
-// Using enum values as the option values.
+// Define your certificate options with translation keys.
 const certificateOptions = [
   {
     value: SwimmingCertificateType.ENDURANCE,
@@ -129,26 +137,46 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
             />
           </FormLabel>
 
-          <Box
-            sx={{
-              maxHeight: "60vh",
-              overflowY: "auto",
-              pr: 1,
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
-            }}
-          >
-            {certificateOptions.map((option) => (
-              <CertificateOptionCard
-                key={option.value}
-                label={t(option.labelKey)}
-                description={t(option.descriptionKey)}
-                selected={selectedOption === option.value}
-                onClick={() => handleOptionClick(option.value)}
-              />
+          <List sx={{ maxHeight: "60vh", overflowY: "auto" }}>
+            {certificateOptions.map((option, index) => (
+              <React.Fragment key={option.value}>
+                <ListItem
+                  onClick={() => handleOptionClick(option.value)}
+                  sx={(theme) => ({
+                    padding: 1,
+                    width: "100%",
+                    borderRadius: 10,
+                    cursor: "pointer",
+                    // Highlight the selected option.
+                    background:
+                      selectedOption === option.value
+                        ? theme.palette.mode === "dark"
+                          ? "rgba(64,64,64,0.6)"
+                          : "rgba(199,199,199,0.6)"
+                        : "transparent",
+                    "&:hover": {
+                      background:
+                        theme.palette.mode === "dark"
+                          ? "rgba(64,64,64,0.6)"
+                          : "rgba(199,199,199,0.6)",
+                    },
+                  })}
+                >
+                  <ListItemContent>
+                    <Typography level="title-md" fontWeight="bold">
+                      {t(option.labelKey)}
+                    </Typography>
+                    <Typography level="body-sm">
+                      {t(option.descriptionKey)}
+                    </Typography>
+                  </ListItemContent>
+                </ListItem>
+                {index < certificateOptions.length - 1 && (
+                  <Divider sx={{ margin: 0.7 }} component="li" />
+                )}
+              </React.Fragment>
             ))}
-          </Box>
+          </List>
         </FormControl>
 
         <Button type="submit" disabled={loading} sx={{ mt: 1 }}>
