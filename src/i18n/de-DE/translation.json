@@ -510,8 +510,8 @@
       "certificateLabel": {
         "ENDURANCE": "Ausdauer",
         "SPRINT": "Schnelligkeit",
-        "JUNIOR": "<12 Jahre",
-        "SENIOR": "≥12 Jahre",
+        "JUNIOR": "50m ohne Zeitlimit",
+        "SENIOR": "200m in maximal 11 Min.",
         "SUSTAINED": "Dauerschwimmen",
         "CLOTHED": "Kleiderschwimmen",
         "BADGES": "Schwimmabzeichen"
@@ -520,7 +520,7 @@
     "createSwimCertificateModal": {
       "header": "Schwimmnachweis erstellen",
       "form": {
-        "selectCertificate": "Bitte wählen Sie eine Schwimmabzeichenart aus:",
+        "selectCertificate": "Bitte wählen Sie eine Schwimmabzeichenart aus",
         "info": "Für das Deutsche Sportabzeichen für Kinder und Jugendliche genügt einmaliger Nachweis"
       },
       "options": {
@@ -533,11 +533,11 @@
           "description": "Nachweis der Schwimmfertigkeit gilt, wenn 25 m in der geforderten Zeit (oder schneller) durchschwommen werden."
         },
         "JUNIOR": {
-          "label": "<12 Jahre",
+          "label": "50m ohne Zeitlimit",
           "description": "<12 Jahre: 50 m am Stück schwimmen ohne Zeitlimit"
         },
         "SENIOR": {
-          "label": "≥12 Jahre",
+          "label": "200m in maximal 11 Min.",
           "description": "≥12 Jahre: 200 m in maximal 11 Min. am Stück schwimmen."
         },
         "SUSTAINED": {
