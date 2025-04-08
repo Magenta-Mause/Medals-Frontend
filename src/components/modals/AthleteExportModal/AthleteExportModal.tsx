@@ -291,11 +291,10 @@ const AthleteExportModal = ({
             "& > div": { p: 1, borderRadius: "md", display: "flex" },
           }}
         >
-          <Sheet variant="plain">
+          <Sheet variant="plain" >
             <Checkbox
               variant="outlined"
               color="primary"
-              overlay
               label={t("components.athleteExportModal.performanceCheckbox")}
               checked={withPerformance}
               onChange={(event) => setWithPerformance(event.target.checked)}
