@@ -14,8 +14,6 @@ import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
-import Select from "@mui/joy/Select";
-import Option from "@mui/joy/Option";
 import GenericModal from "../GenericModal";
 import { emailRegex } from "@components/Regex/Regex";
 import { Genders } from "@customTypes/enums";
@@ -50,7 +48,13 @@ interface FormErrors {
   gender: string;
 }
 
-const AthleteCreationForm = () => {
+// Define props for the component.
+interface AthleteCreationFormProps {
+  isOpen: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
   const { t, i18n } = useTranslation();
   const { createAthlete } = useApi();
   const [athlete, setAthlete] = useState<Athlete>({
@@ -142,7 +146,9 @@ const AthleteCreationForm = () => {
   const isFormValid = () => {
     return (
       Object.values(errors).every((error) => !error) &&
-      Object.keys(errors).every((field) => touched[field as keyof FormTouched])
+      Object.keys(errors).every(
+        (field) => touched[field as keyof FormTouched]
+      )
     );
   };
 
@@ -215,126 +221,124 @@ const AthleteCreationForm = () => {
   };
 
   return (
-    <>
-      <GenericModal
-        header={t("pages.athleteOverviewPage.createButton")}
-        open={props.isOpen}
-        setOpen={props.setOpen}
-        modalDialogSX={{ minWidth: "30%" }}
-        modalSX={{
+    <GenericModal
+      header={t("pages.athleteOverviewPage.createButton")}
+      open={isOpen}
+      setOpen={setOpen}
+      modalDialogSX={{ minWidth: "30%" }}
+      modalSX={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        left: {
+          md: "var(--Sidebar-width)",
+          sm: "0",
+        },
+      }}
+    >
+      <Box
+        sx={{
           display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          left: {
-            md: "var(--Sidebar-width)",
-            sm: "0",
-          },
+          flexDirection: "column",
+          gap: 2,
+          width: { xs: "100%", md: "30vw" },
         }}
       >
-        <Box
+        <FormControl error={touched.first_name && !!errors.first_name}>
+          <FormLabel>{t("pages.athleteCreationPage.firstName")}</FormLabel>
+          <Input
+            placeholder={t("pages.athleteCreationPage.firstName")}
+            size="lg"
+            variant="outlined"
+            value={athlete.first_name}
+            onChange={(e) => handleFieldChange("first_name", e.target.value)}
+            onBlur={() => markTouched("first_name")}
+          />
+          {touched.first_name && errors.first_name && (
+            <FormHelperText>{errors.first_name}</FormHelperText>
+          )}
+        </FormControl>
+
+        <FormControl error={touched.last_name && !!errors.last_name}>
+          <FormLabel>{t("pages.athleteCreationPage.lastName")}</FormLabel>
+          <Input
+            placeholder={t("pages.athleteCreationPage.lastName")}
+            size="lg"
+            variant="outlined"
+            value={athlete.last_name}
+            onChange={(e) => handleFieldChange("last_name", e.target.value)}
+            onBlur={() => markTouched("last_name")}
+          />
+          {touched.last_name && errors.last_name && (
+            <FormHelperText>{errors.last_name}</FormHelperText>
+          )}
+        </FormControl>
+
+        <FormControl error={touched.email && !!errors.email}>
+          <FormLabel>{t("pages.athleteCreationPage.email")}</FormLabel>
+          <Input
+            placeholder={t("pages.athleteCreationPage.email")}
+            size="lg"
+            variant="outlined"
+            value={athlete.email}
+            onChange={(e) => handleFieldChange("email", e.target.value)}
+            onBlur={() => markTouched("email")}
+          />
+          {touched.email && errors.email && (
+            <FormHelperText>{errors.email}</FormHelperText>
+          )}
+        </FormControl>
+
+        <FormControl error={touched.birthdate && !!errors.birthdate}>
+          <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
+          <CustomDatePicker
+            sx={{ width: "100%" }}
+            value={getDatePickerValue()}
+            onChange={handleDateChange}
+            format={dateFormat}
+            error={touched.birthdate && !!errors.birthdate}
+          />
+          {touched.birthdate && errors.birthdate && (
+            <FormHelperText>{errors.birthdate}</FormHelperText>
+          )}
+        </FormControl>
+
+        <FormControl error={touched.gender && !!errors.gender}>
+          <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
+          <Select
+            placeholder={t("pages.athleteCreationPage.gender")}
+            value={athlete.gender}
+            onChange={(_, newValue) => handleFieldChange("gender", newValue)}
+            onBlur={() => markTouched("gender")}
+          >
+            <Option value={Genders.FEMALE}>{t("genders.FEMALE")}</Option>
+            <Option value={Genders.MALE}>{t("genders.MALE")}</Option>
+            <Option value={Genders.DIVERSE}>{t("genders.DIVERSE")}</Option>
+          </Select>
+          {touched.gender && errors.gender && (
+            <FormHelperText>{errors.gender}</FormHelperText>
+          )}
+        </FormControl>
+
+        <Button
+          fullWidth
+          disabled={!isFormValid()}
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            width: { xs: "100%", md: "30vw" },
+            mt: 4,
+            mb: 2,
+          }}
+          onClick={() => {
+            if (handleSubmitAttempt()) {
+              createAthlete(athlete);
+              setOpen(false);
+              resetForm();
+            }
           }}
         >
-          <FormControl error={touched.first_name && !!errors.first_name}>
-            <FormLabel>{t("pages.athleteCreationPage.firstName")}</FormLabel>
-            <Input
-              placeholder={t("pages.athleteCreationPage.firstName")}
-              size="lg"
-              variant="outlined"
-              value={athlete.first_name}
-              onChange={(e) => handleFieldChange("first_name", e.target.value)}
-              onBlur={() => markTouched("first_name")}
-            />
-            {touched.first_name && errors.first_name && (
-              <FormHelperText>{errors.first_name}</FormHelperText>
-            )}
-          </FormControl>
-
-          <FormControl error={touched.last_name && !!errors.last_name}>
-            <FormLabel>{t("pages.athleteCreationPage.lastName")}</FormLabel>
-            <Input
-              placeholder={t("pages.athleteCreationPage.lastName")}
-              size="lg"
-              variant="outlined"
-              value={athlete.last_name}
-              onChange={(e) => handleFieldChange("last_name", e.target.value)}
-              onBlur={() => markTouched("last_name")}
-            />
-            {touched.last_name && errors.last_name && (
-              <FormHelperText>{errors.last_name}</FormHelperText>
-            )}
-          </FormControl>
-
-          <FormControl error={touched.email && !!errors.email}>
-            <FormLabel>{t("pages.athleteCreationPage.email")}</FormLabel>
-            <Input
-              placeholder={t("pages.athleteCreationPage.email")}
-              size="lg"
-              variant="outlined"
-              value={athlete.email}
-              onChange={(e) => handleFieldChange("email", e.target.value)}
-              onBlur={() => markTouched("email")}
-            />
-            {touched.email && errors.email && (
-              <FormHelperText>{errors.email}</FormHelperText>
-            )}
-          </FormControl>
-
-          <FormControl error={touched.birthdate && !!errors.birthdate}>
-            <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
-            <CustomDatePicker
-              sx={{ width: "100%" }}
-              value={getDatePickerValue()}
-              onChange={handleDateChange}
-              format={dateFormat}
-              error={touched.birthdate && !!errors.birthdate}
-            />
-            {touched.birthdate && errors.birthdate && (
-              <FormHelperText>{errors.birthdate}</FormHelperText>
-            )}
-          </FormControl>
-
-          <FormControl error={touched.gender && !!errors.gender}>
-            <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
-            <Select
-              placeholder={t("pages.athleteCreationPage.gender")}
-              value={athlete.gender}
-              onChange={(_, newValue) => handleFieldChange("gender", newValue)}
-              onBlur={() => markTouched("gender")}
-            >
-              <Option value={Genders.FEMALE}>{t("genders.FEMALE")}</Option>
-              <Option value={Genders.MALE}>{t("genders.MALE")}</Option>
-              <Option value={Genders.DIVERSE}>{t("genders.DIVERSE")}</Option>
-            </Select>
-            {touched.gender && errors.gender && (
-              <FormHelperText>{errors.gender}</FormHelperText>
-            )}
-          </FormControl>
-
-          <Button
-            fullWidth
-            disabled={!isFormValid()}
-            sx={{
-              mt: 4,
-              mb: 2,
-            }}
-            onClick={() => {
-              if (handleSubmitAttempt()) {
-                createAthlete(athlete);
-                setPopupOpen(false);
-                resetForm();
-              }
-            }}
-          >
-            {t("pages.athleteCreationPage.createButton")}
-          </Button>
-        </Box>
-      </GenericModal>
-    </>
+          {t("pages.athleteCreationPage.createButton")}
+        </Button>
+      </Box>
+    </GenericModal>
   );
 };
 
