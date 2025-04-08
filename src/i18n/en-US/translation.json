@@ -509,6 +509,43 @@
       "cancelButton": "Cancel",
       "deleteButton": "Delete"
     },
+    "createSwimCertificateModal": {
+      "header": "Create Swim Certificate",
+      "form": {
+        "selectCertificate": "Please select an option:",
+        "info": "For the German Sports Badge for Children and Adolescents, one demonstration is sufficient."
+      },
+      "options": {
+        "ENDURANCE": {
+          "label": "Endurance",
+          "description": "Proof of swimming proficiency is valid if an endurance course is completely swum, even if the time required for Bronze is not met."
+        },
+        "SPRINT": {
+          "label": "Sprint",
+          "description": "Proof of swimming proficiency is valid if 25 m are swum within the required time (or faster)."
+        },
+        "JUNIOR": {
+          "label": "50m without time limit",
+          "description": "Under 12 years: swim 50 m continuously without a time limit."
+        },
+        "SENIOR": {
+          "label": "200m in a maximum of 11 min.",
+          "description": "12 years and older: swim 200 m continuously in a maximum of 11 minutes."
+        },
+        "SUSTAINED": {
+          "label": "Sustained Swimming",
+          "description": "15 minutes of sustained swimming (also possible in open water), during which continuous movement in the water must be evident."
+        },
+        "CLOTHED": {
+          "label": "Swimming in Clothes",
+          "description": "Swim 100 m in clothes in no more than 4 minutes with subsequent undressing in the water (according to DLRG/DWRK guidelines)."
+        },
+        "BADGES": {
+          "label": "Swimming Badge",
+          "description": "Proof by a recognized swimming badge."
+        }
+      }
+    },
     "tooltip": {
       "colorSchemeToggle": "Switch between Light/Dark mode",
       "profileButton": "Account Settings",

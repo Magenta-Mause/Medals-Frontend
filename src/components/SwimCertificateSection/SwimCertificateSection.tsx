@@ -65,7 +65,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Typography>
               {t(
-                `components.swimCertificateSection.certificateLabel.${athlete.swimming_certificate}`,
+                `components.createSwimCertificateModal.options.${athlete.swimming_certificate}.label`,
               )}
             </Typography>
             <InfoTooltip

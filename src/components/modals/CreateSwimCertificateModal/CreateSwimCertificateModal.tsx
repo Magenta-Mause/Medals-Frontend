@@ -13,7 +13,6 @@ import {
 import { useTranslation } from "react-i18next";
 import useApi from "@hooks/useApi";
 import { SwimmingCertificateType } from "@customTypes/enums";
-import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 import { useSnackbar } from "notistack";
 
 interface CreateSwimCertificateModalProps {
@@ -131,10 +130,6 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
             }}
           >
             {t("components.createSwimCertificateModal.form.selectCertificate")}
-            <InfoTooltip
-              text={t("components.createSwimCertificateModal.form.info")}
-              header={t("components.createSwimCertificateModal.header")}
-            />
           </FormLabel>
 
           <List sx={{ maxHeight: "60vh", overflowY: "auto" }}>

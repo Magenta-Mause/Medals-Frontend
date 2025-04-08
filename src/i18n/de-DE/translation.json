@@ -506,21 +506,12 @@
     },
     "swimCertificateSection": {
       "noCertificateWarning": "Kein Schwimmnachweis vorhanden.",
-      "deleteButton": "Schwimmnachweis löschen",
-      "certificateLabel": {
-        "ENDURANCE": "Ausdauer",
-        "SPRINT": "Schnelligkeit",
-        "JUNIOR": "50m ohne Zeitlimit",
-        "SENIOR": "200m in maximal 11 Min.",
-        "SUSTAINED": "Dauerschwimmen",
-        "CLOTHED": "Kleiderschwimmen",
-        "BADGES": "Schwimmabzeichen"
-      }
+      "deleteButton": "Schwimmnachweis löschen"
     },
     "createSwimCertificateModal": {
       "header": "Schwimmnachweis erstellen",
       "form": {
-        "selectCertificate": "Bitte wählen Sie eine Schwimmabzeichenart aus",
+        "selectCertificate": "Bitte wählen Sie eine Option aus:",
         "info": "Für das Deutsche Sportabzeichen für Kinder und Jugendliche genügt einmaliger Nachweis"
       },
       "options": {
