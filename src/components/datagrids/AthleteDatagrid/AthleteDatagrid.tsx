@@ -90,7 +90,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
             <SwimCertificateIcon achieved={item.swimming_certificate} />
           </>
         );
-      }
+      },
     },
   ];
 
