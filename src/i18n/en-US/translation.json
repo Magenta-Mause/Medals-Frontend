@@ -94,6 +94,7 @@
       "h3": "The soon to be Medal Management System"
     },
     "athleteDetailPage": {
+      "createSwimCertificateButton": "Create swimming certificate",
       "createPerformanceRecordingButton": "Record performance"
     },
     "athleteOverviewPage": {
@@ -356,7 +357,8 @@
           "birthdate": "Birthdate",
           "email": "Email",
           "gender": "Gender",
-          "medals": "Medals"
+          "medals": "Medals",
+          "swimCertificate": "Swimming certificate"
         },
         "filters": {
           "search": "Search",
@@ -457,6 +459,10 @@
       "logoutButton": "Logout",
       "languageSelectionButton": "Change language",
       "selectUser": "Continue with this user",
+      "swimCertificate": {
+        "achieved": "Swimming certificate achieved",
+        "notAchieved": "Swimming certificate not achieved"
+      },
       "showPassword": "Show/Hide password",
       "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
     }
