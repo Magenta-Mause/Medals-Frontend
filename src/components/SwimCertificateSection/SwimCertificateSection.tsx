@@ -23,9 +23,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
-  const hasCertificate = Boolean(
-    athlete.swimming_certificate,
-  );
+  const hasCertificate = Boolean(athlete.swimming_certificate);
 
   const handleDelete = async () => {
     setLoading(true);
