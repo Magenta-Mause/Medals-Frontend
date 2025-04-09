@@ -12,7 +12,6 @@ interface CreateSwimCertificateModalProps {
   athleteId: number;
 }
 
-// Define your certificate options with translation keys.
 const certificateOptions = [
   {
     value: SwimmingCertificateType.ENDURANCE,
@@ -120,7 +119,7 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
                 sm: "1fr 1fr",
                 md: "1fr 1fr",
               },
-              gap: 2,
+              gap: 1,
               maxHeight: "60vh",
               overflowY: "auto",
             }}
@@ -150,10 +149,10 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
                     },
                   })}
                 >
-                  <Typography level="title-md" fontWeight="bold" mb={0.5}>
+                  <Typography level="title-sm" fontWeight="bold" mb={0.5}>
                     {t(option.labelKey)}
                   </Typography>
-                  <Typography level="body-sm">
+                  <Typography level="body-xs">
                     {t(option.descriptionKey)}
                   </Typography>
                 </Sheet>
