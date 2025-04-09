@@ -256,7 +256,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         performanceRecordings={performanceRecordings}
       />
     ),
-    bottomButtons: [...actions],
     searchFilter: {
       name: "search",
       label: "Search",
