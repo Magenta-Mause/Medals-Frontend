@@ -6,7 +6,6 @@ import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import SwimCertificateIcon from "@components/icons/SwimCertificateIcon/SwimCertificateIcon";
 import CreateSwimCertificateModal from "@components/modals/CreateSwimCertificateModal/CreateSwimCertificateModal";
-import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 
 interface SwimCertificateSectionProps {
   athlete: Athlete;
@@ -52,63 +51,64 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
         padding: 2,
         borderRadius: 10,
         background: "var(--joy-palette-background-level2)",
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
+        width: "100%",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <SwimCertificateIcon achieved={hasCertificate} />
-        {hasCertificate ? (
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <SwimCertificateIcon achieved={hasCertificate} />
+          {hasCertificate ? (
+            <Box>
+              <Typography level="h4">
+                {t(
+                  `components.createSwimCertificateModal.options.${athlete.swimming_certificate}.label`,
+                )}
+              </Typography>
+              <Typography level="body-sm">
+                {t(
+                  `components.createSwimCertificateModal.options.${athlete.swimming_certificate}.description`,
+                )}
+              </Typography>
+            </Box>
+          ) : (
             <Typography>
               {t(
-                `components.createSwimCertificateModal.options.${athlete.swimming_certificate}.label`,
+                "components.swimCertificateSection.noCertificateWarning",
+                "No swim certificate achieved.",
               )}
             </Typography>
-            <InfoTooltip
-              text={t(
-                `components.createSwimCertificateModal.options.${athlete.swimming_certificate}.description`,
-              )}
-              iconProps={{ fontSize: "medium" }}
-            />
-          </Box>
-        ) : (
-          <Typography>
-            {t(
-              "components.swimCertificateSection.noCertificateWarning",
-              "No swim certificate achieved.",
-            )}
-          </Typography>
-        )}
-      </Box>
-
-      {hasCertificate && (
+          )}
+        </Box>
+        {/* Right aligned button */}
         <Box>
-          <Button
-            onClick={handleDelete}
-            variant="outlined"
-            color="danger"
-            disabled={loading}
-          >
-            {t(
-              "components.swimCertificateSection.deleteButton",
-              "Delete Certificate",
-            )}
-          </Button>
+          {hasCertificate ? (
+            <Button
+              onClick={handleDelete}
+              variant="outlined"
+              color="danger"
+              disabled={loading}
+            >
+              {t(
+                "components.swimCertificateSection.deleteButton",
+                "Delete Certificate",
+              )}
+            </Button>
+          ) : (
+            <Button onClick={() => setModalOpen(true)}>
+              {t(
+                "pages.athleteDetailPage.createSwimCertificateButton",
+                "Schwimmnachweis erstellen",
+              )}
+            </Button>
+          )}
         </Box>
-      )}
-
-      {!hasCertificate && (
-        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button onClick={() => setModalOpen(true)}>
-            {t(
-              "pages.athleteDetailPage.createSwimCertificateButton",
-              "Schwimmnachweis erstellen",
-            )}
-          </Button>
-        </Box>
-      )}
+      </Box>
 
       {!hasCertificate && (
         <CreateSwimCertificateModal
