@@ -109,6 +109,17 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
     }
   };
 
+  useEffect(() => {
+    const checkScrollable = () => {
+      if (listRef.current) {
+        const { scrollHeight, clientHeight } = listRef.current;
+        setShowScrollIcon(scrollHeight > clientHeight);
+      }
+    };
+
+    checkScrollable();
+  }, [filteredResults]);
+
   return (
     <>
       <GenericModal

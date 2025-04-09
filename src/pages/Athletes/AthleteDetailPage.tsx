@@ -8,12 +8,15 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { IoIosCreate } from "react-icons/io";
+import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 
 const AthleteDetailPage = () => {
   const params = useParams();
   const { t } = useTranslation();
   const [isPerformanceRecordingModalOpen, setPerformanceRecordingModalOpen] =
     useState(false);
+  const [isExportModalOpen, setExportModalOpen] = useState(false);
+
   const athletes = useTypedSelector(
     (state) => state.athletes.data,
   ) as Athlete[];
@@ -29,7 +32,6 @@ const AthleteDetailPage = () => {
 
   return (
     <>
-      <Box sx={{ pt: 5 }}></Box>
       <AthleteDetailHeader athlete={filteredAthletes[0]} />
       <Box
         sx={{
@@ -39,13 +41,22 @@ const AthleteDetailPage = () => {
           alignItems: "flex-end",
         }}
       >
-        <Button
-          onClick={() => setPerformanceRecordingModalOpen(true)}
-          sx={{ width: 200, display: "flex", justifyContent: "space-around" }}
-        >
-          <IoIosCreate />
-          {t("pages.athleteDetailPage.createPerformanceRecordingButton")}
-        </Button>
+        <Box sx={{ display: "flex", gap: "10px", flexDirection: "row" }}>
+          <Button
+            onClick={() => setPerformanceRecordingModalOpen(true)}
+            sx={{ width: 200, display: "flex", justifyContent: "space-around" }}
+          >
+            <IoIosCreate />
+            {t("pages.athleteDetailPage.createPerformanceRecordingButton")}
+          </Button>
+          <AthleteExportModal
+            isOpen={isExportModalOpen}
+            setOpen={setExportModalOpen}
+            selectedAthletes={filteredAthletes}
+            includePerformance={true}
+          />
+        </Box>
+
         <AthletePerformanceAccordions athlete={filteredAthletes[0]} />
       </Box>
       <CreatePerformanceRecordingModal
