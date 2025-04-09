@@ -24,7 +24,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   const hasCertificate = Boolean(
-    athlete.swimming_certificate && athlete.swimming_certificate !== "",
+    athlete.swimming_certificate,
   );
 
   const handleDelete = async () => {
