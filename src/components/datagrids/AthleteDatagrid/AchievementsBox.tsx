@@ -39,8 +39,9 @@ const AchievementsBox = ({
         );
         const bestMedal = recordingsByCategory
           .map((p) => calculatePerformanceRecordingMedal(p))
-          .sort((m) => convertMedalToNumber(m))
-          .reverse()[0];
+          .sort(
+            (a, b) => convertMedalToNumber(b) - convertMedalToNumber(a),
+          )[0];
         return (
           <MedalIcon
             category={category}
