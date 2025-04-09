@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/joy";
+import { Box, useColorScheme } from "@mui/joy";
 import PoolIcon from "@mui/icons-material/Pool";
 import type { SxProps } from "@mui/joy/styles/types";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
@@ -15,7 +15,11 @@ const SwimCertificateIcon: React.FC<SwimCertificateIconProps> = ({
   achieved = false,
   sx,
 }) => {
-  const backgroundColor = achieved ? "#4caf50" : "#9e9e9e";
+  const { mode } = useColorScheme();
+  const unachievedBackgroundColor =
+    mode === "dark" ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.2)";
+  const backgroundColor = achieved ? "#4caf50" : unachievedBackgroundColor;
+  const border = achieved ? "gray solid thin" : "rgba(0,0,0,0.2) solid thin";
   const detailColor = "#fff";
 
   return (
@@ -29,7 +33,7 @@ const SwimCertificateIcon: React.FC<SwimCertificateIconProps> = ({
       <Box
         sx={{
           background: backgroundColor,
-          border: "gray solid thin",
+          border,
           borderRadius: "100%",
           height: ICON_SIZE,
           width: ICON_SIZE,
