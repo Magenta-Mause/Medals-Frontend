@@ -561,7 +561,9 @@
       "selectUser": "Proceed with this user",
       "swimCertificate": {
         "achieved": "Swimming certificate achieved",
-        "notAchieved": "Swimming certificate not achieved"
+        "notAchieved": "Swimming certificate not achieved",
+        "deletionSuccess": "Swimming certificate successfully deleted.",
+        "deletionError": "Error deleting swimming certificate."
       },
       "showPassword": "Show/Hide Password",
       "athleteUploadDatagrid": {
