@@ -420,7 +420,6 @@
         "edit": "Edit",
         "openDetails": "Details",
         "export": "Export"
-
       }
     },
     "trainerDatagrid": {
@@ -578,6 +577,6 @@
       "exportButton": "Export",
       "performanceCheckbox": "Include Performance Metrics",
       "removeFromSelectionButton": "Remove"
-      }
+    }
   }
 }
