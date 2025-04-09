@@ -96,11 +96,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       size: "s",
       disableSpan: false,
       columnMapping(item) {
-        return (
-          <>
-            <SwimCertificateIcon achieved={item.swimming_certificate} />
-          </>
-        );
+        return <SwimCertificateIcon achieved={!!item.swimming_certificate} />;
       },
     },
   ];
@@ -231,7 +227,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const mobileRendering: MobileTableRendering<Athlete> = {
     avatar: (athlete) => (
-      <SwimCertificateIcon achieved={athlete.swimming_certificate} />
+      <SwimCertificateIcon achieved={!!athlete.swimming_certificate} />
     ),
     h1: (athlete) => (
       <>
