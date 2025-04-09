@@ -9,6 +9,11 @@ import { Cloud } from "@mui/icons-material";
 import UploadIcon from "@mui/icons-material/Upload";
 import { AthleteValidityState } from "@customTypes/enums";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
+import { CSSProperties } from "styled-components";
+
+const IconProps: CSSProperties = {
+  zIndex: 1,
+};
 
 const AthleteUploadDatagrid = (props: { athletes: AthleteWithValidity[] }) => {
   const { t } = useTranslation();
@@ -20,25 +25,25 @@ const AthleteUploadDatagrid = (props: { athletes: AthleteWithValidity[] }) => {
           <HoverTooltip
             text={t("components.tooltip.athleteUploadDatagrid.error")}
           >
-            <CloseIcon color="error" />
+            <CloseIcon color="error" style={IconProps} />
           </HoverTooltip>
         ) : athlete.state === AthleteValidityState.LOADING ? (
           <HoverTooltip
             text={t("components.tooltip.athleteUploadDatagrid.loading")}
           >
-            <CircularProgress size={"sm"} />
+            <CircularProgress size={"sm"} style={IconProps} />
           </HoverTooltip>
         ) : athlete.state === AthleteValidityState.UPLOADED ? (
           <HoverTooltip
             text={t("components.tooltip.athleteUploadDatagrid.uploaded")}
           >
-            <Cloud color="success" />
+            <Cloud color="success" style={IconProps} />
           </HoverTooltip>
         ) : athlete.state === AthleteValidityState.VALID ? (
           <HoverTooltip
             text={t("components.tooltip.athleteUploadDatagrid.valid")}
           >
-            <UploadIcon />
+            <UploadIcon style={IconProps} />
           </HoverTooltip>
         ) : (
           // Handle undefined `valid`
