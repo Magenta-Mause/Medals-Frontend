@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import GenericModal from "../GenericModal";
-import {
-  FormControl,
-  FormLabel,
-  Button,
-  Typography,
-  Box,
-  Sheet,
-} from "@mui/joy";
+import { FormControl, Button, Typography, Box, Sheet } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import useApi from "@hooks/useApi";
 import { SwimmingCertificateType } from "@customTypes/enums";
@@ -74,7 +67,7 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
   const { enqueueSnackbar } = useSnackbar();
   const { addSwimmingCertificate } = useApi();
   const [selectedOption, setSelectedOption] = useState<SwimmingCertificateType>(
-    certificateOptions[0].value
+    certificateOptions[0].value,
   );
   const [loading, setLoading] = useState<boolean>(false);
 
