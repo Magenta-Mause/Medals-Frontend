@@ -116,8 +116,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
                 );
               const bestValue = performanceRecordingsOfCategory
                 .map((p) => calculatePerformanceRecordingMedal(p))
-                .sort((m) => convertMedalToNumber(m))
-                .reverse()[0];
+                .sort((m) => convertMedalToNumber(m))[0];
               return (
                 <MedalIcon
                   category={category}
