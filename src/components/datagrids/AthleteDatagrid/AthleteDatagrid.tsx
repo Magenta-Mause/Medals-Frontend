@@ -21,7 +21,7 @@ import {
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
 import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
-import { PersonSearch, PersonAdd } from "@mui/icons-material";
+import { PersonAdd, PersonSearch } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 
@@ -116,8 +116,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
                 );
               const bestValue = performanceRecordingsOfCategory
                 .map((p) => calculatePerformanceRecordingMedal(p))
-                .sort((m) => convertMedalToNumber(m))
-                .reverse()[0];
+                .sort(
+                  (a, b) => convertMedalToNumber(b) - convertMedalToNumber(a),
+                )[0];
               return (
                 <MedalIcon
                   category={category}
