@@ -24,8 +24,7 @@
     "loading": "Lädt...",
     "submit": "Absenden",
     "password": "Passwort",
-    "finished": "Fertig",
-    "noMetricFound": "Keine Bewertungsmatrix gefunden"
+    "finished": "Fertig"
   },
   "disciplines": {
     "categories": {
@@ -519,7 +518,6 @@
       "exportButton": "Export",
       "performanceCheckbox": "Leistungswerte einschließen",
       "removeFromSelectionButton": "Entfernen"
-
     }
   }
 }
