@@ -307,7 +307,7 @@
         "athlete": "Athlet*in",
         "amount": "Erreichtes Ergebnis",
         "dateOfRecording": "Tag der Aufnahme",
-        "ageAtRecording": "Berechnetes Alter bei Aufnahme: "
+        "ageAtRecording": "Berechnetes Alter bei Erbringung der Leistung: "
       }
     },
     "requestAthleteModal": {
@@ -518,7 +518,6 @@
       "exportButton": "Export",
       "performanceCheckbox": "Leistungswerte einschließen",
       "removeFromSelectionButton": "Entfernen"
-
     }
   }
 }
