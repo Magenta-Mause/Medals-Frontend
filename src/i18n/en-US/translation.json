@@ -129,7 +129,11 @@
       "firstName": "First Name",
       "lastName": "Last Name",
       "valid": "Status",
-      "athleteList": "Athlete List"
+      "athleteList": "Athlete List",
+      "tabSelection": {
+        "athleteImport": "import athlete",
+        "performanceImport": "import performance"
+      }
     },
     "trainerOverviewPage": {
       "header": "Trainers"
@@ -413,7 +417,6 @@
         "edit": "Edit",
         "openDetails": "Details",
         "export": "Export"
-
       }
     },
     "trainerDatagrid": {
@@ -517,6 +520,6 @@
       "exportButton": "Export",
       "performanceCheckbox": "Include Performance Metrics",
       "removeFromSelectionButton": "Remove"
-      }
+    }
   }
 }

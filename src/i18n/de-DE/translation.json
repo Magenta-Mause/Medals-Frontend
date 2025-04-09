@@ -130,7 +130,11 @@
       "firstName": "Vorname",
       "lastName": "Nachname",
       "valid": "Status",
-      "athleteList": "Athletenliste"
+      "athleteList": "Athletenliste",
+      "tabSelection": {
+        "athleteImport": "Athlet*innen importieren",
+        "performanceImport": "Leistungen importieren"
+      }
     },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
@@ -518,7 +522,6 @@
       "exportButton": "Export",
       "performanceCheckbox": "Leistungswerte einschließen",
       "removeFromSelectionButton": "Entfernen"
-
     }
   }
 }

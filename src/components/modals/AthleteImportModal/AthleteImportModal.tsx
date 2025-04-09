@@ -10,6 +10,7 @@ import GenericModal from "../GenericModal";
 import { BirthdateRegex, emailRegex } from "@components/Regex/Regex";
 import { AthleteValidityState, Genders } from "@customTypes/enums";
 import AthleteUploadDatagrid from "@components/datagrids/AthleteUploadDatagrid";
+import { Tab, Tabs } from "@mui/material";
 
 export interface AthleteWithValidity extends Athlete {
   state: AthleteValidityState | undefined;
@@ -20,6 +21,11 @@ interface AthleteCsvImportModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+enum importPage {
+  athleteImport,
+  performanceImport,
+}
+
 const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -28,6 +34,9 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
   const { createAthlete } = useApi();
   const { enqueueSnackbar } = useSnackbar();
   const [isBlocked, setIsBlocked] = useState<boolean>(false);
+  const [selectedImportPage, setSelectedImportPage] = useState<importPage>(
+    importPage.athleteImport,
+  );
 
   const convertDateFormat = (dateStr: string) => {
     // Split the input date string into an array [dd, mm, yyyy]
@@ -237,101 +246,123 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
           justifyContent: "center",
         }}
       >
-        {selectedFile === null ? (
-          <>
-            <input
-              type="file"
-              id="file-upload"
-              style={{ display: "none", justifyContent: "center" }}
-              onChange={handleFileChange}
-            />
-            <label htmlFor="file-upload">
-              <Box
-                onDragOver={(event) => event.preventDefault()}
-                onDrop={handleDrop}
-                sx={{
-                  border: "2px",
-                  borderColor: "neutral.outlinedBorder",
-                  borderRadius: "md",
-                  p: 4,
-                  textAlign: "center",
-                  width: { sx: "60vw", md: "40vw" },
-                  height: { sx: "40vh", md: "30vh" },
-                  cursor: "pointer",
-                  bgcolor: "background.level1",
-                  "&:hover": { bgcolor: "background.level2" },
-                }}
-              >
-                <Typography
-                  display="flex"
-                  flexDirection="column"
-                  textAlign={"center"}
-                  justifyContent="center"
-                  alignItems="center"
-                  padding={9}
-                  border={2}
-                  borderColor="inherit"
-                  borderRadius={"50px"}
+        <Tabs
+          value={selectedImportPage}
+          onChange={(_event: React.SyntheticEvent, newSelectedPage: number) => {
+            setSelectedImportPage(newSelectedPage);
+          }}
+          textColor="primary"
+          indicatorColor="primary"
+        >
+          <Tab
+            label={t("pages.athleteImportPage.tabSelection.athleteImport")}
+          />
+          <Tab
+            label={t("pages.athleteImportPage.tabSelection.performanceImport")}
+          />
+        </Tabs>
+        {selectedImportPage === importPage.athleteImport ? (
+          selectedFile === null ? (
+            <>
+              <input
+                type="file"
+                id="file-upload"
+                style={{ display: "none", justifyContent: "center" }}
+                onChange={handleFileChange}
+              />
+              <label htmlFor="file-upload">
+                <Box
+                  onDragOver={(event) => event.preventDefault()}
+                  onDrop={handleDrop}
                   sx={{
-                    borderStyle: "dashed",
-                    height: { sx: "25vh", md: "25vh" },
+                    border: "2px",
+                    borderColor: "neutral.outlinedBorder",
+                    borderRadius: "md",
+                    p: 4,
+                    textAlign: "center",
+                    width: { sx: "60vw", md: "40vw" },
+                    height: { sx: "40vh", md: "30vh" },
+                    cursor: "pointer",
+                    bgcolor: "background.level1",
+                    "&:hover": { bgcolor: "background.level2" },
                   }}
                 >
-                  <UploadIcon fontSize="large" />
-                  {t("pages.athleteImportPage.DropFile")}
-                </Typography>
-              </Box>
-            </label>
-          </>
-        ) : (
-          <>
-            <Typography level="h4" sx={{ mb: 2 }}>
-              {t("pages.athleteImportPage.athleteList")}
-            </Typography>
-            <AthleteUploadDatagrid athletes={csvData} />
-            <Box
-              sx={{
-                display: "flex",
-                gap: 2,
-                alignItems: "center",
-                flexDirection: "row",
-              }}
-            >
-              <Button
-                onClick={() => {
-                  setSelectedFile(null);
+                  <Typography
+                    display="flex"
+                    flexDirection="column"
+                    textAlign={"center"}
+                    justifyContent="center"
+                    alignItems="center"
+                    padding={9}
+                    border={2}
+                    borderColor="inherit"
+                    borderRadius={"50px"}
+                    sx={{
+                      borderStyle: "dashed",
+                      height: { sx: "25vh", md: "25vh" },
+                    }}
+                  >
+                    <UploadIcon fontSize="large" />
+                    {t("pages.athleteImportPage.DropFile")}
+                  </Typography>
+                </Box>
+              </label>
+            </>
+          ) : (
+            <>
+              <Typography level="h4" sx={{ mb: 2 }}>
+                {t("pages.athleteImportPage.athleteList")}
+              </Typography>
+              <AthleteUploadDatagrid athletes={csvData} />
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  alignItems: "center",
+                  flexDirection: "row",
                 }}
-                color={"danger"}
               >
-                {t("pages.athleteImportPage.changeFile")}
-              </Button>
-              <Button
-                color={isFinished() ? "success" : "primary"}
-                disabled={
-                  (checkEmptyImport(csvData) || isBlocked) && !isFinished()
-                }
-                onClick={() => {
-                  if (isFinished()) {
+                <Button
+                  onClick={() => {
                     setSelectedFile(null);
-                    props.setOpen(false);
-                  } else {
-                    setIsBlocked(true);
-                    uploadAthletes(csvData);
+                  }}
+                  color={"danger"}
+                >
+                  {t("pages.athleteImportPage.changeFile")}
+                </Button>
+                <Button
+                  color={isFinished() ? "success" : "primary"}
+                  disabled={
+                    (checkEmptyImport(csvData) || isBlocked) && !isFinished()
                   }
-                }}
-              >
-                {isBlocked
-                  ? csvData.reduce(
-                      (prev, athlete) =>
-                        prev || athlete.state === AthleteValidityState.LOADING,
-                      false,
-                    )
-                    ? t("generic.loading")
-                    : t("generic.finished")
-                  : t("pages.athleteImportPage.importButton")}
-              </Button>
-            </Box>
-          </>
+                  onClick={() => {
+                    if (isFinished()) {
+                      setSelectedFile(null);
+                      props.setOpen(false);
+                    } else {
+                      setIsBlocked(true);
+                      uploadAthletes(csvData);
+                    }
+                  }}
+                >
+                  {isBlocked
+                    ? csvData.reduce(
+                        (prev, athlete) =>
+                          prev ||
+                          athlete.state === AthleteValidityState.LOADING,
+                        false,
+                      )
+                      ? t("generic.loading")
+                      : t("generic.finished")
+                    : t("pages.athleteImportPage.importButton")}
+                </Button>
+              </Box>
+            </>
+          )
+        ) : (
+          <Typography level="h4" sx={{ mb: 2 }}>
+            performance Import Page
+          </Typography>
         )}
       </GenericModal>
     </>
