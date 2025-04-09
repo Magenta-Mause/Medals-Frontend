@@ -53,7 +53,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
         marginTop: 2,
         padding: 2,
         borderRadius: 10,
-        background: "rgba(0, 0, 0, 0.05)",
+        background: "var(--joy-palette-background-level2)",
         display: "flex",
         flexDirection: "column",
         gap: 2,
