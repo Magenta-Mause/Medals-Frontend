@@ -95,7 +95,13 @@
     },
     "requestAthleteAccess": {
       "failed": "Failed sending the request",
-      "success": "Request has been send"
+      "success": "Request has been sent"
+    },
+    "athleteExportModal": {
+      "noAthleteSelected": "Please select at least one athlete",
+      "exportError": "Error generating the CSV file",
+      "unexpectedError": "An unexpected error occurred",
+      "success": "Export successful!"
     }
   },
   "pages": {
@@ -304,7 +310,7 @@
       "searchAthlete": "Name",
       "notFound": "No athletes found",
       "requestAthleteButton": "Send",
-      "sendButton": "Sendet"
+      "sendButton": "Sent"
     },
     "athleteDetailHeader": {
       "columns": {
@@ -412,7 +418,9 @@
       "actions": {
         "delete": "Delete",
         "edit": "Edit",
-        "openDetails": "Details"
+        "openDetails": "Details",
+        "export": "Export"
+
       }
     },
     "trainerDatagrid": {
@@ -563,7 +571,13 @@
         "uploaded": "Athlete has been uploaded",
         "valid": "Athlete can be uploaded"
       },
-      "genderDiversInfo": "For the gender option 'Diverse', the male values are used."
-    }
+      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
+    },
+    "athleteExportModal": {
+      "header": "Athlete Export",
+      "exportButton": "Export",
+      "performanceCheckbox": "Include Performance Metrics",
+      "removeFromSelectionButton": "Remove"
+      }
   }
 }

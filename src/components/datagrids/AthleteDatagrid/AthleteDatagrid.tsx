@@ -12,12 +12,13 @@ import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFi
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import AthleteImportModal from "@components/modals/AthleteImportModal/AthleteImportModal";
 import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
-import { useState } from "react";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useTypedSelector } from "@stores/rootReducer";
 import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
 import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
-import { PersonSearch, PersonAdd } from "@mui/icons-material";
+import { PersonAdd, PersonSearch } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
 
 interface AthleteDatagridProps {
@@ -36,6 +37,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
     useState(false);
   const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
+  const [isExportModalOpen, setExportModalOpen] = useState(false);
+  const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
 
   const columns: Column<Athlete>[] = [
     {
@@ -203,6 +206,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
     },
     {
+      label: <>{t("components.athleteDatagrid.actions.export")}</>,
+      color: "primary",
+      key: "export",
+      variant: "outlined",
+      operation: async (item) => {
+        setSelectedAthletes((prev) => [...prev, item]);
+        setExportModalOpen(true);
+      },
+    },
+    {
       label: <>{t("components.athleteDatagrid.actions.delete")}</>,
       color: "danger",
       key: "delete",
@@ -228,6 +241,15 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     h3: (athlete) => (
       <Typography level="body-xs">{athlete.birthdate}</Typography>
     ),
+    bottomButtons: [
+      {
+        key: "openDetails",
+        label: t("components.athleteDatagrid.actions.openDetails"),
+        operation: itemCallback,
+        color: "primary",
+      },
+      ...actions.filter((action) => action.key !== "export"),
+    ],
     topRightInfo: (athlete) => (
       <AchievementsBox
         athlete={athlete}
@@ -255,8 +277,20 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     onElementClick: itemCallback,
   };
 
+  useEffect(() => {
+    if (!isExportModalOpen) {
+      setSelectedAthletes([]);
+    }
+  }, [isExportModalOpen]);
+
   return (
     <>
+      <AthleteExportModal
+        isOpen={isExportModalOpen}
+        setOpen={setExportModalOpen}
+        selectedAthletes={selectedAthletes}
+        includePerformance={false}
+      />
       <GenericResponsiveDatagrid
         isLoading={props.isLoading}
         data={props.athletes}

@@ -104,6 +104,12 @@
     "requestAthleteAccess": {
       "failed": "Anfrage fehlgeschlagen",
       "success": "Anfrage gesendet"
+    },
+    "athleteExportModal": {
+      "noAthleteSelected": "Bitte wählen Sie mindestens einen Athleten aus",
+      "exportError": "Fehler beim Erstellen der CSV-Datei",
+      "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
+      "success": "Export erfolgreich!"
     }
   },
   "pages": {
@@ -314,7 +320,7 @@
         "athlete": "Athlet*in",
         "amount": "Erreichtes Ergebnis",
         "dateOfRecording": "Tag der Aufnahme",
-        "ageAtRecording": "Berechnetes Alter bei Aufnahme: "
+        "ageAtRecording": "Berechnetes Alter bei Erbringung der Leistung: "
       }
     },
     "requestAthleteModal": {
@@ -422,7 +428,8 @@
       "actions": {
         "delete": "Löschen",
         "edit": "Bearbeiten",
-        "openDetails": "Details"
+        "openDetails": "Details",
+        "export": "Exportieren"
       }
     },
     "disciplineDatagrid": {
@@ -563,6 +570,12 @@
         "valid": "Athlet*in kann hochgeladen werden"
       },
       "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
+    },
+    "athleteExportModal": {
+      "header": "Athlet*innen Export",
+      "exportButton": "Export",
+      "performanceCheckbox": "Leistungswerte einschließen",
+      "removeFromSelectionButton": "Entfernen"
     }
   }
 }

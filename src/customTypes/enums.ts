@@ -46,3 +46,24 @@ export enum SwimmingCertificateType {
   CLOTHED = "CLOTHED", // 100m clothed swim in max 4 minutes with in-water undressing
   BADGES = "BADGES", // Submission of recognized swim badges
 }
+
+export enum AthleteExportColumn {
+  FirstName = "first_name",
+  LastName = "last_name",
+  Email = "email",
+  Birthdate = "birthdate",
+  Gender = "gender",
+}
+
+export enum AthletePerformanceExportColumn {
+  FirstName = "first_name",
+  LastName = "last_name",
+  Gender = "gender",
+  Birthyear = "birthyear",
+  Birthday = "birthday",
+  Discipline = "discipline",
+  Category = "category",
+  Date = "date",
+  Result = "result",
+  Points = "points",
+}
