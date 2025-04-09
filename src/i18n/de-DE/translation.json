@@ -516,10 +516,6 @@
     },
     "createSwimCertificateModal": {
       "header": "Schwimmnachweis erstellen",
-      "form": {
-        "selectCertificate": "Bitte wählen Sie eine Option aus:",
-        "info": "Für das Deutsche Sportabzeichen für Kinder und Jugendliche genügt einmaliger Nachweis"
-      },
       "options": {
         "ENDURANCE": {
           "label": "Ausdauer",

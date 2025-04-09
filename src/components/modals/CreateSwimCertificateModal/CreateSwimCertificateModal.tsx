@@ -5,10 +5,8 @@ import {
   FormLabel,
   Button,
   Typography,
-  List,
-  ListItem,
-  ListItemContent,
-  Divider,
+  Box,
+  Sheet,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import useApi from "@hooks/useApi";
@@ -76,7 +74,7 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
   const { enqueueSnackbar } = useSnackbar();
   const { addSwimmingCertificate } = useApi();
   const [selectedOption, setSelectedOption] = useState<SwimmingCertificateType>(
-    certificateOptions[0].value,
+    certificateOptions[0].value
   );
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -89,7 +87,7 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
         variant: "success",
       });
     } catch (error) {
-      console.error("Error while adding swimming certificate:", error);
+      console.error("Error adding swimming certificate:", error);
       enqueueSnackbar(t("snackbar.swimCertificate.creationError"), {
         variant: "error",
       });
@@ -109,7 +107,7 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
       open={open}
       setOpen={setOpen}
       disableEscape
-      modalDialogSX={{ width: { md: "520px", xs: "95vw" } }}
+      modalDialogSX={{ width: { md: "700px", xs: "95vw" } }}
     >
       <form
         onSubmit={handleSubmit}
@@ -121,61 +119,63 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
         }}
       >
         <FormControl>
-          <FormLabel
+          <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              mb: 2,
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "1fr 1fr",
+                md: "1fr 1fr",
+              },
+              gap: 2,
+              maxHeight: "60vh",
+              overflowY: "auto",
             }}
           >
-            {t("components.createSwimCertificateModal.form.selectCertificate")}
-          </FormLabel>
-
-          <List sx={{ maxHeight: "60vh", overflowY: "auto" }}>
-            {certificateOptions.map((option, index) => (
-              <React.Fragment key={option.value}>
-                <ListItem
+            {certificateOptions.map((option) => {
+              const isSelected = selectedOption === option.value;
+              return (
+                <Sheet
+                  key={option.value}
+                  variant="outlined"
                   onClick={() => handleOptionClick(option.value)}
                   sx={(theme) => ({
-                    padding: 1,
-                    width: "100%",
-                    borderRadius: 10,
+                    borderRadius: "md",
+                    p: 2,
                     cursor: "pointer",
-                    // Highlight the selected option.
-                    background:
-                      selectedOption === option.value
-                        ? theme.palette.mode === "dark"
-                          ? "rgba(64,64,64,0.6)"
-                          : "rgba(199,199,199,0.6)"
-                        : "transparent",
+                    // Highlight selected option.
+                    backgroundColor: isSelected
+                      ? theme.palette.mode === "dark"
+                        ? "rgba(64, 64, 64, 0.6)"
+                        : "rgba(199, 199, 199, 0.6)"
+                      : "transparent",
                     "&:hover": {
-                      background:
+                      backgroundColor:
                         theme.palette.mode === "dark"
-                          ? "rgba(64,64,64,0.6)"
-                          : "rgba(199,199,199,0.6)",
+                          ? "rgba(64, 64, 64, 0.6)"
+                          : "rgba(199, 199, 199, 0.6)",
                     },
                   })}
                 >
-                  <ListItemContent>
-                    <Typography level="title-md" fontWeight="bold">
-                      {t(option.labelKey)}
-                    </Typography>
-                    <Typography level="body-sm">
-                      {t(option.descriptionKey)}
-                    </Typography>
-                  </ListItemContent>
-                </ListItem>
-                {index < certificateOptions.length - 1 && (
-                  <Divider sx={{ margin: 0.7 }} component="li" />
-                )}
-              </React.Fragment>
-            ))}
-          </List>
+                  <Typography level="title-md" fontWeight="bold" mb={0.5}>
+                    {t(option.labelKey)}
+                  </Typography>
+                  <Typography level="body-sm">
+                    {t(option.descriptionKey)}
+                  </Typography>
+                </Sheet>
+              );
+            })}
+          </Box>
         </FormControl>
 
-        <Button type="submit" disabled={loading} sx={{ mt: 1 }}>
-          {loading ? t("generic.submitting") : t("generic.submit")}
+        <Button
+          type="submit"
+          disabled={loading}
+          size="lg"
+          sx={{ alignSelf: "center", mt: 1 }}
+        >
+          {t("generic.submit")}
         </Button>
       </form>
     </GenericModal>

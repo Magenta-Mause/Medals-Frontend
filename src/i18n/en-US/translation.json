@@ -517,10 +517,6 @@
     },
     "createSwimCertificateModal": {
       "header": "Create Swim Certificate",
-      "form": {
-        "selectCertificate": "Please select an option:",
-        "info": "For the German Sports Badge for Children and Adolescents, one demonstration is sufficient."
-      },
       "options": {
         "ENDURANCE": {
           "label": "Endurance",
