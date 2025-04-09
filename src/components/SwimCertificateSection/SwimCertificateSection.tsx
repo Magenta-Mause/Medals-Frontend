@@ -78,10 +78,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
             </Box>
           ) : (
             <Typography>
-              {t(
-                "components.swimCertificateSection.noCertificateWarning",
-                "No swim certificate achieved.",
-              )}
+              {t("components.swimCertificateSection.noCertificateWarning")}
             </Typography>
           )}
         </Box>
@@ -94,17 +91,11 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
               color="danger"
               disabled={loading}
             >
-              {t(
-                "components.swimCertificateSection.deleteButton",
-                "Delete Certificate",
-              )}
+              {t("components.swimCertificateSection.deleteButton")}
             </Button>
           ) : (
             <Button onClick={() => setModalOpen(true)}>
-              {t(
-                "pages.athleteDetailPage.createSwimCertificateButton",
-                "Schwimmnachweis erstellen",
-              )}
+              {t("pages.athleteDetailPage.createSwimCertificateButton")}
             </Button>
           )}
         </Box>
