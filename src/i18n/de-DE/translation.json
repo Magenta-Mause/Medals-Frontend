@@ -401,8 +401,7 @@
           "birthdate": "Geburtstag",
           "email": "E-Mail",
           "gender": "Geschlecht",
-          "medals": "Medaillen",
-          "swimCertificate": "Schwimm-nachweis"
+          "achievements": "Errungenschaften"
         },
         "filters": {
           "search": "Suche",

@@ -1,4 +1,3 @@
-import React from "react";
 import { Box } from "@mui/joy";
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import { DisciplineCategories, Medals } from "@customTypes/enums";
@@ -7,21 +6,29 @@ import {
   convertMedalToNumber,
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
+import SwimCertificateIcon from "@components/icons/SwimCertificateIcon/SwimCertificateIcon";
 
-interface MedalBoxProps {
+export interface AchievementsBoxProps {
   athlete: Athlete;
   performanceRecordings: PerformanceRecording[];
   sx?: any;
-  iconSize?: string;
 }
 
-const MedalBox = ({ athlete, performanceRecordings, sx }: MedalBoxProps) => {
+const AchievementsBox = ({ athlete, performanceRecordings, sx }: AchievementsBoxProps) => {
   const performanceRecordingsOfAthlete = performanceRecordings.filter(
     (p) => p.athlete_id === athlete.id,
   );
 
   return (
-    <Box sx={{ display: "flex", gap: "10px", justifyContent: "left", ...sx }}>
+    <Box
+      sx={{
+        display: "flex",
+        gap: "10px",
+        alignItems: "center",
+        justifyContent: "left",
+        ...sx,
+      }}
+    >
       {Object.values(DisciplineCategories).map((category) => {
         const recordingsByCategory = performanceRecordingsOfAthlete.filter(
           (p) => p.discipline_rating_metric.discipline.category === category,
@@ -38,8 +45,9 @@ const MedalBox = ({ athlete, performanceRecordings, sx }: MedalBoxProps) => {
           />
         );
       })}
+        <SwimCertificateIcon achieved={!!athlete.swimming_certificate} />
     </Box>
   );
 };
 
-export default MedalBox;
+export default AchievementsBox;

@@ -16,10 +16,10 @@ import { useState } from "react";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useTypedSelector } from "@stores/rootReducer";
 import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
-import MedalBox from "./MedalBox";
 import SwimCertificateIcon from "@components/icons/SwimCertificateIcon/SwimCertificateIcon";
 import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
 import { PersonSearch, PersonAdd } from "@mui/icons-material";
+import AchievementsBox from "./AchievementsBox";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -79,24 +79,18 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       sortable: true,
     },
     {
-      columnName: t("components.athleteDatagrid.table.columns.medals"),
+      columnName: t("components.athleteDatagrid.table.columns.achievements"),
       size: "l",
       disableSpan: true,
       columnMapping(item) {
         return (
-          <MedalBox
-            athlete={item}
-            performanceRecordings={performanceRecordings}
-          />
+          <>
+            <AchievementsBox
+              athlete={item}
+              performanceRecordings={performanceRecordings}
+            />
+          </>
         );
-      },
-    },
-    {
-      columnName: t("components.athleteDatagrid.table.columns.swimCertificate"),
-      size: "s",
-      disableSpan: false,
-      columnMapping(item) {
-        return <SwimCertificateIcon achieved={!!item.swimming_certificate} />;
       },
     },
   ];
@@ -226,9 +220,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   const mobileRendering: MobileTableRendering<Athlete> = {
-    avatar: (athlete) => (
-      <SwimCertificateIcon achieved={!!athlete.swimming_certificate} />
-    ),
     h1: (athlete) => (
       <>
         {athlete.first_name} {athlete.last_name}
@@ -239,7 +230,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       <Typography level="body-xs">{athlete.birthdate}</Typography>
     ),
     topRightInfo: (athlete) => (
-      <MedalBox
+      <AchievementsBox
         athlete={athlete}
         performanceRecordings={performanceRecordings}
       />
