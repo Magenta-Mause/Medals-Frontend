@@ -16,7 +16,6 @@ import { useState } from "react";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useTypedSelector } from "@stores/rootReducer";
 import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
-import SwimCertificateIcon from "@components/icons/SwimCertificateIcon/SwimCertificateIcon";
 import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
 import { PersonSearch, PersonAdd } from "@mui/icons-material";
 import AchievementsBox from "./AchievementsBox";

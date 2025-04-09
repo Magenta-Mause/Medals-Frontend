@@ -14,7 +14,11 @@ export interface AchievementsBoxProps {
   sx?: any;
 }
 
-const AchievementsBox = ({ athlete, performanceRecordings, sx }: AchievementsBoxProps) => {
+const AchievementsBox = ({
+  athlete,
+  performanceRecordings,
+  sx,
+}: AchievementsBoxProps) => {
   const performanceRecordingsOfAthlete = performanceRecordings.filter(
     (p) => p.athlete_id === athlete.id,
   );
@@ -45,7 +49,7 @@ const AchievementsBox = ({ athlete, performanceRecordings, sx }: AchievementsBox
           />
         );
       })}
-        <SwimCertificateIcon achieved={!!athlete.swimming_certificate} />
+      <SwimCertificateIcon achieved={!!athlete.swimming_certificate} />
     </Box>
   );
 };
