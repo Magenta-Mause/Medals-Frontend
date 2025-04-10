@@ -159,9 +159,6 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                   >
                     <MedalIcon
                       category={category}
-                      sx={{
-                        height: "35px",
-                      }}
                       medalType={
                         achievedCategoryMedal
                           ? achievedCategoryMedal[category]
