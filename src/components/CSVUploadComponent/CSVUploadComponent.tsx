@@ -127,7 +127,7 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
         }
       }
     },
-    [csvData, enqueueSnackbar, uploadEntry, t],
+    [enqueueSnackbar, uploadEntry, t],
   );
 
   return (

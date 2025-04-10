@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
-import { useSnackbar } from "notistack";
 import GenericModal from "../GenericModal";
 import { CSVUploadState, Genders } from "@customTypes/enums";
 import { Tab, Tabs } from "@mui/material";
