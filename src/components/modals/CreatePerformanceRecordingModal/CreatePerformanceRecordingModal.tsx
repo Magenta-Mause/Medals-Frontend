@@ -188,6 +188,9 @@ const CreatePerformanceRecordingModal = (props: {
             )}
             options={disciplines}
             isOptionEqualToValue={(option, value) => option.id === value.id}
+            groupBy={(d) =>
+              t("disciplines.categories." + d.category.toUpperCase() + ".label")
+            }
             getOptionLabel={(d: Discipline) => d.name}
             getOptionDisabled={(discipline) => isDisciplineInvalid(discipline)}
             error={isDisciplineInvalid(discipline)}
