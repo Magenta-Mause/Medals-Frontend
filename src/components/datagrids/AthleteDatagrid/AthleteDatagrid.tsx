@@ -82,16 +82,14 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.achievements"),
-      size: "l",
+      size: "xl",
       disableSpan: true,
       columnMapping(item) {
         return (
-          <>
-            <AchievementsBox
-              athlete={item}
-              performanceRecordings={performanceRecordings}
-            />
-          </>
+          <AchievementsBox
+            athlete={item}
+            performanceRecordings={performanceRecordings}
+          />
         );
       },
     },

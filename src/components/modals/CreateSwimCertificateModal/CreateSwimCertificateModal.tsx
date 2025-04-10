@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import GenericModal from "../GenericModal";
-import { FormControl, Button, Typography, Box, Sheet } from "@mui/joy";
+import { Box, Button, FormControl, Sheet, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import useApi from "@hooks/useApi";
 import { SwimmingCertificateType } from "@customTypes/enums";
@@ -138,14 +138,20 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
                     // Highlight selected option.
                     backgroundColor: isSelected
                       ? theme.palette.mode === "dark"
-                        ? "rgba(64, 64, 64, 0.6)"
-                        : "rgba(199, 199, 199, 0.6)"
+                        ? "rgba(64, 64, 64, 0.6) !important"
+                        : "rgba(199, 199, 199, 0.6) !important"
                       : "transparent",
                     "&:hover": {
                       backgroundColor:
                         theme.palette.mode === "dark"
-                          ? "rgba(64, 64, 64, 0.6)"
-                          : "rgba(199, 199, 199, 0.6)",
+                          ? "rgba(30, 30, 30, 0.6)"
+                          : "rgba(250, 250, 250, 0.6)",
+                    },
+                    "&:active": {
+                      backgroundColor:
+                        theme.palette.mode === "dark"
+                          ? "rgba(66, 66, 66, 0.6)"
+                          : "rgba(180, 180, 180, 0.6)",
                     },
                   })}
                 >
