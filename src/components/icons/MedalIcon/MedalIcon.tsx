@@ -26,8 +26,8 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
       : "rgba(0, 0, 0, 0.7)";
   const grayedOutColor =
     colorScheme.colorScheme === "dark"
-      ? "rgba(0, 0, 0, 0.5)"
-      : "rgba(255, 255, 255, 1)";
+      ? "rgba(255, 255, 255, 1)"
+      : "rgba(0, 0, 0, 0.5)";
 
   const medalColors = useMedalColors();
 
