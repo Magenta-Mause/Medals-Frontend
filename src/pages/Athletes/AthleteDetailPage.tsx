@@ -37,6 +37,7 @@ const AthleteDetailPage = () => {
   return (
     <>
       <AthleteDetailHeader athlete={filteredAthletes[0]} />
+      <SwimCertificateSection athlete={filteredAthletes[0]} />
       <Box
         sx={{
           display: "flex",
@@ -60,9 +61,7 @@ const AthleteDetailPage = () => {
             includePerformance={true}
           />
         </Box>
-
         <AthletePerformanceAccordions athlete={filteredAthletes[0]} />
-        <SwimCertificateSection athlete={filteredAthletes[0]} />
       </Box>
       <CreatePerformanceRecordingModal
         open={isPerformanceRecordingModalOpen}
