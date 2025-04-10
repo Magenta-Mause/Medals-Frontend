@@ -96,7 +96,11 @@ const MedalRatings = ({ metric, selectedGender }: MedalRatingsProps) => {
     ) ?? "–";
 
   const medalsRating = [
-    { label: t("medals.GOLD"), value: goldRating, color: medalColors.gold },
+    {
+      label: t("medals.GOLD"),
+      value: goldRating,
+      color: medalColors.gold,
+    },
     {
       label: t("medals.SILVER"),
       value: silverRating,
