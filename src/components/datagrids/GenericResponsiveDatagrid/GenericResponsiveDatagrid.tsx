@@ -21,7 +21,7 @@ import {
 } from "@mui/joy";
 import { OverridableStringUnion } from "@mui/types";
 import React, { Key, useCallback, useEffect, useState } from "react";
-import FullScreenTable, { Column, PageControll } from "./FullScreenTable";
+import FullScreenTable, { Column, PageControl } from "./FullScreenTable";
 import FilterComponent, {
   Filter,
 } from "./GenericResponsiveDatagridFilterComponent";
@@ -406,7 +406,7 @@ const GenericResponsiveDatagrid = <T,>(
         }}
       />
       {!props.disablePaging ? (
-        <PageControll
+        <PageControl
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           elementsPerPage={pageSize}
