@@ -27,9 +27,9 @@
     "password": "Passwort",
     "finished": "Fertig",
     "validation": {
-      "required": "Dieses Feld ist erforderlich.",
-      "tooLong": "Dieses Feld ist zu lang.",
-      "invalidEmail": "Ungültige E-Mail-Adresse."
+      "required": "Dieses Feld ist erforderlich",
+      "tooLong": "Dieses Feld ist zu lang",
+      "invalidEmail": "Ungültige E-Mail-Adresse"
     }
   },
   "disciplines": {
@@ -91,10 +91,10 @@
       "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
     },
     "swimCertificate": {
-      "creationSuccess": "Schwimmabzeichen erfolgreich hinzugefügt!",
-      "creationError": "Fehler beim Hinzufügen des Schwimmabzeichens.",
-      "deletionSuccess": "Schwimmnachweis erfolgreich gelöscht.",
-      "deletionError": "Fehler beim Löschen des Schwimmnachweises."
+      "creationSuccess": "Schwimmabzeichen erfolgreich hinzugefügt",
+      "creationError": "Fehler beim Hinzufügen des Schwimmabzeichens",
+      "deletionSuccess": "Schwimmnachweis erfolgreich gelöscht",
+      "deletionError": "Fehler beim Löschen des Schwimmnachweises"
     },
     "acceptTrainerAccessRequest": {
       "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
@@ -511,7 +511,7 @@
       }
     },
     "swimCertificateSection": {
-      "noCertificateWarning": "Kein Schwimmnachweis vorhanden.",
+      "noCertificateWarning": "Kein Schwimmnachweis vorhanden",
       "deleteButton": "Schwimmnachweis löschen"
     },
     "createSwimCertificateModal": {
@@ -519,31 +519,31 @@
       "options": {
         "ENDURANCE": {
           "label": "Ausdauer",
-          "description": "Nachweis der Schwimmfertigkeit gilt, wenn eine Ausdauerstrecke vollständig durchschwommen wird, auch wenn die für Bronze nötige Zeit nicht erreicht wird."
+          "description": "Vollständiges Durchschwimmen der Ausdauerstrecke (auch bei Unterschreitung der Bronze-Zeit)"
         },
         "SPRINT": {
           "label": "Schnelligkeit",
-          "description": "Nachweis der Schwimmfertigkeit gilt, wenn 25 m in der geforderten Zeit (oder schneller) durchschwommen werden."
+          "description": "25 m in der geforderten Zeit oder schneller"
         },
         "JUNIOR": {
           "label": "50m ohne Zeitlimit",
-          "description": "<12 Jahre: 50 m am Stück schwimmen ohne Zeitlimit"
+          "description": "Unter 12 Jahre: 50 m am Stück ohne Zeitlimit"
         },
         "SENIOR": {
           "label": "200m in maximal 11 Min.",
-          "description": "≥12 Jahre: 200 m in maximal 11 Min. am Stück schwimmen."
+          "description": "Ab 12 Jahre: 200 m am Stück in maximal 11 Min."
         },
         "SUSTAINED": {
           "label": "Dauerschwimmen",
-          "description": "15 Min. Dauerschwimmen (auch im offenen Gewässer möglich), wobei eine kontinuierliche Fortbewegung im Wasser erkennbar sein muss."
+          "description": "15 Min. kontinuierlich schwimmen (auch im offenen Gewässer)"
         },
         "CLOTHED": {
           "label": "Kleiderschwimmen",
-          "description": "100 m Kleiderschwimmen in höchstens 4 Min. mit anschließendem Entkleiden im Wasser (gemäß DLRG/DWRK-Richtlinien)."
+          "description": "100 m in 4 Min. inkl. Entkleiden im Wasser (DLRG/DWRK-konform)"
         },
         "BADGES": {
           "label": "Schwimmabzeichen",
-          "description": "Nachweis durch ein anerkanntes Schwimmabzeichen"
+          "description": "Anerkanntes Schwimmabzeichen"
         }
       }
     },

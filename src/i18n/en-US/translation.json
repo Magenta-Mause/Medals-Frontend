@@ -59,9 +59,9 @@
     "password": "Password",
     "finished": "Finished",
     "validation": {
-      "required": "This field is required.",
-      "tooLong": "This field is too long.",
-      "invalidEmail": "Invalid email address."
+      "required": "This field is required",
+      "tooLong": "This field is too long",
+      "invalidEmail": "Invalid email address"
     }
   },
   "snackbar": {
@@ -104,10 +104,10 @@
       "success": "Export successful!"
     },
     "swimCertificate": {
-      "creationSuccess": "Swimming certificate successfully added!",
-      "creationError": "Error while adding swimming certificate.",
-      "deletionSuccess": "Swimming certificate successfully deleted!",
-      "deletionError": "Error while deleting swimming certificate."
+      "creationSuccess": "Swimming certificate successfully added",
+      "creationError": "Error while adding swimming certificate",
+      "deletionSuccess": "Swimming certificate successfully deleted",
+      "deletionError": "Error while deleting swimming certificate"
     }
   },
   "pages": {
@@ -504,7 +504,7 @@
       }
     },
     "swimCertificateSection": {
-      "noCertificateWarning": "No swim certificate achieved.",
+      "noCertificateWarning": "No swim certificate achieved",
       "deleteButton": "Delete Certificate",
       "certificateLabel": {
         "endurance": "Endurance",
@@ -526,31 +526,31 @@
       "options": {
         "ENDURANCE": {
           "label": "Endurance",
-          "description": "Proof of swimming proficiency is valid if an endurance course is completely swum, even if the time required for Bronze is not met."
+          "description": "Completely swim the endurance course (even if bronze time is not met)"
         },
         "SPRINT": {
           "label": "Sprint",
-          "description": "Proof of swimming proficiency is valid if 25 m are swum within the required time (or faster)."
+          "description": "25 m within or faster than the required time"
         },
         "JUNIOR": {
-          "label": "50m without time limit",
-          "description": "Under 12 years: swim 50 m continuously without a time limit."
+          "label": "50m without Time Limit",
+          "description": "Under 12 years: 50 m continuously without a time limit"
         },
         "SENIOR": {
-          "label": "200m in a maximum of 11 min.",
-          "description": "12 years and older: swim 200 m continuously in a maximum of 11 minutes."
+          "label": "200m in Maximum 11 Minutes",
+          "description": "Aged 12 and above: 200 m continuously in a maximum of 11 minutes"
         },
         "SUSTAINED": {
           "label": "Sustained Swimming",
-          "description": "15 minutes of sustained swimming (also possible in open water), during which continuous movement in the water must be evident."
+          "description": "15 minutes of continuous swimming (open water allowed)"
         },
         "CLOTHED": {
-          "label": "Swimming in Clothes",
-          "description": "Swim 100 m in clothes in no more than 4 minutes with subsequent undressing in the water (according to DLRG/DWRK guidelines)."
+          "label": "Clothed Swimming",
+          "description": "100 m in 4 minutes with water disrobing (in line with DLRG/DWRK guidelines)"
         },
         "BADGES": {
           "label": "Swimming Badge",
-          "description": "Proof by a recognized swimming badge."
+          "description": "Officially recognized swimming badge"
         }
       }
     },
