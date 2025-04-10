@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { CSVUploadState, Genders } from "@customTypes/enums";
+import { CSVUploadState } from "@customTypes/enums";
 import CSVUploadDatagrid from "@components/datagrids/CSVUploadDatagrid/CSVUploadDatagrid";
 import { useTranslation } from "react-i18next";
 import { useCallback, useState } from "react";
@@ -127,7 +127,7 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
         }
       }
     },
-    [csvData],
+    [csvData, enqueueSnackbar, uploadEntry, t],
   );
 
   return (

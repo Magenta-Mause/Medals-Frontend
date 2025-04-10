@@ -1,15 +1,12 @@
-import { Box, Button, Typography } from "@mui/joy";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import { useSnackbar } from "notistack";
-import UploadIcon from "@mui/icons-material/Upload";
 import GenericModal from "../GenericModal";
 import { BirthdateRegex, emailRegex } from "@components/Regex/Regex";
 import { CSVUploadState, Genders } from "@customTypes/enums";
-import CSVUploadDatagrid from "@components/datagrids/CSVUploadDatagrid/CSVUploadDatagrid";
 import { Tab, Tabs } from "@mui/material";
 import CSVUploadComponent, {
   CSVData,
