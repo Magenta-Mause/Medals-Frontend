@@ -30,7 +30,7 @@ export enum Genders {
   MALE = "MALE",
 }
 
-export enum AthleteValidityState {
+export enum CSVUploadState {
   VALID,
   UPLOADED,
   FAILED,

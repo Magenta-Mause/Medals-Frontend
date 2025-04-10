@@ -8,12 +8,15 @@ import { useSnackbar } from "notistack";
 import UploadIcon from "@mui/icons-material/Upload";
 import GenericModal from "../GenericModal";
 import { BirthdateRegex, emailRegex } from "@components/Regex/Regex";
-import { AthleteValidityState, Genders } from "@customTypes/enums";
-import AthleteUploadDatagrid from "@components/datagrids/AthleteUploadDatagrid";
+import { CSVUploadState, Genders } from "@customTypes/enums";
+import CSVUploadDatagrid from "@components/datagrids/CSVUploadDatagrid/CSVUploadDatagrid";
 import { Tab, Tabs } from "@mui/material";
+import CSVUploadComponent, {
+  CSVData,
+} from "@components/CSVUploadComponent/CSVUploadComponent";
 
 export interface AthleteWithValidity extends Athlete {
-  state: AthleteValidityState | undefined;
+  state: CSVUploadState | undefined;
 }
 
 interface AthleteCsvImportModalProps {
@@ -86,7 +89,7 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
 
   const checkEmptyImport = (athletes: AthleteWithValidity[]) => {
     for (const athlete of athletes) {
-      if (athlete.state === AthleteValidityState.VALID) {
+      if (athlete.state === CSVUploadState.VALID) {
         return false;
       }
     }
@@ -97,12 +100,12 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
     async (athletes: AthleteWithValidity[]) => {
       let index = 0;
       for (const athlete of athletes) {
-        if (athlete.state === AthleteValidityState.VALID) {
-          athletes[index].state = AthleteValidityState.LOADING;
+        if (athlete.state === CSVUploadState.VALID) {
+          athletes[index].state = CSVUploadState.LOADING;
           setCsvData([...athletes]);
           try {
             await createAthlete(athlete);
-            athletes[index].state = AthleteValidityState.UPLOADED;
+            athletes[index].state = CSVUploadState.UPLOADED;
             setCsvData([...athletes]);
           } catch (error: any) {
             console.log(error);
@@ -115,7 +118,7 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
             );
           }
         } else {
-          athlete.state = AthleteValidityState.FAILED;
+          athlete.state = CSVUploadState.FAILED;
         }
         index += 1;
       }
@@ -188,7 +191,7 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
               parsedData.map((row: Athlete) => {
                 return {
                   ...row,
-                  state: AthleteValidityState.LOADING,
+                  state: CSVUploadState.LOADING,
                 };
               }),
             );
@@ -199,8 +202,8 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
               athletesWithValidity.push({
                 ...athlete,
                 state: (await isValidImport(athlete))
-                  ? AthleteValidityState.VALID
-                  : AthleteValidityState.FAILED,
+                  ? CSVUploadState.VALID
+                  : CSVUploadState.FAILED,
               });
             }
             setCsvData(athletesWithValidity);
@@ -217,18 +220,26 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
   const isFinished = useCallback(() => {
     return (
       !csvData.reduce(
-        (prev, athlete) =>
-          prev || athlete.state === AthleteValidityState.LOADING,
+        (prev, athlete) => prev || athlete.state === CSVUploadState.LOADING,
         false,
       ) &&
       isBlocked &&
       !csvData.reduce(
-        (prev, athlete) =>
-          prev && athlete.state === AthleteValidityState.FAILED,
+        (prev, athlete) => prev && athlete.state === CSVUploadState.FAILED,
         true,
       )
     );
   }, [csvData, isBlocked]);
+
+  const parseAthleteCSV = (athletesData: Papa.ParseResult<unknown>) => {
+    return athletesData.data.map((row: any) => ({
+      first_name: row["Vorname"]?.trim() || "",
+      last_name: row["Nachname"]?.trim() || "",
+      email: row["E-Mail"]?.trim() || "",
+      birthdate: convertDateFormat(row["Geburtsdatum"]?.trim()) || "",
+      gender: normalizeGender(row["Geschlecht"]),
+    }));
+  };
 
   return (
     <>
@@ -262,107 +273,45 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
           />
         </Tabs>
         {selectedImportPage === importPage.athleteImport ? (
-          selectedFile === null ? (
-            <>
-              <input
-                type="file"
-                id="file-upload"
-                style={{ display: "none", justifyContent: "center" }}
-                onChange={handleFileChange}
-              />
-              <label htmlFor="file-upload">
-                <Box
-                  onDragOver={(event) => event.preventDefault()}
-                  onDrop={handleDrop}
-                  sx={{
-                    border: "2px",
-                    borderColor: "neutral.outlinedBorder",
-                    borderRadius: "md",
-                    p: 4,
-                    textAlign: "center",
-                    width: { sx: "60vw", md: "40vw" },
-                    height: { sx: "40vh", md: "30vh" },
-                    cursor: "pointer",
-                    bgcolor: "background.level1",
-                    "&:hover": { bgcolor: "background.level2" },
-                  }}
-                >
-                  <Typography
-                    display="flex"
-                    flexDirection="column"
-                    textAlign={"center"}
-                    justifyContent="center"
-                    alignItems="center"
-                    padding={9}
-                    border={2}
-                    borderColor="inherit"
-                    borderRadius={"50px"}
-                    sx={{
-                      borderStyle: "dashed",
-                      height: { sx: "25vh", md: "25vh" },
-                    }}
-                  >
-                    <UploadIcon fontSize="large" />
-                    {t("pages.athleteImportPage.DropFile")}
-                  </Typography>
-                </Box>
-              </label>
-            </>
-          ) : (
-            <>
-              <Typography level="h4" sx={{ mb: 2 }}>
-                {t("pages.athleteImportPage.athleteList")}
-              </Typography>
-              <AthleteUploadDatagrid athletes={csvData} />
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
-                <Button
-                  onClick={() => {
-                    setSelectedFile(null);
-                  }}
-                  color={"danger"}
-                >
-                  {t("pages.athleteImportPage.changeFile")}
-                </Button>
-                <Button
-                  color={isFinished() ? "success" : "primary"}
-                  disabled={
-                    (checkEmptyImport(csvData) || isBlocked) && !isFinished()
-                  }
-                  onClick={() => {
-                    if (isFinished()) {
-                      setSelectedFile(null);
-                      props.setOpen(false);
-                    } else {
-                      setIsBlocked(true);
-                      uploadAthletes(csvData);
-                    }
-                  }}
-                >
-                  {isBlocked
-                    ? csvData.reduce(
-                        (prev, athlete) =>
-                          prev ||
-                          athlete.state === AthleteValidityState.LOADING,
-                        false,
-                      )
-                      ? t("generic.loading")
-                      : t("generic.finished")
-                    : t("pages.athleteImportPage.importButton")}
-                </Button>
-              </Box>
-            </>
-          )
+          <CSVUploadComponent
+            setOpen={props.setOpen}
+            parseCSVData={parseAthleteCSV}
+            uploadEntry={createAthlete}
+            csvColumns={[
+              {
+                columnName: t("pages.athleteImportPage.firstName"),
+                columnMapping(csvData: CSVData<Athlete>) {
+                  return csvData.data.first_name;
+                },
+              },
+              {
+                columnName: t("pages.athleteImportPage.lastName"),
+                columnMapping(csvData: CSVData<Athlete>) {
+                  return csvData.data.last_name;
+                },
+              },
+            ]}
+          />
         ) : (
-          <Typography level="h4" sx={{ mb: 2 }}>
-            performance Import Page
-          </Typography>
+          <CSVUploadComponent
+            setOpen={props.setOpen}
+            parseCSVData={parseAthleteCSV}
+            uploadEntry={createAthlete}
+            csvColumns={[
+              {
+                columnName: t("pages.athleteImportPage.firstName"),
+                columnMapping(csvData: CSVData<Athlete>) {
+                  return csvData.data.first_name;
+                },
+              },
+              {
+                columnName: t("pages.athleteImportPage.lastName"),
+                columnMapping(csvData: CSVData<Athlete>) {
+                  return csvData.data.last_name;
+                },
+              },
+            ]}
+          />
         )}
       </GenericModal>
     </>

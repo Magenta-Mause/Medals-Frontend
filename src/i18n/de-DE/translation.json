@@ -522,6 +522,9 @@
       "exportButton": "Export",
       "performanceCheckbox": "Leistungswerte einschließen",
       "removeFromSelectionButton": "Entfernen"
+    },
+    "csvUploadComponent": {
+      "failedUpload": "Fehler beim Hochladen"
     }
   }
 }

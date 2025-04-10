@@ -7,39 +7,48 @@ import CloseIcon from "@mui/icons-material/Close";
 import { CircularProgress } from "@mui/joy";
 import { Cloud } from "@mui/icons-material";
 import UploadIcon from "@mui/icons-material/Upload";
-import { AthleteValidityState } from "@customTypes/enums";
+import { CSVUploadState } from "@customTypes/enums";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import { CSSProperties } from "styled-components";
+import { CSVData } from "@components/CSVUploadComponent/CSVUploadComponent";
 
 const IconProps: CSSProperties = {
   zIndex: 1,
 };
 
-const AthleteUploadDatagrid = (props: { athletes: AthleteWithValidity[] }) => {
+interface CSVUploadDatagridProps<T> {
+  csvData: CSVData<T>[];
+  csvColumns: Column<CSVData<T>>[];
+}
+
+const CSVUploadDatagrid = <T extends Record<string, unknown>>({
+  csvData,
+  csvColumns,
+}: CSVUploadDatagridProps<T>) => {
   const { t } = useTranslation();
-  const columns: Column<AthleteWithValidity>[] = [
+  const columns: Column<CSVData<T>>[] = [
     {
       columnName: t("pages.athleteImportPage.valid"),
-      columnMapping(athlete) {
-        return athlete.state === AthleteValidityState.FAILED ? (
+      columnMapping(data) {
+        return data.state === CSVUploadState.FAILED ? (
           <HoverTooltip
             text={t("components.tooltip.athleteUploadDatagrid.error")}
           >
             <CloseIcon color="error" style={IconProps} />
           </HoverTooltip>
-        ) : athlete.state === AthleteValidityState.LOADING ? (
+        ) : data.state === CSVUploadState.LOADING ? (
           <HoverTooltip
             text={t("components.tooltip.athleteUploadDatagrid.loading")}
           >
             <CircularProgress size={"sm"} style={IconProps} />
           </HoverTooltip>
-        ) : athlete.state === AthleteValidityState.UPLOADED ? (
+        ) : data.state === CSVUploadState.UPLOADED ? (
           <HoverTooltip
             text={t("components.tooltip.athleteUploadDatagrid.uploaded")}
           >
             <Cloud color="success" style={IconProps} />
           </HoverTooltip>
-        ) : athlete.state === AthleteValidityState.VALID ? (
+        ) : data.state === CSVUploadState.VALID ? (
           <HoverTooltip
             text={t("components.tooltip.athleteUploadDatagrid.valid")}
           >
@@ -52,27 +61,18 @@ const AthleteUploadDatagrid = (props: { athletes: AthleteWithValidity[] }) => {
       },
       size: "xs",
     },
-    {
-      columnName: t("pages.athleteImportPage.firstName"),
-      columnMapping(athlete) {
-        return athlete.first_name;
-      },
-    },
-    {
-      columnName: t("pages.athleteImportPage.lastName"),
-      columnMapping(athlete) {
-        return athlete.last_name;
-      },
-    },
+    ...csvColumns,
   ];
-  const mobileRendering: MobileTableRendering<AthleteWithValidity> = {};
+  const mobileRendering: MobileTableRendering<CSVData<T>> = {};
   return (
     <GenericResponsiveDatagrid
-      data={props.athletes}
+      data={csvData}
       columns={columns}
       isLoading={false}
       keyOf={(item) =>
-        item.first_name + item.last_name + item.birthdate + item.email
+        Object.entries(item.data as Record<string, unknown>)
+          .map(([key, value]) => `${key}:${value}`)
+          .join(";")
       }
       mobileRendering={mobileRendering}
       disablePaging
@@ -80,4 +80,4 @@ const AthleteUploadDatagrid = (props: { athletes: AthleteWithValidity[] }) => {
   );
 };
 
-export default AthleteUploadDatagrid;
+export default CSVUploadDatagrid;

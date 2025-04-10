@@ -40,7 +40,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [addImportModalOpen, setImportModalOpen] = useState(false);
   const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
     useState(false);
-  const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
+  const [createAthleteModalOpen, setCreateAthleteModalOpen] = useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
 
@@ -363,7 +363,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         setOpen={setAddAthleteRequestModalOpen}
       />
       <AthleteCreationForm
-        isOpen={createAthletModalOpen}
+        isOpen={createAthleteModalOpen}
         setOpen={setCreateAthleteModalOpen}
       />
     </>
