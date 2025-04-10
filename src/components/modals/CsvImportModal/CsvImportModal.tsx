@@ -29,7 +29,7 @@ enum importPage {
   performanceImport,
 }
 
-const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
+const CsvImportModal = (props: AthleteCsvImportModalProps) => {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [csvData, setCsvData] = useState<AthleteWithValidity[]>([]);
@@ -317,4 +317,4 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
     </>
   );
 };
-export default AthleteImportModal;
+export default CsvImportModal;

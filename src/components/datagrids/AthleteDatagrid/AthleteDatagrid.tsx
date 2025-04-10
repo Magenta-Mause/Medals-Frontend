@@ -10,7 +10,7 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import AthleteImportModal from "@components/modals/AthleteImportModal/AthleteImportModal";
+import CsvImportModal from "@components/modals/CsvImportModal/CsvImportModal";
 import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useTypedSelector } from "@stores/rootReducer";
@@ -354,7 +354,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         onItemClick={itemCallback}
         disablePaging={false}
       />
-      <AthleteImportModal
+      <CsvImportModal
         isOpen={addImportModalOpen}
         setOpen={setImportModalOpen}
       />
