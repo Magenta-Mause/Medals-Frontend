@@ -1,4 +1,5 @@
-import { Box, Chip, Typography } from "@mui/joy";
+import React from "react";
+import { Box, Chip, Typography, useColorScheme } from "@mui/joy";
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { Genders, MetricUnits } from "@customTypes/enums";
 import { useTranslation } from "react-i18next";
@@ -35,6 +36,9 @@ const hexToRGBA = (hex: string, alpha: number) => {
 
 export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
   const { i18n } = useTranslation();
+  const { mode } = useColorScheme();
+  const textColor = mode === "dark" ? "#fff" : "#000";
+
   let displayValue = value;
 
   if (typeof value === "number") {
@@ -60,7 +64,7 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
       size="sm"
       sx={{
         backgroundColor: hexToRGBA(color, 0.6),
-        color: "#000",
+        color: textColor,
         fontWeight: "bold",
         minWidth: "80px",
         textAlign: "center",
