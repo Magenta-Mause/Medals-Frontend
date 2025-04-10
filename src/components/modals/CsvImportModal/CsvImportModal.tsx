@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
 import useApi from "@hooks/useApi";
@@ -9,6 +9,7 @@ import { Tab, Tabs } from "@mui/material";
 import CSVUploadComponent, {
   CSVData,
 } from "@components/CSVUploadComponent/CSVUploadComponent";
+import { BirthdateRegex, emailRegex } from "@components/Regex/Regex";
 
 export interface AthleteWithValidity extends Athlete {
   state: CSVUploadState | undefined;
@@ -26,7 +27,7 @@ enum importPage {
 
 const CsvImportModal = (props: AthleteCsvImportModalProps) => {
   const { t } = useTranslation();
-  const { createAthlete } = useApi();
+  const { createAthlete, checkAthleteExists } = useApi();
   const [selectedImportPage, setSelectedImportPage] = useState<importPage>(
     importPage.athleteImport,
   );
@@ -61,6 +62,42 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
       birthdate: convertDateFormat(row["Geburtsdatum"]?.trim()) || "",
       gender: normalizeGender(row["Geschlecht"]),
     }));
+  };
+
+  const athleteExists = useCallback(
+    async (athlete: Athlete) => {
+      const result: boolean = await checkAthleteExists(
+        athlete.email,
+        athlete.birthdate,
+      );
+      return result;
+    },
+    [checkAthleteExists],
+  );
+
+  const isValidAthlete = async (athlete: Athlete) => {
+    if (!athlete.first_name) {
+      return false;
+    }
+    if (!athlete.last_name) {
+      return false;
+    }
+    if (!emailRegex.test(athlete.email)) {
+      // Validate email
+      return false;
+    }
+    if (!BirthdateRegex.test(athlete.birthdate)) {
+      // Validate birthdate
+      return false;
+    }
+    if (
+      athlete.gender !== "DIVERSE" &&
+      athlete.gender !== "MALE" &&
+      athlete.gender !== "FEMALE"
+    ) {
+      return false;
+    }
+    return !(await athleteExists(athlete));
   };
 
   return (
@@ -110,6 +147,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
                 },
               },
             ]}
+            validateDataRow={isValidAthlete}
           />
         ) : (
           <CSVUploadComponent
@@ -130,6 +168,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
                 },
               },
             ]}
+            validateDataRow={isValidAthlete}
           />
         )}
       </GenericModal>

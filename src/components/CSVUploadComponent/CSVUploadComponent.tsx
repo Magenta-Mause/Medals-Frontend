@@ -18,6 +18,7 @@ interface CSVUploadComponentProps<T> {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   uploadEntry: (data: T) => Promise<any>;
   csvColumns: Column<CSVData<T>>[];
+  validateDataRow: (data: T) => Promise<boolean>;
 }
 
 const CSVUploadComponent = <T extends Record<string, unknown>>({
@@ -25,6 +26,7 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
   setOpen,
   uploadEntry,
   csvColumns,
+  validateDataRow,
 }: CSVUploadComponentProps<T>) => {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -93,14 +95,17 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
           const parsedData = parseCSVData(results);
 
           const setData = async () => {
-            setCsvData(
-              parsedData.map((row) => {
+            const mappedData = await Promise.all(
+              parsedData.map(async (row) => {
                 return {
                   data: row,
-                  state: CSVUploadState.LOADING,
+                  state: (await validateDataRow(row))
+                    ? CSVUploadState.VALID
+                    : CSVUploadState.FAILED,
                 };
               }),
             );
+            setCsvData(mappedData);
           };
           setData();
         },
