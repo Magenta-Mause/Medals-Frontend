@@ -23,7 +23,14 @@
     "invalid": "Ungültig",
     "loading": "Lädt...",
     "submit": "Absenden",
-    "password": "Passwort"
+    "confirm": "Bestätigen",
+    "password": "Passwort",
+    "finished": "Fertig",
+    "validation": {
+      "required": "Dieses Feld ist erforderlich",
+      "tooLong": "Dieses Feld ist zu lang",
+      "invalidEmail": "Ungültige E-Mail-Adresse"
+    }
   },
   "disciplines": {
     "categories": {
@@ -82,6 +89,27 @@
     "performanceMetrics": {
       "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
       "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
+    },
+    "swimCertificate": {
+      "creationSuccess": "Schwimmabzeichen erfolgreich hinzugefügt",
+      "creationError": "Fehler beim Hinzufügen des Schwimmabzeichens",
+      "deletionSuccess": "Schwimmnachweis erfolgreich gelöscht",
+      "deletionError": "Fehler beim Löschen des Schwimmnachweises"
+    },
+    "acceptTrainerAccessRequest": {
+      "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
+      "failed": "Trainer Anfrage konnte nicht angenommen werden",
+      "success": "Trainer Anfrage erfolgreich angenommen"
+    },
+    "requestAthleteAccess": {
+      "failed": "Anfrage fehlgeschlagen",
+      "success": "Anfrage gesendet"
+    },
+    "athleteExportModal": {
+      "noAthleteSelected": "Bitte wählen Sie mindestens einen Athleten aus",
+      "exportError": "Fehler beim Erstellen der CSV-Datei",
+      "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
+      "success": "Export erfolgreich!"
     }
   },
   "pages": {
@@ -90,11 +118,11 @@
       "h3": "Das Medaillen Management System der Zukunft"
     },
     "athleteDetailPage": {
+      "createSwimCertificateButton": "Schwimmnachweis erstellen",
       "createPerformanceRecordingButton": "Leistung aufnehmen"
     },
     "athleteOverviewPage": {
-      "header": "Athlet*innen",
-      "createButton": "Athlet*in erstellen"
+      "header": "Athlet*innen"
     },
     "athleteCreationPage": {
       "firstName": "Vorname",
@@ -105,6 +133,18 @@
       "createButton": "Erstellen",
       "createHeader": "Athlet*in erstellen"
     },
+    "athleteImportPage": {
+      "importButton": "Athlet*innen importieren",
+      "feedback1": "Athlet*in ",
+      "feedback2": " erstellt",
+      "failedFeedback": "Fehler beim Erstellen von Athlet*in ",
+      "DropFile": "Datei hier ablegen oder klicken",
+      "changeFile": "Datei zurücksetzen",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "valid": "Status",
+      "athleteList": "Athletenliste"
+    },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
     },
@@ -112,9 +152,9 @@
       "h1": "404",
       "h2": "Seite konnte nicht gefunden werden"
     },
-    "downloadPage": {
-      "header": "Downloads",
-      "headerText": "Hier die wichtigsten Downloads nur einen Klick entfernt"
+    "materialsDownloadPage": {
+      "header": "Materialien",
+      "headerText": "Hier die wichtigsten Materialien nur einen Klick entfernt"
     },
     "inDevelopment": {
       "h1": "501",
@@ -174,6 +214,11 @@
         }
       }
     },
+    "validateRequestPage": {
+      "header": "Anfrage",
+      "subheader": "will Sie verwalten.\n Möchten Sie die Anfrage annehmen?",
+      "accept": "Annehmen"
+    },
     "profilePage": {
       "header": "Mein Profil",
       "birthdate": "Geburtstag",
@@ -225,7 +270,7 @@
       "loginPage": "Hintergrundbilder auf der Login-Seite",
       "lightMode": "Heller Modus",
       "darkMode": "Dunkler Modus",
-      "downloadPage": "Download-Seite",
+      "materialsDownloadPage": "Materialien-Seite",
       "swimmingCard": "Schwimmkarte",
       "singleAthletesCard": "Einzelathletenkarte",
       "groupAthletesCard": "Gruppenathletenkarte",
@@ -260,7 +305,7 @@
         "/profile": "Profil",
         "/requirements": "Anforderungen",
         "/performances": "Leistungen",
-        "/downloads": "Downloads",
+        "/materials": "Materialien",
         "/help": "Hilfe",
         "/imprint": "Impressum",
         "/privacyPolicy": "Datenschutz",
@@ -275,8 +320,15 @@
         "athlete": "Athlet*in",
         "amount": "Erreichtes Ergebnis",
         "dateOfRecording": "Tag der Aufnahme",
-        "ageAtRecording": "Berechnetes Alter bei Aufnahme: "
+        "ageAtRecording": "Berechnetes Alter bei Erbringung der Leistung: "
       }
+    },
+    "requestAthleteModal": {
+      "header": "Athlet*innen anfragen",
+      "searchAthlete": "Name",
+      "notFound": "Kein Athleten gefunden",
+      "requestAthleteButton": "Senden",
+      "sendButton": "Gesendet"
     },
     "athleteDetailHeader": {
       "columns": {
@@ -299,7 +351,7 @@
         "/profile": "Profil",
         "/requirements": "Anforderungen",
         "/performances": "Leistungen",
-        "/downloads": "Downloads",
+        "/materials": "Materialien",
         "/help": "Hilfe"
       },
       "search": "Suchen",
@@ -355,18 +407,29 @@
           "birthdate": "Geburtstag",
           "email": "E-Mail",
           "gender": "Geschlecht",
-          "medals": "Medaillen"
+          "achievements": "Errungenschaften"
         },
         "filters": {
           "search": "Suche",
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht"
+        },
+        "toolbar": {
+          "addAthlete": {
+            "label": "Anfragen",
+            "content": "Athlet*innen anfragen"
+          },
+          "createAthlete": {
+            "label": "Erstellen",
+            "content": "Athlet*in erstellen"
+          }
         }
       },
       "actions": {
         "delete": "Löschen",
         "edit": "Bearbeiten",
-        "openDetails": "Details"
+        "openDetails": "Details",
+        "export": "Exportieren"
       }
     },
     "disciplineDatagrid": {
@@ -447,6 +510,43 @@
         "delete": "Löschen"
       }
     },
+    "swimCertificateSection": {
+      "noCertificateWarning": "Kein Schwimmnachweis vorhanden",
+      "deleteButton": "Schwimmnachweis löschen"
+    },
+    "createSwimCertificateModal": {
+      "header": "Schwimmnachweis erstellen",
+      "options": {
+        "ENDURANCE": {
+          "label": "Ausdauer",
+          "description": "Vollständiges Durchschwimmen der Ausdauerstrecke (auch bei Unterschreitung der Bronze-Zeit)"
+        },
+        "SPRINT": {
+          "label": "Schnelligkeit",
+          "description": "25 m in der geforderten Zeit oder schneller"
+        },
+        "JUNIOR": {
+          "label": "50m ohne Zeitlimit",
+          "description": "Unter 12 Jahre: 50 m am Stück ohne Zeitlimit"
+        },
+        "SENIOR": {
+          "label": "200m in maximal 11 Min.",
+          "description": "Ab 12 Jahre: 200 m am Stück in maximal 11 Min."
+        },
+        "SUSTAINED": {
+          "label": "Dauerschwimmen",
+          "description": "15 Min. kontinuierlich schwimmen (auch im offenen Gewässer)"
+        },
+        "CLOTHED": {
+          "label": "Kleiderschwimmen",
+          "description": "100 m in 4 Min. inkl. Entkleiden im Wasser (DLRG/DWRK-konform)"
+        },
+        "BADGES": {
+          "label": "Schwimmabzeichen",
+          "description": "Anerkanntes Schwimmabzeichen"
+        }
+      }
+    },
     "tooltip": {
       "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
       "profileButton": "Account Einstellungen",
@@ -454,8 +554,24 @@
       "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern",
       "selectUser": "Mit dieser Benutzer*in fortfahren",
+      "swimCertificate": {
+        "achieved": "Schwimmnachweis vorhanden",
+        "notAchieved": "Schwimmnachweis nicht vorhanden"
+      },
       "showPassword": "Password anzeigen/ausblenden",
+      "athleteUploadDatagrid": {
+        "error": "Die angegebene Athlet*in existiert bereits oder ist inkorrekt",
+        "loading": "Lädt...",
+        "uploaded": "Athlet*in wurde hochgeladen",
+        "valid": "Athlet*in kann hochgeladen werden"
+      },
       "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
+    },
+    "athleteExportModal": {
+      "header": "Athlet*innen Export",
+      "exportButton": "Export",
+      "performanceCheckbox": "Leistungswerte einschließen",
+      "removeFromSelectionButton": "Entfernen"
     }
   }
 }

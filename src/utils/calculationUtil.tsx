@@ -9,6 +9,9 @@ const calculatePerformanceRecordingMedal = (
     athlete.gender == Genders.FEMALE
       ? performanceRecording.discipline_rating_metric.rating_female
       : performanceRecording.discipline_rating_metric.rating_male;
+  if (!metric) {
+    return Medals.NONE;
+  }
   const value = performanceRecording.rating_value;
   if (performanceRecording.discipline_rating_metric.discipline.is_more_better) {
     if (value >= metric.gold_rating) {

@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  ButtonProps,
   ButtonPropsVariantOverrides,
   ColorPaletteProp,
   Divider,
@@ -26,6 +27,7 @@ import FilterComponent, {
 } from "./GenericResponsiveDatagridFilterComponent";
 import MobileTable, { MobileTableRendering } from "./MobileTable";
 import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const ESTIMATED_HEIGHT_OF_ROW = 95;
 const DEFAULT_MAX_VISIBLE_ON_PAGE = Math.floor(
@@ -122,7 +124,6 @@ const GenericResponsiveDatagrid = <T,>(
   );
   const windowDimensions = useWindowDimensions();
   const [wasPageSizeChanged, setPageSizeChanged] = useState(false);
-
   const setPageSize = useCallback(
     (elementsPerPage: number) => {
       setPageSizeInternal(elementsPerPage);
@@ -130,12 +131,6 @@ const GenericResponsiveDatagrid = <T,>(
     },
     [setPageSizeInternal, setPageSizeChanged],
   );
-
-  useEffect(() => {
-    if (props.disablePaging) {
-      setPageSize(1000);
-    }
-  }, [props.disablePaging, setPageSize]);
 
   const cleanupSelection = useCallback(() => {
     const newSelected = selected.filter(
@@ -179,14 +174,15 @@ const GenericResponsiveDatagrid = <T,>(
     props.mobileRendering.searchFilter,
   ]);
 
-  const getRenderedPage = useCallback(
-    () =>
-      getFilteredContent().slice(
-        currentPage * pageSize,
-        (currentPage + 1) * pageSize,
-      ),
-    [currentPage, getFilteredContent, pageSize],
-  );
+  const getRenderedPage = useCallback(() => {
+    if (props.disablePaging) {
+      return getFilteredContent();
+    }
+    return getFilteredContent().slice(
+      currentPage * pageSize,
+      (currentPage + 1) * pageSize,
+    );
+  }, [currentPage, getFilteredContent, pageSize, props.disablePaging]);
 
   const setFilter = (
     key: string,
@@ -285,7 +281,7 @@ const GenericResponsiveDatagrid = <T,>(
                     filterValues={filterValues}
                   />
                   <Button color="primary" onClick={() => setFilterOpen(false)}>
-                    Submit
+                    {t("generic.confirm")}
                   </Button>
                 </>
               ) : (
@@ -378,7 +374,7 @@ const GenericResponsiveDatagrid = <T,>(
           <ButtonGroup>
             {props.itemSelectionActions.map((action) => (
               <ActionButton
-                action={action}
+                buttonAction={action}
                 disabled={selected.length == 0}
                 getSelectedItems={getAllSelectedItems}
                 key={action.key}
@@ -426,11 +422,13 @@ const GenericResponsiveDatagrid = <T,>(
   );
 };
 
-const ActionButton = <T,>(props: {
-  action: Action<T>;
-  getSelectedItems: () => T[];
-  disabled: boolean;
-}) => {
+const ActionButton = <T,>(
+  props: ButtonProps & {
+    buttonAction: Action<T>;
+    getSelectedItems: () => T[];
+    disabled: boolean;
+  },
+) => {
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
 
@@ -438,20 +436,21 @@ const ActionButton = <T,>(props: {
     setLoading(true);
     const items = props.getSelectedItems();
     for (const item of items) {
-      await props.action.operation(item);
+      await props.buttonAction.operation(item);
     }
     setLoading(false);
   };
 
   return (
     <Button
-      color={props.action.color ?? "neutral"}
+      {...props}
+      color={props.buttonAction.color ?? "neutral"}
       onClick={() => triggerActionForSelected()}
-      key={props.action.key}
+      key={props.buttonAction.key}
       disabled={props.disabled || loading}
-      variant={props.action.variant ?? "outlined"}
+      variant={props.buttonAction.variant ?? "outlined"}
     >
-      {!loading ? props.action.label : t("generic.loading")}
+      {!loading ? props.buttonAction.label : t("generic.loading")}
     </Button>
   );
 };

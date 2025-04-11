@@ -17,6 +17,7 @@ import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { emailRegex } from "constants/regex";
 
 interface ResetPasswordFormElement extends HTMLFormElement {
   readonly elements: ResetPasswordFormElements;
@@ -211,7 +212,6 @@ const ResetPasswordPage = () => {
                   name="email"
                   placeholder={t("pages.resetPasswordPage.email")}
                   onChange={(event) => {
-                    const emailRegex = /^.*@.*\..+$/;
                     setEmailValid(emailRegex.test(event.target.value));
                   }}
                 />

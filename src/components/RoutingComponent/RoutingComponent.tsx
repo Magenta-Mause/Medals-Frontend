@@ -3,20 +3,22 @@ import PageLayout from "@components/PageLayout/PageLayout";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import AthleteDetailPage from "@pages/Athletes/AthleteDetailPage";
 import AthleteOverviewPage from "@pages/Athletes/AthleteOverviewPage";
-import PdfDownloadPage from "@pages/Downloads/PdfDownloadPage";
 import HomePage from "@pages/Home/HomePage";
 import InDevelopmentPage from "@pages/InDevelopment/InDevelopmentPage";
 import CreditsPage from "@pages/Legal/CreditsPage";
 import ImprintPage from "@pages/Legal/ImprintPage";
 import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
 import LoginPage from "@pages/Login/LoginPage";
+import MaterialsDownloadPage from "@pages/MaterialsDownloadPage/MaterialsDownloadPage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import PerformanceMetricsPage from "@pages/PerformanceMetrics/PerformanceMetricsPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
+import ValidateInvitePage from "@pages/AcceptTrainerAccessRequestPage/AcceptTrainerAccessRequestPage";
 import { useContext } from "react";
+
 import { Route, Routes } from "react-router";
 
 const RoutingComponent = () => {
@@ -27,6 +29,7 @@ const RoutingComponent = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/setPassword" element={<SetPasswordPage />} />
       <Route path="/resetPassword" element={<ResetPasswordPage />} />
+      <Route path="/approve-request" element={<ValidateInvitePage />} />
       <Route path="/" element={<PageLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/imprint" element={<ImprintPage />} />
@@ -52,7 +55,7 @@ const RoutingComponent = () => {
           <Route path="/performances" element={<InDevelopmentPage />} />
 
           {/* Shared Pages */}
-          <Route path="/downloads" element={<PdfDownloadPage />} />
+          <Route path="/materials" element={<MaterialsDownloadPage />} />
           <Route path="/help" element={<InDevelopmentPage />} />
         </Route>
 

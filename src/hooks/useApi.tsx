@@ -8,6 +8,7 @@ import {
 import { useCallback } from "react";
 import config from "../config";
 import useAxiosInstance from "./useAxiosInstance";
+import { SwimmingCertificateType } from "@customTypes/enums";
 
 const useApi = () => {
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);
@@ -55,6 +56,21 @@ const useApi = () => {
           `Error while deleting athlete with id: ${athleteId}`,
           error,
         );
+      }
+    },
+    [axiosInstance],
+  );
+
+  const checkAthleteExists = useCallback(
+    async (email: string, birthdate: string) => {
+      try {
+        const response = await axiosInstance!.get("athletes/exists", {
+          params: { email, birthdate },
+        });
+        return response.data.data;
+      } catch (error) {
+        console.error("Error checking athlete existence:", error);
+        return false;
       }
     },
     [axiosInstance],
@@ -141,6 +157,66 @@ const useApi = () => {
       console.error(`Error while deleting admin with id: ${adminId}`, error);
     }
   };
+
+  const approveRequest = useCallback(
+    async (oneTimeCode: string, selectedUser: number) => {
+      try {
+        const response = await axiosInstance!.post(
+          `/athletes/approve-access?oneTimeCode=${oneTimeCode}`,
+          {},
+          {
+            headers: {
+              "X-Selected-User": selectedUser,
+            },
+          },
+        );
+
+        if (response.status !== 200) {
+          throw new Error(
+            `Error during accepting invite: ${response.statusText}`,
+          );
+        }
+      } catch (error) {
+        console.error(`Error while accepting invite`, error);
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
+
+  const requestAthlete = async (athleteId: number, trainerId: number) => {
+    try {
+      const response = await axiosInstance!.post(
+        "/trainers/request-athlete-access",
+        {
+          athleteId: athleteId,
+          trainerId: trainerId,
+        },
+      );
+      return response.status === 200;
+    } catch (error) {
+      console.error("Error requesting athlete:", error);
+      return false;
+    }
+  };
+
+  const searchAthletes = useCallback(
+    async (athlete: string) => {
+      try {
+        const request = await axiosInstance!.get(
+          `/trainers/search-athletes?athleteSearch=${athlete}`,
+        );
+        return request.data.data as Athlete[];
+      } catch (error) {
+        console.error(
+          `Error while fetching trainer with id: ${athlete}`,
+          error,
+        );
+        throw new Error("Error searching for athlete");
+      }
+    },
+    [axiosInstance],
+  );
 
   const loginUser = useCallback(
     async (email: string, password: string) => {
@@ -269,6 +345,44 @@ const useApi = () => {
     }
   }, [axiosInstance]);
 
+  const addSwimmingCertificate = useCallback(
+    async (athleteId: number, certificate: SwimmingCertificateType) => {
+      try {
+        const response = await axiosInstance!.post(
+          `/athletes/${athleteId}/swimming-certificate`,
+          JSON.stringify(certificate),
+          { headers: { "Content-Type": "application/json" } },
+        );
+        return response.data.data as Athlete;
+      } catch (error) {
+        console.error(
+          `Error while adding swimming certificate for athlete with id: ${athleteId}`,
+          error,
+        );
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
+
+  const deleteSwimmingCertificate = useCallback(
+    async (athleteId: number) => {
+      try {
+        const response = await axiosInstance!.delete(
+          `/athletes/${athleteId}/swimming-certificate`,
+        );
+        return response.data.data as Athlete;
+      } catch (error) {
+        console.error(
+          `Error while deleting swimming certificate for athlete with id: ${athleteId}`,
+          error,
+        );
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
+
   return {
     loginUser,
     logoutUser,
@@ -287,9 +401,15 @@ const useApi = () => {
     getTrainer,
     getTrainers,
     inviteTrainer,
+    checkAthleteExists,
     createPerformanceRecording,
     deletePerformanceRecording,
     getDisciplineMetrics,
+    addSwimmingCertificate,
+    deleteSwimmingCertificate,
+    approveRequest,
+    requestAthlete,
+    searchAthletes,
   };
 };
 

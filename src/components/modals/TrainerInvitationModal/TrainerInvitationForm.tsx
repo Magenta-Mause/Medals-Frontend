@@ -1,4 +1,5 @@
 import { Box, Button, FormControl, FormLabel, Input } from "@mui/joy";
+import { emailRegex } from "constants/regex";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -26,7 +27,7 @@ const TrainerInvitationForm = (props: {
   const [lastNameValid, setLastNameValid] = useState(true);
 
   const validateEmail = (email: string): boolean => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return emailRegex.test(email);
   };
 
   const submitInviteTrainer = (
