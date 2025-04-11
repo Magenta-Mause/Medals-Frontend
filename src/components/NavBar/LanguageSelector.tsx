@@ -13,7 +13,6 @@ import Toggler from "@components/NavBar/Toggler";
 const LanguageSelector = () => {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
-  const listRef = useRef<HTMLUListElement>(null);
 
   return (
     <ListItem
@@ -53,7 +52,6 @@ const LanguageSelector = () => {
         )}
       >
         <List
-          ref={listRef}
           sx={{
             gap: 0.5,
             position: "absolute",

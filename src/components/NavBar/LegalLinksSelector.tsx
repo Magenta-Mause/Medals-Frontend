@@ -19,7 +19,6 @@ const LegalLinksSelector = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const listRef = useRef<HTMLUListElement>(null);
 
   const links = [
     { path: "/imprint", label: t("components.navbar.legalLinks.imprint") },
@@ -44,7 +43,10 @@ const LegalLinksSelector = ({
       <Toggler
         overridenOpen={open}
         renderToggle={() => (
-          <ListItemButton onClick={() => setOpen(!open)} sx={{ mt: 1, zIndex: 9 }}>
+          <ListItemButton
+            onClick={() => setOpen(!open)}
+            sx={{ mt: 1, zIndex: 9 }}
+          >
             <InfoOutlined />
             <ListItemContent>
               <Typography level="title-sm">
@@ -68,7 +70,6 @@ const LegalLinksSelector = ({
         )}
       >
         <List
-          ref={listRef}
           sx={{
             gap: 0.5,
             position: "absolute",
