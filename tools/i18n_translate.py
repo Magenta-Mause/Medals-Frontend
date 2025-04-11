@@ -110,7 +110,7 @@ if __name__ == '__main__':
         logging.error("No target languages specified. Exiting.")
         exit(1)
 
-    with open(args.english_source, 'r') as fp:
+    with open(args.english_source, 'r', encoding='utf-8') as fp:
         translation_source = json.load(fp)
 
     exclude_specifiers = list(map(lambda s: s.replace('.', '\x00'), args.exclude or []))
@@ -136,6 +136,6 @@ if __name__ == '__main__':
             translate_locale_full(lt_tree, translation_paths, target_language, model=opus_pipeline)
         else:
             translate_locale_full(lt_tree, translation_paths, target_language)
-        
-        with open(f'translation_{target_language}.json', 'w') as fp:
-            json.dump(lt_tree, fp, indent=2)
+
+        with open(f'translation_{target_language}.json', 'w', encoding='utf-8') as fp:
+            json.dump(lt_tree, fp, indent=4, ensure_ascii=False)
