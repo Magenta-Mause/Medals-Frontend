@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { InfoOutlined, KeyboardArrowDown } from "@mui/icons-material";
 import Toggler from "@components/NavBar/Toggler";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const LegalLinksSelector = ({
   collapseSidebar,

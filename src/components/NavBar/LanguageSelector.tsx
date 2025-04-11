@@ -6,7 +6,7 @@ import {
   ListItemContent,
   Typography,
 } from "@mui/joy";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Toggler from "@components/NavBar/Toggler";
 
