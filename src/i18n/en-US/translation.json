@@ -406,6 +406,10 @@
             "label": "Create",
             "content": "Create athlete"
           }
+        },
+        "noEntries": {
+          "link": "Request access",
+          "text": "to manage athletes"
         }
       },
       "actions": {
@@ -413,7 +417,6 @@
         "edit": "Edit",
         "openDetails": "Details",
         "export": "Export"
-
       }
     },
     "trainerDatagrid": {
@@ -517,6 +520,6 @@
       "exportButton": "Export",
       "performanceCheckbox": "Include Performance Metrics",
       "removeFromSelectionButton": "Remove"
-      }
+    }
   }
 }

@@ -65,6 +65,8 @@ interface GenericResponsiveDatagridProps<T> {
   mobileRendering: MobileTableRendering<T>;
   onItemClick?: (item: T) => void;
   disablePaging?: boolean;
+  messageIfNoEntriesFound?: React.ReactNode;
+  heightIfNoEntriesFound?: string;
 }
 
 /**
@@ -360,6 +362,8 @@ const GenericResponsiveDatagrid = <T,>(
           actionMenu={props.actionMenu}
           rowOnClick={props.onItemClick}
           allItems={props.data}
+          messageIfNoEntriesFound={props.messageIfNoEntriesFound}
+          heightIfNoEntriesFound={props.heightIfNoEntriesFound}
         />
       </Sheet>
 

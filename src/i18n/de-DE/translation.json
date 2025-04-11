@@ -410,6 +410,10 @@
             "label": "Erstellen",
             "content": "Athlet*in erstellen"
           }
+        },
+        "noEntries": {
+          "link": "Beantrage Zugriff",
+          "text": "um Athlet*innen verwalten zu können"
         }
       },
       "actions": {
