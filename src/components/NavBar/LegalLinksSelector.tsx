@@ -66,7 +66,16 @@ const LegalLinksSelector = ({
           </ListItemButton>
         )}
       >
-        <List sx={{ gap: 0.5 }}>
+        <List
+          sx={{
+            gap: 0.5,
+            position: "absolute",
+            width: "100%",
+            bottom: "3em",
+            visibility: open ? "visible" : "hidden",
+            backgroundColor: "var(--joy-palette-background-surface)",
+          }}
+        >
           {links.map((link) => (
             <ListItem key={link.path}>
               <ListItemButton

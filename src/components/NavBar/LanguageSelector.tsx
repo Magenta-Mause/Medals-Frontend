@@ -48,7 +48,16 @@ const LanguageSelector = () => {
           </ListItemButton>
         )}
       >
-        <List sx={{ gap: 0.5 }}>
+        <List
+          sx={{
+            gap: 0.5,
+            position: "absolute",
+            width: "100%",
+            bottom: "3em",
+            visibility: open ? "visible" : "hidden",
+            backgroundColor: "var(--joy-palette-background-surface)",
+          }}
+        >
           {Object.keys(i18n.options.resources ?? []).map((language) => (
             <ListItem key={language}>
               <ListItemButton
