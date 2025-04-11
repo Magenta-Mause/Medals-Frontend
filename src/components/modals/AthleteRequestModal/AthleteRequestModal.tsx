@@ -17,6 +17,7 @@ import { AuthContext } from "@components/AuthenticationProvider/AuthenticationPr
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import GenericModal from "@components/modals/GenericModal";
 import { enqueueSnackbar } from "notistack";
+import useFormatting from "@hooks/useFormatting";
 
 interface AthleteRequestModalProps {
   isOpen: boolean;
@@ -30,6 +31,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
   const [icon, setShowScrollIcon] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
   const [filteredResults, setFilteredResults] = useState<Athlete[]>([]);
+  const { formatDate } = useFormatting();
   const { selectedUser } = useContext(AuthContext);
   const [buttonState, setButtonState] = useState<{
     [key: number]: { loading: boolean; send: boolean };
@@ -196,7 +198,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
                   <ListItemContent>
                     <Typography level="title-sm">{`${athlete.first_name} ${athlete.last_name}`}</Typography>
                     <Typography level="body-sm" noWrap>
-                      {`${athlete.birthdate}`}
+                      {`${formatDate(Date.parse(athlete.birthdate))}`}
                     </Typography>
                   </ListItemContent>
                   <Button
