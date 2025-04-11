@@ -48,13 +48,9 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
   }
 
   const tooltipText =
-    medalType === Medals.GOLD
-      ? t("medals.GOLD")
-      : medalType === Medals.SILVER
-        ? t("medals.SILVER")
-        : medalType === Medals.BRONZE
-          ? t("medals.BRONZE")
-          : t("medals.NONE");
+    t("disciplines.categories." + category + ".label") +
+    ": " +
+    t("medals." + medalType);
 
   const iconBox = (
     <Box
@@ -76,12 +72,12 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
       {medalType === Medals.NONE ? (
         <DisciplineIcon
           fill={grayedOutColor}
-          style={{ width: "70%", height: "70%" }}
+          style={{ width: "60%", height: "60%" }}
         />
       ) : (
         <DisciplineIcon
           fill={mainColor}
-          style={{ width: "70%", height: "70%" }}
+          style={{ width: "60%", height: "60%" }}
         />
       )}
     </Box>
