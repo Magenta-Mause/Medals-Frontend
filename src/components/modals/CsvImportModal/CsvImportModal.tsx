@@ -103,7 +103,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
   return (
     <>
       <GenericModal
-        header={t("pages.athleteImportPage.importButton")}
+        header={t("components.csvImportModal.importButton")}
         open={props.isOpen}
         setOpen={(isOpen) => {
           props.setOpen(isOpen);
@@ -122,10 +122,12 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
           indicatorColor="primary"
         >
           <Tab
-            label={t("pages.athleteImportPage.tabSelection.athleteImport")}
+            label={t("components.csvImportModal.tabSelection.athleteImport")}
           />
           <Tab
-            label={t("pages.athleteImportPage.tabSelection.performanceImport")}
+            label={t(
+              "components.csvImportModal.tabSelection.performanceImport",
+            )}
           />
         </Tabs>
         {selectedImportPage === importPage.athleteImport ? (
@@ -135,13 +137,13 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
             uploadEntry={createAthlete}
             csvColumns={[
               {
-                columnName: t("pages.athleteImportPage.firstName"),
+                columnName: t("components.csvImportModal.firstName"),
                 columnMapping(csvData: CSVData<Athlete>) {
                   return csvData.data.first_name;
                 },
               },
               {
-                columnName: t("pages.athleteImportPage.lastName"),
+                columnName: t("components.csvImportModal.lastName"),
                 columnMapping(csvData: CSVData<Athlete>) {
                   return csvData.data.last_name;
                 },
@@ -156,13 +158,13 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
             uploadEntry={createAthlete}
             csvColumns={[
               {
-                columnName: t("pages.athleteImportPage.firstName"),
+                columnName: t("components.csvImportModal.lastName"),
                 columnMapping(csvData: CSVData<Athlete>) {
                   return csvData.data.first_name;
                 },
               },
               {
-                columnName: t("pages.athleteImportPage.lastName"),
+                columnName: t("components.csvImportModal.lastName"),
                 columnMapping(csvData: CSVData<Athlete>) {
                   return csvData.data.last_name;
                 },

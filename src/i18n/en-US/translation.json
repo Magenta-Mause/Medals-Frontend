@@ -119,22 +119,6 @@
       "createButton": "Create",
       "createHeader": "Create Athlete"
     },
-    "athleteImportPage": {
-      "importButton": "Import Athletes",
-      "feedback1": "Athlete ",
-      "feedback2": " created",
-      "failedFeedback": "Failed to create ",
-      "DropFile": "Drag & Drop your file here or click",
-      "changeFile": "Reset file",
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "valid": "Status",
-      "athleteList": "Athlete List",
-      "tabSelection": {
-        "athleteImport": "import athlete",
-        "performanceImport": "import performance"
-      }
-    },
     "trainerOverviewPage": {
       "header": "Trainers"
     },
@@ -507,11 +491,11 @@
       "languageSelectionButton": "Change language",
       "selectUser": "Continue with this user",
       "showPassword": "Show/Hide password",
-      "athleteUploadDatagrid": {
-        "error": "Die angegebene Athlet*in existiert bereits oder ist inkorrekt",
-        "loading": "Lädt...",
-        "uploaded": "Athlet*in wurde hochgeladen",
-        "valid": "Athlet*in kann hochgeladen werden"
+      "CSVUploadDatagrid": {
+        "error": "The data already exists",
+        "loading": "Loading...",
+        "uploaded": "Data successfully uploaded",
+        "valid": "Data is valid and can be uploaded"
       },
       "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
     },
@@ -520,6 +504,24 @@
       "exportButton": "Export",
       "performanceCheckbox": "Include Performance Metrics",
       "removeFromSelectionButton": "Remove"
+    },
+    "csvUploadComponent": {
+      "failedUpload": "Error during upload",
+      "DropFile": "Drag & Drop your file here or click",
+      "athleteList": "Athlete List",
+      "changeFile": "Reset file"
+    },
+    "csvUploadDatagrid": {
+      "valid": "Status"
+    },
+    "csvImportModal": {
+      "importButton": "Import Athletes",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "tabSelection": {
+        "athleteImport": "Import athlete",
+        "performanceImport": "Import performance"
+      }
     }
   }
 }

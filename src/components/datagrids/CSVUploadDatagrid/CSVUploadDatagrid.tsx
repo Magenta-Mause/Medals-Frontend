@@ -27,30 +27,26 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
   const { t } = useTranslation();
   const columns: Column<CSVData<T>>[] = [
     {
-      columnName: t("pages.athleteImportPage.valid"),
+      columnName: t("components.csvUploadDatagrid.valid"),
       columnMapping(data) {
         return data.state === CSVUploadState.FAILED ? (
-          <HoverTooltip
-            text={t("components.tooltip.athleteUploadDatagrid.error")}
-          >
+          <HoverTooltip text={t("components.tooltip.CSVUploadDatagrid.error")}>
             <CloseIcon color="error" style={IconProps} />
           </HoverTooltip>
         ) : data.state === CSVUploadState.LOADING ? (
           <HoverTooltip
-            text={t("components.tooltip.athleteUploadDatagrid.loading")}
+            text={t("components.tooltip.CSVUploadDatagrid.loading")}
           >
             <CircularProgress size={"sm"} style={IconProps} />
           </HoverTooltip>
         ) : data.state === CSVUploadState.UPLOADED ? (
           <HoverTooltip
-            text={t("components.tooltip.athleteUploadDatagrid.uploaded")}
+            text={t("components.tooltip.CSVUploadDatagrid.uploaded")}
           >
             <Cloud color="success" style={IconProps} />
           </HoverTooltip>
         ) : data.state === CSVUploadState.VALID ? (
-          <HoverTooltip
-            text={t("components.tooltip.athleteUploadDatagrid.valid")}
-          >
+          <HoverTooltip text={t("components.tooltip.CSVUploadDatagrid.valid")}>
             <UploadIcon style={IconProps} />
           </HoverTooltip>
         ) : (

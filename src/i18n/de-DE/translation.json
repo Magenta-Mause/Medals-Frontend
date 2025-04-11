@@ -120,22 +120,6 @@
       "createButton": "Erstellen",
       "createHeader": "Athlet*in erstellen"
     },
-    "athleteImportPage": {
-      "importButton": "Athlet*innen importieren",
-      "feedback1": "Athlet*in ",
-      "feedback2": " erstellt",
-      "failedFeedback": "Fehler beim Erstellen von Athlet*in ",
-      "DropFile": "Datei hier ablegen oder klicken",
-      "changeFile": "Datei zurücksetzen",
-      "firstName": "Vorname",
-      "lastName": "Nachname",
-      "valid": "Status",
-      "athleteList": "Athletenliste",
-      "tabSelection": {
-        "athleteImport": "Athlet*innen importieren",
-        "performanceImport": "Leistungen importieren"
-      }
-    },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
     },
@@ -502,18 +486,18 @@
       }
     },
     "tooltip": {
-      "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
+      "colorSchemeToggle": "Wechseln zwischen Light-/Dark`mode`",
       "profileButton": "Account Einstellungen",
       "switchUserButton": "Benutzer wechseln",
       "logoutButton": "Abmelden",
       "languageSelectionButton": "Sprache ändern",
       "selectUser": "Mit dieser Benutzer*in fortfahren",
       "showPassword": "Password anzeigen/ausblenden",
-      "athleteUploadDatagrid": {
-        "error": "Die angegebene Athlet*in existiert bereits oder ist inkorrekt",
+      "CSVUploadDatagrid": {
+        "error": "Die Daten existieren bereits oder sind inkorrekt",
         "loading": "Lädt...",
-        "uploaded": "Athlet*in wurde hochgeladen",
-        "valid": "Athlet*in kann hochgeladen werden"
+        "uploaded": "Daten wurden hochgeladen",
+        "valid": "Daten können hochgeladen werden"
       },
       "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     },
@@ -524,7 +508,22 @@
       "removeFromSelectionButton": "Entfernen"
     },
     "csvUploadComponent": {
-      "failedUpload": "Fehler beim Hochladen"
+      "failedUpload": "Fehler beim Hochladen",
+      "DropFile": "Datei hier ablegen oder klicken",
+      "athleteList": "Athletenliste",
+      "changeFile": "Datei zurücksetzen"
+    },
+    "csvUploadDatagrid": {
+      "valid": "Status"
+    },
+    "csvImportModal": {
+      "importButton": "Daten importieren",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "tabSelection": {
+        "athleteImport": "Athlet*innen importieren",
+        "performanceImport": "Leistungen importieren"
+      }
     }
   }
 }

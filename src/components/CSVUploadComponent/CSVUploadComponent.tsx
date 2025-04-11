@@ -180,7 +180,7 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
                 }}
               >
                 <UploadIcon fontSize="large" />
-                {t("pages.athleteImportPage.DropFile")}
+                {t("components.csvUploadComponent.DropFile")}
               </Typography>
             </Box>
           </label>
@@ -188,7 +188,7 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
       ) : (
         <>
           <Typography level="h4" sx={{ mb: 2 }}>
-            {t("pages.athleteImportPage.athleteList")}
+            {t("components.csvUploadComponent.athleteList")}
           </Typography>
           <CSVUploadDatagrid csvData={csvData} csvColumns={csvColumns} />
           <Box
@@ -205,7 +205,7 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
               }}
               color={"danger"}
             >
-              {t("pages.athleteImportPage.changeFile")}
+              {t("components.csvUploadComponent.changeFile")}
             </Button>
             <Button
               color={isFinished() ? "success" : "primary"}
@@ -230,7 +230,7 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
                   )
                   ? t("generic.loading")
                   : t("generic.finished")
-                : t("pages.athleteImportPage.importButton")}
+                : t("components.csvImportModal.importButton")}
             </Button>
           </Box>
         </>

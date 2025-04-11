@@ -192,8 +192,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const toolbarActions: ToolbarAction[] = [
     {
-      label: t("pages.athleteImportPage.importButton"),
-      content: t("pages.athleteImportPage.importButton"),
+      label: t("components.csvImportModal.importButton"),
+      content: t("components.csvImportModal.importButton"),
       icon: <UploadIcon />,
       collapseToText: true,
       color: "primary",
