@@ -1,7 +1,9 @@
-import { Box, Chip, Typography } from "@mui/joy";
+import React from "react";
+import { Box, Chip, Typography, useColorScheme } from "@mui/joy";
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { Genders, MetricUnits } from "@customTypes/enums";
 import { useTranslation } from "react-i18next";
+import { useMedalColors } from "@hooks/useMedalColors";
 
 interface MedalRatingsProps {
   metric: DisciplineRatingMetric;
@@ -34,6 +36,9 @@ const hexToRGBA = (hex: string, alpha: number) => {
 
 export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
   const { i18n } = useTranslation();
+  const { mode } = useColorScheme();
+  const textColor = mode === "dark" ? "#fff" : "#000";
+
   let displayValue = value;
 
   if (typeof value === "number") {
@@ -59,7 +64,7 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
       size="sm"
       sx={{
         backgroundColor: hexToRGBA(color, 0.6),
-        color: "#000",
+        color: textColor,
         fontWeight: "bold",
         minWidth: "80px",
         textAlign: "center",
@@ -73,6 +78,7 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
 const MedalRatings = ({ metric, selectedGender }: MedalRatingsProps) => {
   const { t } = useTranslation();
   const unit = metric.discipline.unit || "";
+  const medalColors = useMedalColors();
 
   const getRating = (ratingMale: any, ratingFemale: any) =>
     selectedGender === Genders.FEMALE ? ratingFemale : ratingMale;
@@ -94,9 +100,21 @@ const MedalRatings = ({ metric, selectedGender }: MedalRatingsProps) => {
     ) ?? "–";
 
   const medalsRating = [
-    { label: t("medals.GOLD"), value: goldRating, color: "#FFD700" },
-    { label: t("medals.SILVER"), value: silverRating, color: "#C0C0C0" },
-    { label: t("medals.BRONZE"), value: bronzeRating, color: "#CD7F32" },
+    {
+      label: t("medals.GOLD"),
+      value: goldRating,
+      color: medalColors.gold,
+    },
+    {
+      label: t("medals.SILVER"),
+      value: silverRating,
+      color: medalColors.silver,
+    },
+    {
+      label: t("medals.BRONZE"),
+      value: bronzeRating,
+      color: medalColors.bronze,
+    },
   ];
 
   return (
