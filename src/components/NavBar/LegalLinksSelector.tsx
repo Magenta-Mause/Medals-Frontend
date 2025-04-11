@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { KeyboardArrowDown, InfoOutlined } from "@mui/icons-material";
 import Toggler from "@components/NavBar/Toggler";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const LegalLinksSelector = ({
   collapseSidebar,
@@ -19,6 +19,7 @@ const LegalLinksSelector = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const listRef = useRef<HTMLUListElement>(null);
 
   const links = [
     { path: "/imprint", label: t("components.navbar.legalLinks.imprint") },
@@ -31,6 +32,22 @@ const LegalLinksSelector = ({
       label: t("components.navbar.legalLinks.credits"),
     },
   ];
+
+  useEffect(() => {
+    if (listRef.current) {
+      if (open) {
+        listRef.current.style.maxHeight = `${listRef.current.scrollHeight}px`;
+        listRef.current.style.opacity = "1";
+        listRef.current.style.transform = "translateY(0)";
+        listRef.current.style.visibility = "visible";
+      } else {
+        listRef.current.style.maxHeight = "0px";
+        listRef.current.style.opacity = "0";
+        listRef.current.style.transform = "translateY(-10px)";
+        listRef.current.style.visibility = "hidden";
+      }
+    }
+  }, [open]);
 
   return (
     <ListItem
@@ -67,12 +84,18 @@ const LegalLinksSelector = ({
         )}
       >
         <List
+          ref={listRef}
           sx={{
             gap: 0.5,
             position: "absolute",
             width: "100%",
             bottom: "3em",
-            visibility: open ? "visible" : "hidden",
+            overflow: "hidden",
+            maxHeight: 0,
+            opacity: 0,
+            transform: "translateY(-10px)",
+            visibility: "hidden",
+            transition: "all 0.3s ease",
             backgroundColor: "var(--joy-palette-background-surface)",
           }}
         >
