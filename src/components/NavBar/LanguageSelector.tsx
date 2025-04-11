@@ -6,31 +6,14 @@ import {
   ListItemContent,
   Typography,
 } from "@mui/joy";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Toggler from "@components/NavBar/Toggler";
-import { useRef, useEffect } from "react";
 
 const LanguageSelector = () => {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    if (listRef.current) {
-      if (open) {
-        listRef.current.style.maxHeight = `${listRef.current.scrollHeight}px`;
-        listRef.current.style.opacity = "1";
-        listRef.current.style.transform = "translateY(0)";
-        listRef.current.style.visibility = "visible";
-      } else {
-        listRef.current.style.maxHeight = "0px";
-        listRef.current.style.opacity = "0";
-        listRef.current.style.transform = "translateY(-10px)";
-        listRef.current.style.visibility = "hidden";
-      }
-    }
-  }, [open]);
 
   return (
     <ListItem
@@ -43,7 +26,10 @@ const LanguageSelector = () => {
       <Toggler
         overridenOpen={open}
         renderToggle={() => (
-          <ListItemButton onClick={() => setOpen(!open)} sx={{ mt: 1 }}>
+          <ListItemButton
+            onClick={() => setOpen(!open)}
+            sx={{ mt: 1, zIndex: 10 }}
+          >
             <LanguageOutlined />
             <ListItemContent>
               <Typography level="title-sm">
@@ -74,12 +60,20 @@ const LanguageSelector = () => {
             width: "100%",
             bottom: "3em",
             overflow: "hidden",
-            maxHeight: 0,
-            opacity: 0,
-            transform: "translateY(-10px)",
-            visibility: "hidden",
             transition: "all 0.3s ease",
             backgroundColor: "var(--joy-palette-background-surface)",
+            zIndex: 9,
+            ...(!open
+              ? {
+                  transform: "translateY(50px)",
+                  opacity: 0,
+                  pointerEvents: "none",
+                }
+              : {
+                  transform: "translateY(0)",
+                  opacity: 1,
+                  pointerEvents: "all",
+                }),
           }}
         >
           {Object.keys(i18n.options.resources ?? []).map((language) => (
