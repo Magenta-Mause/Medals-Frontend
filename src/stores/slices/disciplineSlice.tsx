@@ -11,6 +11,7 @@ const disciplineSlice = createSlice({
   } as SliceState<Discipline>,
   reducers: {
     addDiscipline(state, action: PayloadAction<Discipline>) {
+      state.data = state.data.filter((item) => item.id !== action.payload.id);
       state.data.push(action.payload);
     },
     updateDiscipline(state, action: PayloadAction<Discipline>) {

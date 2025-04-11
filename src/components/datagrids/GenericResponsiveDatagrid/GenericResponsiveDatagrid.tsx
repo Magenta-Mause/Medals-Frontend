@@ -440,9 +440,13 @@ const ActionButton = <T,>(
     setLoading(false);
   };
 
+  const propsWithoutStuff: any = { ...props };
+  delete propsWithoutStuff.getSelectedItems;
+  delete propsWithoutStuff.buttonAction;
+
   return (
     <Button
-      {...props}
+      {...propsWithoutStuff}
       color={props.buttonAction.color ?? "neutral"}
       onClick={() => triggerActionForSelected()}
       key={props.buttonAction.key}

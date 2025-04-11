@@ -14,6 +14,9 @@ import {
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { StompSessionProvider } from "react-stomp-hooks";
+import config from "config";
+import SockJS from "sockjs-client";
 
 interface AuthContextType {
   identityToken: string | null;
@@ -182,9 +185,21 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
         setSelectedUser: selectUser,
       }}
     >
-      <AuthInitializationComponent />
-      {authorized == undefined ? (
-        <>
+      <StompSessionProvider
+        url={config.backendBrokerUrl}
+        enabled={Boolean(identityToken && selectedUser)}
+        webSocketFactory={() => {
+          return new SockJS(
+            config.websocketFactory +
+              "?authToken=" +
+              identityToken +
+              "&selectedUser=" +
+              selectedUser?.id,
+          );
+        }}
+      >
+        <AuthInitializationComponent />
+        {authorized == undefined ? (
           <Box
             sx={{
               display: "flex",
@@ -196,11 +211,11 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
           >
             <CircularProgress size="lg" />
           </Box>
-        </>
-      ) : (
-        children
-      )}
-      <AuthInitializationComponent />
+        ) : (
+          children
+        )}
+        <AuthInitializationComponent />
+      </StompSessionProvider>
     </AuthContext.Provider>
   );
 };

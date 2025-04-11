@@ -55,7 +55,8 @@ const ProfileModal = (props: {
   setOpen: (open: boolean) => void;
 }) => {
   const athletes = useTypedSelector((state) => state.athletes.data);
-  const { selectedUser, setSelectedUser } = useContext(AuthContext);
+  const { selectedUser, setSelectedUser, refreshIdentityToken } =
+    useContext(AuthContext);
   const isMobile = useMediaQuery("(max-width:600px)");
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ const ProfileModal = (props: {
         success = await deleteAdmin(selectedUser.id);
       }
       if (success) {
+        refreshIdentityToken();
         setSelectedUser(null);
         navigate("/login");
       }

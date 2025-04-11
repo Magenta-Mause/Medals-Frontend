@@ -11,6 +11,7 @@ const athleteSlice = createSlice({
   } as SliceState<Athlete>,
   reducers: {
     addAthlete(state, action: PayloadAction<Athlete>) {
+      state.data = state.data.filter((item) => item.id !== action.payload.id);
       state.data.push(action.payload);
     },
     updateAthlete(state, action: PayloadAction<Athlete>) {

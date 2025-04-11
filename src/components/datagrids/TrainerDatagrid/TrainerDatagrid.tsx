@@ -3,7 +3,6 @@ import { Trainer } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Add } from "@mui/icons-material";
 import { Typography } from "@mui/joy";
-import { removeTrainer } from "@stores/slices/trainerSlice";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -99,8 +98,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       key: "delete",
       variant: "solid",
       operation: async (item) => {
-        dispatch(removeTrainer({ id: item.id }));
-        deleteTrainer(item.id);
+        await deleteTrainer(item.id);
         console.log("Deleted Trainer:", item);
       },
     },

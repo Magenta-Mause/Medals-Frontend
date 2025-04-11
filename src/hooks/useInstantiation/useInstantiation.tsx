@@ -6,7 +6,6 @@ import {
   Trainer,
 } from "@customTypes/backendTypes";
 import { UserType } from "@customTypes/enums";
-import useStompClient from "@hooks/useStompClient";
 import {
   addAthlete,
   removeAthlete,
@@ -38,10 +37,34 @@ import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
 
 const useInstantiation = () => {
   const dispatch = useDispatch();
-  const { selectedUser } = useContext(AuthContext);
+  const { selectedUser, refreshIdentityToken, email, authorizedUsers } =
+    useContext(AuthContext);
   const [currentlyInitialized, setCurrentlyInitialized] = useState<
     number | null
   >(null);
+  const checkUserAccountUpdate = useCallback(
+    (entity: { email: string }) => {
+      if (entity.email === email) {
+        refreshIdentityToken();
+      }
+    },
+    [refreshIdentityToken, email],
+  );
+  const checkUserAccountUpdateId = useCallback(
+    (id: number) => {
+      console.log(id, authorizedUsers);
+      if (
+        authorizedUsers?.reduce(
+          (before, user) => before || user.id === id,
+          false,
+        )
+      ) {
+        refreshIdentityToken();
+      }
+    },
+    [refreshIdentityToken, authorizedUsers],
+  );
+
   const {
     getAthletes,
     getPerformanceRecordings,
@@ -49,24 +72,30 @@ const useInstantiation = () => {
     getTrainers,
     getDisciplineMetrics,
   } = useApi();
-  const client = useStompClient();
   const {
     initialize: initializeAthleteWebsocket,
     uninitialize: uninitializeAthleteWebsocket,
   } = useGenericWebsocketInitialization<Athlete>(
-    client,
     "athlete",
     true,
-    (a) => dispatch(addAthlete(a)),
-    (a) => dispatch(updateAthlete(a)),
-    (id) => dispatch(removeAthlete({ id: id })),
+    (a) => {
+      checkUserAccountUpdate(a);
+      dispatch(addAthlete(a));
+    },
+    (a) => {
+      checkUserAccountUpdate(a);
+      dispatch(updateAthlete(a));
+    },
+    (id) => {
+      checkUserAccountUpdateId(id);
+      dispatch(removeAthlete({ id: id }));
+    },
   );
 
   const {
     initialize: initializeDisciplineWebsocket,
     uninitialize: uninitializeDisciplineWebsocket,
   } = useGenericWebsocketInitialization<Discipline>(
-    client,
     "discipline",
     false,
     (d) => dispatch(addDiscipline(d)),
@@ -78,7 +107,6 @@ const useInstantiation = () => {
     initialize: initializePerformanceRecordingWebsocket,
     uninitialize: uninitializePerformanceRecordingWebsocket,
   } = useGenericWebsocketInitialization<PerformanceRecording>(
-    client,
     "performance-recording",
     true,
     (p) => dispatch(addPerformanceRecording(p)),
@@ -90,12 +118,18 @@ const useInstantiation = () => {
     initialize: initializeTrainerWebsocket,
     uninitialize: uninitializeTrainerWebsocket,
   } = useGenericWebsocketInitialization<Trainer>(
-    client,
     "trainer",
     true,
-    (a) => dispatch(addTrainer(a)),
+    (a) => {
+      checkUserAccountUpdate(a);
+      dispatch(addTrainer(a));
+    },
     () => {},
-    (id) => dispatch(removeTrainer({ id: id })),
+    (id) => {
+      console.log("deleted:", id);
+      checkUserAccountUpdateId(id);
+      dispatch(removeTrainer({ id: id }));
+    },
     selectedUser?.type == UserType.ADMIN
       ? (methode) => "/topics/trainer/" + methode + "/admin"
       : undefined,
@@ -227,5 +261,4 @@ const useInstantiation = () => {
     instantiateByType,
   };
 };
-
 export default useInstantiation;
