@@ -22,7 +22,8 @@
     "discipline": "Disziplin",
     "invalid": "Ungültig",
     "loading": "Lädt...",
-    "submit": "Absenden"
+    "submit": "Absenden",
+    "password": "Passwort"
   },
   "disciplines": {
     "categories": {
@@ -47,9 +48,10 @@
     "NONE": "Keine Medaille erreicht"
   },
   "units": {
-    "seconds": "Sekunden",
-    "minutes": "Minuten",
-    "meters": "Meter"
+    "SECONDS": "Sekunden",
+    "MINUTES": "Minuten",
+    "METERS": "Meter",
+    "POINTS": "Punkte"
   },
   "messages": {
     "noEntriesFound": "Keine Einträge gefunden"
@@ -70,12 +72,16 @@
       "success": "Bestätigungs E-Mail gesendet"
     },
     "inviteTrainer": {
-      "failed": "Der Trainer konnte nicht eingeladen werden",
-      "success": "Der Trainer wurde eingeladen"
+      "failed": "Die Trainer*in konnte nicht eingeladen werden",
+      "success": "Die Trainer*in wurde eingeladen"
     },
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
+    },
+    "performanceMetrics": {
+      "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
+      "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
     }
   },
   "pages": {
@@ -120,6 +126,10 @@
     },
     "loginPage": {
       "logo": "Medals",
+      "userSelection": {
+        "header": "Profil auswählen",
+        "subheader": "Wähle aus, mit welchem Profil du fortfahren willst"
+      },
       "signIn": {
         "header": "Anmelden",
         "subheader": "Medals - Das Medaillen Management System der Zukunft",
@@ -128,7 +138,8 @@
           "password": "Passwort"
         },
         "forgotPassword": "Passwort vergessen?",
-        "privacyPolicy": "Datenschutz",
+        "privacyPolicy": "Datenschutzerklärung",
+        "acceptOur": "Ich akzeptiere die",
         "submit": "Anmelden",
         "loginFailedWarning": "Anmeldung fehlgeschlagen",
         "logoutButton": "Abmelden",
@@ -223,6 +234,18 @@
       "2024MedalsCard": "2024 Medaillenkarte",
       "2025MedalsCard": "2025 Medaillenkarte",
       "photoBy": "Foto von"
+    },
+    "performanceMetricsPage": {
+      "title": {
+        "athlete": "Deine Anforderungen",
+        "default": "Leistungswerte"
+      },
+      "filters": {
+        "year": "Jahr",
+        "ageGroup": "Altersgruppe",
+        "gender": "Geschlecht"
+      },
+      "resetFilter": "Filter zurücksetzen"
     }
   },
   "components": {
@@ -368,7 +391,7 @@
         "toolbar": {
           "addTrainer": {
             "label": "Einladen",
-            "content": "Trainer Einladen"
+            "content": "Trainer*in Einladen"
           }
         }
       },
@@ -378,7 +401,7 @@
         "firstNamePlaceholder": "Max",
         "lastName": "Nachname",
         "lastNamePlaceholder": "Mustermann",
-        "confirm": "Trainer Einladen"
+        "confirm": "Trainer*in Einladen"
       },
       "actions": {
         "delete": "Löschen"
@@ -394,7 +417,7 @@
       "hasNumber": "Passwort enthält eine Zahl",
       "hasUpperCase": "Passwort enthält einen Großbuchstaben",
       "hasSpecial": "Passwort enthält ein Sonderzeichen",
-      "required": "Verpflichtend"
+      "fieldRequired": "Bedingung ist verpflichtend"
     },
     "confirmationPopup": {
       "header": "Account Löschen",
@@ -429,7 +452,10 @@
       "profileButton": "Account Einstellungen",
       "switchUserButton": "Benutzer wechseln",
       "logoutButton": "Abmelden",
-      "languageSelectionButton": "Sprache ändern"
+      "languageSelectionButton": "Sprache ändern",
+      "selectUser": "Mit dieser Benutzer*in fortfahren",
+      "showPassword": "Password anzeigen/ausblenden",
+      "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     }
   }
 }

@@ -16,6 +16,7 @@ const useGenericWebsocketInitialization = <T,>(
 
   const initialize = useCallback(() => {
     if (isConnected) {
+      console.log("is already connected");
       return;
     }
     if (client == null || !client.connected) {
@@ -74,6 +75,7 @@ const useGenericWebsocketInitialization = <T,>(
     if (client == null || !client.connected) {
       return;
     }
+    setConnected(false);
     client.unsubscribe(
       "/topics/" +
         topic +

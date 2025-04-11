@@ -86,7 +86,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       color: "primary",
       key: "invite-trainer",
       variant: "solid",
-      operation: function (): void {
+      operation: async () => {
         setAddTrainerModalOpen(true);
       },
     },
@@ -98,7 +98,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       color: "danger",
       key: "delete",
       variant: "solid",
-      operation: function (item): void {
+      operation: async (item) => {
         dispatch(removeTrainer({ id: item.id }));
         deleteTrainer(item.id);
         console.log("Deleted Trainer:", item);

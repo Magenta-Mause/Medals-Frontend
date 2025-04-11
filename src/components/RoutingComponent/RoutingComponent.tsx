@@ -12,6 +12,7 @@ import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
 import LoginPage from "@pages/Login/LoginPage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
+import PerformanceMetricsPage from "@pages/PerformanceMetrics/PerformanceMetricsPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
@@ -39,12 +40,15 @@ const RoutingComponent = () => {
           {/* TRAINER */}
           <Route path="/athletes" element={<AthleteOverviewPage />} />
           <Route path="/athletes/:athleteId" element={<AthleteDetailPage />} />
-          <Route path="/performanceMetrics" element={<InDevelopmentPage />} />
+          <Route
+            path="/performanceMetrics"
+            element={<PerformanceMetricsPage />}
+          />
           <Route path="/assignAthlete" element={<InDevelopmentPage />} />
 
           {/* ATHLETE */}
           <Route path="/dashboard" element={<InDevelopmentPage />} />
-          <Route path="/requirements" element={<InDevelopmentPage />} />
+          <Route path="/requirements" element={<PerformanceMetricsPage />} />
           <Route path="/performances" element={<InDevelopmentPage />} />
 
           {/* Shared Pages */}
