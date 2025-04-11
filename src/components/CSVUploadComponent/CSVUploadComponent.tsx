@@ -126,7 +126,9 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
             enqueueSnackbar(t("components.csvUploadComponent.failedUpload"), {
               variant: "error",
             });
+            data.state = CSVUploadState.FAILED;
           }
+          setCsvData([...csvData]);
         } else {
           data.state = CSVUploadState.FAILED;
         }
