@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography, Button } from "@mui/joy";
+import { Box, Button, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useSnackbar } from "notistack";
 import useApi from "@hooks/useApi";
@@ -59,6 +59,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          minHeight: "50px",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>

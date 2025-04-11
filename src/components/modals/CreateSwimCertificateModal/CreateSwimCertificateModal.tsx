@@ -136,22 +136,23 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
                     p: 2,
                     cursor: "pointer",
                     // Highlight selected option.
+                    transition: "background ease .1s",
                     backgroundColor: isSelected
                       ? theme.palette.mode === "dark"
-                        ? "rgba(64, 64, 64, 0.6) !important"
-                        : "rgba(199, 199, 199, 0.6) !important"
+                        ? "rgba(150, 150, 255, 0.3) !important"
+                        : "rgba(0, 0, 255, 0.1) !important"
                       : "transparent",
                     "&:hover": {
                       backgroundColor:
                         theme.palette.mode === "dark"
                           ? "rgba(30, 30, 30, 0.6)"
-                          : "rgba(250, 250, 250, 0.6)",
+                          : "rgba(220, 220, 220, 0.6)",
                     },
                     "&:active": {
                       backgroundColor:
                         theme.palette.mode === "dark"
-                          ? "rgba(66, 66, 66, 0.6)"
-                          : "rgba(180, 180, 180, 0.6)",
+                          ? "rgba(66, 66, 66, 0.6) !important"
+                          : "rgba(180, 180, 180, 0.6) !important",
                     },
                   })}
                 >
