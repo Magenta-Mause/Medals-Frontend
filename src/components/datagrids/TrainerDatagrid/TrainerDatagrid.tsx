@@ -5,7 +5,6 @@ import { Add } from "@mui/icons-material";
 import { Typography } from "@mui/joy";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
@@ -21,7 +20,6 @@ interface TrainerDatagridProps {
 
 const TrainerDatagrid = (props: TrainerDatagridProps) => {
   const { deleteTrainer } = useApi();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [addTrainerModalOpen, setAddTrainerModalOpen] = useState(false);
 
