@@ -182,7 +182,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
                   sx={(theme) => ({
                     padding: 1,
                     width: "100%",
-                    borderRadius: 10,
+                    borderRadius: 3,
                     "&:hover": {
                       background: "rgba(199, 199, 199, 0.6)",
                     },
