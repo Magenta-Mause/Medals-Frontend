@@ -20,7 +20,7 @@ const SwimCertificateIcon: React.FC<SwimCertificateIconProps> = ({
     mode === "dark" ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.2)";
   const backgroundColor = achieved ? "#82afd0" : unachievedBackgroundColor;
   const border = achieved ? "gray solid thin" : "rgba(0,0,0,0.2) solid thin";
-  const detailColor = mode === "dark" ? "#fff" : "rgba(0, 0, 0, 0.7)";
+  const detailColor = mode === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 0.5)";
 
   return (
     <HoverTooltip
@@ -44,7 +44,14 @@ const SwimCertificateIcon: React.FC<SwimCertificateIconProps> = ({
           ...sx,
         }}
       >
-        <PoolIcon sx={{ fill: detailColor, height: "100%", width: "100%" }} />
+        <PoolIcon
+          sx={{
+            fill: detailColor,
+            height: "100%",
+            width: "100%",
+            transition: "none",
+          }}
+        />
       </Box>
     </HoverTooltip>
   );
