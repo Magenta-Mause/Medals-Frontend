@@ -43,7 +43,7 @@ import Tooltip from "@components/HoverTooltip/HoverTooltip";
 
 const sharedNavBarElements = [
   {
-    path: "/downloads",
+    path: "/materials",
     icon: <Download />,
   },
   {

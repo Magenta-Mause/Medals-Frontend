@@ -8,6 +8,7 @@ import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import GenericModal from "../GenericModal";
+import { UserType } from "@customTypes/enums";
 
 const infoCardDesktop = ({
   label,
@@ -77,7 +78,7 @@ const ProfileModal = (props: {
   const handleConfirmDelete = async () => {
     try {
       let success = undefined;
-      if (selectedUser?.type === "ATHLETE") {
+      if (selectedUser?.type === UserType.ATHLETE) {
         success = await deleteAthlete(selectedUser.id);
       } else if (selectedUser?.type === "TRAINER") {
         success = await deleteTrainer(selectedUser.id);
@@ -131,7 +132,7 @@ const ProfileModal = (props: {
           </Typography>
           <InfoCard label="ID" value={selectedUser?.id} />
 
-          {selectedUser?.type === "ATHLETE" && (
+          {selectedUser?.type === UserType.ATHLETE && (
             <>
               <InfoCard
                 label={t("pages.profilePage.birthdate")}

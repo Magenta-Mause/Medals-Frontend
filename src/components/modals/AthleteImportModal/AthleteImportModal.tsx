@@ -7,9 +7,9 @@ import { Athlete } from "@customTypes/backendTypes";
 import { useSnackbar } from "notistack";
 import UploadIcon from "@mui/icons-material/Upload";
 import GenericModal from "../GenericModal";
-import { BirthdateRegex, emailRegex } from "@components/Regex/Regex";
 import { AthleteValidityState, Genders } from "@customTypes/enums";
 import AthleteUploadDatagrid from "@components/datagrids/AthleteUploadDatagrid";
+import { BirthdateRegex, emailRegex } from "constants/regex";
 
 export interface AthleteWithValidity extends Athlete {
   state: AthleteValidityState | undefined;

@@ -250,7 +250,7 @@
         "/profile": "Perfil",
         "/requirements": "Necesidades",
         "/performances": "Desempe\u00f1o",
-        "/downloads": "Descargas",
+        "/materials": "Descargas",
         "/help": "Ayuda",
         "/imprint": "Pie de imprenta",
         "/privacyPolicy": "Pol\u00edtica de privacidad",
@@ -279,7 +279,7 @@
         "/profile": "Perfil",
         "/requirements": "Necesidades",
         "/performances": "Desempe\u00f1o",
-        "/downloads": "Descargas",
+        "/materials": "Descargas",
         "/help": "Ayuda"
       },
       "search": "Buscar",
