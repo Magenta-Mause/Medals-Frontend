@@ -2,9 +2,7 @@ import { JwtTokenBody, UserEntity } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import useInstantiation from "@hooks/useInstantiation/useInstantiation";
 import { Box, CircularProgress } from "@mui/joy";
-import { useLocalStorage } from "@uidotdev/usehooks";
 import { jwtDecode } from "jwt-decode";
-import { useSnackbar } from "notistack";
 import {
   createContext,
   ReactNode,
@@ -65,9 +63,6 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
-  const [storageSelectedUser, setStorageSelectedUser] = useLocalStorage<
-    number | null
-  >("selectedUser", null);
   const [email, setEmail] = useState<string | null>(null);
   const [authorizedUsers, setAuthorizedUsers] = useState<UserEntity[] | null>(
     null,
@@ -77,7 +72,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   >(undefined);
   const [identityToken, setIdentityToken] = useState<string | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
-  const { enqueueSnackbar } = useSnackbar();
   const { logoutUser, fetchIdentityToken } = useApi();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -94,9 +88,14 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {
       setSelectedUser(user);
-      setStorageSelectedUser(user?.id ?? null);
+      console.log("Selecting:", user);
+      if (user != null) {
+        window.localStorage.setItem("selectedUser", user.id.toString());
+      } else {
+        window.localStorage.removeItem("selectedUser");
+      }
     },
-    [setSelectedUser, setStorageSelectedUser],
+    [setSelectedUser],
   );
 
   const processJwtToken = useCallback(
@@ -104,7 +103,10 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       const decoded = jwtDecode(jwtToken) as JwtTokenBody;
       setTokenExpirationDate(decoded.exp);
       setAuthorizedUsers(decoded.users);
-      if (decoded.users?.length == 1) {
+      if (
+        decoded.users?.length == 1 &&
+        window.localStorage.getItem("selectedUser") === null
+      ) {
         selectUser(decoded.users[0]);
       }
       setEmail(decoded.sub);
@@ -138,32 +140,17 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   }, [selectUser, logoutUser]);
 
   useEffect(() => {
-    if (storageSelectedUser === null) {
-      return;
-    }
-    if (authorizedUsers === null) {
-      return;
-    }
-    if (selectedUser === null) {
-      return;
-    }
-    const user = authorizedUsers?.find(
-      (user) => user.id == storageSelectedUser,
+    const selectedUser = parseInt(
+      window.localStorage.getItem("selectedUser") ?? "-1",
     );
-    if (user === undefined) {
+
+    const user = authorizedUsers?.find((user) => user.id == selectedUser);
+    if (user) {
+      selectUser(user);
+    } else if (authorizedUsers?.length ?? 0 > 0) {
       selectUser(null);
-    } else {
-      if (selectedUser === null || selectedUser?.id != user.id) {
-        selectUser(user);
-      }
     }
-  }, [
-    authorizedUsers,
-    selectUser,
-    storageSelectedUser,
-    enqueueSnackbar,
-    selectedUser,
-  ]);
+  }, [authorizedUsers, selectUser, selectedUser]);
 
   useEffect(() => {
     if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {

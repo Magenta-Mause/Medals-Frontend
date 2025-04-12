@@ -3,10 +3,10 @@ import useApi from "@hooks/useApi";
 import {
   Box,
   Button,
-  FormLabel,
-  Input,
   FormControl,
   FormHelperText,
+  FormLabel,
+  Input,
 } from "@mui/joy";
 import Option from "@mui/joy/Option";
 import Select from "@mui/joy/Select";
@@ -220,7 +220,7 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
 
   return (
     <GenericModal
-      header={t("pages.athleteOverviewPage.createButton")}
+      header={t("pages.athleteCreationPage.createHeader")}
       open={isOpen}
       setOpen={setOpen}
       modalDialogSX={{ minWidth: "30%" }}
