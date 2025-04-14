@@ -110,6 +110,10 @@
       "exportError": "Fehler beim Erstellen der CSV-Datei",
       "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
       "success": "Export erfolgreich!"
+    },
+    "profileModal": {
+      "accountDeleted": "Konto wurde erfolgreich gelöscht",
+      "deletionError": "Beim Löschen des Kontos ist ein Fehler aufgetreten"
     }
   },
   "pages": {

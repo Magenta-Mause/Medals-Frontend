@@ -108,6 +108,10 @@
       "creationError": "Error while adding swimming certificate",
       "deletionSuccess": "Swimming certificate successfully deleted",
       "deletionError": "Error while deleting swimming certificate"
+    },
+    "profileModal": {
+      "accountDeleted": "Account has been successfully deleted",
+      "deletionError": "There was an error while deleting the account"
     }
   },
   "pages": {
