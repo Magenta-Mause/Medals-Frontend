@@ -515,7 +515,8 @@
       "invalidFileType": "Nur CSV-Dateien sind erlaubt"
     },
     "csvUploadDatagrid": {
-      "valid": "Status"
+      "valid": "Status",
+      "noValidEntries": "Keine gültigen Einträge"
     },
     "csvImportModal": {
       "importButton": "Daten importieren",

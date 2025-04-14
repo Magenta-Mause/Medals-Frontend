@@ -3,13 +3,14 @@ import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScre
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 import { useTranslation } from "react-i18next";
 import CloseIcon from "@mui/icons-material/Close";
-import { CircularProgress } from "@mui/joy";
+import { CircularProgress, Typography } from "@mui/joy";
 import { Cloud } from "@mui/icons-material";
 import UploadIcon from "@mui/icons-material/Upload";
 import { CSVUploadState } from "@customTypes/enums";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import { CSSProperties } from "styled-components";
 import { CSVData } from "@components/CSVUploadComponent/CSVUploadComponent";
+import { useSnackbar } from "notistack";
 
 const IconProps: CSSProperties = {
   zIndex: 1,
@@ -59,7 +60,16 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
     ...csvColumns,
   ];
   const mobileRendering: MobileTableRendering<CSVData<T>> = {};
-  return (
+  const { enqueueSnackbar } = useSnackbar();
+  const validCSVData = csvData.length !== 0;
+
+  if (!validCSVData) {
+    enqueueSnackbar(t("components.csvUploadDatagrid.noValidEntries"), {
+      variant: "error",
+    });
+  }
+
+  return validCSVData ? (
     <GenericResponsiveDatagrid
       data={csvData}
       columns={columns}
@@ -72,6 +82,8 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
       mobileRendering={mobileRendering}
       disablePaging
     />
+  ) : (
+    <Typography>{t("components.csvUploadDatagrid.noValidEntries")} </Typography> // TODO: show message inside the Datagrid -> wait for https://github.com/Magenta-Mause/Medals-Frontend/pull/48
   );
 };
 

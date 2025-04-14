@@ -513,7 +513,8 @@
       "invalidFileType": "Only CSV files are allowed"
     },
     "csvUploadDatagrid": {
-      "valid": "Status"
+      "valid": "Status",
+      "noValidEntries": "No valid entries"
     },
     "csvImportModal": {
       "importButton": "Import Athletes",
