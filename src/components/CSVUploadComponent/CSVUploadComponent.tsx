@@ -48,7 +48,9 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
       setSelectedFile(file);
       parseCSV(file);
     } else {
-      enqueueSnackbar("Only CSV-files are allowed", { variant: "error" });
+      enqueueSnackbar(t("components.csvUploadComponent.invalidFileType"), {
+        variant: "error",
+      });
     }
   };
 

@@ -511,7 +511,8 @@
       "failedUpload": "Fehler beim Hochladen",
       "DropFile": "Datei hier ablegen oder klicken",
       "athleteList": "Athletenliste",
-      "changeFile": "Datei zurücksetzen"
+      "changeFile": "Datei zurücksetzen",
+      "invalidFileType": "Nur CSV-Dateien sind erlaubt"
     },
     "csvUploadDatagrid": {
       "valid": "Status"

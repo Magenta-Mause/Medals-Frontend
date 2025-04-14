@@ -509,7 +509,8 @@
       "failedUpload": "Error during upload",
       "DropFile": "Drag & Drop your file here or click",
       "athleteList": "Athlete List",
-      "changeFile": "Reset file"
+      "changeFile": "Reset file",
+      "invalidFileType": "Only CSV files are allowed"
     },
     "csvUploadDatagrid": {
       "valid": "Status"
