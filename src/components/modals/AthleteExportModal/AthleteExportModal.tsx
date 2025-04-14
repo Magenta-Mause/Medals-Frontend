@@ -6,7 +6,7 @@ import {
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IosShareRounded } from "@mui/icons-material";
 import { useTypedSelector } from "@stores/rootReducer";
 import {
