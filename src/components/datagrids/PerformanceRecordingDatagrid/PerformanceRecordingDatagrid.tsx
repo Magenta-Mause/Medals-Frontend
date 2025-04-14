@@ -7,7 +7,7 @@ import {
 import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
 import { Chip, Typography } from "@mui/joy";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosCreate } from "react-icons/io";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -26,7 +26,7 @@ interface PerformanceRecordingDatagridProps {
   isLoading: boolean;
   athlete?: Athlete;
   discipline?: Discipline;
-  selectedUserTyp: UserType; 
+  selectedUserTyp: UserType;
 }
 
 const PerformanceRecordingDatagrid = (
@@ -36,7 +36,6 @@ const PerformanceRecordingDatagrid = (
   const { t } = useTranslation();
   const { formatValue, formatDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
-
 
   const columns: Column<PerformanceRecording>[] = [
     {
@@ -131,23 +130,26 @@ const PerformanceRecordingDatagrid = (
     },
   ];
 
-  const actions: ToolbarAction[] = (props.athlete && props.selectedUserTyp === UserType.TRAINER)
-    ? [
-        {
-          label: t("pages.athleteDetailPage.createPerformanceRecordingButton"),
-          key: "addRecording",
-          operation: async () => {
-            await setCreationModalOpen(true);
+  const actions: ToolbarAction[] =
+    props.athlete && props.selectedUserTyp === UserType.TRAINER
+      ? [
+          {
+            label: t(
+              "pages.athleteDetailPage.createPerformanceRecordingButton",
+            ),
+            key: "addRecording",
+            operation: async () => {
+              await setCreationModalOpen(true);
+            },
+            icon: <IoIosCreate />,
+            content: t(
+              "components.performanceRecordingDatagrid.actions.add.text",
+            ),
+            color: "primary",
+            variant: "solid",
           },
-          icon: <IoIosCreate />,
-          content: t(
-            "components.performanceRecordingDatagrid.actions.add.text",
-          ),
-          color: "primary",
-          variant: "solid",
-        },
-      ]
-    : [];
+        ]
+      : [];
 
   return (
     <>
@@ -167,7 +169,7 @@ const PerformanceRecordingDatagrid = (
         itemSelectionActions={options}
         disablePaging
       />
-      {(props.athlete && props.selectedUserTyp === UserType.TRAINER) ?(
+      {props.athlete && props.selectedUserTyp === UserType.TRAINER ? (
         <CreatePerformanceRecordingModal
           open={isCreationModalOpen}
           setOpen={setCreationModalOpen}

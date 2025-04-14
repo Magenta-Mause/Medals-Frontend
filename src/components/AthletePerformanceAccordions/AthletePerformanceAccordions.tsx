@@ -33,7 +33,10 @@ const DisciplineIcons: Record<DisciplineCategories, IconType> = {
   STRENGTH: BiDumbbell,
 };
 
-const AthletePerformanceAccordions = (props: { athlete: Athlete, selectedUserType: UserType }) => {
+const AthletePerformanceAccordions = (props: {
+  athlete: Athlete;
+  selectedUserType: UserType;
+}) => {
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];

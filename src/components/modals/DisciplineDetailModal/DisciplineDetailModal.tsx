@@ -33,7 +33,11 @@ const DisciplineDetailModal = (props: {
     >
       {props.athlete ? (
         <>
-          {props.selectedUserType===UserType.TRAINER ?(<AthleteDetailHeader athlete={props.athlete} />):(<></>)}
+          {props.selectedUserType === UserType.TRAINER ? (
+            <AthleteDetailHeader athlete={props.athlete} />
+          ) : (
+            <></>
+          )}
           <PerformanceRecordingDatagrid
             performanceRecordings={props.performanceRecordings}
             isLoading={false}

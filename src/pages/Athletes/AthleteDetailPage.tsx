@@ -13,7 +13,7 @@ import { AuthContext } from "@components/AuthenticationProvider/AuthenticationPr
 import { UserType } from "@customTypes/enums";
 
 const AthleteDetailPage = () => {
-    const { selectedUser } = useContext(AuthContext);
+  const { selectedUser } = useContext(AuthContext);
   const params = useParams();
   const { t } = useTranslation();
   const [isPerformanceRecordingModalOpen, setPerformanceRecordingModalOpen] =
@@ -63,7 +63,10 @@ const AthleteDetailPage = () => {
           />
         </Box>
 
-        <AthletePerformanceAccordions athlete={filteredAthletes[0]} selectedUserType={selectedUser.type} />
+        <AthletePerformanceAccordions
+          athlete={filteredAthletes[0]}
+          selectedUserType={selectedUser.type}
+        />
       </Box>
       <CreatePerformanceRecordingModal
         open={isPerformanceRecordingModalOpen}

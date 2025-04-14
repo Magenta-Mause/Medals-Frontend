@@ -1,6 +1,6 @@
 import AthletePerformanceAccordions from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
 import { Athlete } from "@customTypes/backendTypes";
-import { Box, Typography } from "@mui/joy";
+import { Box } from "@mui/joy";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
@@ -52,7 +52,10 @@ const AthletePerfomanceViewPage = () => {
           alignItems: "flex-end",
         }}
       >
-        <AthletePerformanceAccordions athlete={athlete} selectedUserType={selectedUser?.type} />
+        <AthletePerformanceAccordions
+          athlete={athlete}
+          selectedUserType={selectedUser?.type}
+        />
       </Box>
     </>
   );
