@@ -7,6 +7,7 @@ import {
 } from "@customTypes/backendTypes";
 import GenericModal from "../GenericModal";
 import { useTranslation } from "react-i18next";
+import { UserType } from "@customTypes/enums";
 
 const DisciplineDetailModal = (props: {
   discipline: Discipline | undefined;
@@ -14,6 +15,7 @@ const DisciplineDetailModal = (props: {
   performanceRecordings: PerformanceRecording[];
   open: boolean;
   setOpen: (open: boolean) => void;
+  selectedUserType: UserType;
 }) => {
   const { t } = useTranslation();
 
@@ -37,6 +39,7 @@ const DisciplineDetailModal = (props: {
             isLoading={false}
             athlete={props.athlete}
             discipline={props.discipline}
+            selectedUserTyp={props.selectedUserType}
           />
         </>
       ) : (

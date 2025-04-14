@@ -4,13 +4,16 @@ import CreatePerformanceRecordingModal from "@components/modals/CreatePerformanc
 import { Athlete } from "@customTypes/backendTypes";
 import { Box, Button, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { IoIosCreate } from "react-icons/io";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { UserType } from "@customTypes/enums";
 
 const AthleteDetailPage = () => {
+    const { selectedUser } = useContext(AuthContext);
   const params = useParams();
   const { t } = useTranslation();
   const [isPerformanceRecordingModalOpen, setPerformanceRecordingModalOpen] =
@@ -28,6 +31,9 @@ const AthleteDetailPage = () => {
   }
   if (filteredAthletes.length == 0) {
     return <Typography>{t("errors.athleteNotFound")}</Typography>;
+  }
+  if (selectedUser?.type !== UserType.TRAINER) {
+    return <Typography>{t("errors.accessNotAllowed")}</Typography>;
   }
 
   return (
@@ -57,7 +63,7 @@ const AthleteDetailPage = () => {
           />
         </Box>
 
-        <AthletePerformanceAccordions athlete={filteredAthletes[0]} />
+        <AthletePerformanceAccordions athlete={filteredAthletes[0]} selectedUserType={selectedUser.type} />
       </Box>
       <CreatePerformanceRecordingModal
         open={isPerformanceRecordingModalOpen}

@@ -5,7 +5,7 @@ import {
   Discipline,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
-import { DisciplineCategories, Medals } from "@customTypes/enums";
+import { DisciplineCategories, Medals, UserType } from "@customTypes/enums";
 import {
   Accordion,
   AccordionDetails,
@@ -33,7 +33,7 @@ const DisciplineIcons: Record<DisciplineCategories, IconType> = {
   STRENGTH: BiDumbbell,
 };
 
-const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
+const AthletePerformanceAccordions = (props: { athlete: Athlete, selectedUserType: UserType }) => {
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
@@ -100,6 +100,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
           )}
           discipline={selectedDiscipline}
           open={isDisciplineOpen}
+          selectedUserType={props.selectedUserType}
         />
         {Object.values(DisciplineCategories).map(
           (category: DisciplineCategories) => (

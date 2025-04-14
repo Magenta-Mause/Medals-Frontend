@@ -7,7 +7,7 @@ import {
 import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
 import { Chip, Typography } from "@mui/joy";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosCreate } from "react-icons/io";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -19,12 +19,14 @@ import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFi
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
 import { calculatePerformanceRecordingMedal } from "@utils/calculationUtil";
+import { UserType } from "@customTypes/enums";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];
   isLoading: boolean;
   athlete?: Athlete;
   discipline?: Discipline;
+  selectedUserTyp: UserType; 
 }
 
 const PerformanceRecordingDatagrid = (
@@ -34,6 +36,7 @@ const PerformanceRecordingDatagrid = (
   const { t } = useTranslation();
   const { formatValue, formatDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
+
 
   const columns: Column<PerformanceRecording>[] = [
     {
@@ -128,7 +131,7 @@ const PerformanceRecordingDatagrid = (
     },
   ];
 
-  const actions: ToolbarAction[] = props.athlete
+  const actions: ToolbarAction[] = (props.athlete && props.selectedUserTyp === UserType.TRAINER)
     ? [
         {
           label: t("pages.athleteDetailPage.createPerformanceRecordingButton"),
@@ -164,7 +167,7 @@ const PerformanceRecordingDatagrid = (
         itemSelectionActions={options}
         disablePaging
       />
-      {props.athlete ? (
+      {(props.athlete && props.selectedUserTyp === UserType.TRAINER) ?(
         <CreatePerformanceRecordingModal
           open={isCreationModalOpen}
           setOpen={setCreationModalOpen}

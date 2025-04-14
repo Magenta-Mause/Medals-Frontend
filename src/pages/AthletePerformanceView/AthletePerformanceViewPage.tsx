@@ -1,29 +1,23 @@
-import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 import AthletePerformanceAccordions from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
-import CreatePerformanceRecordingModal from "@components/modals/CreatePerformanceRecordingModal/CreatePerformanceRecordingModal";
 import { Athlete } from "@customTypes/backendTypes";
-import { Box, Button, Typography } from "@mui/joy";
-import { useTypedSelector } from "@stores/rootReducer";
+import { Box, Typography } from "@mui/joy";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
-import { IoIosCreate } from "react-icons/io";
-import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import useAthleteLookup from "@hooks/useAthleteLookup";
 import useApi from "@hooks/useApi";
 import { enqueueSnackbar } from "notistack";
+import { UserType } from "@customTypes/enums";
 
 const AthletePerfomanceViewPage = () => {
-    const { selectedUser } = useContext(AuthContext);
-    const {getAthlete} =useApi();
-    const [athlete, setAthlete] = useState<Athlete | null>(null);      
+  const { selectedUser } = useContext(AuthContext);
+  const { getAthlete } = useApi();
+  const [athlete, setAthlete] = useState<Athlete | null>(null);
   const { t } = useTranslation();
-  
+
   useEffect(() => {
     const fetchAthlete = async () => {
-      if (!selectedUser) return;
-  
+      if (!(selectedUser?.type === UserType.ATHLETE)) return;
+
       try {
         const data = await getAthlete(selectedUser.id.toString());
         if (data) {
@@ -40,12 +34,12 @@ const AthletePerfomanceViewPage = () => {
         console.error(error);
       }
     };
-  
-    fetchAthlete();
-  }, [selectedUser, getAthlete]); 
 
-if (!athlete) {
-    return <Typography>{t("errors.noAthleteFound")}</Typography>;
+    fetchAthlete();
+  }, [selectedUser, getAthlete, t]);
+
+  if (!athlete) {
+    return;
   }
 
   return (
@@ -58,11 +52,10 @@ if (!athlete) {
           alignItems: "flex-end",
         }}
       >
-        <AthletePerformanceAccordions athlete={athlete} />
+        <AthletePerformanceAccordions athlete={athlete} selectedUserType={selectedUser?.type} />
       </Box>
     </>
   );
 };
 
 export default AthletePerfomanceViewPage;
-
