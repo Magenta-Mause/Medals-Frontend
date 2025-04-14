@@ -39,9 +39,11 @@ const useInstantiation = () => {
   const dispatch = useDispatch();
   const { selectedUser, refreshIdentityToken, email, authorizedUsers } =
     useContext(AuthContext);
+
   const [currentlyInitialized, setCurrentlyInitialized] = useState<
     number | null
   >(null);
+
   const checkUserAccountUpdate = useCallback(
     (entity: { email: string }) => {
       if (entity.email === email) {
@@ -50,15 +52,12 @@ const useInstantiation = () => {
     },
     [refreshIdentityToken, email],
   );
+
   const checkUserAccountUpdateId = useCallback(
     (id: number) => {
       console.log(id, authorizedUsers);
-      if (
-        authorizedUsers?.reduce(
-          (before, user) => before || user.id === id,
-          false,
-        )
-      ) {
+      const isAuthorized = authorizedUsers?.some((user) => user.id === id);
+      if (isAuthorized) {
         refreshIdentityToken();
       }
     },
