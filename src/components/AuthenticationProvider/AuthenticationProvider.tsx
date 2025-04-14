@@ -89,11 +89,15 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
     (user: UserEntity | null | undefined) => {
       setSelectedUser(user);
       console.log("Selecting:", user);
-      if (user != null) {
-        window.localStorage.setItem("selectedUser", user.id.toString());
-      } else {
-        window.localStorage.removeItem("selectedUser");
+
+      const storageKey = "selectedUser";
+
+      if (user?.id == null) {
+        window.localStorage.removeItem(storageKey);
+        return;
       }
+
+      window.localStorage.setItem(storageKey, user.id.toString());
     },
     [setSelectedUser],
   );
