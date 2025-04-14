@@ -64,7 +64,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
     }));
   };
 
-  const athleteExists = useCallback(
+  const checkIFAthleteExists = useCallback(
     async (athlete: Athlete) => {
       const result: boolean = await checkAthleteExists(
         athlete.email,
@@ -76,28 +76,20 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
   );
 
   const isValidAthlete = async (athlete: Athlete) => {
-    if (!athlete.first_name) {
-      return false;
-    }
-    if (!athlete.last_name) {
-      return false;
-    }
-    if (!emailRegex.test(athlete.email)) {
-      // Validate email
-      return false;
-    }
-    if (!BirthdateRegex.test(athlete.birthdate)) {
-      // Validate birthdate
-      return false;
-    }
+    const athleteExists = await checkIFAthleteExists(athlete);
     if (
-      athlete.gender !== "DIVERSE" &&
-      athlete.gender !== "MALE" &&
-      athlete.gender !== "FEMALE"
+      athlete.first_name &&
+      athlete.last_name &&
+      athlete.gender &&
+      emailRegex.test(athlete.email) &&
+      BirthdateRegex.test(athlete.birthdate) &&
+      ["DIVERSE", "MALE", "FEMALE"].includes(athlete.gender) &&
+      !athleteExists // Athlete should not exist, while importing
     ) {
-      return false;
+      return true;
     }
-    return !(await athleteExists(athlete));
+
+    return false;
   };
 
   return (
