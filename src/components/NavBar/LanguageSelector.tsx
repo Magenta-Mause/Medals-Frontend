@@ -1,9 +1,14 @@
-import { KeyboardArrowDown, LanguageOutlined } from "@mui/icons-material";
+import {
+  Check,
+  KeyboardArrowDown,
+  LanguageOutlined,
+} from "@mui/icons-material";
 import {
   List,
   ListItem,
   ListItemButton,
   ListItemContent,
+  ListItemDecorator,
   Typography,
 } from "@mui/joy";
 import { useState } from "react";
@@ -81,8 +86,12 @@ const LanguageSelector = () => {
                   i18n.changeLanguage(language);
                   setOpen(false);
                 }}
-                selected={i18n.language == language}
+                selected={i18n.language === language}
               >
+                {/* Always render the decorator to preserve layout */}
+                <ListItemDecorator sx={{ width: "1.5em" }}>
+                  {i18n.language === language ? <Check /> : null}
+                </ListItemDecorator>
                 <ListItemContent>{t("languages." + language)}</ListItemContent>
               </ListItemButton>
             </ListItem>
