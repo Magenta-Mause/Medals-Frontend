@@ -64,12 +64,6 @@ const AthleteExportModal = ({
     }
   }, [athletes]);
 
-  useEffect(() => {
-    if (isOpen && athletes.length === 0) {
-      setOpen(false);
-    }
-  }, [athletes.length, setOpen, isOpen]);
-
   const columns: Column<Athlete>[] = [
     {
       columnName: t("components.athleteDatagrid.table.columns.firstName"),
