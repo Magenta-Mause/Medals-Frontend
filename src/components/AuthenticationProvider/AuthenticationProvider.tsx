@@ -88,7 +88,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {
       setSelectedUser(user);
-      console.log("Selecting:", user);
 
       const storageKey = "selectedUser";
 
