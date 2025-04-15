@@ -1,6 +1,6 @@
 import { DisciplineCategories, Genders, MetricUnits } from "./enums";
 
-export interface Athlete {
+export interface Athlete extends Record<string, unknown> {
   id?: number;
   first_name: string;
   last_name: string;
@@ -67,7 +67,8 @@ export interface PerformanceRecording {
   athlete: Athlete;
 }
 
-export interface PerformanceRecordingCreationDto {
+export interface PerformanceRecordingCreationDto
+  extends Record<string, unknown> {
   athlete_id: number;
   rating_value: number;
   discipline_id: number;
