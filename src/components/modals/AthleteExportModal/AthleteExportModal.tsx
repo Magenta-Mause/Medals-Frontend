@@ -89,7 +89,14 @@ const AthleteExportModal = ({
       color: "danger",
       key: "remove",
       operation: async (item) => {
-        setAthletes((prev: any[]) => prev.filter((a) => a.id !== item.id));
+        let athleteTemp: Athlete[];
+        setAthletes((prev: any[]) => {
+          athleteTemp = prev.filter((a) => a.id !== item.id);
+          if (athleteTemp.length <= 0) {
+            setOpen(false);
+          }
+          return athleteTemp;
+        });
       },
     },
   ];
