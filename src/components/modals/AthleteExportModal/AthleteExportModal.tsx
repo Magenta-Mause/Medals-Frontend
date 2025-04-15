@@ -127,18 +127,6 @@ const AthleteExportModal = ({
 
     const rows = data
       .map((item) => {
-        const mapGenderToGermanShort = (gender: string): string => {
-          switch (gender) {
-            case Genders.FEMALE:
-              return "W";
-            case Genders.MALE:
-              return "M";
-            case Genders.DIVERSE:
-              return "D";
-            default:
-              return "";
-          }
-        };
         const birthdate = item.birthdate ? new Date(item.birthdate) : null;
         const birthYear = birthdate ? birthdate.getFullYear().toString() : "";
         const performanceRecordingsOfAthlete = performanceRecordings.filter(
@@ -156,7 +144,7 @@ const AthleteExportModal = ({
                   : "";
               }
               if (col === AthleteExportColumn.Gender) {
-                return mapGenderToGermanShort(item.gender);
+                return item.gender;
               }
 
               return item[col] || "";
@@ -181,7 +169,7 @@ const AthleteExportModal = ({
                   case "last_name":
                     return item.last_name || "";
                   case "gender":
-                    return mapGenderToGermanShort(item.gender) || "";
+                    return item.gender || "";
                   case "birthyear":
                     return birthYear || "";
                   case "birthday":
