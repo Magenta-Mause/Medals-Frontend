@@ -3,6 +3,7 @@ import DisciplineDetailModal from "@components/modals/DisciplineDetailModal/Disc
 import {
   Athlete,
   Discipline,
+  DisciplineRatingMetric,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import { DisciplineCategories, Medals, UserType } from "@customTypes/enums";
@@ -11,10 +12,12 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Select,
   Typography,
+  Option,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GiJumpingRope } from "react-icons/gi";
 import { FaRunning, FaStopwatch } from "react-icons/fa";
@@ -50,6 +53,24 @@ const AthletePerformanceAccordions = (props: {
     DisciplineCategories,
     Medals
   > | null>(null);
+
+  const currentYear = new Date().getFullYear().toString();
+  const [selectedYear, setYear] = useState(currentYear);
+
+  const disciplineRatingMetrics = useTypedSelector(
+    (state) => state.disciplineMetrics.data,
+  ) as DisciplineRatingMetric[];
+
+  const availableYears = useMemo(() => {
+    const yearsSet = new Set<number>();
+    disciplineRatingMetrics.forEach((metric) => {
+      if (metric.valid_in) {
+        yearsSet.add(metric.valid_in);
+      }
+    });
+    return Array.from(yearsSet).sort((a, b) => b - a);
+  }, [disciplineRatingMetrics]);
+
   useEffect(() => {
     const newAchievedCategoryMedal: Record<DisciplineCategories, Medals> = {
       [DisciplineCategories.COORDINATION]: Medals.NONE,
@@ -82,6 +103,22 @@ const AthletePerformanceAccordions = (props: {
 
   return (
     <>
+      <Select
+        value={selectedYear}
+        size="sm"
+        sx={{ minHeight: "35px", width: "75px" }}
+        onChange={(_, newValue) => {
+          if (newValue) {
+            setYear(newValue);
+          }
+        }}
+      >
+        {availableYears.map((year) => (
+          <Option key={year} value={year.toString()}>
+            {year}
+          </Option>
+        ))}{" "}
+      </Select>
       <Box
         sx={{
           display: "flex",
