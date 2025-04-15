@@ -110,6 +110,10 @@
       "exportError": "Fehler beim Erstellen der CSV-Datei",
       "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
       "success": "Export erfolgreich!"
+    },
+    "profileModal": {
+      "accountDeleted": "Konto wurde erfolgreich gelöscht",
+      "deletionError": "Beim Löschen des Kontos ist ein Fehler aufgetreten"
     }
   },
   "pages": {
@@ -423,6 +427,10 @@
             "label": "Erstellen",
             "content": "Athlet*in erstellen"
           }
+        },
+        "noEntries": {
+          "link": "Beantrage Zugriff,",
+          "text": "um Athlet*innen verwalten zu können"
         }
       },
       "actions": {

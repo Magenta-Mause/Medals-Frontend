@@ -66,6 +66,8 @@ interface GenericResponsiveDatagridProps<T> {
   mobileRendering: MobileTableRendering<T>;
   onItemClick?: (item: T) => void;
   disablePaging?: boolean;
+  messageIfNoEntriesFound?: React.ReactNode;
+  heightIfNoEntriesFound?: string;
 }
 
 /**
@@ -361,6 +363,8 @@ const GenericResponsiveDatagrid = <T,>(
           actionMenu={props.actionMenu}
           rowOnClick={props.onItemClick}
           allItems={props.data}
+          messageIfNoEntriesFound={props.messageIfNoEntriesFound}
+          heightIfNoEntriesFound={props.heightIfNoEntriesFound}
         />
       </Sheet>
 
@@ -441,9 +445,13 @@ const ActionButton = <T,>(
     setLoading(false);
   };
 
+  const propsWithoutStuff: any = { ...props };
+  delete propsWithoutStuff.getSelectedItems;
+  delete propsWithoutStuff.buttonAction;
+
   return (
     <Button
-      {...props}
+      {...propsWithoutStuff}
       color={props.buttonAction.color ?? "neutral"}
       onClick={() => triggerActionForSelected()}
       key={props.buttonAction.key}

@@ -2,9 +2,7 @@ import { JwtTokenBody, UserEntity } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import useInstantiation from "@hooks/useInstantiation/useInstantiation";
 import { Box, CircularProgress } from "@mui/joy";
-import { useLocalStorage } from "@uidotdev/usehooks";
 import { jwtDecode } from "jwt-decode";
-import { useSnackbar } from "notistack";
 import {
   createContext,
   ReactNode,
@@ -14,6 +12,9 @@ import {
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { StompSessionProvider } from "react-stomp-hooks";
+import config from "config";
+import SockJS from "sockjs-client";
 
 interface AuthContextType {
   identityToken: string | null;
@@ -62,9 +63,6 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
-  const [storageSelectedUser, setStorageSelectedUser] = useLocalStorage<
-    number | null
-  >("selectedUser", null);
   const [email, setEmail] = useState<string | null>(null);
   const [authorizedUsers, setAuthorizedUsers] = useState<UserEntity[] | null>(
     null,
@@ -74,7 +72,6 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   >(undefined);
   const [identityToken, setIdentityToken] = useState<string | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
-  const { enqueueSnackbar } = useSnackbar();
   const { logoutUser, fetchIdentityToken } = useApi();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -91,9 +88,18 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const selectUser = useCallback(
     (user: UserEntity | null | undefined) => {
       setSelectedUser(user);
-      setStorageSelectedUser(user?.id ?? null);
+      console.log("Selecting:", user);
+
+      const storageKey = "selectedUser";
+
+      if (user?.id == null) {
+        window.localStorage.removeItem(storageKey);
+        return;
+      }
+
+      window.localStorage.setItem(storageKey, user.id.toString());
     },
-    [setSelectedUser, setStorageSelectedUser],
+    [setSelectedUser],
   );
 
   const processJwtToken = useCallback(
@@ -101,7 +107,10 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       const decoded = jwtDecode(jwtToken) as JwtTokenBody;
       setTokenExpirationDate(decoded.exp);
       setAuthorizedUsers(decoded.users);
-      if (decoded.users?.length == 1) {
+      if (
+        decoded.users?.length == 1 &&
+        window.localStorage.getItem("selectedUser") === null
+      ) {
         selectUser(decoded.users[0]);
       }
       setEmail(decoded.sub);
@@ -135,32 +144,17 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   }, [selectUser, logoutUser]);
 
   useEffect(() => {
-    if (storageSelectedUser === null) {
-      return;
-    }
-    if (authorizedUsers === null) {
-      return;
-    }
-    if (selectedUser === null) {
-      return;
-    }
-    const user = authorizedUsers?.find(
-      (user) => user.id == storageSelectedUser,
+    const selectedUser = parseInt(
+      window.localStorage.getItem("selectedUser") ?? "-1",
     );
-    if (user === undefined) {
+
+    const user = authorizedUsers?.find((user) => user.id == selectedUser);
+    if (user) {
+      selectUser(user);
+    } else if (authorizedUsers?.length ?? 0 > 0) {
       selectUser(null);
-    } else {
-      if (selectedUser === null || selectedUser?.id != user.id) {
-        selectUser(user);
-      }
     }
-  }, [
-    authorizedUsers,
-    selectUser,
-    storageSelectedUser,
-    enqueueSnackbar,
-    selectedUser,
-  ]);
+  }, [authorizedUsers, selectUser, selectedUser]);
 
   useEffect(() => {
     if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {
@@ -182,9 +176,21 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
         setSelectedUser: selectUser,
       }}
     >
-      <AuthInitializationComponent />
-      {authorized == undefined ? (
-        <>
+      <StompSessionProvider
+        url={config.backendBrokerUrl}
+        enabled={Boolean(identityToken && selectedUser)}
+        webSocketFactory={() => {
+          return new SockJS(
+            config.websocketFactory +
+              "?authToken=" +
+              identityToken +
+              "&selectedUser=" +
+              selectedUser?.id,
+          );
+        }}
+      >
+        <AuthInitializationComponent />
+        {authorized == undefined ? (
           <Box
             sx={{
               display: "flex",
@@ -196,11 +202,11 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
           >
             <CircularProgress size="lg" />
           </Box>
-        </>
-      ) : (
-        children
-      )}
-      <AuthInitializationComponent />
+        ) : (
+          children
+        )}
+        <AuthInitializationComponent />
+      </StompSessionProvider>
     </AuthContext.Provider>
   );
 };

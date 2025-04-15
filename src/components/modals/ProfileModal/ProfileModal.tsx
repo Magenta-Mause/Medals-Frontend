@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import GenericModal from "../GenericModal";
 import { UserType } from "@customTypes/enums";
+import { useSnackbar } from "notistack";
 
 const infoCardDesktop = ({
   label,
@@ -56,7 +57,8 @@ const ProfileModal = (props: {
   setOpen: (open: boolean) => void;
 }) => {
   const athletes = useTypedSelector((state) => state.athletes.data);
-  const { selectedUser, setSelectedUser } = useContext(AuthContext);
+  const { selectedUser, setSelectedUser, refreshIdentityToken } =
+    useContext(AuthContext);
   const isMobile = useMediaQuery("(max-width:600px)");
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -65,6 +67,7 @@ const ProfileModal = (props: {
   const selectedAthlete = athletes.find(
     (athlete: { id: number | undefined }) => athlete.id === selectedUser?.id,
   );
+  const { enqueueSnackbar } = useSnackbar();
 
   const formattedDate = selectedAthlete?.birthdate
     ? new Intl.DateTimeFormat("de-DE", {
@@ -84,12 +87,20 @@ const ProfileModal = (props: {
       } else if (selectedUser?.type === "ADMIN") {
         success = await deleteAdmin(selectedUser.id);
       }
+
       if (success) {
+        refreshIdentityToken();
         setSelectedUser(null);
+        enqueueSnackbar(t("snackbar.profileModal.accountDeleted"), {
+          variant: "success",
+        });
         navigate("/login");
       }
     } catch (error) {
       console.error("Error while deleting profile", error);
+      enqueueSnackbar(t("snackbar.profileModal.deletionError"), {
+        variant: "error",
+      });
     }
     setDeletePopupOpen(false);
   };

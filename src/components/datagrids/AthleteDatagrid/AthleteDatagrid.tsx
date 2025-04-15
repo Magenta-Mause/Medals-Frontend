@@ -1,9 +1,10 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import { Typography } from "@mui/joy";
+import { Box, Link, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
+import { MdSportsKabaddi } from "react-icons/md";
 import GenericResponsiveDatagrid, {
   Action,
   ToolbarAction,
@@ -40,6 +41,39 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
 
+  const noAthleteFoundMessage = (
+    <Box sx={{ width: "250px" }}>
+      <Box
+        sx={{
+          py: "30px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          gap: "10px",
+        }}
+      >
+        <Box>
+          <MdSportsKabaddi size={"50px"} />
+        </Box>
+        <Box>
+          <Typography sx={{ userSelect: "none", textAlign: "center" }}>
+            <Link
+              onClick={(e) => {
+                e.preventDefault();
+                setAddAthleteRequestModalOpen(true);
+              }}
+              href={"#"}
+            >
+              {t("components.athleteDatagrid.table.noEntries.link")}
+            </Link>{" "}
+            {t("components.athleteDatagrid.table.noEntries.text")}
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
+  );
   const columns: Column<Athlete>[] = [
     {
       columnName: t("components.athleteDatagrid.table.columns.firstName"),
@@ -164,7 +198,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       icon: <PersonAdd />,
       collapseToText: true,
       color: "primary",
-      key: "invite-trainer",
+      key: "create athlete button",
       variant: "solid",
       operation: async () => {
         setCreateAthleteModalOpen(true);
@@ -176,7 +210,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       icon: <PersonSearch />,
       collapseToText: true,
       color: "primary",
-      key: "invite-trainer",
+      key: "request athlete button",
       variant: "solid",
       operation: async () => {
         setAddAthleteRequestModalOpen(true);
@@ -290,6 +324,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
         disablePaging={false}
+        heightIfNoEntriesFound={"200px"}
+        messageIfNoEntriesFound={noAthleteFoundMessage}
       />
       <AthleteImportModal
         isOpen={addImportModalOpen}

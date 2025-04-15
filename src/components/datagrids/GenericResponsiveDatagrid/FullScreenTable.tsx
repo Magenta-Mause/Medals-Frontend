@@ -285,6 +285,7 @@ const PageControl = (props: {
 };
 
 const FullScreenTable = <T,>(props: {
+  messageIfNoEntriesFound?: React.ReactNode;
   itemSelectionActions?: Action<T>[];
   actionMenu?: Action<T>[];
   selected: Key[];
@@ -294,6 +295,7 @@ const FullScreenTable = <T,>(props: {
   keyOf: (item: T) => Key;
   rowOnClick?: (item: T) => void;
   allItems: T[];
+  heightIfNoEntriesFound?: string;
 }) => {
   const { t } = useTranslation();
 
@@ -387,7 +389,10 @@ const FullScreenTable = <T,>(props: {
       <tbody
         style={{
           position: "relative",
-          height: props.renderedPage.length == 0 ? "50px" : "auto",
+          height:
+            props.renderedPage.length == 0
+              ? (props.heightIfNoEntriesFound ?? "50px")
+              : "50px",
         }}
       >
         {props.renderedPage.length == 0 ? (
@@ -395,7 +400,10 @@ const FullScreenTable = <T,>(props: {
             <td
               style={{
                 display: "flex",
-                height: "50px",
+                height:
+                  props.renderedPage.length == 0
+                    ? (props.heightIfNoEntriesFound ?? "50px")
+                    : "50px",
                 justifyContent: "center",
                 alignItems: "center",
                 position: "absolute",
@@ -404,11 +412,13 @@ const FullScreenTable = <T,>(props: {
               }}
               colSpan={props.columns.length}
             >
-              <Typography color="neutral">
-                {t(
-                  "components.genericResponsiveDatagrid.fullScreenTable.empty",
-                )}
-              </Typography>
+              {props.messageIfNoEntriesFound ?? (
+                <Typography color="neutral">
+                  {t(
+                    "components.genericResponsiveDatagrid.fullScreenTable.empty",
+                  )}
+                </Typography>
+              )}
             </td>
           </tr>
         ) : (

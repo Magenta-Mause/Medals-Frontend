@@ -3,10 +3,8 @@ import { Trainer } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Add } from "@mui/icons-material";
 import { Typography } from "@mui/joy";
-import { removeTrainer } from "@stores/slices/trainerSlice";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
@@ -22,7 +20,6 @@ interface TrainerDatagridProps {
 
 const TrainerDatagrid = (props: TrainerDatagridProps) => {
   const { deleteTrainer } = useApi();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [addTrainerModalOpen, setAddTrainerModalOpen] = useState(false);
 
@@ -99,8 +96,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       key: "delete",
       variant: "solid",
       operation: async (item) => {
-        dispatch(removeTrainer({ id: item.id }));
-        deleteTrainer(item.id);
+        await deleteTrainer(item.id);
         console.log("Deleted Trainer:", item);
       },
     },

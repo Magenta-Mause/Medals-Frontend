@@ -3,6 +3,7 @@ import {
   Genders,
   MetricUnits,
   SwimmingCertificateType,
+  UserType,
 } from "./enums";
 
 export interface Athlete {
