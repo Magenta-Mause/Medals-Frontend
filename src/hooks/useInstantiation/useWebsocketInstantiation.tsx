@@ -1,100 +1,53 @@
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { Client } from "@stomp/stompjs";
 import { useCallback, useContext, useState } from "react";
+import { useSubscription } from "react-stomp-hooks";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
 const useGenericWebsocketInitialization = <T,>(
-  client: Client | null,
   topic: string,
   includeUser: boolean,
-  insertCallback: (item: T) => void,
+  createCallback: (item: T) => void,
   updateCallback: (item: T) => void,
   deleteCallback: (id: number) => void,
   buildTopicString?: (method: string) => string,
 ) => {
   const [isConnected, setConnected] = useState(false);
   const { selectedUser } = useContext(AuthContext);
-
-  const initialize = useCallback(() => {
-    if (isConnected) {
-      console.log("is already connected");
-      return;
-    }
-    if (client == null || !client.connected) {
-      return;
-    }
+  const initialize = () => {
     setConnected(true);
-    client.subscribe(
-      buildTopicString
-        ? buildTopicString("creation")
-        : "/topics/" +
-            topic +
-            "/creation" +
-            (includeUser ? "/" + selectedUser!.id : ""),
-      (message) => {
-        insertCallback(JSON.parse(message.body) as T);
-      },
-    );
-    client.subscribe(
-      buildTopicString
-        ? buildTopicString("update")
-        : "/topics/" +
-            topic +
-            "/update" +
-            (includeUser ? "/" + selectedUser!.id : ""),
-      (message) => {
-        updateCallback(JSON.parse(message.body) as T);
-      },
-    );
-    client.subscribe(
-      buildTopicString
-        ? buildTopicString("deletion")
-        : "/topics/" +
-            topic +
-            "/deletion" +
-            (includeUser ? "/" + selectedUser!.id : ""),
-      (message) => {
-        deleteCallback(JSON.parse(message.body) as number);
-      },
-    );
-  }, [
-    buildTopicString,
-    client,
-    isConnected,
-    insertCallback,
-    deleteCallback,
-    updateCallback,
-    topic,
-    selectedUser,
-    includeUser,
-  ]);
-
-  const uninitialize = useCallback(() => {
-    if (!isConnected) {
-      return;
-    }
-    if (client == null || !client.connected) {
-      return;
-    }
+  };
+  const uninitialize = () => {
     setConnected(false);
-    client.unsubscribe(
-      "/topics/" +
-        topic +
-        "/creation" +
-        (includeUser ? "/" + selectedUser!.id : ""),
-    );
-    client.unsubscribe(
-      "/topics/" +
-        topic +
-        "/update" +
-        (includeUser ? "/" + selectedUser!.id : ""),
-    );
-    client.unsubscribe(
-      "/topics/" +
-        topic +
-        "/deletion" +
-        (includeUser ? "/" + selectedUser!.id : ""),
-    );
-  }, [client, isConnected, topic, selectedUser, includeUser]);
+  };
+
+  const buildTopic = useCallback(
+    (methode: string) => {
+      if (buildTopicString) {
+        return buildTopicString(methode);
+      }
+      return isConnected && selectedUser
+        ? [
+            "/topics/" +
+              topic +
+              "/" +
+              methode +
+              (includeUser ? "/" + selectedUser!.id : ""),
+          ]
+        : [];
+    },
+    [isConnected, selectedUser, buildTopicString, includeUser, topic],
+  );
+
+  useSubscription(selectedUser ? buildTopic("deletion") : [], (message) => {
+    deleteCallback(JSON.parse(message.body));
+  });
+
+  useSubscription(selectedUser ? buildTopic("update") : [], (message) =>
+    updateCallback(JSON.parse(message.body)),
+  );
+
+  useSubscription(selectedUser ? buildTopic("creation") : [], (message) =>
+    createCallback(JSON.parse(message.body)),
+  );
 
   return { initialize, uninitialize };
 };

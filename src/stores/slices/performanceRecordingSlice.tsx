@@ -14,6 +14,7 @@ const performanceRecordingSlice = createSlice({
       state,
       action: PayloadAction<PerformanceRecording>,
     ) {
+      state.data = state.data.filter((item) => item.id !== action.payload.id);
       state.data.push(action.payload);
     },
     updatePerformanceRecording(

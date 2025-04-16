@@ -11,6 +11,7 @@ const trainerSlice = createSlice({
   } as SliceState<Trainer>,
   reducers: {
     addTrainer(state, action: PayloadAction<Trainer>) {
+      state.data = state.data.filter((item) => item.id !== action.payload.id);
       state.data.push(action.payload);
     },
     removeTrainer(state, action: PayloadAction<{ id: number }>) {

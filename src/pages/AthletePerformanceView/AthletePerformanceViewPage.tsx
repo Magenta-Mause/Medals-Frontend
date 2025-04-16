@@ -71,7 +71,7 @@ const AthletePerfomanceViewPage = () => {
 
         <AthletePerformanceAccordions
           athlete={athlete}
-          selectedUserType={selectedUser?.type}
+          selectedUserType={selectedUser!.type}
           selectedYear={selectedYear}
         />
       </Box>
