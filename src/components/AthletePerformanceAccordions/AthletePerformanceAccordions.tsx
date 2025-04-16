@@ -81,7 +81,7 @@ const AthletePerformanceAccordions = (props: {
     };
     disciplines.forEach((d) => {
       const bestEntry = performanceRecordings
-        .filter((p) => p.athlete_id == props.athlete.id)
+        .filter((p) => p.athlete_id == props.athlete.id && new Date(p.date_of_performance).getFullYear() == selectedYear)
         .filter((p) => p.discipline_rating_metric.discipline.id == d.id)
         .sort(
           d.is_more_better
