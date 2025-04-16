@@ -12,12 +12,10 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Select,
   Typography,
-  Option,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GiJumpingRope } from "react-icons/gi";
 import { FaRunning, FaStopwatch } from "react-icons/fa";
@@ -28,7 +26,6 @@ import {
   convertMedalToNumber,
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/MedalIcon/MedalIcon";
-import { p } from "react-router/dist/development/fog-of-war-Ckdfl79L";
 
 const DisciplineIcons: Record<DisciplineCategories, IconType> = {
   COORDINATION: GiJumpingRope,
@@ -40,6 +37,7 @@ const DisciplineIcons: Record<DisciplineCategories, IconType> = {
 const AthletePerformanceAccordions = (props: {
   athlete: Athlete;
   selectedUserType: UserType;
+  selectedYear: number;
 }) => {
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
@@ -55,22 +53,9 @@ const AthletePerformanceAccordions = (props: {
     Medals
   > | null>(null);
 
-  const currentYear = new Date().getFullYear();
-  const [selectedYear, setYear] = useState(currentYear);
-
   const disciplineRatingMetrics = useTypedSelector(
     (state) => state.disciplineMetrics.data,
   ) as DisciplineRatingMetric[];
-
-  const availableYears = useMemo(() => {
-    const yearsSet = new Set<number>();
-    disciplineRatingMetrics.forEach((metric) => {
-      if (metric.valid_in) {
-        yearsSet.add(metric.valid_in);
-      }
-    });
-    return Array.from(yearsSet).sort((a, b) => b - a);
-  }, [disciplineRatingMetrics]);
 
   useEffect(() => {
     const newAchievedCategoryMedal: Record<DisciplineCategories, Medals> = {
@@ -81,7 +66,11 @@ const AthletePerformanceAccordions = (props: {
     };
     disciplines.forEach((d) => {
       const bestEntry = performanceRecordings
-        .filter((p) => p.athlete_id == props.athlete.id && new Date(p.date_of_performance).getFullYear() == selectedYear)
+        .filter(
+          (p) =>
+            p.athlete_id == props.athlete.id &&
+            new Date(p.date_of_performance).getFullYear() == props.selectedYear,
+        )
         .filter((p) => p.discipline_rating_metric.discipline.id == d.id)
         .sort(
           d.is_more_better
@@ -100,50 +89,38 @@ const AthletePerformanceAccordions = (props: {
       }
     });
     setAchievedCategoryMedal(newAchievedCategoryMedal);
-  }, [performanceRecordings, disciplines, props.athlete.id, selectedYear]);
+  }, [
+    performanceRecordings,
+    disciplines,
+    props.athlete.id,
+    props.selectedYear,
+  ]);
 
   const isDisciplineInvalid = useCallback(
-      (discipline: Discipline | null) => {
-        if (!selectedYear || !discipline || !props.athlete) {
-          return false;
-        }
-        const age =
-          selectedYear -
-          new Date(Date.parse(props.athlete.birthdate)).getFullYear();
-        return (
-          disciplineRatingMetrics.filter(
-            (metric) =>
-              metric.discipline.id == discipline.id &&
-              metric.end_age >= age &&
-              metric.start_age <= age &&
-              (props.athlete.gender == "FEMALE"
-                ? metric.rating_female != null
-                : metric.rating_male != null),
-          ).length <= 0
-        );
-      },
-      [props.athlete, selectedYear, disciplineRatingMetrics],
-    );
-    
+    (discipline: Discipline | null) => {
+      if (!props.selectedYear || !discipline || !props.athlete) {
+        return false;
+      }
+      const age =
+        props.selectedYear -
+        new Date(Date.parse(props.athlete.birthdate)).getFullYear();
+      return (
+        disciplineRatingMetrics.filter(
+          (metric) =>
+            metric.discipline.id == discipline.id &&
+            metric.end_age >= age &&
+            metric.start_age <= age &&
+            (props.athlete.gender == "FEMALE"
+              ? metric.rating_female != null
+              : metric.rating_male != null),
+        ).length <= 0
+      );
+    },
+    [props.athlete, props.selectedYear, disciplineRatingMetrics],
+  );
 
   return (
     <>
-      <Select
-        value={selectedYear.toString()}
-        size="sm"
-        sx={{ minHeight: "35px", width: "80px" }}
-        onChange={(_, newValue) => {
-          if (newValue) {
-            setYear(Number(newValue));
-          }
-        }}
-      >
-        {availableYears.map((year) => (
-          <Option key={year} value={year.toString()}>
-            {year}
-          </Option>
-        ))}{" "}
-      </Select>
       <Box
         sx={{
           display: "flex",
@@ -240,8 +217,10 @@ const AthletePerformanceAccordions = (props: {
               <AccordionDetails>
                 <DisciplineDatagrid
                   performanceRecordings={performanceRecordings.filter(
-                    (p) => p.athlete_id == props.athlete.id &&
-                    new Date(p.date_of_performance).getFullYear() === selectedYear,
+                    (p) =>
+                      p.athlete_id == props.athlete.id &&
+                      new Date(p.date_of_performance).getFullYear() ===
+                        props.selectedYear,
                   )}
                   disciplines={disciplines.filter(
                     (d) => d.category == category && !isDisciplineInvalid(d),

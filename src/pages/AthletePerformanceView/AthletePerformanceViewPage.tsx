@@ -1,5 +1,5 @@
 import AthletePerformanceAccordions from "@components/AthletePerformanceAccordions/AthletePerformanceAccordions";
-import { Athlete } from "@customTypes/backendTypes";
+import { Athlete, DisciplineRatingMetric } from "@customTypes/backendTypes";
 import { Box } from "@mui/joy";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -7,12 +7,19 @@ import { AuthContext } from "@components/AuthenticationProvider/AuthenticationPr
 import useApi from "@hooks/useApi";
 import { enqueueSnackbar } from "notistack";
 import { UserType } from "@customTypes/enums";
+import { useTypedSelector } from "@stores/rootReducer";
+import YearSelector from "@components/AthletePerformanceAccordions/YearSelector";
 
 const AthletePerfomanceViewPage = () => {
   const { selectedUser } = useContext(AuthContext);
   const { getAthlete } = useApi();
   const [athlete, setAthlete] = useState<Athlete | null>(null);
   const { t } = useTranslation();
+  const currentYear = new Date().getFullYear();
+  const [selectedYear, setYear] = useState(currentYear);
+  const disciplineRatingMetrics = useTypedSelector(
+    (state) => state.disciplineMetrics.data,
+  ) as DisciplineRatingMetric[];
 
   useEffect(() => {
     const fetchAthlete = async () => {
@@ -52,9 +59,20 @@ const AthletePerfomanceViewPage = () => {
           alignItems: "flex-end",
         }}
       >
+        <Box
+          sx={{ display: "flex", width: "100%", justifyContent: "flex-start" }}
+        >
+          <YearSelector
+            selectedYear={selectedYear}
+            setYear={setYear}
+            disciplineRatingMetrics={disciplineRatingMetrics}
+          />
+        </Box>
+
         <AthletePerformanceAccordions
           athlete={athlete}
           selectedUserType={selectedUser?.type}
+          selectedYear={selectedYear}
         />
       </Box>
     </>

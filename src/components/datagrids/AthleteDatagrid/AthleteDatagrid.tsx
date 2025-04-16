@@ -24,7 +24,6 @@ import AthleteRequestButton from "@components/modals/AthleteRequestModal/Athlete
 import { PersonAdd, PersonSearch } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
-import { current } from "@reduxjs/toolkit";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -98,7 +97,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       disableSpan: true,
       columnMapping(item) {
         const performanceRecordingsOfAthlete = performanceRecordings.filter(
-          (p) => p.athlete_id == item.id && new Date(p.date_of_performance).getFullYear() === currentYear,
+          (p) =>
+            p.athlete_id == item.id &&
+            new Date(p.date_of_performance).getFullYear() === currentYear,
         );
         return (
           <Box
