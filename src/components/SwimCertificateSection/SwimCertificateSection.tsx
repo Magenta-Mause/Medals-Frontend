@@ -47,11 +47,11 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
   return (
     <Box
       sx={{
-        padding: "20px 20px",
+        padding: "15px 20px",
         borderRadius: 10,
         background: "var(--joy-palette-background-level2)",
         width: "100%",
-        mb: "10px",
+        mb: "5px",
       }}
     >
       <Box

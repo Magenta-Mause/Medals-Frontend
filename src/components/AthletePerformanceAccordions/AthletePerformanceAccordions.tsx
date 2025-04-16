@@ -125,7 +125,7 @@ const AthletePerformanceAccordions = (props: {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: "25px",
+          gap: "15px",
           width: "100%",
         }}
       >

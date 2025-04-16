@@ -54,7 +54,7 @@ const AthleteDetailPage = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: "25px",
+          gap: "15px",
           alignItems: "flex-end",
         }}
       >

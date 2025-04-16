@@ -55,7 +55,7 @@ const AthletePerfomanceViewPage = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: "25px",
+          gap: "20px",
           alignItems: "flex-end",
         }}
       >
