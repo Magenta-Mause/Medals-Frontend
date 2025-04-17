@@ -25,6 +25,7 @@ import GenericResponsiveDatagrid, {
 } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
+import { useMediaQuery } from "@mui/material";
 
 interface AthleteExportModalProps {
   isOpen: boolean;
@@ -39,6 +40,7 @@ const AthleteExportModal = ({
   selectedAthletes,
   includePerformance,
 }: AthleteExportModalProps) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
   const location = useLocation();
   const [athletes, setAthletes] = useState(selectedAthletes);
   const [isLoading, setLoading] = useState(true);
@@ -260,7 +262,7 @@ const AthleteExportModal = ({
 
   return (
     <>
-      {location.pathname.includes("/athletes/") && (
+      {location.pathname.includes("/athletes/") && !isMobile &&(
         <Box
           sx={{
             display: "flex",

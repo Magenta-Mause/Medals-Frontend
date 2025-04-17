@@ -6,6 +6,7 @@ import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import SwimCertificateIcon from "@components/icons/SwimCertificateIcon/SwimCertificateIcon";
 import CreateSwimCertificateModal from "@components/modals/CreateSwimCertificateModal/CreateSwimCertificateModal";
+import { useMediaQuery } from "@mui/material";
 
 interface SwimCertificateSectionProps {
   athlete: Athlete;
@@ -21,6 +22,7 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
   const { deleteSwimmingCertificate } = useApi();
   const [loading, setLoading] = useState<boolean>(false);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   const hasCertificate = Boolean(athlete.swimming_certificate);
 
@@ -58,15 +60,20 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
         sx={{
           display: "flex",
           justifyContent: "space-between",
+          flexDirection: isMobile? "column" : "row",
           alignItems: "center",
           minHeight: "50px",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Box>
           <SwimCertificateIcon achieved={hasCertificate} />
+          </Box>
           {hasCertificate ? (
             <Box>
-              <Typography level="h4">
+              <Typography level="h4"
+                sx={{ fontSize: "md" }}
+                >
                 {t(
                   `components.createSwimCertificateModal.options.${athlete.swimming_certificate}.label`,
                 )}
