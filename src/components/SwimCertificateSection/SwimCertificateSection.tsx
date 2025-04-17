@@ -65,7 +65,9 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
           minHeight: "50px",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <Box
+          sx={{ display: "flex", alignItems: "center", gap: 2, width: "100%" }}
+        >
           <Box>
             <SwimCertificateIcon achieved={hasCertificate} />
           </Box>

@@ -6,7 +6,7 @@ import {
 } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
-import { Chip, Typography } from "@mui/joy";
+import { Typography } from "@mui/joy";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosCreate } from "react-icons/io";
@@ -82,9 +82,9 @@ const PerformanceRecordingDatagrid = (
     avatar: (item) => {
       return (
         <MedalIcon
-        category={item.discipline_rating_metric.discipline.category}
-        medalType={calculatePerformanceRecordingMedal(item)}
-      />
+          category={item.discipline_rating_metric.discipline.category}
+          medalType={calculatePerformanceRecordingMedal(item)}
+        />
       );
     },
     h1: (p) => (

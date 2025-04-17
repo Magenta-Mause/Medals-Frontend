@@ -6,7 +6,6 @@ import {
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import GenericModal from "../GenericModal";
-import { useTranslation } from "react-i18next";
 import { UserType } from "@customTypes/enums";
 
 const DisciplineDetailModal = (props: {
@@ -17,13 +16,11 @@ const DisciplineDetailModal = (props: {
   setOpen: (open: boolean) => void;
   selectedUserType: UserType;
 }) => {
-  const { t } = useTranslation();
-
   return (
     <GenericModal
       open={props.open}
       setOpen={props.setOpen}
-      header={(props.discipline?.name ?? "-")}
+      header={props.discipline?.name ?? "-"}
       modalDialogSX={{
         width: "1000px",
         maxWidth: { md: "calc(90vw - var(--Sidebar-width))", xs: "90vw" },

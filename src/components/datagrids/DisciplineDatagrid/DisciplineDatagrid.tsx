@@ -118,7 +118,9 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         return (
           <>
             {discipline.performanceRecordings.length > 0
-              ? t("components.disciplineDatagrid.columns.bestValue") + ": " + formatValue(bestItem.rating_value, discipline.unit)
+              ? t("components.disciplineDatagrid.columns.bestValue") +
+                ": " +
+                formatValue(bestItem.rating_value, discipline.unit)
               : t("messages.noEntriesFound")}
           </>
         );
