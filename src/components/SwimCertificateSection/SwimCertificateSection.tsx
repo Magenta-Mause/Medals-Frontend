@@ -60,20 +60,18 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          flexDirection: isMobile? "column" : "row",
+          flexDirection: isMobile ? "column" : "row",
           alignItems: "center",
           minHeight: "50px",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Box>
-          <SwimCertificateIcon achieved={hasCertificate} />
+            <SwimCertificateIcon achieved={hasCertificate} />
           </Box>
           {hasCertificate ? (
             <Box>
-              <Typography level="h4"
-                sx={{ fontSize: "md" }}
-                >
+              <Typography level="h4" sx={{ fontSize: "md" }}>
                 {t(
                   `components.createSwimCertificateModal.options.${athlete.swimming_certificate}.label`,
                 )}

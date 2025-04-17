@@ -118,28 +118,27 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         return (
           <>
             {discipline.performanceRecordings.length > 0
-              ? formatValue(bestItem.rating_value, discipline.unit) 
+              ? formatValue(bestItem.rating_value, discipline.unit)
               : t("messages.noEntriesFound")}
           </>
         );
       },
-      topRightInfo: (discipline) =>{
+      topRightInfo: (discipline) => {
         const bestItem = getBestPerformanceRecording(
           discipline.performanceRecordings,
           discipline,
         );
-        return(
-          
-        <MedalIcon
-              category={discipline.category}
-              medalType={
-                bestItem
-                  ? calculatePerformanceRecordingMedal(bestItem)
-                  : Medals.NONE
-              }
-            />
-        )
-            },
+        return (
+          <MedalIcon
+            category={discipline.category}
+            medalType={
+              bestItem
+                ? calculatePerformanceRecordingMedal(bestItem)
+                : Medals.NONE
+            }
+          />
+        );
+      },
       bottomButtons: [
         {
           label: "Details",

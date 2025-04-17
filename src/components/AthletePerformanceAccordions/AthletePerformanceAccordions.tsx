@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GiJumpingRope } from "react-icons/gi";
 import { FaRunning, FaStopwatch } from "react-icons/fa";
@@ -198,7 +198,14 @@ const AthletePerformanceAccordions = (props: {
                         props.selectedYear,
                   )}
                   disciplines={disciplines.filter(
-                    (d) => d.category == category && !isDisciplineInvalid(d,props.athlete, props.selectedYear, disciplineRatingMetrics),
+                    (d) =>
+                      d.category == category &&
+                      !isDisciplineInvalid(
+                        d,
+                        props.athlete,
+                        props.selectedYear,
+                        disciplineRatingMetrics,
+                      ),
                   )}
                   isLoading={false}
                   onDisciplineClick={async (d) => {

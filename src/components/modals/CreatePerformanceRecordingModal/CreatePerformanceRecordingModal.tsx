@@ -17,7 +17,7 @@ import {
 import { useTypedSelector } from "@stores/rootReducer";
 import dayjs, { Dayjs } from "dayjs";
 import { useSnackbar } from "notistack";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import GenericModal from "../GenericModal";
 import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
@@ -170,8 +170,20 @@ const CreatePerformanceRecordingModal = (props: {
               t("disciplines.categories." + d.category.toUpperCase() + ".label")
             }
             getOptionLabel={(d: Discipline) => d.name}
-            getOptionDisabled={(discipline) => isDisciplineInvalid(discipline, selectedAthlete, selectedDate?.year(), ratingMetrics)}
-            error={isDisciplineInvalid(discipline, selectedAthlete, selectedDate?.year(), ratingMetrics)}
+            getOptionDisabled={(discipline) =>
+              isDisciplineInvalid(
+                discipline,
+                selectedAthlete,
+                selectedDate?.year(),
+                ratingMetrics,
+              )
+            }
+            error={isDisciplineInvalid(
+              discipline,
+              selectedAthlete,
+              selectedDate?.year(),
+              ratingMetrics,
+            )}
             aria-errormessage={"Discipline not valid"}
           />
         </FormControl>
@@ -235,7 +247,12 @@ const CreatePerformanceRecordingModal = (props: {
             selectedDate == null ||
             value == null ||
             value == "" ||
-            isDisciplineInvalid(discipline, selectedAthlete, selectedDate?.year(), ratingMetrics)
+            isDisciplineInvalid(
+              discipline,
+              selectedAthlete,
+              selectedDate?.year(),
+              ratingMetrics,
+            )
           }
         >
           {!loading ? t("generic.submit") : t("generic.loading")}

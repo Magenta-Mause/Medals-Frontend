@@ -1,10 +1,14 @@
-import { Discipline, DisciplineRatingMetric, Athlete } from "@customTypes/backendTypes";
+import {
+  Discipline,
+  DisciplineRatingMetric,
+  Athlete,
+} from "@customTypes/backendTypes";
 
 const isDisciplineInvalid = (
   discipline: Discipline | null,
   athlete: Athlete | null,
   selectedYear: number | undefined,
-  disciplineRatingMetrics: DisciplineRatingMetric[]
+  disciplineRatingMetrics: DisciplineRatingMetric[],
 ): boolean => {
   if (!selectedYear || !discipline || !athlete) {
     return false;
@@ -21,7 +25,7 @@ const isDisciplineInvalid = (
         metric.start_age <= age &&
         (athlete.gender === "FEMALE"
           ? metric.rating_female != null
-          : metric.rating_male != null)
+          : metric.rating_male != null),
     ).length <= 0
   );
 };

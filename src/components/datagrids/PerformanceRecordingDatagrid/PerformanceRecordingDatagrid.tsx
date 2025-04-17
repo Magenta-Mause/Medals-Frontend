@@ -164,9 +164,15 @@ const PerformanceRecordingDatagrid = (
         filters={filters}
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
-        toolbarActions={ props.selectedUserTyp === UserType.TRAINER ? actions : undefined}
-        actionMenu={props.selectedUserTyp === UserType.TRAINER ? options: undefined}
-        itemSelectionActions={props.selectedUserTyp === UserType.TRAINER ? options: undefined}
+        toolbarActions={
+          props.selectedUserTyp === UserType.TRAINER ? actions : undefined
+        }
+        actionMenu={
+          props.selectedUserTyp === UserType.TRAINER ? options : undefined
+        }
+        itemSelectionActions={
+          props.selectedUserTyp === UserType.TRAINER ? options : undefined
+        }
         disablePaging
       />
       {props.athlete && props.selectedUserTyp === UserType.TRAINER ? (

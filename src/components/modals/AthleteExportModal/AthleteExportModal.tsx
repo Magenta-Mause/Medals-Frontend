@@ -262,7 +262,7 @@ const AthleteExportModal = ({
 
   return (
     <>
-      {location.pathname.includes("/athletes/") && !isMobile &&(
+      {location.pathname.includes("/athletes/") && !isMobile && (
         <Box
           sx={{
             display: "flex",
