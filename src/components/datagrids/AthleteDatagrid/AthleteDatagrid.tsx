@@ -314,6 +314,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         setOpen={setExportModalOpen}
         selectedAthletes={selectedAthletes}
         includePerformance={false}
+        isButtonVisible={false}
       />
       <GenericResponsiveDatagrid
         isLoading={props.isLoading}

@@ -13,7 +13,6 @@ import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
 } from "@utils/calculationUtil";
-import { useLocation } from "react-router";
 import { useSnackbar } from "notistack";
 import {
   AthleteExportColumn,
@@ -32,6 +31,7 @@ interface AthleteExportModalProps {
   setOpen: (open: boolean) => void;
   selectedAthletes: Athlete[];
   includePerformance: boolean;
+  isButtonVisible: boolean;
 }
 
 const AthleteExportModal = ({
@@ -39,9 +39,9 @@ const AthleteExportModal = ({
   setOpen,
   selectedAthletes,
   includePerformance,
+  isButtonVisible,
 }: AthleteExportModalProps) => {
   const isMobile = useMediaQuery("(max-width:600px)");
-  const location = useLocation();
   const [athletes, setAthletes] = useState(selectedAthletes);
   const [isLoading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
@@ -262,7 +262,7 @@ const AthleteExportModal = ({
 
   return (
     <>
-      {location.pathname.includes("/athletes/") && !isMobile && (
+      {isButtonVisible && !isMobile && (
         <Box
           sx={{
             display: "flex",

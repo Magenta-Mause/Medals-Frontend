@@ -91,6 +91,7 @@ const AthleteDetailPage = () => {
               setOpen={setExportModalOpen}
               selectedAthletes={filteredAthletes}
               includePerformance={true}
+              isButtonVisible={true}
             />
           </Box>
         </Box>
