@@ -26,6 +26,7 @@ import {
   convertMedalToNumber,
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
+import { isDisciplineInvalid } from "@utils/disciplineValidationUtil";
 
 const DisciplineIcons: Record<DisciplineCategories, IconType> = {
   COORDINATION: GiJumpingRope,
@@ -95,29 +96,6 @@ const AthletePerformanceAccordions = (props: {
     props.athlete.id,
     props.selectedYear,
   ]);
-
-  const isDisciplineInvalid = useCallback(
-    (discipline: Discipline | null) => {
-      if (!props.selectedYear || !discipline || !props.athlete) {
-        return false;
-      }
-      const age =
-        props.selectedYear -
-        new Date(Date.parse(props.athlete.birthdate)).getFullYear();
-      return (
-        disciplineRatingMetrics.filter(
-          (metric) =>
-            metric.discipline.id == discipline.id &&
-            metric.end_age >= age &&
-            metric.start_age <= age &&
-            (props.athlete.gender == "FEMALE"
-              ? metric.rating_female != null
-              : metric.rating_male != null),
-        ).length <= 0
-      );
-    },
-    [props.athlete, props.selectedYear, disciplineRatingMetrics],
-  );
 
   return (
     <>
@@ -220,7 +198,7 @@ const AthletePerformanceAccordions = (props: {
                         props.selectedYear,
                   )}
                   disciplines={disciplines.filter(
-                    (d) => d.category == category && !isDisciplineInvalid(d),
+                    (d) => d.category == category && !isDisciplineInvalid(d,props.athlete, props.selectedYear, disciplineRatingMetrics),
                   )}
                   isLoading={false}
                   onDisciplineClick={async (d) => {
