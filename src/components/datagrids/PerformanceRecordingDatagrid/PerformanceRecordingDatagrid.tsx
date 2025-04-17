@@ -79,11 +79,12 @@ const PerformanceRecordingDatagrid = (
   ];
 
   const mobileRendering: MobileTableRendering<PerformanceRecording> = {
-    avatar: () => {
+    avatar: (item) => {
       return (
-        <Chip
-          sx={{ aspectRatio: 1, height: 45, backgroundColor: "gold" }}
-        ></Chip>
+        <MedalIcon
+        category={item.discipline_rating_metric.discipline.category}
+        medalType={calculatePerformanceRecordingMedal(item)}
+      />
       );
     },
     h1: (p) => (

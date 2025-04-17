@@ -23,7 +23,7 @@ const DisciplineDetailModal = (props: {
     <GenericModal
       open={props.open}
       setOpen={props.setOpen}
-      header={t("generic.discipline") + ": " + (props.discipline?.name ?? "-")}
+      header={(props.discipline?.name ?? "-")}
       modalDialogSX={{
         width: "1000px",
         maxWidth: { md: "calc(90vw - var(--Sidebar-width))", xs: "90vw" },
