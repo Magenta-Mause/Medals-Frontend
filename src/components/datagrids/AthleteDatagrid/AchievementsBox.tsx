@@ -12,15 +12,19 @@ export interface AchievementsBoxProps {
   athlete: Athlete;
   performanceRecordings: PerformanceRecording[];
   sx?: any;
+  currentYear: number;
 }
 
 const AchievementsBox = ({
   athlete,
   performanceRecordings,
   sx,
+  currentYear,
 }: AchievementsBoxProps) => {
   const performanceRecordingsOfAthlete = performanceRecordings.filter(
-    (p) => p.athlete_id === athlete.id,
+    (p) =>
+      p.athlete_id === athlete.id &&
+      new Date(p.date_of_performance).getFullYear() === currentYear,
   );
 
   return (

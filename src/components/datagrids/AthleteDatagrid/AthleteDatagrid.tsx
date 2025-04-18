@@ -40,6 +40,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
+  const currentYear = new Date().getFullYear();
 
   const noAthleteFoundMessage = (
     <Box sx={{ width: "250px" }}>
@@ -123,6 +124,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           <AchievementsBox
             athlete={item}
             performanceRecordings={performanceRecordings}
+            currentYear={currentYear}
           />
         );
       },
@@ -276,6 +278,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       <AchievementsBox
         athlete={athlete}
         performanceRecordings={performanceRecordings}
+        currentYear={currentYear}
       />
     ),
     searchFilter: {
@@ -311,6 +314,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         setOpen={setExportModalOpen}
         selectedAthletes={selectedAthletes}
         includePerformance={false}
+        isButtonVisible={false}
       />
       <GenericResponsiveDatagrid
         isLoading={props.isLoading}
