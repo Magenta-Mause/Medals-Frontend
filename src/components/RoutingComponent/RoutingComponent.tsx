@@ -20,7 +20,8 @@ import ValidateInvitePage from "@pages/AcceptTrainerAccessRequestPage/AcceptTrai
 import { useContext } from "react";
 
 import { Route, Routes } from "react-router";
-import AthletePerfomanceViewPage from "@pages/AthletePerformanceView/AthletePerformanceViewPage";
+import AthleteDashboardPage from "@pages/Athletes/AthleteDashboardPage";
+import AthletePerfomanceViewPage from "@pages/Athletes/AthletePerformanceViewPage";
 
 const RoutingComponent = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -51,7 +52,7 @@ const RoutingComponent = () => {
           <Route path="/assignAthlete" element={<InDevelopmentPage />} />
 
           {/* ATHLETE */}
-          <Route path="/dashboard" element={<InDevelopmentPage />} />
+          <Route path="/dashboard" element={<AthleteDashboardPage />} />
           <Route path="/requirements" element={<PerformanceMetricsPage />} />
           <Route path="/performances" element={<AthletePerfomanceViewPage />} />
 
