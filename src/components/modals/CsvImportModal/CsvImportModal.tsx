@@ -201,6 +201,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
         </Tabs>
         {selectedImportPage === importPage.athleteImport ? (
           <CSVUploadComponent
+            key="athleteImport"
             setOpen={props.setOpen}
             parseCSVData={parseAthleteCSV}
             uploadEntry={createAthlete}
@@ -222,6 +223,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
           />
         ) : (
           <CSVUploadComponent
+            key="performanceImport"
             setOpen={props.setOpen}
             parseCSVData={parsePerformanceRecordingCSV}
             uploadEntry={createPerformanceRecording}
