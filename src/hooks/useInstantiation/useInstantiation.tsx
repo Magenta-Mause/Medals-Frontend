@@ -134,16 +134,27 @@ const useInstantiation = () => {
       : undefined,
   );
 
+  const initialDataFetching = useCallback(async () => {
+    dispatch(setTrainers((await getTrainers()) ?? []));
+    dispatch(setAthletes((await getAthletes()) ?? []));
+    dispatch(setDisciplines((await getDisciplines()) ?? []));
+    dispatch(
+      setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
+    );
+    dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
+  }, [
+    dispatch,
+    getAthletes,
+    getDisciplineMetrics,
+    getDisciplines,
+    getPerformanceRecordings,
+    getTrainers,
+  ]);
+
   const instantiateAdmin = useCallback(async () => {
     if (currentlyInitialized != selectedUser?.id) {
       setCurrentlyInitialized(selectedUser?.id ?? null);
-      dispatch(setTrainers((await getTrainers()) ?? []));
-      dispatch(setAthletes((await getAthletes()) ?? []));
-      dispatch(setDisciplines((await getDisciplines()) ?? []));
-      dispatch(
-        setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
-      );
-      dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
+      initialDataFetching();
 
       setTimeout(() => {
         uninitializeAthleteWebsocket();
@@ -159,17 +170,12 @@ const useInstantiation = () => {
     }
   }, [
     currentlyInitialized,
-    selectedUser,
-    dispatch,
-    getAthletes,
-    getDisciplines,
-    getTrainers,
-    getPerformanceRecordings,
-    getDisciplineMetrics,
+    selectedUser?.id,
+    initialDataFetching,
     uninitializeAthleteWebsocket,
     uninitializeDisciplineWebsocket,
-    uninitializePerformanceRecordingWebsocket,
     uninitializeTrainerWebsocket,
+    uninitializePerformanceRecordingWebsocket,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
     initializeTrainerWebsocket,
@@ -179,12 +185,7 @@ const useInstantiation = () => {
   const instantiateTrainer = useCallback(async () => {
     if (currentlyInitialized != selectedUser?.id) {
       setCurrentlyInitialized(selectedUser?.id ?? null);
-      dispatch(setAthletes((await getAthletes()) ?? []));
-      dispatch(setDisciplines((await getDisciplines()) ?? []));
-      dispatch(
-        setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
-      );
-      dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
+      initialDataFetching();
 
       setTimeout(() => {
         uninitializeAthleteWebsocket();
@@ -198,12 +199,8 @@ const useInstantiation = () => {
     }
   }, [
     currentlyInitialized,
-    selectedUser,
-    dispatch,
-    getAthletes,
-    getDisciplines,
-    getPerformanceRecordings,
-    getDisciplineMetrics,
+    selectedUser?.id,
+    initialDataFetching,
     uninitializeAthleteWebsocket,
     uninitializeDisciplineWebsocket,
     uninitializePerformanceRecordingWebsocket,
@@ -215,11 +212,7 @@ const useInstantiation = () => {
   const instantiateAthlete = useCallback(async () => {
     if (currentlyInitialized != selectedUser?.id) {
       setCurrentlyInitialized(selectedUser?.id ?? null);
-      dispatch(setDisciplines((await getDisciplines()) ?? []));
-      dispatch(
-        setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
-      );
-      dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
+      initialDataFetching();
 
       uninitializeAthleteWebsocket();
       uninitializeDisciplineWebsocket();
@@ -228,14 +221,11 @@ const useInstantiation = () => {
     }
   }, [
     currentlyInitialized,
-    selectedUser,
-    dispatch,
-    getDisciplines,
-    getDisciplineMetrics,
-    getPerformanceRecordings,
-    uninitializeTrainerWebsocket,
+    selectedUser?.id,
+    initialDataFetching,
     uninitializeAthleteWebsocket,
     uninitializeDisciplineWebsocket,
+    uninitializeTrainerWebsocket,
     uninitializePerformanceRecordingWebsocket,
   ]);
 
