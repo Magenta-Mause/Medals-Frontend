@@ -18,7 +18,6 @@ import { useSnackbar } from "notistack";
 import {
   AthleteExportColumn,
   AthletePerformanceExportColumn,
-  Genders,
 } from "@customTypes/enums";
 import GenericResponsiveDatagrid, {
   Action,
