@@ -9,6 +9,7 @@ import { enqueueSnackbar } from "notistack";
 import { UserType } from "@customTypes/enums";
 import { useTypedSelector } from "@stores/rootReducer";
 import YearSelector from "@components/AthletePerformanceAccordions/YearSelector";
+import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 
 const AthletePerfomanceViewPage = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -51,6 +52,7 @@ const AthletePerfomanceViewPage = () => {
 
   return (
     <>
+      <AthleteDetailHeader athlete={athlete} />
       <Box
         sx={{
           display: "flex",
