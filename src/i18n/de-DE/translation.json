@@ -580,6 +580,13 @@
       "exportButton": "Export",
       "performanceCheckbox": "Leistungswerte einschließen",
       "removeFromSelectionButton": "Entfernen"
+    },
+    "athleteDashboard": {
+      "error": {
+        "notAnAthlete": "Ausgewählte Benutzer*in ist keine Athlet*in"
+      },
+      "athleteInformationBox": {
+      }
     }
   }
 }

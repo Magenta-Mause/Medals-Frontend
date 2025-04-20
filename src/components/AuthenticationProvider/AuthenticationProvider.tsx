@@ -156,9 +156,12 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   }, [authorizedUsers, selectUser, selectedUser]);
 
   useEffect(() => {
-    if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {
-      refreshIdentityToken();
-    }
+    const interval = setInterval(() => {
+      if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {
+        refreshIdentityToken();
+      }
+    }, 1000);
+    return () => clearInterval(interval);
   }, [refreshIdentityToken, tokenExpirationDate]);
 
   return (
