@@ -214,10 +214,15 @@ const useInstantiation = () => {
       setCurrentlyInitialized(selectedUser?.id ?? null);
       initialDataFetching();
 
-      uninitializeAthleteWebsocket();
-      uninitializeDisciplineWebsocket();
-      uninitializeTrainerWebsocket();
-      uninitializePerformanceRecordingWebsocket();
+      setTimeout(() => {
+        uninitializeAthleteWebsocket();
+        uninitializeDisciplineWebsocket();
+        uninitializePerformanceRecordingWebsocket();
+
+        initializeAthleteWebsocket();
+        initializeDisciplineWebsocket();
+        initializePerformanceRecordingWebsocket();
+      }, 700);
     }
   }, [
     currentlyInitialized,
@@ -225,8 +230,10 @@ const useInstantiation = () => {
     initialDataFetching,
     uninitializeAthleteWebsocket,
     uninitializeDisciplineWebsocket,
-    uninitializeTrainerWebsocket,
     uninitializePerformanceRecordingWebsocket,
+    initializeAthleteWebsocket,
+    initializeDisciplineWebsocket,
+    initializePerformanceRecordingWebsocket,
   ]);
 
   const instantiateByType = useCallback(
