@@ -10,6 +10,7 @@ import { UserType } from "@customTypes/enums";
 import { useTypedSelector } from "@stores/rootReducer";
 import YearSelector from "@components/AthletePerformanceAccordions/YearSelector";
 import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
+import SwimCertificateSection from "@components/SwimCertificateSection/SwimCertificateSection";
 
 const AthletePerfomanceViewPage = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -53,6 +54,7 @@ const AthletePerfomanceViewPage = () => {
   return (
     <>
       <AthleteDetailHeader athlete={athlete} />
+      <SwimCertificateSection athlete={athlete} hideButton />
       <Box
         sx={{
           display: "flex",
