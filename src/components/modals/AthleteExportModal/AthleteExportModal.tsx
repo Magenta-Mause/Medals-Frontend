@@ -13,7 +13,6 @@ import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
 } from "@utils/calculationUtil";
-import { useLocation } from "react-router";
 import { useSnackbar } from "notistack";
 import {
   AthleteExportColumn,
@@ -25,12 +24,14 @@ import GenericResponsiveDatagrid, {
 } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
+import { useMediaQuery } from "@mui/material";
 
 interface AthleteExportModalProps {
   isOpen: boolean;
   setOpen: (open: boolean) => void;
   selectedAthletes: Athlete[];
   includePerformance: boolean;
+  isButtonVisible: boolean;
 }
 
 const AthleteExportModal = ({
@@ -38,8 +39,9 @@ const AthleteExportModal = ({
   setOpen,
   selectedAthletes,
   includePerformance,
+  isButtonVisible,
 }: AthleteExportModalProps) => {
-  const location = useLocation();
+  const isMobile = useMediaQuery("(max-width:600px)");
   const [athletes, setAthletes] = useState(selectedAthletes);
   const [isLoading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
@@ -63,12 +65,6 @@ const AthleteExportModal = ({
       setLoading(false);
     }
   }, [athletes]);
-
-  useEffect(() => {
-    if (isOpen && athletes.length === 0) {
-      setOpen(false);
-    }
-  }, [athletes.length, setOpen, isOpen]);
 
   const columns: Column<Athlete>[] = [
     {
@@ -95,7 +91,14 @@ const AthleteExportModal = ({
       color: "danger",
       key: "remove",
       operation: async (item) => {
-        setAthletes((prev: any[]) => prev.filter((a) => a.id !== item.id));
+        let athleteTemp: Athlete[];
+        setAthletes((prev: any[]) => {
+          athleteTemp = prev.filter((a) => a.id !== item.id);
+          if (athleteTemp.length <= 0) {
+            setOpen(false);
+          }
+          return athleteTemp;
+        });
       },
     },
   ];
@@ -259,7 +262,7 @@ const AthleteExportModal = ({
 
   return (
     <>
-      {location.pathname.includes("/athletes/") && (
+      {isButtonVisible && !isMobile && (
         <Box
           sx={{
             display: "flex",

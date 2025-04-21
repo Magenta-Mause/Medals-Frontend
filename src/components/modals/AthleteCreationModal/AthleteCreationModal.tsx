@@ -135,7 +135,7 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
 
     if (date) {
       // Format to ISO string for backend compatibility
-      const isoDate = date.toISOString();
+      const isoDate = dayjs(date).format("YYYY-MM-DD");
       handleFieldChange("birthdate", isoDate);
     } else {
       handleFieldChange("birthdate", "");

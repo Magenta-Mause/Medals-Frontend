@@ -6,7 +6,7 @@ import {
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import GenericModal from "../GenericModal";
-import { useTranslation } from "react-i18next";
+import { UserType } from "@customTypes/enums";
 
 const DisciplineDetailModal = (props: {
   discipline: Discipline | undefined;
@@ -14,14 +14,13 @@ const DisciplineDetailModal = (props: {
   performanceRecordings: PerformanceRecording[];
   open: boolean;
   setOpen: (open: boolean) => void;
+  selectedUserType: UserType;
 }) => {
-  const { t } = useTranslation();
-
   return (
     <GenericModal
       open={props.open}
       setOpen={props.setOpen}
-      header={t("generic.discipline") + ": " + (props.discipline?.name ?? "-")}
+      header={props.discipline?.name ?? "-"}
       modalDialogSX={{
         width: "1000px",
         maxWidth: { md: "calc(90vw - var(--Sidebar-width))", xs: "90vw" },
@@ -31,12 +30,17 @@ const DisciplineDetailModal = (props: {
     >
       {props.athlete ? (
         <>
-          <AthleteDetailHeader athlete={props.athlete} />
+          {props.selectedUserType === UserType.TRAINER ? (
+            <AthleteDetailHeader athlete={props.athlete} />
+          ) : (
+            <></>
+          )}
           <PerformanceRecordingDatagrid
             performanceRecordings={props.performanceRecordings}
             isLoading={false}
             athlete={props.athlete}
             discipline={props.discipline}
+            selectedUserTyp={props.selectedUserType}
           />
         </>
       ) : (

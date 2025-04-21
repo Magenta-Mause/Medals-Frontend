@@ -122,6 +122,7 @@ const CreateSwimCertificateModal: React.FC<CreateSwimCertificateModalProps> = ({
               gap: 1,
               maxHeight: "60vh",
               overflowY: "auto",
+              pr: 1.5,
             }}
           >
             {certificateOptions.map((option) => {
