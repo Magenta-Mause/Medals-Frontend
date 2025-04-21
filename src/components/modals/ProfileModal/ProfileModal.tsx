@@ -1,6 +1,7 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import useApi from "@hooks/useApi";
+import useFormatting from "@hooks/useFormatting"
 import { Avatar, Box, Button, Grid, Typography } from "@mui/joy";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import React, { useContext, useState } from "react";
@@ -9,7 +10,7 @@ import { useNavigate } from "react-router";
 import GenericModal from "../GenericModal";
 import { UserType } from "@customTypes/enums";
 import { useSnackbar } from "notistack";
-import { Athlete, UserEntity } from "@customTypes/backendTypes";
+import { Athlete } from "@customTypes/backendTypes";
 
 const infoCardDesktop = ({
   label,
@@ -64,30 +65,15 @@ const ProfileModal = (props: {
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
   const { deleteAthlete, deleteTrainer, deleteAdmin } = useApi();
   const { enqueueSnackbar } = useSnackbar();
+  const { formatLocalizedDate } = useFormatting();
 
-  const isAthlete = (
-    user: UserEntity | null | undefined,
-  ): user is UserEntity => {
-    return !!user && user.type === UserType.ATHLETE;
-  };
+  let birthdate = "";
+  let genderLabel = undefined;
 
-  let formattedDate = "";
-  let genderLabel = "";
-
-  if (selectedUser && isAthlete(selectedUser)) {
+  if (selectedUser && selectedUser.type === UserType.ATHLETE) {
     const athleteData = selectedUser as unknown as Athlete;
-
-    formattedDate = athleteData.birthdate
-      ? new Intl.DateTimeFormat("de-DE", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        }).format(new Date(athleteData.birthdate))
-      : t("pages.profilePage.noBirthdate");
-
+    birthdate = athleteData.birthdate
     genderLabel = athleteData.gender
-      ? t("genders." + athleteData.gender)
-      : t("pages.profilePage.noGender");
   }
 
   const handleConfirmDelete = async () => {
@@ -154,11 +140,11 @@ const ProfileModal = (props: {
           </Typography>
           <InfoCard label="ID" value={selectedUser?.id} />
 
-          {isAthlete(selectedUser) && (
+          {selectedUser?.type === UserType.ATHLETE && (
             <>
               <InfoCard
                 label={t("pages.profilePage.birthdate")}
-                value={formattedDate}
+                value={formatLocalizedDate(birthdate)}
               />
               <InfoCard
                 label={t("pages.profilePage.gender")}

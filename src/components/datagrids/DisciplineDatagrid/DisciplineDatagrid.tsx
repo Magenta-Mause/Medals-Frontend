@@ -29,8 +29,7 @@ interface DisciplineWithPerformanceRecordings extends Discipline {
 const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
   const { t, i18n } = useTranslation();
   const [data, setData] = useState<DisciplineWithPerformanceRecordings[]>([]);
-  const { formatValue } = useFormatting();
-  const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
+  const { formatValue, formatLocalizedDate } = useFormatting();
 
   useEffect(() => {
     setData(
@@ -98,7 +97,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         return (
           <Typography>
             {item.performanceRecordings.length > 0
-              ? dateTimeFormatter.format(new Date(bestItem.date_of_performance))
+              ? formatLocalizedDate(bestItem.date_of_performance)
               : t("messages.noEntriesFound")}
           </Typography>
         );
