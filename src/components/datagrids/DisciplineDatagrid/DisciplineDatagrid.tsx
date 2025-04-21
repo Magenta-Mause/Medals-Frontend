@@ -27,7 +27,7 @@ interface DisciplineWithPerformanceRecordings extends Discipline {
 }
 
 const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [data, setData] = useState<DisciplineWithPerformanceRecordings[]>([]);
   const { formatValue, formatLocalizedDate } = useFormatting();
 

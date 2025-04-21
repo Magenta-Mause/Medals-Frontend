@@ -23,8 +23,7 @@ const AthleteDetailHeader = (props: {
     {
       label: "birthdate",
       size: 3,
-      mapping: (athlete) =>
-        formatLocalizedDate(athlete?.birthdate)
+      mapping: (athlete) => formatLocalizedDate(athlete?.birthdate),
     },
     {
       label: "gender",

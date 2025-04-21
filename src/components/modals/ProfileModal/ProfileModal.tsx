@@ -1,7 +1,7 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import useApi from "@hooks/useApi";
-import useFormatting from "@hooks/useFormatting"
+import useFormatting from "@hooks/useFormatting";
 import { Avatar, Box, Button, Grid, Typography } from "@mui/joy";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import React, { useContext, useState } from "react";
@@ -72,8 +72,8 @@ const ProfileModal = (props: {
 
   if (selectedUser && selectedUser.type === UserType.ATHLETE) {
     const athleteData = selectedUser as unknown as Athlete;
-    birthdate = athleteData.birthdate
-    genderLabel = athleteData.gender
+    birthdate = athleteData.birthdate;
+    genderLabel = athleteData.gender;
   }
 
   const handleConfirmDelete = async () => {

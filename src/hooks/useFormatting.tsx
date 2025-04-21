@@ -39,16 +39,19 @@ const useFormatting = () => {
   );
 
   const formatLocalizedDate = useCallback(
-    (dateInput: string | number | Date | null | undefined, fallback = "-"): string => {
+    (
+      dateInput: string | number | Date | null | undefined,
+      fallback = "-",
+    ): string => {
       if (!dateInput) return fallback;
-  
+
       const parsedDate =
         typeof dateInput === "string" || typeof dateInput === "number"
           ? new Date(dateInput)
           : dateInput;
-  
+
       if (isNaN(parsedDate.getTime())) return fallback;
-  
+
       return new Intl.DateTimeFormat(i18n.language, {
         day: "2-digit",
         month: "2-digit",

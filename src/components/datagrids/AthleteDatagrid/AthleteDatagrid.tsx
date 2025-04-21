@@ -265,7 +265,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     ),
     h2: (athlete) => <>{athlete.email}</>,
     h3: (athlete) => (
-      <Typography level="body-xs">{formatLocalizedDate(athlete.birthdate)}</Typography>
+      <Typography level="body-xs">
+        {formatLocalizedDate(athlete.birthdate)}
+      </Typography>
     ),
     bottomButtons: [
       {
