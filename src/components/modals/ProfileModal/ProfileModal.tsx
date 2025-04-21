@@ -2,7 +2,6 @@ import { AuthContext } from "@components/AuthenticationProvider/AuthenticationPr
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import useApi from "@hooks/useApi";
 import { Avatar, Box, Button, Grid, Typography } from "@mui/joy";
-import { useTypedSelector } from "@stores/rootReducer";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,6 +9,7 @@ import { useNavigate } from "react-router";
 import GenericModal from "../GenericModal";
 import { UserType } from "@customTypes/enums";
 import { useSnackbar } from "notistack";
+import { Athlete, UserEntity } from "@customTypes/backendTypes";
 
 const infoCardDesktop = ({
   label,
@@ -56,7 +56,6 @@ const ProfileModal = (props: {
   isOpen: boolean;
   setOpen: (open: boolean) => void;
 }) => {
-  const athletes = useTypedSelector((state) => state.athletes.data);
   const { selectedUser, setSelectedUser, refreshIdentityToken } =
     useContext(AuthContext);
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -64,18 +63,37 @@ const ProfileModal = (props: {
   const navigate = useNavigate();
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
   const { deleteAthlete, deleteTrainer, deleteAdmin } = useApi();
-  const selectedAthlete = athletes.find(
-    (athlete: { id: number | undefined }) => athlete.id === selectedUser?.id,
-  );
   const { enqueueSnackbar } = useSnackbar();
 
-  const formattedDate = selectedAthlete?.birthdate
-    ? new Intl.DateTimeFormat("de-DE", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }).format(new Date(selectedAthlete.birthdate))
-    : "Datum nicht verfügbar";
+  // Type guard to check if the user is an Athlete
+  const isAthlete = (
+    user: UserEntity | null | undefined,
+  ): user is UserEntity => {
+    return !!user && user.type === UserType.ATHLETE;
+  };
+
+  // Declare the default values for birthdate and gender
+  let formattedDate = t("pages.profilePage.noBirthdate");
+  let genderLabel = t("pages.profilePage.noGender");
+
+  // Check if selectedUser is an Athlete and assign birthdate and gender
+  if (selectedUser && isAthlete(selectedUser)) {
+    // Here we need to fetch athlete-specific data
+    // In a real implementation, you might want to have a more robust way to access athlete properties
+    const athleteData = selectedUser as unknown as Athlete;
+
+    formattedDate = athleteData.birthdate
+      ? new Intl.DateTimeFormat("de-DE", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        }).format(new Date(athleteData.birthdate))
+      : t("pages.profilePage.noBirthdate");
+
+    genderLabel = athleteData.gender
+      ? t("genders." + athleteData.gender)
+      : t("pages.profilePage.noGender");
+  }
 
   const handleConfirmDelete = async () => {
     try {
@@ -141,7 +159,7 @@ const ProfileModal = (props: {
           </Typography>
           <InfoCard label="ID" value={selectedUser?.id} />
 
-          {selectedUser?.type === UserType.ATHLETE && (
+          {isAthlete(selectedUser) && (
             <>
               <InfoCard
                 label={t("pages.profilePage.birthdate")}
@@ -149,7 +167,7 @@ const ProfileModal = (props: {
               />
               <InfoCard
                 label={t("pages.profilePage.gender")}
-                value={t("genders." + selectedAthlete?.gender)}
+                value={genderLabel}
               />
             </>
           )}
