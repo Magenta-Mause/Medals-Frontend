@@ -65,21 +65,16 @@ const ProfileModal = (props: {
   const { deleteAthlete, deleteTrainer, deleteAdmin } = useApi();
   const { enqueueSnackbar } = useSnackbar();
 
-  // Type guard to check if the user is an Athlete
   const isAthlete = (
     user: UserEntity | null | undefined,
   ): user is UserEntity => {
     return !!user && user.type === UserType.ATHLETE;
   };
 
-  // Declare the default values for birthdate and gender
-  let formattedDate = t("pages.profilePage.noBirthdate");
-  let genderLabel = t("pages.profilePage.noGender");
+  let formattedDate = "";
+  let genderLabel = "";
 
-  // Check if selectedUser is an Athlete and assign birthdate and gender
   if (selectedUser && isAthlete(selectedUser)) {
-    // Here we need to fetch athlete-specific data
-    // In a real implementation, you might want to have a more robust way to access athlete properties
     const athleteData = selectedUser as unknown as Athlete;
 
     formattedDate = athleteData.birthdate
@@ -100,9 +95,9 @@ const ProfileModal = (props: {
       let success = undefined;
       if (selectedUser?.type === UserType.ATHLETE) {
         success = await deleteAthlete(selectedUser.id);
-      } else if (selectedUser?.type === "TRAINER") {
+      } else if (selectedUser?.type === UserType.TRAINER) {
         success = await deleteTrainer(selectedUser.id);
-      } else if (selectedUser?.type === "ADMIN") {
+      } else if (selectedUser?.type === UserType.ADMIN) {
         success = await deleteAdmin(selectedUser.id);
       }
 
