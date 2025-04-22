@@ -33,18 +33,18 @@ const pdfFiles = [
   },
 ];
 
-const PdfDownloadPage = () => {
+const MaterialsDownloadPage = () => {
   const { t } = useTranslation();
 
   return (
     <>
       <Box>
         <Typography level="h2" component="h1">
-          {t("pages.downloadPage.header")}
+          {t("pages.materialsDownloadPage.header")}
         </Typography>
       </Box>
       <Box sx={{ marginBottom: "40px" }}>
-        <Typography>{t("pages.downloadPage.headerText")}</Typography>
+        <Typography>{t("pages.materialsDownloadPage.headerText")}</Typography>
       </Box>
       <Box
         sx={{
@@ -71,4 +71,4 @@ const PdfDownloadPage = () => {
   );
 };
 
-export default PdfDownloadPage;
+export default MaterialsDownloadPage;

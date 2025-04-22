@@ -55,8 +55,14 @@
     "invalid": "invalid",
     "loading": "Loading...",
     "submit": "Submit",
+    "confirm": "Confirm",
     "password": "Password",
-    "finished": "Finished"
+    "finished": "Finished",
+    "validation": {
+      "required": "This field is required",
+      "tooLong": "This field is too long",
+      "invalidEmail": "Invalid email address"
+    }
   },
   "snackbar": {
     "login": {
@@ -89,7 +95,23 @@
     },
     "requestAthleteAccess": {
       "failed": "Failed sending the request",
-      "success": "Request has been send"
+      "success": "Request has been sent"
+    },
+    "athleteExportModal": {
+      "noAthleteSelected": "Please select at least one athlete",
+      "exportError": "Error generating the CSV file",
+      "unexpectedError": "An unexpected error occurred",
+      "success": "Export successful!"
+    },
+    "swimCertificate": {
+      "creationSuccess": "Swimming certificate successfully added",
+      "creationError": "Error while adding swimming certificate",
+      "deletionSuccess": "Swimming certificate successfully deleted",
+      "deletionError": "Error while deleting swimming certificate"
+    },
+    "profileModal": {
+      "accountDeleted": "Account has been successfully deleted",
+      "deletionError": "There was an error while deleting the account"
     }
   },
   "pages": {
@@ -98,6 +120,7 @@
       "h3": "The soon to be Medal Management System"
     },
     "athleteDetailPage": {
+      "createSwimCertificateButton": "Create swimming certificate",
       "createPerformanceRecordingButton": "Record performance"
     },
     "athleteOverviewPage": {
@@ -132,9 +155,9 @@
       "h1": "404",
       "h2": "Page not found"
     },
-    "downloadPage": {
-      "header": "Downloads",
-      "headerText": "Here are the most important downloads just a click away"
+    "materialsDownloadPage": {
+      "header": "Materials",
+      "headerText": "Here are the most important materials just a click away"
     },
     "inDevelopment": {
       "h1": "501",
@@ -249,7 +272,7 @@
       "loginPage": "Background Images on Login Page",
       "lightMode": "LightMode",
       "darkMode": "DarkMode",
-      "downloadPage": "Download Page",
+      "materialsDownloadPage": "Materials Page",
       "swimmingCard": "SwimmingCard",
       "singleAthletesCard": "SingleAthletesCard",
       "groupAthletesCard": "GroupAthletesCard",
@@ -284,7 +307,7 @@
         "/profile": "Profile",
         "/requirements": "Requirements",
         "/performances": "Performances",
-        "/downloads": "Downloads",
+        "/materials": "Materials",
         "/help": "Help",
         "/imprint": "Imprint",
         "/privacyPolicy": "Privacy Policy",
@@ -297,7 +320,7 @@
       "searchAthlete": "Name",
       "notFound": "No athletes found",
       "requestAthleteButton": "Send",
-      "sendButton": "Sendet"
+      "sendButton": "Sent"
     },
     "athleteDetailHeader": {
       "columns": {
@@ -320,7 +343,7 @@
         "/profile": "Profile",
         "/requirements": "Requirements",
         "/performances": "Performances",
-        "/downloads": "Downloads",
+        "/materials": "Materials",
         "/help": "Help"
       },
       "search": "Search",
@@ -384,7 +407,7 @@
           "birthdate": "Birthdate",
           "email": "Email",
           "gender": "Gender",
-          "medals": "Medals"
+          "achievements": "Achievements"
         },
         "filters": {
           "search": "Search",
@@ -400,12 +423,17 @@
             "label": "Create",
             "content": "Create athlete"
           }
+        },
+        "noEntries": {
+          "link": "Request access",
+          "text": "to manage athletes"
         }
       },
       "actions": {
         "delete": "Delete",
         "edit": "Edit",
-        "openDetails": "Details"
+        "openDetails": "Details",
+        "export": "Export"
       }
     },
     "trainerDatagrid": {
@@ -483,26 +511,82 @@
         "ageAtRecording": "Calculated age at recording: "
       }
     },
+    "swimCertificateSection": {
+      "noCertificateWarning": "No swim certificate achieved",
+      "deleteButton": "Delete Certificate",
+      "certificateLabel": {
+        "endurance": "Endurance",
+        "sprint": "Sprint",
+        "junior": "<12 Years",
+        "senior": "≥12 Years",
+        "sustained": "Sustained Swimming",
+        "clothed": "Clothed Swimming",
+        "badges": "Swimming Badge"
+      }
+    },
     "confirmationPopup": {
       "header": "Are You Sure?",
       "cancelButton": "Cancel",
       "deleteButton": "Delete"
     },
+    "createSwimCertificateModal": {
+      "header": "Create Swim Certificate",
+      "options": {
+        "ENDURANCE": {
+          "label": "Endurance",
+          "description": "Completely swim the endurance course (even if bronze time is not met)"
+        },
+        "SPRINT": {
+          "label": "Sprint",
+          "description": "25 m within or faster than the required time"
+        },
+        "JUNIOR": {
+          "label": "50m without Time Limit",
+          "description": "Under 12 years: 50 m continuously without a time limit"
+        },
+        "SENIOR": {
+          "label": "200m in Maximum 11 Minutes",
+          "description": "Aged 12 and above: 200 m continuously in a maximum of 11 minutes"
+        },
+        "SUSTAINED": {
+          "label": "Sustained Swimming",
+          "description": "15 minutes of continuous swimming (open water allowed)"
+        },
+        "CLOTHED": {
+          "label": "Clothed Swimming",
+          "description": "100 m in 4 minutes with water disrobing (in line with DLRG/DWRK guidelines)"
+        },
+        "BADGES": {
+          "label": "Swimming Badge",
+          "description": "Officially recognized swimming badge"
+        }
+      }
+    },
     "tooltip": {
-      "colorSchemeToggle": "Switch light-/darkmode",
+      "colorSchemeToggle": "Switch between Light/Dark mode",
       "profileButton": "Account Settings",
       "switchUserButton": "Switch User",
-      "logoutButton": "Logout",
-      "languageSelectionButton": "Change language",
-      "selectUser": "Continue with this user",
-      "showPassword": "Show/Hide password",
+      "logoutButton": "Log Out",
+      "languageSelectionButton": "Change Language",
+      "selectUser": "Proceed with this user",
+      "swimCertificate": {
+        "achieved": "Swimming certificate achieved",
+        "notAchieved": "Swimming certificate not achieved"
+      },
+      "showPassword": "Show/Hide Password",
       "athleteUploadDatagrid": {
-        "error": "Die angegebene Athlet*in existiert bereits oder ist inkorrekt",
-        "loading": "Lädt...",
-        "uploaded": "Athlet*in wurde hochgeladen",
-        "valid": "Athlet*in kann hochgeladen werden"
+        "error": "The specified athlete already exists or is incorrect",
+        "loading": "Loading...",
+        "uploaded": "Athlete has been uploaded",
+        "valid": "Athlete can be uploaded"
       },
       "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
+    },
+    "athleteExportModal": {
+      "header": "Athlete Export",
+      "exportButton": "Export",
+      "performanceCheckbox": "Include Performance Metrics",
+      "removeFromSelectionButton": "Remove"
     }
   }
 }

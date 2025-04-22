@@ -8,6 +8,7 @@ import {
 import { useCallback } from "react";
 import config from "../config";
 import useAxiosInstance from "./useAxiosInstance";
+import { SwimmingCertificateType } from "@customTypes/enums";
 
 const useApi = () => {
   const axiosInstance = useAxiosInstance(config.backendBaseUrl);
@@ -344,6 +345,44 @@ const useApi = () => {
     }
   }, [axiosInstance]);
 
+  const addSwimmingCertificate = useCallback(
+    async (athleteId: number, certificate: SwimmingCertificateType) => {
+      try {
+        const response = await axiosInstance!.post(
+          `/athletes/${athleteId}/swimming-certificate`,
+          JSON.stringify(certificate),
+          { headers: { "Content-Type": "application/json" } },
+        );
+        return response.data.data as Athlete;
+      } catch (error) {
+        console.error(
+          `Error while adding swimming certificate for athlete with id: ${athleteId}`,
+          error,
+        );
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
+
+  const deleteSwimmingCertificate = useCallback(
+    async (athleteId: number) => {
+      try {
+        const response = await axiosInstance!.delete(
+          `/athletes/${athleteId}/swimming-certificate`,
+        );
+        return response.data.data as Athlete;
+      } catch (error) {
+        console.error(
+          `Error while deleting swimming certificate for athlete with id: ${athleteId}`,
+          error,
+        );
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
+
   return {
     loginUser,
     logoutUser,
@@ -366,6 +405,8 @@ const useApi = () => {
     createPerformanceRecording,
     deletePerformanceRecording,
     getDisciplineMetrics,
+    addSwimmingCertificate,
+    deleteSwimmingCertificate,
     approveRequest,
     requestAthlete,
     searchAthletes,

@@ -27,6 +27,7 @@ import FilterComponent, {
 } from "./GenericResponsiveDatagridFilterComponent";
 import MobileTable, { MobileTableRendering } from "./MobileTable";
 import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const ESTIMATED_HEIGHT_OF_ROW = 95;
 const DEFAULT_MAX_VISIBLE_ON_PAGE = Math.floor(
@@ -65,6 +66,8 @@ interface GenericResponsiveDatagridProps<T> {
   mobileRendering: MobileTableRendering<T>;
   onItemClick?: (item: T) => void;
   disablePaging?: boolean;
+  messageIfNoEntriesFound?: React.ReactNode;
+  heightIfNoEntriesFound?: string;
 }
 
 /**
@@ -280,7 +283,7 @@ const GenericResponsiveDatagrid = <T,>(
                     filterValues={filterValues}
                   />
                   <Button color="primary" onClick={() => setFilterOpen(false)}>
-                    Submit
+                    {t("generic.confirm")}
                   </Button>
                 </>
               ) : (
@@ -360,6 +363,8 @@ const GenericResponsiveDatagrid = <T,>(
           actionMenu={props.actionMenu}
           rowOnClick={props.onItemClick}
           allItems={props.data}
+          messageIfNoEntriesFound={props.messageIfNoEntriesFound}
+          heightIfNoEntriesFound={props.heightIfNoEntriesFound}
         />
       </Sheet>
 
@@ -440,9 +445,17 @@ const ActionButton = <T,>(
     setLoading(false);
   };
 
+  const propsWithoutStuff: any = { ...props };
+  delete propsWithoutStuff.getSelectedItems;
+  delete propsWithoutStuff.buttonAction;
+
   return (
     <Button
+<<<<<<< HEAD
       {...props}
+=======
+      {...propsWithoutStuff}
+>>>>>>> aa6aca2c3b6be7bb4c60fe755cd65ed8eccfb67e
       color={props.buttonAction.color ?? "neutral"}
       onClick={() => triggerActionForSelected()}
       key={props.buttonAction.key}

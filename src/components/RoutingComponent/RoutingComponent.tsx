@@ -3,13 +3,13 @@ import PageLayout from "@components/PageLayout/PageLayout";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import AthleteDetailPage from "@pages/Athletes/AthleteDetailPage";
 import AthleteOverviewPage from "@pages/Athletes/AthleteOverviewPage";
-import PdfDownloadPage from "@pages/Downloads/PdfDownloadPage";
 import HomePage from "@pages/Home/HomePage";
 import InDevelopmentPage from "@pages/InDevelopment/InDevelopmentPage";
 import CreditsPage from "@pages/Legal/CreditsPage";
 import ImprintPage from "@pages/Legal/ImprintPage";
 import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
 import LoginPage from "@pages/Login/LoginPage";
+import MaterialsDownloadPage from "@pages/MaterialsDownloadPage/MaterialsDownloadPage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
 import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import PerformanceMetricsPage from "@pages/PerformanceMetrics/PerformanceMetricsPage";
@@ -20,6 +20,7 @@ import ValidateInvitePage from "@pages/AcceptTrainerAccessRequestPage/AcceptTrai
 import { useContext } from "react";
 
 import { Route, Routes } from "react-router";
+import AthletePerfomanceViewPage from "@pages/AthletePerformanceView/AthletePerformanceViewPage";
 
 const RoutingComponent = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -52,10 +53,10 @@ const RoutingComponent = () => {
           {/* ATHLETE */}
           <Route path="/dashboard" element={<InDevelopmentPage />} />
           <Route path="/requirements" element={<PerformanceMetricsPage />} />
-          <Route path="/performances" element={<InDevelopmentPage />} />
+          <Route path="/performances" element={<AthletePerfomanceViewPage />} />
 
           {/* Shared Pages */}
-          <Route path="/downloads" element={<PdfDownloadPage />} />
+          <Route path="/materials" element={<MaterialsDownloadPage />} />
           <Route path="/help" element={<InDevelopmentPage />} />
         </Route>
 

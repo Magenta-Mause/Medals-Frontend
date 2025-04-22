@@ -6,7 +6,7 @@ import {
 } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
-import { Chip, Typography } from "@mui/joy";
+import { Typography } from "@mui/joy";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosCreate } from "react-icons/io";
@@ -17,14 +17,16 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import MedalIcon from "@components/MedalIcon/MedalIcon";
+import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
 import { calculatePerformanceRecordingMedal } from "@utils/calculationUtil";
+import { UserType } from "@customTypes/enums";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];
   isLoading: boolean;
   athlete?: Athlete;
   discipline?: Discipline;
+  selectedUserTyp: UserType;
 }
 
 const PerformanceRecordingDatagrid = (
@@ -77,11 +79,12 @@ const PerformanceRecordingDatagrid = (
   ];
 
   const mobileRendering: MobileTableRendering<PerformanceRecording> = {
-    avatar: () => {
+    avatar: (item) => {
       return (
-        <Chip
-          sx={{ aspectRatio: 1, height: 45, backgroundColor: "gold" }}
-        ></Chip>
+        <MedalIcon
+          category={item.discipline_rating_metric.discipline.category}
+          medalType={calculatePerformanceRecordingMedal(item)}
+        />
       );
     },
     h1: (p) => (
@@ -128,23 +131,26 @@ const PerformanceRecordingDatagrid = (
     },
   ];
 
-  const actions: ToolbarAction[] = props.athlete
-    ? [
-        {
-          label: t("pages.athleteDetailPage.createPerformanceRecordingButton"),
-          key: "addRecording",
-          operation: async () => {
-            await setCreationModalOpen(true);
+  const actions: ToolbarAction[] =
+    props.athlete && props.selectedUserTyp === UserType.TRAINER
+      ? [
+          {
+            label: t(
+              "pages.athleteDetailPage.createPerformanceRecordingButton",
+            ),
+            key: "addRecording",
+            operation: async () => {
+              await setCreationModalOpen(true);
+            },
+            icon: <IoIosCreate />,
+            content: t(
+              "components.performanceRecordingDatagrid.actions.add.text",
+            ),
+            color: "primary",
+            variant: "solid",
           },
-          icon: <IoIosCreate />,
-          content: t(
-            "components.performanceRecordingDatagrid.actions.add.text",
-          ),
-          color: "primary",
-          variant: "solid",
-        },
-      ]
-    : [];
+        ]
+      : [];
 
   return (
     <>
@@ -159,12 +165,18 @@ const PerformanceRecordingDatagrid = (
         filters={filters}
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
-        toolbarActions={actions}
-        actionMenu={options}
-        itemSelectionActions={options}
+        toolbarActions={
+          props.selectedUserTyp === UserType.TRAINER ? actions : undefined
+        }
+        actionMenu={
+          props.selectedUserTyp === UserType.TRAINER ? options : undefined
+        }
+        itemSelectionActions={
+          props.selectedUserTyp === UserType.TRAINER ? options : undefined
+        }
         disablePaging
       />
-      {props.athlete ? (
+      {props.athlete && props.selectedUserTyp === UserType.TRAINER ? (
         <CreatePerformanceRecordingModal
           open={isCreationModalOpen}
           setOpen={setCreationModalOpen}

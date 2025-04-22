@@ -1,4 +1,4 @@
-import { Box, Button, Card, Modal, Typography } from "@mui/joy";
+import { Box, Button, Modal, ModalDialog, Typography } from "@mui/joy";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -18,23 +18,18 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Modal open={open} onClose={onClose}>
-      <Box
+    <>
+      <Modal
+        open={open}
+        onClose={onClose}
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          margin: "auto",
-          transform: {
-            md: "translateX(calc(var(--Sidebar-width) / 2))",
-            xs: "none",
+          left: {
+            md: "var(--Sidebar-width)",
+            sm: "0",
           },
-          width: "30vw",
-          height: "100dvh",
         }}
       >
-        <Card sx={{ width: "auto", maxWidth: "90%", pl: 3, pr: 3 }}>
+        <ModalDialog sx={{ maxWidth: "450px" }}>
           <Typography
             level="h4"
             component="h2"
@@ -58,9 +53,9 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
               {t("components.confirmationPopup.deleteButton")}
             </Button>
           </Box>
-        </Card>
-      </Box>
-    </Modal>
+        </ModalDialog>
+      </Modal>
+    </>
   );
 };
 

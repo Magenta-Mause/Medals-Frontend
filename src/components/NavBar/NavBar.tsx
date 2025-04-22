@@ -43,7 +43,7 @@ import Tooltip from "@components/HoverTooltip/HoverTooltip";
 
 const sharedNavBarElements = [
   {
-    path: "/downloads",
+    path: "/materials",
     icon: <Download />,
   },
   {
@@ -248,7 +248,6 @@ const NavBar = () => {
           size="sm"
           sx={{
             gap: 1,
-            "--List-nestedInsetStart": "30px",
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
             justifyContent: "flex-end",
             padding: "none",
