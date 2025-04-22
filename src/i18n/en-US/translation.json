@@ -151,6 +151,9 @@
     "trainerOverviewPage": {
       "header": "Trainers"
     },
+    "adminOverviewPage": {
+      "header": "Admins"
+    },
     "notFound": {
       "h1": "404",
       "h2": "Page not found"
@@ -337,6 +340,7 @@
         "/": "Home",
         "/athletes": "Athletes",
         "/trainer": "Trainer",
+        "/admins": "Admins",
         "/performanceMetrics": "Performance Metrics",
         "/assignAthlete": "Assign Athlete",
         "/dashboard": "Dashboard",

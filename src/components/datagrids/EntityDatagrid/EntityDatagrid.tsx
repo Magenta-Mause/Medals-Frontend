@@ -18,33 +18,40 @@ interface EntityWithBasicInfo {
 }
 
 interface EntityDatagridProps<T extends EntityWithBasicInfo> {
-    entities: T[];
-    isLoading: boolean;
-    entityType: 'trainer' | 'admin';
-    entityPrefix?: string; // e.g., "TRN-" or "ADM-"
-    ModalComponent: React.ComponentType<{
-      isOpen: boolean;
-      setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    }>;
-    deleteEntity: (id: number) => Promise<any>;
-  }
+  entities: T[];
+  isLoading: boolean;
+  entityType: "trainer" | "admin";
+  entityPrefix?: string; // e.g., "TRN-" or "ADM-"
+  ModalComponent: React.ComponentType<{
+    isOpen: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  }>;
+  deleteEntity: (id: number) => Promise<any>;
+}
 
 function EntityDatagrid<T extends EntityWithBasicInfo>({
   entities,
   isLoading,
   entityType,
-  entityPrefix = '',
+  entityPrefix = "",
   ModalComponent,
-  deleteEntity
+  deleteEntity,
 }: EntityDatagridProps<T>) {
   const { t } = useTranslation();
   const [addModalOpen, setAddModalOpen] = useState(false);
 
   const columns: Column<T>[] = [
     {
-      columnName: t(`components.${entityType}Datagrid.table.columns.${entityType}Id`),
+      columnName: t(
+        `components.${entityType}Datagrid.table.columns.${entityType}Id`,
+      ),
       columnMapping(item) {
-        return <Typography color="primary">{entityPrefix}{item.id}</Typography>;
+        return (
+          <Typography color="primary">
+            {entityPrefix}
+            {item.id}
+          </Typography>
+        );
       },
       size: "s",
       sortable: true,
@@ -93,8 +100,12 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
 
   const toolbarActions: ToolbarAction[] = [
     {
-      label: t(`components.${entityType}Datagrid.table.toolbar.add${entityType[0].toUpperCase() + entityType.slice(1)}.label`),
-      content: t(`components.${entityType}Datagrid.table.toolbar.add${entityType[0].toUpperCase() + entityType.slice(1)}.content`),
+      label: t(
+        `components.${entityType}Datagrid.table.toolbar.add${entityType[0].toUpperCase() + entityType.slice(1)}.label`,
+      ),
+      content: t(
+        `components.${entityType}Datagrid.table.toolbar.add${entityType[0].toUpperCase() + entityType.slice(1)}.content`,
+      ),
       icon: <Add />,
       collapseToText: true,
       color: "primary",
@@ -160,11 +171,8 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
       />
-      
-      <ModalComponent 
-        isOpen={addModalOpen}
-        setOpen={setAddModalOpen}
-      />
+
+      <ModalComponent isOpen={addModalOpen} setOpen={setAddModalOpen} />
     </>
   );
 }

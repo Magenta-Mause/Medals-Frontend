@@ -7,7 +7,10 @@ interface AdminInvitationModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AdminInvitationModal = ({ isOpen, setOpen }: AdminInvitationModalProps) => {
+const AdminInvitationModal = ({
+  isOpen,
+  setOpen,
+}: AdminInvitationModalProps) => {
   const { inviteAdmin } = useApi();
 
   return (

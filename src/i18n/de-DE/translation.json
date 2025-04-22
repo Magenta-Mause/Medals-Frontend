@@ -152,6 +152,9 @@
     "trainerOverviewPage": {
       "header": "Trainer*innen"
     },
+    "adminOverviewPage": {
+      "header": "Admins"
+    },
     "notFound": {
       "h1": "404",
       "h2": "Seite konnte nicht gefunden werden"
@@ -349,6 +352,7 @@
         "/": "Start",
         "/athletes": "Athlet*innen",
         "/trainer": "Trainer*innen",
+        "/admins": "Admins",
         "/performanceMetrics": "Leistungswerte",
         "/assignAthlete": "Athlet*in zuweisen",
         "/dashboard": "Dashboard",

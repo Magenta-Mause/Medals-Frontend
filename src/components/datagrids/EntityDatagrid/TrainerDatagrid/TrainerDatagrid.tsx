@@ -10,7 +10,7 @@ interface TrainerDatagridProps {
 
 const TrainerDatagrid = (props: TrainerDatagridProps) => {
   const { deleteTrainer } = useApi();
-  
+
   return (
     <EntityDatagrid
       entities={props.trainers}

@@ -10,7 +10,7 @@ interface AdminsDatagridProps {
 
 const AdminsDatagrid = (props: AdminsDatagridProps) => {
   const { deleteAdmin } = useApi();
-  
+
   return (
     <EntityDatagrid
       entities={props.admins}

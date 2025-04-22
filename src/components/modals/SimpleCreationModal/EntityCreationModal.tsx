@@ -1,4 +1,3 @@
-import useApi from "@hooks/useApi";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";

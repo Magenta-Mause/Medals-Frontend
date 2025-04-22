@@ -7,7 +7,10 @@ interface TrainerInvitationModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const TrainerInvitationModal = ({ isOpen, setOpen }: TrainerInvitationModalProps) => {
+const TrainerInvitationModal = ({
+  isOpen,
+  setOpen,
+}: TrainerInvitationModalProps) => {
   const { inviteTrainer } = useApi();
 
   return (
