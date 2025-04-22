@@ -1,4 +1,4 @@
-import TrainerInvitationModal from "@components/modals/TrainerInvitationModal/TrainerInvitatonModal";
+import TrainerInvitationModal from "@components/modals/SimpleCreationModal/trainer/TrainerInvitatonModal";
 import { Trainer } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Add } from "@mui/icons-material";
