@@ -4,6 +4,7 @@ import {
   PerformanceRecordingCreationDto,
   Trainer,
   DisciplineRatingMetric,
+  Admin,
 } from "@customTypes/backendTypes";
 import { useCallback } from "react";
 import config from "../config";
@@ -121,7 +122,7 @@ const useApi = () => {
         const request = await axiosInstance!.post(`/trainers`, trainer);
         if (request.status !== 201)
           throw new Error(
-            `failed to create athlete, status code: ${request.status}`,
+            `failed to create trainer, status code: ${request.status}`,
           );
         return true;
       } catch (error) {
@@ -145,6 +146,27 @@ const useApi = () => {
         throw new Error("Error during athlete creation");
       }
       return response.status == 201;
+    },
+    [axiosInstance],
+  );
+
+  const inviteAdmin = useCallback(
+    async (admin: Admin) => {
+      try {
+        const request = await axiosInstance!.post(`/admins`, {
+          first_name: admin.first_name,
+          last_name: admin.last_name,
+          email: admin.email,
+        });
+        if (request.status !== 201)
+          throw new Error(
+            `failed to create admin, status code: ${request.status}`,
+          );
+        return true;
+      } catch (error) {
+        console.error(`Error while adding admin`, error);
+        throw error;
+      }
     },
     [axiosInstance],
   );
@@ -383,6 +405,16 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const getAdmins = useCallback(async () => {
+    try {
+      const response = await axiosInstance!.get("/admins");
+      return response.data.data as Admin[];
+    } catch (error) {
+      console.error("Error while fetching admins", error);
+      return [];
+    }
+  }, [axiosInstance]);
+
   return {
     loginUser,
     logoutUser,
@@ -390,7 +422,9 @@ const useApi = () => {
     deleteAthlete,
     getAthlete,
     getAthletes,
+    inviteAdmin,
     deleteAdmin,
+    getAdmins,
     setPassword,
     createAthlete,
     resetPassword,
