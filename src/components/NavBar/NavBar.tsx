@@ -15,6 +15,7 @@ import {
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
+  AdminPanelSettings,
   PersonAdd,
   SearchRounded,
   SpaceDashboard,
@@ -75,6 +76,10 @@ const navBarElements = new Map<
       {
         path: "/trainer",
         icon: <PeopleRounded />,
+      },
+      {
+        path: "/admins",
+        icon: <AdminPanelSettings />,
       },
     ],
   ],

@@ -15,6 +15,7 @@ import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import PerformanceMetricsPage from "@pages/PerformanceMetrics/PerformanceMetricsPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
+import AdminsOverviewPage from "@pages/Admins/AdminsOverviewPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
 import ValidateInvitePage from "@pages/AcceptTrainerAccessRequestPage/AcceptTrainerAccessRequestPage";
 import { useContext } from "react";
@@ -39,6 +40,7 @@ const RoutingComponent = () => {
         <Route element={<ProtectedRoute userRole={selectedUser?.type} />}>
           {/* ADMIN */}
           <Route path="/trainer" element={<TrainerOverviewPage />} />
+          <Route path="/admins" element={<AdminsOverviewPage />} />
 
           {/* TRAINER */}
           <Route path="/athletes" element={<AthleteOverviewPage />} />
