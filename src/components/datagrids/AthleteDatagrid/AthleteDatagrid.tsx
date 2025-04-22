@@ -1,6 +1,6 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import { Box, Link, Typography} from "@mui/joy";
+import { Box, Link, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -22,8 +22,6 @@ import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
 
-
-
 interface AthleteDatagridProps {
   athletes: Athlete[];
   isLoading: boolean;
@@ -44,18 +42,19 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
   const currentYear = new Date().getFullYear();
 
-  function calculateAge(birthdate: Date): String {
+  function calculateAge(birthdate: Date): string {
     const today = new Date();
     let age = today.getFullYear() - birthdate.getFullYear();
-  
+
     const hasHadBirthdayThisYear =
       today.getMonth() > birthdate.getMonth() ||
-      (today.getMonth() === birthdate.getMonth() && today.getDate() >= birthdate.getDate());
-  
+      (today.getMonth() === birthdate.getMonth() &&
+        today.getDate() >= birthdate.getDate());
+
     if (!hasHadBirthdayThisYear) {
       age--;
     }
-  
+
     return String(age);
   }
 
@@ -211,7 +210,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           calculateAge(new Date(athlete.birthdate)) == filterParameter;
       },
       type: "SELECTION",
-      selection: selection
+      selection: selection,
     },
   ];
 
