@@ -1,4 +1,4 @@
-import AdminsDatagrid from "@components/datagrids/AdminsDatagrid/AdminsDatagrid";
+import AdminsDatagrid from "@components/datagrids/EntityDatagrid/AdminsDatagrid/AdminsDatagrid";
 import { Box, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
