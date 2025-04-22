@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import GenericModal from "../GenericModal";
 
-interface SimpleGenericCreationModal<T> {
+interface EntityCreationModal<T> {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   header: string;
@@ -17,7 +17,7 @@ interface SimpleGenericCreationModal<T> {
   errorMessage: string;
 }
 
-function SimpleGenericCreationModal<T>({
+function EntityCreationModal<T>({
   isOpen,
   setOpen,
   header,
@@ -25,7 +25,7 @@ function SimpleGenericCreationModal<T>({
   inviteFunction,
   successMessage,
   errorMessage,
-}: SimpleGenericCreationModal<T>) {
+}: EntityCreationModal<T>) {
   const { enqueueSnackbar } = useSnackbar();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslation();
@@ -55,4 +55,4 @@ function SimpleGenericCreationModal<T>({
   );
 }
 
-export default SimpleGenericCreationModal;
+export default EntityCreationModal;

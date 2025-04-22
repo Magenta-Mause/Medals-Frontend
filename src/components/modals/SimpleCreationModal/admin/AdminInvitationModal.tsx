@@ -1,6 +1,6 @@
 import useApi from "@hooks/useApi";
-import SimpleGenericCreationModal from "../SimpleGenericCreationModal";
-import SimpleInvitationForm from "../SimpleInvitationForm";
+import SimpleGenericCreationModal from "../EntityCreationModal";
+import SimpleInvitationForm from "../EntityInvitationForm";
 
 interface AdminInvitationModalProps {
   isOpen: boolean;
