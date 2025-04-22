@@ -44,6 +44,29 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
   const currentYear = new Date().getFullYear();
 
+  function calculateAge(birthdate: Date): String {
+    const today = new Date();
+    let age = today.getFullYear() - birthdate.getFullYear();
+  
+    const hasHadBirthdayThisYear =
+      today.getMonth() > birthdate.getMonth() ||
+      (today.getMonth() === birthdate.getMonth() && today.getDate() >= birthdate.getDate());
+  
+    if (!hasHadBirthdayThisYear) {
+      age--;
+    }
+  
+    return String(age);
+  }
+
+  const selection = Array.from({ length: 12 }, (_, i) => {
+    const value = (i + 6).toString();
+    return {
+      displayValue: Number(value),
+      value,
+    };
+  });
+
   const noAthleteFoundMessage = (
     <Box sx={{ width: "250px" }}>
       <Box
@@ -178,6 +201,17 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           value: "MALE",
         },
       ],
+    },
+    {
+      name: "age",
+      label: t("components.athleteDatagrid.table.filters.age"),
+      apply(filterParameter) {
+        return (athlete) =>
+          filterParameter == "" ||
+          calculateAge(new Date(athlete.birthdate)) == filterParameter;
+      },
+      type: "SELECTION",
+      selection: selection
     },
   ];
 

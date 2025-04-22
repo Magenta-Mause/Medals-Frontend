@@ -412,7 +412,8 @@
         "filters": {
           "search": "Search",
           "birthYear": "Birth year",
-          "gender": "Gender"
+          "gender": "Gender",
+          "age": "Age"
         },
         "toolbar": {
           "addAthlete": {
