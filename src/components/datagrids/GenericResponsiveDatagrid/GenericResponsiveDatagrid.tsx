@@ -451,11 +451,7 @@ const ActionButton = <T,>(
 
   return (
     <Button
-<<<<<<< HEAD
-      {...props}
-=======
       {...propsWithoutStuff}
->>>>>>> aa6aca2c3b6be7bb4c60fe755cd65ed8eccfb67e
       color={props.buttonAction.color ?? "neutral"}
       onClick={() => triggerActionForSelected()}
       key={props.buttonAction.key}
