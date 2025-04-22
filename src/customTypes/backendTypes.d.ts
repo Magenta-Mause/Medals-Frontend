@@ -65,6 +65,13 @@ export interface Trainer {
   email: string;
 }
 
+export interface Admin {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
 export interface PerformanceRecording {
   id: number;
   athlete_id: number;
