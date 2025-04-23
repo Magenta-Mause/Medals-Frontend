@@ -15,7 +15,6 @@ import {
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
-  PersonAdd,
   SearchRounded,
   SpaceDashboard,
   SupervisedUserCircleOutlined,

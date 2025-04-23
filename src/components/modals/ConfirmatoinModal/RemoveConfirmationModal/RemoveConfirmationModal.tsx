@@ -1,7 +1,6 @@
 import useApi from "@hooks/useApi";
-import { Box, Button, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Athlete } from "@customTypes/backendTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import GenericConfirmationModal from "@components/modals/ConfirmatoinModal/GenericConfirmationModal";
