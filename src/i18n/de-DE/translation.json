@@ -90,9 +90,9 @@
       "failed": "Es konnte kein Account gefunden werden",
       "success": "Bestätigungs E-Mail gesendet"
     },
-    "inviteTrainer": {
-      "failed": "Die Trainer*in konnte nicht eingeladen werden",
-      "success": "Die Trainer*in wurde eingeladen"
+    "invite": {
+      "success": "Erfolgreich eingeladen",
+      "failed": "Einladung fehlgeschlagen"
     },
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
@@ -477,12 +477,25 @@
         "toolbar": {
           "add": {
             "label": "Einladen",
-            "content": "{entityType} Einladen"
+            "content": "{{entityType}} einladen"
           }
         }
       },
       "actions": {
         "delete": "Löschen"
+      }
+    },
+    "entityInvitation": {
+      "modal": {
+        "header": "{{entityType}} einladen"
+      },
+      "form": {
+        "email": "E-Mail",
+        "firstName": "Vorname",
+        "firstNamePlaceholder": "Max",
+        "lastName": "Nachname",
+        "lastNamePlaceholder": "Mustermann",
+        "confirm": "{{entityType}} einladen"
       }
     },
     "buttons": {

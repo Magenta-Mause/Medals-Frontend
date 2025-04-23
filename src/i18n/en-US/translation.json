@@ -88,9 +88,9 @@
       "failed": "We couldnt find an account connected to that email",
       "success": "Verification email sent"
     },
-    "inviteTrainer": {
-      "failed": "Failed to invite trainer",
-      "success": "Trainer was invited successfully"
+    "invite": {
+      "success": "Successfully invited",
+      "failed": "Failed to invite"
     },
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
@@ -466,12 +466,25 @@
         "toolbar": {
           "add": {
             "label": "Invite",
-            "content": "Invite {entityType}"
+            "content": "Invite {{entityType}}"
           }
         }
       },
       "actions": {
         "delete": "Delete"
+      }
+    },
+    "entityInvitation": {
+      "modal": {
+        "header": "Invite {{entityType}}"
+      },
+      "form": {
+        "email": "Email",
+        "firstName": "First Name",
+        "firstNamePlaceholder": "John",
+        "lastName": "Last Name",
+        "lastNamePlaceholder": "Doe",
+        "confirm": "Invite {{entityType}}"
       }
     },
     "buttons": {

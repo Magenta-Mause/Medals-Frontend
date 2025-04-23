@@ -1,6 +1,6 @@
 import useApi from "@hooks/useApi";
-import SimpleGenericCreationModal from "../EntityCreationModal";
-import SimpleInvitationForm from "../EntityInvitationForm";
+import EntityCreationModal from "../EntityCreationModal";
+import EntityInvitationForm from "../EntityInvitationForm";
 
 interface AdminInvitationModalProps {
   isOpen: boolean;
@@ -14,14 +14,15 @@ const AdminInvitationModal = ({
   const { inviteAdmin } = useApi();
 
   return (
-    <SimpleGenericCreationModal
+    <EntityCreationModal
       isOpen={isOpen}
       setOpen={setOpen}
-      header="components.adminDatagrid.table.toolbar.addAdmin.content"
-      FormComponent={SimpleInvitationForm}
+      header="components.entityInvitation.modal.header"
+      FormComponent={EntityInvitationForm}
       inviteFunction={(data) => inviteAdmin({ ...data, id: -1 })}
-      successMessage="snackbar.inviteAdmin.success"
-      errorMessage="snackbar.inviteAdmin.failed"
+      successMessage="snackbar.invite.success"
+      errorMessage="snackbar.invite.failed"
+      entityType="admin"
     />
   );
 };

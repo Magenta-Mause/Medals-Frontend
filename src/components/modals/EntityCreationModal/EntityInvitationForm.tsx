@@ -3,7 +3,7 @@ import { emailRegex } from "constants/regex";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-interface TrainerInvitationFormElement extends HTMLFormElement {
+interface EntityInvitationFormElement extends HTMLFormElement {
   readonly elements: FormElements;
 }
 
@@ -13,14 +13,17 @@ interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
 }
 
-const TrainerInvitationForm = (props: {
+interface EntityFormProps {
   inviteCallback: (formValues: {
     first_name: string;
     last_name: string;
     email: string;
   }) => void;
   isPending: boolean;
-}) => {
+  entityType: "trainer" | "admin";
+}
+
+const EntityInvitationForm = ({ inviteCallback, isPending, entityType }: EntityFormProps) => {
   const { t } = useTranslation();
   const [emailValid, setEmailValid] = useState(true);
   const [firstNameValid, setFirstNameValid] = useState(true);
@@ -30,8 +33,8 @@ const TrainerInvitationForm = (props: {
     return emailRegex.test(email);
   };
 
-  const submitInviteTrainer = (
-    event: React.FormEvent<TrainerInvitationFormElement>,
+  const submitInvite = (
+    event: React.FormEvent<EntityInvitationFormElement>,
   ) => {
     event.preventDefault();
     const formElements = event.currentTarget.elements;
@@ -59,16 +62,16 @@ const TrainerInvitationForm = (props: {
     }
 
     if (valid) {
-      props.inviteCallback(data);
+      inviteCallback(data);
     }
   };
 
   return (
-    <form onSubmit={submitInviteTrainer}>
+    <form onSubmit={submitInvite}>
       <Box sx={{ display: "flex", alignItems: "center", gap: 2, marginTop: 1 }}>
         <FormControl sx={{ width: "100%" }}>
           <FormLabel>
-            {t("components.trainerDatagrid.inviteModal.email")}
+            {t("components.entityInvitation.form.email")}
           </FormLabel>
           <Input
             name="email"
@@ -78,7 +81,7 @@ const TrainerInvitationForm = (props: {
               setEmailValid(true);
             }}
             error={!emailValid}
-            disabled={props.isPending}
+            disabled={isPending}
           />
         </FormControl>
       </Box>
@@ -86,18 +89,18 @@ const TrainerInvitationForm = (props: {
       <Box sx={{ display: "flex", alignItems: "center", gap: 2, marginTop: 2 }}>
         <FormControl sx={{ width: "100%" }}>
           <FormLabel>
-            {t("components.trainerDatagrid.inviteModal.firstName")}
+            {t("components.entityInvitation.form.firstName")}
           </FormLabel>
           <Input
             name="first_name"
             placeholder={t(
-              "components.trainerDatagrid.inviteModal.firstNamePlaceholder",
+              "components.entityInvitation.form.firstNamePlaceholder"
             )}
             onChange={() => {
               setFirstNameValid(true);
             }}
             error={!firstNameValid}
-            disabled={props.isPending}
+            disabled={isPending}
           />
         </FormControl>
       </Box>
@@ -105,27 +108,29 @@ const TrainerInvitationForm = (props: {
       <Box sx={{ display: "flex", alignItems: "center", gap: 2, marginTop: 2 }}>
         <FormControl sx={{ width: "100%" }}>
           <FormLabel>
-            {t("components.trainerDatagrid.inviteModal.lastName")}
+            {t("components.entityInvitation.form.lastName")}
           </FormLabel>
           <Input
             name="last_name"
             size="md"
             placeholder={t(
-              "components.trainerDatagrid.inviteModal.lastNamePlaceholder",
+              "components.entityInvitation.form.lastNamePlaceholder"
             )}
             onChange={() => {
               setLastNameValid(true);
             }}
             error={!lastNameValid}
-            disabled={props.isPending}
+            disabled={isPending}
           />
         </FormControl>
       </Box>
-      <Button type="submit" loading={props.isPending} sx={{ marginTop: 3 }}>
-        {t("components.trainerDatagrid.inviteModal.confirm")}
+      <Button type="submit" loading={isPending} sx={{ marginTop: 3 }}>
+        {t("components.entityInvitation.form.confirm", {
+          entityType: t(`generic.${entityType}.singular`)
+        })}
       </Button>
     </form>
   );
 };
 
-export default TrainerInvitationForm;
+export default EntityInvitationForm;

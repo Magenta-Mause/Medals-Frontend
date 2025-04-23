@@ -3,17 +3,19 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import GenericModal from "../GenericModal";
 
-interface EntityCreationModal<T> {
+interface EntityCreationModalProps<T> {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   header: string;
   FormComponent: React.ComponentType<{
     inviteCallback: (formValues: T) => void;
     isPending: boolean;
+    entityType: "trainer" | "admin";
   }>;
   inviteFunction: (data: T) => Promise<boolean>;
   successMessage: string;
   errorMessage: string;
+  entityType: "trainer" | "admin";
 }
 
 function EntityCreationModal<T>({
@@ -24,7 +26,8 @@ function EntityCreationModal<T>({
   inviteFunction,
   successMessage,
   errorMessage,
-}: EntityCreationModal<T>) {
+  entityType,
+}: EntityCreationModalProps<T>) {
   const { enqueueSnackbar } = useSnackbar();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslation();
@@ -44,12 +47,16 @@ function EntityCreationModal<T>({
 
   return (
     <GenericModal
-      header={t(header)}
+      header={t(header, { entityType: t(`generic.${entityType}.singular`) })}
       open={isOpen}
       setOpen={setOpen}
       modalDialogSX={{ minWidth: "30%" }}
     >
-      <FormComponent inviteCallback={handleSubmit} isPending={isSubmitting} />
+      <FormComponent 
+        inviteCallback={handleSubmit} 
+        isPending={isSubmitting} 
+        entityType={entityType}
+      />
     </GenericModal>
   );
 }
