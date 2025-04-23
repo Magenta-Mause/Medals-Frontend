@@ -23,7 +23,11 @@ interface EntityFormProps {
   entityType: "trainer" | "admin";
 }
 
-const EntityInvitationForm = ({ inviteCallback, isPending, entityType }: EntityFormProps) => {
+const EntityInvitationForm = ({
+  inviteCallback,
+  isPending,
+  entityType,
+}: EntityFormProps) => {
   const { t } = useTranslation();
   const [emailValid, setEmailValid] = useState(true);
   const [firstNameValid, setFirstNameValid] = useState(true);
@@ -70,9 +74,7 @@ const EntityInvitationForm = ({ inviteCallback, isPending, entityType }: EntityF
     <form onSubmit={submitInvite}>
       <Box sx={{ display: "flex", alignItems: "center", gap: 2, marginTop: 1 }}>
         <FormControl sx={{ width: "100%" }}>
-          <FormLabel>
-            {t("components.entityInvitation.form.email")}
-          </FormLabel>
+          <FormLabel>{t("components.entityInvitation.form.email")}</FormLabel>
           <Input
             name="email"
             size="md"
@@ -94,7 +96,7 @@ const EntityInvitationForm = ({ inviteCallback, isPending, entityType }: EntityF
           <Input
             name="first_name"
             placeholder={t(
-              "components.entityInvitation.form.firstNamePlaceholder"
+              "components.entityInvitation.form.firstNamePlaceholder",
             )}
             onChange={() => {
               setFirstNameValid(true);
@@ -114,7 +116,7 @@ const EntityInvitationForm = ({ inviteCallback, isPending, entityType }: EntityF
             name="last_name"
             size="md"
             placeholder={t(
-              "components.entityInvitation.form.lastNamePlaceholder"
+              "components.entityInvitation.form.lastNamePlaceholder",
             )}
             onChange={() => {
               setLastNameValid(true);
@@ -126,7 +128,7 @@ const EntityInvitationForm = ({ inviteCallback, isPending, entityType }: EntityF
       </Box>
       <Button type="submit" loading={isPending} sx={{ marginTop: 3 }}>
         {t("components.entityInvitation.form.confirm", {
-          entityType: t(`generic.${entityType}.singular`)
+          entityType: t(`generic.${entityType}.singular`),
         })}
       </Button>
     </form>

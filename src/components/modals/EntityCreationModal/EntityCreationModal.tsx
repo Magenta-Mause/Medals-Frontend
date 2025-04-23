@@ -52,9 +52,9 @@ function EntityCreationModal<T>({
       setOpen={setOpen}
       modalDialogSX={{ minWidth: "30%" }}
     >
-      <FormComponent 
-        inviteCallback={handleSubmit} 
-        isPending={isSubmitting} 
+      <FormComponent
+        inviteCallback={handleSubmit}
+        isPending={isSubmitting}
         entityType={entityType}
       />
     </GenericModal>
