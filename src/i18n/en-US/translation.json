@@ -62,6 +62,18 @@
       "required": "This field is required",
       "tooLong": "This field is too long",
       "invalidEmail": "Invalid email address"
+    },
+    "athlete": {
+      "singular": "Athlete",
+      "plural": "Athletes"
+    },
+    "trainer": {
+      "singular": "Trainer",
+      "plural": "Trainers"
+    },
+    "admin": {
+      "singular": "Admin",
+      "plural": "Admins"
     }
   },
   "snackbar": {
@@ -437,34 +449,26 @@
         "delete": "Delete",
         "edit": "Edit",
         "openDetails": "Details",
-        "export": "Export"
+        "export": "Export",
+        "remove": "Remove"
       }
     },
-    "trainerDatagrid": {
+    "entityDatagrid": {
       "table": {
         "columns": {
-          "trainerId": "Trainer ID",
-          "firstName": "Firstname",
-          "lastName": "Lastname",
+          "firstName": "First Name",
+          "lastName": "Last Name",
           "email": "Email"
         },
         "filters": {
           "search": "Search"
         },
         "toolbar": {
-          "addTrainer": {
+          "add": {
             "label": "Invite",
-            "content": "Invite Trainer"
+            "content": "Invite {entityType}"
           }
         }
-      },
-      "inviteModal": {
-        "email": "Email",
-        "firstName": "Firstname",
-        "firstNamePlaceholder": "John",
-        "lastName": "Lastname",
-        "lastNamePlaceholder": "Doe",
-        "confirm": "Invite Trainer"
       },
       "actions": {
         "delete": "Delete"

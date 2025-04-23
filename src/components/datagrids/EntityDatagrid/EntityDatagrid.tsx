@@ -21,7 +21,6 @@ interface EntityDatagridProps<T extends EntityWithBasicInfo> {
   entities: T[];
   isLoading: boolean;
   entityType: "trainer" | "admin";
-  entityPrefix?: string; // e.g., "TRN-" or "ADM-"
   ModalComponent: React.ComponentType<{
     isOpen: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,7 +32,6 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
   entities,
   isLoading,
   entityType,
-  entityPrefix = "",
   ModalComponent,
   deleteEntity,
 }: EntityDatagridProps<T>) {
@@ -42,36 +40,21 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
 
   const columns: Column<T>[] = [
     {
-      columnName: t(
-        `components.${entityType}Datagrid.table.columns.${entityType}Id`,
-      ),
-      columnMapping(item) {
-        return (
-          <Typography color="primary">
-            {entityPrefix}
-            {item.id}
-          </Typography>
-        );
-      },
-      size: "s",
-      sortable: true,
-    },
-    {
-      columnName: t(`components.${entityType}Datagrid.table.columns.firstName`),
+      columnName: t("components.entityDatagrid.table.columns.firstName"),
       columnMapping(item) {
         return <Typography>{item.first_name}</Typography>;
       },
       sortable: true,
     },
     {
-      columnName: t(`components.${entityType}Datagrid.table.columns.lastName`),
+      columnName: t("components.entityDatagrid.table.columns.lastName"),
       columnMapping(item) {
         return <Typography>{item.last_name}</Typography>;
       },
       sortable: true,
     },
     {
-      columnName: t(`components.${entityType}Datagrid.table.columns.email`),
+      columnName: t("components.entityDatagrid.table.columns.email"),
       size: "l",
       columnMapping(item) {
         return <Typography noWrap>{item.email}</Typography>;
@@ -82,7 +65,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
   const filters: Filter<T>[] = [
     {
       name: "search",
-      label: t(`components.${entityType}Datagrid.table.filters.search`),
+      label: t("components.entityDatagrid.table.filters.search"),
       apply(filterParameter) {
         if (filterParameter == undefined) {
           return () => true;
@@ -100,12 +83,10 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
 
   const toolbarActions: ToolbarAction[] = [
     {
-      label: t(
-        `components.${entityType}Datagrid.table.toolbar.add${entityType[0].toUpperCase() + entityType.slice(1)}.label`,
-      ),
-      content: t(
-        `components.${entityType}Datagrid.table.toolbar.add${entityType[0].toUpperCase() + entityType.slice(1)}.content`,
-      ),
+      label: t("components.entityDatagrid.table.toolbar.add.label"),
+      content: t("components.entityDatagrid.table.toolbar.add.content", {
+        entityType: t(`generic.${entityType}.singular`),
+      }),
       icon: <Add />,
       collapseToText: true,
       color: "primary",
@@ -119,7 +100,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
 
   const actions: Action<T>[] = [
     {
-      label: <>{t(`components.${entityType}Datagrid.actions.delete`)}</>,
+      label: <>{t("components.entityDatagrid.actions.delete")}</>,
       color: "danger",
       key: "delete",
       variant: "solid",
@@ -141,7 +122,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
     bottomButtons: actions,
     searchFilter: {
       name: "search",
-      label: "Search",
+      label: t("components.entityDatagrid.table.filters.search"),
       apply(filterParameter: string | undefined) {
         if (filterParameter == undefined) {
           return () => true;

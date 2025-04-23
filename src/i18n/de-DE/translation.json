@@ -30,6 +30,18 @@
       "required": "Dieses Feld ist erforderlich",
       "tooLong": "Dieses Feld ist zu lang",
       "invalidEmail": "Ungültige E-Mail-Adresse"
+    },
+    "athlete": {
+      "singular": "Athlet*in",
+      "plural": "Athlet*innen"
+    },
+    "trainer": {
+      "singular": "Trainer*in",
+      "plural": "Trainer*innen"
+    },
+    "admin": {
+      "singular": "Admin",
+      "plural": "Admins"
     }
   },
   "disciplines": {
@@ -452,10 +464,9 @@
         "recordedAt": "Aufgenommen am"
       }
     },
-    "trainerDatagrid": {
+    "entityDatagrid": {
       "table": {
         "columns": {
-          "trainerId": "Trainer*in ID",
           "firstName": "Vorname",
           "lastName": "Nachname",
           "email": "E-Mail"
@@ -464,19 +475,11 @@
           "search": "Suche"
         },
         "toolbar": {
-          "addTrainer": {
+          "add": {
             "label": "Einladen",
-            "content": "Trainer*in Einladen"
+            "content": "{entityType} Einladen"
           }
         }
-      },
-      "inviteModal": {
-        "email": "E-Mail",
-        "firstName": "Vorname",
-        "firstNamePlaceholder": "Max",
-        "lastName": "Nachname",
-        "lastNamePlaceholder": "Mustermann",
-        "confirm": "Trainer*in Einladen"
       },
       "actions": {
         "delete": "Löschen"
