@@ -23,7 +23,11 @@ const AthleteInformationBox = () => {
       <GenericDashboardBoxHeader>
         {t("components.athleteDashboard.selectedUser")}
       </GenericDashboardBoxHeader>
-      <GenericDashboardBoxContent>
+      <GenericDashboardBoxContent
+        sx={{
+          height: "100%",
+        }}
+      >
         {athlete.first_name} {athlete.last_name}
       </GenericDashboardBoxContent>
       <GenericDashboardBoxFooter>

@@ -9,6 +9,8 @@ import { Box, useColorScheme } from "@mui/joy";
 import "./AthleteActivityChart.css";
 import { useTranslation } from "react-i18next";
 import PerformanceRecordingViewModal from "@components/modals/PerformanceRecordingViewModal/PerformanceRecordingViewModal";
+import { Medals } from "@customTypes/enums";
+import { calculatePerformanceRecordingMedal } from "@utils/calculationUtil";
 
 const AthleteActivityChart = (props: {
   performanceRecordings: PerformanceRecording[];
@@ -22,17 +24,34 @@ const AthleteActivityChart = (props: {
   const [selectedDate, setSelectedDate] = React.useState<string | null>(null);
 
   const calculateData = useCallback(() => {
-    const countPerDay: Record<string, number> = {};
+    const countPerDay: Record<
+      string,
+      {
+        totalCount: number;
+        countsPerMedal: Record<Medals, number>;
+      }
+    > = {};
     props.performanceRecordings.forEach((recording) => {
       const date = dayjs(recording.date_of_performance).format("YYYY-MM-DD");
       if (!(date in countPerDay)) {
-        countPerDay[date] = 0;
+        countPerDay[date] = {
+          totalCount: 0,
+          countsPerMedal: {
+            [Medals.NONE]: 0,
+            [Medals.GOLD]: 0,
+            [Medals.SILVER]: 0,
+            [Medals.BRONZE]: 0,
+          },
+        };
       }
-      countPerDay[date] += 1;
+      countPerDay[date].totalCount += 1;
+      countPerDay[date].countsPerMedal[
+        calculatePerformanceRecordingMedal(recording)
+      ] += 1;
     });
     return Object.keys(countPerDay).map((date) => ({
       date,
-      value: countPerDay[date],
+      value: countPerDay[date].totalCount,
     }));
   }, [props.performanceRecordings]);
 
@@ -46,6 +65,7 @@ const AthleteActivityChart = (props: {
       setSelectedDate(date.format("YYYY-MM-DD"));
       setPerformanceRecordingViewModalOpen(true);
     });
+
     cal.paint(
       {
         data: {

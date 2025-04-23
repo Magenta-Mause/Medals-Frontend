@@ -6,6 +6,8 @@ import AthletePerformanceRecordingsCountBox from "@components/athleteDashboard/A
 import AthleteSwimCertificateBox from "@components/athleteDashboard/AthleteSwimCertificateBox/AthleteSwimCertificateBox";
 import AthleteActivityBox from "@components/athleteDashboard/AthleteActivityBox/AthleteActivityBox";
 import AthleteTotalMedalBox from "@components/athleteDashboard/AthleteTotalMedalBox/AthleteTotalMedalBox";
+import AthleteCategoryMedalBox from "@components/athleteDashboard/AthleteCategoryMedalBox/AthleteCategoryMedalBox";
+import { DisciplineCategories } from "@customTypes/enums";
 
 const AthleteDashboardPage = () => {
   return (
@@ -29,6 +31,20 @@ const AthleteDashboardPage = () => {
       </GenericDashboardBox>
       <GenericDashboardBox size={{ md: 4, xs: 12 }}>
         <AthleteTotalMedalBox />
+      </GenericDashboardBox>
+
+      {/* Third Row */}
+      <GenericDashboardBox size={{ md: 3, xs: 12 }}>
+        <AthleteCategoryMedalBox category={DisciplineCategories.COORDINATION} />
+      </GenericDashboardBox>
+      <GenericDashboardBox size={{ md: 3, xs: 12 }}>
+        <AthleteCategoryMedalBox category={DisciplineCategories.SPEED} />
+      </GenericDashboardBox>
+      <GenericDashboardBox size={{ md: 3, xs: 12 }}>
+        <AthleteCategoryMedalBox category={DisciplineCategories.ENDURANCE} />
+      </GenericDashboardBox>
+      <GenericDashboardBox size={{ md: 3, xs: 12 }}>
+        <AthleteCategoryMedalBox category={DisciplineCategories.STRENGTH} />
       </GenericDashboardBox>
     </Grid2>
   );

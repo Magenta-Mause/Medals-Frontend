@@ -22,6 +22,7 @@ const GenericDashboardBox = (props: {
             position: "relative",
             display: "flex",
             justifyContent: "space-between",
+            minHeight: "180px",
           }}
         >
           {props.children}
@@ -46,9 +47,12 @@ const GenericDashboardBoxHeader = (props: {
   );
 };
 
-const GenericDashboardBoxContent = (props: { children: React.ReactNode }) => {
+const GenericDashboardBoxContent = (props: {
+  children: React.ReactNode;
+  sx?: TypographyProps["sx"];
+}) => {
   return (
-    <Typography level="h2" fontWeight="normal">
+    <Typography level="h2" fontWeight="normal" sx={props.sx}>
       {props.children}
     </Typography>
   );

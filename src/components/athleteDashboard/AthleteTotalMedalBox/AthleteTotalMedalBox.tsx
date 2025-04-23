@@ -14,6 +14,7 @@ import {
 } from "@components/athleteDashboard/GenericDashboardBox";
 import { Box, Typography } from "@mui/joy";
 import { useMedalColors } from "@hooks/useMedalColors";
+import { Medals } from "@customTypes/enums";
 
 const AthleteTotalMedalBox = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -47,8 +48,10 @@ const AthleteTotalMedalBox = () => {
             sx={{
               width: "150px",
               height: "150px",
-              background: medalColors[totalMedal],
+              background:
+                totalMedal != Medals.NONE ? medalColors[totalMedal] : "gray",
               position: "relative",
+              transition: "background .3s ease",
               borderRadius: "100%",
               "::after": {
                 content: "''",
@@ -73,10 +76,20 @@ const AthleteTotalMedalBox = () => {
                 transform: "translate(-50%, -70%)",
               }}
             >
-              Gold
+              {totalMedal}
             </Typography>
           </Box>
-          {totalMedal}
+          <Typography
+            sx={{
+              position: "relative",
+              top: "-40px",
+              opacity: 0.5,
+              userSelect: "none",
+            }}
+            fontSize={20}
+          >
+            Test
+          </Typography>
         </Box>
       </GenericDashboardBoxContent>
       <GenericDashboardBoxFooter>

@@ -21,7 +21,11 @@ const AthleteSwimCertificateBox = () => {
       <GenericDashboardBoxHeader>
         {t("components.athleteDashboard.swimCertificate.header")}
       </GenericDashboardBoxHeader>
-      <GenericDashboardBoxContent>
+      <GenericDashboardBoxContent
+        sx={{
+          height: "100%",
+        }}
+      >
         {athlete?.swimming_certificate ? (
           <>
             {t(

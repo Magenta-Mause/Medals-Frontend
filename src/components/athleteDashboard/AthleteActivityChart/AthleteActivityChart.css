@@ -7,11 +7,7 @@
     user-select: none;
 }
 
-.ch-subdomain-bg.highlight {
-    opacity: 1 !important;
-    stroke: none !important;
-}
-
 .ch-subdomain-bg {
     opacity: 1 !important;
+    cursor: pointer;
 }

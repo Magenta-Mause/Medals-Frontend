@@ -25,7 +25,9 @@ const AthletePerformanceRecordingsCountBox = () => {
       <GenericDashboardBoxHeader>
         {t("components.athleteDashboard.totalPerformanceRecordings")}
       </GenericDashboardBoxHeader>
-      <GenericDashboardBoxContent>{totalMedals}</GenericDashboardBoxContent>
+      <GenericDashboardBoxContent sx={{ height: "100%" }}>
+        {totalMedals}
+      </GenericDashboardBoxContent>
       <GenericDashboardBoxFooter>
         <Typography style={{ userSelect: "all" }} fontWeight={"bold"}>
           {medalsThisYear}
