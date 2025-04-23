@@ -112,6 +112,8 @@ const AthleteActivityChart = (props: {
       <Box
         id={"cal-heatmap"}
         sx={{
+          pl: "100px",
+          pr: "25px",
           display: "flex",
           height: "125px",
           width: "100%",

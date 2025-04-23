@@ -611,13 +611,13 @@
       "error": {
         "notAnAthlete": "Selected user is not an athlete"
       },
-      "activityChartHeader": "Activities -",
-      "totalPerformanceRecordings": "Performance recordings",
+      "activityChartHeader": "Your activities in",
+      "totalPerformanceRecordings": "Your performance recordings",
       "performanceRecordingsThisYear": " of which in this year",
-      "selectedUser": "Selected user",
+      "selectedUser": "Your profile",
       "bornIn": "Born in",
       "swimCertificate": {
-        "header": "Swim Certificate",
+        "header": "Your Swim Certificate",
         "noSwimCertificate": "Missing",
         "existing": "Your all set for your final Medal",
         "notExisting": "You need a valid swimming certification to be accepted for the final Medal"

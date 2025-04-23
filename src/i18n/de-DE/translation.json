@@ -604,16 +604,16 @@
       "error": {
         "notAnAthlete": "Ausgewählte Benutzer*in ist keine Athlet*in"
       },
-      "activityChartHeader": "Aktivitäten -",
-      "totalPerformanceRecordings": "Leistungsaufnahmen",
+      "activityChartHeader": "Deine Aktivität in",
+      "totalPerformanceRecordings": "Deine Leistungsaufnahmen",
       "performanceRecordingsThisYear": " davon in diesem Jahr",
-      "selectedUser": "Ausgewählte Benutzer*in",
+      "selectedUser": "Dein Profil",
       "bornIn": "Geboren in",
       "swimCertificate": {
-        "header": "Schwimmnachweis",
+        "header": "Dein Schwimmnachweis",
         "noSwimCertificate": "Nicht vorhanden",
-        "existing": "Dem Sportabzeichen steht nichts mehr im weg",
-        "notExisting": "Um das Deutsche Sportabzeichen erlangen zu können brauchst du einen gültigen Schwimmnachweis"
+        "existing": "Deinem Sportabzeichen steht nichts mehr im weg",
+        "notExisting": "Um das Deutsche Sportabzeichen zu erlangen brauchst du einen gültigen Schwimmnachweis"
       }
     }
   }
