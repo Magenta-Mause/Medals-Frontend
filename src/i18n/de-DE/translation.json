@@ -114,6 +114,9 @@
     "profileModal": {
       "accountDeleted": "Konto wurde erfolgreich gelöscht",
       "deletionError": "Beim Löschen des Kontos ist ein Fehler aufgetreten"
+    },
+    "removalConfirmationModal": {
+      "success": "Verbindung entfernt"
     }
   },
   "pages": {
@@ -343,6 +346,12 @@
         "gender": "Geschlecht"
       }
     },
+    "confirmationModal": {
+      "header": "Bestätigung",
+      "description": "Bist du sicher, dass du den Athleten aus deinem Team entfernen willst?",
+      "cancel": "Abbrechen",
+      "remove": "Entfernen"
+    },
     "navbar": {
       "logo": "Medals",
       "locationList": {
@@ -437,7 +446,8 @@
         "delete": "Löschen",
         "edit": "Bearbeiten",
         "openDetails": "Details",
-        "export": "Exportieren"
+        "export": "Exportieren",
+        "remove": "Entfernen"
       }
     },
     "disciplineDatagrid": {

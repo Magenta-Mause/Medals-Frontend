@@ -112,6 +112,9 @@
     "profileModal": {
       "accountDeleted": "Account has been successfully deleted",
       "deletionError": "There was an error while deleting the account"
+    },
+    "removalConfirmationModal": {
+      "success": "Connection removed"
     }
   },
   "pages": {
@@ -333,7 +336,7 @@
     },
     "confirmationModal": {
       "header": "Confirmation",
-      "confirmation": "Are you sure you want to remove the athlete from your team",
+      "description": "Are you sure you want to remove the athlete from your team?",
       "cancel": "Cancel",
       "remove": "Remove"
     },

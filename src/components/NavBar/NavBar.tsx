@@ -93,10 +93,6 @@ const navBarElements = new Map<
         path: "/performanceMetrics",
         icon: <Assessment />,
       },
-      {
-        path: "/assignAthlete",
-        icon: <PersonAdd />,
-      },
     ],
   ],
   [

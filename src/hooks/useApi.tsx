@@ -383,11 +383,11 @@ const useApi = () => {
     [axiosInstance],
   );
 
-  const removeConnectionBetweenTrainerAthlete = useCallback(
+  const removeTrainerAthleteConnection = useCallback(
     async (trainerId: number, athleteId: number) => {
       try {
         const response = await axiosInstance!.delete(
-          `/trainers/remove-trainer-athlete-connection`,
+          `/trainers/trainer-athlete-connection`,
           {
             params: { trainerId, athleteId },
           },
@@ -431,7 +431,7 @@ const useApi = () => {
     approveRequest,
     requestAthlete,
     searchAthletes,
-    removeConnectionBetweenTrainerAthlete,
+    removeTrainerAthleteConnection,
   };
 };
 

@@ -21,7 +21,7 @@ import { PersonAdd, PersonSearch } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
-import ConfirmationModal from "@components/modals/ConfirmatoinModal/ConfirmationModal";
+import RemoveConfirmationModal from "@components/modals/ConfirmatoinModal/RemoveConfirmationModal/RemoveConfirmationModal";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -329,7 +329,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         includePerformance={false}
         isButtonVisible={false}
       />
-      <ConfirmationModal
+      <RemoveConfirmationModal
         isOpen={isConfirmationModalOpen}
         setOpen={setConfirmationModalOpen}
         selectedAthlete={selectedAthlete!}
