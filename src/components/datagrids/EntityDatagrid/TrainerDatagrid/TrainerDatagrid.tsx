@@ -16,7 +16,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       entities={props.trainers}
       isLoading={props.isLoading}
       entityType="trainer"
-      entityPrefix="TRN-"
       ModalComponent={TrainerInvitationModal}
       deleteEntity={deleteTrainer}
     />

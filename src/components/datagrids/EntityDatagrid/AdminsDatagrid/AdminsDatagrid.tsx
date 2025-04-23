@@ -16,7 +16,6 @@ const AdminsDatagrid = (props: AdminsDatagridProps) => {
       entities={props.admins}
       isLoading={props.isLoading}
       entityType="admin"
-      entityPrefix="ADM-"
       ModalComponent={AdminInvitationModal}
       deleteEntity={deleteAdmin}
     />
