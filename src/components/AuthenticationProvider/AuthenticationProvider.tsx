@@ -34,10 +34,11 @@ const AuthInitializationComponent = () => {
   const [instantiatedUser, setInstantiatedUser] = useState<UserEntity | null>(
     null,
   );
+
   useEffect(() => {
-    if (selectedUser && identityToken && selectedUser !== instantiatedUser) {
-      instantiateByType(selectedUser?.type);
+    if (selectedUser && identityToken && selectedUser != instantiatedUser) {
       setInstantiatedUser(selectedUser);
+      instantiateByType(selectedUser?.type);
     }
   }, [selectedUser, instantiateByType, identityToken, instantiatedUser]);
 

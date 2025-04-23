@@ -58,6 +58,9 @@
     "confirm": "Confirm",
     "password": "Password",
     "finished": "Finished",
+    "date": {
+      "on": "on"
+    },
     "validation": {
       "required": "This field is required",
       "tooLong": "This field is too long",
@@ -488,7 +491,8 @@
       "columns": {
         "dateOfRecording": "Recorded on",
         "result": "Achieved result",
-        "medal": "Achieved medal"
+        "medal": "Achieved medal",
+        "discipline": "Discipline"
       },
       "filters": {
         "recordedIn": "Recorded in"
@@ -499,6 +503,12 @@
           "label": "+ add"
         },
         "delete": "Delete"
+      }
+    },
+    "performanceRecordingViewModal": {
+      "header": {
+        "plain": "Performance recordings",
+        "date": "Performance recordings from the "
       }
     },
     "createPerformanceRecordingModal": {
@@ -582,11 +592,36 @@
       },
       "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
     },
+    "athleteActivityChart": {
+      "tooltipText": {
+        "noData": "No performance recordings",
+        "data": {
+          "singular": " performance recording",
+          "plural": " performance recordings"
+        }
+      }
+    },
     "athleteExportModal": {
       "header": "Athlete Export",
       "exportButton": "Export",
       "performanceCheckbox": "Include Performance Metrics",
       "removeFromSelectionButton": "Remove"
+    },
+    "athleteDashboard": {
+      "error": {
+        "notAnAthlete": "Selected user is not an athlete"
+      },
+      "activityChartHeader": "Activities -",
+      "totalPerformanceRecordings": "Performance recordings",
+      "performanceRecordingsThisYear": " of which in this year",
+      "selectedUser": "Selected user",
+      "bornIn": "Born in",
+      "swimCertificate": {
+        "header": "Swim Certificate",
+        "noSwimCertificate": "Missing",
+        "existing": "Your all set for your final Medal",
+        "notExisting": "You need a valid swimming certification to be accepted for the final Medal"
+      }
     }
   }
 }

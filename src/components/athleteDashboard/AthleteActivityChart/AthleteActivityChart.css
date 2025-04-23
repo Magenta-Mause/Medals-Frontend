@@ -1,0 +1,17 @@
+#ch-tooltip {
+    z-index: 9999999;
+    user-select: none;
+}
+
+.ch-domain-text {
+    user-select: none;
+}
+
+.ch-subdomain-bg.highlight {
+    opacity: 1 !important;
+    stroke: none !important;
+}
+
+.ch-subdomain-bg {
+    opacity: 1 !important;
+}

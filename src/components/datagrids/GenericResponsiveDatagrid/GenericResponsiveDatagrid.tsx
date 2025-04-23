@@ -293,7 +293,7 @@ const GenericResponsiveDatagrid = <T,>(
           </ModalDialog>
         </Modal>
       </Sheet>
-      {props.filters || props.toolbarActions ? (
+      {props.filters?.length || props.toolbarActions?.length ? (
         <Box
           className="SearchAndFiltersTooltip-tabletUp"
           sx={{

@@ -181,18 +181,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const toolbarActions: ToolbarAction[] = [
     {
-      label: t("pages.athleteImportPage.importButton"),
-      content: t("pages.athleteImportPage.importButton"),
-      icon: <UploadIcon />,
-      collapseToText: true,
-      color: "primary",
-      key: "import-athlete",
-      variant: "solid",
-      operation: async () => {
-        setImportModalOpen(true);
-      },
-    },
-    {
       label: t("components.athleteDatagrid.table.toolbar.createAthlete.label"),
       content: t(
         "components.athleteDatagrid.table.toolbar.createAthlete.content",
@@ -216,6 +204,18 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       variant: "solid",
       operation: async () => {
         setAddAthleteRequestModalOpen(true);
+      },
+    },
+    {
+      label: t("pages.athleteImportPage.importButton"),
+      content: t("pages.athleteImportPage.importButton"),
+      icon: <UploadIcon />,
+      collapseToText: true,
+      color: "primary",
+      key: "import-athlete",
+      variant: "solid",
+      operation: async () => {
+        setImportModalOpen(true);
       },
     },
   ];

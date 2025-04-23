@@ -26,6 +26,9 @@
     "confirm": "Bestätigen",
     "password": "Passwort",
     "finished": "Fertig",
+    "date": {
+      "on": "am"
+    },
     "validation": {
       "required": "Dieses Feld ist erforderlich",
       "tooLong": "Dieses Feld ist zu lang",
@@ -501,11 +504,18 @@
     "athletePerformanceAccordions": {
       "selectedYear": "Ausgewähltes Jahr"
     },
+    "performanceRecordingViewModal": {
+      "header": {
+        "plain": "Leistungsaufnahmen",
+        "date": "Leistungsaufnahmen vom "
+      }
+    },
     "performanceRecordingDatagrid": {
       "columns": {
         "dateOfRecording": "Aufgenommen am",
         "result": "Ergebnis",
-        "medal": "Erreichte Medaille"
+        "medal": "Erreichte Medaille",
+        "discipline": "Disziplin"
       },
       "filters": {
         "recordedIn": "Aufgenommen in"
@@ -555,6 +565,15 @@
         }
       }
     },
+    "athleteActivityChart": {
+      "tooltipText": {
+        "noData": "Keine Einträge",
+        "data": {
+          "singular": " Leistungsaufnahme",
+          "plural": " Leistungsaufnahmen"
+        }
+      }
+    },
     "tooltip": {
       "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
       "profileButton": "Account Einstellungen",
@@ -585,7 +604,16 @@
       "error": {
         "notAnAthlete": "Ausgewählte Benutzer*in ist keine Athlet*in"
       },
-      "athleteInformationBox": {
+      "activityChartHeader": "Aktivitäten -",
+      "totalPerformanceRecordings": "Leistungsaufnahmen",
+      "performanceRecordingsThisYear": " davon in diesem Jahr",
+      "selectedUser": "Ausgewählte Benutzer*in",
+      "bornIn": "Geboren in",
+      "swimCertificate": {
+        "header": "Schwimmnachweis",
+        "noSwimCertificate": "Nicht vorhanden",
+        "existing": "Dem Sportabzeichen steht nichts mehr im weg",
+        "notExisting": "Um das Deutsche Sportabzeichen erlangen zu können brauchst du einen gültigen Schwimmnachweis"
       }
     }
   }

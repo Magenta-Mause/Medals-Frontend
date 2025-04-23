@@ -19,6 +19,11 @@ import { closeSnackbar, SnackbarKey, SnackbarProvider } from "notistack";
 import { createContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter } from "react-router";
+import dayjs from "dayjs";
+
+import localeData from "dayjs/plugin/localeData";
+
+dayjs.extend(localeData);
 
 type UtilContextType = {
   sideBarExtended: boolean;
