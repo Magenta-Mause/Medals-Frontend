@@ -1,6 +1,6 @@
 import React from "react";
 import Grid2, { Grid2Props } from "@mui/material/Grid2";
-import { Card, CardContent, Typography } from "@mui/joy";
+import { Card, CardContent, Typography, TypographyProps } from "@mui/joy";
 
 const GenericDashboardBox = (props: {
   children: React.ReactNode;
@@ -17,15 +17,30 @@ const GenericDashboardBox = (props: {
           width: "100%",
         }}
       >
-        <CardContent>{props.children}</CardContent>
+        <CardContent
+          sx={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          {props.children}
+        </CardContent>
       </Card>
     </Grid2>
   );
 };
 
-const GenericDashboardBoxHeader = (props: { children: React.ReactNode }) => {
+const GenericDashboardBoxHeader = (props: {
+  children: React.ReactNode;
+  sx?: TypographyProps["sx"];
+}) => {
   return (
-    <Typography level="title-md" color={"neutral"} sx={{ userSelect: "none" }}>
+    <Typography
+      level="title-md"
+      color={"neutral"}
+      sx={{ userSelect: "none", ...props?.sx }}
+    >
       {props.children}
     </Typography>
   );
@@ -39,11 +54,20 @@ const GenericDashboardBoxContent = (props: { children: React.ReactNode }) => {
   );
 };
 
-const GenericDashboardBoxFooter = (props: { children: React.ReactNode }) => {
+const GenericDashboardBoxFooter = (props: {
+  children: React.ReactNode;
+  sx?: TypographyProps["sx"];
+}) => {
   return (
     <Typography
       level="body-sm"
-      sx={{ userSelect: "none", opacity: 0.75 }}
+      sx={{
+        position: "relative",
+        bottom: 0,
+        userSelect: "none",
+        opacity: 0.75,
+        ...props?.sx,
+      }}
       color={"neutral"}
     >
       {props.children}

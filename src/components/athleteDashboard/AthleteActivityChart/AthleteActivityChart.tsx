@@ -110,19 +110,24 @@ const AthleteActivityChart = (props: {
   return (
     <>
       <Box
-        id={"cal-heatmap"}
         sx={{
-          pl: "100px",
-          pr: "25px",
-          display: "flex",
-          height: "125px",
           width: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-          background: "var(--joy-palette-background-surface)",
           overflowX: "scroll",
+          display: "flex",
+          alignContent: "center",
+          justifyContent: "center",
         }}
-      ></Box>
+      >
+        <Box
+          id={"cal-heatmap"}
+          sx={{
+            height: "105px",
+            overflowX: "scroll",
+            overflowY: "hidden",
+            width: "fit-content",
+          }}
+        ></Box>
+      </Box>
       <PerformanceRecordingViewModal
         open={performanceRecordingViewModalOpen}
         performanceRecordings={props.performanceRecordings.filter(

@@ -567,7 +567,7 @@
     },
     "athleteActivityChart": {
       "tooltipText": {
-        "noData": "Keine Einträge",
+        "noData": "Keine Leistungsaufnahmen",
         "data": {
           "singular": " Leistungsaufnahme",
           "plural": " Leistungsaufnahmen"
@@ -604,7 +604,10 @@
       "error": {
         "notAnAthlete": "Ausgewählte Benutzer*in ist keine Athlet*in"
       },
-      "activityChartHeader": "Deine Aktivität in",
+      "activityChart": {
+        "header": "Deine Aktivitäten in",
+        "link": "Alle deine Leistungsaufnahmen"
+      },
       "totalPerformanceRecordings": "Deine Leistungsaufnahmen",
       "performanceRecordingsThisYear": " davon in diesem Jahr",
       "selectedUser": "Dein Profil",

@@ -1,5 +1,5 @@
 import { Discipline, PerformanceRecording } from "@customTypes/backendTypes";
-import { Genders, Medals } from "@customTypes/enums";
+import { DisciplineCategories, Genders, Medals } from "@customTypes/enums";
 
 const calculatePerformanceRecordingMedal = (
   performanceRecording: PerformanceRecording,
@@ -78,10 +78,56 @@ const arraysEqual = (a: any[], b: any[]) => {
   return true;
 };
 
+const calculateTotalPointsFromPerformanceRecordings = (
+  performanceRecordings: PerformanceRecording[],
+) => {
+  const bestMedalPerCategory: Record<DisciplineCategories, Medals> = {
+    SPEED: Medals.NONE,
+    STRENGTH: Medals.NONE,
+    COORDINATION: Medals.NONE,
+    ENDURANCE: Medals.NONE,
+  };
+  performanceRecordings.forEach((p) => {
+    const category = p.discipline_rating_metric.discipline.category;
+    const achievedMedal = calculatePerformanceRecordingMedal(p);
+    if (
+      convertMedalToNumber(bestMedalPerCategory[category]) <
+      convertMedalToNumber(achievedMedal)
+    ) {
+      bestMedalPerCategory[category] = achievedMedal;
+    }
+  });
+  return Object.keys(bestMedalPerCategory)
+    .map((category) => bestMedalPerCategory[category as DisciplineCategories])
+    .reduce((a, b) => a + convertMedalToNumber(b), 0);
+};
+
+const calculateTotalMedalFromPerformanceRecordings = (
+  performanceRecordings: PerformanceRecording[],
+) => {
+  const totalSum = calculateTotalPointsFromPerformanceRecordings(
+    performanceRecordings,
+  );
+  return calculateTotalMedalFromAchievedPoints(totalSum);
+};
+
+const calculateTotalMedalFromAchievedPoints = (totalSum: number) => {
+  return totalSum >= 11
+    ? Medals.GOLD
+    : totalSum >= 8
+      ? Medals.SILVER
+      : totalSum >= 4
+        ? Medals.BRONZE
+        : Medals.NONE;
+};
+
 export {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
   getBestPerformanceRecording,
   calculateAge,
   arraysEqual,
+  calculateTotalMedalFromPerformanceRecordings,
+  calculateTotalMedalFromAchievedPoints,
+  calculateTotalPointsFromPerformanceRecordings,
 };

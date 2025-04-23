@@ -34,13 +34,13 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
   let medalColor: string | undefined;
   switch (medalType) {
     case Medals.GOLD:
-      medalColor = medalColors.gold;
+      medalColor = medalColors[Medals.GOLD];
       break;
     case Medals.SILVER:
-      medalColor = medalColors.silver;
+      medalColor = medalColors[Medals.SILVER];
       break;
     case Medals.BRONZE:
-      medalColor = medalColors.bronze;
+      medalColor = medalColors[Medals.BRONZE];
       break;
     case Medals.NONE:
       medalColor = undefined;
