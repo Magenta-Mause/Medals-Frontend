@@ -1,5 +1,6 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import {
+  Admin,
   Athlete,
   Discipline,
   PerformanceRecording,
@@ -29,6 +30,7 @@ import {
   removeTrainer,
   setTrainers,
 } from "@stores/slices/trainerSlice";
+import { addAdmin, removeAdmin, setAdmins } from "@stores/slices/adminSlice";
 import { setDisciplineMetrics } from "@stores/slices/disciplineRatingMetricSlice";
 import { useCallback, useContext, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -69,8 +71,10 @@ const useInstantiation = () => {
     getPerformanceRecordings,
     getDisciplines,
     getTrainers,
+    getAdmins,
     getDisciplineMetrics,
   } = useApi();
+
   const {
     initialize: initializeAthleteWebsocket,
     uninitialize: uninitializeAthleteWebsocket,
@@ -134,10 +138,32 @@ const useInstantiation = () => {
       : undefined,
   );
 
+  const {
+    initialize: initializeAdminWebsocket,
+    uninitialize: uninitializeAdminWebsocket,
+  } = useGenericWebsocketInitialization<Admin>(
+    "admin",
+    true,
+    (a) => {
+      checkUserAccountUpdate(a);
+      dispatch(addAdmin(a));
+    },
+    () => {},
+    (id) => {
+      console.log("deleted admin:", id);
+      checkUserAccountUpdateId(id);
+      dispatch(removeAdmin({ id: id }));
+    },
+    selectedUser?.type == UserType.ADMIN
+      ? (methode) => "/topics/admin/" + methode + "/admin"
+      : undefined,
+  );
+
   const instantiateAdmin = useCallback(async () => {
     if (currentlyInitialized != selectedUser?.id) {
       setCurrentlyInitialized(selectedUser?.id ?? null);
       dispatch(setTrainers((await getTrainers()) ?? []));
+      dispatch(setAdmins((await getAdmins()) ?? []));
       dispatch(setAthletes((await getAthletes()) ?? []));
       dispatch(setDisciplines((await getDisciplines()) ?? []));
       dispatch(
@@ -149,11 +175,13 @@ const useInstantiation = () => {
         uninitializeAthleteWebsocket();
         uninitializeDisciplineWebsocket();
         uninitializeTrainerWebsocket();
+        uninitializeAdminWebsocket();
         uninitializePerformanceRecordingWebsocket();
 
         initializeAthleteWebsocket();
         initializeDisciplineWebsocket();
         initializeTrainerWebsocket();
+        initializeAdminWebsocket();
         initializePerformanceRecordingWebsocket();
       }, 500);
     }
@@ -164,15 +192,18 @@ const useInstantiation = () => {
     getAthletes,
     getDisciplines,
     getTrainers,
+    getAdmins,
     getPerformanceRecordings,
     getDisciplineMetrics,
     uninitializeAthleteWebsocket,
     uninitializeDisciplineWebsocket,
     uninitializePerformanceRecordingWebsocket,
     uninitializeTrainerWebsocket,
+    uninitializeAdminWebsocket,
     initializeAthleteWebsocket,
     initializeDisciplineWebsocket,
     initializeTrainerWebsocket,
+    initializeAdminWebsocket,
     initializePerformanceRecordingWebsocket,
   ]);
 
@@ -220,6 +251,7 @@ const useInstantiation = () => {
       uninitializeAthleteWebsocket();
       uninitializeDisciplineWebsocket();
       uninitializeTrainerWebsocket();
+      uninitializeAdminWebsocket();
       uninitializePerformanceRecordingWebsocket();
     }
   }, [
@@ -230,6 +262,7 @@ const useInstantiation = () => {
     uninitializeTrainerWebsocket,
     uninitializeAthleteWebsocket,
     uninitializeDisciplineWebsocket,
+    uninitializeAdminWebsocket,
     uninitializePerformanceRecordingWebsocket,
   ]);
 
