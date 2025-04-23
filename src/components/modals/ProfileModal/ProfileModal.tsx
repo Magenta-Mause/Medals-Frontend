@@ -148,7 +148,7 @@ const ProfileModal = (props: {
               />
               <InfoCard
                 label={t("pages.profilePage.gender")}
-                value={genderLabel}
+                value={t("genders." + genderLabel)}
               />
             </>
           )}
