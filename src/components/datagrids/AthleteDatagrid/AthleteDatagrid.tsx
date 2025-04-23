@@ -21,6 +21,7 @@ import { PersonAdd, PersonSearch } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
+import ConfirmationModal from "@components/modals/ConfirmatoinModal/ConfirmationModal";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -39,7 +40,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     useState(false);
   const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
+  const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
+  const [selectedAthlete, setSelectedAthlete] = useState<Athlete>();
   const currentYear = new Date().getFullYear();
 
   const noAthleteFoundMessage = (
@@ -249,6 +252,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         console.log("Deleted Athlete:", item);
       },
     },
+    {
+      label: <>{t("components.athleteDatagrid.actions.remove")}</>,
+      color: "danger",
+      key: "remove",
+      variant: "outlined",
+      operation: async (item) => {
+        setSelectedAthlete(item);
+        setConfirmationModalOpen(true);
+      },
+    },
   ];
 
   const itemCallback = async (item: Athlete) => {
@@ -302,10 +315,10 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   useEffect(() => {
-    if (!isExportModalOpen) {
+    if (!isExportModalOpen || !isConfirmationModalOpen) {
       setSelectedAthletes([]);
     }
-  }, [isExportModalOpen]);
+  }, [isExportModalOpen, isConfirmationModalOpen]);
 
   return (
     <>
@@ -315,6 +328,11 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         selectedAthletes={selectedAthletes}
         includePerformance={false}
         isButtonVisible={false}
+      />
+      <ConfirmationModal
+        isOpen={isConfirmationModalOpen}
+        setOpen={setConfirmationModalOpen}
+        selectedAthlete={selectedAthlete!}
       />
       <GenericResponsiveDatagrid
         isLoading={props.isLoading}

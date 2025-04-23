@@ -331,6 +331,12 @@
         "gender": "Gender"
       }
     },
+    "confirmationModal": {
+      "header": "Confirmation",
+      "confirmation": "Are you sure you want to remove the athlete from your team",
+      "cancel": "Cancel",
+      "remove": "Remove"
+    },
     "navbar": {
       "logo": "Medals",
       "locationList": {
@@ -433,7 +439,8 @@
         "delete": "Delete",
         "edit": "Edit",
         "openDetails": "Details",
-        "export": "Export"
+        "export": "Export",
+        "remove": "Remove"
       }
     },
     "trainerDatagrid": {
@@ -498,7 +505,8 @@
           "text": "Add performance recording",
           "label": "+ add"
         },
-        "delete": "Delete"
+        "delete": "Delete",
+        "disconnect": "Disconnect"
       }
     },
     "createPerformanceRecordingModal": {
