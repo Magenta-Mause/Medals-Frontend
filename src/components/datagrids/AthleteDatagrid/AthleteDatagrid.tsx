@@ -1,5 +1,6 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
+import useFormatting from "@hooks/useFormatting";
 import { Box, Link, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
@@ -34,6 +35,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   ) as PerformanceRecording[];
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { formatLocalizedDate } = useFormatting();
   const [addImportModalOpen, setImportModalOpen] = useState(false);
   const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
     useState(false);
@@ -96,7 +98,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       columnName: t("components.athleteDatagrid.table.columns.birthdate"),
       size: "s",
       columnMapping(item) {
-        return <Typography>{item.birthdate}</Typography>;
+        return <Typography>{formatLocalizedDate(item.birthdate)}</Typography>;
       },
       sortable: true,
     },
@@ -263,7 +265,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     ),
     h2: (athlete) => <>{athlete.email}</>,
     h3: (athlete) => (
-      <Typography level="body-xs">{athlete.birthdate}</Typography>
+      <Typography level="body-xs">
+        {formatLocalizedDate(athlete.birthdate)}
+      </Typography>
     ),
     bottomButtons: [
       {
