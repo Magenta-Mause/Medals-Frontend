@@ -43,7 +43,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
   const currentYear = new Date().getFullYear();
 
-  const selection = [
+  const ageSelection = [
     ...Array.from({ length: 12 }, (_, i) => {
       //fills an Array with the values for ages 6 to 17 and the value "all" for the Age filterparameter
       const value = (i + 6).toString();
@@ -203,7 +203,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           String(calculateAge(athlete.birthdate)) === filterParameter;
       },
       type: "SELECTION",
-      selection: selection,
+      selection: ageSelection,
     },
   ];
 
