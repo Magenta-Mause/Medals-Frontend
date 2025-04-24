@@ -11,26 +11,24 @@ import { DisciplineCategories } from "@customTypes/enums";
 
 const AthleteDashboardPage = () => {
   return (
-    <Grid2 container spacing={2} sx={{ p: 2 }} alignItems={"stretch"}>
+    <Grid2 container spacing={2} sx={{ p: 2, pb: 0 }} alignItems={"stretch"}>
       {/* First Row */}
       <GenericDashboardBox size={{ md: 4, xs: 12 }}>
         <AthleteInformationBox />
       </GenericDashboardBox>
-
       <GenericDashboardBox size={{ md: 4, xs: 12 }}>
         <AthleteSwimCertificateBox />
       </GenericDashboardBox>
-
       <GenericDashboardBox size={{ md: 4, xs: 12 }}>
-        <AthletePerformanceRecordingsCountBox />
+        <AthleteTotalMedalBox />
       </GenericDashboardBox>
 
       {/* Second Row */}
+      <GenericDashboardBox size={{ md: 4, xs: 12 }}>
+        <AthletePerformanceRecordingsCountBox />
+      </GenericDashboardBox>
       <GenericDashboardBox size={{ md: 8, xs: 12 }}>
         <AthleteActivityBox />
-      </GenericDashboardBox>
-      <GenericDashboardBox size={{ md: 4, xs: 12 }}>
-        <AthleteTotalMedalBox />
       </GenericDashboardBox>
 
       {/* Third Row */}

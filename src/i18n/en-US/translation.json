@@ -601,6 +601,9 @@
         }
       }
     },
+    "calHeatmap": {
+      "loadingError": "Error while loading activity chart"
+    },
     "athleteExportModal": {
       "header": "Athlete Export",
       "exportButton": "Export",

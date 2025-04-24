@@ -1,11 +1,11 @@
-import React, { useCallback, useLayoutEffect } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 // @ts-expect-error hihi library doesnt support types correctly
 import CalHeatmap from "cal-heatmap";
 import "cal-heatmap/cal-heatmap.css";
 import dayjs from "dayjs";
 import Tooltip from "cal-heatmap/plugins/Tooltip";
 import { PerformanceRecording } from "@customTypes/backendTypes";
-import { Box, useColorScheme } from "@mui/joy";
+import { Box, Skeleton, useColorScheme } from "@mui/joy";
 import "./AthleteActivityChart.css";
 import { useTranslation } from "react-i18next";
 import PerformanceRecordingViewModal from "@components/modals/PerformanceRecordingViewModal/PerformanceRecordingViewModal";
@@ -15,7 +15,9 @@ import { calculatePerformanceRecordingMedal } from "@utils/calculationUtil";
 const AthleteActivityChart = (props: {
   performanceRecordings: PerformanceRecording[];
 }) => {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useColorScheme();
+  const cal = useRef<any>(null);
+  const [loading, setLoading] = useState(false);
   const { t, i18n } = useTranslation();
   const [
     performanceRecordingViewModalOpen,
@@ -49,25 +51,31 @@ const AthleteActivityChart = (props: {
         calculatePerformanceRecordingMedal(recording)
       ] += 1;
     });
-    return Object.keys(countPerDay).map((date) => ({
-      date,
-      value: countPerDay[date].totalCount,
-    }));
+    return {
+      list: Object.keys(countPerDay).map((date) => ({
+        date,
+        value: countPerDay[date].totalCount,
+        medals: countPerDay[date].countsPerMedal,
+      })),
+      dict: countPerDay,
+    };
   }, [props.performanceRecordings]);
 
   useLayoutEffect(() => {
-    const data = calculateData();
-    const cal = new CalHeatmap();
+    if (!cal.current) {
+      cal.current = new CalHeatmap();
+    }
 
-    cal.destroy();
-    cal.on("click", (event: any, timestamp: string) => {
-      const date = dayjs(timestamp);
-      setSelectedDate(date.format("YYYY-MM-DD"));
-      setPerformanceRecordingViewModalOpen(true);
-    });
+    setLoading(true);
+    const paint = async () => {
+      const { list: data, dict } = calculateData();
+      await cal.current.on("click", (_event: any, timestamp: string) => {
+        const date = dayjs(timestamp);
+        setSelectedDate(date.format("YYYY-MM-DD"));
+        setPerformanceRecordingViewModalOpen(true);
+      });
 
-    cal.paint(
-      {
+      const options = {
         data: {
           source: data,
           x: "date",
@@ -83,9 +91,9 @@ const AthleteActivityChart = (props: {
           color: {
             type: "threshold",
             range:
-              colorScheme.colorScheme == "dark"
-                ? ["#14432a", "#166b34", "#37a446", "#4dd05a"].reverse()
-                : ["#14432a", "#166b34", "#37a446", "#4dd05a"],
+              colorScheme == "dark"
+                ? ["#14432a", "#166b34", "#37a446", "#4dd05a"]
+                : ["#14432a", "#166b34", "#37a446", "#4dd05a"].reverse(),
             domain: [1, 2, 5],
           },
         },
@@ -93,16 +101,27 @@ const AthleteActivityChart = (props: {
           type: "month",
           label: { format: "%Y-%m" },
         },
-        theme: colorScheme.colorScheme ?? "light",
+        theme: colorScheme ?? "red",
         subDomain: { type: "day", radius: 2 },
         animationDuration: 0,
-      },
-      [
+      };
+      await cal.current.paint(options, [
         [
           Tooltip,
           {
             // @ts-expect-error hihi library doesnt support types correctly
             text: function (date, value, dayjsDate) {
+              const key = dayjsDate.format("YYYY-MM-DD");
+              const values =
+                key in dict
+                  ? dict[key]
+                  : {
+                      countsPerMedal: {
+                        [Medals.GOLD]: 0,
+                        [Medals.SILVER]: 0,
+                        [Medals.BRONZE]: 0,
+                      },
+                    };
               return (
                 (!value
                   ? t("components.athleteActivityChart.tooltipText.noData")
@@ -111,7 +130,16 @@ const AthleteActivityChart = (props: {
                       "components.athleteActivityChart.tooltipText.data." +
                         (value > 1 ? "plural" : "singular"),
                     )) +
-                " " +
+                (values.countsPerMedal.GOLD > 0
+                  ? "<br>Gold: " + values.countsPerMedal.GOLD
+                  : "") +
+                (values.countsPerMedal.SILVER > 0
+                  ? "<br>Silver: " + values.countsPerMedal.SILVER
+                  : "") +
+                (values.countsPerMedal.BRONZE > 0
+                  ? "<br>Bronze: " + values.countsPerMedal.BRONZE
+                  : "") +
+                "<br>" +
                 t("generic.date.on") +
                 " " +
                 dayjsDate.format("LL")
@@ -119,12 +147,12 @@ const AthleteActivityChart = (props: {
             },
           },
         ],
-      ],
-    );
-
-    return () => {
-      cal.destroy();
+      ]);
+      setLoading(false);
     };
+
+    paint();
+    return () => cal.current.destroy();
   }, [colorScheme, calculateData, i18n.language, t]);
 
   return (
@@ -132,12 +160,14 @@ const AthleteActivityChart = (props: {
       <Box
         sx={{
           width: "100%",
+          height: "105px",
           overflowX: "scroll",
           display: "flex",
           alignContent: "center",
           justifyContent: "center",
         }}
       >
+        <Skeleton loading={loading} height={"105px"}></Skeleton>
         <Box
           id={"cal-heatmap"}
           sx={{
@@ -145,6 +175,7 @@ const AthleteActivityChart = (props: {
             overflowX: "scroll",
             overflowY: "hidden",
             width: "fit-content",
+            display: loading ? "none" : "inherit",
           }}
         ></Box>
       </Box>

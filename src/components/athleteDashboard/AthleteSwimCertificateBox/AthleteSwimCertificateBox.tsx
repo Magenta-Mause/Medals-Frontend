@@ -22,9 +22,18 @@ const AthleteSwimCertificateBox = () => {
         {t("components.athleteDashboard.swimCertificate.header")}
       </GenericDashboardBoxHeader>
       <GenericDashboardBoxContent
-        sx={{
+        sx={(theme) => ({
+          userSelect: "all",
           height: "100%",
-        }}
+          color: athlete?.swimming_certificate
+            ? "rgba(59,183,59, 0.9)"
+            : "rgb(185,49,49)",
+          [theme.getColorSchemeSelector("dark")]: {
+            color: athlete?.swimming_certificate
+              ? "rgba(59,183,59, 0.9)"
+              : "rgb(185,49,49)",
+          },
+        })}
       >
         {athlete?.swimming_certificate ? (
           <>
@@ -42,7 +51,11 @@ const AthleteSwimCertificateBox = () => {
       </GenericDashboardBoxContent>
       <GenericDashboardBoxFooter>
         {athlete?.swimming_certificate
-          ? t("components.athleteDashboard.swimCertificate.existing")
+          ? t(
+              "components.createSwimCertificateModal.options." +
+                athlete.swimming_certificate +
+                ".description",
+            )
           : t("components.athleteDashboard.swimCertificate.notExisting")}
       </GenericDashboardBoxFooter>
     </>

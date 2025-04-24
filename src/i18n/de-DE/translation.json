@@ -594,6 +594,9 @@
       },
       "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     },
+    "calHeatmap": {
+      "loadingError": "Fehler beim Laden des Activity Charts"
+    },
     "athleteExportModal": {
       "header": "Athlet*innen Export",
       "exportButton": "Export",

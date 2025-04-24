@@ -133,7 +133,6 @@ const useInstantiation = () => {
   const instantiateByType = useCallback(
     (userType: UserType) => {
       const instantiate = async () => {
-        console.log("instantiating by type: ", userType, " |");
         if (userType == UserType.ADMIN) {
           dispatch(setTrainers((await getTrainers()) ?? []));
         }
