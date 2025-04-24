@@ -338,7 +338,7 @@
       "header": "Confirmation",
       "description": "Are you sure you want to remove the athlete from your team?",
       "cancel": "Cancel",
-      "remove": "Remove"
+      "remove": "Give up access"
     },
     "navbar": {
       "logo": "Medals",

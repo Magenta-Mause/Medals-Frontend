@@ -12,7 +12,7 @@ interface RemoveConnectionModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AthleteRequestButton = (props: RemoveConnectionModalProps) => {
+const RemoveConnectionModal = (props: RemoveConnectionModalProps) => {
   const { t } = useTranslation();
   const { removeTrainerAthleteConnection } = useApi();
   const { selectedUser } = useContext(AuthContext);
@@ -45,4 +45,4 @@ const AthleteRequestButton = (props: RemoveConnectionModalProps) => {
   );
 };
 
-export default AthleteRequestButton;
+export default RemoveConnectionModal;

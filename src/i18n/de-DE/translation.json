@@ -350,7 +350,7 @@
       "header": "Bestätigung",
       "description": "Bist du sicher, dass du den Athleten aus deinem Team entfernen willst?",
       "cancel": "Abbrechen",
-      "remove": "Entfernen"
+      "remove": "Zugriff abgeben"
     },
     "navbar": {
       "logo": "Medals",

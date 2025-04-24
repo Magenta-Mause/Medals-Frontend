@@ -315,10 +315,10 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   useEffect(() => {
-    if (!isExportModalOpen || !isConfirmationModalOpen) {
+    if (!isExportModalOpen) {
       setSelectedAthletes([]);
     }
-  }, [isExportModalOpen, isConfirmationModalOpen]);
+  }, [isExportModalOpen]);
 
   return (
     <>
