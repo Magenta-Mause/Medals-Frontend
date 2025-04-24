@@ -45,6 +45,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const selection = [
     ...Array.from({ length: 12 }, (_, i) => {
+      //fills an Array with the values for ages 6 to 17 and the value "all" for the Age filterparameter
       const value = (i + 6).toString();
       return {
         displayValue: Number(value),
@@ -52,9 +53,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       };
     }),
     {
-      displayValue: 'All',
-      value: 'all',
-    }
+      displayValue: "All",
+      value: "all",
+    },
   ];
 
   const noAthleteFoundMessage = (
