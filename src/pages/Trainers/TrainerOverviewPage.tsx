@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 
 const TrainerOverviewPage = () => {
   const trainers = useTypedSelector((state) => state.trainers.data);
-  const trainersState = useTypedSelector((state) => state.trainers.state);
   const { t } = useTranslation();
 
   return (
@@ -25,9 +24,7 @@ const TrainerOverviewPage = () => {
           {t("pages.trainerOverviewPage.header")}
         </Typography>
       </Box>
-      <TrainerDatagrid
-        trainers={trainers}
-      />
+      <TrainerDatagrid trainers={trainers} />
     </>
   );
 };
