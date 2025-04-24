@@ -29,10 +29,15 @@
     "date": {
       "on": "am"
     },
+    "category": "Kategorie",
     "validation": {
       "required": "Dieses Feld ist erforderlich",
       "tooLong": "Dieses Feld ist zu lang",
       "invalidEmail": "Ungültige E-Mail-Adresse"
+    },
+    "points": {
+      "singular": "Punkt",
+      "plural": "Punkte"
     }
   },
   "disciplines": {
@@ -608,13 +613,35 @@
         "notAnAthlete": "Ausgewählte Benutzer*in ist keine Athlet*in"
       },
       "activityChart": {
-        "header": "Deine Aktivitäten in",
+        "header": "Deine Aktivitäten in ",
         "link": "Alle deine Leistungsaufnahmen"
       },
       "totalPerformanceRecordings": "Deine Leistungsaufnahmen",
       "performanceRecordingsThisYear": " davon in diesem Jahr",
       "selectedUser": "Dein Profil",
       "bornIn": "Geboren in",
+      "categoryMedalBox": {
+        "thisEquals": "Das entspricht",
+        "points": {
+          "singular": "Punkt",
+          "plural": "Punkten"
+        }
+      },
+      "totalMedalBox": {
+        "header": "Gesamtleistung",
+        "pointsMissingTemplate": {
+          "prefix": {
+            "singular": "Dir fehlt noch",
+            "plural": "Dir fehlen noch"
+          },
+          "between": "um die",
+          "postfix": "Medaille zu erreichen"
+        },
+        "pointsCount": {
+          "prefix": "Du hast",
+          "postfix": "erreicht"
+        }
+      },
       "swimCertificate": {
         "header": "Dein Schwimmnachweis",
         "noSwimCertificate": "Nicht vorhanden",

@@ -1,6 +1,13 @@
 import { Discipline, PerformanceRecording } from "@customTypes/backendTypes";
 import { DisciplineCategories, Genders, Medals } from "@customTypes/enums";
 
+const medalMinPoints = {
+  [Medals.GOLD]: 11,
+  [Medals.SILVER]: 8,
+  [Medals.BRONZE]: 4,
+  [Medals.NONE]: 0,
+};
+
 const calculatePerformanceRecordingMedal = (
   performanceRecording: PerformanceRecording,
 ) => {
@@ -44,6 +51,16 @@ const convertMedalToNumber = (medal: Medals) => {
         : 0;
 };
 
+const convertNumberToMedal = (points: number) => {
+  return points == 3
+    ? Medals.GOLD
+    : points == 2
+      ? Medals.SILVER
+      : points == 1
+        ? Medals.BRONZE
+        : Medals.NONE;
+};
+
 const getBestPerformanceRecording = (
   performanceRecordings: PerformanceRecording[],
   discipline: Discipline,
@@ -60,22 +77,6 @@ const calculateAge = (birthdate: string): number => {
   const birth = new Date(birthdate);
   const currentYear = new Date().getFullYear();
   return currentYear - birth.getFullYear();
-};
-
-const arraysEqual = (a: any[], b: any[]) => {
-  if (a === b) return true;
-  if (a == null || b == null) return false;
-  if (a.length !== b.length) return false;
-
-  // If you don't care about the order of the elements inside
-  // the array, you should sort both arrays here.
-  // Please note that calling sort on an array will modify that array.
-  // you might want to clone your array first.
-
-  for (let i = 0; i < a.length; ++i) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
 };
 
 const calculateTotalPointsFromPerformanceRecordings = (
@@ -112,11 +113,11 @@ const calculateTotalMedalFromPerformanceRecordings = (
 };
 
 const calculateTotalMedalFromAchievedPoints = (totalSum: number) => {
-  return totalSum >= 11
+  return totalSum >= medalMinPoints[Medals.GOLD]
     ? Medals.GOLD
-    : totalSum >= 8
+    : totalSum >= medalMinPoints[Medals.SILVER]
       ? Medals.SILVER
-      : totalSum >= 4
+      : totalSum >= medalMinPoints[Medals.BRONZE]
         ? Medals.BRONZE
         : Medals.NONE;
 };
@@ -124,9 +125,10 @@ const calculateTotalMedalFromAchievedPoints = (totalSum: number) => {
 export {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
+  convertNumberToMedal,
   getBestPerformanceRecording,
   calculateAge,
-  arraysEqual,
+  medalMinPoints,
   calculateTotalMedalFromPerformanceRecordings,
   calculateTotalMedalFromAchievedPoints,
   calculateTotalPointsFromPerformanceRecordings,

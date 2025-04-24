@@ -36,10 +36,10 @@ const AthleteDashboardPage = () => {
         <AthleteCategoryMedalBox category={DisciplineCategories.COORDINATION} />
       </GenericDashboardBox>
       <GenericDashboardBox size={{ md: 3, xs: 12 }}>
-        <AthleteCategoryMedalBox category={DisciplineCategories.SPEED} />
+        <AthleteCategoryMedalBox category={DisciplineCategories.ENDURANCE} />
       </GenericDashboardBox>
       <GenericDashboardBox size={{ md: 3, xs: 12 }}>
-        <AthleteCategoryMedalBox category={DisciplineCategories.ENDURANCE} />
+        <AthleteCategoryMedalBox category={DisciplineCategories.SPEED} />
       </GenericDashboardBox>
       <GenericDashboardBox size={{ md: 3, xs: 12 }}>
         <AthleteCategoryMedalBox category={DisciplineCategories.STRENGTH} />

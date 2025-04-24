@@ -126,16 +126,25 @@ const AthleteActivityChart = (props: {
                     "components.athleteActivityChart.tooltipText.data." +
                       (value > 1 ? "plural" : "singular"),
                   )) +
-              (values.countsPerMedal.GOLD > 0
-                ? "<br>Gold: " + values.countsPerMedal.GOLD
+              (value > 1
+                ? "<br>" +
+                  Object.keys(values.countsPerMedal)
+                    .map((medal) => {
+                      const value =
+                        values.countsPerMedal[
+                          medal as Medals.GOLD | Medals.SILVER | Medals.BRONZE
+                        ];
+                      if (medal == Medals.NONE) {
+                        return undefined;
+                      }
+                      return value == 0
+                        ? ""
+                        : t("medals." + medal) + ": " + value;
+                    })
+                    .filter((i) => i != undefined && i != "")
+                    .join("<br>") +
+                  "<br>"
                 : "") +
-              (values.countsPerMedal.SILVER > 0
-                ? "<br>Silver: " + values.countsPerMedal.SILVER
-                : "") +
-              (values.countsPerMedal.BRONZE > 0
-                ? "<br>Bronze: " + values.countsPerMedal.BRONZE
-                : "") +
-              "<br>" +
               t("generic.date.on") +
               " " +
               dayjsDate.format("LL")

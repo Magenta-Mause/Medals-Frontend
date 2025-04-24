@@ -6,6 +6,9 @@ import dayjs from "dayjs";
 import {
   calculateTotalMedalFromAchievedPoints,
   calculateTotalPointsFromPerformanceRecordings,
+  convertMedalToNumber,
+  convertNumberToMedal,
+  medalMinPoints,
 } from "@utils/calculationUtil";
 import {
   GenericDashboardBoxContent,
@@ -15,10 +18,12 @@ import {
 import { Box, Typography } from "@mui/joy";
 import { useMedalColors } from "@hooks/useMedalColors";
 import { Medals } from "@customTypes/enums";
+import { useTranslation } from "react-i18next";
 
 const AthleteTotalMedalBox = () => {
   const { selectedUser } = useContext(AuthContext);
   const medalColors = useMedalColors();
+  const { t } = useTranslation();
   const performanceRecordings = (
     useTypedSelector(
       (state) => state.performanceRecordings.data,
@@ -31,6 +36,14 @@ const AthleteTotalMedalBox = () => {
     performanceRecordings,
   );
   const totalMedal = calculateTotalMedalFromAchievedPoints(totalPoints);
+  const nextMedal =
+    totalMedal == Medals.GOLD
+      ? undefined
+      : convertNumberToMedal(convertMedalToNumber(totalMedal) + 1);
+  const pointsMissing =
+    nextMedal == undefined
+      ? undefined
+      : medalMinPoints[nextMedal] - totalPoints;
 
   return (
     <>
@@ -74,26 +87,57 @@ const AthleteTotalMedalBox = () => {
                 left: "50%",
                 top: "50%",
                 transform: "translate(-50%, -70%)",
+                userSelect: "none",
               }}
             >
-              {totalMedal}
+              {totalMedal != Medals.NONE ? t("medals." + totalMedal) : "-"}
             </Typography>
           </Box>
-          <Typography
-            sx={{
-              position: "relative",
-              top: "-40px",
-              opacity: 0.5,
-              userSelect: "none",
-            }}
-            fontSize={20}
-          >
-            Test
-          </Typography>
+          {totalMedal != Medals.GOLD ? (
+            <Box
+              sx={{
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                top: "-20px",
+                opacity: 0.5,
+                userSelect: "none",
+              }}
+            >
+              <Typography level={"body-md"}>
+                {t(
+                  "components.athleteDashboard.totalMedalBox.pointsMissingTemplate.prefix." +
+                    (pointsMissing == 1 ? "singular" : "plural"),
+                )}{" "}
+                <Typography sx={{ fontWeight: "bold" }}>
+                  {pointsMissing}
+                </Typography>{" "}
+                {pointsMissing! > 1
+                  ? t("generic.points.plural")
+                  : t("generic.points.singular")}{" "}
+                {t(
+                  "components.athleteDashboard.totalMedalBox.pointsMissingTemplate.between",
+                )}{" "}
+                <Typography sx={{ fontWeight: "bold" }}>
+                  {t("medals." + nextMedal)}
+                </Typography>{" "}
+                {t(
+                  "components.athleteDashboard.totalMedalBox.pointsMissingTemplate.postfix",
+                )}
+              </Typography>
+            </Box>
+          ) : (
+            <></>
+          )}
         </Box>
       </GenericDashboardBoxContent>
       <GenericDashboardBoxFooter>
-        You've achieved {totalPoints} total points
+        {t("components.athleteDashboard.totalMedalBox.pointsCount.prefix")}{" "}
+        {totalPoints}{" "}
+        {totalPoints == 1
+          ? t("generic.points.singular")
+          : t("generic.points.plural")}{" "}
+        {t("components.athleteDashboard.totalMedalBox.pointsCount.postfix")}
       </GenericDashboardBoxFooter>
     </>
   );

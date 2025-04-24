@@ -36,7 +36,8 @@ const AthleteCategoryMedalBox = (props: { category: DisciplineCategories }) => {
   return (
     <>
       <GenericDashboardBoxHeader>
-        Kategorie: {t("disciplines.categories." + props.category + ".label")}
+        {t("generic.category")}:{" "}
+        {t("disciplines.categories." + props.category + ".label")}
       </GenericDashboardBoxHeader>
       <GenericDashboardBoxContent
         sx={{
@@ -53,7 +54,12 @@ const AthleteCategoryMedalBox = (props: { category: DisciplineCategories }) => {
         />
       </GenericDashboardBoxContent>
       <GenericDashboardBoxFooter>
-        This equals to {convertMedalToNumber(medals[0])} points
+        {t("components.athleteDashboard.categoryMedalBox.thisEquals")}{" "}
+        {convertMedalToNumber(medals[0])}{" "}
+        {t(
+          "components.athleteDashboard.categoryMedalBox.points." +
+            (convertMedalToNumber(medals[0]) == 1 ? "singular" : "plural"),
+        )}
       </GenericDashboardBoxFooter>
     </>
   );

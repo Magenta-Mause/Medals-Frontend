@@ -58,8 +58,13 @@
     "confirm": "Confirm",
     "password": "Password",
     "finished": "Finished",
+    "category": "Category",
     "date": {
       "on": "on"
+    },
+    "points": {
+      "plural": "points",
+      "singular": "point"
     },
     "validation": {
       "required": "This field is required",
@@ -619,6 +624,32 @@
       "performanceRecordingsThisYear": " of which in this year",
       "selectedUser": "Your profile",
       "bornIn": "Born in",
+      "categoryMedalBox": {
+        "thisEquals": "This equals",
+        "points": {
+          "singular": "point",
+          "plural": "points"
+        }
+      },
+      "activityChart": {
+        "header": "Your activities in ",
+        "link": "See all your activities"
+      },
+      "totalMedalBox": {
+        "header": "Total Points",
+        "pointsMissingTemplate": {
+          "prefix": {
+            "singular": "",
+            "plural": ""
+          },
+          "between": "missing to achieve the",
+          "postfix": "medal"
+        },
+        "pointsCount": {
+          "prefix": "You've achieved",
+          "postfix": ""
+        }
+      },
       "swimCertificate": {
         "header": "Your Swim Certificate",
         "noSwimCertificate": "Missing",
