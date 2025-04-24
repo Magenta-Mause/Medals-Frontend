@@ -27,7 +27,6 @@ const TrainerOverviewPage = () => {
       </Box>
       <TrainerDatagrid
         trainers={trainers}
-        isLoading={trainersState == "LOADING"}
       />
     </>
   );

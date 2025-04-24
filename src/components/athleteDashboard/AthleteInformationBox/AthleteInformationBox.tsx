@@ -13,7 +13,7 @@ import {
 const AthleteInformationBox = () => {
   const { selectedUser } = useContext(AuthContext);
   const { t } = useTranslation();
-  const { formatDate } = useFormatting();
+  const { formatLocalizedDate } = useFormatting();
   if (selectedUser?.type != "ATHLETE") {
     return <>{t("components.athleteDashboard.error.notAnAthlete")}</>;
   }
@@ -33,7 +33,7 @@ const AthleteInformationBox = () => {
       <GenericDashboardBoxFooter>
         {t("components.athleteDashboard.bornIn")}{" "}
         <Typography style={{ userSelect: "all" }}>
-          {formatDate(Date.parse(athlete.birthdate))}
+          {formatLocalizedDate(Date.parse(athlete.birthdate))}
         </Typography>
       </GenericDashboardBoxFooter>
     </>

@@ -15,7 +15,6 @@ import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
-  isLoading: boolean;
 }
 
 const TrainerDatagrid = (props: TrainerDatagridProps) => {
@@ -133,7 +132,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
   return (
     <>
       <GenericResponsiveDatagrid
-        isLoading={props.isLoading}
         data={props.trainers}
         columns={columns}
         filters={filters}

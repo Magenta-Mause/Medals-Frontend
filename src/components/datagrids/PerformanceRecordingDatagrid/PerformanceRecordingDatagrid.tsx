@@ -36,7 +36,7 @@ const PerformanceRecordingDatagrid = (
 ) => {
   const { deletePerformanceRecording } = useApi();
   const { t } = useTranslation();
-  const { formatValue, formatDate } = useFormatting();
+  const { formatValue, formatLocalizedDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
 
   const columns: Column<PerformanceRecording>[] = [
@@ -74,7 +74,7 @@ const PerformanceRecordingDatagrid = (
       columnMapping(item) {
         return (
           <Typography>
-            {formatDate(Date.parse(item.date_of_performance)) ?? "-"}
+            {formatLocalizedDate(item.date_of_performance) ?? "-"}
           </Typography>
         );
       },
@@ -120,7 +120,7 @@ const PerformanceRecordingDatagrid = (
               p.rating_value,
               p.discipline_rating_metric.discipline.unit,
             ) + " - "
-          : " ") + formatDate(Date.parse(p.date_of_performance))}
+          : " ") + (formatLocalizedDate(p.date_of_performance) ?? "-")}
       </>
     ),
   };

@@ -12,14 +12,14 @@ const PerformanceRecordingViewModal = (props: {
   selectedDate?: string;
 }) => {
   const { t } = useTranslation();
-  const { formatDate } = useFormatting();
+  const { formatLocalizedDate } = useFormatting();
 
   return (
     <GenericModal
       header={
         props.selectedDate
           ? t("components.performanceRecordingViewModal.header.date") +
-            formatDate(Date.parse(props.selectedDate))
+            formatLocalizedDate(Date.parse(props.selectedDate))
           : t("components.performanceRecordingViewModal.header.plain")
       }
       open={props.open}

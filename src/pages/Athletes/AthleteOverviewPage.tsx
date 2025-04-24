@@ -25,10 +25,7 @@ const AthleteOverviewPage = () => {
           {t("pages.athleteOverviewPage.header")}
         </Typography>
       </Box>
-      <AthleteDatagrid
-        athletes={athletes}
-        isLoading={athleteState == "LOADING"}
-      />
+      <AthleteDatagrid athletes={athletes} />
     </>
   );
 };

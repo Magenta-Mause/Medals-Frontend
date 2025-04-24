@@ -7,13 +7,16 @@ import store from "./stores";
 import timezone from "dayjs/plugin/timezone";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { StrictMode } from "react";
 
 window.global = window;
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
 createRoot(document.getElementById("root")!).render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </StrictMode>,
 );

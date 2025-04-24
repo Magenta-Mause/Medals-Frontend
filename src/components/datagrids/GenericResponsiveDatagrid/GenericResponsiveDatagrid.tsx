@@ -58,7 +58,7 @@ interface GenericResponsiveDatagridProps<T> {
   columns: Column<T>[];
   filters?: Filter<T>[];
   toolbarActions?: ToolbarAction[];
-  isLoading: boolean;
+  isLoading?: boolean;
   actionMenu?: Action<T>[];
   itemSelectionActions?: Action<T>[];
   keyOf: (item: T) => Key;
