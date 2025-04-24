@@ -59,6 +59,7 @@
     "password": "Password",
     "finished": "Finished",
     "category": "Category",
+    "medal": "medal",
     "date": {
       "on": "on"
     },
@@ -636,7 +637,15 @@
         "link": "See all your activities"
       },
       "totalMedalBox": {
-        "header": "Total Points",
+        "header": "\"Deutsches Sportabzeichen\"",
+        "noSwimCertificate": {
+          "blurText": "To be accepted for the for the \"Deutsches Sportabzeichen\" you need a valid swim certification",
+          "pointDisplay": {
+            "prefix": "You've achieved",
+            "between": "which would lead to a",
+            "postfix": ""
+          }
+        },
         "pointsMissingTemplate": {
           "prefix": {
             "singular": "",

@@ -1,10 +1,17 @@
 import React from "react";
 import Grid2, { Grid2Props } from "@mui/material/Grid2";
-import { Card, CardContent, Typography, TypographyProps } from "@mui/joy";
+import {
+  Card,
+  CardContent,
+  CardContentProps,
+  Typography,
+  TypographyProps,
+} from "@mui/joy";
 
 const GenericDashboardBox = (props: {
   children: React.ReactNode;
   size: Grid2Props["size"] | undefined;
+  cardContentSx?: CardContentProps["sx"];
 }) => {
   return (
     <Grid2 size={props.size}>
@@ -22,7 +29,7 @@ const GenericDashboardBox = (props: {
             position: "relative",
             display: "flex",
             justifyContent: "space-between",
-            minHeight: "180px",
+            ...props.cardContentSx,
           }}
         >
           {props.children}

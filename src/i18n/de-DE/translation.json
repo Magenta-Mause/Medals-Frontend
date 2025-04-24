@@ -26,6 +26,7 @@
     "confirm": "Bestätigen",
     "password": "Passwort",
     "finished": "Fertig",
+    "medal": "Medaille",
     "date": {
       "on": "am"
     },
@@ -628,7 +629,15 @@
         }
       },
       "totalMedalBox": {
-        "header": "Gesamtleistung",
+        "header": "Deutsches Sportabzeichen",
+        "noSwimCertificate": {
+          "blurText": "Um für das Deutsche Sportabzeichen zugelassen zu werden brauchst du einen gültigen Schwimm Nachweis",
+          "pointDisplay": {
+            "prefix": "Du hast aktuell",
+            "between": "was eine",
+            "postfix": "ergeben würde"
+          }
+        },
         "pointsMissingTemplate": {
           "prefix": {
             "singular": "Dir fehlt noch",

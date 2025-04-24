@@ -23,7 +23,7 @@ const AthleteSwimCertificateBox = () => {
       </GenericDashboardBoxHeader>
       <GenericDashboardBoxContent
         sx={(theme) => ({
-          userSelect: "all",
+          userSelect: "text",
           height: "100%",
           color: athlete?.swimming_certificate
             ? "rgba(59,183,59, 0.9)"

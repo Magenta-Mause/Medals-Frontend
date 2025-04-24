@@ -15,6 +15,7 @@ import {
   convertMedalToNumber,
 } from "@utils/calculationUtil";
 import { useTranslation } from "react-i18next";
+import { Typography } from "@mui/joy";
 
 const AthleteCategoryMedalBox = (props: { category: DisciplineCategories }) => {
   const { selectedUser } = useContext(AuthContext);
@@ -41,10 +42,12 @@ const AthleteCategoryMedalBox = (props: { category: DisciplineCategories }) => {
       </GenericDashboardBoxHeader>
       <GenericDashboardBoxContent
         sx={{
-          height: "200px",
+          height: "150px",
+          m: "20px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          flexDirection: "column",
         }}
       >
         <MedalIcon
@@ -52,6 +55,9 @@ const AthleteCategoryMedalBox = (props: { category: DisciplineCategories }) => {
           medalType={medals.length > 0 ? medals[0] : Medals.NONE}
           sx={{ height: "60%", aspectRatio: 1, width: "auto" }}
         />
+        <Typography sx={{ p: 1, textAlign: "center" }} level={"body-lg"}>
+          {t("medals." + (medals[0] ?? Medals.NONE))}
+        </Typography>
       </GenericDashboardBoxContent>
       <GenericDashboardBoxFooter>
         {t("components.athleteDashboard.categoryMedalBox.thisEquals")}{" "}
