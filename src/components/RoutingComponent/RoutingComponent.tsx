@@ -54,7 +54,10 @@ const RoutingComponent = () => {
           {/* ATHLETE */}
           <Route path="/dashboard" element={<AthleteDashboardPage />} />
           <Route path="/requirements" element={<PerformanceMetricsPage />} />
-          <Route path="/performances" element={<AthletePerformanceViewPage />} />
+          <Route
+            path="/performances"
+            element={<AthletePerformanceViewPage />}
+          />
 
           {/* Shared Pages */}
           <Route path="/materials" element={<MaterialsDownloadPage />} />
