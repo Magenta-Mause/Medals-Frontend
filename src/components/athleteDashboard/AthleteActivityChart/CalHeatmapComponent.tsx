@@ -13,6 +13,7 @@ const CalHeatmapComponent = (props: {
   heatmapPlugins: any[];
   onclick: (date: string) => void;
   sx: BoxProps["sx"];
+  height: string;
   setLoading?: (loading: boolean) => void;
 }) => {
   const renderTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -52,7 +53,7 @@ const CalHeatmapComponent = (props: {
         console.error("Paint error:", error);
       }
     }, 500);
-  }, [propsSetLoading, options, plugins, onclick, enqueueSnackbar]);
+  }, [propsSetLoading, options, plugins, onclick, enqueueSnackbar, t]);
 
   return (
     <>
@@ -62,7 +63,7 @@ const CalHeatmapComponent = (props: {
       ></Box>
       <Skeleton
         sx={{ width: "100%", height: "105px" }}
-        height={"105px"}
+        height={props.height}
         loading={loading}
       />
     </>

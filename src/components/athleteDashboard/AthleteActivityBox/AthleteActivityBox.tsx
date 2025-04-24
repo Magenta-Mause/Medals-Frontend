@@ -10,7 +10,7 @@ import { PerformanceRecording } from "@customTypes/backendTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import AthleteActivityChartV2 from "@components/athleteDashboard/AthleteActivityChart/AthleteActivityChartV2";
+import AthleteActivityChartV2 from "@components/athleteDashboard/AthleteActivityChart/AthleteActivityChart";
 
 const AthleteActivityBox = () => {
   const { selectedUser } = useContext(AuthContext);
