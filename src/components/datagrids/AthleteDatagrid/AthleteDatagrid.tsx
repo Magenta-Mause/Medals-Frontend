@@ -43,13 +43,19 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
   const currentYear = new Date().getFullYear();
 
-  const selection = Array.from({ length: 12 }, (_, i) => {
-    const value = (i + 6).toString();
-    return {
-      displayValue: Number(value),
-      value,
-    };
-  });
+  const selection = [
+    ...Array.from({ length: 12 }, (_, i) => {
+      const value = (i + 6).toString();
+      return {
+        displayValue: Number(value),
+        value,
+      };
+    }),
+    {
+      displayValue: 'All',
+      value: 'all',
+    }
+  ];
 
   const noAthleteFoundMessage = (
     <Box sx={{ width: "250px" }}>
@@ -191,8 +197,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       label: t("components.athleteDatagrid.table.filters.age"),
       apply(filterParameter) {
         return (athlete) =>
-          filterParameter == "" ||
-          String(calculateAge(athlete.birthdate)) == filterParameter;
+          filterParameter === "" ||
+          filterParameter === "all" ||
+          String(calculateAge(athlete.birthdate)) === filterParameter;
       },
       type: "SELECTION",
       selection: selection,
