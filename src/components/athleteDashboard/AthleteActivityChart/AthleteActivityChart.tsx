@@ -23,8 +23,8 @@ const AthleteActivityChart = (props: {
   const [
     performanceRecordingViewModalOpen,
     setPerformanceRecordingViewModalOpen,
-  ] = React.useState(false);
-  const [selectedDate, setSelectedDate] = React.useState<string | null>(null);
+  ] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   const calculateData = useCallback(() => {
     const countPerDay: Record<

@@ -21,7 +21,7 @@ import { useContext } from "react";
 
 import { Route, Routes } from "react-router";
 import AthleteDashboardPage from "@pages/Athletes/AthleteDashboardPage";
-import AthletePerfomanceViewPage from "@pages/Athletes/AthletePerformanceViewPage";
+import AthletePerformanceViewPage from "@pages/Athletes/AthletePerformanceViewPage";
 
 const RoutingComponent = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -54,7 +54,7 @@ const RoutingComponent = () => {
           {/* ATHLETE */}
           <Route path="/dashboard" element={<AthleteDashboardPage />} />
           <Route path="/requirements" element={<PerformanceMetricsPage />} />
-          <Route path="/performances" element={<AthletePerfomanceViewPage />} />
+          <Route path="/performances" element={<AthletePerformanceViewPage />} />
 
           {/* Shared Pages */}
           <Route path="/materials" element={<MaterialsDownloadPage />} />

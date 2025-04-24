@@ -8,7 +8,7 @@ import YearSelector from "@components/AthletePerformanceAccordions/YearSelector"
 import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 import SwimCertificateSection from "@components/SwimCertificateSection/SwimCertificateSection";
 
-const AthletePerfomanceViewPage = () => {
+const AthletePerformanceViewPage = () => {
   const { selectedUser } = useContext(AuthContext);
   const athletes = useTypedSelector(
     (state) => state.athletes.data,
@@ -25,7 +25,6 @@ const AthletePerfomanceViewPage = () => {
   if (!athlete) {
     return <></>;
   }
-  console.log(athlete);
   return (
     <>
       <AthleteDetailHeader athlete={athlete} />
@@ -58,4 +57,4 @@ const AthletePerfomanceViewPage = () => {
   );
 };
 
-export default AthletePerfomanceViewPage;
+export default AthletePerformanceViewPage;
