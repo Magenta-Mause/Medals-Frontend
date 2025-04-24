@@ -21,6 +21,7 @@ import { PersonAdd, PersonSearch } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
+import { calculateAge } from "@utils/calculationUtil";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -41,22 +42,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
   const currentYear = new Date().getFullYear();
-
-  function calculateAge(birthdate: Date): string {
-    const today = new Date();
-    let age = today.getFullYear() - birthdate.getFullYear();
-
-    const hasHadBirthdayThisYear =
-      today.getMonth() > birthdate.getMonth() ||
-      (today.getMonth() === birthdate.getMonth() &&
-        today.getDate() >= birthdate.getDate());
-
-    if (!hasHadBirthdayThisYear) {
-      age--;
-    }
-
-    return String(age);
-  }
 
   const selection = Array.from({ length: 12 }, (_, i) => {
     const value = (i + 6).toString();
@@ -207,7 +192,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       apply(filterParameter) {
         return (athlete) =>
           filterParameter == "" ||
-          calculateAge(new Date(athlete.birthdate)) == filterParameter;
+          String(calculateAge(athlete.birthdate)) == filterParameter;
       },
       type: "SELECTION",
       selection: selection,
