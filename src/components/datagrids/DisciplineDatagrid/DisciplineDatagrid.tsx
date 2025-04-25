@@ -71,14 +71,12 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
               gap: "10px",
             }}
           >
-            <MedalIcon
-              category={discipline.category}
-              medalType={
-                bestItem
-                  ? calculatePerformanceRecordingMedal(bestItem)
-                  : Medals.NONE
-              }
-            />
+            {bestItem && (
+              <MedalIcon
+                category={discipline.category}
+                medalType={calculatePerformanceRecordingMedal(bestItem)}
+              />
+            )}
             <Typography>
               {discipline.performanceRecordings.length > 0
                 ? formatValue(bestItem.rating_value, discipline.unit)
