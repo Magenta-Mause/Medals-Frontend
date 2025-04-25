@@ -7,7 +7,7 @@ import GenericConfirmationModal from "@components/modals/ConfirmatoinModal/Gener
 import { enqueueSnackbar } from "notistack";
 
 interface RemoveConnectionModalProps {
-  selectedAthlete: Athlete;
+  selectedAthletes: Athlete[];
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -18,11 +18,13 @@ const RemoveConnectionModal = (props: RemoveConnectionModalProps) => {
   const { selectedUser } = useContext(AuthContext);
 
   const remove = async () => {
-    if (selectedUser?.id && props.selectedAthlete.id) {
-      await removeTrainerAthleteConnection(
-        selectedUser.id,
-        props.selectedAthlete.id,
-      );
+    if (selectedUser?.id && props.selectedAthletes.length > 0) {
+      const athleteIds: number[] =
+        props.selectedAthletes
+          ?.map((athlete) => athlete.id)
+          .filter((id): id is number => id !== undefined) || [];
+
+      await removeTrainerAthleteConnection(selectedUser.id, athleteIds);
       enqueueSnackbar(t("snackbar.removalConfirmationModal.success"), {
         variant: "success",
       });

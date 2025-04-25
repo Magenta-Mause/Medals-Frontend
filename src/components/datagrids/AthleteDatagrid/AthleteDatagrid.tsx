@@ -42,7 +42,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
-  const [selectedAthlete, setSelectedAthlete] = useState<Athlete>();
   const currentYear = new Date().getFullYear();
 
   const noAthleteFoundMessage = (
@@ -258,7 +257,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       key: "remove",
       variant: "outlined",
       operation: async (item) => {
-        setSelectedAthlete(item);
+        setSelectedAthletes((prev) => [...prev, item]);
         setConfirmationModalOpen(true);
       },
     },
@@ -332,7 +331,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       <RemoveConfirmationModal
         isOpen={isConfirmationModalOpen}
         setOpen={setConfirmationModalOpen}
-        selectedAthlete={selectedAthlete!}
+        selectedAthletes={selectedAthletes}
       />
       <GenericResponsiveDatagrid
         isLoading={props.isLoading}
