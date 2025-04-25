@@ -7,7 +7,6 @@ import {
 } from "@customTypes/backendTypes";
 import { useCallback } from "react";
 import config from "../config";
-import qs from "qs";
 import useAxiosInstance from "./useAxiosInstance";
 import { SwimmingCertificateType } from "@customTypes/enums";
 
@@ -385,14 +384,12 @@ const useApi = () => {
   );
 
   const removeTrainerAthleteConnection = useCallback(
-    async (trainerId: number, athleteIds: number[]) => {
+    async (trainerId: number, athleteId: number) => {
       try {
         const response = await axiosInstance!.delete(
           `/trainers/trainer-athlete-connection`,
           {
-            params: { trainerId, athleteIds },
-            paramsSerializer: (params) =>
-              qs.stringify(params, { arrayFormat: "repeat" }),
+            params: { trainerId, athleteId },
           },
         );
         return response.data.data as Trainer;

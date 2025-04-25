@@ -12,22 +12,19 @@ interface RemoveConnectionModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RemoveConnectionModal = (props: RemoveConnectionModalProps) => {
+const AthleteRequestButton = (props: RemoveConnectionModalProps) => {
   const { t } = useTranslation();
   const { removeTrainerAthleteConnection } = useApi();
   const { selectedUser } = useContext(AuthContext);
 
   const remove = async () => {
     if (selectedUser?.id && props.selectedAthletes.length > 0) {
-      const athleteIds: number[] =
-        props.selectedAthletes
-          ?.map((athlete) => athlete.id)
-          .filter((id): id is number => id !== undefined) || [];
-
-      await removeTrainerAthleteConnection(selectedUser.id, athleteIds);
-      enqueueSnackbar(t("snackbar.removalConfirmationModal.success"), {
-        variant: "success",
-      });
+      for (const athlete of props.selectedAthletes) {
+        await removeTrainerAthleteConnection(selectedUser.id, athlete.id!);
+        enqueueSnackbar(t("snackbar.removalConfirmationModal.success"), {
+          variant: "success",
+        });
+      }
     }
   };
 
@@ -47,4 +44,4 @@ const RemoveConnectionModal = (props: RemoveConnectionModalProps) => {
   );
 };
 
-export default RemoveConnectionModal;
+export default AthleteRequestButton;
