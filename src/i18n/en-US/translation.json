@@ -533,7 +533,7 @@
       }
     },
     "swimCertificateSection": {
-      "noCertificateWarning": "No swim certificate achieved",
+      "noCertificateWarning": "No swimming certificate achieved",
       "deleteButton": "Delete Certificate",
       "certificateLabel": {
         "endurance": "Endurance",
@@ -551,7 +551,7 @@
       "deleteButton": "Delete"
     },
     "createSwimCertificateModal": {
-      "header": "Create Swim Certificate",
+      "header": "Create Swimming Certificate",
       "options": {
         "ENDURANCE": {
           "label": "Endurance",
