@@ -76,6 +76,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       </Box>
     </Box>
   );
+
   const columns: Column<Athlete>[] = [
     {
       columnName: t("components.athleteDatagrid.table.columns.firstName"),
@@ -122,11 +123,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       disableSpan: true,
       columnMapping(item) {
         return (
-          <AchievementsBox
-            athlete={item}
-            performanceRecordings={performanceRecordings}
-            currentYear={currentYear}
-          />
+          <>
+            <AchievementsBox
+              athlete={item}
+              performanceRecordings={performanceRecordings}
+              selectedYear={currentYear}
+            />
+          </>
         );
       },
     },
@@ -281,7 +284,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       <AchievementsBox
         athlete={athlete}
         performanceRecordings={performanceRecordings}
-        currentYear={currentYear}
+        selectedYear={currentYear}
       />
     ),
     searchFilter: {

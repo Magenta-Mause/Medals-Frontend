@@ -3,6 +3,7 @@ import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import { DisciplineCategories, Medals } from "@customTypes/enums";
 import {
   calculatePerformanceRecordingMedal,
+  calculateTotalMedalFromPerformanceRecordings,
   convertMedalToNumber,
 } from "@utils/calculationUtil";
 import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
@@ -12,19 +13,22 @@ export interface AchievementsBoxProps {
   athlete: Athlete;
   performanceRecordings: PerformanceRecording[];
   sx?: any;
-  currentYear: number;
+  selectedYear: number;
 }
 
 const AchievementsBox = ({
   athlete,
   performanceRecordings,
   sx,
-  currentYear,
+  selectedYear,
 }: AchievementsBoxProps) => {
   const performanceRecordingsOfAthlete = performanceRecordings.filter(
     (p) =>
       p.athlete_id === athlete.id &&
-      new Date(p.date_of_performance).getFullYear() === currentYear,
+      new Date(p.date_of_performance).getFullYear() === selectedYear,
+  );
+  const totalMedal = calculateTotalMedalFromPerformanceRecordings(
+    performanceRecordingsOfAthlete,
   );
 
   return (
@@ -37,6 +41,7 @@ const AchievementsBox = ({
         ...sx,
       }}
     >
+      <MedalIcon medalType={totalMedal} />
       {Object.values(DisciplineCategories).map((category) => {
         const recordingsByCategory = performanceRecordingsOfAthlete.filter(
           (p) => p.discipline_rating_metric.discipline.category === category,

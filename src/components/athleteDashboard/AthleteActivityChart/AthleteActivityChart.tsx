@@ -77,7 +77,7 @@ const AthleteActivityChart = (props: {
         y: "value",
       },
       date: {
-        start: new Date("2025-01-01"),
+        start: new Date(dayjs().year() + "-01-01"),
         max: new Date(),
         locale: i18n.language,
       },

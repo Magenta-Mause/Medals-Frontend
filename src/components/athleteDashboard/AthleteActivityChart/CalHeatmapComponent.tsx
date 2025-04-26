@@ -65,6 +65,7 @@ const CalHeatmapComponent = (props: {
         sx={{ width: "100%", height: "105px" }}
         height={props.height}
         loading={loading}
+        animation={"wave"}
       />
     </>
   );

@@ -6,15 +6,16 @@ import { useMedalColors } from "@hooks/useMedalColors";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import { t } from "i18next";
 import { ICON_SIZE } from "constants/iconSize";
+import { BiTrophy } from "react-icons/bi";
 
 interface MedalIconProps {
-  category: DisciplineCategories;
+  category?: DisciplineCategories;
   medalType: Medals;
   sx?: SxProps;
 }
 
 export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
-  const DisciplineIcon = DisciplineIcons[category];
+  const DisciplineIcon = category ? DisciplineIcons[category] : BiTrophy;
   const colorScheme = useColorScheme();
   const backgroundColor =
     colorScheme.colorScheme === "dark"
@@ -48,7 +49,11 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
   }
 
   const tooltipText =
-    t("disciplines.categories." + category + ".label") +
+    t(
+      category
+        ? "disciplines.categories." + category + ".label"
+        : "generic.deutschesSportabzeichen",
+    ) +
     ": " +
     t("medals." + medalType);
 
