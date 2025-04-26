@@ -104,7 +104,7 @@ const AthleteTotalMedalBox = () => {
         </Box>
         <CardContent
           sx={{
-            filter: swimCertificateMissing ? "blur(5px)" : "blur(0px)",
+            filter: swimCertificateMissing ? "blur(15px)" : "blur(0px)",
             transition: "all ease .3s",
             height: "100%",
           }}
