@@ -28,19 +28,15 @@ const RemoveConfirmationModal = (props: RemoveConnectionModalProps) => {
     }
   };
 
-  const selectDescprition = () => {
-    if (props.selectedAthletes.length > 1) {
-      return t("components.confirmationModal.descriptionPural");
-    } else {
-      return t("components.confirmationModal.description");
-    }
-  };
-
   return (
     <>
       <GenericConfirmationModal
         header={t("components.confirmationModal.header")}
-        description={selectDescprition()}
+        description={t(
+          props.selectedAthletes.length > 1
+            ? "components.confirmationModal.descriptionPural"
+            : "components.confirmationModal.description",
+        )}
         cancelText={t("components.confirmationModal.cancel")}
         confirmText={t("components.confirmationModal.remove")}
         confirmButtonColor="danger"
