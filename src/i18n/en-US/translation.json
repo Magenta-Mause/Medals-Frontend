@@ -337,6 +337,7 @@
     "confirmationModal": {
       "header": "Confirmation",
       "description": "Are you sure you want to remove the athlete from your team?",
+      "descriptionPural": "Are you sure you want to remove the athletes from your team?",
       "cancel": "Cancel",
       "remove": "Give up access"
     },

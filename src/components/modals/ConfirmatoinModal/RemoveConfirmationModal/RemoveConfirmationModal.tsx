@@ -12,7 +12,7 @@ interface RemoveConnectionModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AthleteRequestButton = (props: RemoveConnectionModalProps) => {
+const RemoveConfirmationModal = (props: RemoveConnectionModalProps) => {
   const { t } = useTranslation();
   const { removeTrainerAthleteConnection } = useApi();
   const { selectedUser } = useContext(AuthContext);
@@ -28,11 +28,19 @@ const AthleteRequestButton = (props: RemoveConnectionModalProps) => {
     }
   };
 
+  const selectDescprition = () => {
+    if (props.selectedAthletes.length > 1) {
+      return t("components.confirmationModal.descriptionPural");
+    } else {
+      return t("components.confirmationModal.description");
+    }
+  };
+
   return (
     <>
       <GenericConfirmationModal
         header={t("components.confirmationModal.header")}
-        description={t("components.confirmationModal.description")}
+        description={selectDescprition()}
         cancelText={t("components.confirmationModal.cancel")}
         confirmText={t("components.confirmationModal.remove")}
         confirmButtonColor="danger"
@@ -44,4 +52,4 @@ const AthleteRequestButton = (props: RemoveConnectionModalProps) => {
   );
 };
 
-export default AthleteRequestButton;
+export default RemoveConfirmationModal;

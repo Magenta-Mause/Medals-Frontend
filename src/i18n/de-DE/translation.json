@@ -349,6 +349,7 @@
     "confirmationModal": {
       "header": "Bestätigung",
       "description": "Bist du sicher, dass du den Athleten aus deinem Team entfernen willst?",
+      "descriptionPural": "Bist du sicher, dass du die Athlet*innen aus deinem Team entfernen willst?",
       "cancel": "Abbrechen",
       "remove": "Zugriff abgeben"
     },
