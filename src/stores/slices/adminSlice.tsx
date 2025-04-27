@@ -14,6 +14,17 @@ const adminSlice = createSlice({
       state.data = state.data.filter((item) => item.id !== action.payload.id);
       state.data.push(action.payload);
     },
+    updateAdmin(state, action: PayloadAction<Admin>) {
+      const index = state.data.findIndex(item => item.id === action.payload.id);
+      if (index !== -1) {
+        state.data[index] = {
+          ...state.data[index],
+          ...action.payload,
+          first_name: action.payload.first_name,
+          last_name: action.payload.last_name
+        };
+      }
+    },
     removeAdmin(state, action: PayloadAction<{ id: number }>) {
       state.data = state.data.filter((item) => item.id !== action.payload.id);
     },
@@ -23,7 +34,7 @@ const adminSlice = createSlice({
   },
 });
 
-const { addAdmin, removeAdmin, setAdmins } = adminSlice.actions;
+const { addAdmin, updateAdmin, removeAdmin, setAdmins } = adminSlice.actions;
 
-export { addAdmin, removeAdmin, setAdmins };
+export { addAdmin, updateAdmin, removeAdmin, setAdmins };
 export default adminSlice.reducer;

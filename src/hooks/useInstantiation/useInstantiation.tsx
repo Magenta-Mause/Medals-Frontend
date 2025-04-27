@@ -29,8 +29,14 @@ import {
   addTrainer,
   removeTrainer,
   setTrainers,
+  updateTrainer,
 } from "@stores/slices/trainerSlice";
-import { addAdmin, removeAdmin, setAdmins } from "@stores/slices/adminSlice";
+import { 
+  addAdmin, 
+  removeAdmin, 
+  setAdmins,
+  updateAdmin,
+} from "@stores/slices/adminSlice";
 import { setDisciplineMetrics } from "@stores/slices/disciplineRatingMetricSlice";
 import { useCallback, useContext } from "react";
 import { useDispatch } from "react-redux";
@@ -123,7 +129,10 @@ const useInstantiation = () => {
       checkUserAccountUpdate(a);
       dispatch(addTrainer(a));
     },
-    () => {},
+    (a) => {
+      checkUserAccountUpdate(a);
+      dispatch(updateTrainer(a));
+    },
     (id) => {
       console.log("deleted:", id);
       checkUserAccountUpdateId(id);
@@ -144,7 +153,10 @@ const useInstantiation = () => {
       checkUserAccountUpdate(a);
       dispatch(addAdmin(a));
     },
-    () => {},
+    (a) => {
+      checkUserAccountUpdate(a);
+      dispatch(updateAdmin(a));
+    },
     (id) => {
       console.log("deleted admin:", id);
       checkUserAccountUpdateId(id);
@@ -160,6 +172,7 @@ const useInstantiation = () => {
       const instantiate = async () => {
         if (userType == UserType.ADMIN) {
           dispatch(setTrainers((await getTrainers()) ?? []));
+          dispatch(setAdmins((await getAdmins()) ?? []));
         }
         dispatch(setAthletes((await getAthletes()) ?? []));
         dispatch(setDisciplines((await getDisciplines()) ?? []));
@@ -173,12 +186,14 @@ const useInstantiation = () => {
           uninitializeDisciplineWebsocket();
           uninitializePerformanceRecordingWebsocket();
           uninitializeTrainerWebsocket();
+          uninitializeAdminWebsocket();
 
           initializeAthleteWebsocket();
           initializeDisciplineWebsocket();
           initializePerformanceRecordingWebsocket();
           if (userType == UserType.ADMIN) {
             initializeTrainerWebsocket();
+            initializeAdminWebsocket();
           }
         }, 700);
       };
@@ -187,15 +202,18 @@ const useInstantiation = () => {
     [
       dispatch,
       getAthletes,
+      getAdmins,
       getDisciplineMetrics,
       getDisciplines,
       getPerformanceRecordings,
       getTrainers,
       initializeAthleteWebsocket,
+      initializeAdminWebsocket,
       initializeDisciplineWebsocket,
       initializePerformanceRecordingWebsocket,
       initializeTrainerWebsocket,
       uninitializeAthleteWebsocket,
+      uninitializeAdminWebsocket,
       uninitializeDisciplineWebsocket,
       uninitializePerformanceRecordingWebsocket,
       uninitializeTrainerWebsocket,

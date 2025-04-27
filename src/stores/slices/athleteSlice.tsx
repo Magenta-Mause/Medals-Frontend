@@ -19,7 +19,12 @@ const athleteSlice = createSlice({
         (athlete) => athlete.id == action.payload.id,
       );
       if (index !== -1) {
-        state.data[index] = action.payload;
+        state.data[index] = {
+          ...state.data[index],
+          ...action.payload,
+          first_name: action.payload.first_name,
+          last_name: action.payload.last_name
+        };
       }
     },
     removeAthlete(state, action: PayloadAction<{ id: number }>) {
