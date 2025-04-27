@@ -1,26 +1,26 @@
 import useApi from "@hooks/useApi";
-import EntityForm from "../EntityForm";
 import EntityModal from "../EntityModal";
+import EntityForm from "../EntityForm";
 
-interface TrainerData {
+interface AdminData {
   id?: number;
   first_name: string;
   last_name: string;
   email: string;
 }
 
-interface TrainerModalProps {
+interface AdminModalProps {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  entityToEdit?: TrainerData;
+  entityToEdit?: AdminData;
 }
 
-const TrainerModal = ({
+const AdminModal = ({
   isOpen,
   setOpen,
   entityToEdit,
-}: TrainerModalProps) => {
-  const { inviteTrainer, updateTrainer } = useApi();
+}: AdminModalProps) => {
+  const { inviteAdmin, updateAdmin } = useApi();
   const isEditMode = !!entityToEdit;
 
   return (
@@ -32,16 +32,16 @@ const TrainerModal = ({
         : "components.entityModal.modal.createHeader"
       }
       FormComponent={EntityForm}
-      createFunction={(data) => inviteTrainer({ ...data, id: -1 })}
-      updateFunction={(data) => updateTrainer(data)}
+      createFunction={(data) => inviteAdmin({ ...data, id: -1 })}
+      updateFunction={(data) => updateAdmin(data)}
       successCreateMessage="snackbar.invite.success"
       errorCreateMessage="snackbar.invite.failed"
       successUpdateMessage="snackbar.update.success"
       errorUpdateMessage="snackbar.update.failed"
-      entityType="trainer"
+      entityType="admin"
       entityToEdit={entityToEdit}
     />
   );
 };
 
-export default TrainerModal;
+export default AdminModal;

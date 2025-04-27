@@ -1,7 +1,7 @@
 import EntityDatagrid from "../EntityDatagrid";
 import { Admin } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import AdminInvitationModal from "@components/modals/EntityCreationModal/admin/AdminInvitationModal";
+import AdminModal from "@components/modals/EntityCreationModal/admin/AdminModal";
 
 interface AdminsDatagridProps {
   admins: Admin[];
@@ -14,7 +14,7 @@ const AdminsDatagrid = (props: AdminsDatagridProps) => {
     <EntityDatagrid
       entities={props.admins}
       entityType="admin"
-      ModalComponent={AdminInvitationModal}
+      ModalComponent={AdminModal}
       deleteEntity={deleteAdmin}
     />
   );

@@ -129,9 +129,8 @@ const useApi = () => {
         const request = await axiosInstance!.put(
           `/trainers/${trainer.id}`,
           {
-            first_name: trainer.first_name,
-            last_name: trainer.last_name,
-            email: trainer.email,
+            firstName: trainer.first_name,
+            lastName: trainer.last_name,
           }
         );
         if (request.status !== 200) {
@@ -222,9 +221,8 @@ const useApi = () => {
         const request = await axiosInstance!.put(
           `/admins/${admin.id}`,
           {
-            first_name: admin.first_name,
-            last_name: admin.last_name,
-            email: admin.email,
+            firstName: admin.first_name,
+            lastName: admin.last_name,
           }
         );
         if (request.status !== 200) {

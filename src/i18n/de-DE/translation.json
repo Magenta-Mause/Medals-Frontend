@@ -492,12 +492,14 @@
         }
       },
       "actions": {
-        "delete": "Löschen"
+        "delete": "Löschen",
+        "edit": "Bearbeiten"
       }
     },
-    "entityInvitation": {
+    "entityModal": {
       "modal": {
-        "header": "{{entityType}} einladen"
+        "createHeader": "{{entityType}} einladen",
+        "editHeader": "{{entityType}} bearbeiten"
       },
       "form": {
         "email": "E-Mail",
@@ -505,7 +507,8 @@
         "firstNamePlaceholder": "Max",
         "lastName": "Nachname",
         "lastNamePlaceholder": "Mustermann",
-        "confirm": "{{entityType}} einladen"
+        "confirm": "{{entityType}} einladen",
+        "update": "{{entityType}} aktualisieren"
       }
     },
     "buttons": {
@@ -619,7 +622,8 @@
         "uploaded": "Athlet*in wurde hochgeladen",
         "valid": "Athlet*in kann hochgeladen werden"
       },
-      "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
+      "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet.",
+      "emailNotEditable": "E-Mail kann nicht bearbeitet werden"
     },
     "calHeatmap": {
       "loadingError": "Fehler beim Laden des Activity Charts"

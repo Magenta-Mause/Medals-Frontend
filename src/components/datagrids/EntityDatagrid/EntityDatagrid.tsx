@@ -23,6 +23,7 @@ interface EntityDatagridProps<T extends EntityWithBasicInfo> {
   ModalComponent: React.ComponentType<{
     isOpen: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    entityToEdit?: T;
   }>;
   deleteEntity: (id: number) => Promise<any>;
 }
@@ -34,7 +35,8 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
   deleteEntity,
 }: EntityDatagridProps<T>) {
   const { t } = useTranslation();
-  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [entityToEdit, setEntityToEdit] = useState<T | undefined>(undefined);
 
   const columns: Column<T>[] = [
     {
@@ -91,7 +93,8 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
       key: `invite-${entityType}`,
       variant: "solid",
       operation: async () => {
-        setAddModalOpen(true);
+        setEntityToEdit(undefined);
+        setModalOpen(true);
       },
     },
   ];
@@ -105,6 +108,17 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
       operation: async (item) => {
         await deleteEntity(item.id);
         console.log(`Deleted ${entityType}:`, item);
+      },
+    },
+    {
+      label: <>{t("components.entityDatagrid.actions.edit")}</>,
+      color: "primary",
+      key: "edit",
+      variant: "solid",
+      operation: async (item) => {
+        setEntityToEdit(item);
+        setModalOpen(true);
+        console.log(`Edit ${entityType}:`, item);
       },
     },
   ];
@@ -137,6 +151,11 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
     },
   };
 
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setEntityToEdit(undefined);
+  };
+
   return (
     <>
       <GenericResponsiveDatagrid
@@ -150,7 +169,11 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
         mobileRendering={mobileRendering}
       />
 
-      <ModalComponent isOpen={addModalOpen} setOpen={setAddModalOpen} />
+      <ModalComponent 
+        isOpen={modalOpen} 
+        setOpen={handleModalClose} 
+        entityToEdit={entityToEdit} 
+      />
     </>
   );
 }

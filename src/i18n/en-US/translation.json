@@ -481,12 +481,14 @@
         }
       },
       "actions": {
-        "delete": "Delete"
+        "delete": "Delete",
+        "edit": "Edit"
       }
     },
-    "entityInvitation": {
+    "entityModal": {
       "modal": {
-        "header": "Invite {{entityType}}"
+        "createHeader": "Invite {{entityType}}",
+        "editHeader": "Edit {{entityType}}"
       },
       "form": {
         "email": "Email",
@@ -494,7 +496,8 @@
         "firstNamePlaceholder": "John",
         "lastName": "Last Name",
         "lastNamePlaceholder": "Doe",
-        "confirm": "Invite {{entityType}}"
+        "confirm": "Invite {{entityType}}",
+        "update": "Update {{entityType}}"
       }
     },
     "buttons": {
@@ -618,7 +621,8 @@
         "uploaded": "Athlete has been uploaded",
         "valid": "Athlete can be uploaded"
       },
-      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
+      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used.",
+      "emailNotEditable": "Email cannot be changed"
     },
     "athleteActivityChart": {
       "tooltipText": {
