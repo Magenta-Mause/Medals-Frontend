@@ -32,7 +32,7 @@ import {
 } from "@stores/slices/trainerSlice";
 import { addAdmin, removeAdmin, setAdmins } from "@stores/slices/adminSlice";
 import { setDisciplineMetrics } from "@stores/slices/disciplineRatingMetricSlice";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext } from "react";
 import { useDispatch } from "react-redux";
 import useApi from "../useApi";
 import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
@@ -41,10 +41,6 @@ const useInstantiation = () => {
   const dispatch = useDispatch();
   const { selectedUser, refreshIdentityToken, email, authorizedUsers } =
     useContext(AuthContext);
-
-  const [currentlyInitialized, setCurrentlyInitialized] = useState<
-    number | null
-  >(null);
 
   const checkUserAccountUpdate = useCallback(
     (entity: { email: string }) => {
@@ -159,137 +155,54 @@ const useInstantiation = () => {
       : undefined,
   );
 
-  const instantiateAdmin = useCallback(async () => {
-    if (currentlyInitialized != selectedUser?.id) {
-      setCurrentlyInitialized(selectedUser?.id ?? null);
-      dispatch(setTrainers((await getTrainers()) ?? []));
-      dispatch(setAdmins((await getAdmins()) ?? []));
-      dispatch(setAthletes((await getAthletes()) ?? []));
-      dispatch(setDisciplines((await getDisciplines()) ?? []));
-      dispatch(
-        setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
-      );
-      dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
-
-      setTimeout(() => {
-        uninitializeAthleteWebsocket();
-        uninitializeDisciplineWebsocket();
-        uninitializeTrainerWebsocket();
-        uninitializeAdminWebsocket();
-        uninitializePerformanceRecordingWebsocket();
-
-        initializeAthleteWebsocket();
-        initializeDisciplineWebsocket();
-        initializeTrainerWebsocket();
-        initializeAdminWebsocket();
-        initializePerformanceRecordingWebsocket();
-      }, 500);
-    }
-  }, [
-    currentlyInitialized,
-    selectedUser,
-    dispatch,
-    getAthletes,
-    getDisciplines,
-    getTrainers,
-    getAdmins,
-    getPerformanceRecordings,
-    getDisciplineMetrics,
-    uninitializeAthleteWebsocket,
-    uninitializeDisciplineWebsocket,
-    uninitializePerformanceRecordingWebsocket,
-    uninitializeTrainerWebsocket,
-    uninitializeAdminWebsocket,
-    initializeAthleteWebsocket,
-    initializeDisciplineWebsocket,
-    initializeTrainerWebsocket,
-    initializeAdminWebsocket,
-    initializePerformanceRecordingWebsocket,
-  ]);
-
-  const instantiateTrainer = useCallback(async () => {
-    if (currentlyInitialized != selectedUser?.id) {
-      setCurrentlyInitialized(selectedUser?.id ?? null);
-      dispatch(setAthletes((await getAthletes()) ?? []));
-      dispatch(setDisciplines((await getDisciplines()) ?? []));
-      dispatch(
-        setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
-      );
-      dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
-
-      setTimeout(() => {
-        uninitializeAthleteWebsocket();
-        uninitializeDisciplineWebsocket();
-        uninitializePerformanceRecordingWebsocket();
-
-        initializeAthleteWebsocket();
-        initializeDisciplineWebsocket();
-        initializePerformanceRecordingWebsocket();
-      }, 700);
-    }
-  }, [
-    currentlyInitialized,
-    selectedUser,
-    dispatch,
-    getAthletes,
-    getDisciplines,
-    getPerformanceRecordings,
-    getDisciplineMetrics,
-    uninitializeAthleteWebsocket,
-    uninitializeDisciplineWebsocket,
-    uninitializePerformanceRecordingWebsocket,
-    initializeAthleteWebsocket,
-    initializeDisciplineWebsocket,
-    initializePerformanceRecordingWebsocket,
-  ]);
-
-  const instantiateAthlete = useCallback(async () => {
-    if (currentlyInitialized != selectedUser?.id) {
-      setCurrentlyInitialized(selectedUser?.id ?? null);
-      dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
-
-      uninitializeAthleteWebsocket();
-      uninitializeDisciplineWebsocket();
-      uninitializeTrainerWebsocket();
-      uninitializeAdminWebsocket();
-      uninitializePerformanceRecordingWebsocket();
-    }
-  }, [
-    currentlyInitialized,
-    selectedUser,
-    dispatch,
-    getDisciplineMetrics,
-    uninitializeTrainerWebsocket,
-    uninitializeAthleteWebsocket,
-    uninitializeDisciplineWebsocket,
-    uninitializeAdminWebsocket,
-    uninitializePerformanceRecordingWebsocket,
-  ]);
-
   const instantiateByType = useCallback(
     (userType: UserType) => {
-      switch (userType) {
-        case UserType.ADMIN: {
-          instantiateAdmin();
-          break;
+      const instantiate = async () => {
+        if (userType == UserType.ADMIN) {
+          dispatch(setTrainers((await getTrainers()) ?? []));
         }
-        case UserType.TRAINER: {
-          instantiateTrainer();
-          break;
-        }
-        case UserType.ATHLETE: {
-          instantiateAthlete();
-          break;
-        }
-      }
+        dispatch(setAthletes((await getAthletes()) ?? []));
+        dispatch(setDisciplines((await getDisciplines()) ?? []));
+        dispatch(
+          setPerformanceRecordings((await getPerformanceRecordings()) ?? []),
+        );
+        dispatch(setDisciplineMetrics((await getDisciplineMetrics()) ?? []));
+
+        setTimeout(() => {
+          uninitializeAthleteWebsocket();
+          uninitializeDisciplineWebsocket();
+          uninitializePerformanceRecordingWebsocket();
+          uninitializeTrainerWebsocket();
+
+          initializeAthleteWebsocket();
+          initializeDisciplineWebsocket();
+          initializePerformanceRecordingWebsocket();
+          if (userType == UserType.ADMIN) {
+            initializeTrainerWebsocket();
+          }
+        }, 700);
+      };
+      instantiate();
     },
-    [instantiateAdmin, instantiateAthlete, instantiateTrainer],
+    [
+      dispatch,
+      getAthletes,
+      getDisciplineMetrics,
+      getDisciplines,
+      getPerformanceRecordings,
+      getTrainers,
+      initializeAthleteWebsocket,
+      initializeDisciplineWebsocket,
+      initializePerformanceRecordingWebsocket,
+      initializeTrainerWebsocket,
+      uninitializeAthleteWebsocket,
+      uninitializeDisciplineWebsocket,
+      uninitializePerformanceRecordingWebsocket,
+      uninitializeTrainerWebsocket,
+    ],
   );
 
   return {
-    instantiateAdmin,
-    instantiateAthlete,
-    instantiateTrainer,
     instantiateByType,
   };
 };

@@ -1,4 +1,5 @@
 import { Athlete } from "@customTypes/backendTypes";
+import useFormatting from "@hooks/useFormatting";
 import { Box, Grid, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 
@@ -7,7 +8,7 @@ const AthleteDetailHeader = (props: {
   scalingFactor?: number;
 }) => {
   const { t, i18n } = useTranslation();
-  const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
+  const { formatLocalizedDate } = useFormatting();
   const columnMappings: {
     label: string;
     size: number;
@@ -22,8 +23,7 @@ const AthleteDetailHeader = (props: {
     {
       label: "birthdate",
       size: 3,
-      mapping: (athlete) =>
-        athlete ? dateTimeFormatter.format(Date.parse(athlete.birthdate)) : "-",
+      mapping: (athlete) => formatLocalizedDate(athlete?.birthdate),
     },
     {
       label: "gender",
@@ -43,9 +43,9 @@ const AthleteDetailHeader = (props: {
         color: "primary.contrastText",
         width: "100%",
         background: "var(--joy-palette-background-level2)",
-        padding: "20px 20px",
+        padding: "15px 20px",
         borderRadius: "10px",
-        mb: "10px",
+        mb: "5px",
       }}
     >
       <Grid container spacing={1} justifyContent="left">

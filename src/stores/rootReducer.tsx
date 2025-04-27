@@ -1,4 +1,4 @@
-import { Action, combineReducers, Reducer } from "@reduxjs/toolkit";
+import { combineReducers } from "@reduxjs/toolkit";
 import athleteReducer from "@stores/slices/athleteSlice";
 import disciplineReducer from "@stores/slices/disciplineSlice";
 import performanceRecordingReducer from "@stores/slices/performanceRecordingSlice";
@@ -17,11 +17,7 @@ const appReducer = combineReducers({
   disciplineMetrics: disciplineMetricsReducer,
 });
 
-const rootReducer: Reducer = (state, action: Action) => {
-  const intermediateState = appReducer(state, action);
-
-  return intermediateState;
-};
+const rootReducer = appReducer;
 
 const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 

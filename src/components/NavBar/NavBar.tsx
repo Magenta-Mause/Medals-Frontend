@@ -116,12 +116,12 @@ const navBarElements = new Map<
         icon: <SpaceDashboard />,
       },
       {
-        path: "/requirements",
-        icon: <Article />,
-      },
-      {
         path: "/performances",
         icon: <Equalizer />,
+      },
+      {
+        path: "/requirements",
+        icon: <Article />,
       },
     ],
   ],

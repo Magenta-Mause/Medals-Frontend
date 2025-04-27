@@ -17,10 +17,11 @@ import {
 import { useTypedSelector } from "@stores/rootReducer";
 import dayjs, { Dayjs } from "dayjs";
 import { useSnackbar } from "notistack";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import GenericModal from "../GenericModal";
 import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
+import { isDisciplineInvalid } from "@utils/disciplineValidationUtil";
 
 interface CreatePerformanceRecordingElement extends HTMLFormElement {
   readonly elements: FormElements;
@@ -60,29 +61,6 @@ const CreatePerformanceRecordingModal = (props: {
   const [value, setValue] = useState<string | null>(null);
   const { t } = useTranslation();
   const { createPerformanceRecording } = useApi();
-
-  const isDisciplineInvalid = useCallback(
-    (discipline: Discipline | null) => {
-      if (!selectedDate || !discipline || !selectedAthlete) {
-        return false;
-      }
-      const age =
-        selectedDate.year() -
-        new Date(Date.parse(selectedAthlete.birthdate)).getFullYear();
-      return (
-        ratingMetrics.filter(
-          (metric) =>
-            metric.discipline.id == discipline.id &&
-            metric.end_age >= age &&
-            metric.start_age <= age &&
-            (selectedAthlete.gender == "FEMALE"
-              ? metric.rating_female != null
-              : metric.rating_male != null),
-        ).length <= 0
-      );
-    },
-    [selectedAthlete, selectedDate, ratingMetrics],
-  );
 
   useEffect(() => {
     if (props.discipline !== undefined) {
@@ -192,8 +170,20 @@ const CreatePerformanceRecordingModal = (props: {
               t("disciplines.categories." + d.category.toUpperCase() + ".label")
             }
             getOptionLabel={(d: Discipline) => d.name}
-            getOptionDisabled={(discipline) => isDisciplineInvalid(discipline)}
-            error={isDisciplineInvalid(discipline)}
+            getOptionDisabled={(discipline) =>
+              isDisciplineInvalid(
+                discipline,
+                selectedAthlete,
+                selectedDate?.year(),
+                ratingMetrics,
+              )
+            }
+            error={isDisciplineInvalid(
+              discipline,
+              selectedAthlete,
+              selectedDate?.year(),
+              ratingMetrics,
+            )}
             aria-errormessage={"Discipline not valid"}
           />
         </FormControl>
@@ -257,7 +247,12 @@ const CreatePerformanceRecordingModal = (props: {
             selectedDate == null ||
             value == null ||
             value == "" ||
-            isDisciplineInvalid(discipline)
+            isDisciplineInvalid(
+              discipline,
+              selectedAthlete,
+              selectedDate?.year(),
+              ratingMetrics,
+            )
           }
         >
           {!loading ? t("generic.submit") : t("generic.loading")}
