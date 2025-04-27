@@ -112,8 +112,8 @@ const AthleteTotalMedalBox = () => {
                   "components.athleteDashboard.totalMedalBox.noSwimCertificate.pointDisplay.between",
                 ) +
                 " " +
-                t("medals." + totalMedal) +
-                t("generic.medal") +
+                t("medals." + totalMedal) + " " +
+                t("generic.medal") + " " +
                 t(
                   "components.athleteDashboard.totalMedalBox.noSwimCertificate.pointDisplay.postfix",
                 )
