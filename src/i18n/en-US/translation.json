@@ -639,6 +639,8 @@
       },
       "totalMedalBox": {
         "header": "\"Deutsches Sportabzeichen\"",
+        "medalMissing": "You need at least a bronze medal in all categories",
+        "noMedalReached": "which is'nt enough to reach a medal",
         "noSwimCertificate": {
           "blurText": "To be accepted for the for the \"Deutsches Sportabzeichen\" you need a valid swim certification",
           "pointDisplay": {

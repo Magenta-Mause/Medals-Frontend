@@ -10,6 +10,23 @@ import { Medals } from "@customTypes/enums";
 import { calculatePerformanceRecordingMedal } from "@utils/calculationUtil";
 import CalHeatmapComponent from "@components/athleteDashboard/AthleteActivityChart/CalHeatmapComponent";
 
+const getAllDatesBetween = (startDate: Date, endDate: Date) => {
+  const dates = [];
+  const current = new Date(startDate);
+
+  // Ensure the endDate is a valid Date object
+  const end = new Date(endDate);
+  end.setDate(endDate.getDate() + 1);
+
+  while (current <= end) {
+    // Push a copy of the date to avoid reference issues
+    dates.push(new Date(current));
+    current.setDate(current.getDate() + 1);
+  }
+
+  return dates;
+};
+
 const AthleteActivityChart = (props: {
   performanceRecordings: PerformanceRecording[];
 }) => {
@@ -80,8 +97,12 @@ const AthleteActivityChart = (props: {
         start: new Date(dayjs().year() + "-01-01"),
         max: new Date(),
         locale: i18n.language,
+        highlight: getAllDatesBetween(
+          new Date(dayjs().year() + "-01-01"),
+          new Date(),
+        ),
       },
-      range: 10,
+      range: 12,
       scale: {
         color: {
           type: "threshold",
@@ -120,7 +141,7 @@ const AthleteActivityChart = (props: {
                   };
             return (
               (!value
-                ? t("components.athleteActivityChart.tooltipText.noData")
+                ? t("components.athleteActivityChart.tooltipText.noData") + " "
                 : value +
                   t(
                     "components.athleteActivityChart.tooltipText.data." +
@@ -167,10 +188,11 @@ const AthleteActivityChart = (props: {
         sx={{
           width: "100%",
           height: "105px",
-          overflowX: "scroll",
+          overflowX: "auto",
           display: "flex",
           alignContent: "center",
           justifyContent: "center",
+          overflowY: "hidden",
         }}
       >
         {calData ? (
@@ -181,7 +203,7 @@ const AthleteActivityChart = (props: {
             height={"105px"}
             sx={{
               height: "105px",
-              overflowX: "scroll",
+              overflowX: "auto",
               overflowY: "hidden",
               width: "fit-content",
             }}

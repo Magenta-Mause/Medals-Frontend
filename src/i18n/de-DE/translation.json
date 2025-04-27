@@ -621,7 +621,7 @@
       "totalPerformanceRecordings": "Deine Leistungsaufnahmen",
       "performanceRecordingsThisYear": " davon in diesem Jahr",
       "selectedUser": "Dein Profil",
-      "bornIn": "Geboren in",
+      "bornIn": "Geboren am",
       "categoryMedalBox": {
         "thisEquals": "Das entspricht",
         "points": {
@@ -639,6 +639,8 @@
             "postfix": "ergeben würde"
           }
         },
+        "noMedalReached": "was nicht reicht um eine Medaille zu erreichen",
+        "medalMissing": "Du musst in allen Kategorien mindestens eine Bronze Medaille erreichen",
         "pointsMissingTemplate": {
           "prefix": {
             "singular": "Dir fehlt noch",

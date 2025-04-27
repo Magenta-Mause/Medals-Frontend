@@ -8,6 +8,11 @@
 }
 
 .ch-subdomain-bg {
-    opacity: 1 !important;
+    opacity: 0.5;
     cursor: pointer;
+}
+
+.highlight.ch-subdomain-bg {
+    stroke: none !important;
+    opacity: 1 !important;
 }

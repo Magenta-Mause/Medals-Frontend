@@ -51,14 +51,19 @@ const convertMedalToNumber = (medal: Medals) => {
         : 0;
 };
 
+const medalPoints = {
+  [Medals.GOLD]: 3,
+  [Medals.SILVER]: 2,
+  [Medals.BRONZE]: 1,
+  [Medals.NONE]: 0,
+};
+
 const convertNumberToMedal = (points: number) => {
-  return points == 3
-    ? Medals.GOLD
-    : points == 2
-      ? Medals.SILVER
-      : points == 1
-        ? Medals.BRONZE
-        : Medals.NONE;
+  return (
+    Object.values(medalPoints).includes(points)
+      ? Object.entries(medalPoints).filter((entry) => entry[1] == points)[0][0]
+      : Medals.NONE
+  ) as Medals;
 };
 
 const getBestPerformanceRecording = (
@@ -79,7 +84,7 @@ const calculateAge = (birthdate: string): number => {
   return currentYear - birth.getFullYear();
 };
 
-const calculateTotalPointsFromPerformanceRecordings = (
+const calculateBestMedalPerCategoryFromPerformanceRecordings = (
   performanceRecordings: PerformanceRecording[],
 ) => {
   const bestMedalPerCategory: Record<DisciplineCategories, Medals> = {
@@ -88,6 +93,7 @@ const calculateTotalPointsFromPerformanceRecordings = (
     COORDINATION: Medals.NONE,
     ENDURANCE: Medals.NONE,
   };
+
   performanceRecordings.forEach((p) => {
     const category = p.discipline_rating_metric.discipline.category;
     const achievedMedal = calculatePerformanceRecordingMedal(p);
@@ -98,6 +104,18 @@ const calculateTotalPointsFromPerformanceRecordings = (
       bestMedalPerCategory[category] = achievedMedal;
     }
   });
+
+  return bestMedalPerCategory;
+};
+
+const calculateTotalPointsFromPerformanceRecordings = (
+  performanceRecordings: PerformanceRecording[],
+) => {
+  const bestMedalPerCategory: Record<DisciplineCategories, Medals> =
+    calculateBestMedalPerCategoryFromPerformanceRecordings(
+      performanceRecordings,
+    );
+
   return Object.keys(bestMedalPerCategory)
     .map((category) => bestMedalPerCategory[category as DisciplineCategories])
     .reduce((a, b) => a + convertMedalToNumber(b), 0);
@@ -109,6 +127,14 @@ const calculateTotalMedalFromPerformanceRecordings = (
   const totalSum = calculateTotalPointsFromPerformanceRecordings(
     performanceRecordings,
   );
+  const bestMedalPerCategory: Record<DisciplineCategories, Medals> =
+    calculateBestMedalPerCategoryFromPerformanceRecordings(
+      performanceRecordings,
+    );
+
+  if (Object.values(bestMedalPerCategory).includes(Medals.NONE)) {
+    return Medals.NONE;
+  }
   return calculateTotalMedalFromAchievedPoints(totalSum);
 };
 
@@ -129,6 +155,7 @@ export {
   getBestPerformanceRecording,
   calculateAge,
   medalMinPoints,
+  calculateBestMedalPerCategoryFromPerformanceRecordings,
   calculateTotalMedalFromPerformanceRecordings,
   calculateTotalMedalFromAchievedPoints,
   calculateTotalPointsFromPerformanceRecordings,

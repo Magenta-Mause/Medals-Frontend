@@ -1,9 +1,10 @@
 import { useTypedSelector } from "@stores/rootReducer";
 import { PerformanceRecording } from "@customTypes/backendTypes";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import dayjs from "dayjs";
 import {
+  calculateBestMedalPerCategoryFromPerformanceRecordings,
   calculateTotalMedalFromAchievedPoints,
   calculateTotalPointsFromPerformanceRecordings,
   convertMedalToNumber,
@@ -35,10 +36,23 @@ const AthleteTotalMedalBox = () => {
     .filter((p) => p.athlete_id == selectedUser?.id)
     .filter((p) => dayjs(p.date_of_performance).year() == dayjs().year());
 
-  const totalPoints = calculateTotalPointsFromPerformanceRecordings(
-    performanceRecordings,
+  const totalPoints = useMemo(
+    () => calculateTotalPointsFromPerformanceRecordings(performanceRecordings),
+    [performanceRecordings],
   );
-  const totalMedal = calculateTotalMedalFromAchievedPoints(totalPoints);
+  const bestMedalsPerCategory = useMemo(
+    () =>
+      calculateBestMedalPerCategoryFromPerformanceRecordings(
+        performanceRecordings,
+      ),
+    [performanceRecordings],
+  );
+  const isMedalMissing = Object.values(bestMedalsPerCategory).includes(
+    Medals.NONE,
+  );
+  const totalMedal = !isMedalMissing
+    ? calculateTotalMedalFromAchievedPoints(totalPoints)
+    : Medals.NONE;
   const nextMedal =
     totalMedal == Medals.GOLD
       ? undefined
@@ -93,13 +107,17 @@ const AthleteTotalMedalBox = () => {
             {totalPoints == 1
               ? t("generic.points.singular")
               : t("generic.points.plural")}{" "}
-            {t(
-              "components.athleteDashboard.totalMedalBox.noSwimCertificate.pointDisplay.between",
-            )}{" "}
-            {t("medals." + totalMedal)} {t("generic.medal")}{" "}
-            {t(
-              "components.athleteDashboard.totalMedalBox.noSwimCertificate.pointDisplay.postfix",
-            )}
+            {totalMedal != Medals.NONE
+              ? t(
+                  "components.athleteDashboard.totalMedalBox.noSwimCertificate.pointDisplay.between",
+                ) +
+                " " +
+                t("medals." + totalMedal) +
+                t("generic.medal") +
+                t(
+                  "components.athleteDashboard.totalMedalBox.noSwimCertificate.pointDisplay.postfix",
+                )
+              : t("components.athleteDashboard.totalMedalBox.noMedalReached")}
           </Typography>
         </Box>
         <CardContent
@@ -177,24 +195,32 @@ const AthleteTotalMedalBox = () => {
                   }}
                 >
                   <Typography level={"body-md"} sx={{ userSelect: "text" }}>
-                    {t(
-                      "components.athleteDashboard.totalMedalBox.pointsMissingTemplate.prefix." +
-                        (pointsMissing == 1 ? "singular" : "plural"),
-                    )}{" "}
-                    <Typography sx={{ fontWeight: "bold" }}>
-                      {pointsMissing}
-                    </Typography>{" "}
-                    {pointsMissing! > 1
-                      ? t("generic.points.plural")
-                      : t("generic.points.singular")}{" "}
-                    {t(
-                      "components.athleteDashboard.totalMedalBox.pointsMissingTemplate.between",
-                    )}{" "}
-                    <Typography sx={{ fontWeight: "bold" }}>
-                      {t("medals." + nextMedal)}
-                    </Typography>{" "}
-                    {t(
-                      "components.athleteDashboard.totalMedalBox.pointsMissingTemplate.postfix",
+                    {isMedalMissing ? (
+                      t(
+                        "components.athleteDashboard.totalMedalBox.medalMissing",
+                      )
+                    ) : (
+                      <>
+                        {t(
+                          "components.athleteDashboard.totalMedalBox.pointsMissingTemplate.prefix." +
+                            (pointsMissing == 1 ? "singular" : "plural"),
+                        )}{" "}
+                        <Typography sx={{ fontWeight: "bold" }}>
+                          {pointsMissing}
+                        </Typography>{" "}
+                        {pointsMissing! > 1
+                          ? t("generic.points.plural")
+                          : t("generic.points.singular")}{" "}
+                        {t(
+                          "components.athleteDashboard.totalMedalBox.pointsMissingTemplate.between",
+                        )}{" "}
+                        <Typography sx={{ fontWeight: "bold" }}>
+                          {t("medals." + nextMedal)}
+                        </Typography>{" "}
+                        {t(
+                          "components.athleteDashboard.totalMedalBox.pointsMissingTemplate.postfix",
+                        )}
+                      </>
                     )}
                   </Typography>
                 </Box>
