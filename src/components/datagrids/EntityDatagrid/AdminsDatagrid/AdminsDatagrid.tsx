@@ -5,7 +5,6 @@ import AdminInvitationModal from "@components/modals/EntityCreationModal/admin/A
 
 interface AdminsDatagridProps {
   admins: Admin[];
-  isLoading: boolean;
 }
 
 const AdminsDatagrid = (props: AdminsDatagridProps) => {
@@ -14,7 +13,6 @@ const AdminsDatagrid = (props: AdminsDatagridProps) => {
   return (
     <EntityDatagrid
       entities={props.admins}
-      isLoading={props.isLoading}
       entityType="admin"
       ModalComponent={AdminInvitationModal}
       deleteEntity={deleteAdmin}

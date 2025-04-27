@@ -19,7 +19,6 @@ interface EntityWithBasicInfo {
 
 interface EntityDatagridProps<T extends EntityWithBasicInfo> {
   entities: T[];
-  isLoading: boolean;
   entityType: "trainer" | "admin";
   ModalComponent: React.ComponentType<{
     isOpen: boolean;
@@ -30,7 +29,6 @@ interface EntityDatagridProps<T extends EntityWithBasicInfo> {
 
 function EntityDatagrid<T extends EntityWithBasicInfo>({
   entities,
-  isLoading,
   entityType,
   ModalComponent,
   deleteEntity,
@@ -142,7 +140,6 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
   return (
     <>
       <GenericResponsiveDatagrid
-        isLoading={isLoading}
         data={entities}
         columns={columns}
         filters={filters}

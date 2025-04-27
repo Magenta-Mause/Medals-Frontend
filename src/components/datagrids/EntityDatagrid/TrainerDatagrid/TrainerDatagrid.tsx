@@ -5,7 +5,6 @@ import TrainerInvitationModal from "@components/modals/EntityCreationModal/train
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
-  isLoading: boolean;
 }
 
 const TrainerDatagrid = (props: TrainerDatagridProps) => {
@@ -14,7 +13,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
   return (
     <EntityDatagrid
       entities={props.trainers}
-      isLoading={props.isLoading}
       entityType="trainer"
       ModalComponent={TrainerInvitationModal}
       deleteEntity={deleteTrainer}

@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 
 const AdminsOverviewPage = () => {
   const admins = useTypedSelector((state) => state.admins.data);
-  const adminsState = useTypedSelector((state) => state.admins.state);
   const { t } = useTranslation();
 
   return (
@@ -25,7 +24,7 @@ const AdminsOverviewPage = () => {
           {t("pages.adminOverviewPage.header")}
         </Typography>
       </Box>
-      <AdminsDatagrid admins={admins} isLoading={adminsState == "LOADING"} />
+      <AdminsDatagrid admins={admins}/>
     </>
   );
 };
