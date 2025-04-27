@@ -23,7 +23,7 @@ const athleteSlice = createSlice({
           ...state.data[index],
           ...action.payload,
           first_name: action.payload.first_name,
-          last_name: action.payload.last_name
+          last_name: action.payload.last_name,
         };
       }
     },

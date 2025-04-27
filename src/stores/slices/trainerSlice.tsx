@@ -15,13 +15,15 @@ const trainerSlice = createSlice({
       state.data.push(action.payload);
     },
     updateTrainer(state, action: PayloadAction<Trainer>) {
-      const index = state.data.findIndex(item => item.id === action.payload.id);
+      const index = state.data.findIndex(
+        (item) => item.id === action.payload.id,
+      );
       if (index !== -1) {
         state.data[index] = {
           ...state.data[index],
           ...action.payload,
           first_name: action.payload.first_name,
-          last_name: action.payload.last_name
+          last_name: action.payload.last_name,
         };
       }
     },
@@ -34,7 +36,8 @@ const trainerSlice = createSlice({
   },
 });
 
-const { addTrainer, updateTrainer, removeTrainer, setTrainers } = trainerSlice.actions;
+const { addTrainer, updateTrainer, removeTrainer, setTrainers } =
+  trainerSlice.actions;
 
 export { addTrainer, updateTrainer, removeTrainer, setTrainers };
 export default trainerSlice.reducer;

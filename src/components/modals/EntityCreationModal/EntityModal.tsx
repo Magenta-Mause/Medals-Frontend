@@ -47,7 +47,7 @@ function EntityModal<T>({
     setIsSubmitting(true);
 
     let success = false;
-    
+
     if (isEditMode && updateFunction) {
       success = await updateFunction(data);
       enqueueSnackbar(t(success ? successUpdateMessage : errorUpdateMessage), {
@@ -66,9 +66,9 @@ function EntityModal<T>({
 
   return (
     <GenericModal
-      header={t(header, { 
+      header={t(header, {
         entityType: t(`generic.${entityType}.singular`),
-        mode: isEditMode ? t("generic.edit") : t("generic.create") 
+        mode: isEditMode ? t("generic.edit") : t("generic.create"),
       })}
       open={isOpen}
       setOpen={setOpen}

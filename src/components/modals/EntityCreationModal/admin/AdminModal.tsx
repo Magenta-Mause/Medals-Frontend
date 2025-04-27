@@ -15,11 +15,7 @@ interface AdminModalProps {
   entityToEdit?: AdminData;
 }
 
-const AdminModal = ({
-  isOpen,
-  setOpen,
-  entityToEdit,
-}: AdminModalProps) => {
+const AdminModal = ({ isOpen, setOpen, entityToEdit }: AdminModalProps) => {
   const { inviteAdmin, updateAdmin } = useApi();
   const isEditMode = !!entityToEdit;
 
@@ -27,9 +23,10 @@ const AdminModal = ({
     <EntityModal
       isOpen={isOpen}
       setOpen={setOpen}
-      header={isEditMode 
-        ? "components.entityModal.modal.editHeader" 
-        : "components.entityModal.modal.createHeader"
+      header={
+        isEditMode
+          ? "components.entityModal.modal.editHeader"
+          : "components.entityModal.modal.createHeader"
       }
       FormComponent={EntityForm}
       createFunction={(data) => inviteAdmin({ ...data, id: -1 })}

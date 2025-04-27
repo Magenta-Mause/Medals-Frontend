@@ -15,11 +15,7 @@ interface TrainerModalProps {
   entityToEdit?: TrainerData;
 }
 
-const TrainerModal = ({
-  isOpen,
-  setOpen,
-  entityToEdit,
-}: TrainerModalProps) => {
+const TrainerModal = ({ isOpen, setOpen, entityToEdit }: TrainerModalProps) => {
   const { inviteTrainer, updateTrainer } = useApi();
   const isEditMode = !!entityToEdit;
 
@@ -27,9 +23,10 @@ const TrainerModal = ({
     <EntityModal
       isOpen={isOpen}
       setOpen={setOpen}
-      header={isEditMode 
-        ? "components.entityModal.modal.editHeader" 
-        : "components.entityModal.modal.createHeader"
+      header={
+        isEditMode
+          ? "components.entityModal.modal.editHeader"
+          : "components.entityModal.modal.createHeader"
       }
       FormComponent={EntityForm}
       createFunction={(data) => inviteTrainer({ ...data, id: -1 })}

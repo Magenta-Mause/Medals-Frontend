@@ -31,9 +31,9 @@ import {
   setTrainers,
   updateTrainer,
 } from "@stores/slices/trainerSlice";
-import { 
-  addAdmin, 
-  removeAdmin, 
+import {
+  addAdmin,
+  removeAdmin,
   setAdmins,
   updateAdmin,
 } from "@stores/slices/adminSlice";

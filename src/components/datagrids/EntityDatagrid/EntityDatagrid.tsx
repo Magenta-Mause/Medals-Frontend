@@ -169,10 +169,10 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
         mobileRendering={mobileRendering}
       />
 
-      <ModalComponent 
-        isOpen={modalOpen} 
-        setOpen={handleModalClose} 
-        entityToEdit={entityToEdit} 
+      <ModalComponent
+        isOpen={modalOpen}
+        setOpen={handleModalClose}
+        entityToEdit={entityToEdit}
       />
     </>
   );

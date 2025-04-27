@@ -15,13 +15,15 @@ const adminSlice = createSlice({
       state.data.push(action.payload);
     },
     updateAdmin(state, action: PayloadAction<Admin>) {
-      const index = state.data.findIndex(item => item.id === action.payload.id);
+      const index = state.data.findIndex(
+        (item) => item.id === action.payload.id,
+      );
       if (index !== -1) {
         state.data[index] = {
           ...state.data[index],
           ...action.payload,
           first_name: action.payload.first_name,
-          last_name: action.payload.last_name
+          last_name: action.payload.last_name,
         };
       }
     },

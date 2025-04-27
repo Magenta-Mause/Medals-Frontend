@@ -1,5 +1,4 @@
-import { Box, Button, FormControl, FormLabel, Input, Tooltip, IconButton } from "@mui/joy";
-import InfoIcon from "@mui/icons-material/Info";
+import { Box, Button, FormControl, FormLabel, Input } from "@mui/joy";
 import { emailRegex } from "constants/regex";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -39,13 +38,13 @@ const EntityForm = ({
   const [emailValid, setEmailValid] = useState(true);
   const [firstNameValid, setFirstNameValid] = useState(true);
   const [lastNameValid, setLastNameValid] = useState(true);
-  
+
   const [firstName, setFirstName] = useState(initialValues?.first_name || "");
   const [lastName, setLastName] = useState(initialValues?.last_name || "");
   const [email, setEmail] = useState(initialValues?.email || "");
-  
+
   const isEditMode = !!initialValues;
-  
+
   // Update form values when initialValues changes
   useEffect(() => {
     if (initialValues) {
@@ -65,7 +64,7 @@ const EntityForm = ({
 
   const handleSubmit = (event: React.FormEvent<EntityFormElement>) => {
     event.preventDefault();
-    
+
     let valid = true;
 
     // Only validate email in create mode
@@ -103,7 +102,7 @@ const EntityForm = ({
             <FormLabel>{t("components.entityModal.form.email")}</FormLabel>
             {isEditMode && (
               <InfoTooltip
-                  text={t("components.tooltip.emailNotEditable")}
+                text={t("components.tooltip.emailNotEditable")}
                 position="right"
               />
             )}
@@ -120,25 +119,25 @@ const EntityForm = ({
             error={!emailValid}
             disabled={isPending || isEditMode}
             readOnly={isEditMode}
-            sx={isEditMode ? { 
-              opacity: 0.7,
-              backgroundColor: "neutral.100" 
-            } : {}}
+            sx={
+              isEditMode
+                ? {
+                    opacity: 0.7,
+                    backgroundColor: "neutral.100",
+                  }
+                : {}
+            }
           />
         </FormControl>
       </Box>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 2, marginTop: 2 }}>
         <FormControl sx={{ width: "100%" }}>
-          <FormLabel>
-            {t("components.entityModal.form.firstName")}
-          </FormLabel>
+          <FormLabel>{t("components.entityModal.form.firstName")}</FormLabel>
           <Input
             name="first_name"
             value={firstName}
-            placeholder={t(
-              "components.entityModal.form.firstNamePlaceholder",
-            )}
+            placeholder={t("components.entityModal.form.firstNamePlaceholder")}
             onChange={(e) => {
               setFirstName(e.target.value);
               setFirstNameValid(true);
@@ -151,16 +150,12 @@ const EntityForm = ({
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 2, marginTop: 2 }}>
         <FormControl sx={{ width: "100%" }}>
-          <FormLabel>
-            {t("components.entityModal.form.lastName")}
-          </FormLabel>
+          <FormLabel>{t("components.entityModal.form.lastName")}</FormLabel>
           <Input
             name="last_name"
             size="md"
             value={lastName}
-            placeholder={t(
-              "components.entityModal.form.lastNamePlaceholder",
-            )}
+            placeholder={t("components.entityModal.form.lastNamePlaceholder")}
             onChange={(e) => {
               setLastName(e.target.value);
               setLastNameValid(true);
@@ -171,14 +166,13 @@ const EntityForm = ({
         </FormControl>
       </Box>
       <Button type="submit" loading={isPending} sx={{ marginTop: 3 }}>
-        {isEditMode 
+        {isEditMode
           ? t("components.entityModal.form.update", {
               entityType: t(`generic.${entityType}.singular`),
             })
           : t("components.entityModal.form.confirm", {
               entityType: t(`generic.${entityType}.singular`),
-            })
-        }
+            })}
       </Button>
     </form>
   );
