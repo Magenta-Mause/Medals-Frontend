@@ -25,7 +25,6 @@ import AchievementsBox from "./AchievementsBox";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
-  isLoading: boolean;
 }
 
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
@@ -77,6 +76,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       </Box>
     </Box>
   );
+
   const columns: Column<Athlete>[] = [
     {
       columnName: t("components.athleteDatagrid.table.columns.firstName"),
@@ -123,11 +123,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       disableSpan: true,
       columnMapping(item) {
         return (
-          <AchievementsBox
-            athlete={item}
-            performanceRecordings={performanceRecordings}
-            currentYear={currentYear}
-          />
+          <>
+            <AchievementsBox
+              athlete={item}
+              performanceRecordings={performanceRecordings}
+              selectedYear={currentYear}
+            />
+          </>
         );
       },
     },
@@ -183,18 +185,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const toolbarActions: ToolbarAction[] = [
     {
-      label: t("pages.athleteImportPage.importButton"),
-      content: t("pages.athleteImportPage.importButton"),
-      icon: <UploadIcon />,
-      collapseToText: true,
-      color: "primary",
-      key: "import-athlete",
-      variant: "solid",
-      operation: async () => {
-        setImportModalOpen(true);
-      },
-    },
-    {
       label: t("components.athleteDatagrid.table.toolbar.createAthlete.label"),
       content: t(
         "components.athleteDatagrid.table.toolbar.createAthlete.content",
@@ -218,6 +208,18 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       variant: "solid",
       operation: async () => {
         setAddAthleteRequestModalOpen(true);
+      },
+    },
+    {
+      label: t("pages.athleteImportPage.importButton"),
+      content: t("pages.athleteImportPage.importButton"),
+      icon: <UploadIcon />,
+      collapseToText: true,
+      color: "primary",
+      key: "import-athlete",
+      variant: "solid",
+      operation: async () => {
+        setImportModalOpen(true);
       },
     },
   ];
@@ -282,7 +284,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       <AchievementsBox
         athlete={athlete}
         performanceRecordings={performanceRecordings}
-        currentYear={currentYear}
+        selectedYear={currentYear}
       />
     ),
     searchFilter: {
@@ -321,7 +323,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         isButtonVisible={false}
       />
       <GenericResponsiveDatagrid
-        isLoading={props.isLoading}
         data={props.athletes}
         columns={columns}
         filters={filters}

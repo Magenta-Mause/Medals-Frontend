@@ -1,3 +1,4 @@
+import { Medals } from "@customTypes/enums";
 import { useTheme } from "@mui/joy/styles";
 
 export const useMedalColors = () => {
@@ -5,8 +6,8 @@ export const useMedalColors = () => {
   const isLightMode = theme.palette.mode === "light";
 
   return {
-    gold: isLightMode ? "#FFD700" : "#FFD700",
-    silver: isLightMode ? "#C0C0C0" : "#C0C0C0",
-    bronze: isLightMode ? "#CD7F32" : "#CD7F32",
+    [Medals.GOLD]: isLightMode ? "#FFD700" : "#FFD700",
+    [Medals.SILVER]: isLightMode ? "#C0C0C0" : "#C0C0C0",
+    [Medals.BRONZE]: isLightMode ? "#CD7F32" : "#CD7F32",
   };
 };

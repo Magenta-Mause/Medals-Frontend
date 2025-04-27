@@ -58,6 +58,16 @@
     "confirm": "Confirm",
     "password": "Password",
     "finished": "Finished",
+    "category": "Category",
+    "medal": "medal",
+    "date": {
+      "on": "on"
+    },
+    "deutschesSportabzeichen": "Deutsches Sportabzeichen",
+    "points": {
+      "plural": "points",
+      "singular": "point"
+    },
     "validation": {
       "required": "This field is required",
       "tooLong": "This field is too long",
@@ -488,7 +498,8 @@
       "columns": {
         "dateOfRecording": "Recorded on",
         "result": "Achieved result",
-        "medal": "Achieved medal"
+        "medal": "Achieved medal",
+        "discipline": "Discipline"
       },
       "filters": {
         "recordedIn": "Recorded in"
@@ -499,6 +510,12 @@
           "label": "+ add"
         },
         "delete": "Delete"
+      }
+    },
+    "performanceRecordingViewModal": {
+      "header": {
+        "plain": "Performance recordings",
+        "date": "Performance recordings from the "
       }
     },
     "createPerformanceRecordingModal": {
@@ -582,11 +599,75 @@
       },
       "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
     },
+    "athleteActivityChart": {
+      "tooltipText": {
+        "noData": "No performance recordings",
+        "data": {
+          "singular": " performance recording",
+          "plural": " performance recordings"
+        }
+      }
+    },
+    "calHeatmap": {
+      "loadingError": "Error while loading activity chart"
+    },
     "athleteExportModal": {
       "header": "Athlete Export",
       "exportButton": "Export",
       "performanceCheckbox": "Include Performance Metrics",
       "removeFromSelectionButton": "Remove"
+    },
+    "athleteDashboard": {
+      "error": {
+        "notAnAthlete": "Selected user is not an athlete"
+      },
+      "activityChartHeader": "Your activities in",
+      "totalPerformanceRecordings": "Your performance recordings",
+      "performanceRecordingsThisYear": " of which in this year",
+      "selectedUser": "Your profile",
+      "bornIn": "Born in",
+      "categoryMedalBox": {
+        "thisEquals": "This equals",
+        "points": {
+          "singular": "point",
+          "plural": "points"
+        }
+      },
+      "activityChart": {
+        "header": "Your activities in ",
+        "link": "See all your activities"
+      },
+      "totalMedalBox": {
+        "header": "\"Deutsches Sportabzeichen\"",
+        "medalMissing": "You need at least a bronze medal in all categories",
+        "noMedalReached": "which is'nt enough to reach a medal",
+        "noSwimCertificate": {
+          "blurText": "To be accepted for the for the \"Deutsches Sportabzeichen\" you need a valid swim certification",
+          "pointDisplay": {
+            "prefix": "You've achieved",
+            "between": "which would lead to a",
+            "postfix": ""
+          }
+        },
+        "pointsMissingTemplate": {
+          "prefix": {
+            "singular": "",
+            "plural": ""
+          },
+          "between": "missing to achieve the",
+          "postfix": "medal"
+        },
+        "pointsCount": {
+          "prefix": "You've achieved",
+          "postfix": ""
+        }
+      },
+      "swimCertificate": {
+        "header": "Your Swim Certificate",
+        "noSwimCertificate": "Missing",
+        "existing": "Your all set for your final Medal",
+        "notExisting": "You need a valid swimming certification to be accepted for the final Medal"
+      }
     }
   }
 }

@@ -58,7 +58,7 @@ interface GenericResponsiveDatagridProps<T> {
   columns: Column<T>[];
   filters?: Filter<T>[];
   toolbarActions?: ToolbarAction[];
-  isLoading: boolean;
+  isLoading?: boolean;
   actionMenu?: Action<T>[];
   itemSelectionActions?: Action<T>[];
   keyOf: (item: T) => Key;
@@ -293,7 +293,7 @@ const GenericResponsiveDatagrid = <T,>(
           </ModalDialog>
         </Modal>
       </Sheet>
-      {props.filters || props.toolbarActions ? (
+      {props.filters?.length || props.toolbarActions?.length ? (
         <Box
           className="SearchAndFiltersTooltip-tabletUp"
           sx={{
