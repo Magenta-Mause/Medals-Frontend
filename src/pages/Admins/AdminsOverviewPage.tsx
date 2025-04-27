@@ -24,7 +24,7 @@ const AdminsOverviewPage = () => {
           {t("pages.adminOverviewPage.header")}
         </Typography>
       </Box>
-      <AdminsDatagrid admins={admins}/>
+      <AdminsDatagrid admins={admins} />
     </>
   );
 };
