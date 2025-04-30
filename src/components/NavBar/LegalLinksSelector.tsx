@@ -49,7 +49,7 @@ const LegalLinksSelector = ({
           >
             <InfoOutlined />
             <ListItemContent>
-              <Typography level="title-sm">
+              <Typography level="title-sm" sx={{ userSelect: "none" }}>
                 {t("components.navbar.legalLinks.title")}
               </Typography>
             </ListItemContent>
@@ -100,7 +100,9 @@ const LegalLinksSelector = ({
                   setOpen(false);
                 }}
               >
-                <ListItemContent>{link.label}</ListItemContent>
+                <ListItemContent sx={{ userSelect: "none" }}>
+                  {link.label}
+                </ListItemContent>
               </ListItemButton>
             </ListItem>
           ))}

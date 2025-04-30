@@ -236,7 +236,7 @@ const NavBar = () => {
               >
                 {element.icon}
                 <ListItemContent>
-                  <Typography level="title-sm">
+                  <Typography level="title-sm" sx={{ userSelect: "none" }}>
                     {t("components.navbar.locationList." + element.path)}
                   </Typography>
                 </ListItemContent>
