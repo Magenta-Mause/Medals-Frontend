@@ -23,6 +23,7 @@ const isDisciplineInvalid = (
         metric.discipline.id == discipline.id &&
         metric.end_age >= age &&
         metric.start_age <= age &&
+        metric.valid_in == selectedYear &&
         (athlete.gender === "FEMALE"
           ? metric.rating_female != null
           : metric.rating_male != null),
