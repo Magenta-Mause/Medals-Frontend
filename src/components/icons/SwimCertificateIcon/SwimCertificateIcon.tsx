@@ -17,15 +17,22 @@ const SwimCertificateIcon: React.FC<SwimCertificateIconProps> = ({
 }) => {
   const { mode } = useColorScheme();
   const unachievedBackgroundColor =
-    mode === "dark" ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.2)";
+    mode === "dark"
+    ? "rgba(50, 50, 50, 1)"
+    : "rgba(190, 190, 190, 0.3)";
   const backgroundColor = achieved
     ? mode === "light"
-      ? "#82afd0"
-      : "#376788"
+      ? "#559bd0"
+      : "#2d6992"
     : unachievedBackgroundColor;
-  const border = achieved ? "gray solid thin" : "rgba(0,0,0,0.2) solid thin";
-  const detailColor =
-    mode === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 0.5)";
+  const border = achieved ? "gray solid thin" : "rgba(100,100,100,0.2) solid thin";
+  const detailColor = achieved 
+    ? mode === "dark"
+      ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 0.8)"
+    : mode === "dark" 
+      ? "rgba(100, 100, 100, 0.7)"
+      : "rgba(150, 150, 150, 0.8)";;
+
 
   return (
     <HoverTooltip

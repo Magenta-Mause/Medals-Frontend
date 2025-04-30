@@ -6,8 +6,8 @@ export const useMedalColors = () => {
   const isLightMode = theme.palette.mode === "light";
 
   return {
-    [Medals.GOLD]: isLightMode ? "#FFD700" : "#FFD700",
-    [Medals.SILVER]: isLightMode ? "#C0C0C0" : "#C0C0C0",
-    [Medals.BRONZE]: isLightMode ? "#CD7F32" : "#CD7F32",
+    [Medals.GOLD]: isLightMode ? "#FFD700" : "#e8bf00",
+    [Medals.SILVER]: isLightMode ? "#b4b4b4" : "#9a9a9a",
+    [Medals.BRONZE]: isLightMode ? "#CD7F32" : "#9f5c02",
   };
 };
