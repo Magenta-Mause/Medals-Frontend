@@ -122,7 +122,7 @@ const ProfileModal = (props: {
           alignItems: "center",
           justifyContent: "center",
           p: "0 50px",
-          overflowY: "scroll",
+          overflowY: "auto",
           overflowX: "hidden",
         }}
       >

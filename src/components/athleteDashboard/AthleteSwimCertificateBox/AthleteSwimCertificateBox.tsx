@@ -8,6 +8,7 @@ import { Athlete } from "@customTypes/backendTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
+import { Typography } from "@mui/joy";
 
 const AthleteSwimCertificateBox = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -36,13 +37,13 @@ const AthleteSwimCertificateBox = () => {
         })}
       >
         {athlete?.swimming_certificate ? (
-          <>
+          <Typography sx={{ wordWrap: "break-word" }}>
             {t(
               "components.createSwimCertificateModal.options." +
                 athlete?.swimming_certificate +
                 ".label",
             )}
-          </>
+          </Typography>
         ) : (
           <>
             {t("components.athleteDashboard.swimCertificate.noSwimCertificate")}
