@@ -28,7 +28,6 @@ const CalHeatmapComponent = (props: {
   const { t } = useTranslation();
 
   useEffect(() => {
-    console.log("rendering");
     if (renderTimeout.current) clearTimeout(renderTimeout.current);
     if (propsSetLoading) propsSetLoading(true);
     setLoading(true);
