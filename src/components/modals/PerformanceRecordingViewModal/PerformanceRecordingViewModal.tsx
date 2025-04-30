@@ -26,6 +26,7 @@ const PerformanceRecordingViewModal = (props: {
       setOpen={props.setOpen}
       modalDialogSX={{
         minWidth: { md: "850px", sx: "90vw" },
+        maxHeight: "80vh",
       }}
     >
       <PerformanceRecordingDatagrid
