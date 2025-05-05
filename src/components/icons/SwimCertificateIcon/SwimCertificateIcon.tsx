@@ -22,16 +22,15 @@ const SwimCertificateIcon: React.FC<SwimCertificateIconProps> = ({
     : "rgba(190, 190, 190, 0.3)";
   const backgroundColor = achieved
     ? mode === "light"
-      ? "#559bd0"
+      ? "#3673a4"
       : "#2d6992"
     : unachievedBackgroundColor;
   const border = achieved ? "gray solid thin" : "rgba(100,100,100,0.2) solid thin";
   const detailColor = achieved 
-    ? mode === "dark"
-      ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 0.8)"
+      ? "rgba(255, 255, 255, 1)"
     : mode === "dark" 
       ? "rgba(100, 100, 100, 0.7)"
-      : "rgba(150, 150, 150, 0.8)";;
+      : "rgba(150, 150, 150, 0.8)";
 
 
   return (
