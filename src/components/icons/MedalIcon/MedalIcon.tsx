@@ -77,7 +77,7 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
     >
       <DisciplineIcon
         fill={medalType === Medals.NONE ? grayedOutColor : mainColor}
-        style={{ width: "60%", height: "60%", transition: "fill ease .9s" }}
+        style={{ width: category === DisciplineCategories.COORDINATION ? "75%" :"60%", height: category === DisciplineCategories.COORDINATION ? "75%" : "60%", transition: "fill ease .9s" }}
       />
     </Box>
   );
