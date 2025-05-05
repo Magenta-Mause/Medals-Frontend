@@ -37,7 +37,8 @@ const hexToRGBA = (hex: string, alpha: number) => {
 export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
   const { i18n } = useTranslation();
   const { mode } = useColorScheme();
-  const textColor = "rgba(00, 00, 00, 0.9)";
+  const medalColors = useMedalColors();
+  const textColor = (mode === "dark" && color === medalColors[Medals.BRONZE]) ? "#fff" : "rgba(00, 00, 00, 1)";
 
   let displayValue = value;
 
@@ -63,7 +64,7 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
       variant="soft"
       size="sm"
       sx={{
-        backgroundColor: hexToRGBA(color, 0.7),
+        backgroundColor: hexToRGBA(color, 0.8),
         color: textColor,
         fontWeight: "bold",
         minWidth: "80px",
