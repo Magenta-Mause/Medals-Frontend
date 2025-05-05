@@ -38,7 +38,10 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
   const { i18n } = useTranslation();
   const { mode } = useColorScheme();
   const medalColors = useMedalColors();
-  const textColor = (mode === "dark" && color === medalColors[Medals.BRONZE]) ? "#fff" : "rgba(00, 00, 00, 1)";
+  const textColor =
+    mode === "dark" && color === medalColors[Medals.BRONZE]
+      ? "#fff"
+      : "rgba(00, 00, 00, 1)";
 
   let displayValue = value;
 
