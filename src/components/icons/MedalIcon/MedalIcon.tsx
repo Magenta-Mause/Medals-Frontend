@@ -22,10 +22,7 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
       ? "rgba(50, 50, 50, 1)"
       : "rgba(190, 190, 190, 0.3)";
   const mainColor =
-    medalType === Medals.BRONZE
-      ? "rgb(255, 255, 255)"
-      : "rgba(0, 0, 0, 0.8)";
-  const darkFill = "rgba(0, 0, 0, 0.8)";
+    medalType === Medals.BRONZE ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.8)";
   const grayedOutColor =
     colorScheme.colorScheme === "dark"
       ? "rgba(100, 100, 100, 0.7)"
@@ -77,7 +74,12 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
     >
       <DisciplineIcon
         fill={medalType === Medals.NONE ? grayedOutColor : mainColor}
-        style={{ width: category === DisciplineCategories.COORDINATION ? "75%" :"60%", height: category === DisciplineCategories.COORDINATION ? "75%" : "60%", transition: "fill ease .9s" }}
+        style={{
+          width: category === DisciplineCategories.COORDINATION ? "75%" : "60%",
+          height:
+            category === DisciplineCategories.COORDINATION ? "75%" : "60%",
+          transition: "fill ease .9s",
+        }}
       />
     </Box>
   );
