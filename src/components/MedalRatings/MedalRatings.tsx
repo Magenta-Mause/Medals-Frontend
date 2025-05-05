@@ -37,7 +37,7 @@ const hexToRGBA = (hex: string, alpha: number) => {
 export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
   const { i18n } = useTranslation();
   const { mode } = useColorScheme();
-  const textColor = mode === "dark" ? "#fff" : "#000";
+  const textColor = "rgba(00, 00, 00, 0.9)";
 
   let displayValue = value;
 
@@ -63,7 +63,7 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
       variant="soft"
       size="sm"
       sx={{
-        backgroundColor: hexToRGBA(color, 0.6),
+        backgroundColor: hexToRGBA(color, 0.7),
         color: textColor,
         fontWeight: "bold",
         minWidth: "80px",
