@@ -122,6 +122,10 @@
     "profileModal": {
       "accountDeleted": "Account has been successfully deleted",
       "deletionError": "There was an error while deleting the account"
+    },
+    "athleteDatagrid": {
+      "deletionSuccess": "Athletes successful deleted!",
+      "deletionError": "Error while deleting athletes"
     }
   },
   "pages": {
@@ -238,7 +242,8 @@
       "email": "Email",
       "resetPasswordButton": "Reset Password",
       "deleteProfileButton": "Delete Account",
-      "confirmDeleteMessage": "By clicking 'Delete', your account and all associated data will be permanently removed."
+      "confirmDeleteMessage": "By clicking 'Delete', your account and all associated data will be permanently removed.",
+      "confirmDeleteHeader": "Account Deletion"
     },
     "imprintPage": {
       "title": "Imprint",
@@ -444,6 +449,10 @@
         "edit": "Edit",
         "openDetails": "Details",
         "export": "Export"
+      },
+      "deletionModal": {
+        "header": "Athlete Deletion",
+        "confirmDeleteMessage":"By clicking 'Delete', the selected Athletes and all associated data will be permanently removed."
       }
     },
     "trainerDatagrid": {
@@ -542,7 +551,6 @@
       }
     },
     "confirmationPopup": {
-      "header": "Are You Sure?",
       "cancelButton": "Cancel",
       "deleteButton": "Delete"
     },

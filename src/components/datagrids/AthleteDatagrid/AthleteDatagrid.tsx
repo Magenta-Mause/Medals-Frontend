@@ -1,7 +1,7 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
-import { Box, Link, Typography } from "@mui/joy";
+import { Box, Link, Snackbar, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -22,6 +22,8 @@ import { PersonAdd, PersonSearch } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
+import { enqueueSnackbar } from "notistack";
+import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -41,6 +43,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  
   const currentYear = new Date().getFullYear();
 
   const noAthleteFoundMessage = (
@@ -249,8 +253,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       key: "delete",
       variant: "outlined",
       operation: async (item) => {
-        await deleteAthlete(item.id!);
-        console.log("Deleted Athlete:", item);
+        setSelectedAthletes((prev) => [...prev, item]);
+        setDeleteModalOpen(true);
       },
     },
   ];
@@ -308,10 +312,33 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   useEffect(() => {
-    if (!isExportModalOpen) {
+    if (!isExportModalOpen && !isDeleteModalOpen) {
       setSelectedAthletes([]);
     }
-  }, [isExportModalOpen]);
+  }, [isExportModalOpen, isDeleteModalOpen]);
+
+  const handleConfirmDeletion = async () => {
+    if (selectedAthletes.length === 0) return;
+  
+    try {
+      for (const athlete of selectedAthletes) {
+        const success = await deleteAthlete(athlete.id!);
+        if (success) {
+          console.log("Deleted Athlete:", athlete);
+        } 
+      }
+      enqueueSnackbar(t("snackbar.athleteDatagrid.deletionSuccess"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error while deleting athletes", error);
+      enqueueSnackbar(t("snackbar.athleteDatagrid.deletionError"), {
+        variant: "error",
+      });
+    }
+    setDeleteModalOpen(false);
+  }
+  
 
   return (
     <>
@@ -348,8 +375,18 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         isOpen={createAthletModalOpen}
         setOpen={setCreateAthleteModalOpen}
       />
+      <ConfirmationPopup
+        open={isDeleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+        }}
+        onConfirm={handleConfirmDeletion}
+        header={t("components.athleteDatagrid.deletionModal.header")}
+        message={t("components.athleteDatagrid.deletionModal.confirmDeleteMessage")}
+      />
     </>
   );
 };
+
 
 export default AthleteDatagrid;

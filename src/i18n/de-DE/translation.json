@@ -124,6 +124,10 @@
     "profileModal": {
       "accountDeleted": "Konto wurde erfolgreich gelöscht",
       "deletionError": "Beim Löschen des Kontos ist ein Fehler aufgetreten"
+    },
+    "athleteDatagrid": {
+      "deletionSuccess": "Athlet*innen erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Athlet*innen ist ein Fehler aufgetreten"
     }
   },
   "pages": {
@@ -240,7 +244,8 @@
       "email": "E-Mail",
       "resetPasswordButton": "Password zurücksetzen",
       "deleteProfileButton": "Account löschen",
-      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht."
+      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht.",
+      "confirmDeleteHeader": "Account Löschen"
     },
     "imprintPage": {
       "title": "Impressum",
@@ -448,6 +453,10 @@
         "edit": "Bearbeiten",
         "openDetails": "Details",
         "export": "Exportieren"
+      },
+      "deletionModal":{
+        "header": "Athlet*innen Löschen",
+      "confirmDeleteMessage":"Durch das Klicken auf \"Löschen\" werden die ausgewählten Athlet*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
       }
     },
     "disciplineDatagrid": {
@@ -501,7 +510,6 @@
       "fieldRequired": "Bedingung ist verpflichtend"
     },
     "confirmationPopup": {
-      "header": "Account Löschen",
       "cancelButton": "Abbrechen",
       "deleteButton": "Löschen"
     },
