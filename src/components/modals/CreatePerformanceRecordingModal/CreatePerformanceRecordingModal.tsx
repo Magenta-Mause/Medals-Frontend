@@ -17,7 +17,7 @@ import {
 import { useTypedSelector } from "@stores/rootReducer";
 import dayjs, { Dayjs } from "dayjs";
 import { useSnackbar } from "notistack";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import GenericModal from "../GenericModal";
 import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
@@ -78,6 +78,34 @@ const CreatePerformanceRecordingModal = (props: {
   useEffect(() => {
     setDiscipline(disciplines.filter((d) => d.id == selectedDiscipline)[0]);
   }, [selectedDiscipline, setDiscipline, disciplines]);
+
+  // Sort disciplines within each category
+  const sortedDisciplines = useMemo(() => {
+    // No need to sort the entire list - we'll let the groupBy function handle the categories
+    // But we need to sort within each category when displaying
+    return [...disciplines].sort((a, b) => {
+      const categoryComparison = a.category.localeCompare(b.category);
+      if (categoryComparison !== 0) return categoryComparison;
+
+      const isAInvalid = isDisciplineInvalid(
+        a,
+        selectedAthlete,
+        selectedDate?.year(),
+        ratingMetrics,
+      );
+      const isBInvalid = isDisciplineInvalid(
+        b,
+        selectedAthlete,
+        selectedDate?.year(),
+        ratingMetrics,
+      );
+
+      if (isAInvalid && !isBInvalid) return 1;
+      if (!isAInvalid && isBInvalid) return -1;
+
+      return a.name.localeCompare(b.name);
+    });
+  }, [disciplines, selectedAthlete, selectedDate, ratingMetrics]);
 
   const submitPerformanceRecording = async (
     p: PerformanceRecordingCreationDto,
@@ -154,6 +182,39 @@ const CreatePerformanceRecordingModal = (props: {
 
         <FormControl>
           <FormLabel>
+            {t(
+              "components.createPerformanceRecordingModal.form.dateOfRecording",
+            )}
+          </FormLabel>
+          <CustomDatePicker
+            sx={{ width: "10%" }}
+            error={false}
+            value={selectedDate}
+            onChange={(val) => {
+              setDate(dayjs(val));
+            }}
+            format={undefined}
+          />
+          <FormLabel>
+            <Typography fontSize={15} color="neutral">
+              {t(
+                "components.createPerformanceRecordingModal.form.ageAtRecording",
+              )}
+              {selectedDate && selectedAthlete
+                ? selectedDate.year() >
+                  new Date(Date.parse(selectedAthlete.birthdate)).getFullYear()
+                  ? selectedDate.year() -
+                    new Date(
+                      Date.parse(selectedAthlete.birthdate),
+                    ).getFullYear()
+                  : t("generic.invalid")
+                : "-"}
+            </Typography>
+          </FormLabel>
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>
             {t("components.createPerformanceRecordingModal.form.discipline")}
           </FormLabel>
           <Autocomplete
@@ -164,11 +225,55 @@ const CreatePerformanceRecordingModal = (props: {
             placeholder={t(
               "components.createPerformanceRecordingModal.form.discipline",
             )}
-            options={disciplines}
+            options={sortedDisciplines}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             groupBy={(d) =>
               t("disciplines.categories." + d.category.toUpperCase() + ".label")
             }
+            renderGroup={(params) => {
+              const children = params.children
+                ? Array.isArray(params.children)
+                  ? params.children
+                  : [params.children]
+                : [];
+
+              const validOptions: React.ReactNode[] = [];
+              const invalidOptions: React.ReactNode[] = [];
+
+              children.forEach((child) => {
+                if (React.isValidElement(child)) {
+                  const typedChild = child as React.ReactElement<{
+                    disabled?: boolean;
+                  }>;
+                  if (typedChild.props.disabled) {
+                    invalidOptions.push(child);
+                  } else {
+                    validOptions.push(child);
+                  }
+                }
+              });
+
+              return (
+                <li key={params.key}>
+                  <div style={{ paddingLeft: 8, fontWeight: 1000 }}>
+                    {params.group}
+                  </div>
+                  <ul style={{ paddingLeft: 8, margin: 0 }}>
+                    {[...validOptions, ...invalidOptions].map((option) =>
+                      React.isValidElement(option)
+                        ? React.cloneElement(option, {
+                            ...option.props,
+                            style: {
+                              ...(option.props.style || {}),
+                              paddingLeft: 12,
+                            },
+                          })
+                        : option,
+                    )}
+                  </ul>
+                </li>
+              );
+            }}
             getOptionLabel={(d: Discipline) => d.name}
             getOptionDisabled={(discipline) =>
               isDisciplineInvalid(
@@ -204,38 +309,6 @@ const CreatePerformanceRecordingModal = (props: {
               setValue(e.target.value);
             }}
           />
-        </FormControl>
-        <FormControl>
-          <FormLabel>
-            {t(
-              "components.createPerformanceRecordingModal.form.dateOfRecording",
-            )}
-          </FormLabel>
-          <CustomDatePicker
-            sx={{ width: "10%" }}
-            error={false}
-            value={selectedDate}
-            onChange={(val) => {
-              setDate(dayjs(val));
-            }}
-            format={undefined}
-          />
-          <FormLabel>
-            <Typography fontSize={15} color="neutral">
-              {t(
-                "components.createPerformanceRecordingModal.form.ageAtRecording",
-              )}
-              {selectedDate && selectedAthlete
-                ? selectedDate.year() >
-                  new Date(Date.parse(selectedAthlete.birthdate)).getFullYear()
-                  ? selectedDate.year() -
-                    new Date(
-                      Date.parse(selectedAthlete.birthdate),
-                    ).getFullYear()
-                  : t("generic.invalid")
-                : "-"}
-            </Typography>
-          </FormLabel>
         </FormControl>
 
         <Button
