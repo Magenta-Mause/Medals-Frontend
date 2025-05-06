@@ -6,6 +6,7 @@ interface ConfirmationPopupProps {
   open: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  header: string;
   message: string;
 }
 
@@ -13,6 +14,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   open,
   onClose,
   onConfirm,
+  header,
   message,
 }) => {
   const { t } = useTranslation();
@@ -35,7 +37,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
             component="h2"
             sx={{ textAlign: "center", mb: 1 }}
           >
-            {t("components.confirmationPopup.header")}
+            {header}
           </Typography>
           <Typography sx={{ textAlign: "center", mb: 2 }}>{message}</Typography>
           <Box
