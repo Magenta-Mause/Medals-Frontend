@@ -1,8 +1,4 @@
-import {
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
-  MoreVert,
-} from "@mui/icons-material";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import {
   Box,
   IconButton,
@@ -12,10 +8,8 @@ import {
   ListItemContent,
   ListItemDecorator,
   Typography,
-  Menu,
-  MenuItem,
 } from "@mui/joy";
-import { Key, ReactNode, useState } from "react";
+import { Key, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Action } from "./GenericResponsiveDatagrid";
 import { Filter } from "./GenericResponsiveDatagridFilterComponent";
@@ -41,21 +35,6 @@ const Row = <T,>(props: {
   rendering: MobileTableRendering<T>;
   keyOf: (item: T) => Key;
 }) => {
-  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
-  const open = Boolean(menuAnchor);
-
-  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    setMenuAnchor(event.currentTarget);
-  };
-
-  const handleMenuClose = (event?: React.MouseEvent) => {
-    if (event) {
-      event.stopPropagation();
-    }
-    setMenuAnchor(null);
-  };
-
   return (
     <>
       <ListItem
@@ -127,7 +106,7 @@ const Row = <T,>(props: {
             ) : (
               <></>
             )}
-            {/* New row content goes here */}
+            {/* Content row */}
             {props.rendering.contentRow ? (
               <Box
                 sx={{
@@ -142,7 +121,7 @@ const Row = <T,>(props: {
             ) : (
               <></>
             )}
-            {/* Additional actions (not moved to the menu) */}
+            {/* Additional actions */}
             {props.rendering.additionalActions ? (
               <Box
                 sx={{ display: "flex", alignItems: "center", gap: 2, mb: 1 }}
@@ -165,44 +144,12 @@ const Row = <T,>(props: {
             <></>
           )}
 
-          {/* Three-dot menu for bottom buttons */}
           {props.rendering.topRightMenu &&
           props.rendering.topRightMenu.length > 0 ? (
-            <>
-              <IconButton
-                size="sm"
-                variant="plain"
-                color="neutral"
-                onClick={handleMenuClick}
-                aria-controls={open ? "three-dot-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-              >
-                <MoreVert />
-              </IconButton>
-
-              <Menu
-                id="three-dot-menu"
-                anchorEl={menuAnchor}
-                open={open}
-                onClose={handleMenuClose}
-                aria-labelledby="three-dots-button"
-              >
-                {props.rendering.topRightMenu.map((action) => (
-                  <MenuItem
-                    key={action.key}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleMenuClose();
-                      action.operation(props.item);
-                    }}
-                    color={action.color}
-                  >
-                    {action.label}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </>
+            <RowMenu
+              item={props.item}
+              actionMenu={props.rendering.topRightMenu}
+            />
           ) : (
             <></>
           )}
