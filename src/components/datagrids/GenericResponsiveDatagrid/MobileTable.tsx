@@ -1,7 +1,10 @@
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  MoreVert,
+} from "@mui/icons-material";
 import {
   Box,
-  Button,
   IconButton,
   List,
   ListDivider,
@@ -9,8 +12,10 @@ import {
   ListItemContent,
   ListItemDecorator,
   Typography,
+  Menu,
+  MenuItem,
 } from "@mui/joy";
-import { Key, ReactNode } from "react";
+import { Key, ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Action } from "./GenericResponsiveDatagrid";
 import { Filter } from "./GenericResponsiveDatagridFilterComponent";
@@ -21,9 +26,10 @@ export interface MobileTableRendering<T> {
   h1?: (row: T) => ReactNode;
   h2?: (row: T) => ReactNode;
   h3?: (row: T) => ReactNode;
-  bottomButtons?: Action<T>[];
+  topRightMenu?: Action<T>[];
   additionalActions?: Action<T>[];
   topRightInfo?: (row: T) => ReactNode;
+  contentRow?: (row: T) => ReactNode;
   searchFilter?: Filter<T>;
   onElementClick?: (row: T) => void;
 }
@@ -35,6 +41,21 @@ const Row = <T,>(props: {
   rendering: MobileTableRendering<T>;
   keyOf: (item: T) => Key;
 }) => {
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+  const open = Boolean(menuAnchor);
+
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    setMenuAnchor(event.currentTarget);
+  };
+
+  const handleMenuClose = (event?: React.MouseEvent) => {
+    if (event) {
+      event.stopPropagation();
+    }
+    setMenuAnchor(null);
+  };
+
   return (
     <>
       <ListItem
@@ -106,43 +127,86 @@ const Row = <T,>(props: {
             ) : (
               <></>
             )}
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-                mb: 1,
-              }}
-            >
-              {props.rendering.bottomButtons?.map((action) => (
-                <Button
-                  color={action.color}
-                  key={action.key}
-                  variant={action.variant ?? "plain"}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    action.operation(props.item);
-                  }}
-                >
-                  {action.label}
-                </Button>
-              ))}
-              {props.rendering.additionalActions ? (
+            {/* New row content goes here */}
+            {props.rendering.contentRow ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 2,
+                  mb: 1,
+                }}
+              >
+                {props.rendering.contentRow(props.item)}
+              </Box>
+            ) : (
+              <></>
+            )}
+            {/* Additional actions (not moved to the menu) */}
+            {props.rendering.additionalActions ? (
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 2, mb: 1 }}
+              >
                 <RowMenu
                   item={props.item}
                   actionMenu={props.rendering.additionalActions}
                 />
-              ) : (
-                <></>
-              )}
-            </Box>
+              </Box>
+            ) : (
+              <></>
+            )}
           </div>
         </ListItemContent>
-        {props.rendering.topRightInfo ? (
-          props.rendering.topRightInfo(props.item)
-        ) : (
-          <></>
-        )}
+
+        <Box sx={{ display: "flex", alignItems: "start", gap: 1 }}>
+          {props.rendering.topRightInfo ? (
+            props.rendering.topRightInfo(props.item)
+          ) : (
+            <></>
+          )}
+
+          {/* Three-dot menu for bottom buttons */}
+          {props.rendering.topRightMenu &&
+          props.rendering.topRightMenu.length > 0 ? (
+            <>
+              <IconButton
+                size="sm"
+                variant="plain"
+                color="neutral"
+                onClick={handleMenuClick}
+                aria-controls={open ? "three-dot-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+              >
+                <MoreVert />
+              </IconButton>
+
+              <Menu
+                id="three-dot-menu"
+                anchorEl={menuAnchor}
+                open={open}
+                onClose={handleMenuClose}
+                aria-labelledby="three-dots-button"
+              >
+                {props.rendering.topRightMenu.map((action) => (
+                  <MenuItem
+                    key={action.key}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleMenuClose();
+                      action.operation(props.item);
+                    }}
+                    color={action.color}
+                  >
+                    {action.label}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </>
+          ) : (
+            <></>
+          )}
+        </Box>
       </ListItem>
       {props.index < props.totalCount - 1 ? (
         <ListDivider key={props.keyOf(props.item) + "divider"} />

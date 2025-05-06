@@ -140,7 +140,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
           />
         );
       },
-      bottomButtons: [
+      topRightMenu: [
         {
           label: "Details",
           key: "openDetails",

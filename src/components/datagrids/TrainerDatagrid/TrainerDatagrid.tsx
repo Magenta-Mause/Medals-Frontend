@@ -109,7 +109,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       </>
     ),
     h2: (trainer) => <>{trainer.email}</>,
-    bottomButtons: actions,
+    topRightMenu: actions,
     searchFilter: {
       name: "search",
       label: "Search",

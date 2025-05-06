@@ -271,7 +271,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         {formatLocalizedDate(athlete.birthdate)}
       </Typography>
     ),
-    bottomButtons: [
+    topRightMenu: [
       {
         key: "openDetails",
         label: t("components.athleteDatagrid.actions.openDetails"),
@@ -280,7 +280,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
       ...actions.filter((action) => action.key !== "export"),
     ],
-    topRightInfo: (athlete) => (
+    contentRow: (athlete) => (
       <AchievementsBox
         athlete={athlete}
         performanceRecordings={performanceRecordings}
