@@ -84,7 +84,19 @@ const LoginForm = (props: {
         </FormControl>
 
         <Stack sx={{ gap: 2 }}>
-          <Typography level="body-sm" sx={{ textAlign: "center" }}>
+          <Button
+            type="submit"
+            fullWidth
+            disabled={props.isPending}
+            sx={{ transition: "all ease .2s" }}
+          >
+            {!props.isPending ? (
+              t("pages.loginPage.signIn.submit")
+            ) : (
+              <>{t("pages.loginPage.signIn.loading")}</>
+            )}
+          </Button>
+          <Typography level="body-xs" sx={{ textAlign: "left" }}>
             {t("pages.loginPage.signIn.continueMeansAccept")}{" "}
             <span
               onClick={(e) => {
@@ -101,19 +113,6 @@ const LoginForm = (props: {
               {t("pages.loginPage.signIn.privacyPolicy")}
             </span>
           </Typography>
-
-          <Button
-            type="submit"
-            fullWidth
-            disabled={props.isPending}
-            sx={{ transition: "all ease .2s" }}
-          >
-            {!props.isPending ? (
-              t("pages.loginPage.signIn.submit")
-            ) : (
-              <>{t("pages.loginPage.signIn.loading")}</>
-            )}
-          </Button>
         </Stack>
       </form>
 
