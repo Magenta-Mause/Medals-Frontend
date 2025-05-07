@@ -317,9 +317,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     }
   }, [isExportModalOpen, isDeleteModalOpen]);
 
+
   const handleConfirmDeletion = async () => {
     if (selectedAthletes.length === 0) return;
-  
     try {
       for (const athlete of selectedAthletes) {
         const success = await deleteAthlete(athlete.id!);

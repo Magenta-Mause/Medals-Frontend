@@ -94,7 +94,9 @@
     },
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
-      "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
+      "creationSuccess": "Leistungsaufnahme erfolgreich angelegt",
+      "deletionSuccess":"Leistungswerte erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Leistungswerte ist ein Fehler aufgetreten"
     },
     "performanceMetrics": {
       "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
@@ -541,6 +543,10 @@
           "label": "+ aufnehmen"
         },
         "delete": "Löschen"
+      },
+      "deletionModal":{
+        "confirmDeleteMessage":"Durch das Klicken auf \"Löschen\" werden die ausgewählten Leistungsaufnahmen unwiderruflich gelöscht.",
+        "header":"Leistungsaufnahmen Löschen"
       }
     },
     "swimCertificateSection": {

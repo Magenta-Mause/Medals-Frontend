@@ -92,7 +92,9 @@
     },
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
-      "creationSuccess": "Performance recording successfully registered"
+      "creationSuccess": "Performance recording successfully registered",
+      "deletionSuccess":"Performance recording successful deleted!",
+      "deletionError":"Error while deleting performance Records"
     },
     "performanceMetrics": {
       "athleteNotFound": "Athlete not found",
@@ -519,6 +521,10 @@
           "label": "+ add"
         },
         "delete": "Delete"
+      },
+      "deletionModal":{
+        "confirmDeleteMessage":"By clicking 'Delete', the selected Recordigns will be permanently removed.",
+        "header":"Record Deletion"
       }
     },
     "performanceRecordingViewModal": {
