@@ -19,16 +19,14 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
   const colorScheme = useColorScheme();
   const backgroundColor =
     colorScheme.colorScheme === "dark"
-      ? "rgba(255, 255, 255, 0.3)"
-      : "rgba(0, 0, 0, 0.2)";
+      ? "rgba(50, 50, 50, 1)"
+      : "rgba(190, 190, 190, 0.3)";
   const mainColor =
-    colorScheme.colorScheme === "dark"
-      ? "rgba(0, 0, 0, 0.7)"
-      : "rgba(0, 0, 0, 0.7)";
+    medalType === Medals.BRONZE ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.8)";
   const grayedOutColor =
     colorScheme.colorScheme === "dark"
-      ? "rgba(255, 255, 255, 1)"
-      : "rgba(0, 0, 0, 0.5)";
+      ? "rgba(100, 100, 100, 0.7)"
+      : "rgba(150, 150, 150, 0.8)";
 
   const medalColors = useMedalColors();
 
@@ -63,7 +61,7 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
         background: medalColor ?? backgroundColor,
         border:
           medalType === Medals.NONE
-            ? "rgba(0,0,0,0.2) solid thin"
+            ? "rgba(100, 100, 100, 0.2) solid thin"
             : "gray solid thin",
         borderRadius: "100%",
         height: ICON_SIZE,
@@ -76,7 +74,12 @@ export const MedalIcon = ({ category, medalType, sx }: MedalIconProps) => {
     >
       <DisciplineIcon
         fill={medalType === Medals.NONE ? grayedOutColor : mainColor}
-        style={{ width: "60%", height: "60%", transition: "fill ease .9s" }}
+        style={{
+          width: category === DisciplineCategories.COORDINATION ? "75%" : "60%",
+          height:
+            category === DisciplineCategories.COORDINATION ? "75%" : "60%",
+          transition: "fill ease .9s",
+        }}
       />
     </Box>
   );
