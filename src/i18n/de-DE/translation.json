@@ -130,6 +130,10 @@
     "athleteDatagrid": {
       "deletionSuccess": "Athlet*innen erfolgreich gelöscht!",
       "deletionError": "Beim Löschen der Athlet*innen ist ein Fehler aufgetreten"
+    },
+    "trainerDatagrid": {
+      "deletionSuccess": "Trainer erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Trainer ist ein Fehler aufgetreten"
     }
   },
   "pages": {
@@ -497,7 +501,11 @@
       },
       "actions": {
         "delete": "Löschen"
-      }
+      },
+      "deletionModal":{
+          "header":"Trainer Löschen",
+          "confirmDeleteMessage":"Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer mit allen dazugehörigen Daten unwiderruflich gelöscht."
+        }
     },
     "buttons": {
       "next": "Nächstes",

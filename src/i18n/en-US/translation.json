@@ -128,6 +128,10 @@
     "athleteDatagrid": {
       "deletionSuccess": "Athletes successful deleted!",
       "deletionError": "Error while deleting athletes"
+    },
+    "trainerDatagrid": {
+      "deletionSuccess": "Trainers successful deleted!",
+      "deletionError": "Error while deleting trainers"
     }
   },
   "pages": {
@@ -485,7 +489,11 @@
       },
       "actions": {
         "delete": "Delete"
-      }
+      },
+      "deletionModal":{
+          "header":"Trainer Deletion",
+          "confirmDeleteMessage":"By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
+        }
     },
     "buttons": {
       "next": "Next",
