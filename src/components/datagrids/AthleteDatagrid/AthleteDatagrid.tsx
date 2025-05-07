@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
 import { calculateAge } from "@utils/calculationUtil";
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -51,7 +52,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     ...Array.from({ length: 12 }, (_, i) => {
       const value = (i + 6).toString();
       return {
-        displayValue: Number(value),
+        displayValue: <Typography>{Number(value)}</Typography>,
         value,
       };
     }),
@@ -194,7 +195,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     {
       name: "age",
-      label: t("components.athleteDatagrid.table.filters.age"),
+      label: (
+        <HoverTooltip text={t("components.tooltip.ageFilter")}>
+          <Typography level="body-sm" sx={{ ml: "2px", userSelect: "none" }}>
+            {t("components.athleteDatagrid.table.filters.age")}
+          </Typography>
+        </HoverTooltip>
+      ),
       apply(filterParameter) {
         return (athlete) =>
           filterParameter === "" ||

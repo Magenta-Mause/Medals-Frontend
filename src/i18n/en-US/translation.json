@@ -566,6 +566,7 @@
     "tooltip": {
       "colorSchemeToggle": "Switch between Light/Dark mode",
       "profileButton": "Account Settings",
+      "ageFilter": "The age corresponds to the age reached in the current calendar year",
       "switchUserButton": "Switch User",
       "logoutButton": "Log Out",
       "languageSelectionButton": "Change Language",
