@@ -21,7 +21,7 @@ import { PersonAdd, PersonSearch } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
-import RemoveConfirmationModal from "@components/modals/ConfirmatoinModal/RemoveConfirmationModal/RemoveConfirmationModal";
+import RemoveConfirmationModal from "@components/modals/GenericConfirmationModal/RemoveConfirmationModal/RemoveConfirmationModal";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];

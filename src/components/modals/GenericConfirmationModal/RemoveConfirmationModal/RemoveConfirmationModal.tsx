@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import React, { useContext } from "react";
 import { Athlete } from "@customTypes/backendTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import GenericConfirmationModal from "@components/modals/ConfirmatoinModal/GenericConfirmationModal";
+import GenericConfirmationModal from "@components/modals/GenericConfirmationModal/GenericConfirmationModal";
 import { enqueueSnackbar } from "notistack";
 
 interface RemoveConnectionModalProps {
@@ -43,7 +43,7 @@ const RemoveConfirmationModal = (props: RemoveConnectionModalProps) => {
         isOpen={props.isOpen}
         setOpen={props.setOpen}
         onConfirm={remove}
-      ></GenericConfirmationModal>
+      />
     </>
   );
 };
