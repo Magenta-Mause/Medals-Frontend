@@ -140,13 +140,6 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
           />
         );
       },
-      topRightMenu: [
-        {
-          label: "Details",
-          key: "openDetails",
-          operation: props.onDisciplineClick ?? (async () => {}),
-        },
-      ],
       onElementClick: props.onDisciplineClick ?? undefined,
     };
 
