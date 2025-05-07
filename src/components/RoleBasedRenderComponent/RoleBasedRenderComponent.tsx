@@ -1,4 +1,5 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { UserType } from "@customTypes/enums";
 import React, { useContext } from "react";
 
 const RoleBasedRenderComponent = (props: {
@@ -12,9 +13,9 @@ const RoleBasedRenderComponent = (props: {
     return <></>;
   }
 
-  return selectedUser.type == "ADMIN"
+  return selectedUser.type == UserType.ADMIN
     ? props.adminRender
-    : selectedUser.type == "TRAINER"
+    : selectedUser.type == UserType.TRAINER
       ? props.trainerRender
       : props.athleteRender;
 };

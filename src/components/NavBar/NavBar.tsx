@@ -74,11 +74,11 @@ const NavBar = () => {
             />
           ),
           label:
-            selectedUser?.type == "TRAINER"
+            selectedUser?.type == UserType.TRAINER
               ? "athletes"
-              : selectedUser?.type == "ATHLETE"
+              : selectedUser?.type == UserType.ATHLETE
                 ? "dashboard"
-                : "trainers",
+                : "trainer",
         },
       ],
     ],
@@ -223,6 +223,9 @@ const NavBar = () => {
           ].map((element) => (
             <ListItem key={element.path}>
               <ListItemButton
+                sx={{
+                  transition: "background ease .2s",
+                }}
                 onClick={() => {
                   navigate(element.path);
                   collapseSidebar();
