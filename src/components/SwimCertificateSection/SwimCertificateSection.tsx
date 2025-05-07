@@ -11,11 +11,13 @@ import { useMediaQuery } from "@mui/material";
 interface SwimCertificateSectionProps {
   athlete: Athlete;
   onCertificateDeleted?: () => void;
+  hideButton?: boolean;
 }
 
 const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
   athlete,
   onCertificateDeleted,
+  hideButton,
 }) => {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
@@ -91,22 +93,24 @@ const SwimCertificateSection: React.FC<SwimCertificateSectionProps> = ({
           )}
         </Box>
         {/* Right aligned button */}
-        <Box>
-          {hasCertificate ? (
-            <Button
-              onClick={handleDelete}
-              variant="outlined"
-              color="danger"
-              disabled={loading}
-            >
-              {t("components.swimCertificateSection.deleteButton")}
-            </Button>
-          ) : (
-            <Button onClick={() => setModalOpen(true)}>
-              {t("pages.athleteDetailPage.createSwimCertificateButton")}
-            </Button>
-          )}
-        </Box>
+        {!hideButton && (
+          <Box>
+            {hasCertificate ? (
+              <Button
+                onClick={handleDelete}
+                variant="outlined"
+                color="danger"
+                disabled={loading}
+              >
+                {t("components.swimCertificateSection.deleteButton")}
+              </Button>
+            ) : (
+              <Button onClick={() => setModalOpen(true)}>
+                {t("pages.athleteDetailPage.createSwimCertificateButton")}
+              </Button>
+            )}
+          </Box>
+        )}
       </Box>
 
       {!hasCertificate && (

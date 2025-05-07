@@ -26,10 +26,20 @@
     "confirm": "Bestätigen",
     "password": "Passwort",
     "finished": "Fertig",
+    "medal": "Medaille",
+    "date": {
+      "on": "am"
+    },
+    "category": "Kategorie",
+    "deutschesSportabzeichen": "Deutsches Sportabzeichen",
     "validation": {
       "required": "Dieses Feld ist erforderlich",
       "tooLong": "Dieses Feld ist zu lang",
       "invalidEmail": "Ungültige E-Mail-Adresse"
+    },
+    "points": {
+      "singular": "Punkt",
+      "plural": "Punkte"
     }
   },
   "disciplines": {
@@ -502,11 +512,18 @@
     "athletePerformanceAccordions": {
       "selectedYear": "Ausgewähltes Jahr"
     },
+    "performanceRecordingViewModal": {
+      "header": {
+        "plain": "Leistungsaufnahmen",
+        "date": "Leistungsaufnahmen vom "
+      }
+    },
     "performanceRecordingDatagrid": {
       "columns": {
         "dateOfRecording": "Aufgenommen am",
         "result": "Ergebnis",
-        "medal": "Erreichte Medaille"
+        "medal": "Erreichte Medaille",
+        "discipline": "Disziplin"
       },
       "filters": {
         "recordedIn": "Aufgenommen in"
@@ -556,6 +573,15 @@
         }
       }
     },
+    "athleteActivityChart": {
+      "tooltipText": {
+        "noData": "Keine Leistungsaufnahmen",
+        "data": {
+          "singular": " Leistungsaufnahme",
+          "plural": " Leistungsaufnahmen"
+        }
+      }
+    },
     "tooltip": {
       "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
       "ageFilter": "Das Alter entspricht dem Alter, was in den aktuellen Kalenderjahr erreicht wird",
@@ -577,11 +603,65 @@
       },
       "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     },
+    "calHeatmap": {
+      "loadingError": "Fehler beim Laden des Activity Charts"
+    },
     "athleteExportModal": {
       "header": "Athlet*innen Export",
       "exportButton": "Export",
       "performanceCheckbox": "Leistungswerte einschließen",
       "removeFromSelectionButton": "Entfernen"
+    },
+    "athleteDashboard": {
+      "error": {
+        "notAnAthlete": "Ausgewählte Benutzer*in ist keine Athlet*in"
+      },
+      "activityChart": {
+        "header": "Deine Aktivitäten in ",
+        "link": "Alle deine Leistungsaufnahmen"
+      },
+      "totalPerformanceRecordings": "Deine Leistungsaufnahmen",
+      "performanceRecordingsThisYear": " davon in diesem Jahr",
+      "selectedUser": "Dein Profil",
+      "bornIn": "Geboren am",
+      "categoryMedalBox": {
+        "thisEquals": "Das entspricht",
+        "points": {
+          "singular": "Punkt",
+          "plural": "Punkten"
+        }
+      },
+      "totalMedalBox": {
+        "header": "Deutsches Sportabzeichen",
+        "noSwimCertificate": {
+          "blurText": "Um für das Deutsche Sportabzeichen zugelassen zu werden brauchst du einen gültigen Schwimm Nachweis",
+          "pointDisplay": {
+            "prefix": "Du hast aktuell",
+            "between": "was eine",
+            "postfix": "ergeben würde"
+          }
+        },
+        "noMedalReached": "was nicht reicht um eine Medaille zu erreichen",
+        "medalMissing": "Du musst in allen Kategorien mindestens eine Bronze Medaille erreichen",
+        "pointsMissingTemplate": {
+          "prefix": {
+            "singular": "Dir fehlt noch",
+            "plural": "Dir fehlen noch"
+          },
+          "between": "um die",
+          "postfix": "Medaille zu erreichen"
+        },
+        "pointsCount": {
+          "prefix": "Du hast",
+          "postfix": "erreicht"
+        }
+      },
+      "swimCertificate": {
+        "header": "Dein Schwimmnachweis",
+        "noSwimCertificate": "Nicht vorhanden",
+        "existing": "Deinem Sportabzeichen steht nichts mehr im weg",
+        "notExisting": "Um das Deutsche Sportabzeichen zu erlangen brauchst du einen gültigen Schwimmnachweis"
+      }
     }
   }
 }

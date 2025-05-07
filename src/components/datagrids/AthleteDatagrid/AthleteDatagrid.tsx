@@ -1,5 +1,6 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
+import useFormatting from "@hooks/useFormatting";
 import { Box, Link, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
@@ -26,7 +27,6 @@ import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
-  isLoading: boolean;
 }
 
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
@@ -36,6 +36,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   ) as PerformanceRecording[];
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { formatLocalizedDate } = useFormatting();
   const [addImportModalOpen, setImportModalOpen] = useState(false);
   const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
     useState(false);
@@ -91,6 +92,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       </Box>
     </Box>
   );
+
   const columns: Column<Athlete>[] = [
     {
       columnName: t("components.athleteDatagrid.table.columns.firstName"),
@@ -112,7 +114,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       columnName: t("components.athleteDatagrid.table.columns.birthdate"),
       size: "s",
       columnMapping(item) {
-        return <Typography>{item.birthdate}</Typography>;
+        return <Typography>{formatLocalizedDate(item.birthdate)}</Typography>;
       },
       sortable: true,
     },
@@ -137,11 +139,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       disableSpan: true,
       columnMapping(item) {
         return (
-          <AchievementsBox
-            athlete={item}
-            performanceRecordings={performanceRecordings}
-            currentYear={currentYear}
-          />
+          <>
+            <AchievementsBox
+              athlete={item}
+              performanceRecordings={performanceRecordings}
+              selectedYear={currentYear}
+            />
+          </>
         );
       },
     },
@@ -215,18 +219,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const toolbarActions: ToolbarAction[] = [
     {
-      label: t("pages.athleteImportPage.importButton"),
-      content: t("pages.athleteImportPage.importButton"),
-      icon: <UploadIcon />,
-      collapseToText: true,
-      color: "primary",
-      key: "import-athlete",
-      variant: "solid",
-      operation: async () => {
-        setImportModalOpen(true);
-      },
-    },
-    {
       label: t("components.athleteDatagrid.table.toolbar.createAthlete.label"),
       content: t(
         "components.athleteDatagrid.table.toolbar.createAthlete.content",
@@ -250,6 +242,18 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       variant: "solid",
       operation: async () => {
         setAddAthleteRequestModalOpen(true);
+      },
+    },
+    {
+      label: t("pages.athleteImportPage.importButton"),
+      content: t("pages.athleteImportPage.importButton"),
+      icon: <UploadIcon />,
+      collapseToText: true,
+      color: "primary",
+      key: "import-athlete",
+      variant: "solid",
+      operation: async () => {
+        setImportModalOpen(true);
       },
     },
   ];
@@ -297,7 +301,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     ),
     h2: (athlete) => <>{athlete.email}</>,
     h3: (athlete) => (
-      <Typography level="body-xs">{athlete.birthdate}</Typography>
+      <Typography level="body-xs">
+        {formatLocalizedDate(athlete.birthdate)}
+      </Typography>
     ),
     bottomButtons: [
       {
@@ -312,7 +318,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       <AchievementsBox
         athlete={athlete}
         performanceRecordings={performanceRecordings}
-        currentYear={currentYear}
+        selectedYear={currentYear}
       />
     ),
     searchFilter: {
@@ -351,7 +357,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         isButtonVisible={false}
       />
       <GenericResponsiveDatagrid
-        isLoading={props.isLoading}
         data={props.athletes}
         columns={columns}
         filters={filters}

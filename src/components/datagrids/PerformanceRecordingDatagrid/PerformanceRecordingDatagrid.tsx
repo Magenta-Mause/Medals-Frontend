@@ -26,7 +26,9 @@ interface PerformanceRecordingDatagridProps {
   isLoading: boolean;
   athlete?: Athlete;
   discipline?: Discipline;
-  selectedUserTyp: UserType;
+  selectedUserType: UserType;
+  hideFilter?: boolean;
+  showDisciplines?: boolean;
 }
 
 const PerformanceRecordingDatagrid = (
@@ -34,10 +36,23 @@ const PerformanceRecordingDatagrid = (
 ) => {
   const { deletePerformanceRecording } = useApi();
   const { t } = useTranslation();
-  const { formatValue, formatDate } = useFormatting();
+  const { formatValue, formatLocalizedDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
 
   const columns: Column<PerformanceRecording>[] = [
+    ...(props.showDisciplines
+      ? [
+          {
+            columnName: t(
+              "components.performanceRecordingDatagrid.columns.discipline",
+            ),
+            columnMapping(item: PerformanceRecording) {
+              return item.discipline_rating_metric.discipline.name;
+            },
+            size: "l" as "l" | "m",
+          },
+        ]
+      : []),
     {
       columnName: t("components.performanceRecordingDatagrid.columns.result"),
       columnMapping(p) {
@@ -59,10 +74,11 @@ const PerformanceRecordingDatagrid = (
       columnMapping(item) {
         return (
           <Typography>
-            {formatDate(Date.parse(item.date_of_performance)) ?? "-"}
+            {formatLocalizedDate(item.date_of_performance) ?? "-"}
           </Typography>
         );
       },
+      size: "l",
       sortable: true,
     },
     {
@@ -89,13 +105,24 @@ const PerformanceRecordingDatagrid = (
     },
     h1: (p) => (
       <>
-        {formatValue(
-          p.rating_value,
-          p.discipline_rating_metric.discipline.unit,
-        )}
+        {props.showDisciplines
+          ? p.discipline_rating_metric.discipline.name
+          : formatValue(
+              p.rating_value,
+              p.discipline_rating_metric.discipline.unit,
+            )}
       </>
     ),
-    h2: (p) => <>{formatDate(Date.parse(p.date_of_performance)) ?? "-"}</>,
+    h2: (p) => (
+      <>
+        {(props.showDisciplines
+          ? formatValue(
+              p.rating_value,
+              p.discipline_rating_metric.discipline.unit,
+            ) + " - "
+          : " ") + (formatLocalizedDate(p.date_of_performance) ?? "-")}
+      </>
+    ),
   };
 
   const filters: Filter<PerformanceRecording>[] = [
@@ -132,7 +159,7 @@ const PerformanceRecordingDatagrid = (
   ];
 
   const actions: ToolbarAction[] =
-    props.athlete && props.selectedUserTyp === UserType.TRAINER
+    props.athlete && props.selectedUserType === UserType.TRAINER
       ? [
           {
             label: t(
@@ -162,21 +189,21 @@ const PerformanceRecordingDatagrid = (
             Date.parse(b.date_of_performance),
         )}
         columns={columns}
-        filters={filters}
+        filters={props.hideFilter ? undefined : filters}
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
         toolbarActions={
-          props.selectedUserTyp === UserType.TRAINER ? actions : undefined
+          props.selectedUserType === UserType.TRAINER ? actions : undefined
         }
         actionMenu={
-          props.selectedUserTyp === UserType.TRAINER ? options : undefined
+          props.selectedUserType === UserType.TRAINER ? options : undefined
         }
         itemSelectionActions={
-          props.selectedUserTyp === UserType.TRAINER ? options : undefined
+          props.selectedUserType === UserType.TRAINER ? options : undefined
         }
         disablePaging
       />
-      {props.athlete && props.selectedUserTyp === UserType.TRAINER ? (
+      {props.athlete && props.selectedUserType === UserType.TRAINER ? (
         <CreatePerformanceRecordingModal
           open={isCreationModalOpen}
           setOpen={setCreationModalOpen}

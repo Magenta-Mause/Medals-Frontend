@@ -40,7 +40,7 @@ const DisciplineDetailModal = (props: {
             isLoading={false}
             athlete={props.athlete}
             discipline={props.discipline}
-            selectedUserTyp={props.selectedUserType}
+            selectedUserType={props.selectedUserType}
           />
         </>
       ) : (

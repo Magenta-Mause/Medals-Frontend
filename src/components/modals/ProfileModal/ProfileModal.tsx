@@ -1,8 +1,8 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import useApi from "@hooks/useApi";
+import useFormatting from "@hooks/useFormatting";
 import { Avatar, Box, Button, Grid, Typography } from "@mui/joy";
-import { useTypedSelector } from "@stores/rootReducer";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 import GenericModal from "../GenericModal";
 import { UserType } from "@customTypes/enums";
 import { useSnackbar } from "notistack";
+import { Athlete } from "@customTypes/backendTypes";
 
 const infoCardDesktop = ({
   label,
@@ -56,41 +57,38 @@ const ProfileModal = (props: {
   isOpen: boolean;
   setOpen: (open: boolean) => void;
 }) => {
-  const athletes = useTypedSelector((state) => state.athletes.data);
-  const { selectedUser, setSelectedUser, refreshIdentityToken } =
-    useContext(AuthContext);
+  const { selectedUser, refreshIdentityToken } = useContext(AuthContext);
   const isMobile = useMediaQuery("(max-width:600px)");
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
   const { deleteAthlete, deleteTrainer, deleteAdmin } = useApi();
-  const selectedAthlete = athletes.find(
-    (athlete: { id: number | undefined }) => athlete.id === selectedUser?.id,
-  );
   const { enqueueSnackbar } = useSnackbar();
+  const { formatLocalizedDate } = useFormatting();
 
-  const formattedDate = selectedAthlete?.birthdate
-    ? new Intl.DateTimeFormat("de-DE", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }).format(new Date(selectedAthlete.birthdate))
-    : "Datum nicht verfügbar";
+  let birthdate = "";
+  let genderLabel = undefined;
+
+  if (selectedUser && selectedUser.type === UserType.ATHLETE) {
+    const athleteData = selectedUser as unknown as Athlete;
+    birthdate = athleteData.birthdate;
+    genderLabel = athleteData.gender;
+  }
 
   const handleConfirmDelete = async () => {
     try {
       let success = undefined;
       if (selectedUser?.type === UserType.ATHLETE) {
         success = await deleteAthlete(selectedUser.id);
-      } else if (selectedUser?.type === "TRAINER") {
+      } else if (selectedUser?.type === UserType.TRAINER) {
         success = await deleteTrainer(selectedUser.id);
-      } else if (selectedUser?.type === "ADMIN") {
+      } else if (selectedUser?.type === UserType.ADMIN) {
         success = await deleteAdmin(selectedUser.id);
       }
 
       if (success) {
         refreshIdentityToken();
-        setSelectedUser(null);
+        window.localStorage.setItem("selectedUser", "-1");
         enqueueSnackbar(t("snackbar.profileModal.accountDeleted"), {
           variant: "success",
         });
@@ -123,7 +121,7 @@ const ProfileModal = (props: {
           alignItems: "center",
           justifyContent: "center",
           p: "0 50px",
-          overflowY: "scroll",
+          overflowY: "auto",
           overflowX: "hidden",
         }}
       >
@@ -145,11 +143,11 @@ const ProfileModal = (props: {
             <>
               <InfoCard
                 label={t("pages.profilePage.birthdate")}
-                value={formattedDate}
+                value={formatLocalizedDate(birthdate)}
               />
               <InfoCard
                 label={t("pages.profilePage.gender")}
-                value={t("genders." + selectedAthlete?.gender)}
+                value={t("genders." + genderLabel)}
               />
             </>
           )}

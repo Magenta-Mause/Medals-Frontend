@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Chip, Typography, useColorScheme } from "@mui/joy";
 import { DisciplineRatingMetric } from "@customTypes/backendTypes";
-import { Genders, MetricUnits } from "@customTypes/enums";
+import { Genders, Medals, MetricUnits } from "@customTypes/enums";
 import { useTranslation } from "react-i18next";
 import { useMedalColors } from "@hooks/useMedalColors";
 
@@ -37,7 +37,11 @@ const hexToRGBA = (hex: string, alpha: number) => {
 export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
   const { i18n } = useTranslation();
   const { mode } = useColorScheme();
-  const textColor = mode === "dark" ? "#fff" : "#000";
+  const medalColors = useMedalColors();
+  const textColor =
+    mode === "dark" && color === medalColors[Medals.BRONZE]
+      ? "#fff"
+      : "rgba(00, 00, 00, 1)";
 
   let displayValue = value;
 
@@ -63,7 +67,7 @@ export const CustomChip = ({ value, color, unit }: CustomChipProps) => {
       variant="soft"
       size="sm"
       sx={{
-        backgroundColor: hexToRGBA(color, 0.6),
+        backgroundColor: hexToRGBA(color, 0.8),
         color: textColor,
         fontWeight: "bold",
         minWidth: "80px",
@@ -103,17 +107,17 @@ const MedalRatings = ({ metric, selectedGender }: MedalRatingsProps) => {
     {
       label: t("medals.GOLD"),
       value: goldRating,
-      color: medalColors.gold,
+      color: medalColors[Medals.GOLD],
     },
     {
       label: t("medals.SILVER"),
       value: silverRating,
-      color: medalColors.silver,
+      color: medalColors[Medals.SILVER],
     },
     {
       label: t("medals.BRONZE"),
       value: bronzeRating,
-      color: medalColors.bronze,
+      color: medalColors[Medals.BRONZE],
     },
   ];
 

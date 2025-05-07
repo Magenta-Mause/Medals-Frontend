@@ -36,7 +36,7 @@ const LanguageSelector = () => {
           >
             <LanguageOutlined />
             <ListItemContent>
-              <Typography level="title-sm">
+              <Typography level="title-sm" sx={{ userSelect: "none" }}>
                 {t("components.navbar.languageSelector")}
               </Typography>
             </ListItemContent>
@@ -92,7 +92,9 @@ const LanguageSelector = () => {
                 <ListItemDecorator sx={{ width: "1.5em" }}>
                   {i18n.language === language ? <Check /> : null}
                 </ListItemDecorator>
-                <ListItemContent>{t("languages." + language)}</ListItemContent>
+                <ListItemContent sx={{ userSelect: "none" }}>
+                  {t("languages." + language)}
+                </ListItemContent>
               </ListItemButton>
             </ListItem>
           ))}

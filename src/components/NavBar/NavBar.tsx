@@ -111,12 +111,12 @@ const navBarElements = new Map<
         icon: <SpaceDashboard />,
       },
       {
-        path: "/requirements",
-        icon: <Article />,
-      },
-      {
         path: "/performances",
         icon: <Equalizer />,
+      },
+      {
+        path: "/requirements",
+        icon: <Article />,
       },
     ],
   ],
@@ -236,7 +236,7 @@ const NavBar = () => {
               >
                 {element.icon}
                 <ListItemContent>
-                  <Typography level="title-sm">
+                  <Typography level="title-sm" sx={{ userSelect: "none" }}>
                     {t("components.navbar.locationList." + element.path)}
                   </Typography>
                 </ListItemContent>

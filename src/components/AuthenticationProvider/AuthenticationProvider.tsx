@@ -34,10 +34,11 @@ const AuthInitializationComponent = () => {
   const [instantiatedUser, setInstantiatedUser] = useState<UserEntity | null>(
     null,
   );
+
   useEffect(() => {
-    if (selectedUser && identityToken && selectedUser !== instantiatedUser) {
-      instantiateByType(selectedUser?.type);
+    if (selectedUser && identityToken && selectedUser != instantiatedUser) {
       setInstantiatedUser(selectedUser);
+      instantiateByType(selectedUser?.type);
     }
   }, [selectedUser, instantiateByType, identityToken, instantiatedUser]);
 
@@ -106,6 +107,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       const decoded = jwtDecode(jwtToken) as JwtTokenBody;
       setTokenExpirationDate(decoded.exp);
       setAuthorizedUsers(decoded.users);
+
       if (
         decoded.users?.length == 1 &&
         window.localStorage.getItem("selectedUser") === null
@@ -156,9 +158,12 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   }, [authorizedUsers, selectUser, selectedUser]);
 
   useEffect(() => {
-    if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {
-      refreshIdentityToken();
-    }
+    const interval = setInterval(() => {
+      if ((tokenExpirationDate ?? 0) < Date.now() / 1000) {
+        refreshIdentityToken();
+      }
+    }, 1000);
+    return () => clearInterval(interval);
   }, [refreshIdentityToken, tokenExpirationDate]);
 
   return (

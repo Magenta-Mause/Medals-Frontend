@@ -31,7 +31,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
   const [icon, setShowScrollIcon] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
   const [filteredResults, setFilteredResults] = useState<Athlete[]>([]);
-  const { formatDate } = useFormatting();
+  const { formatLocalizedDate } = useFormatting();
   const { selectedUser } = useContext(AuthContext);
   const [buttonState, setButtonState] = useState<{
     [key: number]: { loading: boolean; send: boolean };
@@ -198,7 +198,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
                   <ListItemContent>
                     <Typography level="title-sm">{`${athlete.first_name} ${athlete.last_name}`}</Typography>
                     <Typography level="body-sm" noWrap>
-                      {`${formatDate(Date.parse(athlete.birthdate))}`}
+                      {`${formatLocalizedDate(athlete.birthdate)}`}
                     </Typography>
                   </ListItemContent>
                   <Button
