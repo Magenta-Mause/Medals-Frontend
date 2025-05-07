@@ -41,9 +41,9 @@ const PerformanceRecordingDatagrid = (
   const { formatValue, formatLocalizedDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedRecord, setSelectedRecord] = useState<PerformanceRecording[]>([]);
-
-  
+  const [selectedRecord, setSelectedRecord] = useState<PerformanceRecording[]>(
+    [],
+  );
 
   const columns: Column<PerformanceRecording>[] = [
     ...(props.showDisciplines
@@ -186,28 +186,29 @@ const PerformanceRecordingDatagrid = (
         ]
       : [];
 
-      const handleConfirmDeletion = async ()=>{
-        if (selectedRecord.length === 0) return;
-        try{
-          for(const item of selectedRecord){
-          await deletePerformanceRecording(item.id);
-          }
-          enqueueSnackbar(t("snackbar.performanceRecording.deletionSuccess"), {
-              variant: "success",
-            });
-        } catch (error) {
-            enqueueSnackbar(t("snackbar.performanceRecording.deletionError"), {
-              variant: "error",
-            });
-        }
-        setDeleteModalOpen(false)
+  const handleConfirmDeletion = async () => {
+    if (selectedRecord.length === 0) return;
+    try {
+      for (const item of selectedRecord) {
+        await deletePerformanceRecording(item.id);
       }
+      enqueueSnackbar(t("snackbar.performanceRecording.deletionSuccess"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error while deleting perfomance recordings", error);
+      enqueueSnackbar(t("snackbar.performanceRecording.deletionError"), {
+        variant: "error",
+      });
+    }
+    setDeleteModalOpen(false);
+  };
 
-      useEffect(()=>{
-        if(!isDeleteModalOpen){
-          setSelectedRecord([]);
-        }
-      }, [isDeleteModalOpen]);
+  useEffect(() => {
+    if (!isDeleteModalOpen) {
+      setSelectedRecord([]);
+    }
+  }, [isDeleteModalOpen]);
 
   return (
     <>
@@ -249,8 +250,12 @@ const PerformanceRecordingDatagrid = (
           setDeleteModalOpen(false);
         }}
         onConfirm={handleConfirmDeletion}
-        header={t("components.performanceRecordingDatagrid.deletionModal.header")}
-        message={t("components.performanceRecordingDatagrid.deletionModal.confirmDeleteMessage")}
+        header={t(
+          "components.performanceRecordingDatagrid.deletionModal.header",
+        )}
+        message={t(
+          "components.performanceRecordingDatagrid.deletionModal.confirmDeleteMessage",
+        )}
       />
     </>
   );

@@ -1,7 +1,7 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
-import { Box, Link, Snackbar, Typography } from "@mui/joy";
+import { Box, Link, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -44,7 +44,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  
+
   const currentYear = new Date().getFullYear();
 
   const noAthleteFoundMessage = (
@@ -317,7 +317,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     }
   }, [isExportModalOpen, isDeleteModalOpen]);
 
-
   const handleConfirmDeletion = async () => {
     if (selectedAthletes.length === 0) return;
     try {
@@ -325,7 +324,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         const success = await deleteAthlete(athlete.id!);
         if (success) {
           console.log("Deleted Athlete:", athlete);
-        } 
+        }
       }
       enqueueSnackbar(t("snackbar.athleteDatagrid.deletionSuccess"), {
         variant: "success",
@@ -337,8 +336,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       });
     }
     setDeleteModalOpen(false);
-  }
-  
+  };
 
   return (
     <>
@@ -382,11 +380,12 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         }}
         onConfirm={handleConfirmDeletion}
         header={t("components.athleteDatagrid.deletionModal.header")}
-        message={t("components.athleteDatagrid.deletionModal.confirmDeleteMessage")}
+        message={t(
+          "components.athleteDatagrid.deletionModal.confirmDeleteMessage",
+        )}
       />
     </>
   );
 };
-
 
 export default AthleteDatagrid;

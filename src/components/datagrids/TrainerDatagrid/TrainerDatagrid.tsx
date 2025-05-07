@@ -25,7 +25,6 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
   const [addTrainerModalOpen, setAddTrainerModalOpen] = useState(false);
   const [selectedTrainers, setSelectedTrainers] = useState<Trainer[]>([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-    
 
   const columns: Column<Trainer>[] = [
     {
@@ -134,32 +133,32 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
     },
   };
 
-  useEffect(()=>{
-    if(!isDeleteModalOpen){
+  useEffect(() => {
+    if (!isDeleteModalOpen) {
       setSelectedTrainers([]);
     }
   }, [isDeleteModalOpen]);
 
   const handleConfirmDeletion = async () => {
-      if (selectedTrainers.length === 0) return;
-      try {
-        for (const trainer of selectedTrainers) {
-          const success = await deleteTrainer(trainer.id!);
-          if (success) {
-            console.log("Deleted Trainer:", trainer);
-          } 
+    if (selectedTrainers.length === 0) return;
+    try {
+      for (const trainer of selectedTrainers) {
+        const success = await deleteTrainer(trainer.id!);
+        if (success) {
+          console.log("Deleted Trainer:", trainer);
         }
-        enqueueSnackbar(t("snackbar.trainerDatagrid.deletionSuccess"), {
-          variant: "success",
-        });
-      } catch (error) {
-        console.error("Error while deleting athletes", error);
-        enqueueSnackbar(t("snackbar.trainerDatagrid.deletionError"), {
-          variant: "error",
-        });
       }
-      setDeleteModalOpen(false);
+      enqueueSnackbar(t("snackbar.trainerDatagrid.deletionSuccess"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error while deleting athletes", error);
+      enqueueSnackbar(t("snackbar.trainerDatagrid.deletionError"), {
+        variant: "error",
+      });
     }
+    setDeleteModalOpen(false);
+  };
 
   return (
     <>
@@ -178,14 +177,16 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
         setOpen={setAddTrainerModalOpen}
       />
       <ConfirmationPopup
-              open={isDeleteModalOpen}
-              onClose={() => {
-                setDeleteModalOpen(false);
-              }}
-              onConfirm={handleConfirmDeletion}
-              header={t("components.trainerDatagrid.deletionModal.header")}
-              message={t("components.trainerDatagrid.deletionModal.confirmDeleteMessage")}
-            />
+        open={isDeleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+        }}
+        onConfirm={handleConfirmDeletion}
+        header={t("components.trainerDatagrid.deletionModal.header")}
+        message={t(
+          "components.trainerDatagrid.deletionModal.confirmDeleteMessage",
+        )}
+      />
     </>
   );
 };
