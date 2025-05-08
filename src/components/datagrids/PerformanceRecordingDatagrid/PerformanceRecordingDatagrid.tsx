@@ -116,19 +116,19 @@ const PerformanceRecordingDatagrid = (
     },
   ];
 
-  const options: Action<PerformanceRecording>[] = 
-  props.selectedUserType === UserType.TRAINER
-    ? [
-        {
-          label: t("components.performanceRecordingDatagrid.actions.delete"),
-          key: "delete",
-          operation: async (item) => {
-            await deletePerformanceRecording(item.id);
+  const options: Action<PerformanceRecording>[] =
+    props.selectedUserType === UserType.TRAINER
+      ? [
+          {
+            label: t("components.performanceRecordingDatagrid.actions.delete"),
+            key: "delete",
+            operation: async (item) => {
+              await deletePerformanceRecording(item.id);
+            },
+            color: "danger",
           },
-          color: "danger",
-        },
-      ]
-    : [];
+        ]
+      : [];
 
   const actions: ToolbarAction[] =
     props.athlete && props.selectedUserType === UserType.TRAINER
