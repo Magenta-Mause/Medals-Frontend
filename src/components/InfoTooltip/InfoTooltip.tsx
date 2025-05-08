@@ -18,12 +18,17 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({
   iconProps,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isTouchDevice = typeof window !== "undefined" && "ontouchstart" in window;
 
-  const handleClick = () => {
-    // Only open modal on touch devices
-    if ("ontouchstart" in window) {
+  const handleClick = (event: React.MouseEvent | React.TouchEvent) => {
+    event.stopPropagation(); // Prevent dropdowns from opening
+    if (isTouchDevice) {
       setIsModalOpen(true);
     }
+  };
+
+  const handleMouseDown = (event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent dropdowns on desktop
   };
 
   return (
@@ -50,11 +55,12 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({
       >
         <InfoOutlinedIcon
           onClick={handleClick}
+          onMouseDown={handleMouseDown}
           style={{
             cursor: "pointer",
-            // Increase touch target size for mobile
             padding: "4px",
             margin: "-4px",
+            ...(isTouchDevice && isModalOpen ? { visibility: "hidden" } : {}),
           }}
           fontSize="small"
           {...iconProps}
