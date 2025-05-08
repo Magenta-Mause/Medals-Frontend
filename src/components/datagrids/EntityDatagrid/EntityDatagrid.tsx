@@ -109,7 +109,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
       console.log(`Deleted ${entityType}:`, item);
     },
   };
-  
+
   const editAction: Action<T> = {
     label: <>{t("components.entityDatagrid.actions.edit")}</>,
     color: "primary",
@@ -123,7 +123,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
   };
 
   const actionMenuActions: Action<T>[] = [deleteAction, editAction];
-  
+
   const itemSelectionActions: Action<T>[] = [deleteAction];
 
   const mobileRendering: MobileTableRendering<T> = {
