@@ -253,10 +253,16 @@ const CreatePerformanceRecordingModal = (props: {
                   }
                 }
               });
-              
+
               return (
                 <li key={params.key}>
-                  <div style={{ paddingLeft: 20, fontWeight: 700, fontSize: '0.9em' }}>
+                  <div
+                    style={{
+                      paddingLeft: 20,
+                      fontWeight: 700,
+                      fontSize: "0.9em",
+                    }}
+                  >
                     {params.group.toUpperCase()}
                   </div>
                   <Divider />
