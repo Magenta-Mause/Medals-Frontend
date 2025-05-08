@@ -181,6 +181,7 @@ const PerformanceRecordingDatagrid = (
       </>
     ),
     topRightMenu: options,
+    additionalActions: actions,
   };
 
   return (
