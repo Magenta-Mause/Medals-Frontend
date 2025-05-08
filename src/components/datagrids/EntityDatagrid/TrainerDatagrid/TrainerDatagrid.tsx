@@ -1,7 +1,7 @@
 import EntityDatagrid from "../EntityDatagrid";
 import { Trainer } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import TrainerInvitationModal from "@components/modals/EntityCreationModal/trainer/TrainerInvitatonModal";
+import TrainerInvitationModal from "@components/modals/EntityCreationModal/trainer/TrainerModal";
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
