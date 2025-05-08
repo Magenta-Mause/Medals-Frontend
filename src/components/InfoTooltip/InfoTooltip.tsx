@@ -18,17 +18,18 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({
   iconProps,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isTouchDevice = typeof window !== "undefined" && "ontouchstart" in window;
+  const isTouchDevice =
+    typeof window !== "undefined" && "ontouchstart" in window;
 
   const handleClick = (event: React.MouseEvent | React.TouchEvent) => {
-    event.stopPropagation(); // Prevent dropdowns from opening
+    event.stopPropagation();
     if (isTouchDevice) {
       setIsModalOpen(true);
     }
   };
 
   const handleMouseDown = (event: React.MouseEvent) => {
-    event.stopPropagation(); // Prevent dropdowns on desktop
+    event.stopPropagation();
   };
 
   return (
