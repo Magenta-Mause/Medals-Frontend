@@ -640,6 +640,7 @@
           "plural": "Punkten"
         }
       },
+      "trainers": "Du wirst von {{trainers}} Trainer*innen verwaltet",
       "totalMedalBox": {
         "header": "Deutsches Sportabzeichen",
         "noSwimCertificate": {

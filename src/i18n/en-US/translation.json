@@ -645,6 +645,7 @@
           "plural": "points"
         }
       },
+      "trainers": "You are managed by {{trainers}} trainers",
       "activityChart": {
         "header": "Your activities in ",
         "link": "See all your activities"

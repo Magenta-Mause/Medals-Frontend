@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { useTranslation } from "react-i18next";
-import { Athlete } from "@customTypes/backendTypes";
+import { Athlete, Trainer } from "@customTypes/backendTypes";
 import { Typography } from "@mui/joy";
 import useFormatting from "@hooks/useFormatting";
 import {
@@ -9,8 +9,10 @@ import {
   GenericDashboardBoxFooter,
   GenericDashboardBoxHeader,
 } from "@components/athleteDashboard/GenericDashboardBox";
+import useApi from "@hooks/useApi";
 
 const AthleteInformationBox = () => {
+  const { getTrainersAssignedToAthlete } = useApi();
   const { selectedUser } = useContext(AuthContext);
   const { t } = useTranslation();
   const { formatLocalizedDate } = useFormatting();
@@ -18,6 +20,27 @@ const AthleteInformationBox = () => {
     return <>{t("components.athleteDashboard.error.notAnAthlete")}</>;
   }
   const athlete = selectedUser as unknown as Athlete;
+  const [trainers, setTrainers] = useState<Trainer[] | null>(null);
+
+  useEffect(() => {
+    async function fetchTrainers() {
+      try {
+        const trainerList = await getTrainersAssignedToAthlete(athlete.id!); // Get trainers asynchronously
+        setTrainers(trainerList);
+      } catch (error) {
+        console.error("Error fetching trainers:", error);
+      }
+    }
+
+    fetchTrainers();
+  }, [athlete.id]);
+
+  const trainersNames = trainers
+    ? trainers
+        .map((trainer) => `${trainer.first_name} ${trainer.last_name}`)
+        .join(", ")
+    : "Loading...";
+
   return (
     <>
       <GenericDashboardBoxHeader>
@@ -30,10 +53,20 @@ const AthleteInformationBox = () => {
       >
         {athlete.first_name} {athlete.last_name}
       </GenericDashboardBoxContent>
-      <GenericDashboardBoxFooter>
+      <GenericDashboardBoxContent
+        sx={{
+          height: "390%",
+          fontSize: "md",
+        }}
+      >
         {t("components.athleteDashboard.bornIn")}{" "}
+        {formatLocalizedDate(Date.parse(athlete.birthdate))}
+      </GenericDashboardBoxContent>
+      <GenericDashboardBoxFooter>
         <Typography style={{ userSelect: "all" }}>
-          {formatLocalizedDate(Date.parse(athlete.birthdate))}
+          {t("components.athleteDashboard.trainers", {
+            trainers: trainersNames,
+          })}
         </Typography>
       </GenericDashboardBoxFooter>
     </>
