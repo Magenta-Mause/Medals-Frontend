@@ -94,6 +94,63 @@ const PerformanceRecordingDatagrid = (
     },
   ];
 
+  const filters: Filter<PerformanceRecording>[] = [
+    {
+      name: "Recorded in",
+      label: t("components.performanceRecordingDatagrid.filters.recordedIn"),
+      type: "SELECTION",
+      selection: [
+        ...new Set(
+          props.performanceRecordings.map((p) =>
+            new Date(Date.parse(p.date_of_performance))
+              .getFullYear()
+              .toString(),
+          ),
+        ),
+      ].map((date) => ({
+        displayValue: date,
+        value: date,
+      })),
+      apply: (filterParameter) => (item) =>
+        item.date_of_performance == filterParameter,
+    },
+  ];
+
+  const options: Action<PerformanceRecording>[] = 
+  props.selectedUserType === UserType.TRAINER
+    ? [
+        {
+          label: t("components.performanceRecordingDatagrid.actions.delete"),
+          key: "delete",
+          operation: async (item) => {
+            await deletePerformanceRecording(item.id);
+          },
+          color: "danger",
+        },
+      ]
+    : [];
+
+  const actions: ToolbarAction[] =
+    props.athlete && props.selectedUserType === UserType.TRAINER
+      ? [
+          {
+            label: t(
+              "pages.athleteDetailPage.createPerformanceRecordingButton",
+            ),
+            key: "addRecording",
+            operation: async () => {
+              await setCreationModalOpen(true);
+            },
+            icon: <IoIosCreate />,
+            content: t(
+              "components.performanceRecordingDatagrid.actions.add.text",
+            ),
+            color: "primary",
+            variant: "solid",
+          },
+        ]
+      : [];
+
   const mobileRendering: MobileTableRendering<PerformanceRecording> = {
     avatar: (item) => {
       return (
@@ -123,61 +180,8 @@ const PerformanceRecordingDatagrid = (
           : " ") + (formatLocalizedDate(p.date_of_performance) ?? "-")}
       </>
     ),
+    topRightMenu: options,
   };
-
-  const filters: Filter<PerformanceRecording>[] = [
-    {
-      name: "Recorded in",
-      label: t("components.performanceRecordingDatagrid.filters.recordedIn"),
-      type: "SELECTION",
-      selection: [
-        ...new Set(
-          props.performanceRecordings.map((p) =>
-            new Date(Date.parse(p.date_of_performance))
-              .getFullYear()
-              .toString(),
-          ),
-        ),
-      ].map((date) => ({
-        displayValue: date,
-        value: date,
-      })),
-      apply: (filterParameter) => (item) =>
-        item.date_of_performance == filterParameter,
-    },
-  ];
-
-  const options: Action<PerformanceRecording>[] = [
-    {
-      label: t("components.performanceRecordingDatagrid.actions.delete"),
-      key: "delete",
-      operation: async (item) => {
-        await deletePerformanceRecording(item.id);
-      },
-      color: "danger",
-    },
-  ];
-
-  const actions: ToolbarAction[] =
-    props.athlete && props.selectedUserType === UserType.TRAINER
-      ? [
-          {
-            label: t(
-              "pages.athleteDetailPage.createPerformanceRecordingButton",
-            ),
-            key: "addRecording",
-            operation: async () => {
-              await setCreationModalOpen(true);
-            },
-            icon: <IoIosCreate />,
-            content: t(
-              "components.performanceRecordingDatagrid.actions.add.text",
-            ),
-            color: "primary",
-            variant: "solid",
-          },
-        ]
-      : [];
 
   return (
     <>
