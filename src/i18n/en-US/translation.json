@@ -102,6 +102,10 @@
       "success": "Successfully invited",
       "failed": "Failed to invite"
     },
+    "update": {
+      "success": "Successfully updated",
+      "failed": "Failed to update"
+    },
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered"

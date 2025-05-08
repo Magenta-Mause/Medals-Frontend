@@ -1,18 +1,12 @@
 import useApi from "@hooks/useApi";
 import EntityForm from "../EntityForm";
 import EntityModal from "../EntityModal";
-
-interface TrainerData {
-  id?: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-}
+import { Trainer } from "@customTypes/backendTypes";
 
 interface TrainerModalProps {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  entityToEdit?: TrainerData;
+  entityToEdit?: Trainer;
 }
 
 const TrainerModal = ({ isOpen, setOpen, entityToEdit }: TrainerModalProps) => {

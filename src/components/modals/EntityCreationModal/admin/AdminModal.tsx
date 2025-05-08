@@ -1,18 +1,12 @@
 import useApi from "@hooks/useApi";
 import EntityModal from "../EntityModal";
 import EntityForm from "../EntityForm";
-
-interface AdminData {
-  id?: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-}
+import { Admin } from "@customTypes/backendTypes";
 
 interface AdminModalProps {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  entityToEdit?: AdminData;
+  entityToEdit?: Admin;
 }
 
 const AdminModal = ({ isOpen, setOpen, entityToEdit }: AdminModalProps) => {

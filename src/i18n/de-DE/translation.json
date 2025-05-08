@@ -104,6 +104,10 @@
       "success": "Erfolgreich eingeladen",
       "failed": "Einladung fehlgeschlagen"
     },
+    "update": {
+      "success": "Erfolgreich aktualisiert",
+      "failed": "Aktualisierung fehlgeschlagen"
+    },
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
