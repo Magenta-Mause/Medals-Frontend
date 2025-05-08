@@ -57,6 +57,11 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
     return new Date(year, month - 1, day); // Month is 0-based
   };
 
+  const convertDateFormat = (dateStr: string) => {
+    const [day, month, year] = dateStr.split(".");
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  };
+
   const normalizeGender = (gender: string | undefined) => {
     let normalized = "";
     if (gender?.trim().toLowerCase() === "m") {
@@ -78,7 +83,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
           first_name: row["Vorname"]?.trim() || "",
           last_name: row["Nachname"]?.trim() || "",
           email: row["E-Mail"]?.trim() || "",
-          birthdate: row["Geburtsdatum"]?.trim() || "",
+          birthdate: convertDateFormat(row["Geburtsdatum"]?.trim()) || "",
           gender: normalizeGender(row["Geschlecht"]),
         }) as Athlete,
     );
