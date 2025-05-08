@@ -13,6 +13,7 @@ import {
   FormLabel,
   Input,
   Typography,
+  Divider,
 } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import dayjs, { Dayjs } from "dayjs";
@@ -252,12 +253,13 @@ const CreatePerformanceRecordingModal = (props: {
                   }
                 }
               });
-
+              
               return (
                 <li key={params.key}>
-                  <div style={{ paddingLeft: 8, fontWeight: 1000 }}>
-                    {params.group}
+                  <div style={{ paddingLeft: 20, fontWeight: 700, fontSize: '0.9em' }}>
+                    {params.group.toUpperCase()}
                   </div>
+                  <Divider />
                   <ul style={{ paddingLeft: 8, margin: 0 }}>
                     {[...validOptions, ...invalidOptions].map((option) =>
                       React.isValidElement(option)
