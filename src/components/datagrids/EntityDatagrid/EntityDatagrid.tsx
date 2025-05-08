@@ -99,29 +99,32 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
     },
   ];
 
-  const actions: Action<T>[] = [
-    {
-      label: <>{t("components.entityDatagrid.actions.delete")}</>,
-      color: "danger",
-      key: "delete",
-      variant: "solid",
-      operation: async (item) => {
-        await deleteEntity(item.id);
-        console.log(`Deleted ${entityType}:`, item);
-      },
+  const deleteAction: Action<T> = {
+    label: <>{t("components.entityDatagrid.actions.delete")}</>,
+    color: "danger",
+    key: "delete",
+    variant: "solid",
+    operation: async (item) => {
+      await deleteEntity(item.id);
+      console.log(`Deleted ${entityType}:`, item);
     },
-    {
-      label: <>{t("components.entityDatagrid.actions.edit")}</>,
-      color: "primary",
-      key: "edit",
-      variant: "solid",
-      operation: async (item) => {
-        setEntityToEdit(item);
-        setModalOpen(true);
-        console.log(`Edit ${entityType}:`, item);
-      },
+  };
+  
+  const editAction: Action<T> = {
+    label: <>{t("components.entityDatagrid.actions.edit")}</>,
+    color: "primary",
+    key: "edit",
+    variant: "solid",
+    operation: async (item) => {
+      setEntityToEdit(item);
+      setModalOpen(true);
+      console.log(`Edit ${entityType}:`, item);
     },
-  ];
+  };
+
+  const actionMenuActions: Action<T>[] = [deleteAction, editAction];
+  
+  const itemSelectionActions: Action<T>[] = [deleteAction];
 
   const mobileRendering: MobileTableRendering<T> = {
     avatar: (entity) => <>{entity.id}</>,
@@ -131,7 +134,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
       </>
     ),
     h2: (entity) => <>{entity.email}</>,
-    bottomButtons: actions,
+    bottomButtons: actionMenuActions,
     searchFilter: {
       name: "search",
       label: t("components.entityDatagrid.table.filters.search"),
@@ -163,8 +166,8 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
         columns={columns}
         filters={filters}
         toolbarActions={toolbarActions}
-        actionMenu={actions}
-        itemSelectionActions={actions}
+        actionMenu={actionMenuActions}
+        itemSelectionActions={itemSelectionActions}
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
       />
