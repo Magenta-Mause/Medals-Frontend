@@ -1,4 +1,5 @@
-import { Box, Button, Modal, ModalDialog, Typography } from "@mui/joy";
+import GenericModal from "@components/modals/GenericModal";
+import { Box, Button, Typography } from "@mui/joy";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -20,44 +21,31 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   const { t } = useTranslation();
 
   return (
-    <>
-      <Modal
-        open={open}
-        onClose={onClose}
-        sx={{
-          left: {
-            md: "var(--Sidebar-width)",
-            sm: "0",
-          },
-        }}
-      >
-        <ModalDialog sx={{ maxWidth: "450px" }}>
-          <Typography
-            level="h4"
-            component="h2"
-            sx={{ textAlign: "center", mb: 1 }}
-          >
-            {header}
-          </Typography>
-          <Typography sx={{ textAlign: "center", mb: 2 }}>{message}</Typography>
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "center",
-              width: "100%",
-            }}
-          >
-            <Button variant="outlined" onClick={onClose}>
-              {t("components.confirmationPopup.cancelButton")}
-            </Button>
-            <Button variant="outlined" color="danger" onClick={onConfirm}>
-              {t("components.confirmationPopup.deleteButton")}
-            </Button>
-          </Box>
-        </ModalDialog>
-      </Modal>
-    </>
+    <GenericModal
+      header={header}
+      open={open}
+      setOpen={onClose}
+      modalDialogSX={{ maxWidth: "450px" }}
+    >
+      <Box>
+        <Typography sx={{ textAlign: "center", mb: 2 }}>{message}</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <Button variant="outlined" onClick={onClose}>
+            {t("components.confirmationPopup.cancelButton")}
+          </Button>
+          <Button variant="outlined" color="danger" onClick={onConfirm}>
+            {t("components.confirmationPopup.deleteButton")}
+          </Button>
+        </Box>
+      </Box>
+    </GenericModal>
   );
 };
 
