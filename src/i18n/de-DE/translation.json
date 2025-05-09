@@ -460,9 +460,9 @@
         "openDetails": "Details",
         "export": "Exportieren"
       },
-      "deletionModal":{
+      "deletionModal": {
         "header": "Athlet*innen Löschen",
-      "confirmDeleteMessage":"Durch das Klicken auf \"Löschen\" werden die ausgewählten Athlet*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
+      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Athlet*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
       }
     },
     "disciplineDatagrid": {
@@ -502,9 +502,9 @@
       "actions": {
         "delete": "Löschen"
       },
-      "deletionModal":{
-          "header":"Trainer Löschen",
-          "confirmDeleteMessage":"Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer mit allen dazugehörigen Daten unwiderruflich gelöscht."
+      "deletionModal": {
+          "header": "Trainer Löschen",
+          "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer mit allen dazugehörigen Daten unwiderruflich gelöscht."
         }
     },
     "buttons": {
@@ -552,9 +552,9 @@
         },
         "delete": "Löschen"
       },
-      "deletionModal":{
-        "confirmDeleteMessage":"Durch das Klicken auf \"Löschen\" werden die ausgewählten Leistungsaufnahmen unwiderruflich gelöscht.",
-        "header":"Leistungsaufnahmen Löschen"
+      "deletionModal": {
+        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Leistungsaufnahmen unwiderruflich gelöscht.",
+        "header": "Leistungsaufnahmen Löschen"
       }
     },
     "swimCertificateSection": {

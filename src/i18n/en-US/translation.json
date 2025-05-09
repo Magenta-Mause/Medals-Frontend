@@ -490,9 +490,9 @@
       "actions": {
         "delete": "Delete"
       },
-      "deletionModal":{
-          "header":"Trainer Deletion",
-          "confirmDeleteMessage":"By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
+      "deletionModal": {
+          "header": "Trainer Deletion",
+          "confirmDeleteMessage": "By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
         }
     },
     "buttons": {
@@ -530,9 +530,9 @@
         },
         "delete": "Delete"
       },
-      "deletionModal":{
-        "confirmDeleteMessage":"By clicking 'Delete', the selected Recordigns will be permanently removed.",
-        "header":"Record Deletion"
+      "deletionModal": {
+        "confirmDeleteMessage": "By clicking 'Delete', the selected Recordings will be permanently removed.",
+        "header": "Record Deletion"
       }
     },
     "performanceRecordingViewModal": {
