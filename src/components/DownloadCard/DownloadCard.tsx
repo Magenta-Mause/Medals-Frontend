@@ -4,7 +4,6 @@ import {
   CardContent,
   CardOverflow,
   Typography,
-  Link,
   IconButton,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
