@@ -11,8 +11,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useContext } from "react";
 import { ListItemText } from "@mui/material";
-import { Athlete } from "@customTypes/bffTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { Athlete } from "@customTypes/backendTypes";
 
 const AthleteInviteButton = () => {
   const { t } = useTranslation();
