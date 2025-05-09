@@ -25,6 +25,7 @@ import AchievementsBox from "./AchievementsBox";
 import RemoveConfirmationModal from "@components/modals/GenericConfirmationModal/RemoveConfirmationModal/RemoveConfirmationModal";
 import { calculateAge } from "@utils/calculationUtil";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
+import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -203,11 +204,10 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     {
       name: "age",
       label: (
-        <HoverTooltip text={t("components.tooltip.ageFilter")}>
-          <Typography level="body-sm" sx={{ ml: "2px", userSelect: "none" }}>
-            {t("components.athleteDatagrid.table.filters.age")}
-          </Typography>
-        </HoverTooltip>
+        <>
+          {t("components.athleteDatagrid.table.filters.age")}
+          <InfoTooltip text={t("components.tooltip.ageFilter")} />
+        </>
       ),
       apply(filterParameter) {
         return (athlete) =>
