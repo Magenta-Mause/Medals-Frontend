@@ -6,13 +6,15 @@ import { AuthContext } from "@components/AuthenticationProvider/AuthenticationPr
 import GenericConfirmationModal from "@components/modals/GenericConfirmationModal/GenericConfirmationModal";
 import { enqueueSnackbar } from "notistack";
 
-interface RemoveConnectionModalProps {
+interface RemoveAthleteConnectionModalProps {
   selectedAthletes: Athlete[];
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RemoveConfirmationModal = (props: RemoveConnectionModalProps) => {
+const RemoveAthleteConfirmationModal = (
+  props: RemoveAthleteConnectionModalProps,
+) => {
   const { t } = useTranslation();
   const { removeTrainerAthleteConnection } = useApi();
   const { selectedUser } = useContext(AuthContext);
@@ -48,4 +50,4 @@ const RemoveConfirmationModal = (props: RemoveConnectionModalProps) => {
   );
 };
 
-export default RemoveConfirmationModal;
+export default RemoveAthleteConfirmationModal;

@@ -10,13 +10,13 @@ import {
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useContext } from "react";
-import { ListItemText, debounce } from "@mui/material";
+import { ListItemText } from "@mui/material";
 import { Athlete } from "@customTypes/bffTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
 const AthleteInviteButton = () => {
   const { t } = useTranslation();
-  const { searchAthletes, requestAthleteAccess } = useApi();
+  const { searchAthletes, requestAthlete } = useApi();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
   const [filteredResults, setFilteredResults] = useState<Athlete[]>([]);
@@ -35,19 +35,7 @@ const AthleteInviteButton = () => {
       throw new Error("Trainer ID is required");
     }
 
-    requestAthleteAccess(athleteId, trainerId);
-  };
-
-  const fetchAthletes = async (searchTerm: string) => {
-    try {
-      const athletes = await searchAthletes(searchTerm);
-      setFilteredResults(athletes);
-    } catch (error) {
-      console.error("Error fetching athletes", error);
-      setFilteredResults([]);
-    } finally {
-      setLoading(false);
-    }
+    requestAthlete(athleteId, trainerId);
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,11 +53,22 @@ const AthleteInviteButton = () => {
     setLoading(true);
 
     const delayDebounceFn = setTimeout(() => {
+      const fetchAthletes = async (searchTerm: string) => {
+        try {
+          const athletes = await searchAthletes(searchTerm);
+          setFilteredResults(athletes);
+        } catch (error) {
+          console.error("Error fetching athletes", error);
+          setFilteredResults([]);
+        } finally {
+          setLoading(false);
+        }
+      };
       fetchAthletes(searchAthlete);
     }, 800);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchAthlete]);
+  }, [searchAthletes, searchAthlete]);
 
   return (
     <>

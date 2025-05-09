@@ -408,7 +408,7 @@ const useApi = () => {
     async (athleteId: number) => {
       try {
         const request = await axiosInstance!.get(
-          `/athletes/${athleteId}/assignedTrainers`,
+          `/athletes/${athleteId}/assigned-trainers`,
         );
         return request.data.data;
       } catch (error) {

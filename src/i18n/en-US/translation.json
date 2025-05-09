@@ -347,6 +347,7 @@
     "confirmationModal": {
       "header": "Confirmation",
       "description": "Are you sure you want to remove the athlete from your team?",
+      "description2": "Are you sure you want to remove your trainer?",
       "descriptionPural": "Are you sure you want to remove the athletes from your team?",
       "cancel": "Cancel",
       "remove": "Give up access"
@@ -645,7 +646,15 @@
           "plural": "points"
         }
       },
-      "trainers": "You are managed by {{trainers}} trainers",
+      "trainers": {
+        "noTrainers": "No Trainers are assigned to you",
+        "trainer": "Your trainer:",
+        "trainers": "Your trainers:",
+        "removeTrainers": "Manage your trainers",
+        "removeTrainer": "Manage your trainer",
+        "removeButton": "Remove",
+        "header": "Trainer Mangement"
+      },
       "activityChart": {
         "header": "Your activities in ",
         "link": "See all your activities"
