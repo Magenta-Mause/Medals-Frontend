@@ -256,6 +256,7 @@ const PerformanceRecordingDatagrid = (
         message={t(
           "components.performanceRecordingDatagrid.deletionModal.confirmDeleteMessage",
         )}
+        confirmButtonText={t("components.confirmationPopup.deleteButton")}
       />
     </>
   );

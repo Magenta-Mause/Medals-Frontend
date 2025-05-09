@@ -19,19 +19,21 @@ import { useTypedSelector } from "@stores/rootReducer";
 import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
 import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
 import { PersonAdd, PersonSearch } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
-import RemoveConfirmationModal from "@components/modals/GenericConfirmationModal/RemoveConfirmationModal/RemoveConfirmationModal";
 import { enqueueSnackbar } from "notistack";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
 }
 
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
+  const { selectedUser } = useContext(AuthContext);
   const { deleteAthlete } = useApi();
+  const { removeTrainerAthleteConnection } = useApi();
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
@@ -251,16 +253,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
     },
     {
-      label: <>{t("components.athleteDatagrid.actions.delete")}</>,
-      color: "danger",
-      key: "delete",
-      variant: "outlined",
-      operation: async (item) => {
-        setSelectedAthletes((prev) => [...prev, item]);
-        setDeleteModalOpen(true);
-      },
-    },
-    {
       label: <>{t("components.athleteDatagrid.actions.remove")}</>,
       color: "danger",
       key: "remove",
@@ -268,6 +260,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       operation: async (item) => {
         setSelectedAthletes((prev) => [...prev, item]);
         setRemoveConfirmationModalOpen(true);
+      },
+    },
+    {
+      label: <>{t("components.athleteDatagrid.actions.delete")}</>,
+      color: "danger",
+      key: "delete",
+      variant: "outlined",
+      operation: async (item) => {
+        setSelectedAthletes((prev) => [...prev, item]);
+        setDeleteModalOpen(true);
       },
     },
   ];
@@ -325,7 +327,11 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   useEffect(() => {
-    if (!isExportModalOpen && !isRemoveConfirmationModalOpen && !isDeleteModalOpen) {
+    if (
+      !isExportModalOpen &&
+      !isRemoveConfirmationModalOpen &&
+      !isDeleteModalOpen
+    ) {
       setSelectedAthletes([]);
     }
   }, [isExportModalOpen, isRemoveConfirmationModalOpen, isDeleteModalOpen]);
@@ -351,6 +357,30 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     setDeleteModalOpen(false);
   };
 
+  const handleConfirmRemove = async () => {
+    if (selectedUser?.id && selectedAthletes.length > 0) {
+      try {
+        for (const athlete of selectedAthletes) {
+          const success = await removeTrainerAthleteConnection(
+            selectedUser.id,
+            athlete.id!,
+          );
+          if (success) {
+            console.log("Remove Connenction: ", athlete, selectedUser);
+          }
+        }
+        enqueueSnackbar(t("snackbar.removalConfirmationModal.success"), {
+          variant: "success",
+        });
+      } catch (error) {
+        console.error("Error while removing athlete connection", error);
+        enqueueSnackbar(t("snackbar.removalConfirmationModal.error"), {
+          variant: "error",
+        });
+      }
+    }
+  };
+
   return (
     <>
       <AthleteExportModal
@@ -359,11 +389,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         selectedAthletes={selectedAthletes}
         includePerformance={false}
         isButtonVisible={false}
-      />
-      <RemoveConfirmationModal
-        isOpen={isRemoveConfirmationModalOpen}
-        setOpen={setRemoveConfirmationModalOpen}
-        selectedAthletes={selectedAthletes}
       />
       <GenericResponsiveDatagrid
         data={props.athletes}
@@ -401,6 +426,21 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         message={t(
           "components.athleteDatagrid.deletionModal.confirmDeleteMessage",
         )}
+        confirmButtonText={t("components.confirmationPopup.deleteButton")}
+      />
+      <ConfirmationPopup
+        open={isRemoveConfirmationModalOpen}
+        onClose={() => {
+          setRemoveConfirmationModalOpen(false);
+        }}
+        onConfirm={handleConfirmRemove}
+        header={t("components.confirmationModal.header")}
+        message={t(
+          selectedAthletes.length > 1
+            ? "components.confirmationModal.descriptionPural"
+            : "components.confirmationModal.description",
+        )}
+        confirmButtonText={t("components.confirmationModal.remove")}
       />
     </>
   );

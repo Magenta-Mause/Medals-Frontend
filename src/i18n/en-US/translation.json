@@ -126,7 +126,9 @@
       "deletionError": "There was an error while deleting the account"
     },
     "removalConfirmationModal": {
-      "success": "Connection removed"
+      "success": "Connection removed",
+      "error": "Removing connenction failed"
+
     },
     "athleteDatagrid": {
       "deletionSuccess": "Athletes successful deleted!",

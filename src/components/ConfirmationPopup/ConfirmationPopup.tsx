@@ -9,6 +9,7 @@ interface ConfirmationPopupProps {
   onConfirm: () => void;
   header: string;
   message: string;
+  confirmButtonText: string;
 }
 
 const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
@@ -17,6 +18,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   onConfirm,
   header,
   message,
+  confirmButtonText,
 }) => {
   const { t } = useTranslation();
 
@@ -41,7 +43,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
             {t("components.confirmationPopup.cancelButton")}
           </Button>
           <Button variant="outlined" color="danger" onClick={onConfirm}>
-            {t("components.confirmationPopup.deleteButton")}
+            {confirmButtonText}
           </Button>
         </Box>
       </Box>

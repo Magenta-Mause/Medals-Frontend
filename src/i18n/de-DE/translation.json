@@ -128,7 +128,8 @@
       "deletionError": "Beim Löschen des Kontos ist ein Fehler aufgetreten"
     },
     "removalConfirmationModal": {
-      "success": "Verbindung entfernt"
+      "success": "Verbindung entfernt",
+      "error": "Entfernen der Verbindung fehlgeschlagen"
     },
     "athleteDatagrid": {
       "deletionSuccess": "Athlet*innen erfolgreich gelöscht!",

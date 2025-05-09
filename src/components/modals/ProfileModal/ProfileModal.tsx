@@ -193,6 +193,7 @@ const ProfileModal = (props: {
         onConfirm={handleConfirmDelete}
         header={t("pages.profilePage.confirmDeleteHeader")}
         message={t("pages.profilePage.confirmDeleteMessage")}
+        confirmButtonText={t("components.confirmationPopup.deleteButton")}
       />
     </GenericModal>
   );
