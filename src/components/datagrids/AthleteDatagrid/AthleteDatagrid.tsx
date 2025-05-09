@@ -23,6 +23,8 @@ import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
 import RemoveAthleteConfirmationModal from "@components/modals/GenericConfirmationModal/RemoveConfirmationModal/RemoveAthleteConfirmationModal";
+import { calculateAge } from "@utils/calculationUtil";
+import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -45,6 +47,20 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
   const currentYear = new Date().getFullYear();
+
+  const ageSelection = [
+    {
+      displayValue: "All",
+      value: "all",
+    },
+    ...Array.from({ length: 12 }, (_, i) => {
+      const value = (i + 6).toString();
+      return {
+        displayValue: <Typography>{Number(value)}</Typography>,
+        value,
+      };
+    }),
+  ];
 
   const noAthleteFoundMessage = (
     <Box sx={{ width: "250px" }}>
@@ -183,6 +199,23 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           value: "MALE",
         },
       ],
+    },
+    {
+      name: "age",
+      label: (
+        <>
+          {t("components.athleteDatagrid.table.filters.age")}
+          <InfoTooltip text={t("components.tooltip.ageFilter")} />
+        </>
+      ),
+      apply(filterParameter) {
+        return (athlete) =>
+          filterParameter === "" ||
+          filterParameter === "all" ||
+          String(calculateAge(athlete.birthdate)) === filterParameter;
+      },
+      type: "SELECTION",
+      selection: ageSelection,
     },
   ];
 
@@ -353,6 +386,10 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         disablePaging={false}
         heightIfNoEntriesFound={"200px"}
         messageIfNoEntriesFound={noAthleteFoundMessage}
+      />
+      <AthleteImportModal
+        isOpen={addImportModalOpen}
+        setOpen={setImportModalOpen}
       />
       <AthleteImportModal
         isOpen={addImportModalOpen}

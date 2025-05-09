@@ -303,7 +303,7 @@ const GenericResponsiveDatagrid = <T,>(
             flexWrap: "wrap",
             gap: 1.5,
             "& > *": {
-              minWidth: { xs: "120px", md: "160px" },
+              minWidth: { xs: "120px", md: "100px" },
             },
           }}
         >
