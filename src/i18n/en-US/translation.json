@@ -122,6 +122,9 @@
     "profileModal": {
       "accountDeleted": "Account has been successfully deleted",
       "deletionError": "There was an error while deleting the account"
+    },
+    "removalConfirmationModal": {
+      "success": "Connection removed"
     }
   },
   "pages": {
@@ -341,6 +344,13 @@
         "gender": "Gender"
       }
     },
+    "confirmationModal": {
+      "header": "Confirmation",
+      "description": "Are you sure you want to remove the athlete from your team?",
+      "descriptionPural": "Are you sure you want to remove the athletes from your team?",
+      "cancel": "Cancel",
+      "remove": "Give up access"
+    },
     "navbar": {
       "logo": "Medals",
       "locationList": {
@@ -444,7 +454,8 @@
         "delete": "Delete",
         "edit": "Edit",
         "openDetails": "Details",
-        "export": "Export"
+        "export": "Export",
+        "remove": "Remove"
       }
     },
     "trainerDatagrid": {
@@ -510,7 +521,8 @@
           "text": "Add performance recording",
           "label": "+ add"
         },
-        "delete": "Delete"
+        "delete": "Delete",
+        "disconnect": "Disconnect"
       }
     },
     "performanceRecordingViewModal": {
