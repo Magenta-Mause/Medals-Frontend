@@ -15,7 +15,6 @@ import {
   HomeRounded,
   LogoutRounded,
   PeopleRounded,
-  PersonAdd,
   SearchRounded,
   SpaceDashboard,
   SupervisedUserCircleOutlined,
@@ -92,10 +91,6 @@ const navBarElements = new Map<
       {
         path: "/performanceMetrics",
         icon: <Assessment />,
-      },
-      {
-        path: "/assignAthlete",
-        icon: <PersonAdd />,
       },
     ],
   ],

@@ -1,4 +1,5 @@
 ## Medals Frontend Tools
+
 QoL improvement scripts
 
 #### `i18n_translate.py`
@@ -8,6 +9,7 @@ capable of translating into a diverse set of languages, as well as models fine-t
 output better translations while also demanding a more performant computer.
 
 ##### Setup
+
 To check out the options this script offers, proceed as follows:
 
 0. (Optionally) set up a virtual environment, certain libraries do not work with python versions >3.11
@@ -24,6 +26,7 @@ pip install torch --index-url https://download.pytorch.org/whl/cu126
 ```
 
 ##### Examples
+
 Translate the whole locale to spanish, chinese (simplified) and vietnamese:
 
 ```bash
@@ -52,7 +55,8 @@ For a list of supported languages, please see `supported_languages.json`. `multi
 while `fine-tuned` contains a list of finetuned models available for use.
 
 ##### Troubleshooting
-Since `requirements.txt`  eplicitly specifies packet versions for one of the more newer python versions (3.11), installation on older python versions might fail, in that case try to install the dependencies manually like this (at the time of writing, this will not work for versions >3.11 because of the sentencepiece library which requires binaries that have been precompiled for windows for every supported python version):
+
+Since `requirements.txt` eplicitly specifies packet versions for one of the more newer python versions (3.11), installation on older python versions might fail, in that case try to install the dependencies manually like this (at the time of writing, this will not work for versions >3.11 because of the sentencepiece library which requires binaries that have been precompiled for windows for every supported python version):
 
 ```
 pip install torch tqdm transformers numpy sentencepiece

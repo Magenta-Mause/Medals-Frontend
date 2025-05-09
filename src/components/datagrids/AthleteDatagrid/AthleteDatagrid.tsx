@@ -22,6 +22,7 @@ import { PersonAdd, PersonSearch } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
+import RemoveConfirmationModal from "@components/modals/GenericConfirmationModal/RemoveConfirmationModal/RemoveConfirmationModal";
 import { enqueueSnackbar } from "notistack";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 
@@ -42,6 +43,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     useState(false);
   const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
+  const [isRemoveConfirmationModalOpen, setRemoveConfirmationModalOpen] =
+    useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
@@ -257,6 +260,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         setDeleteModalOpen(true);
       },
     },
+    {
+      label: <>{t("components.athleteDatagrid.actions.remove")}</>,
+      color: "danger",
+      key: "remove",
+      variant: "outlined",
+      operation: async (item) => {
+        setSelectedAthletes((prev) => [...prev, item]);
+        setRemoveConfirmationModalOpen(true);
+      },
+    },
   ];
 
   const itemCallback = async (item: Athlete) => {
@@ -312,10 +325,10 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   useEffect(() => {
-    if (!isExportModalOpen && !isDeleteModalOpen) {
+    if (!isExportModalOpen && !isRemoveConfirmationModalOpen && !isDeleteModalOpen) {
       setSelectedAthletes([]);
     }
-  }, [isExportModalOpen, isDeleteModalOpen]);
+  }, [isExportModalOpen, isRemoveConfirmationModalOpen, isDeleteModalOpen]);
 
   const handleConfirmDeletion = async () => {
     if (selectedAthletes.length === 0) return;
@@ -346,6 +359,11 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         selectedAthletes={selectedAthletes}
         includePerformance={false}
         isButtonVisible={false}
+      />
+      <RemoveConfirmationModal
+        isOpen={isRemoveConfirmationModalOpen}
+        setOpen={setRemoveConfirmationModalOpen}
+        selectedAthletes={selectedAthletes}
       />
       <GenericResponsiveDatagrid
         data={props.athletes}
