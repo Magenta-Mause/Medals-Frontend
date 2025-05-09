@@ -109,11 +109,14 @@ const AthleteExportModal = ({
       [AthleteExportColumn.Birthdate]: "Geburtsdatum",
       [AthleteExportColumn.Gender]: "Geschlecht",
 
-      [AthletePerformanceExportColumn.Birthyear]: "Geburtsjahr",
-      [AthletePerformanceExportColumn.Birthday]: "Geburtstag",
+      [AthletePerformanceExportColumn.FirstName]: "Vorname",
+      [AthletePerformanceExportColumn.LastName]: "Nachname",
+      [AthletePerformanceExportColumn.Email]: "E-Mail",
+      [AthletePerformanceExportColumn.Birthdate]: "Geburtsdatum",
+      [AthletePerformanceExportColumn.Gender]: "Geschlecht",
       [AthletePerformanceExportColumn.Discipline]: "Übung",
       [AthletePerformanceExportColumn.Category]: "Kategorie",
-      [AthletePerformanceExportColumn.Date]: "Datum",
+      [AthletePerformanceExportColumn.PerformanceDate]: "Datum",
       [AthletePerformanceExportColumn.Result]: "Ergebnis",
       [AthletePerformanceExportColumn.Points]: "Punkte",
     };
@@ -127,7 +130,6 @@ const AthleteExportModal = ({
     const rows = data
       .map((item) => {
         const birthdate = item.birthdate ? new Date(item.birthdate) : null;
-        const birthYear = birthdate ? birthdate.getFullYear().toString() : "";
         const performanceRecordingsOfAthlete = performanceRecordings.filter(
           (p) => p.athlete_id === item.id,
         );
@@ -163,15 +165,15 @@ const AthleteExportModal = ({
             return columns
               .map((col) => {
                 switch (col) {
-                  case "first_name":
+                  case "athlete_first_name":
                     return item.first_name || "";
-                  case "last_name":
+                  case "athlete_last_name":
                     return item.last_name || "";
-                  case "gender":
+                  case "athlete_email":
+                    return item.email || "";
+                  case "athlete_gender":
                     return item.gender || "";
-                  case "birthyear":
-                    return birthYear || "";
-                  case "birthday":
+                  case "athlete_birthdate":
                     return birthdate
                       ? new Intl.DateTimeFormat("de-DE").format(birthdate)
                       : "";
@@ -179,7 +181,7 @@ const AthleteExportModal = ({
                     return discipline?.name || "";
                   case "category":
                     return discipline?.category || "";
-                  case "date":
+                  case "performance_date":
                     return performance.date_of_performance
                       ? new Intl.DateTimeFormat("de-DE").format(
                           new Date(performance.date_of_performance),
@@ -208,34 +210,34 @@ const AthleteExportModal = ({
           variant: "error",
         });
         return;
-      } else {
-        const csvContent = generateCSV(athletes, withPerformance);
-        if (!csvContent) {
-          enqueueSnackbar(t("snackbar.athleteExportModal.exportError"), {
-            variant: "error",
-          });
-          return;
-        }
-        const blob = new Blob([csvContent], {
-          type: "text/csv;charset=utf-8;",
-        });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute(
-          "download",
-          withPerformance
-            ? "athletePerformance_export.csv"
-            : "athlete_export.csv",
-        );
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        enqueueSnackbar(t("snackbar.athleteExportModal.success"), {
-          variant: "success",
-        });
       }
+
+      const csvContent = generateCSV(athletes, withPerformance);
+      if (!csvContent) {
+        enqueueSnackbar(t("snackbar.athleteExportModal.exportError"), {
+          variant: "error",
+        });
+        return;
+      }
+      const blob = new Blob([csvContent], {
+        type: "text/csv;charset=utf-8;",
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute(
+        "download",
+        withPerformance
+          ? "athletePerformance_export.csv"
+          : "athlete_export.csv",
+      );
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      enqueueSnackbar(t("snackbar.athleteExportModal.success"), {
+        variant: "success",
+      });
     } catch (error) {
       console.error("unexpected Export error:", error);
       enqueueSnackbar(t("snackbar.athleteExportModal.unexpectedError"), {
