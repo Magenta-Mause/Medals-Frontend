@@ -1,7 +1,7 @@
 import { JwtTokenBody, UserEntity } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import useInstantiation from "@hooks/useInstantiation/useInstantiation";
-import { Box, CircularProgress } from "@mui/joy";
+import { CircularProgress, Sheet } from "@mui/joy";
 import { jwtDecode } from "jwt-decode";
 import {
   createContext,
@@ -195,7 +195,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
       >
         <AuthInitializationComponent />
         {authorized == undefined ? (
-          <Box
+          <Sheet
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -205,7 +205,7 @@ const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
             }}
           >
             <CircularProgress size="lg" />
-          </Box>
+          </Sheet>
         ) : (
           children
         )}
