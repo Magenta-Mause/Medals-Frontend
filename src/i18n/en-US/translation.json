@@ -520,6 +520,9 @@
       "importButton": "Import Athletes",
       "firstName": "First Name",
       "lastName": "Last Name",
+      "discipline": "Discipline",
+      "performanceDate": "Performance Date",
+      "performanceResult": "Result",
       "tabSelection": {
         "athleteImport": "Import athlete",
         "performanceImport": "Import performance"

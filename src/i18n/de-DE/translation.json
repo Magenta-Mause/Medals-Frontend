@@ -522,6 +522,9 @@
       "importButton": "Daten importieren",
       "firstName": "Vorname",
       "lastName": "Nachname",
+      "discipline": "Übung",
+      "performanceDate": "Aufnahmedatum",
+      "performanceResult": "Ergebnis",
       "tabSelection": {
         "athleteImport": "Athlet*innen importieren",
         "performanceImport": "Leistungen importieren"

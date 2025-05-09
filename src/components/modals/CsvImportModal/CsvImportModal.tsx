@@ -9,13 +9,14 @@ import {
   PerformanceRecording,
 } from "@customTypes/backendTypes";
 import GenericModal from "../GenericModal";
-import { CSVUploadState, Genders } from "@customTypes/enums";
+import { CSVUploadState, Genders, MetricUnits } from "@customTypes/enums";
 import { Tab, Tabs } from "@mui/material";
 import CSVUploadComponent, {
   CSVData,
 } from "@components/CSVUploadComponent/CSVUploadComponent";
 import { BirthdateRegex, emailRegex } from "@components/Regex/Regex";
 import { useTypedSelector } from "@stores/rootReducer";
+import useFormatting from "@hooks/useFormatting";
 
 export interface AthleteWithValidity extends Athlete {
   state: CSVUploadState | undefined;
@@ -35,6 +36,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
   const { t } = useTranslation();
   const { createAthlete, checkAthleteExists, createPerformanceRecording } =
     useApi();
+  const { formatDate, formatValue } = useFormatting();
   const [selectedImportPage, setSelectedImportPage] = useState<importPage>(
     importPage.athleteImport,
   );
@@ -153,8 +155,8 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
 
   const parsePerformanceRecordingCSV = (
     performanceRecordingData: Papa.ParseResult<unknown>,
-  ) => {
-    return performanceRecordingData.data.map(
+  ) =>
+    performanceRecordingData.data.map(
       (row: any) =>
         ({
           athlete_id: athletes.find(
@@ -172,7 +174,6 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
           date_of_performance: +convertGermanTimeToAmerican(row["Datum"]),
         }) as PerformanceRecordingCreationDto,
     );
-  };
 
   return (
     <>
@@ -251,6 +252,38 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
                   return athletes.find(
                     (athlete) => athlete.id === csvData.data.athlete_id,
                   )?.last_name;
+                },
+              },
+              {
+                columnName: t("components.csvImportModal.discipline"),
+                columnMapping(
+                  csvData: CSVData<PerformanceRecordingCreationDto>,
+                ) {
+                  return disciplines.find(
+                    (discipline) =>
+                      discipline.id === csvData.data.discipline_id,
+                  )?.name;
+                },
+              },
+              {
+                columnName: t("components.csvImportModal.performanceDate"),
+                columnMapping(
+                  csvData: CSVData<PerformanceRecordingCreationDto>,
+                ) {
+                  return formatDate(csvData.data.date_of_performance);
+                },
+              },
+              {
+                columnName: t("components.csvImportModal.performanceResult"),
+                columnMapping(
+                  csvData: CSVData<PerformanceRecordingCreationDto>,
+                ) {
+                  const disciplineUnit =
+                    disciplines.find(
+                      (discipline) =>
+                        discipline.id === csvData.data.discipline_id,
+                    )?.unit ?? MetricUnits.POINTS;
+                  return formatValue(csvData.data.rating_value, disciplineUnit);
                 },
               },
             ]}

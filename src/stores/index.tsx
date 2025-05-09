@@ -17,6 +17,7 @@ const store: Store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(crossSliceMiddleware),
+  devTools: true,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
