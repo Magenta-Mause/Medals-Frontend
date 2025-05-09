@@ -24,7 +24,6 @@ import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExp
 import AchievementsBox from "./AchievementsBox";
 import RemoveConfirmationModal from "@components/modals/GenericConfirmationModal/RemoveConfirmationModal/RemoveConfirmationModal";
 import { calculateAge } from "@utils/calculationUtil";
-import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 
 interface AthleteDatagridProps {
