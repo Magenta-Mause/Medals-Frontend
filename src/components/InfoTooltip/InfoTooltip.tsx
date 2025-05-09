@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import MuiTooltip from "@mui/joy/Tooltip";
 import type { TooltipProps as MuiTooltipProps } from "@mui/joy/Tooltip";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -18,55 +18,49 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({
   iconProps,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isTouchDevice =
-    typeof window !== "undefined" && "ontouchstart" in window;
+  const tooltipRef = useRef<HTMLSpanElement>(null);
 
-  const handleClick = (event: React.MouseEvent | React.TouchEvent) => {
-    event.stopPropagation();
-    if (isTouchDevice) {
-      setIsModalOpen(true);
-    }
-  };
-
-  const handleMouseDown = (event: React.MouseEvent) => {
-    event.stopPropagation();
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsModalOpen(true);
   };
 
   return (
     <>
-      <MuiTooltip
-        title={
-          <span
+      <span ref={tooltipRef}>
+        <MuiTooltip
+          title={
+            <span
+              style={{
+                maxWidth: 220,
+                display: "inline-block",
+                whiteSpace: "normal",
+              }}
+            >
+              {text}
+            </span>
+          }
+          variant="soft"
+          color="primary"
+          size="sm"
+          placement={position}
+          enterDelay={400}
+          enterNextDelay={400}
+          sx={{ zIndex: 20000 }}
+        >
+          <InfoOutlinedIcon
+            onClick={handleClick}
             style={{
-              maxWidth: 220,
-              display: "inline-block",
-              whiteSpace: "normal",
+              cursor: "pointer",
+              padding: "4px", // Increase clickable area
+              margin: "-4px",
             }}
-          >
-            {text}
-          </span>
-        }
-        variant="soft"
-        color="primary"
-        size="sm"
-        placement={position}
-        enterDelay={400}
-        enterNextDelay={400}
-        sx={{ zIndex: 20000 }}
-      >
-        <InfoOutlinedIcon
-          onClick={handleClick}
-          onMouseDown={handleMouseDown}
-          style={{
-            cursor: "pointer",
-            padding: "4px",
-            margin: "-4px",
-            ...(isTouchDevice && isModalOpen ? { visibility: "hidden" } : {}),
-          }}
-          fontSize="small"
-          {...iconProps}
-        />
-      </MuiTooltip>
+            fontSize="small"
+            {...iconProps}
+          />
+        </MuiTooltip>
+      </span>
 
       <GenericModal open={isModalOpen} setOpen={setIsModalOpen} header={header}>
         {text}
