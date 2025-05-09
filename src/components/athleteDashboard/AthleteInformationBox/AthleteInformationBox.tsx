@@ -21,22 +21,17 @@ const AthleteInformationBox = () => {
     useState(false);
   const { t } = useTranslation();
   const { formatLocalizedDate } = useFormatting();
-  if (selectedUser?.type != "ATHLETE") {
-    return <>{t("components.athleteDashboard.error.notAnAthlete")}</>;
-  }
-  const athlete = selectedUser as unknown as Athlete;
 
   useEffect(() => {
     const fetchTrainers = async () => {
       try {
-        if (athlete?.id !== undefined) {
-          const trainerList = await getTrainersAssignedToAthlete(athlete.id);
-          setTrainers(trainerList);
-          if (trainerList.length > 1) {
-            setMultipleTrainers(true);
-          }
-        } else {
-          console.warn("Athlete ID is undefined.");
+        if (selectedUser === null || selectedUser === undefined) {
+          return;
+        }
+        const trainerList = await getTrainersAssignedToAthlete(selectedUser.id);
+        setTrainers(trainerList);
+        if (trainerList.length > 1) {
+          setMultipleTrainers(true);
         }
       } catch (error) {
         console.error("Error fetching trainers:", error);
@@ -44,7 +39,12 @@ const AthleteInformationBox = () => {
     };
 
     fetchTrainers();
-  }, [athlete.id, getTrainersAssignedToAthlete]);
+  }, [t, selectedUser, getTrainersAssignedToAthlete]);
+
+  if (selectedUser?.type !== "ATHLETE") {
+    return <>{t("components.athleteDashboard.error.notAnAthlete")}</>;
+  }
+  const athlete = selectedUser as unknown as Athlete;
 
   return (
     <>

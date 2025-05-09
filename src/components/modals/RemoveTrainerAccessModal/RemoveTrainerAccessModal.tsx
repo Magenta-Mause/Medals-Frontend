@@ -34,7 +34,6 @@ const RemoveTrainerAccessModal = (props: RemoveConnectionModalProps) => {
       setLoading(true);
       setTrainers(props.trainers);
     }
-    console.log(trainers);
   }, [props.trainers, props.isOpen, trainers]);
 
   useEffect(() => {
