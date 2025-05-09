@@ -186,6 +186,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
         message={t(
           "components.trainerDatagrid.deletionModal.confirmDeleteMessage",
         )}
+        confirmButtonText={t("components.confirmationPopup.deleteButton")}
       />
     </>
   );
