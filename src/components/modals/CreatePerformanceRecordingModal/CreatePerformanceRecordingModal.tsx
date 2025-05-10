@@ -258,10 +258,11 @@ const CreatePerformanceRecordingModal = (props: {
                 <li key={params.key}>
                   <div
                     style={{
-                      paddingLeft: 21,
-                      marginTop: 2,
+                      paddingLeft: 19,
+                      margin: 2,
                       fontWeight: 600,
-                      fontSize: "0.8em",
+                      fontSize: "0.75em",
+                      opacity: 0.7,
                     }}
                   >
                     {params.group.toUpperCase()}
