@@ -150,20 +150,26 @@ const PerformanceRecordingCSVUploadComponent = ({
         {
           columnName: t("components.csvImportModal.firstName"),
           columnMapping(csvData: CSVData<PerformanceRecordingCreationCSVDto>) {
-            return csvData.data.firstName ?? "Athlet nicht zugewiesen";
+            if (!csvData.data.athlete) {
+              return t("components.csvImportModal.invalidFirstName");
+            }
+            return csvData.data.firstName;
           },
         },
         {
           columnName: t("components.csvImportModal.lastName"),
           columnMapping(csvData: CSVData<PerformanceRecordingCreationCSVDto>) {
-            return csvData.data.lastName ?? "Athlet nicht zugewiesen";
+            if (!csvData.data.athlete) {
+              return t("components.csvImportModal.invalidLastName");
+            }
+            return csvData.data.lastName;
           },
         },
         {
           columnName: t("components.csvImportModal.discipline"),
           columnMapping(csvData: CSVData<PerformanceRecordingCreationCSVDto>) {
             if (!csvData.data.discipline) {
-              return "Disziplin nicht zugewiesen";
+              return t("components.csvImportModal.invalidFirstName");
             }
             return csvData.data.discipline.name;
           },
@@ -172,7 +178,7 @@ const PerformanceRecordingCSVUploadComponent = ({
           columnName: t("components.csvImportModal.performanceDate"),
           columnMapping(csvData: CSVData<PerformanceRecordingCreationCSVDto>) {
             if (!csvData.data.dateOfPerformance) {
-              return "Datum nicht zugewiesen";
+              return t("components.csvImportModal.invalidPerformanceDate");
             }
             return formatDate(csvData.data.dateOfPerformance);
           },
@@ -181,7 +187,7 @@ const PerformanceRecordingCSVUploadComponent = ({
           columnName: t("components.csvImportModal.performanceResult"),
           columnMapping(csvData: CSVData<PerformanceRecordingCreationCSVDto>) {
             if (!csvData.data.ratingValue || !csvData.data.discipline) {
-              return "Ergebnis nicht zugewiesen";
+              return t("components.csvImportModal.invalidPerformanceResult");
             }
             return formatValue(
               csvData.data.ratingValue,

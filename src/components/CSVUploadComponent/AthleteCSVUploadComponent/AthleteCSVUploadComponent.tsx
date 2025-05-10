@@ -108,7 +108,7 @@ const AthleteCSVUploadComponent = ({
           columnName: t("components.csvImportModal.firstName"),
           columnMapping(csvData: CSVData<Partial<Athlete>>) {
             if (!csvData.data.first_name) {
-              return "Athlete first name not set";
+              return t("components.csvImportModal.invalidFirstName");
             }
             return csvData.data.first_name;
           },
@@ -117,7 +117,7 @@ const AthleteCSVUploadComponent = ({
           columnName: t("components.csvImportModal.lastName"),
           columnMapping(csvData: CSVData<Partial<Athlete>>) {
             if (!csvData.data.last_name) {
-              return "Athlete last name not set";
+              return t("components.csvImportModal.invalidLastName");
             }
             return csvData.data.last_name;
           },

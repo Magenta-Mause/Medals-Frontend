@@ -528,7 +528,12 @@
       "tabSelection": {
         "athleteImport": "Athlet*innen importieren",
         "performanceImport": "Leistungen importieren"
-      }
+      },
+      "invalidFirstName": "Vorname ist ungültig",
+      "invalidLastName": "Nachname ist ungültig",
+      "invalidDiscipline": "Übung ist ungültig",
+      "invalidPerformanceDate": "Aufnahmedatum ist ungültig",
+      "invalidPerformanceResult": "Ergebnis ist ungültig"
     }
   }
 }

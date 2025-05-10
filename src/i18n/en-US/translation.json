@@ -526,7 +526,12 @@
       "tabSelection": {
         "athleteImport": "Import athlete",
         "performanceImport": "Import performance"
-      }
+      },
+      "invalidFirstName": "Invalid first name",
+      "invalidLastName": "Invalid last name",
+      "invalidDiscipline": "Invalid discipline",
+      "invalidPerformanceDate": "Invalid date",
+      "invalidPerformanceResult": "Invalid result"
     }
   }
 }
