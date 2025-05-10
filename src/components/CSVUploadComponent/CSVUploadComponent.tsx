@@ -19,6 +19,7 @@ interface CSVUploadComponentProps<T> {
   uploadEntry: (data: T) => Promise<any>;
   csvColumns: Column<CSVData<T>>[];
   validateDataRow: (data: T) => Promise<boolean>;
+  key: string;
 }
 
 const convertDateFormat = (dateStr: string) => {
@@ -32,6 +33,7 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
   uploadEntry,
   csvColumns,
   validateDataRow,
+  key,
 }: CSVUploadComponentProps<T>) => {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -197,7 +199,11 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
           <Typography level="h4" sx={{ mb: 2 }}>
             {t("components.csvUploadComponent.athleteList")}
           </Typography>
-          <CSVUploadDatagrid csvData={csvData} csvColumns={csvColumns} />
+          <CSVUploadDatagrid
+            key={`${key}-upload-datagrid`}
+            csvData={csvData}
+            csvColumns={csvColumns}
+          />
           <Box
             sx={{
               display: "flex",
