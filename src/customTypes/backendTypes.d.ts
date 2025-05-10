@@ -67,8 +67,7 @@ export interface PerformanceRecording {
   athlete: Athlete;
 }
 
-export interface PerformanceRecordingCreationDto
-  extends Record<string, unknown> {
+export interface PerformanceRecordingCreationDto {
   athlete_id: number;
   rating_value: number;
   discipline_id: number;

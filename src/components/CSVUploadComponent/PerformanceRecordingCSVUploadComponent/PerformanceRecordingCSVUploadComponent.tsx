@@ -8,11 +8,22 @@ import {
   PerformanceRecordingCreationDto,
 } from "@customTypes/backendTypes";
 import useFormatting from "@hooks/useFormatting";
-import { MetricUnits } from "@customTypes/enums";
+import { AthletePerformanceExportColumn } from "@customTypes/enums";
 import { useTypedSelector } from "@stores/rootReducer";
+import { attributeToGermanHeader } from "@components/modals/AthleteExportModal/AthleteExportModal";
+import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
 
 interface PerformanceRecordingCSVUploadComponentProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface PerformanceRecordingCreationCSVDto extends Record<string, unknown> {
+  firstName: string | undefined;
+  lastName: string | undefined;
+  discipline: Discipline | undefined;
+  athlete: Athlete | undefined;
+  dateOfPerformance: number | undefined;
+  ratingValue: number | undefined;
 }
 
 const PerformanceRecordingCSVUploadComponent = ({
@@ -41,60 +52,92 @@ const PerformanceRecordingCSVUploadComponent = ({
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   };
 
-  const parsePerformanceRecordingCSV = (
-    performanceRecordingData: Papa.ParseResult<unknown>,
-  ) =>
-    performanceRecordingData.data.map(
+  const parsePerformanceRecordingCSV = (data: Papa.ParseResult<unknown>) =>
+    data.data.map(
       (row: any) =>
         ({
-          athlete_id: athletes.find(
-            (athlete) =>
-              athlete.first_name === row["Vorname"]?.trim() &&
-              athlete.last_name === row["Nachname"]?.trim() &&
-              athlete.gender === row["Geschlecht"]?.trim(),
-          )?.id,
-          rating_value: +row["Ergebnis"],
-          discipline_id: disciplines.find(
+          firstName:
+            row[
+              attributeToGermanHeader[AthletePerformanceExportColumn.FirstName]
+            ],
+          lastName:
+            row[
+              attributeToGermanHeader[AthletePerformanceExportColumn.LastName]
+            ],
+          discipline: disciplines.find(
             (discipline) =>
-              discipline.name === row["Übung"] &&
-              discipline.category === row["Kategorie"],
-          )?.id,
-          date_of_performance: +convertGermanTimeToAmerican(row["Datum"]),
-        }) as PerformanceRecordingCreationDto,
+              discipline.name ===
+              row[
+                attributeToGermanHeader[
+                  AthletePerformanceExportColumn.Discipline
+                ]
+              ],
+          ),
+          dateOfPerformance: +convertGermanTimeToAmerican(
+            row[
+              attributeToGermanHeader[
+                AthletePerformanceExportColumn.PerformanceDate
+              ]
+            ],
+          ),
+          ratingValue:
+            +row[
+              attributeToGermanHeader[AthletePerformanceExportColumn.Result]
+            ],
+          athlete: athletes.find(
+            (athlete) =>
+              athlete.email ===
+                row[
+                  attributeToGermanHeader[AthletePerformanceExportColumn.Email]
+                ] &&
+              athlete.birthdate ===
+                convertDateFormat(
+                  row[
+                    attributeToGermanHeader[
+                      AthletePerformanceExportColumn.Birthdate
+                    ]
+                  ],
+                ),
+          ),
+        }) as PerformanceRecordingCreationCSVDto,
     );
 
   const isValidPerformanceRecording = async (
-    performanceRecordingDto: PerformanceRecordingCreationDto,
+    performanceRecordingCreationCSVDto: PerformanceRecordingCreationCSVDto,
   ) => {
-    const athlete = athletes.find(
-      (athlete) => athlete.id === performanceRecordingDto.athlete_id,
-    );
-    const discipline = disciplines.find(
-      (discipline) => discipline.id === performanceRecordingDto.discipline_id,
-    );
     const performanceRecordingExists = performanceRecordings.find(
       (performanceRecording) =>
         performanceRecording.athlete_id ===
-          performanceRecordingDto.athlete_id &&
+          performanceRecordingCreationCSVDto.athlete?.id &&
         performanceRecording.rating_value ===
-          performanceRecordingDto.rating_value &&
+          performanceRecordingCreationCSVDto.ratingValue &&
         performanceRecording.discipline_rating_metric.discipline.id ===
-          performanceRecordingDto.discipline_id &&
+          performanceRecordingCreationCSVDto.discipline?.id &&
         +getFullDay(new Date(performanceRecording.date_of_performance)) ===
-          performanceRecordingDto.date_of_performance,
+          performanceRecordingCreationCSVDto.dateOfPerformance,
     );
 
     if (
-      athlete &&
-      discipline &&
-      performanceRecordingDto.rating_value &&
-      performanceRecordingDto.date_of_performance &&
+      performanceRecordingCreationCSVDto.athlete &&
+      performanceRecordingCreationCSVDto.discipline &&
+      performanceRecordingCreationCSVDto.ratingValue &&
+      performanceRecordingCreationCSVDto.dateOfPerformance &&
       !performanceRecordingExists
     ) {
       return true;
     }
-
     return false;
+  };
+
+  const uploadPerformanceRecording = async (
+    data: PerformanceRecordingCreationCSVDto,
+  ) => {
+    createPerformanceRecording({
+      athlete_id: data.athlete!.id,
+      discipline_id: data.discipline!.id,
+      date_of_performance: +getFullDay(new Date(data.dateOfPerformance!)),
+      rating_value: data.ratingValue,
+    } as PerformanceRecordingCreationDto);
   };
 
   return (
@@ -102,47 +145,48 @@ const PerformanceRecordingCSVUploadComponent = ({
       key="performanceImport"
       setOpen={setOpen}
       parseCSVData={parsePerformanceRecordingCSV}
-      uploadEntry={createPerformanceRecording}
+      uploadEntry={uploadPerformanceRecording}
       csvColumns={[
         {
           columnName: t("components.csvImportModal.firstName"),
-          columnMapping(csvData: CSVData<PerformanceRecordingCreationDto>) {
-            return (
-              athletes.find((athlete) => athlete.id === csvData.data.athlete_id)
-                ?.first_name ?? "Athlet nicht zugewiesen"
-            );
+          columnMapping(csvData: CSVData<PerformanceRecordingCreationCSVDto>) {
+            return csvData.data.firstName ?? "Athlet nicht zugewiesen";
           },
         },
         {
           columnName: t("components.csvImportModal.lastName"),
-          columnMapping(csvData: CSVData<PerformanceRecordingCreationDto>) {
-            return athletes.find(
-              (athlete) => athlete.id === csvData.data.athlete_id,
-            )?.last_name;
+          columnMapping(csvData: CSVData<PerformanceRecordingCreationCSVDto>) {
+            return csvData.data.lastName ?? "Athlet nicht zugewiesen";
           },
         },
         {
           columnName: t("components.csvImportModal.discipline"),
-          columnMapping(csvData: CSVData<PerformanceRecordingCreationDto>) {
-            return disciplines.find(
-              (discipline) => discipline.id === csvData.data.discipline_id,
-            )?.name;
+          columnMapping(csvData: CSVData<PerformanceRecordingCreationCSVDto>) {
+            if (!csvData.data.discipline) {
+              return "Disziplin nicht zugewiesen";
+            }
+            return csvData.data.discipline.name;
           },
         },
         {
           columnName: t("components.csvImportModal.performanceDate"),
-          columnMapping(csvData: CSVData<PerformanceRecordingCreationDto>) {
-            return formatDate(csvData.data.date_of_performance);
+          columnMapping(csvData: CSVData<PerformanceRecordingCreationCSVDto>) {
+            if (!csvData.data.dateOfPerformance) {
+              return "Datum nicht zugewiesen";
+            }
+            return formatDate(csvData.data.dateOfPerformance);
           },
         },
         {
           columnName: t("components.csvImportModal.performanceResult"),
-          columnMapping(csvData: CSVData<PerformanceRecordingCreationDto>) {
-            const disciplineUnit =
-              disciplines.find(
-                (discipline) => discipline.id === csvData.data.discipline_id,
-              )?.unit ?? MetricUnits.POINTS;
-            return formatValue(csvData.data.rating_value, disciplineUnit);
+          columnMapping(csvData: CSVData<PerformanceRecordingCreationCSVDto>) {
+            if (!csvData.data.ratingValue || !csvData.data.discipline) {
+              return "Ergebnis nicht zugewiesen";
+            }
+            return formatValue(
+              csvData.data.ratingValue,
+              csvData.data.discipline.unit,
+            );
           },
         },
       ]}

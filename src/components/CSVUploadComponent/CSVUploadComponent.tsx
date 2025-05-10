@@ -21,6 +21,11 @@ interface CSVUploadComponentProps<T> {
   validateDataRow: (data: T) => Promise<boolean>;
 }
 
+const convertDateFormat = (dateStr: string) => {
+  const [day, month, year] = dateStr.split(".");
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+};
+
 const CSVUploadComponent = <T extends Record<string, unknown>>({
   parseCSVData,
   setOpen,
@@ -243,3 +248,4 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
 
 export default CSVUploadComponent;
 export type { CSVData };
+export { convertDateFormat };

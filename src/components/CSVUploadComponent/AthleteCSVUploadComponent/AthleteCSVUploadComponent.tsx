@@ -5,6 +5,7 @@ import { Athlete } from "@customTypes/backendTypes";
 import { Genders } from "@customTypes/enums";
 import { useCallback } from "react";
 import { BirthdateRegex, emailRegex } from "@components/Regex/Regex";
+import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
 
 interface AthleteCSVUploadComponentProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,11 +27,6 @@ const AthleteCSVUploadComponent = ({
     },
     [checkAthleteExists],
   );
-
-  const convertDateFormat = (dateStr: string) => {
-    const [day, month, year] = dateStr.split(".");
-    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-  };
 
   const normalizeGender = (gender: string | undefined) => {
     let normalized = "";

@@ -32,6 +32,25 @@ interface AthleteExportModalProps {
   includePerformance: boolean;
 }
 
+const attributeToGermanHeader: Record<string, string> = {
+  [AthleteExportColumn.FirstName]: "Vorname",
+  [AthleteExportColumn.LastName]: "Nachname",
+  [AthleteExportColumn.Email]: "E-Mail",
+  [AthleteExportColumn.Birthdate]: "Geburtsdatum",
+  [AthleteExportColumn.Gender]: "Geschlecht",
+
+  [AthletePerformanceExportColumn.FirstName]: "Vorname",
+  [AthletePerformanceExportColumn.LastName]: "Nachname",
+  [AthletePerformanceExportColumn.Email]: "E-Mail",
+  [AthletePerformanceExportColumn.Birthdate]: "Geburtsdatum",
+  [AthletePerformanceExportColumn.Gender]: "Geschlecht",
+  [AthletePerformanceExportColumn.Discipline]: "Übung",
+  [AthletePerformanceExportColumn.Category]: "Kategorie",
+  [AthletePerformanceExportColumn.PerformanceDate]: "Datum",
+  [AthletePerformanceExportColumn.Result]: "Ergebnis",
+  [AthletePerformanceExportColumn.Points]: "Punkte",
+};
+
 const AthleteExportModal = ({
   isOpen,
   setOpen,
@@ -102,24 +121,6 @@ const AthleteExportModal = ({
   const mobileRendering: MobileTableRendering<Athlete> = {};
 
   const generateCSV = (data: any[], withPerformance: boolean) => {
-    const attributeToGermanHeader: Record<string, string> = {
-      [AthleteExportColumn.FirstName]: "Vorname",
-      [AthleteExportColumn.LastName]: "Nachname",
-      [AthleteExportColumn.Email]: "E-Mail",
-      [AthleteExportColumn.Birthdate]: "Geburtsdatum",
-      [AthleteExportColumn.Gender]: "Geschlecht",
-
-      [AthletePerformanceExportColumn.FirstName]: "Vorname",
-      [AthletePerformanceExportColumn.LastName]: "Nachname",
-      [AthletePerformanceExportColumn.Email]: "E-Mail",
-      [AthletePerformanceExportColumn.Birthdate]: "Geburtsdatum",
-      [AthletePerformanceExportColumn.Gender]: "Geschlecht",
-      [AthletePerformanceExportColumn.Discipline]: "Übung",
-      [AthletePerformanceExportColumn.Category]: "Kategorie",
-      [AthletePerformanceExportColumn.PerformanceDate]: "Datum",
-      [AthletePerformanceExportColumn.Result]: "Ergebnis",
-      [AthletePerformanceExportColumn.Points]: "Punkte",
-    };
     const columns: string[] = withPerformance
       ? Object.values(AthletePerformanceExportColumn)
       : Object.values(AthleteExportColumn);
@@ -308,3 +309,4 @@ const AthleteExportModal = ({
 };
 
 export default AthleteExportModal;
+export { attributeToGermanHeader };
