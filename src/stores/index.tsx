@@ -1,4 +1,4 @@
-import { configureStore, Middleware, Store } from "@reduxjs/toolkit";
+import { configureStore, Middleware } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
 
 export interface SliceState<T> {
@@ -13,13 +13,14 @@ const crossSliceMiddleware: Middleware = () => (next) => (action: any) => {
   return result;
 };
 
-const store: Store = configureStore({
+const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(crossSliceMiddleware),
   devTools: true,
 });
 
+export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
 
 export default store;

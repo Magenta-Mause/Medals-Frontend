@@ -11,6 +11,13 @@ import {
 } from "@mui/joy";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
+import { UserType } from "@customTypes/enums";
+
+const userTypePriorities: Record<UserType, number> = {
+  [UserType.ADMIN]: 3,
+  [UserType.TRAINER]: 2,
+  [UserType.ATHLETE]: 1,
+};
 
 const UserRowMapping = (props: {
   user: UserEntity;
@@ -88,14 +95,18 @@ const UserSelectionForm = () => {
             overflowY: "auto",
           }}
         >
-          {authorizedUsers?.map((user, index) => (
-            <UserRowMapping
-              key={user.id}
-              user={user}
-              setSelectedUser={setSelectedUser}
-              index={index}
-            />
-          ))}
+          {authorizedUsers
+            ?.sort(
+              (a, b) => userTypePriorities[b.type] - userTypePriorities[a.type],
+            )
+            .map((user, index) => (
+              <UserRowMapping
+                key={user.id}
+                user={user}
+                setSelectedUser={setSelectedUser}
+                index={index}
+              />
+            ))}
         </List>
       </Box>
     </>

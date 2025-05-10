@@ -1,8 +1,8 @@
-import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import {
   Athlete,
   Discipline,
+  DisciplineRatingMetric,
   PerformanceRecordingCreationDto,
 } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
@@ -20,6 +20,8 @@ import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import GenericModal from "../GenericModal";
+import AthleteDetailHeader from "@components/AthleteDetailHeader/AthleteDetailHeader";
+import { isDisciplineInvalid } from "@utils/disciplineValidationUtil";
 
 interface CreatePerformanceRecordingElement extends HTMLFormElement {
   readonly elements: FormElements;
@@ -41,6 +43,9 @@ const CreatePerformanceRecordingModal = (props: {
   const athletes = useTypedSelector(
     (state) => state.athletes.data,
   ) as Athlete[];
+  const ratingMetrics = useTypedSelector(
+    (state) => state.disciplineMetrics.data,
+  ) as DisciplineRatingMetric[];
   const [selectedDiscipline, setSelectedDiscipline] = useState<number | null>(
     null,
   );
@@ -50,6 +55,10 @@ const CreatePerformanceRecordingModal = (props: {
   const [discipline, setDiscipline] = useState<Discipline | null>(
     props.discipline ?? null,
   );
+  const [selectedDate, setDate] = useState<Dayjs | null>(dayjs());
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState<string | null>(null);
   const { t } = useTranslation();
   const { createPerformanceRecording } = useApi();
 
@@ -69,10 +78,6 @@ const CreatePerformanceRecordingModal = (props: {
   useEffect(() => {
     setDiscipline(disciplines.filter((d) => d.id == selectedDiscipline)[0]);
   }, [selectedDiscipline, setDiscipline, disciplines]);
-  const [selectedDate, setDate] = useState<Dayjs | null>(dayjs());
-  const { enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState<string | null>(null);
 
   const submitPerformanceRecording = async (
     p: PerformanceRecordingCreationDto,
@@ -146,6 +151,7 @@ const CreatePerformanceRecordingModal = (props: {
           />
         </FormControl>
         <AthleteDetailHeader athlete={selectedAthlete} scalingFactor={2} />
+
         <FormControl>
           <FormLabel>
             {t("components.createPerformanceRecordingModal.form.discipline")}
@@ -160,7 +166,25 @@ const CreatePerformanceRecordingModal = (props: {
             )}
             options={disciplines}
             isOptionEqualToValue={(option, value) => option.id === value.id}
+            groupBy={(d) =>
+              t("disciplines.categories." + d.category.toUpperCase() + ".label")
+            }
             getOptionLabel={(d: Discipline) => d.name}
+            getOptionDisabled={(discipline) =>
+              isDisciplineInvalid(
+                discipline,
+                selectedAthlete,
+                selectedDate?.year(),
+                ratingMetrics,
+              )
+            }
+            error={isDisciplineInvalid(
+              discipline,
+              selectedAthlete,
+              selectedDate?.year(),
+              ratingMetrics,
+            )}
+            aria-errormessage={"Discipline not valid"}
           />
         </FormControl>
         <FormControl>
@@ -197,7 +221,7 @@ const CreatePerformanceRecordingModal = (props: {
             format={undefined}
           />
           <FormLabel>
-            <Typography fontSize={15} pt={1} color="neutral">
+            <Typography fontSize={15} color="neutral">
               {t(
                 "components.createPerformanceRecordingModal.form.ageAtRecording",
               )}
@@ -213,6 +237,7 @@ const CreatePerformanceRecordingModal = (props: {
             </Typography>
           </FormLabel>
         </FormControl>
+
         <Button
           type={"submit"}
           disabled={
@@ -221,8 +246,13 @@ const CreatePerformanceRecordingModal = (props: {
             selectedAthlete == null ||
             selectedDate == null ||
             value == null ||
-            value == undefined ||
-            value == ""
+            value == "" ||
+            isDisciplineInvalid(
+              discipline,
+              selectedAthlete,
+              selectedDate?.year(),
+              ratingMetrics,
+            )
           }
         >
           {!loading ? t("generic.submit") : t("generic.loading")}

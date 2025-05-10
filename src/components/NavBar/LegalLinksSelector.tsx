@@ -7,7 +7,7 @@ import {
 } from "@mui/joy";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
-import { KeyboardArrowDown, InfoOutlined } from "@mui/icons-material";
+import { InfoOutlined, KeyboardArrowDown } from "@mui/icons-material";
 import Toggler from "@components/NavBar/Toggler";
 import { useState } from "react";
 
@@ -43,10 +43,13 @@ const LegalLinksSelector = ({
       <Toggler
         overridenOpen={open}
         renderToggle={() => (
-          <ListItemButton onClick={() => setOpen(!open)} sx={{ mt: 1 }}>
+          <ListItemButton
+            onClick={() => setOpen(!open)}
+            sx={{ mt: 1, zIndex: 9 }}
+          >
             <InfoOutlined />
             <ListItemContent>
-              <Typography level="title-sm">
+              <Typography level="title-sm" sx={{ userSelect: "none" }}>
                 {t("components.navbar.legalLinks.title")}
               </Typography>
             </ListItemContent>
@@ -66,7 +69,28 @@ const LegalLinksSelector = ({
           </ListItemButton>
         )}
       >
-        <List sx={{ gap: 0.5 }}>
+        <List
+          sx={{
+            gap: 0.5,
+            position: "absolute",
+            width: "100%",
+            bottom: "3em",
+            overflow: "hidden",
+            transition: "all 0.3s ease",
+            backgroundColor: "var(--joy-palette-background-surface)",
+            ...(!open
+              ? {
+                  transform: "translateY(50px)",
+                  opacity: 0,
+                  pointerEvents: "none",
+                }
+              : {
+                  transform: "translateY(0)",
+                  opacity: 1,
+                  pointerEvents: "all",
+                }),
+          }}
+        >
           {links.map((link) => (
             <ListItem key={link.path}>
               <ListItemButton
@@ -76,7 +100,9 @@ const LegalLinksSelector = ({
                   setOpen(false);
                 }}
               >
-                <ListItemContent>{link.label}</ListItemContent>
+                <ListItemContent sx={{ userSelect: "none" }}>
+                  {link.label}
+                </ListItemContent>
               </ListItemButton>
             </ListItem>
           ))}

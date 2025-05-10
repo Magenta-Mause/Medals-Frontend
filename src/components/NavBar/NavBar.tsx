@@ -12,10 +12,8 @@ import {
   Download,
   Equalizer,
   HelpCenter,
-  HomeRounded,
   LogoutRounded,
   PeopleRounded,
-  PersonAdd,
   SearchRounded,
   SpaceDashboard,
   SupervisedUserCircleOutlined,
@@ -40,96 +38,82 @@ import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
 import Tooltip from "@components/HoverTooltip/HoverTooltip";
+import RoleBasedRenderComponent from "@components/RoleBasedRenderComponent/RoleBasedRenderComponent";
 
 const sharedNavBarElements = [
   {
-    path: "/downloads",
+    path: "/materials",
     icon: <Download />,
+    label: "materials",
   },
   {
     path: "/help",
     icon: <HelpCenter />,
+    label: "help",
   },
 ];
 
-const navBarElements = new Map<
-  UserType | undefined,
-  { path: string; icon: JSX.Element }[]
->([
-  [
-    undefined,
-    [
-      {
-        path: "/",
-        icon: <HomeRounded />,
-      },
-    ],
-  ],
-  [
-    UserType.ADMIN,
-    [
-      {
-        path: "/",
-        icon: <HomeRounded />,
-      },
-      {
-        path: "/trainer",
-        icon: <PeopleRounded />,
-      },
-    ],
-  ],
-  [
-    UserType.TRAINER,
-    [
-      {
-        path: "/",
-        icon: <HomeRounded />,
-      },
-      {
-        path: "/athletes",
-        icon: <PeopleRounded />,
-      },
-      {
-        path: "/performanceMetrics",
-        icon: <Assessment />,
-      },
-      {
-        path: "/assignAthlete",
-        icon: <PersonAdd />,
-      },
-    ],
-  ],
-  [
-    UserType.ATHLETE,
-    [
-      {
-        path: "/",
-        icon: <HomeRounded />,
-      },
-      {
-        path: "/dashboard",
-        icon: <SpaceDashboard />,
-      },
-      {
-        path: "/requirements",
-        icon: <Article />,
-      },
-      {
-        path: "/performances",
-        icon: <Equalizer />,
-      },
-    ],
-  ],
-]);
-
 const NavBar = () => {
+  const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
+    useContext(AuthContext);
+  const navBarElements = new Map<
+    UserType | undefined,
+    { path: string; icon: JSX.Element; label: string }[]
+  >([
+    [
+      undefined,
+      [
+        {
+          path: "/",
+          icon: (
+            <RoleBasedRenderComponent
+              athleteRender={<SpaceDashboard />}
+              trainerRender={<PeopleRounded />}
+              adminRender={<PeopleRounded />}
+            />
+          ),
+          label:
+            selectedUser?.type == UserType.TRAINER
+              ? "athletes"
+              : selectedUser?.type == UserType.ATHLETE
+                ? "dashboard"
+                : "trainer",
+        },
+      ],
+    ],
+    [UserType.ADMIN, []],
+    [
+      UserType.TRAINER,
+      [
+        {
+          path: "/performanceMetrics",
+          icon: <Assessment />,
+          label: "performanceMetrics",
+        },
+      ],
+    ],
+    [
+      UserType.ATHLETE,
+      [
+        {
+          path: "/performances",
+          icon: <Equalizer />,
+          label: "performances",
+        },
+        {
+          path: "/requirements",
+          icon: <Article />,
+          label: "requirements",
+        },
+      ],
+    ],
+  ]);
   const { collapseSidebar, sideBarExtended } = useSidebar();
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
   const warning = undefined;
-  const { logout, email, setSelectedUser, selectedUser, authorizedUsers } =
-    useContext(AuthContext);
+
   const userRole = selectedUser?.type;
   const [isProfileOpen, setProfileOpen] = useState(false);
 
@@ -223,11 +207,19 @@ const NavBar = () => {
           }}
         >
           {[
-            ...(navBarElements.get(userRole) ?? []),
+            ...(userRole
+              ? [
+                  ...(navBarElements.get(undefined) ?? []),
+                  ...(navBarElements.get(userRole) ?? []),
+                ]
+              : (navBarElements.get(undefined) ?? [])),
             ...sharedNavBarElements,
           ].map((element) => (
             <ListItem key={element.path}>
               <ListItemButton
+                sx={{
+                  transition: "background ease .2s",
+                }}
                 onClick={() => {
                   navigate(element.path);
                   collapseSidebar();
@@ -236,8 +228,8 @@ const NavBar = () => {
               >
                 {element.icon}
                 <ListItemContent>
-                  <Typography level="title-sm">
-                    {t("components.navbar.locationList." + element.path)}
+                  <Typography level="title-sm" sx={{ userSelect: "none" }}>
+                    {t("components.navbar.locationList./" + element.label)}
                   </Typography>
                 </ListItemContent>
               </ListItemButton>
@@ -248,7 +240,6 @@ const NavBar = () => {
           size="sm"
           sx={{
             gap: 1,
-            "--List-nestedInsetStart": "30px",
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
             justifyContent: "flex-end",
             padding: "none",
@@ -326,5 +317,4 @@ const NavBar = () => {
     </Sheet>
   );
 };
-
 export default NavBar;

@@ -27,6 +27,7 @@ import FilterComponent, {
 } from "./GenericResponsiveDatagridFilterComponent";
 import MobileTable, { MobileTableRendering } from "./MobileTable";
 import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const ESTIMATED_HEIGHT_OF_ROW = 95;
 const DEFAULT_MAX_VISIBLE_ON_PAGE = Math.floor(
@@ -57,7 +58,7 @@ interface GenericResponsiveDatagridProps<T> {
   columns: Column<T>[];
   filters?: Filter<T>[];
   toolbarActions?: ToolbarAction[];
-  isLoading: boolean;
+  isLoading?: boolean;
   actionMenu?: Action<T>[];
   itemSelectionActions?: Action<T>[];
   keyOf: (item: T) => Key;
@@ -65,6 +66,8 @@ interface GenericResponsiveDatagridProps<T> {
   mobileRendering: MobileTableRendering<T>;
   onItemClick?: (item: T) => void;
   disablePaging?: boolean;
+  messageIfNoEntriesFound?: React.ReactNode;
+  heightIfNoEntriesFound?: string;
 }
 
 /**
@@ -280,7 +283,7 @@ const GenericResponsiveDatagrid = <T,>(
                     filterValues={filterValues}
                   />
                   <Button color="primary" onClick={() => setFilterOpen(false)}>
-                    Submit
+                    {t("generic.confirm")}
                   </Button>
                 </>
               ) : (
@@ -290,7 +293,7 @@ const GenericResponsiveDatagrid = <T,>(
           </ModalDialog>
         </Modal>
       </Sheet>
-      {props.filters || props.toolbarActions ? (
+      {props.filters?.length || props.toolbarActions?.length ? (
         <Box
           className="SearchAndFiltersTooltip-tabletUp"
           sx={{
@@ -300,7 +303,7 @@ const GenericResponsiveDatagrid = <T,>(
             flexWrap: "wrap",
             gap: 1.5,
             "& > *": {
-              minWidth: { xs: "120px", md: "160px" },
+              minWidth: { xs: "120px", md: "100px" },
             },
           }}
         >
@@ -360,6 +363,8 @@ const GenericResponsiveDatagrid = <T,>(
           actionMenu={props.actionMenu}
           rowOnClick={props.onItemClick}
           allItems={props.data}
+          messageIfNoEntriesFound={props.messageIfNoEntriesFound}
+          heightIfNoEntriesFound={props.heightIfNoEntriesFound}
         />
       </Sheet>
 
@@ -440,9 +445,13 @@ const ActionButton = <T,>(
     setLoading(false);
   };
 
+  const propsWithoutStuff: any = { ...props };
+  delete propsWithoutStuff.getSelectedItems;
+  delete propsWithoutStuff.buttonAction;
+
   return (
     <Button
-      {...props}
+      {...propsWithoutStuff}
       color={props.buttonAction.color ?? "neutral"}
       onClick={() => triggerActionForSelected()}
       key={props.buttonAction.key}

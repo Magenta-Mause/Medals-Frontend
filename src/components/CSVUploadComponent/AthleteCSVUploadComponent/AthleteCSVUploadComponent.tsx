@@ -4,7 +4,7 @@ import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import { AthleteExportColumn, Genders } from "@customTypes/enums";
 import { useCallback } from "react";
-import { BirthdateRegex, emailRegex } from "@components/Regex/Regex";
+import { BirthdateRegex, emailRegex } from "constants/regex";
 import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
 import { attributeToGermanHeader } from "@components/modals/AthleteExportModal/AthleteExportModal";
 

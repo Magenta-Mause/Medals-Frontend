@@ -31,7 +31,7 @@ const PerformanceRecordingCSVUploadComponent = ({
 }: PerformanceRecordingCSVUploadComponentProps) => {
   const { t } = useTranslation();
   const { createPerformanceRecording } = useApi();
-  const { formatDate, formatValue } = useFormatting();
+  const { formatLocalizedDate, formatValue } = useFormatting();
 
   const athletes = useTypedSelector(
     (state) => state.athletes.data,
@@ -180,7 +180,7 @@ const PerformanceRecordingCSVUploadComponent = ({
             if (!csvData.data.dateOfPerformance) {
               return t("components.csvImportModal.invalidPerformanceDate");
             }
-            return formatDate(csvData.data.dateOfPerformance);
+            return formatLocalizedDate(csvData.data.dateOfPerformance);
           },
         },
         {

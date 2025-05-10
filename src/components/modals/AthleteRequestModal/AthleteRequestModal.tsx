@@ -2,22 +2,22 @@ import useApi from "@hooks/useApi";
 import {
   Box,
   Button,
-  List,
+  Divider,
   Input,
+  List,
   ListItem,
   ListItemContent,
   Typography,
-  Divider,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { CircularProgress } from "@mui/material";
 import { Athlete } from "@customTypes/backendTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import GenericModal from "@components/modals/GenericModal";
 import { enqueueSnackbar } from "notistack";
-import React from "react";
+import useFormatting from "@hooks/useFormatting";
 
 interface AthleteRequestModalProps {
   isOpen: boolean;
@@ -31,6 +31,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
   const [icon, setShowScrollIcon] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
   const [filteredResults, setFilteredResults] = useState<Athlete[]>([]);
+  const { formatLocalizedDate } = useFormatting();
   const { selectedUser } = useContext(AuthContext);
   const [buttonState, setButtonState] = useState<{
     [key: number]: { loading: boolean; send: boolean };
@@ -74,12 +75,6 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
   };
 
   useEffect(() => {
-    if (searchAthlete.trim() === "") {
-      setFilteredResults([]);
-      setLoading(false);
-      return;
-    }
-
     const delayDebounceFn = setTimeout(async () => {
       try {
         const athletes = await searchAthletes(searchAthlete);
@@ -183,13 +178,13 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
             )}
 
             {filteredResults.map((athlete, index) => (
-              <>
+              <React.Fragment key={athlete.id}>
                 <ListItem
                   key={index}
                   sx={(theme) => ({
                     padding: 1,
                     width: "100%",
-                    borderRadius: 10,
+                    borderRadius: 3,
                     "&:hover": {
                       background: "rgba(199, 199, 199, 0.6)",
                     },
@@ -203,7 +198,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
                   <ListItemContent>
                     <Typography level="title-sm">{`${athlete.first_name} ${athlete.last_name}`}</Typography>
                     <Typography level="body-sm" noWrap>
-                      {`${athlete.birthdate}`}
+                      {`${formatLocalizedDate(athlete.birthdate)}`}
                     </Typography>
                   </ListItemContent>
                   <Button
@@ -222,8 +217,12 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
                         )}
                   </Button>
                 </ListItem>
-                <Divider sx={{ margin: 0.7 }} component="li" />
-              </>
+                {index != filteredResults.length - 1 ? (
+                  <Divider sx={{ margin: 0.7 }} component="li" />
+                ) : (
+                  <></>
+                )}
+              </React.Fragment>
             ))}
           </List>
           {icon && (

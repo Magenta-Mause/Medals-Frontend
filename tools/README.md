@@ -10,8 +10,9 @@ output better translations while also demanding a more performant computer.
 
 ##### Setup
 
-To check out the options this script offers, proceed as follows: 0. (Optionally) set up a virtual environment, certain libraries do not work with python versions >3.11
+To check out the options this script offers, proceed as follows:
 
+0. (Optionally) set up a virtual environment, certain libraries do not work with python versions >3.11
 1. Install the dependencies using `python -m pip install -r requirements.txt` (if you have a NVIDIA GPU, check out the [CUDA installation](#cuda-setup))
 2. Obtain the source-locale (english)
 3. Run `python i18n_translate.py --help` to view a list of options the script offers
@@ -55,7 +56,7 @@ while `fine-tuned` contains a list of finetuned models available for use.
 
 ##### Troubleshooting
 
-Since `requirements.txt` and `requirements.cuda.txt` explicitly specify packet versions for one of the more newer python versions (3.11), installation on older python versions might fail, in that case try to install the dependencies manually like this (at the time of writing, this will not work for versions >3.11 because of the sentencepiece library which requires binaries that have been precompiled for windows for every supported python version):
+Since `requirements.txt` eplicitly specifies packet versions for one of the more newer python versions (3.11), installation on older python versions might fail, in that case try to install the dependencies manually like this (at the time of writing, this will not work for versions >3.11 because of the sentencepiece library which requires binaries that have been precompiled for windows for every supported python version):
 
 ```
 pip install torch tqdm transformers numpy sentencepiece

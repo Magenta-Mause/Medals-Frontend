@@ -3,9 +3,10 @@ import DisciplineDetailModal from "@components/modals/DisciplineDetailModal/Disc
 import {
   Athlete,
   Discipline,
+  DisciplineRatingMetric,
   PerformanceRecording,
 } from "@customTypes/backendTypes";
-import { DisciplineCategories, Medals } from "@customTypes/enums";
+import { DisciplineCategories, Medals, UserType } from "@customTypes/enums";
 import {
   Accordion,
   AccordionDetails,
@@ -24,7 +25,8 @@ import {
   calculatePerformanceRecordingMedal,
   convertMedalToNumber,
 } from "@utils/calculationUtil";
-import MedalIcon from "@components/MedalIcon/MedalIcon";
+import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
+import { isDisciplineInvalid } from "@utils/disciplineValidationUtil";
 
 const DisciplineIcons: Record<DisciplineCategories, IconType> = {
   COORDINATION: GiJumpingRope,
@@ -33,7 +35,11 @@ const DisciplineIcons: Record<DisciplineCategories, IconType> = {
   STRENGTH: BiDumbbell,
 };
 
-const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
+const AthletePerformanceAccordions = (props: {
+  athlete: Athlete;
+  selectedUserType: UserType;
+  selectedYear: number;
+}) => {
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
@@ -47,6 +53,11 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
     DisciplineCategories,
     Medals
   > | null>(null);
+
+  const disciplineRatingMetrics = useTypedSelector(
+    (state) => state.disciplineMetrics.data,
+  ) as DisciplineRatingMetric[];
+
   useEffect(() => {
     const newAchievedCategoryMedal: Record<DisciplineCategories, Medals> = {
       [DisciplineCategories.COORDINATION]: Medals.NONE,
@@ -56,7 +67,11 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
     };
     disciplines.forEach((d) => {
       const bestEntry = performanceRecordings
-        .filter((p) => p.athlete_id == props.athlete.id)
+        .filter(
+          (p) =>
+            p.athlete_id == props.athlete.id &&
+            new Date(p.date_of_performance).getFullYear() == props.selectedYear,
+        )
         .filter((p) => p.discipline_rating_metric.discipline.id == d.id)
         .sort(
           d.is_more_better
@@ -75,7 +90,12 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
       }
     });
     setAchievedCategoryMedal(newAchievedCategoryMedal);
-  }, [performanceRecordings, disciplines, props.athlete.id]);
+  }, [
+    performanceRecordings,
+    disciplines,
+    props.athlete.id,
+    props.selectedYear,
+  ]);
 
   return (
     <>
@@ -83,7 +103,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: "25px",
+          gap: "15px",
           width: "100%",
         }}
       >
@@ -100,6 +120,7 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
           )}
           discipline={selectedDiscipline}
           open={isDisciplineOpen}
+          selectedUserType={props.selectedUserType}
         />
         {Object.values(DisciplineCategories).map(
           (category: DisciplineCategories) => (
@@ -159,9 +180,6 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
                   >
                     <MedalIcon
                       category={category}
-                      sx={{
-                        height: "35px",
-                      }}
                       medalType={
                         achievedCategoryMedal
                           ? achievedCategoryMedal[category]
@@ -174,10 +192,20 @@ const AthletePerformanceAccordions = (props: { athlete: Athlete }) => {
               <AccordionDetails>
                 <DisciplineDatagrid
                   performanceRecordings={performanceRecordings.filter(
-                    (p) => p.athlete_id == props.athlete.id,
+                    (p) =>
+                      p.athlete_id == props.athlete.id &&
+                      new Date(p.date_of_performance).getFullYear() ===
+                        props.selectedYear,
                   )}
                   disciplines={disciplines.filter(
-                    (d) => d.category == category,
+                    (d) =>
+                      d.category == category &&
+                      !isDisciplineInvalid(
+                        d,
+                        props.athlete,
+                        props.selectedYear,
+                        disciplineRatingMetrics,
+                      ),
                   )}
                   isLoading={false}
                   onDisciplineClick={async (d) => {

@@ -1,14 +1,13 @@
-import { useState, useMemo, useContext, useEffect } from "react";
-import { Box, Typography, Button, CircularProgress } from "@mui/joy";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { Box, Button, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import useApi from "@hooks/useApi";
 import {
   AgeRange,
   Athlete,
   DisciplineRatingMetric,
 } from "@customTypes/backendTypes";
-import { Genders } from "@customTypes/enums";
+import { Genders, UserType } from "@customTypes/enums";
 import FilterComponent, {
   Filter,
 } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
@@ -16,7 +15,6 @@ import { useTypedSelector } from "@stores/rootReducer";
 import PerformanceMetricDatagrid from "@components/datagrids/PerformanceMetricDatagrid/PerformanceMetricDatagrid";
 import { InfoTooltip } from "@components/InfoTooltip/InfoTooltip";
 import { calculateAge } from "@utils/calculationUtil";
-import { useSnackbar } from "notistack";
 
 const ageRangeOptions: AgeRange[] = [
   { label: "6-7", min: 6, max: 7 },
@@ -29,49 +27,46 @@ const ageRangeOptions: AgeRange[] = [
 
 const PerformanceMetricsPage = () => {
   const { selectedUser } = useContext(AuthContext);
-  const { getAthlete } = useApi();
-  const userRole = selectedUser?.type;
-  const [athlete, setAthlete] = useState<Athlete | null>(null);
-  const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(selectedUser?.type === "ATHLETE");
 
-  // Track if we've initialized filters yet
-  const [filtersInitialized, setFiltersInitialized] = useState(false);
+  const userRole = selectedUser?.type;
+
+  const defaultFilterValues = useMemo(() => {
+    const year = new Date().getFullYear().toString();
+    if (selectedUser?.type === UserType.ATHLETE) {
+      const athlete = selectedUser as unknown as Athlete;
+      const age = calculateAge(athlete.birthdate);
+      const matchingAgeRange = ageRangeOptions.find(
+        (range) => age >= range.min && age <= range.max,
+      );
+      return {
+        year,
+        age: matchingAgeRange
+          ? matchingAgeRange.label
+          : ageRangeOptions[0].label,
+        gender: athlete.gender || Genders.FEMALE,
+      };
+    }
+    return {
+      year,
+      age: ageRangeOptions[0].label,
+      gender: Genders.FEMALE,
+    };
+  }, [selectedUser]);
+
+  const [filterValues, setFilterValues] =
+    useState<Record<string, string>>(defaultFilterValues);
 
   useEffect(() => {
-    if (selectedUser?.type === "ATHLETE" && selectedUser?.id != null) {
-      setIsLoading(true);
-      getAthlete(selectedUser.id.toString())
-        .then((data: Athlete | undefined) => {
-          if (data) {
-            setAthlete(data);
-          } else {
-            enqueueSnackbar(t("snackbar.performanceMetrics.athleteNotFound"), {
-              variant: "error",
-            });
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching athlete data:", error);
-          enqueueSnackbar(t("snackbar.performanceMetrics.fetchAthleteFailed"), {
-            variant: "error",
-          });
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else {
-      // Not an athlete user, so we're not loading
-      setIsLoading(false);
+    if (selectedUser?.type === UserType.ATHLETE) {
+      setFilterValues(defaultFilterValues);
     }
-  }, [selectedUser, getAthlete, enqueueSnackbar, t]);
+  }, [defaultFilterValues, selectedUser]);
 
   const disciplineRatingMetrics = useTypedSelector(
     (state) => state.disciplineMetrics.data,
   ) as DisciplineRatingMetric[];
 
-  // Compute available years from metrics.
   const availableYears = useMemo(() => {
     const yearsSet = new Set<number>();
     disciplineRatingMetrics.forEach((metric) => {
@@ -81,56 +76,6 @@ const PerformanceMetricsPage = () => {
     });
     return Array.from(yearsSet).sort((a, b) => b - a);
   }, [disciplineRatingMetrics]);
-
-  const defaultFilterValues = useMemo(() => {
-    const year = new Date().getFullYear().toString();
-
-    if (selectedUser?.type === "ATHLETE" && athlete?.birthdate) {
-      const age = calculateAge(athlete.birthdate);
-      const matchingAgeRange = ageRangeOptions.find(
-        (range) => age >= range.min && age <= range.max,
-      );
-
-      return {
-        year,
-        age: matchingAgeRange
-          ? matchingAgeRange.label
-          : ageRangeOptions[0].label,
-        gender: athlete.gender || Genders.FEMALE,
-      };
-    }
-
-    return {
-      year,
-      age: ageRangeOptions[0].label,
-      gender: Genders.FEMALE,
-    };
-  }, [selectedUser, athlete]);
-
-  const [filterValues, setFilterValues] = useState<Record<string, string>>(
-    selectedUser?.type === "ATHLETE" ? {} : defaultFilterValues,
-  );
-
-  // Initialize filters once when athlete data is available or immediately for non-athletes
-  useEffect(() => {
-    if (!filtersInitialized) {
-      if (selectedUser?.type === "ATHLETE") {
-        if (athlete && !isLoading) {
-          setFilterValues(defaultFilterValues);
-          setFiltersInitialized(true);
-        }
-      } else {
-        setFilterValues(defaultFilterValues);
-        setFiltersInitialized(true);
-      }
-    }
-  }, [
-    athlete,
-    defaultFilterValues,
-    selectedUser,
-    isLoading,
-    filtersInitialized,
-  ]);
 
   const filters = useMemo<Filter<DisciplineRatingMetric>[]>(
     () => [
@@ -193,7 +138,6 @@ const PerformanceMetricsPage = () => {
     [availableYears, t],
   );
 
-  // Apply all filters to the metrics.
   const finalFilteredMetrics = useMemo(() => {
     return disciplineRatingMetrics.filter((metric) => {
       return filters.every((filter) => {
@@ -206,7 +150,6 @@ const PerformanceMetricsPage = () => {
     });
   }, [disciplineRatingMetrics, filters, filterValues]);
 
-  // Group the filtered metrics by discipline category.
   const groupedMetrics = useMemo(() => {
     return finalFilteredMetrics.reduce(
       (acc, metric) => {
@@ -221,7 +164,6 @@ const PerformanceMetricsPage = () => {
     );
   }, [finalFilteredMetrics]);
 
-  // Helper to update filter values.
   const setFilter = (
     key: string,
     value: string | ((oldVal: string) => string),
@@ -232,31 +174,14 @@ const PerformanceMetricsPage = () => {
     }));
   };
 
-  // Reset filters handler
   const handleResetFilters = () => {
     setFilterValues(defaultFilterValues);
   };
 
-  // Show loading state until filters are properly initialized
-  if (isLoading || !filtersInitialized) {
-    return (
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
-        <Typography level="h2" component="h1">
-          {userRole === "ATHLETE"
-            ? t("pages.performanceMetricsPage.title.athlete")
-            : t("pages.performanceMetricsPage.title.default")}
-        </Typography>
-        <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
-          <CircularProgress />
-        </Box>
-      </Box>
-    );
-  }
-
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
       <Typography level="h2" component="h1">
-        {userRole === "ATHLETE"
+        {userRole === UserType.ATHLETE
           ? t("pages.performanceMetricsPage.title.athlete")
           : t("pages.performanceMetricsPage.title.default")}
       </Typography>
@@ -273,8 +198,12 @@ const PerformanceMetricsPage = () => {
           setFilter={setFilter}
           filterValues={filterValues}
         />
-        {selectedUser?.type === "ATHLETE" && (
-          <Button sx={{ alignSelf: "flex-end" }} onClick={handleResetFilters}>
+        {selectedUser?.type === UserType.ATHLETE && (
+          <Button
+            sx={{ alignSelf: "flex-end" }}
+            onClick={handleResetFilters}
+            disabled={filterValues == defaultFilterValues}
+          >
             {t("pages.performanceMetricsPage.resetFilter")}
           </Button>
         )}

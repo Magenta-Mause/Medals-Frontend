@@ -6,7 +6,7 @@ import {
 } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
-import { Chip, Typography } from "@mui/joy";
+import { Typography } from "@mui/joy";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosCreate } from "react-icons/io";
@@ -17,14 +17,18 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import MedalIcon from "@components/MedalIcon/MedalIcon";
+import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
 import { calculatePerformanceRecordingMedal } from "@utils/calculationUtil";
+import { UserType } from "@customTypes/enums";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];
   isLoading: boolean;
   athlete?: Athlete;
   discipline?: Discipline;
+  selectedUserType: UserType;
+  hideFilter?: boolean;
+  showDisciplines?: boolean;
 }
 
 const PerformanceRecordingDatagrid = (
@@ -32,10 +36,23 @@ const PerformanceRecordingDatagrid = (
 ) => {
   const { deletePerformanceRecording } = useApi();
   const { t } = useTranslation();
-  const { formatValue, formatDate } = useFormatting();
+  const { formatValue, formatLocalizedDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
 
   const columns: Column<PerformanceRecording>[] = [
+    ...(props.showDisciplines
+      ? [
+          {
+            columnName: t(
+              "components.performanceRecordingDatagrid.columns.discipline",
+            ),
+            columnMapping(item: PerformanceRecording) {
+              return item.discipline_rating_metric.discipline.name;
+            },
+            size: "l" as "l" | "m",
+          },
+        ]
+      : []),
     {
       columnName: t("components.performanceRecordingDatagrid.columns.result"),
       columnMapping(p) {
@@ -57,10 +74,11 @@ const PerformanceRecordingDatagrid = (
       columnMapping(item) {
         return (
           <Typography>
-            {formatDate(Date.parse(item.date_of_performance)) ?? "-"}
+            {formatLocalizedDate(item.date_of_performance) ?? "-"}
           </Typography>
         );
       },
+      size: "l",
       sortable: true,
     },
     {
@@ -77,22 +95,34 @@ const PerformanceRecordingDatagrid = (
   ];
 
   const mobileRendering: MobileTableRendering<PerformanceRecording> = {
-    avatar: () => {
+    avatar: (item) => {
       return (
-        <Chip
-          sx={{ aspectRatio: 1, height: 45, backgroundColor: "gold" }}
-        ></Chip>
+        <MedalIcon
+          category={item.discipline_rating_metric.discipline.category}
+          medalType={calculatePerformanceRecordingMedal(item)}
+        />
       );
     },
     h1: (p) => (
       <>
-        {formatValue(
-          p.rating_value,
-          p.discipline_rating_metric.discipline.unit,
-        )}
+        {props.showDisciplines
+          ? p.discipline_rating_metric.discipline.name
+          : formatValue(
+              p.rating_value,
+              p.discipline_rating_metric.discipline.unit,
+            )}
       </>
     ),
-    h2: (p) => <>{formatDate(Date.parse(p.date_of_performance)) ?? "-"}</>,
+    h2: (p) => (
+      <>
+        {(props.showDisciplines
+          ? formatValue(
+              p.rating_value,
+              p.discipline_rating_metric.discipline.unit,
+            ) + " - "
+          : " ") + (formatLocalizedDate(p.date_of_performance) ?? "-")}
+      </>
+    ),
   };
 
   const filters: Filter<PerformanceRecording>[] = [
@@ -128,23 +158,26 @@ const PerformanceRecordingDatagrid = (
     },
   ];
 
-  const actions: ToolbarAction[] = props.athlete
-    ? [
-        {
-          label: t("pages.athleteDetailPage.createPerformanceRecordingButton"),
-          key: "addRecording",
-          operation: async () => {
-            await setCreationModalOpen(true);
+  const actions: ToolbarAction[] =
+    props.athlete && props.selectedUserType === UserType.TRAINER
+      ? [
+          {
+            label: t(
+              "pages.athleteDetailPage.createPerformanceRecordingButton",
+            ),
+            key: "addRecording",
+            operation: async () => {
+              await setCreationModalOpen(true);
+            },
+            icon: <IoIosCreate />,
+            content: t(
+              "components.performanceRecordingDatagrid.actions.add.text",
+            ),
+            color: "primary",
+            variant: "solid",
           },
-          icon: <IoIosCreate />,
-          content: t(
-            "components.performanceRecordingDatagrid.actions.add.text",
-          ),
-          color: "primary",
-          variant: "solid",
-        },
-      ]
-    : [];
+        ]
+      : [];
 
   return (
     <>
@@ -156,15 +189,21 @@ const PerformanceRecordingDatagrid = (
             Date.parse(b.date_of_performance),
         )}
         columns={columns}
-        filters={filters}
+        filters={props.hideFilter ? undefined : filters}
         keyOf={(item) => item.id}
         mobileRendering={mobileRendering}
-        toolbarActions={actions}
-        actionMenu={options}
-        itemSelectionActions={options}
+        toolbarActions={
+          props.selectedUserType === UserType.TRAINER ? actions : undefined
+        }
+        actionMenu={
+          props.selectedUserType === UserType.TRAINER ? options : undefined
+        }
+        itemSelectionActions={
+          props.selectedUserType === UserType.TRAINER ? options : undefined
+        }
         disablePaging
       />
-      {props.athlete ? (
+      {props.athlete && props.selectedUserType === UserType.TRAINER ? (
         <CreatePerformanceRecordingModal
           open={isCreationModalOpen}
           setOpen={setCreationModalOpen}

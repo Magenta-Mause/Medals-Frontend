@@ -1,4 +1,10 @@
-import { DisciplineCategories, Genders, MetricUnits } from "./enums";
+import {
+  DisciplineCategories,
+  Genders,
+  MetricUnits,
+  SwimmingCertificateType,
+  UserType,
+} from "./enums";
 
 export interface Athlete extends Record<string, unknown> {
   id?: number;
@@ -7,6 +13,7 @@ export interface Athlete extends Record<string, unknown> {
   email: string;
   birthdate: string;
   gender?: Genders;
+  swimming_certificate?: SwimmingCertificateType;
 }
 
 export interface UserEntity {

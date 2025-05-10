@@ -10,7 +10,7 @@ import {
   calculatePerformanceRecordingMedal,
   getBestPerformanceRecording,
 } from "@utils/calculationUtil";
-import MedalIcon from "@components/MedalIcon/MedalIcon";
+import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
 import { Medals } from "@customTypes/enums";
 import { DisciplineInfo } from "@components/datagrids/PerformanceMetricDatagrid/PerformanceMetricDatagrid";
 
@@ -27,10 +27,9 @@ interface DisciplineWithPerformanceRecordings extends Discipline {
 }
 
 const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [data, setData] = useState<DisciplineWithPerformanceRecordings[]>([]);
-  const { formatValue } = useFormatting();
-  const dateTimeFormatter = new Intl.DateTimeFormat(i18n.language);
+  const { formatValue, formatLocalizedDate } = useFormatting();
 
   useEffect(() => {
     setData(
@@ -98,7 +97,7 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
         return (
           <Typography>
             {item.performanceRecordings.length > 0
-              ? dateTimeFormatter.format(new Date(bestItem.date_of_performance))
+              ? formatLocalizedDate(bestItem.date_of_performance)
               : t("messages.noEntriesFound")}
           </Typography>
         );
@@ -109,19 +108,36 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
   const mobileRendering: MobileTableRendering<DisciplineWithPerformanceRecordings> =
     {
       h1: (discipline) => <>{discipline.name}</>,
-      h2: (discipline) => {
+      h2: (discipline) => <>{discipline.description}</>,
+      h3: (discipline) => {
         const bestItem = getBestPerformanceRecording(
           discipline.performanceRecordings,
           discipline,
         );
-
         return (
           <>
-            {discipline.description &&
-            discipline.performanceRecordings.length > 0
-              ? formatValue(bestItem.rating_value, discipline.unit)
+            {discipline.performanceRecordings.length > 0
+              ? t("components.disciplineDatagrid.columns.bestValue") +
+                ": " +
+                formatValue(bestItem.rating_value, discipline.unit)
               : t("messages.noEntriesFound")}
           </>
+        );
+      },
+      topRightInfo: (discipline) => {
+        const bestItem = getBestPerformanceRecording(
+          discipline.performanceRecordings,
+          discipline,
+        );
+        return (
+          <MedalIcon
+            category={discipline.category}
+            medalType={
+              bestItem
+                ? calculatePerformanceRecordingMedal(bestItem)
+                : Medals.NONE
+            }
+          />
         );
       },
       bottomButtons: [

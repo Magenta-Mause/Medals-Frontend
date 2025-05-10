@@ -1,9 +1,11 @@
 import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import { Box, Chip, Typography } from "@mui/joy";
+import useFormatting from "@hooks/useFormatting";
+import { Box, Link, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
+import { MdSportsKabaddi } from "react-icons/md";
 import GenericResponsiveDatagrid, {
   Action,
   ToolbarAction,
@@ -14,20 +16,18 @@ import CsvImportModal from "@components/modals/CsvImportModal/CsvImportModal";
 import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useTypedSelector } from "@stores/rootReducer";
-import { DisciplineCategories, Medals } from "@customTypes/enums";
-import {
-  calculatePerformanceRecordingMedal,
-  convertMedalToNumber,
-} from "@utils/calculationUtil";
-import MedalIcon from "@components/MedalIcon/MedalIcon";
+import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
 import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
-import { PersonSearch, PersonAdd } from "@mui/icons-material";
+import { PersonAdd, PersonSearch } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
+import AchievementsBox from "./AchievementsBox";
+import RemoveConfirmationModal from "@components/modals/GenericConfirmationModal/RemoveConfirmationModal/RemoveConfirmationModal";
+import { calculateAge } from "@utils/calculationUtil";
+import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
-  isLoading: boolean;
 }
 
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
@@ -37,16 +37,69 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   ) as PerformanceRecording[];
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { formatLocalizedDate } = useFormatting();
   const [addImportModalOpen, setImportModalOpen] = useState(false);
   const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
     useState(false);
   const [createAthleteModalOpen, setCreateAthleteModalOpen] = useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
+  const [isRemoveConfirmationModalOpen, setRemoveConfirmationModalOpen] =
+    useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
+  const currentYear = new Date().getFullYear();
+
+  const ageSelection = [
+    {
+      displayValue: "All",
+      value: "all",
+    },
+    ...Array.from({ length: 12 }, (_, i) => {
+      const value = (i + 6).toString();
+      return {
+        displayValue: <Typography>{Number(value)}</Typography>,
+        value,
+      };
+    }),
+  ];
+
+  const noAthleteFoundMessage = (
+    <Box sx={{ width: "250px" }}>
+      <Box
+        sx={{
+          py: "30px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          gap: "10px",
+        }}
+      >
+        <Box>
+          <MdSportsKabaddi size={"50px"} />
+        </Box>
+        <Box>
+          <Typography sx={{ userSelect: "none", textAlign: "center" }}>
+            <Link
+              onClick={(e) => {
+                e.preventDefault();
+                setAddAthleteRequestModalOpen(true);
+              }}
+              href={"#"}
+            >
+              {t("components.athleteDatagrid.table.noEntries.link")}
+            </Link>{" "}
+            {t("components.athleteDatagrid.table.noEntries.text")}
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
+  );
 
   const columns: Column<Athlete>[] = [
     {
       columnName: t("components.athleteDatagrid.table.columns.firstName"),
+      size: "s",
       columnMapping(item) {
         return <Typography>{item.first_name}</Typography>;
       },
@@ -54,6 +107,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.lastName"),
+      size: "s",
       columnMapping(item) {
         return <Typography>{item.last_name}</Typography>;
       },
@@ -63,7 +117,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       columnName: t("components.athleteDatagrid.table.columns.birthdate"),
       size: "s",
       columnMapping(item) {
-        return <Typography>{item.birthdate}</Typography>;
+        return <Typography>{formatLocalizedDate(item.birthdate)}</Typography>;
       },
       sortable: true,
     },
@@ -76,57 +130,25 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.gender"),
+      size: "s",
       columnMapping(item) {
-        return (
-          <Chip
-            size="sm"
-            sx={{ aspectRatio: 1, height: "2rem", textAlign: "center" }}
-          >
-            {t("genders." + item.gender)
-              .slice(0, 1)
-              .toUpperCase()}
-          </Chip>
-        );
+        return <GenderIcon gender={item.gender} />;
       },
       sortable: true,
     },
     {
-      columnName: t("components.athleteDatagrid.table.columns.medals"),
-      size: "l",
+      columnName: t("components.athleteDatagrid.table.columns.achievements"),
+      size: "xl",
       disableSpan: true,
       columnMapping(item) {
-        const performanceRecordingsOfAthlete = performanceRecordings.filter(
-          (p) => p.athlete_id == item.id,
-        );
         return (
-          <Box
-            sx={{
-              height: "25px",
-              gap: "10px",
-              display: "flex",
-              justifyContent: "left",
-            }}
-            key={item.id}
-          >
-            {Object.values(DisciplineCategories).map((category) => {
-              const performanceRecordingsOfCategory =
-                performanceRecordingsOfAthlete.filter(
-                  (p) =>
-                    p.discipline_rating_metric.discipline.category == category,
-                );
-              const bestValue = performanceRecordingsOfCategory
-                .map((p) => calculatePerformanceRecordingMedal(p))
-                .sort((m) => convertMedalToNumber(m))
-                .reverse()[0];
-              return (
-                <MedalIcon
-                  category={category}
-                  medalType={bestValue ?? Medals.NONE}
-                  key={item.id + category}
-                />
-              );
-            })}
-          </Box>
+          <>
+            <AchievementsBox
+              athlete={item}
+              performanceRecordings={performanceRecordings}
+              selectedYear={currentYear}
+            />
+          </>
         );
       },
     },
@@ -149,16 +171,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           athlete.id!.toString().toLowerCase().includes(filterParameter);
       },
       type: "TEXT",
-    },
-    {
-      name: "born in",
-      label: t("components.athleteDatagrid.table.filters.birthYear"),
-      apply(filterParameter) {
-        const parsed = filterParameter == "1";
-        return (athlete) => !parsed || athlete.birthdate.slice(0, 4) == "2005";
-      },
-      type: "TOGGLE",
-      option: "2005",
     },
     {
       name: "gender",
@@ -188,6 +200,23 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         },
       ],
     },
+    {
+      name: "age",
+      label: (
+        <>
+          {t("components.athleteDatagrid.table.filters.age")}
+          <InfoTooltip text={t("components.tooltip.ageFilter")} />
+        </>
+      ),
+      apply(filterParameter) {
+        return (athlete) =>
+          filterParameter === "" ||
+          filterParameter === "all" ||
+          String(calculateAge(athlete.birthdate)) === filterParameter;
+      },
+      type: "SELECTION",
+      selection: ageSelection,
+    },
   ];
 
   const toolbarActions: ToolbarAction[] = [
@@ -211,7 +240,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       icon: <PersonAdd />,
       collapseToText: true,
       color: "primary",
-      key: "create-athlete",
+      key: "create athlete button",
       variant: "solid",
       operation: async () => {
         setCreateAthleteModalOpen(true);
@@ -223,7 +252,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       icon: <PersonSearch />,
       collapseToText: true,
       color: "primary",
-      key: "add-athlete",
+      key: "request athlete button",
       variant: "solid",
       operation: async () => {
         setAddAthleteRequestModalOpen(true);
@@ -260,6 +289,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         console.log("Deleted Athlete:", item);
       },
     },
+    {
+      label: <>{t("components.athleteDatagrid.actions.remove")}</>,
+      color: "danger",
+      key: "remove",
+      variant: "outlined",
+      operation: async (item) => {
+        setSelectedAthletes((prev) => [...prev, item]);
+        setRemoveConfirmationModalOpen(true);
+      },
+    },
   ];
 
   const itemCallback = async (item: Athlete) => {
@@ -267,11 +306,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   const mobileRendering: MobileTableRendering<Athlete> = {
-    avatar: (athlete) => (
-      <Chip size="lg" sx={{ aspectRatio: 1 }}>
-        {athlete.id}
-      </Chip>
-    ),
     h1: (athlete) => (
       <>
         {athlete.first_name} {athlete.last_name}
@@ -279,7 +313,9 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     ),
     h2: (athlete) => <>{athlete.email}</>,
     h3: (athlete) => (
-      <Typography level="body-xs">{athlete.birthdate}</Typography>
+      <Typography level="body-xs">
+        {formatLocalizedDate(athlete.birthdate)}
+      </Typography>
     ),
     bottomButtons: [
       {
@@ -291,20 +327,11 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       ...actions.filter((action) => action.key !== "export"),
     ],
     topRightInfo: (athlete) => (
-      <Chip
-        size="md"
-        sx={{
-          aspectRatio: 1,
-          p: 1,
-          height: "2rem",
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
-          textAlign: "center",
-        }}
-      >
-        {athlete.gender!.slice(0, 1).toUpperCase()}
-      </Chip>
+      <AchievementsBox
+        athlete={athlete}
+        performanceRecordings={performanceRecordings}
+        selectedYear={currentYear}
+      />
     ),
     searchFilter: {
       name: "search",
@@ -314,7 +341,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           return () => true;
         }
         filterParameter = filterParameter.toLowerCase();
-
         return (athlete) =>
           athlete.first_name.toLowerCase().includes(filterParameter) ||
           athlete.last_name.toLowerCase().includes(filterParameter) ||
@@ -328,10 +354,10 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   useEffect(() => {
-    if (!isExportModalOpen) {
+    if (!isExportModalOpen && !isRemoveConfirmationModalOpen) {
       setSelectedAthletes([]);
     }
-  }, [isExportModalOpen]);
+  }, [isExportModalOpen, isRemoveConfirmationModalOpen]);
 
   return (
     <>
@@ -340,9 +366,14 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         setOpen={setExportModalOpen}
         selectedAthletes={selectedAthletes}
         includePerformance={false}
+        isButtonVisible={false}
+      />
+      <RemoveConfirmationModal
+        isOpen={isRemoveConfirmationModalOpen}
+        setOpen={setRemoveConfirmationModalOpen}
+        selectedAthletes={selectedAthletes}
       />
       <GenericResponsiveDatagrid
-        isLoading={props.isLoading}
         data={props.athletes}
         columns={columns}
         filters={filters}
@@ -353,6 +384,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
         disablePaging={false}
+        heightIfNoEntriesFound={"200px"}
+        messageIfNoEntriesFound={noAthleteFoundMessage}
       />
       <CsvImportModal
         isOpen={addImportModalOpen}
