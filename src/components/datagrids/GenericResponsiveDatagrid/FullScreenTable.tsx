@@ -501,5 +501,5 @@ const FullScreenTable = <T,>(props: {
   );
 };
 
-export { PageControl as PageControll };
+export { PageControl };
 export default FullScreenTable;

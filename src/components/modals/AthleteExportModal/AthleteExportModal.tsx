@@ -17,7 +17,6 @@ import { useSnackbar } from "notistack";
 import {
   AthleteExportColumn,
   AthletePerformanceExportColumn,
-  Genders,
 } from "@customTypes/enums";
 import GenericResponsiveDatagrid, {
   Action,
@@ -33,6 +32,25 @@ interface AthleteExportModalProps {
   includePerformance: boolean;
   isButtonVisible: boolean;
 }
+
+const attributeToGermanHeader: Record<string, string> = {
+  [AthleteExportColumn.FirstName]: "Vorname",
+  [AthleteExportColumn.LastName]: "Nachname",
+  [AthleteExportColumn.Email]: "E-Mail",
+  [AthleteExportColumn.Birthdate]: "Geburtsdatum",
+  [AthleteExportColumn.Gender]: "Geschlecht",
+
+  [AthletePerformanceExportColumn.FirstName]: "Vorname",
+  [AthletePerformanceExportColumn.LastName]: "Nachname",
+  [AthletePerformanceExportColumn.Email]: "E-Mail",
+  [AthletePerformanceExportColumn.Birthdate]: "Geburtsdatum",
+  [AthletePerformanceExportColumn.Gender]: "Geschlecht",
+  [AthletePerformanceExportColumn.Discipline]: "Übung",
+  [AthletePerformanceExportColumn.Category]: "Kategorie",
+  [AthletePerformanceExportColumn.PerformanceDate]: "Datum",
+  [AthletePerformanceExportColumn.Result]: "Ergebnis",
+  [AthletePerformanceExportColumn.Points]: "Punkte",
+};
 
 const AthleteExportModal = ({
   isOpen,
@@ -106,21 +124,6 @@ const AthleteExportModal = ({
   const mobileRendering: MobileTableRendering<Athlete> = {};
 
   const generateCSV = (data: any[], withPerformance: boolean) => {
-    const attributeToGermanHeader: Record<string, string> = {
-      [AthleteExportColumn.FirstName]: "Vorname",
-      [AthleteExportColumn.LastName]: "Nachname",
-      [AthleteExportColumn.Email]: "E-Mail",
-      [AthleteExportColumn.Birthdate]: "Geburtsdatum",
-      [AthleteExportColumn.Gender]: "Geschlecht",
-
-      [AthletePerformanceExportColumn.Birthyear]: "Geburtsjahr",
-      [AthletePerformanceExportColumn.Birthday]: "Geburtstag",
-      [AthletePerformanceExportColumn.Discipline]: "Übung",
-      [AthletePerformanceExportColumn.Category]: "Kategorie",
-      [AthletePerformanceExportColumn.Date]: "Datum",
-      [AthletePerformanceExportColumn.Result]: "Ergebnis",
-      [AthletePerformanceExportColumn.Points]: "Punkte",
-    };
     const columns: string[] = withPerformance
       ? Object.values(AthletePerformanceExportColumn)
       : Object.values(AthleteExportColumn);
@@ -130,20 +133,7 @@ const AthleteExportModal = ({
 
     const rows = data
       .map((item) => {
-        const mapGenderToGermanShort = (gender: string): string => {
-          switch (gender) {
-            case Genders.FEMALE:
-              return "W";
-            case Genders.MALE:
-              return "M";
-            case Genders.DIVERSE:
-              return "D";
-            default:
-              return "";
-          }
-        };
         const birthdate = item.birthdate ? new Date(item.birthdate) : null;
-        const birthYear = birthdate ? birthdate.getFullYear().toString() : "";
         const performanceRecordingsOfAthlete = performanceRecordings.filter(
           (p) => p.athlete_id === item.id,
         );
@@ -159,7 +149,7 @@ const AthleteExportModal = ({
                   : "";
               }
               if (col === AthleteExportColumn.Gender) {
-                return mapGenderToGermanShort(item.gender);
+                return item.gender;
               }
 
               return item[col] || "";
@@ -179,15 +169,15 @@ const AthleteExportModal = ({
             return columns
               .map((col) => {
                 switch (col) {
-                  case "first_name":
+                  case "athlete_first_name":
                     return item.first_name || "";
-                  case "last_name":
+                  case "athlete_last_name":
                     return item.last_name || "";
-                  case "gender":
-                    return mapGenderToGermanShort(item.gender) || "";
-                  case "birthyear":
-                    return birthYear || "";
-                  case "birthday":
+                  case "athlete_email":
+                    return item.email || "";
+                  case "athlete_gender":
+                    return item.gender || "";
+                  case "athlete_birthdate":
                     return birthdate
                       ? new Intl.DateTimeFormat("de-DE").format(birthdate)
                       : "";
@@ -195,7 +185,7 @@ const AthleteExportModal = ({
                     return discipline?.name || "";
                   case "category":
                     return discipline?.category || "";
-                  case "date":
+                  case "performance_date":
                     return performance.date_of_performance
                       ? new Intl.DateTimeFormat("de-DE").format(
                           new Date(performance.date_of_performance),
@@ -224,34 +214,34 @@ const AthleteExportModal = ({
           variant: "error",
         });
         return;
-      } else {
-        const csvContent = generateCSV(athletes, withPerformance);
-        if (!csvContent) {
-          enqueueSnackbar(t("snackbar.athleteExportModal.exportError"), {
-            variant: "error",
-          });
-          return;
-        }
-        const blob = new Blob([csvContent], {
-          type: "text/csv;charset=utf-8;",
-        });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute(
-          "download",
-          withPerformance
-            ? "athletePerformance_export.csv"
-            : "athlete_export.csv",
-        );
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        enqueueSnackbar(t("snackbar.athleteExportModal.success"), {
-          variant: "success",
-        });
       }
+
+      const csvContent = generateCSV(athletes, withPerformance);
+      if (!csvContent) {
+        enqueueSnackbar(t("snackbar.athleteExportModal.exportError"), {
+          variant: "error",
+        });
+        return;
+      }
+      const blob = new Blob([csvContent], {
+        type: "text/csv;charset=utf-8;",
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute(
+        "download",
+        withPerformance
+          ? "athletePerformance_export.csv"
+          : "athlete_export.csv",
+      );
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      enqueueSnackbar(t("snackbar.athleteExportModal.success"), {
+        variant: "success",
+      });
     } catch (error) {
       console.error("unexpected Export error:", error);
       enqueueSnackbar(t("snackbar.athleteExportModal.unexpectedError"), {
@@ -322,3 +312,4 @@ const AthleteExportModal = ({
 };
 
 export default AthleteExportModal;
+export { attributeToGermanHeader };

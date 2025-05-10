@@ -12,7 +12,7 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import AthleteImportModal from "@components/modals/AthleteImportModal/AthleteImportModal";
+import CsvImportModal from "@components/modals/CsvImportModal/CsvImportModal";
 import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useTypedSelector } from "@stores/rootReducer";
@@ -41,7 +41,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [addImportModalOpen, setImportModalOpen] = useState(false);
   const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
     useState(false);
-  const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
+  const [createAthleteModalOpen, setCreateAthleteModalOpen] = useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [isRemoveConfirmationModalOpen, setRemoveConfirmationModalOpen] =
     useState(false);
@@ -221,6 +221,18 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const toolbarActions: ToolbarAction[] = [
     {
+      label: t("components.csvImportModal.importButton"),
+      content: t("components.csvImportModal.importButton"),
+      icon: <UploadIcon />,
+      collapseToText: true,
+      color: "primary",
+      key: "import-athlete",
+      variant: "solid",
+      operation: async () => {
+        setImportModalOpen(true);
+      },
+    },
+    {
       label: t("components.athleteDatagrid.table.toolbar.createAthlete.label"),
       content: t(
         "components.athleteDatagrid.table.toolbar.createAthlete.content",
@@ -244,18 +256,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       variant: "solid",
       operation: async () => {
         setAddAthleteRequestModalOpen(true);
-      },
-    },
-    {
-      label: t("pages.athleteImportPage.importButton"),
-      content: t("pages.athleteImportPage.importButton"),
-      icon: <UploadIcon />,
-      collapseToText: true,
-      color: "primary",
-      key: "import-athlete",
-      variant: "solid",
-      operation: async () => {
-        setImportModalOpen(true);
       },
     },
   ];
@@ -387,11 +387,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         heightIfNoEntriesFound={"200px"}
         messageIfNoEntriesFound={noAthleteFoundMessage}
       />
-      <AthleteImportModal
-        isOpen={addImportModalOpen}
-        setOpen={setImportModalOpen}
-      />
-      <AthleteImportModal
+      <CsvImportModal
         isOpen={addImportModalOpen}
         setOpen={setImportModalOpen}
       />
@@ -400,7 +396,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         setOpen={setAddAthleteRequestModalOpen}
       />
       <AthleteCreationForm
-        isOpen={createAthletModalOpen}
+        isOpen={createAthleteModalOpen}
         setOpen={setCreateAthleteModalOpen}
       />
     </>

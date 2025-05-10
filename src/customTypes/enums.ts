@@ -30,7 +30,7 @@ export enum Genders {
   MALE = "MALE",
 }
 
-export enum AthleteValidityState {
+export enum CSVUploadState {
   VALID,
   UPLOADED,
   FAILED,
@@ -56,14 +56,14 @@ export enum AthleteExportColumn {
 }
 
 export enum AthletePerformanceExportColumn {
-  FirstName = "first_name",
-  LastName = "last_name",
-  Gender = "gender",
-  Birthyear = "birthyear",
-  Birthday = "birthday",
+  FirstName = "athlete_first_name",
+  LastName = "athlete_last_name",
+  Email = "athlete_email",
+  Birthdate = "athlete_birthdate",
+  Gender = "athlete_gender",
   Discipline = "discipline",
   Category = "category",
-  Date = "date",
+  PerformanceDate = "performance_date",
   Result = "result",
   Points = "points",
 }

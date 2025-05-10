@@ -149,18 +149,6 @@
       "createButton": "Create",
       "createHeader": "Create Athlete"
     },
-    "athleteImportPage": {
-      "importButton": "Import Athletes",
-      "feedback1": "Athlete ",
-      "feedback2": " created",
-      "failedFeedback": "Failed to create ",
-      "DropFile": "Drag & Drop your file here or click",
-      "changeFile": "Reset file",
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "valid": "Status",
-      "athleteList": "Athlete List"
-    },
     "trainerOverviewPage": {
       "header": "Trainers"
     },
@@ -605,11 +593,11 @@
         "notAchieved": "Swimming certificate not achieved"
       },
       "showPassword": "Show/Hide Password",
-      "athleteUploadDatagrid": {
+      "CSVUploadDatagrid": {
         "error": "The specified athlete already exists or is incorrect",
         "loading": "Loading...",
-        "uploaded": "Athlete has been uploaded",
-        "valid": "Athlete can be uploaded"
+        "uploaded": "Data has been uploaded",
+        "valid": "Data can be uploaded"
       },
       "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
     },
@@ -631,57 +619,85 @@
       "performanceCheckbox": "Include Performance Metrics",
       "removeFromSelectionButton": "Remove"
     },
-    "athleteDashboard": {
-      "error": {
-        "notAnAthlete": "Selected user is not an athlete"
+    "csvUploadComponent": {
+      "failedUpload": "Error during upload",
+      "DropFile": "Drag & Drop your file here or click",
+      "athleteList": "Athlete List",
+      "changeFile": "Reset file",
+      "invalidFileType": "Only CSV files are allowed"
+    },
+    "csvUploadDatagrid": {
+      "valid": "Status",
+      "noValidEntries": "No valid entries"
+    },
+    "csvImportModal": {
+      "importButton": "Import Athletes",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "discipline": "Discipline",
+      "performanceDate": "Performance Date",
+      "performanceResult": "Result",
+      "tabSelection": {
+        "athleteImport": "Import athlete",
+        "performanceImport": "Import performance"
       },
-      "activityChartHeader": "Your activities in",
-      "totalPerformanceRecordings": "Your performance recordings",
-      "performanceRecordingsThisYear": " of which in this year",
-      "selectedUser": "Your profile",
-      "bornIn": "Born in",
-      "categoryMedalBox": {
-        "thisEquals": "This equals",
-        "points": {
-          "singular": "point",
-          "plural": "points"
-        }
-      },
-      "activityChart": {
-        "header": "Your activities in ",
-        "link": "See all your activities"
-      },
-      "totalMedalBox": {
-        "header": "\"Deutsches Sportabzeichen\"",
-        "medalMissing": "You need at least a bronze medal in all categories",
-        "noMedalReached": "which is'nt enough to reach a medal",
-        "noSwimCertificate": {
-          "blurText": "To be accepted for the for the \"Deutsches Sportabzeichen\" you need a valid swim certification",
-          "pointDisplay": {
-            "prefix": "You've achieved",
-            "between": "which would lead to a",
-            "postfix": ""
-          }
-        },
-        "pointsMissingTemplate": {
-          "prefix": {
-            "singular": "",
-            "plural": ""
-          },
-          "between": "missing to achieve the",
-          "postfix": "medal"
-        },
-        "pointsCount": {
+      "invalidFirstName": "Invalid first name",
+      "invalidLastName": "Invalid last name",
+      "invalidDiscipline": "Invalid discipline",
+      "invalidPerformanceDate": "Invalid date",
+      "invalidPerformanceResult": "Invalid result"
+    }
+  },
+  "athleteDashboard": {
+    "error": {
+      "notAnAthlete": "Selected user is not an athlete"
+    },
+    "activityChartHeader": "Your activities in",
+    "totalPerformanceRecordings": "Your performance recordings",
+    "performanceRecordingsThisYear": " of which in this year",
+    "selectedUser": "Your profile",
+    "bornIn": "Born in",
+    "categoryMedalBox": {
+      "thisEquals": "This equals",
+      "points": {
+        "singular": "point",
+        "plural": "points"
+      }
+    },
+    "activityChart": {
+      "header": "Your activities in ",
+      "link": "See all your activities"
+    },
+    "totalMedalBox": {
+      "header": "\"Deutsches Sportabzeichen\"",
+      "medalMissing": "You need at least a bronze medal in all categories",
+      "noMedalReached": "which is'nt enough to reach a medal",
+      "noSwimCertificate": {
+        "blurText": "To be accepted for the for the \"Deutsches Sportabzeichen\" you need a valid swim certification",
+        "pointDisplay": {
           "prefix": "You've achieved",
+          "between": "which would lead to a",
           "postfix": ""
         }
       },
-      "swimCertificate": {
-        "header": "Your Swim Certificate",
-        "noSwimCertificate": "Missing",
-        "existing": "Your all set for your final Medal",
-        "notExisting": "You need a valid swimming certification to be accepted for the final Medal"
+      "pointsMissingTemplate": {
+        "prefix": {
+          "singular": "",
+          "plural": ""
+        },
+        "between": "missing to achieve the",
+        "postfix": "medal"
+      },
+      "pointsCount": {
+        "prefix": "You've achieved",
+        "postfix": ""
       }
+    },
+    "swimCertificate": {
+      "header": "Your Swim Certificate",
+      "noSwimCertificate": "Missing",
+      "existing": "Your all set for your final Medal",
+      "notExisting": "You need a valid swimming certification to be accepted for the final Medal"
     }
   }
 }

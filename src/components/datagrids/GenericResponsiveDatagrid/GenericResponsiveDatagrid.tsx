@@ -21,7 +21,7 @@ import {
 } from "@mui/joy";
 import { OverridableStringUnion } from "@mui/types";
 import React, { Key, useCallback, useEffect, useState } from "react";
-import FullScreenTable, { Column, PageControll } from "./FullScreenTable";
+import FullScreenTable, { Column, PageControl } from "./FullScreenTable";
 import FilterComponent, {
   Filter,
 } from "./GenericResponsiveDatagridFilterComponent";
@@ -85,8 +85,8 @@ interface GenericResponsiveDatagridProps<T> {
  * @param {(item: T) => Key} keyOf - Function to derive a unique key for each data item.
  * @param {number} [elementsPerPage=5] - Number of rows to display per page. Defaults to 5.
  * @param {MobileTableRendering<T>} mobileRendering - Configuration for rendering the grid on smaller screens.
- * @param {(item: T) => void} onItemClick - Methode which gets called when clicking on a table entry
- * @param {boolean} disablePaging - Disable the "paging" functionality (this will show all entries on one page and disable the page controll buttons)
+ * @param {(item: T) => void} onItemClick - Method which gets called when clicking on a table entry
+ * @param {boolean} disablePaging - Disable the "paging" functionality (this will show all entries on one page and disable the page control buttons)
  *
  * @description
  * This component supports:
@@ -411,7 +411,7 @@ const GenericResponsiveDatagrid = <T,>(
         }}
       />
       {!props.disablePaging ? (
-        <PageControll
+        <PageControl
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           elementsPerPage={pageSize}
