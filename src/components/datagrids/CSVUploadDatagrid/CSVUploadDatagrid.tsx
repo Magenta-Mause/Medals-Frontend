@@ -83,7 +83,7 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
       disablePaging
     />
   ) : (
-    <Typography>{t("components.csvUploadDatagrid.noValidEntries")} </Typography>
+    <Typography>{t("components.csvUploadDatagrid.noValidEntries")} </Typography> // TODO: show message inside the Datagrid -> wait for https://github.com/Magenta-Mause/Medals-Frontend/pull/48
   );
 };
 
