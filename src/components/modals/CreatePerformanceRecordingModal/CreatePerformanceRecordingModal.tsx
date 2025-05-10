@@ -268,7 +268,7 @@ const CreatePerformanceRecordingModal = (props: {
                   </div>
                   <Divider
                     sx={{
-                      marginInline: 2.2,
+                      marginInline: 2,
                     }}
                   />
                   <ul style={{ paddingLeft: 8, margin: 0 }}>
