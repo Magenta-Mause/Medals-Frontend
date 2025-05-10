@@ -2,10 +2,11 @@ import { useTranslation } from "react-i18next";
 import CSVUploadComponent, { CSVData } from "../CSVUploadComponent";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
-import { Genders } from "@customTypes/enums";
+import { AthleteExportColumn, Genders } from "@customTypes/enums";
 import { useCallback } from "react";
 import { BirthdateRegex, emailRegex } from "@components/Regex/Regex";
 import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
+import { attributeToGermanHeader } from "@components/modals/AthleteExportModal/AthleteExportModal";
 
 interface AthleteCSVUploadComponentProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -46,21 +47,43 @@ const AthleteCSVUploadComponent = ({
     return athletesData.data.map(
       (row: any) =>
         ({
-          first_name: row["Vorname"]?.trim() || "",
-          last_name: row["Nachname"]?.trim() || "",
-          email: row["E-Mail"]?.trim() || "",
-          birthdate: convertDateFormat(row["Geburtsdatum"]?.trim()) || "",
-          gender: normalizeGender(row["Geschlecht"]),
-        }) as Athlete,
+          first_name:
+            row[
+              attributeToGermanHeader[AthleteExportColumn.FirstName]
+            ].trim() ?? undefined,
+          last_name:
+            row[attributeToGermanHeader[AthleteExportColumn.LastName]].trim() ??
+            undefined,
+          email:
+            row[attributeToGermanHeader[AthleteExportColumn.Email]].trim() ??
+            undefined,
+          birthdate:
+            convertDateFormat(
+              row[attributeToGermanHeader[AthleteExportColumn.Birthdate]],
+            ).trim() ?? undefined,
+          gender:
+            normalizeGender(
+              row[attributeToGermanHeader[AthleteExportColumn.Gender]],
+            ) ?? undefined,
+        }) as Partial<Athlete>,
     );
   };
 
-  const isValidAthlete = async (athlete: Athlete) => {
-    const athleteExists = await checkIfAthleteExists(athlete);
+  const isValidAthlete = async (athlete: Partial<Athlete>) => {
     if (
-      athlete.first_name &&
-      athlete.last_name &&
-      athlete.gender &&
+      !athlete.first_name ||
+      !athlete.last_name ||
+      !athlete.gender ||
+      !athlete.email ||
+      !athlete.birthdate
+    ) {
+      return false;
+    }
+
+    const checkedAthlete = athlete as Athlete;
+    const athleteExists = await checkIfAthleteExists(checkedAthlete);
+
+    if (
       emailRegex.test(athlete.email) &&
       BirthdateRegex.test(athlete.birthdate) &&
       ["DIVERSE", "MALE", "FEMALE"].includes(athlete.gender) &&
@@ -71,22 +94,31 @@ const AthleteCSVUploadComponent = ({
 
     return false;
   };
+
   return (
     <CSVUploadComponent
       key="athleteImport"
       setOpen={setOpen}
       parseCSVData={parseAthleteCSV}
-      uploadEntry={createAthlete}
+      uploadEntry={
+        (athlete: Partial<Athlete>) => createAthlete(athlete as Athlete) // at this point, athlete is already validated
+      }
       csvColumns={[
         {
           columnName: t("components.csvImportModal.firstName"),
-          columnMapping(csvData: CSVData<Athlete>) {
+          columnMapping(csvData: CSVData<Partial<Athlete>>) {
+            if (!csvData.data.first_name) {
+              return "Athlete first name not set";
+            }
             return csvData.data.first_name;
           },
         },
         {
           columnName: t("components.csvImportModal.lastName"),
-          columnMapping(csvData: CSVData<Athlete>) {
+          columnMapping(csvData: CSVData<Partial<Athlete>>) {
+            if (!csvData.data.last_name) {
+              return "Athlete last name not set";
+            }
             return csvData.data.last_name;
           },
         },
