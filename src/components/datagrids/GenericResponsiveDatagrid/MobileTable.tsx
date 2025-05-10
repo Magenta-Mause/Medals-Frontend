@@ -1,7 +1,6 @@
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import {
   Box,
-  Button,
   IconButton,
   List,
   ListDivider,
@@ -21,9 +20,10 @@ export interface MobileTableRendering<T> {
   h1?: (row: T) => ReactNode;
   h2?: (row: T) => ReactNode;
   h3?: (row: T) => ReactNode;
-  bottomButtons?: Action<T>[];
+  topRightMenu?: Action<T>[];
   additionalActions?: Action<T>[];
   topRightInfo?: (row: T) => ReactNode;
+  contentRow?: (row: T) => ReactNode;
   searchFilter?: Filter<T>;
   onElementClick?: (row: T) => void;
 }
@@ -106,43 +106,54 @@ const Row = <T,>(props: {
             ) : (
               <></>
             )}
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-                mb: 1,
-              }}
-            >
-              {props.rendering.bottomButtons?.map((action) => (
-                <Button
-                  color={action.color}
-                  key={action.key}
-                  variant={action.variant ?? "plain"}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    action.operation(props.item);
-                  }}
-                >
-                  {action.label}
-                </Button>
-              ))}
-              {props.rendering.additionalActions ? (
+            {/* Content row */}
+            {props.rendering.contentRow ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 2,
+                  mb: 1,
+                }}
+              >
+                {props.rendering.contentRow(props.item)}
+              </Box>
+            ) : (
+              <></>
+            )}
+            {/* Additional actions */}
+            {props.rendering.additionalActions ? (
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 2, mb: 1 }}
+              >
                 <RowMenu
                   item={props.item}
                   actionMenu={props.rendering.additionalActions}
                 />
-              ) : (
-                <></>
-              )}
-            </Box>
+              </Box>
+            ) : (
+              <></>
+            )}
           </div>
         </ListItemContent>
-        {props.rendering.topRightInfo ? (
-          props.rendering.topRightInfo(props.item)
-        ) : (
-          <></>
-        )}
+
+        <Box sx={{ display: "flex", alignItems: "start", gap: 1 }}>
+          {props.rendering.topRightInfo ? (
+            props.rendering.topRightInfo(props.item)
+          ) : (
+            <></>
+          )}
+
+          {props.rendering.topRightMenu &&
+          props.rendering.topRightMenu.length > 0 ? (
+            <RowMenu
+              item={props.item}
+              actionMenu={props.rendering.topRightMenu}
+            />
+          ) : (
+            <></>
+          )}
+        </Box>
       </ListItem>
       {props.index < props.totalCount - 1 ? (
         <ListDivider key={props.keyOf(props.item) + "divider"} />
