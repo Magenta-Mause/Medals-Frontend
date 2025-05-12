@@ -7,7 +7,7 @@ import {
 import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
 import { Typography } from "@mui/joy";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosCreate } from "react-icons/io";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -20,6 +20,8 @@ import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
 import { calculatePerformanceRecordingMedal } from "@utils/calculationUtil";
 import { UserType } from "@customTypes/enums";
+import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
+import { enqueueSnackbar } from "notistack";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];
@@ -38,6 +40,10 @@ const PerformanceRecordingDatagrid = (
   const { t } = useTranslation();
   const { formatValue, formatLocalizedDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState<PerformanceRecording[]>(
+    [],
+  );
 
   const columns: Column<PerformanceRecording>[] = [
     ...(props.showDisciplines
@@ -123,7 +129,8 @@ const PerformanceRecordingDatagrid = (
             label: t("components.performanceRecordingDatagrid.actions.delete"),
             key: "delete",
             operation: async (item) => {
-              await deletePerformanceRecording(item.id);
+              setSelectedRecord((prev) => [...prev, item]);
+              setDeleteModalOpen(true);
             },
             color: "danger",
           },
@@ -183,6 +190,30 @@ const PerformanceRecordingDatagrid = (
     topRightMenu: options,
   };
 
+  const handleConfirmDeletion = async () => {
+    if (selectedRecord.length === 0) return;
+    try {
+      for (const item of selectedRecord) {
+        await deletePerformanceRecording(item.id);
+      }
+      enqueueSnackbar(t("snackbar.performanceRecording.deletionSuccess"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error while deleting perfomance recordings", error);
+      enqueueSnackbar(t("snackbar.performanceRecording.deletionError"), {
+        variant: "error",
+      });
+    }
+    setDeleteModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (!isDeleteModalOpen) {
+      setSelectedRecord([]);
+    }
+  }, [isDeleteModalOpen]);
+
   return (
     <>
       <GenericResponsiveDatagrid
@@ -217,6 +248,20 @@ const PerformanceRecordingDatagrid = (
       ) : (
         <></>
       )}
+      <ConfirmationPopup
+        open={isDeleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+        }}
+        onConfirm={handleConfirmDeletion}
+        header={t(
+          "components.performanceRecordingDatagrid.deletionModal.header",
+        )}
+        message={t(
+          "components.performanceRecordingDatagrid.deletionModal.confirmDeleteMessage",
+        )}
+        confirmButtonText={t("components.confirmationPopup.deleteButton")}
+      />
     </>
   );
 };

@@ -12,7 +12,6 @@ const Disclaimer = () => {
         border: "1px solid",
         borderColor: "divider",
         borderRadius: "sm",
-        mt: 2,
         textAlign: "justify",
         textAlignLast: "center",
         letterSpacing: 0.1,

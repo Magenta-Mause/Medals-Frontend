@@ -104,7 +104,17 @@ const ResetPasswordPage = () => {
   return (
     <SplitPageComponent>
       <Box display="flex">
-        <Button color="neutral" variant="soft" onClick={() => navigate("/")}>
+        <Button
+          color="neutral"
+          sx={(theme) => ({
+            bgcolor: "rgba(255, 255, 255, 0.5)",
+            [theme.getColorSchemeSelector("dark")]: {
+              bgcolor: "rgba(0,0 ,0, 0.3)",
+            },
+          })}
+          variant="soft"
+          onClick={() => navigate("/")}
+        >
           {<ArrowBackIos />} Back
         </Button>
       </Box>
@@ -116,9 +126,9 @@ const ResetPasswordPage = () => {
           pb: 5,
           display: "flex",
           flexDirection: "column",
-          gap: 2,
+          gap: 6,
           width: 450,
-          maxWidth: "100%",
+          maxWidth: "58%",
           mx: "auto",
           borderRadius: "sm",
           "& form": {
