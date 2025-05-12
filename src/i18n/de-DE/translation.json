@@ -681,8 +681,8 @@
       "performanceDate": "Aufnahmedatum",
       "performanceResult": "Ergebnis",
       "tabSelection": {
-        "athleteImport": "Athlet*innen importieren",
-        "performanceImport": "Leistungen importieren"
+        "athleteImport": "Athlet*innen",
+        "performanceImport": "Leistungen"
       },
       "invalidFirstName": "Vorname ist ungültig",
       "invalidLastName": "Nachname ist ungültig",

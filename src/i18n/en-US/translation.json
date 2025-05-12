@@ -631,15 +631,15 @@
       "noValidEntries": "No valid entries"
     },
     "csvImportModal": {
-      "importButton": "Import Athletes",
+      "importButton": "Import data",
       "firstName": "First Name",
       "lastName": "Last Name",
       "discipline": "Discipline",
       "performanceDate": "Performance Date",
       "performanceResult": "Result",
       "tabSelection": {
-        "athleteImport": "Import athlete",
-        "performanceImport": "Import performance"
+        "athleteImport": "Athletes",
+        "performanceImport": "Performances"
       },
       "invalidFirstName": "Invalid first name",
       "invalidLastName": "Invalid last name",
