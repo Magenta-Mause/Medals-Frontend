@@ -258,14 +258,20 @@ const CreatePerformanceRecordingModal = (props: {
                 <li key={params.key}>
                   <div
                     style={{
-                      paddingLeft: 20,
-                      fontWeight: 700,
-                      fontSize: "0.9em",
+                      paddingLeft: 19,
+                      margin: 2,
+                      fontWeight: 600,
+                      fontSize: "0.75em",
+                      opacity: 0.7,
                     }}
                   >
                     {params.group.toUpperCase()}
                   </div>
-                  <Divider />
+                  <Divider
+                    sx={{
+                      marginInline: 2,
+                    }}
+                  />
                   <ul style={{ paddingLeft: 8, margin: 0 }}>
                     {[...validOptions, ...invalidOptions].map((option) =>
                       React.isValidElement(option)
