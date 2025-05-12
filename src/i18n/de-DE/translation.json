@@ -148,7 +148,8 @@
       "birthdate": "Geburtstag",
       "gender": "Geschlecht",
       "createButton": "Erstellen",
-      "createHeader": "Athlet*in erstellen"
+      "createHeader": "Athlet*in erstellen",
+      "sendMangementRequest": "Möchten sie diesen Athleten verwalten?"
     },
     "athleteImportPage": {
       "importButton": "Athlet*innen importieren",

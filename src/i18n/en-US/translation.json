@@ -147,7 +147,8 @@
       "birthdate": "Birthdate",
       "gender": "Gender",
       "createButton": "Create",
-      "createHeader": "Create Athlete"
+      "createHeader": "Create Athlete",
+      "sendMangementRequest": "Do you want to manage this athlete?"
     },
     "athleteImportPage": {
       "importButton": "Import Athletes",

@@ -11,12 +11,15 @@ import {
 import Option from "@mui/joy/Option";
 import Select from "@mui/joy/Select";
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import GenericModal from "../GenericModal";
 import { emailRegex } from "constants/regex";
 import { Genders } from "@customTypes/enums";
+import Checkbox from "@mui/joy/Checkbox";
+import { enqueueSnackbar } from "notistack";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
 const isValidEmail = (email: string) => emailRegex.test(email);
 
@@ -56,7 +59,8 @@ interface AthleteCreationFormProps {
 
 const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
   const { t, i18n } = useTranslation();
-  const { createAthlete } = useApi();
+  const { createAthlete, getAthleteId, requestAthlete } = useApi();
+  const { selectedUser } = useContext(AuthContext);
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
     last_name: "",
@@ -64,6 +68,7 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
     birthdate: "",
     gender: undefined,
   });
+  const [manage, setManage] = useState(true);
 
   // Track if field has been touched (to avoid showing errors initially)
   const [touched, setTouched] = useState<FormTouched>({
@@ -85,6 +90,10 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
 
   // Get date format based on current locale
   const dateFormat = getDateFormatForLocale(i18n.language);
+
+  const handleCheckboxChange = (e: any) => {
+    setManage(e.target.checked); // true when checked, false when unchecked
+  };
 
   // Validate form fields
   const validateField = (field: keyof FormErrors, value: any): string => {
@@ -139,6 +148,23 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
       handleFieldChange("birthdate", isoDate);
     } else {
       handleFieldChange("birthdate", "");
+    }
+  };
+
+  const requestAccess = async (email: string, birthdate: string) => {
+    try {
+      await requestAthlete(
+        await getAthleteId(email, birthdate),
+        selectedUser!.id,
+      );
+      enqueueSnackbar(t("snackbar.requestAthleteAccess.success"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error requesting athlete", error);
+      enqueueSnackbar(t("snackbar.requestAthleteAccess.failed"), {
+        variant: "error", // Changed to 'error'
+      });
     }
   };
 
@@ -318,6 +344,12 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
           )}
         </FormControl>
 
+        <Checkbox
+          label={t("pages.athleteCreationPage.sendMangementRequest")}
+          checked={manage}
+          onChange={handleCheckboxChange}
+        />
+
         <Button
           fullWidth
           disabled={!isFormValid()}
@@ -330,6 +362,9 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
               createAthlete(athlete);
               setOpen(false);
               resetForm();
+              if (manage) {
+                requestAccess(athlete.email, athlete.birthdate);
+              }
             }
           }}
         >
