@@ -6,6 +6,7 @@ import { CSVUploadState } from "@customTypes/enums";
 import { Tab, Tabs } from "@mui/material";
 import AthleteCSVUploadComponent from "@components/CSVUploadComponent/AthleteCSVUploadComponent/AthleteCSVUploadComponent";
 import PerformanceRecordingCSVUploadComponent from "@components/CSVUploadComponent/PerformanceRecordingCSVUploadComponent/PerformanceRecordingCSVUploadComponent";
+import { Typography } from "@mui/joy";
 
 export interface AthleteWithValidity extends Athlete {
   state: CSVUploadState | undefined;
@@ -47,14 +48,28 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
           }}
           textColor="primary"
           indicatorColor="primary"
+          variant="fullWidth"
+          sx={{
+            "& .MuiTypography-body-md": {
+              borderRadius: "1px",
+              fontSize: "medium",
+              textTransform: "none",
+            },
+          }}
         >
           <Tab
-            label={t("components.csvImportModal.tabSelection.athleteImport")}
+            label={
+              <Typography>
+                {t("components.csvImportModal.tabSelection.athleteImport")}
+              </Typography>
+            }
           />
           <Tab
-            label={t(
-              "components.csvImportModal.tabSelection.performanceImport",
-            )}
+            label={
+              <Typography>
+                {t("components.csvImportModal.tabSelection.performanceImport")}
+              </Typography>
+            }
           />
         </Tabs>
         {selectedImportPage === importPage.athleteImport ? (
