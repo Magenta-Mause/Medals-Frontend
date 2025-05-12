@@ -4,10 +4,11 @@ import {
   CardContent,
   CardOverflow,
   Typography,
-  Link,
+  IconButton,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { Download } from "@mui/icons-material";
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 
 interface DownloadCardProps {
   path: string;
@@ -24,7 +25,7 @@ const DownloadCard = (props: DownloadCardProps) => {
   };
 
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" sx={{ pb: 0, gap: 0 }}>
       <CardOverflow>
         <AspectRatio ratio="2">
           <img
@@ -33,19 +34,26 @@ const DownloadCard = (props: DownloadCardProps) => {
           />
         </AspectRatio>
       </CardOverflow>
-      <CardContent>
-        <Typography level="title-md" fontWeight={"bold"}>
+      <CardContent
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          py: ".6rem",
+        }}
+      >
+        <Typography level="title-lg" fontWeight={"inherit"}>
           {t("components.downloadCard.items." + props.path)}
         </Typography>
-        <Typography level="body-sm">
-          <Link
-            href="#multiple-actions"
+        <HoverTooltip text={t("components.downloadCard.downloadButton")}>
+          <IconButton
             onClick={() => handleDownload("/assets/pdfs/" + props.path)}
+            color="primary"
           >
-            {t("components.downloadCard.downloadButton")}
             <Download />
-          </Link>
-        </Typography>
+          </IconButton>
+        </HoverTooltip>
       </CardContent>
     </Card>
   );

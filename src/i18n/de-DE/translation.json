@@ -448,7 +448,8 @@
         "filters": {
           "search": "Suche",
           "birthYear": "Geburtsjahr",
-          "gender": "Geschlecht"
+          "gender": "Geschlecht",
+          "age": "Alter"
         },
         "toolbar": {
           "addAthlete": {
@@ -617,6 +618,7 @@
     },
     "tooltip": {
       "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
+      "ageFilter": "Das Alter entspricht dem Alter, was in den aktuellen Kalenderjahr erreicht wird",
       "profileButton": "Account Einstellungen",
       "switchUserButton": "Benutzer wechseln",
       "logoutButton": "Abmelden",
