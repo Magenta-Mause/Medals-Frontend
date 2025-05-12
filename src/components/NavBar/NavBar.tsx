@@ -112,7 +112,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
-  const warning = undefined;
 
   const userRole = selectedUser?.type;
   const [isProfileOpen, setProfileOpen] = useState(false);

@@ -67,7 +67,7 @@ const AthleteAccessDatagrid = (props: { data: AthleteAccessElement[] }) => {
         key: "revoke",
         color: "danger",
         operation: async (item) => {
-          removeAssignedTrainer(item.trainer.id);
+          await removeAssignedTrainer(item.trainer.id);
         },
       },
     ];

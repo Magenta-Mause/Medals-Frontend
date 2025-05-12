@@ -1,12 +1,10 @@
 import InfoCard from "@components/InfoCard/InfoCard";
-import { useTranslation } from "react-i18next";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useState } from "react";
 import AthleteAccessManagementModal from "@components/modals/AthleteAccessManagementModal/AthleteAccessManagementModal";
 
 const AthletePendingAccessRequestInfoCard = () => {
   const accessRequests = useTypedSelector((state) => state.accessRequests.data);
-  const { t } = useTranslation();
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
