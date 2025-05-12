@@ -92,7 +92,9 @@
     },
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
-      "creationSuccess": "Performance recording successfully registered"
+      "creationSuccess": "Performance recording successfully registered",
+      "deletionSuccess":"Performance recording successful deleted!",
+      "deletionError":"Error while deleting performance Records"
     },
     "performanceMetrics": {
       "athleteNotFound": "Athlete not found",
@@ -124,7 +126,17 @@
       "deletionError": "There was an error while deleting the account"
     },
     "removalConfirmationModal": {
-      "success": "Connection removed"
+      "success": "Connection removed",
+      "error": "Removing connenction failed"
+
+    },
+    "athleteDatagrid": {
+      "deletionSuccess": "Athletes successful deleted!",
+      "deletionError": "Error while deleting athletes"
+    },
+    "trainerDatagrid": {
+      "deletionSuccess": "Trainers successful deleted!",
+      "deletionError": "Error while deleting trainers"
     }
   },
   "pages": {
@@ -241,7 +253,8 @@
       "email": "Email",
       "resetPasswordButton": "Reset Password",
       "deleteProfileButton": "Delete Account",
-      "confirmDeleteMessage": "By clicking 'Delete', your account and all associated data will be permanently removed."
+      "confirmDeleteMessage": "By clicking 'Delete', your account and all associated data will be permanently removed.",
+      "confirmDeleteHeader": "Account Deletion"
     },
     "imprintPage": {
       "title": "Imprint",
@@ -457,6 +470,10 @@
         "openDetails": "Details",
         "export": "Export",
         "remove": "Remove"
+      },
+      "deletionModal": {
+        "header": "Athlete Deletion",
+        "confirmDeleteMessage":"By clicking 'Delete', the selected Athletes and all associated data will be permanently removed."
       }
     },
     "trainerDatagrid": {
@@ -487,7 +504,11 @@
       },
       "actions": {
         "delete": "Delete"
-      }
+      },
+      "deletionModal": {
+          "header": "Trainer Deletion",
+          "confirmDeleteMessage": "By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
+        }
     },
     "buttons": {
       "next": "Next",
@@ -524,6 +545,10 @@
         },
         "delete": "Delete",
         "disconnect": "Disconnect"
+      },
+      "deletionModal": {
+        "confirmDeleteMessage": "By clicking 'Delete', the selected Recordings will be permanently removed.",
+        "header": "Record Deletion"
       }
     },
     "performanceRecordingViewModal": {
@@ -556,7 +581,6 @@
       }
     },
     "confirmationPopup": {
-      "header": "Are You Sure?",
       "cancelButton": "Cancel",
       "deleteButton": "Delete"
     },

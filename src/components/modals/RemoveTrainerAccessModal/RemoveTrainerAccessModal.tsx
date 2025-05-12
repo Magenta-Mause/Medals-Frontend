@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import React, { useContext, useEffect, useState } from "react";
 import { Athlete, Trainer } from "@customTypes/backendTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import RemoveTrainerConfirmationModal from "@components/modals/GenericConfirmationModal/RemoveConfirmationModal/RemoveTrainerConfirmationModal";
 import { Typography } from "@mui/joy";
 import GenericModal from "../GenericModal";
 import GenericResponsiveDatagrid, {
@@ -10,6 +9,9 @@ import GenericResponsiveDatagrid, {
 } from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
+import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
+import useApi from "@hooks/useApi";
+import { enqueueSnackbar } from "notistack";
 
 interface RemoveConnectionModalProps {
   trainers: Trainer[];
@@ -18,10 +20,11 @@ interface RemoveConnectionModalProps {
 }
 
 const RemoveTrainerAccessModal = (props: RemoveConnectionModalProps) => {
+  const { removeTrainerAthleteConnection } = useApi();
   const [trainers, setTrainers] = useState<Trainer[]>([]);
   const [isLoading, setLoading] = useState(true);
   const { t } = useTranslation();
-  const [isRemoveTrainerAccessModalOpen, setRemoveTrainerAccessModalOpen] =
+  const [isRemoveConfirmationModalOpen, setRemoveConfirmationModalOpen] =
     useState(false);
   const [isSelectedTrainer, setSelectedTrainer] = useState<Trainer | undefined>(
     undefined,
@@ -68,12 +71,41 @@ const RemoveTrainerAccessModal = (props: RemoveConnectionModalProps) => {
       key: "remove",
       operation: async (item) => {
         setSelectedTrainer(item);
-        setRemoveTrainerAccessModalOpen(true);
+        setRemoveConfirmationModalOpen(true);
       },
     },
   ];
 
   const mobileRendering: MobileTableRendering<Trainer> = {};
+
+  const handleConfirmRemove = async () => {
+    const athlete = selectedUser as unknown as Athlete;
+
+    if (isSelectedTrainer && athlete?.id) {
+      try {
+        const success = await removeTrainerAthleteConnection(
+          isSelectedTrainer.id,
+          athlete.id,
+        );
+
+        if (success) {
+          console.log("Remove Connection: ", athlete, selectedUser);
+          enqueueSnackbar(t("snackbar.removalConfirmationModal.success"), {
+            variant: "success",
+          });
+        }
+      } catch (error) {
+        console.error("Error while removing athlete connection", error);
+        enqueueSnackbar(t("snackbar.removalConfirmationModal.error"), {
+          variant: "error",
+        });
+      } finally {
+        setRemoveConfirmationModalOpen(false);
+      }
+    } else {
+      setRemoveConfirmationModalOpen(false);
+    }
+  };
 
   return (
     <>
@@ -92,16 +124,19 @@ const RemoveTrainerAccessModal = (props: RemoveConnectionModalProps) => {
             mobileRendering={mobileRendering}
             disablePaging={true}
           />
-          <RemoveTrainerConfirmationModal
-            isOpen={isRemoveTrainerAccessModalOpen}
-            setOpen={setRemoveTrainerAccessModalOpen}
-            trainer={isSelectedTrainer as Trainer}
-            athlete={athlete}
+          <ConfirmationPopup
+            open={isRemoveConfirmationModalOpen}
+            onClose={() => {
+              setRemoveConfirmationModalOpen(false);
+            }}
+            onConfirm={handleConfirmRemove}
+            header={t("components.confirmationModal.header")}
+            message={t("components.confirmationModal.descriptionPural")}
+            confirmButtonText={t("components.confirmationModal.remove")}
           />
         </>
       </GenericModal>
     </>
   );
 };
-
 export default RemoveTrainerAccessModal;
