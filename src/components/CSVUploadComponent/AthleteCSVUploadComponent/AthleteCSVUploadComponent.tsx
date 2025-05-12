@@ -33,13 +33,13 @@ const AthleteCSVUploadComponent = ({
     let normalized: string;
     switch (gender?.trim().toLowerCase()) {
       case "m":
-        normalized = "MALE";
+        normalized = Genders.MALE;
         break;
       case "d":
-        normalized = "DIVERSE";
+        normalized = Genders.DIVERSE;
         break;
       case "w":
-        normalized = "FEMALE";
+        normalized = Genders.FEMALE;
         break;
       default:
         normalized = "";
@@ -91,7 +91,7 @@ const AthleteCSVUploadComponent = ({
     if (
       emailRegex.test(athlete.email) &&
       BirthdateRegex.test(athlete.birthdate) &&
-      ["DIVERSE", "MALE", "FEMALE"].includes(athlete.gender) &&
+      Object.keys(Genders).includes(athlete.gender) &&
       !athleteExists // Athlete should not exist, while importing
     ) {
       return true;
