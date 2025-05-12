@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import Tooltip from "cal-heatmap/plugins/Tooltip";
 import { PerformanceRecording } from "@customTypes/backendTypes";
@@ -42,6 +42,10 @@ const AthleteActivityChart = (props: {
     setPerformanceRecordingViewModalOpen,
   ] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const highlightedDays = useMemo(() => {
+    return getAllDatesBetween(new Date(dayjs().year() + "-01-01"), new Date())
+      .length;
+  }, []);
 
   const calculateData = useCallback(() => {
     const countPerDay: Record<
@@ -97,10 +101,7 @@ const AthleteActivityChart = (props: {
         start: new Date(dayjs().year() + "-01-01"),
         max: new Date(),
         locale: i18n.language,
-        highlight: getAllDatesBetween(
-          new Date(dayjs().year() + "-01-01"),
-          new Date(),
-        ),
+        highlight: [],
       },
       range: 12,
       scale: {
@@ -207,6 +208,7 @@ const AthleteActivityChart = (props: {
               overflowY: "hidden",
               width: "fit-content",
             }}
+            highlightCount={highlightedDays}
           />
         ) : (
           <></>

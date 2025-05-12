@@ -57,8 +57,7 @@ const ProfileModal = (props: {
   isOpen: boolean;
   setOpen: (open: boolean) => void;
 }) => {
-  const { selectedUser, setSelectedUser, refreshIdentityToken } =
-    useContext(AuthContext);
+  const { selectedUser, refreshIdentityToken } = useContext(AuthContext);
   const isMobile = useMediaQuery("(max-width:600px)");
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -89,7 +88,7 @@ const ProfileModal = (props: {
 
       if (success) {
         refreshIdentityToken();
-        setSelectedUser(null);
+        window.localStorage.setItem("selectedUser", "-1");
         enqueueSnackbar(t("snackbar.profileModal.accountDeleted"), {
           variant: "success",
         });
@@ -122,7 +121,7 @@ const ProfileModal = (props: {
           alignItems: "center",
           justifyContent: "center",
           p: "0 50px",
-          overflowY: "scroll",
+          overflowY: "auto",
           overflowX: "hidden",
         }}
       >
@@ -192,7 +191,9 @@ const ProfileModal = (props: {
           setDeletePopupOpen(false);
         }}
         onConfirm={handleConfirmDelete}
+        header={t("pages.profilePage.confirmDeleteHeader")}
         message={t("pages.profilePage.confirmDeleteMessage")}
+        confirmButtonText={t("components.confirmationPopup.deleteButton")}
       />
     </GenericModal>
   );

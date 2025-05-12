@@ -15,6 +15,7 @@ const CalHeatmapComponent = (props: {
   sx: BoxProps["sx"];
   height: string;
   setLoading?: (loading: boolean) => void;
+  highlightCount?: number;
 }) => {
   const renderTimeout = useRef<NodeJS.Timeout | null>(null);
   const [loading, setLoading] = useState(false);
@@ -45,6 +46,18 @@ const CalHeatmapComponent = (props: {
         await cal.paint(options, plugins);
         if (propsSetLoading) propsSetLoading(false);
         setLoading(false);
+        const rects = document.querySelectorAll(
+          "#cal-heatmap > svg > svg > svg > svg.ch-domain > svg > g > rect",
+        );
+        if (props.highlightCount) {
+          let currentIndex = 0;
+          for (const rect of rects) {
+            currentIndex++;
+            if (currentIndex < props.highlightCount) {
+              rect.classList.add("highlight");
+            }
+          }
+        }
       } catch (error) {
         // this mainly catches network errors which can occur when selecting a different language then english
         enqueueSnackbar(t("components.calHeatmap.loadingError"), {
@@ -53,7 +66,15 @@ const CalHeatmapComponent = (props: {
         console.error("Paint error:", error);
       }
     }, 500);
-  }, [propsSetLoading, options, plugins, onclick, enqueueSnackbar, t]);
+  }, [
+    propsSetLoading,
+    options,
+    plugins,
+    onclick,
+    enqueueSnackbar,
+    t,
+    props.highlightCount,
+  ]);
 
   return (
     <>

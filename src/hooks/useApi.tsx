@@ -486,6 +486,27 @@ const useApi = () => {
       return [];
     }
   }, [axiosInstance]);
+  
+  const removeTrainerAthleteConnection = useCallback(
+    async (trainerId: number, athleteId: number) => {
+      try {
+        const response = await axiosInstance!.delete(
+          `/trainers/trainer-athlete-connection`,
+          {
+            params: { trainerId, athleteId },
+          },
+        );
+        return response.data.data as Trainer;
+      } catch (error) {
+        console.error(
+          `Error while removing the connection between trainer and athlete`,
+          error,
+        );
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
 
   return {
     loginUser,
@@ -519,6 +540,7 @@ const useApi = () => {
     approveRequest,
     requestAthlete,
     searchAthletes,
+    removeTrainerAthleteConnection,
   };
 };
 
