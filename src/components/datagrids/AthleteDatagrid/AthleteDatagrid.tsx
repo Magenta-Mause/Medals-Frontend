@@ -378,6 +378,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           variant: "error",
         });
       }
+      setRemoveConfirmationModalOpen(false);
     }
   };
 
