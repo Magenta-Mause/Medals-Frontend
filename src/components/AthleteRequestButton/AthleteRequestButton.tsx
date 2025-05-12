@@ -39,8 +39,7 @@ const AthleteInviteButton = () => {
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = e.target.value;
-    setSearchAthlete(searchTerm);
+    setSearchAthlete(e.target.value);
   };
 
   useEffect(() => {
