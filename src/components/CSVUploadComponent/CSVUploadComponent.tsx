@@ -7,6 +7,7 @@ import UploadIcon from "@mui/icons-material/Upload";
 import { useSnackbar } from "notistack";
 import Papa from "papaparse";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
+import dayjs from "dayjs";
 
 interface CSVData<T> {
   data: T;
@@ -23,8 +24,7 @@ interface CSVUploadComponentProps<T> {
 }
 
 const convertDateFormat = (dateStr: string) => {
-  const [day, month, year] = dateStr.split(".");
-  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  return dayjs(dateStr, "DD.MM.YYYY").format("YYYY-MM-DD");
 };
 
 const CSVUploadComponent = <T extends Record<string, unknown>>({
