@@ -95,7 +95,7 @@
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
       "creationSuccess": "Leistungsaufnahme erfolgreich angelegt",
-      "deletionSuccess":"Leistungswerte erfolgreich gelöscht!",
+      "deletionSuccess": "Leistungswerte erfolgreich gelöscht!",
       "deletionError": "Beim Löschen der Leistungswerte ist ein Fehler aufgetreten"
     },
     "performanceMetrics": {
@@ -476,7 +476,7 @@
       },
       "deletionModal": {
         "header": "Athlet*innen Löschen",
-      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Athlet*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
+        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Athlet*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
       }
     },
     "disciplineDatagrid": {
@@ -517,9 +517,9 @@
         "delete": "Löschen"
       },
       "deletionModal": {
-          "header": "Trainer Löschen",
-          "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer mit allen dazugehörigen Daten unwiderruflich gelöscht."
-        }
+        "header": "Trainer Löschen",
+        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer mit allen dazugehörigen Daten unwiderruflich gelöscht."
+      }
     },
     "buttons": {
       "next": "Nächstes",
@@ -672,7 +672,6 @@
         "trainers": "Deine Trainer*innen:",
         "removeTrainers": "Verwalte deine Trainer*innen",
         "removeTrainer": "Verwalte dein*e Trainer*in",
-        "removeButton": "Entfernen",
         "header": "Trainer Verwalten"
       },
       "totalMedalBox": {

@@ -79,8 +79,6 @@ const RemoveTrainerAccessModal = (props: RemoveConnectionModalProps) => {
   const mobileRendering: MobileTableRendering<Trainer> = {};
 
   const handleConfirmRemove = async () => {
-    const athlete = selectedUser as unknown as Athlete;
-
     if (isSelectedTrainer && athlete?.id) {
       try {
         const success = await removeTrainerAthleteConnection(
@@ -131,7 +129,7 @@ const RemoveTrainerAccessModal = (props: RemoveConnectionModalProps) => {
             }}
             onConfirm={handleConfirmRemove}
             header={t("components.confirmationModal.header")}
-            message={t("components.confirmationModal.descriptionPural")}
+            message={t("components.confirmationModal.description2")}
             confirmButtonText={t("components.confirmationModal.remove")}
           />
         </>

@@ -93,8 +93,8 @@
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered",
-      "deletionSuccess":"Performance recording successful deleted!",
-      "deletionError":"Error while deleting performance Records"
+      "deletionSuccess": "Performance recording successful deleted!",
+      "deletionError": "Error while deleting performance Records"
     },
     "performanceMetrics": {
       "athleteNotFound": "Athlete not found",
@@ -128,7 +128,6 @@
     "removalConfirmationModal": {
       "success": "Connection removed",
       "error": "Removing connenction failed"
-
     },
     "athleteDatagrid": {
       "deletionSuccess": "Athletes successful deleted!",
@@ -473,7 +472,7 @@
       },
       "deletionModal": {
         "header": "Athlete Deletion",
-        "confirmDeleteMessage":"By clicking 'Delete', the selected Athletes and all associated data will be permanently removed."
+        "confirmDeleteMessage": "By clicking 'Delete', the selected Athletes and all associated data will be permanently removed."
       }
     },
     "trainerDatagrid": {
@@ -506,9 +505,9 @@
         "delete": "Delete"
       },
       "deletionModal": {
-          "header": "Trainer Deletion",
-          "confirmDeleteMessage": "By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
-        }
+        "header": "Trainer Deletion",
+        "confirmDeleteMessage": "By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
+      }
     },
     "buttons": {
       "next": "Next",
@@ -678,7 +677,6 @@
         "trainers": "Your trainers:",
         "removeTrainers": "Manage your trainers",
         "removeTrainer": "Manage your trainer",
-        "removeButton": "Remove",
         "header": "Trainer Mangement"
       },
       "activityChart": {
