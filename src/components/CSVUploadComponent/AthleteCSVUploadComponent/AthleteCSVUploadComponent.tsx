@@ -30,15 +30,20 @@ const AthleteCSVUploadComponent = ({
   );
 
   const normalizeGender = (gender: string | undefined) => {
-    let normalized = "";
-    if (gender?.trim().toLowerCase() === "m") {
-      normalized = "MALE";
-    }
-    if (gender?.trim().toLowerCase() === "d") {
-      normalized = "DIVERSE";
-    }
-    if (gender?.trim().toLowerCase() === "w") {
-      normalized = "FEMALE";
+    let normalized: string;
+    switch (gender?.trim().toLowerCase()) {
+      case "m":
+        normalized = "MALE";
+        break;
+      case "d":
+        normalized = "DIVERSE";
+        break;
+      case "w":
+        normalized = "FEMALE";
+        break;
+      default:
+        normalized = "";
+        break;
     }
     return Genders[normalized as keyof typeof Genders];
   };
