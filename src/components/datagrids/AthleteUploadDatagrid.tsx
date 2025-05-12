@@ -59,6 +59,12 @@ const AthleteUploadDatagrid = (props: { athletes: AthleteWithValidity[] }) => {
         return athlete.last_name;
       },
     },
+    {
+      columnName: "lol",
+      columnMapping(athlete) {
+        return "we";
+      },
+    },
   ];
   const mobileRendering: MobileTableRendering<AthleteWithValidity> = {};
   return (

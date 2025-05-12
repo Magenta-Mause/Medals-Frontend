@@ -357,13 +357,20 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
             mt: 4,
             mb: 2,
           }}
-          onClick={() => {
+          onClick={async () => {
             if (handleSubmitAttempt()) {
-              createAthlete(athlete);
-              setOpen(false);
-              resetForm();
-              if (manage) {
-                requestAccess(athlete.email, athlete.birthdate);
+              try {
+                await createAthlete(athlete);
+                setOpen(false);
+                resetForm();
+                if (manage) {
+                  await requestAccess(athlete.email, athlete.birthdate);
+                }
+              } catch (error) {
+                console.error(
+                  "Error creating athlete or requesting access",
+                  error,
+                );
               }
             }
           }}
