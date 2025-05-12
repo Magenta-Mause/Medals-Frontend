@@ -94,7 +94,9 @@
     },
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
-      "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
+      "creationSuccess": "Leistungsaufnahme erfolgreich angelegt",
+      "deletionSuccess":"Leistungswerte erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Leistungswerte ist ein Fehler aufgetreten"
     },
     "performanceMetrics": {
       "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
@@ -126,7 +128,16 @@
       "deletionError": "Beim Löschen des Kontos ist ein Fehler aufgetreten"
     },
     "removalConfirmationModal": {
-      "success": "Verbindung entfernt"
+      "success": "Verbindung entfernt",
+      "error": "Entfernen der Verbindung fehlgeschlagen"
+    },
+    "athleteDatagrid": {
+      "deletionSuccess": "Athlet*innen erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Athlet*innen ist ein Fehler aufgetreten"
+    },
+    "trainerDatagrid": {
+      "deletionSuccess": "Trainer erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Trainer ist ein Fehler aufgetreten"
     }
   },
   "pages": {
@@ -243,7 +254,8 @@
       "email": "E-Mail",
       "resetPasswordButton": "Password zurücksetzen",
       "deleteProfileButton": "Account löschen",
-      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht."
+      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht.",
+      "confirmDeleteHeader": "Account Löschen"
     },
     "imprintPage": {
       "title": "Impressum",
@@ -460,6 +472,10 @@
         "openDetails": "Details",
         "export": "Exportieren",
         "remove": "Entfernen"
+      },
+      "deletionModal": {
+        "header": "Athlet*innen Löschen",
+      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Athlet*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
       }
     },
     "disciplineDatagrid": {
@@ -498,7 +514,11 @@
       },
       "actions": {
         "delete": "Löschen"
-      }
+      },
+      "deletionModal": {
+          "header": "Trainer Löschen",
+          "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer mit allen dazugehörigen Daten unwiderruflich gelöscht."
+        }
     },
     "buttons": {
       "next": "Nächstes",
@@ -513,7 +533,6 @@
       "fieldRequired": "Bedingung ist verpflichtend"
     },
     "confirmationPopup": {
-      "header": "Account Löschen",
       "cancelButton": "Abbrechen",
       "deleteButton": "Löschen"
     },
@@ -545,6 +564,10 @@
           "label": "+ aufnehmen"
         },
         "delete": "Löschen"
+      },
+      "deletionModal": {
+        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Leistungsaufnahmen unwiderruflich gelöscht.",
+        "header": "Leistungsaufnahmen Löschen"
       }
     },
     "swimCertificateSection": {
