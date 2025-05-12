@@ -1,6 +1,5 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
-import InfoCard from "@components/InfoCard/InfoCard";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import ProfileModal from "@components/modals/ProfileModal/ProfileModal";
 import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
@@ -39,6 +38,7 @@ import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
 import Tooltip from "@components/HoverTooltip/HoverTooltip";
 import RoleBasedRenderComponent from "@components/RoleBasedRenderComponent/RoleBasedRenderComponent";
+import AthletePendingAccessRequestInfoCard from "@components/AthletePendingAccessRequestInfoCard/AthletePendingAccessRequestInfoCard";
 
 const sharedNavBarElements = [
   {
@@ -247,16 +247,7 @@ const NavBar = () => {
         >
           <LegalLinksSelector collapseSidebar={collapseSidebar} />
           <LanguageSelector />
-          {warning ? (
-            <InfoCard
-              header={t("components.navbar.bottomInfoCard.header")}
-              text={t("components.navbar.bottomInfoCard.text")}
-              type={"warning"}
-              buttonCallback={() => {}}
-            />
-          ) : (
-            <></>
-          )}
+          <AthletePendingAccessRequestInfoCard />
         </List>
       </Box>
       <Divider />

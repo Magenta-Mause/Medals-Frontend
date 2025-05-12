@@ -23,10 +23,24 @@ import { useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
 import RemoveConfirmationModal from "@components/modals/GenericConfirmationModal/RemoveConfirmationModal/RemoveConfirmationModal";
+import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
 }
+
+const AccessNotApprovedComponent = () => {
+  return (
+    <Box>
+      <Typography color={"neutral"} level={"body-xs"}>
+        Zugriff nicht gestattet{" "}
+        <InfoTooltip
+          text={"Zugriff muss erst durch Athlet*in freigegeben werden"}
+        />
+      </Typography>
+    </Box>
+  );
+};
 
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const { deleteAthlete } = useApi();
@@ -109,7 +123,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       columnName: t("components.athleteDatagrid.table.columns.email"),
       size: "l",
       columnMapping(item) {
-        return <Typography noWrap>{item.email}</Typography>;
+        return item.has_access ? (
+          <Typography noWrap level={"body-xs"}>
+            {item.email}
+          </Typography>
+        ) : (
+          <AccessNotApprovedComponent />
+        );
       },
     },
     {
@@ -125,7 +145,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       size: "xl",
       disableSpan: true,
       columnMapping(item) {
-        return (
+        return item.has_access ? (
           <>
             <AchievementsBox
               athlete={item}
@@ -133,6 +153,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
               selectedYear={currentYear}
             />
           </>
+        ) : (
+          <AccessNotApprovedComponent />
         );
       },
     },
@@ -353,6 +375,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         disablePaging={false}
         heightIfNoEntriesFound={"200px"}
         messageIfNoEntriesFound={noAthleteFoundMessage}
+        itemClickableFilter={(athlete) => athlete.has_access}
       />
       <AthleteImportModal
         isOpen={addImportModalOpen}
