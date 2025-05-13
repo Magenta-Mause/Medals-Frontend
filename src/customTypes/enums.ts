@@ -48,22 +48,22 @@ export enum SwimmingCertificateType {
 }
 
 export enum AthleteExportColumn {
-  FirstName = "first_name",
-  LastName = "last_name",
-  Email = "email",
-  Birthdate = "birthdate",
-  Gender = "gender",
+  FirstName = "Vorname",
+  LastName = "Nachname",
+  Email = "E-Mail",
+  Birthdate = "Geburtsdatum",
+  Gender = "Geschlecht",
 }
 
 export enum AthletePerformanceExportColumn {
-  FirstName = "athlete_first_name",
-  LastName = "athlete_last_name",
-  Email = "athlete_email",
-  Birthdate = "athlete_birthdate",
-  Gender = "athlete_gender",
-  Discipline = "discipline",
-  Category = "category",
-  PerformanceDate = "performance_date",
-  Result = "result",
-  Points = "points",
+  FirstName = "Vorname",
+  LastName = "Nachname",
+  Email = "E-Mail",
+  Birthdate = "Geburtsdatum",
+  Gender = "Geschlecht",
+  Discipline = "Übung",
+  Category = "Kategorie",
+  PerformanceDate = "Datum",
+  Result = "Ergebnis",
+  Points = "Punkte",
 }

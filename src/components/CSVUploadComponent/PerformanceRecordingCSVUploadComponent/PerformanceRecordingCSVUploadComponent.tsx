@@ -10,7 +10,6 @@ import {
 import useFormatting from "@hooks/useFormatting";
 import { AthletePerformanceExportColumn } from "@customTypes/enums";
 import { useTypedSelector } from "@stores/rootReducer";
-import { attributeToGermanHeader } from "@components/modals/AthleteExportModal/AthleteExportModal";
 import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
 
 interface PerformanceRecordingCSVUploadComponentProps {
@@ -56,47 +55,23 @@ const PerformanceRecordingCSVUploadComponent = ({
     data.data.map(
       (row: any) =>
         ({
-          firstName:
-            row[
-              attributeToGermanHeader[AthletePerformanceExportColumn.FirstName]
-            ],
-          lastName:
-            row[
-              attributeToGermanHeader[AthletePerformanceExportColumn.LastName]
-            ],
+          firstName: row[AthletePerformanceExportColumn.FirstName],
+          lastName: row[AthletePerformanceExportColumn.LastName],
           discipline: disciplines.find(
             (discipline) =>
               discipline.name ===
-              row[
-                attributeToGermanHeader[
-                  AthletePerformanceExportColumn.Discipline
-                ]
-              ],
+              row[AthletePerformanceExportColumn.Discipline],
           ),
           dateOfPerformance: +convertGermanTimeToAmerican(
-            row[
-              attributeToGermanHeader[
-                AthletePerformanceExportColumn.PerformanceDate
-              ]
-            ],
+            row[AthletePerformanceExportColumn.PerformanceDate],
           ),
-          ratingValue:
-            +row[
-              attributeToGermanHeader[AthletePerformanceExportColumn.Result]
-            ],
+          ratingValue: +row[AthletePerformanceExportColumn.Result],
           athlete: athletes.find(
             (athlete) =>
-              athlete.email ===
-                row[
-                  attributeToGermanHeader[AthletePerformanceExportColumn.Email]
-                ] &&
+              athlete.email === row[AthletePerformanceExportColumn.Email] &&
               athlete.birthdate ===
                 convertDateFormat(
-                  row[
-                    attributeToGermanHeader[
-                      AthletePerformanceExportColumn.Birthdate
-                    ]
-                  ],
+                  row[AthletePerformanceExportColumn.Birthdate],
                 ),
           ),
         }) as PerformanceRecordingCreationCSVDto,

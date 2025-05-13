@@ -6,7 +6,6 @@ import { AthleteExportColumn, Genders } from "@customTypes/enums";
 import { useCallback } from "react";
 import { BirthdateRegex, emailRegex } from "constants/regex";
 import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
-import { attributeToGermanHeader } from "@components/modals/AthleteExportModal/AthleteExportModal";
 
 interface AthleteCSVUploadComponentProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -52,24 +51,13 @@ const AthleteCSVUploadComponent = ({
     return athletesData.data.map(
       (row: any) =>
         ({
-          first_name:
-            row[
-              attributeToGermanHeader[AthleteExportColumn.FirstName]
-            ].trim() ?? undefined,
-          last_name:
-            row[attributeToGermanHeader[AthleteExportColumn.LastName]].trim() ??
-            undefined,
-          email:
-            row[attributeToGermanHeader[AthleteExportColumn.Email]].trim() ??
-            undefined,
+          first_name: row[AthleteExportColumn.FirstName].trim() ?? undefined,
+          last_name: row[AthleteExportColumn.LastName].trim() ?? undefined,
+          email: row[AthleteExportColumn.Email].trim() ?? undefined,
           birthdate:
-            convertDateFormat(
-              row[attributeToGermanHeader[AthleteExportColumn.Birthdate]],
-            ).trim() ?? undefined,
-          gender:
-            normalizeGender(
-              row[attributeToGermanHeader[AthleteExportColumn.Gender]],
-            ) ?? undefined,
+            convertDateFormat(row[AthleteExportColumn.Birthdate]).trim() ??
+            undefined,
+          gender: row[AthleteExportColumn.Gender] ?? undefined,
         }) as Partial<Athlete>,
     );
   };
