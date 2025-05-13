@@ -470,6 +470,18 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const getTrainersAssignedToAthlete = useCallback(async () => {
+    try {
+      const request = await axiosInstance!.get(`/athletes/approved-trainers`);
+      return request.data.data;
+    } catch (error) {
+      console.error(
+        "Error while fetching athletes assigned to a trainer",
+        error,
+      );
+    }
+  }, [axiosInstance]);
+
   return {
     loginUser,
     logoutUser,
@@ -502,6 +514,7 @@ const useApi = () => {
     getAccessRequests,
     revokeRequest,
     removeAssignedTrainer,
+    getTrainersAssignedToAthlete,
   };
 };
 

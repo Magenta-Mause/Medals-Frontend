@@ -44,6 +44,7 @@ import {
 import {
   addManagingTrainer,
   removeManagingTrainer,
+  setManagingTrainer,
   updateManagingTrainer,
 } from "@stores/slices/managingTrainerSlice";
 
@@ -63,7 +64,6 @@ const useInstantiation = () => {
 
   const checkUserAccountUpdateId = useCallback(
     (id: number) => {
-      console.log(id, authorizedUsers);
       const isAuthorized = authorizedUsers?.some((user) => user.id === id);
       if (isAuthorized) {
         refreshIdentityToken();
@@ -79,6 +79,7 @@ const useInstantiation = () => {
     getTrainers,
     getDisciplineMetrics,
     getAccessRequests,
+    getTrainersAssignedToAthlete,
   } = useApi();
   const {
     initialize: initializeAthleteWebsocket,
@@ -167,11 +168,16 @@ const useInstantiation = () => {
   const instantiateByType = useCallback(
     (userType: UserType) => {
       const instantiate = async () => {
+        dispatch(setManagingTrainer([]));
+        dispatch(setAccessRequests([]));
         if (userType == UserType.ADMIN) {
           dispatch(setTrainers((await getTrainers()) ?? []));
         }
         if (userType == UserType.ATHLETE) {
           dispatch(setAccessRequests((await getAccessRequests()) ?? []));
+          dispatch(
+            setManagingTrainer((await getTrainersAssignedToAthlete()) ?? []),
+          );
         }
         dispatch(setAthletes((await getAthletes()) ?? []));
         dispatch(setDisciplines((await getDisciplines()) ?? []));
@@ -203,6 +209,7 @@ const useInstantiation = () => {
       instantiate();
     },
     [
+      getTrainersAssignedToAthlete,
       dispatch,
       getAthletes,
       getDisciplines,

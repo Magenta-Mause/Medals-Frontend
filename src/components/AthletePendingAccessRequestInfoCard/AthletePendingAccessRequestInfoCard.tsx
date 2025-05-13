@@ -2,22 +2,27 @@ import InfoCard from "@components/InfoCard/InfoCard";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useState } from "react";
 import AthleteAccessManagementModal from "@components/modals/AthleteAccessManagementModal/AthleteAccessManagementModal";
+import { useTranslation } from "react-i18next";
 
 const AthletePendingAccessRequestInfoCard = () => {
   const accessRequests = useTypedSelector((state) => state.accessRequests.data);
   const [isModalOpen, setModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
       {accessRequests.length > 0 && (
         <InfoCard
-          header={accessRequests.length + " Access request"}
+          header={t("components.athletePendingRequestInfoCard.header")}
           text={
-            accessRequests.length +
-            " Trainer*innen haben Zugriff auf deinen Account angefragt"
+            accessRequests.length > 1
+              ? accessRequests.length +
+                " " +
+                t("components.athletePendingRequestInfoCard.text.plural")
+              : t("components.athletePendingRequestInfoCard.text.singular")
           }
           type={"success"}
-          buttonText={"Zugriff Verwalten"}
+          buttonText={t("components.athletePendingRequestInfoCard.button")}
           buttonCallback={() => {
             setModalOpen(true);
           }}
