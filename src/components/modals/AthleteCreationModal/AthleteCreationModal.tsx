@@ -255,8 +255,9 @@ const AthleteCreationForm = ({
     }
   };
 
-  const handleFormSubmit = async () => {
-    if (handleSubmitAttempt()) {
+const handleFormSubmit = async () => {
+  if (handleSubmitAttempt()) {
+    try {
       if (isEditMode) {
         const updateFn = updateAthlete || apiUpdateAthlete;
         if (updateFn) {
@@ -267,8 +268,26 @@ const AthleteCreationForm = ({
       }
       setOpen(false);
       resetForm();
+    } catch (error: any) {
+      const serverMessage = error?.response?.data?.data;
+      if (serverMessage === "An athlete with the same email and birthdate already exists.") {
+        setErrors((prev) => ({
+          ...prev,
+          email: t("backendErrors.athleteAlreadyExists"),
+          birthdate: t("backendErrors.athleteAlreadyExists"),
+        }));
+        setTouched((prev) => ({
+          ...prev,
+          email: true,
+          birthdate: true,
+        }));
+      } else {
+        console.error("Unhandled form submission error:", error);
+      }
     }
-  };
+  }
+};
+
 
   return (
     <GenericModal

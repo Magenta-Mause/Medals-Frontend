@@ -735,5 +735,8 @@
         "notExisting": "You need a valid swimming certification to be accepted for the final Medal"
       }
     }
+  },
+  "backendErrors": {
+    "athleteAlreadyExists": "An athlete with this email and birthdate already exists."
   }
 }

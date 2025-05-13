@@ -725,5 +725,8 @@
         "notExisting": "Um das Deutsche Sportabzeichen zu erlangen brauchst du einen gültigen Schwimmnachweis"
       }
     }
+  },
+  "backendErrors": {
+    "athleteAlreadyExists": "Athlet*in mit dieser E-Mail und Geburtsdatum existiert bereits."
   }
 }
