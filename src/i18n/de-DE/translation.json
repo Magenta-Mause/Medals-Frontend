@@ -180,6 +180,10 @@
       "createButton": "Erstellen",
       "createHeader": "Athlet*in erstellen"
     },
+    "athleteEditPage": {
+      "editHeader": "Athlet*in bearbeiten",
+      "updateButton": "Ändern"
+    },
     "athleteImportPage": {
       "importButton": "Athlet*innen importieren",
       "feedback1": "Athlet*in ",
@@ -666,7 +670,9 @@
         "valid": "Athlet*in kann hochgeladen werden"
       },
       "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet.",
-      "emailNotEditable": "E-Mail kann nicht bearbeitet werden"
+      "emailNotEditable": "E-Mail kann nicht bearbeitet werden",
+      "birthdateNotEditable": "Geburtstag kann nicht bearbeitet werden",
+      "genderNotEditable": "Geschlecht kann nicht bearbeitet werden"
     },
     "calHeatmap": {
       "loadingError": "Fehler beim Laden des Activity Charts"

@@ -180,6 +180,10 @@
       "createButton": "Create",
       "createHeader": "Create Athlete"
     },
+    "athleteEditPage": {
+      "editHeader": "Edit Athlete",
+      "updateButton": "Update"
+    },
     "athleteImportPage": {
       "importButton": "Import Athletes",
       "feedback1": "Athlete ",
@@ -666,7 +670,9 @@
         "valid": "Athlete can be uploaded"
       },
       "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used.",
-      "emailNotEditable": "Email cannot be changed"
+      "emailNotEditable": "Email cannot be changed",
+      "birthdateNotEditable": "Geburtstag kann nicht bearbeitet werden",
+      "genderNotEditable": "Geschlecht kann nicht bearbeitet werden"
     },
     "athleteActivityChart": {
       "tooltipText": {
