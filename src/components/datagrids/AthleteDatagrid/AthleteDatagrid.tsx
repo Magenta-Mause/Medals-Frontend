@@ -399,7 +399,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
             athlete.id!,
           );
           if (success) {
-            console.log("Remove Connenction: ", athlete, selectedUser);
+            console.log("Remove Connection: ", athlete, selectedUser);
           }
         }
         enqueueSnackbar(t("snackbar.removalConfirmationModal.success"), {

@@ -93,8 +93,8 @@
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
       "creationSuccess": "Performance recording successfully registered",
-      "deletionSuccess":"Performance recording successful deleted!",
-      "deletionError":"Error while deleting performance Records"
+      "deletionSuccess": "Performance recording successful deleted!",
+      "deletionError": "Error while deleting performance Records"
     },
     "performanceMetrics": {
       "athleteNotFound": "Athlete not found",
@@ -128,7 +128,6 @@
     "removalConfirmationModal": {
       "success": "Connection removed",
       "error": "Removing connenction failed"
-
     },
     "athleteDatagrid": {
       "deletionSuccess": "Athletes successful deleted!",
@@ -360,6 +359,7 @@
     "confirmationModal": {
       "header": "Confirmation",
       "description": "Are you sure you want to remove the athlete from your team?",
+      "description2": "Are you sure you want to remove your trainer?",
       "descriptionPural": "Are you sure you want to remove the athletes from your team?",
       "cancel": "Cancel",
       "remove": "Give up access"
@@ -472,7 +472,7 @@
       },
       "deletionModal": {
         "header": "Athlete Deletion",
-        "confirmDeleteMessage":"By clicking 'Delete', the selected Athletes and all associated data will be permanently removed."
+        "confirmDeleteMessage": "By clicking 'Delete', the selected Athletes and all associated data will be permanently removed."
       }
     },
     "trainerDatagrid": {
@@ -505,9 +505,9 @@
         "delete": "Delete"
       },
       "deletionModal": {
-          "header": "Trainer Deletion",
-          "confirmDeleteMessage": "By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
-        }
+        "header": "Trainer Deletion",
+        "confirmDeleteMessage": "By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
+      }
     },
     "buttons": {
       "next": "Next",
@@ -670,6 +670,14 @@
           "singular": "point",
           "plural": "points"
         }
+      },
+      "trainers": {
+        "noTrainers": "No Trainers are assigned to you",
+        "trainer": "Your trainer:",
+        "trainers": "Your trainers:",
+        "removeTrainers": "Manage your trainers",
+        "removeTrainer": "Manage your trainer",
+        "header": "Trainer Mangement"
       },
       "activityChart": {
         "header": "Your activities in ",
