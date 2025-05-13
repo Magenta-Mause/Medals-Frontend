@@ -18,6 +18,7 @@ import GenericModal from "../GenericModal";
 import { emailRegex } from "constants/regex";
 import { Genders } from "@customTypes/enums";
 import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
+import { useSnackbar } from "notistack";
 
 const isValidEmail = (email: string) => emailRegex.test(email);
 
@@ -63,6 +64,7 @@ const AthleteCreationForm = ({
   updateAthlete,
 }: AthleteCreationFormProps) => {
   const { t, i18n } = useTranslation();
+  const { enqueueSnackbar } = useSnackbar();
   const { createAthlete, updateAthlete: apiUpdateAthlete } = useApi();
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
@@ -262,15 +264,24 @@ const handleFormSubmit = async () => {
         const updateFn = updateAthlete || apiUpdateAthlete;
         if (updateFn) {
           await updateFn(athlete);
+          enqueueSnackbar(t("snackbar.update.success"), {
+            variant: "success",
+          });
         }
       } else {
         await createAthlete(athlete);
+        enqueueSnackbar(t("snackbar.invite.success"), {
+          variant: "success",
+        });
       }
       setOpen(false);
       resetForm();
     } catch (error: any) {
       const serverMessage = error?.response?.data?.data;
-      if (serverMessage === "An athlete with the same email and birthdate already exists.") {
+      if (
+        serverMessage ===
+        "An athlete with the same email and birthdate already exists."
+      ) {
         setErrors((prev) => ({
           ...prev,
           email: t("backendErrors.athleteAlreadyExists"),
@@ -282,6 +293,9 @@ const handleFormSubmit = async () => {
           birthdate: true,
         }));
       } else {
+        enqueueSnackbar(t("generic.errors.unknownError"), {
+          variant: "error",
+        });
         console.error("Unhandled form submission error:", error);
       }
     }

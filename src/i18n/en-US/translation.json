@@ -84,6 +84,9 @@
     "admin": {
       "singular": "Admin",
       "plural": "Admins"
+    },
+    "errors": {
+      "unknownError": "An unknown error occurred"
     }
   },
   "snackbar": {

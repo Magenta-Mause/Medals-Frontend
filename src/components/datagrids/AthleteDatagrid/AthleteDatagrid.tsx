@@ -372,21 +372,12 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     try {
       const success = await updateAthlete(athlete);
       if (success) {
-        enqueueSnackbar(t("snackbar.athleteDatagrid.updateSuccess"), {
-          variant: "success",
-        });
         return true;
       } else {
-        enqueueSnackbar(t("snackbar.athleteDatagrid.updateError"), {
-          variant: "error",
-        });
         return false;
       }
     } catch (error) {
       console.error("Error while updating athlete:", error);
-      enqueueSnackbar(t("snackbar.athleteDatagrid.updateError"), {
-        variant: "error",
-      });
       return false;
     }
   };

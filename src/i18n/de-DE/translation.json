@@ -52,6 +52,9 @@
     "points": {
       "singular": "Punkt",
       "plural": "Punkte"
+    },
+    "errors": {
+      "unknownError": "Ein unbekannter Fehler ist aufgetreten"
     }
   },
   "disciplines": {
