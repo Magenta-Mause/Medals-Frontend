@@ -127,6 +127,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
       );
     } finally {
       setEntityToDelete(undefined);
+      setDeleteModalOpen(false);
     }
   };
 
