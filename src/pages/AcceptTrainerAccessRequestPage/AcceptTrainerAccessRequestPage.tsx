@@ -64,7 +64,6 @@ const AcceptTrainerAccessRequest = () => {
   const loginCallback = async (loginData: {
     email: string;
     password: string;
-    privacyPolicy: boolean;
   }) => {
     try {
       const res = await loginUser(loginData.email, loginData.password);
