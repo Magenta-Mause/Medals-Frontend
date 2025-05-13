@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import Papa from "papaparse";
 import { CSVUploadState } from "@customTypes/enums";
-import { CSVData } from "@components/CSVUploadComponent/CSVUploadComponent";
+import { CSVData } from "@components/CSVUploadComponent/CSVHelper";
 
 interface CSVUploadProviderProps<T> {
   setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
