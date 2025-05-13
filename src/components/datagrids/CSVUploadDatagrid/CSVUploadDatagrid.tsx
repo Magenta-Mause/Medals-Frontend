@@ -111,12 +111,6 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
 
   const validCSVData = csvData.length !== 0;
 
-  if (!validCSVData) {
-    enqueueSnackbar(t("components.csvUploadDatagrid.noValidEntries"), {
-      variant: "error",
-    });
-  }
-
   const checkEmptyImport = (csvData: CSVData<T>[]) => {
     for (const data of csvData) {
       if (data.state === CSVUploadState.VALID) {
