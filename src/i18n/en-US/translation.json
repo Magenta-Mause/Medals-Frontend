@@ -425,6 +425,16 @@
         "accept": "Accept",
         "revoke": "Revoke Access",
         "reject": "Reject"
+      },
+      "confirmations": {
+        "revoke": {
+          "header": "Revoke Trainer access",
+          "message": "Are you sure that you want to revoke the Access rights of this Trainer?"
+        },
+        "reject": {
+          "header": "Reject Access Request",
+          "message": "Are you sure that you want to reject this Access Request?"
+        }
       }
     },
     "downloadCard": {

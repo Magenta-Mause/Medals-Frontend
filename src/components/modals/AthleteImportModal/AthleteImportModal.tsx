@@ -173,6 +173,7 @@ const AthleteImportModal = (props: AthleteCsvImportModalProps) => {
             email: row["E-Mail"]?.trim() || "",
             birthdate: convertDateFormat(row["Geburtsdatum"]?.trim()) || "",
             gender: normalizeGender(row["Geschlecht"]),
+            has_access: false,
           }));
           const setData = async () => {
             setCsvData(

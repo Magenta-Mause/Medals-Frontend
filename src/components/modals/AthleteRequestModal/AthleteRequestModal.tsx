@@ -58,7 +58,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
     }));
 
     try {
-      await requestAthlete(athleteId, trainerId);
+      await requestAthlete(athleteId);
       enqueueSnackbar(t("snackbar.requestAthleteAccess.success"), {
         variant: "success",
       });
