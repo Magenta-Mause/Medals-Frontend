@@ -5,6 +5,7 @@ import {
   DateValidationError,
   PickerChangeHandlerContext,
 } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const CustomDatePicker = (props: {
   sx: SxProps<Theme>;
@@ -101,6 +102,7 @@ const CustomDatePicker = (props: {
       value={props.value}
       onChange={props.onChange}
       format={props.format}
+      maxDate={dayjs()}
     />
   );
 };
