@@ -1,11 +1,14 @@
 import { useTranslation } from "react-i18next";
-import CSVUploadComponent, { CSVData } from "../CSVUploadComponent";
+import CSVUploadComponent from "../CSVUploadComponent";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import { AthleteExportColumn, Genders } from "@customTypes/enums";
 import { useCallback } from "react";
 import { BirthdateRegex, emailRegex } from "constants/regex";
-import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
+import {
+  convertDateFormat,
+  CSVData,
+} from "@components/CSVUploadComponent/CSVHelper";
 
 interface AthleteCSVUploadComponentProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,25 +30,6 @@ const AthleteCSVUploadComponent = ({
     },
     [checkAthleteExists],
   );
-
-  const normalizeGender = (gender: string | undefined) => {
-    let normalized: string;
-    switch (gender?.trim().toLowerCase()) {
-      case "m":
-        normalized = Genders.MALE;
-        break;
-      case "d":
-        normalized = Genders.DIVERSE;
-        break;
-      case "w":
-        normalized = Genders.FEMALE;
-        break;
-      default:
-        normalized = "";
-        break;
-    }
-    return Genders[normalized as keyof typeof Genders];
-  };
 
   const parseAthleteCSV = (athletesData: Papa.ParseResult<unknown>) => {
     return athletesData.data.map(

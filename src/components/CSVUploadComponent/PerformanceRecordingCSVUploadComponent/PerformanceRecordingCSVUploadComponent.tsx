@@ -1,5 +1,5 @@
 import useApi from "@hooks/useApi";
-import CSVUploadComponent, { CSVData } from "../CSVUploadComponent";
+import CSVUploadComponent from "../CSVUploadComponent";
 import { useTranslation } from "react-i18next";
 import {
   Athlete,
@@ -10,7 +10,10 @@ import {
 import useFormatting from "@hooks/useFormatting";
 import { AthletePerformanceExportColumn } from "@customTypes/enums";
 import { useTypedSelector } from "@stores/rootReducer";
-import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
+import {
+  convertDateFormat,
+  CSVData,
+} from "@components/CSVUploadComponent/CSVHelper";
 
 interface PerformanceRecordingCSVUploadComponentProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;

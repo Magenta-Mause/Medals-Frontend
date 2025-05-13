@@ -8,7 +8,7 @@ import { Cloud } from "@mui/icons-material";
 import UploadIcon from "@mui/icons-material/Upload";
 import { CSVUploadState } from "@customTypes/enums";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
-import { CSVData } from "@components/CSVUploadComponent/CSVUploadComponent";
+import { CSVData } from "@components/CSVUploadComponent/CSVHelper";
 import { useSnackbar } from "notistack";
 import { useCallback, useState, CSSProperties } from "react";
 
@@ -106,7 +106,7 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
         }
       }
     },
-    [enqueueSnackbar, uploadEntry, t],
+    [enqueueSnackbar, uploadEntry, t, setCsvData],
   );
 
   const validCSVData = csvData.length !== 0;
