@@ -166,7 +166,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
       </>
     ),
     h2: (entity) => <>{entity.email}</>,
-    bottomButtons: actionMenuActions,
+    topRightMenu: actionMenuActions,
     searchFilter: {
       name: "search",
       label: t("components.entityDatagrid.table.filters.search"),

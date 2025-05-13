@@ -259,8 +259,10 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
     },
     {
-      label: t("pages.athleteImportPage.importButton"),
-      content: t("pages.athleteImportPage.importButton"),
+      label: t("components.athleteDatagrid.table.toolbar.importAthlete.label"),
+      content: t(
+        "components.athleteDatagrid.table.toolbar.importAthlete.content",
+      ),
       icon: <UploadIcon />,
       collapseToText: true,
       color: "primary",
@@ -332,7 +334,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         {formatLocalizedDate(athlete.birthdate)}
       </Typography>
     ),
-    bottomButtons: [
+    topRightMenu: [
       {
         key: "openDetails",
         label: t("components.athleteDatagrid.actions.openDetails"),
@@ -341,7 +343,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
       ...actions.filter((action) => action.key !== "export"),
     ],
-    topRightInfo: (athlete) => (
+    contentRow: (athlete) => (
       <AchievementsBox
         athlete={athlete}
         performanceRecordings={performanceRecordings}

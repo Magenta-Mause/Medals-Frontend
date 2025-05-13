@@ -138,13 +138,6 @@ const DisciplineDatagrid = (props: DisciplineDatagridProps) => {
           />
         );
       },
-      bottomButtons: [
-        {
-          label: "Details",
-          key: "openDetails",
-          operation: props.onDisciplineClick ?? (async () => {}),
-        },
-      ],
       onElementClick: props.onDisciplineClick ?? undefined,
     };
 
