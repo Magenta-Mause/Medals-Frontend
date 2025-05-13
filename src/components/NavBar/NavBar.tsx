@@ -82,13 +82,16 @@ const NavBar = () => {
         },
       ],
     ],
-    [UserType.ADMIN, [
-      {
-        path: "/admins",
-        icon: <AdminPanelSettings />,
-        label: "admins",
-      }
-    ]],
+    [
+      UserType.ADMIN,
+      [
+        {
+          path: "/admins",
+          icon: <AdminPanelSettings />,
+          label: "admins",
+        },
+      ],
+    ],
     [
       UserType.TRAINER,
       [

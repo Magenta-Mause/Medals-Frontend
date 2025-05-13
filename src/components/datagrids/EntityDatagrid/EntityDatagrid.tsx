@@ -40,7 +40,9 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
   const [modalOpen, setModalOpen] = useState(false);
   const [entityToEdit, setEntityToEdit] = useState<T | undefined>(undefined);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [entityToDelete, setEntityToDelete] = useState<T | undefined>(undefined);
+  const [entityToDelete, setEntityToDelete] = useState<T | undefined>(
+    undefined,
+  );
 
   const columns: Column<T>[] = [
     {
@@ -105,23 +107,23 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
 
   const handleDeleteConfirmation = async () => {
     if (!entityToDelete) return;
-    
+
     try {
       await deleteEntity(entityToDelete.id);
       console.log(`Deleted ${entityType}:`, entityToDelete);
       enqueueSnackbar(
-        t("snackbar.entityDatagrid.deletionSuccess", { 
-          entityType: t(`generic.${entityType}.singular`) 
-        }), 
-        { variant: "success" }
+        t("snackbar.entityDatagrid.deletionSuccess", {
+          entityType: t(`generic.${entityType}.singular`),
+        }),
+        { variant: "success" },
       );
     } catch (error) {
       console.error(`Error deleting ${entityType}:`, error);
       enqueueSnackbar(
-        t("snackbar.entityDatagrid.deletionError", { 
-          entityType: t(`generic.${entityType}.singular`) 
-        }), 
-        { variant: "error" }
+        t("snackbar.entityDatagrid.deletionError", {
+          entityType: t(`generic.${entityType}.singular`),
+        }),
+        { variant: "error" },
       );
     } finally {
       setEntityToDelete(undefined);
@@ -189,7 +191,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
   };
 
   const getEntityName = () => {
-    if (!entityToDelete) return '';
+    if (!entityToDelete) return "";
     return `${entityToDelete.first_name} ${entityToDelete.last_name}`;
   };
 
@@ -216,13 +218,16 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
         open={isDeleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
         onConfirm={handleDeleteConfirmation}
-        header={t("components.entityDatagrid.deletionModal.header", { 
-          entityType: t(`generic.${entityType}.singular`) 
-        })}
-        message={t("components.entityDatagrid.deletionModal.confirmDeleteMessage", {
+        header={t("components.entityDatagrid.deletionModal.header", {
           entityType: t(`generic.${entityType}.singular`),
-          entityName: getEntityName()
         })}
+        message={t(
+          "components.entityDatagrid.deletionModal.confirmDeleteMessage",
+          {
+            entityType: t(`generic.${entityType}.singular`),
+            entityName: getEntityName(),
+          },
+        )}
         confirmButtonText={t("components.confirmationPopup.deleteButton")}
       />
     </>

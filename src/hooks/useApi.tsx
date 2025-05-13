@@ -51,8 +51,8 @@ const useApi = () => {
     async (athlete: Athlete) => {
       try {
         const request = await axiosInstance!.put(`/athletes/${athlete.id}`, {
-          first_name: athlete.first_name,
-          last_name: athlete.last_name,
+          firstName: athlete.first_name,
+          lastName: athlete.last_name,
         });
         if (request.status !== 200) {
           throw new Error(
@@ -486,7 +486,7 @@ const useApi = () => {
       return [];
     }
   }, [axiosInstance]);
-  
+
   const removeTrainerAthleteConnection = useCallback(
     async (trainerId: number, athleteId: number) => {
       try {
