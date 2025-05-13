@@ -18,6 +18,7 @@ const CustomDatePicker = (props: {
       ) => void)
     | undefined;
   format: string | undefined;
+  disabled?: boolean; // <-- Add this line
 }) => {
   const { mode } = useColorScheme();
   const styles: Record<"dark" | "light", SxProps<Theme> | undefined> = {
@@ -30,6 +31,7 @@ const CustomDatePicker = (props: {
 
   return (
     <DatePicker
+      disabled={props.disabled}
       sx={
         {
           ...props.sx,
@@ -38,28 +40,36 @@ const CustomDatePicker = (props: {
         } as SxProps<Theme>
       }
       slotProps={{
-        day: {
-          sx: {
-            color: mode === "dark" ? "white" : "black",
-          },
-        },
         textField: {
+          disabled: props.disabled,
           error: props.error,
           sx: {
+            // shared height
             height: { sx: "3vh", md: "5vh", xs: "5vh" },
           },
           InputProps: {
+            disabled: props.disabled,
             sx: {
               height: { sx: "3vh", md: "5vh", xs: "5vh" },
               borderRadius: "7px",
-              backgroundColor: mode === "dark" ? "#0b0d0e" : "white",
-              color: props.error
+              backgroundColor: props.disabled
                 ? mode === "dark"
-                  ? "#f7c5c5" // Error color for dark mode
-                  : "#c41c1c" // Error color for light mode
+                  ? "#444" // consistent disabled look in dark mode
+                  : "#f5f5f5"
                 : mode === "dark"
-                  ? "white"
-                  : "#333333", // New color when no error & mode is not dark
+                  ? "#0b0d0e"
+                  : "white",
+              color: props.disabled
+                ? mode === "dark"
+                  ? "#aaa"
+                  : "neutral.100"
+                : props.error
+                  ? mode === "dark"
+                    ? "#f7c5c5"
+                    : "#c41c1c"
+                  : mode === "dark"
+                    ? "white"
+                    : "#333333",
               fontSize: "large",
               "& .MuiOutlinedInput-root": {
                 backgroundColor: mode === "dark" ? "#0b0d0e" : "white",

@@ -257,51 +257,50 @@ const AthleteCreationForm = ({
     }
   };
 
-const handleFormSubmit = async () => {
-  if (handleSubmitAttempt()) {
-    try {
-      if (isEditMode) {
-        const updateFn = updateAthlete || apiUpdateAthlete;
-        if (updateFn) {
-          await updateFn(athlete);
-          enqueueSnackbar(t("snackbar.update.success"), {
+  const handleFormSubmit = async () => {
+    if (handleSubmitAttempt()) {
+      try {
+        if (isEditMode) {
+          const updateFn = updateAthlete || apiUpdateAthlete;
+          if (updateFn) {
+            await updateFn(athlete);
+            enqueueSnackbar(t("snackbar.update.success"), {
+              variant: "success",
+            });
+          }
+        } else {
+          await createAthlete(athlete);
+          enqueueSnackbar(t("snackbar.invite.success"), {
             variant: "success",
           });
         }
-      } else {
-        await createAthlete(athlete);
-        enqueueSnackbar(t("snackbar.invite.success"), {
-          variant: "success",
-        });
-      }
-      setOpen(false);
-      resetForm();
-    } catch (error: any) {
-      const serverMessage = error?.response?.data?.data;
-      if (
-        serverMessage ===
-        "An athlete with the same email and birthdate already exists."
-      ) {
-        setErrors((prev) => ({
-          ...prev,
-          email: t("backendErrors.athleteAlreadyExists"),
-          birthdate: t("backendErrors.athleteAlreadyExists"),
-        }));
-        setTouched((prev) => ({
-          ...prev,
-          email: true,
-          birthdate: true,
-        }));
-      } else {
-        enqueueSnackbar(t("generic.errors.unknownError"), {
-          variant: "error",
-        });
-        console.error("Unhandled form submission error:", error);
+        setOpen(false);
+        resetForm();
+      } catch (error: any) {
+        const serverMessage = error?.response?.data?.data;
+        if (
+          serverMessage ===
+          "An athlete with the same email and birthdate already exists."
+        ) {
+          setErrors((prev) => ({
+            ...prev,
+            email: t("backendErrors.athleteAlreadyExists"),
+            birthdate: t("backendErrors.athleteAlreadyExists"),
+          }));
+          setTouched((prev) => ({
+            ...prev,
+            email: true,
+            birthdate: true,
+          }));
+        } else {
+          enqueueSnackbar(t("generic.errors.unknownError"), {
+            variant: "error",
+          });
+          console.error("Unhandled form submission error:", error);
+        }
       }
     }
-  }
-};
-
+  };
 
   return (
     <GenericModal
@@ -363,7 +362,7 @@ const handleFormSubmit = async () => {
         </FormControl>
 
         <FormControl error={touched.email && !!errors.email}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "baseline", gap: 1 }}>
             <FormLabel>{t("pages.athleteCreationPage.email")}</FormLabel>
             {isEditMode && (
               <InfoTooltip
@@ -395,7 +394,7 @@ const handleFormSubmit = async () => {
         </FormControl>
 
         <FormControl error={touched.birthdate && !!errors.birthdate}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "baseline", gap: 1 }}>
             <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
             {isEditMode && (
               <InfoTooltip
@@ -412,9 +411,10 @@ const handleFormSubmit = async () => {
                 : {}),
             }}
             value={getDatePickerValue()}
-            onChange={!isEditMode ? handleDateChange : () => {}}
+            onChange={!isEditMode ? handleDateChange : undefined}
             format={dateFormat}
             error={touched.birthdate && !!errors.birthdate}
+            disabled={isEditMode}
           />
           {touched.birthdate && errors.birthdate && (
             <FormHelperText>{errors.birthdate}</FormHelperText>
@@ -422,7 +422,7 @@ const handleFormSubmit = async () => {
         </FormControl>
 
         <FormControl error={touched.gender && !!errors.gender}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "baseline", gap: 1 }}>
             <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
             {isEditMode && (
               <InfoTooltip
@@ -447,7 +447,6 @@ const handleFormSubmit = async () => {
                 gender: validateField("gender", value),
               }));
             }}
-
             disabled={isEditMode}
             sx={
               isEditMode
