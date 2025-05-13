@@ -23,8 +23,24 @@ const TrainerModal = ({ isOpen, setOpen, entityToEdit }: TrainerModalProps) => {
           : "components.entityModal.modal.createHeader"
       }
       FormComponent={EntityForm}
-      createFunction={(data) => inviteTrainer({ ...data, id: -1 })}
-      updateFunction={(data) => updateTrainer(data)}
+      createFunction={async (data) => {
+        try {
+          await inviteTrainer({ ...data, id: -1 } as Trainer);
+          return true;
+        } catch (error) {
+          console.error("Error inviting trainer:", error);
+          return false;
+        }
+      }}
+      updateFunction={async (data) => {
+        try {
+          await updateTrainer(data as Trainer);
+          return true;
+        } catch (error) {
+          console.error("Error updating trainer:", error);
+          return false;
+        }
+      }}
       successCreateMessage="snackbar.invite.success"
       errorCreateMessage="snackbar.invite.failed"
       successUpdateMessage="snackbar.update.success"

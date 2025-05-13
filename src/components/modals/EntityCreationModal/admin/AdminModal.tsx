@@ -23,8 +23,24 @@ const AdminModal = ({ isOpen, setOpen, entityToEdit }: AdminModalProps) => {
           : "components.entityModal.modal.createHeader"
       }
       FormComponent={EntityForm}
-      createFunction={(data) => inviteAdmin({ ...data, id: -1 })}
-      updateFunction={(data) => updateAdmin(data)}
+      createFunction={async (data) => {
+        try {
+          await inviteAdmin({ ...data, id: -1 } as Admin);
+          return true;
+        } catch (error) {
+          console.error("Error inviting admin:", error);
+          return false;
+        }
+      }}
+      updateFunction={async (data) => {
+        try {
+          await updateAdmin(data as Admin);
+          return true;
+        } catch (error) {
+          console.error("Error updating admin:", error);
+          return false;
+        }
+      }}
       successCreateMessage="snackbar.invite.success"
       errorCreateMessage="snackbar.invite.failed"
       successUpdateMessage="snackbar.update.success"
