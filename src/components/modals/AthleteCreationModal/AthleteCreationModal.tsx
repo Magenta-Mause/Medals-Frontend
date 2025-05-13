@@ -329,13 +329,14 @@ const handleFormSubmit = async () => {
           flexDirection: "column",
           gap: 2,
           width: { xs: "100%", md: "30vw" },
+          p: 2,
         }}
       >
         <FormControl error={touched.first_name && !!errors.first_name}>
           <FormLabel>{t("pages.athleteCreationPage.firstName")}</FormLabel>
           <Input
             placeholder={t("pages.athleteCreationPage.firstName")}
-            size="lg"
+            size="md"
             variant="outlined"
             value={athlete.first_name}
             onChange={(e) => handleFieldChange("first_name", e.target.value)}
@@ -350,7 +351,7 @@ const handleFormSubmit = async () => {
           <FormLabel>{t("pages.athleteCreationPage.lastName")}</FormLabel>
           <Input
             placeholder={t("pages.athleteCreationPage.lastName")}
-            size="lg"
+            size="md"
             variant="outlined"
             value={athlete.last_name}
             onChange={(e) => handleFieldChange("last_name", e.target.value)}
@@ -373,7 +374,7 @@ const handleFormSubmit = async () => {
           </Box>
           <Input
             placeholder={t("pages.athleteCreationPage.email")}
-            size="lg"
+            size="md"
             variant="outlined"
             value={athlete.email}
             onChange={(e) => handleFieldChange("email", e.target.value)}
@@ -438,7 +439,15 @@ const handleFormSubmit = async () => {
                 ? (_, newValue) => handleFieldChange("gender", newValue)
                 : undefined
             }
-            onBlur={() => markTouched("gender")}
+            onBlur={() => {
+              const value = athlete.gender;
+              markTouched("gender");
+              setErrors((prev) => ({
+                ...prev,
+                gender: validateField("gender", value),
+              }));
+            }}
+
             disabled={isEditMode}
             sx={
               isEditMode
@@ -460,10 +469,10 @@ const handleFormSubmit = async () => {
 
         <Button
           fullWidth
+          size="md"
           disabled={!isFormValid()}
           sx={{
-            mt: 4,
-            mb: 2,
+            mt: 2,
           }}
           onClick={handleFormSubmit}
         >
