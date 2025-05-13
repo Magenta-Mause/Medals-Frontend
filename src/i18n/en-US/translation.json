@@ -205,7 +205,7 @@
           "password": "Password"
         },
         "forgotPassword": "Forgot password?",
-        "acceptOur": "I accept the",
+        "continueMeansAccept": "By continuing, you accept our",
         "privacyPolicy": "Privacy Policy",
         "submit": "Login",
         "loginFailedWarning": "Login failed",

@@ -207,7 +207,7 @@
         },
         "forgotPassword": "Passwort vergessen?",
         "privacyPolicy": "Datenschutzerklärung",
-        "acceptOur": "Ich akzeptiere die",
+        "continueMeansAccept": "Durch die Anmeldung akzeptierst du unsere",
         "submit": "Anmelden",
         "loginFailedWarning": "Anmeldung fehlgeschlagen",
         "logoutButton": "Abmelden",
