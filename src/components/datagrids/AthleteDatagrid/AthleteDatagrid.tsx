@@ -307,6 +307,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
   ];
 
+  const selectionActions = actions.filter(action => action.key !== "edit");
+
   const itemCallback = async (item: Athlete) => {
     navigate("/athletes/" + item.id);
   };
@@ -430,7 +432,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         filters={filters}
         toolbarActions={toolbarActions}
         actionMenu={actions}
-        itemSelectionActions={actions}
+        itemSelectionActions={selectionActions}
         keyOf={(item) => item.id!}
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
