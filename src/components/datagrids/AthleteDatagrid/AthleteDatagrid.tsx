@@ -253,8 +253,10 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       },
     },
     {
-      label: t("pages.athleteImportPage.importButton"),
-      content: t("pages.athleteImportPage.importButton"),
+      label: t("components.athleteDatagrid.table.toolbar.importAthlete.label"),
+      content: t(
+        "components.athleteDatagrid.table.toolbar.importAthlete.content",
+      ),
       icon: <UploadIcon />,
       collapseToText: true,
       color: "primary",
