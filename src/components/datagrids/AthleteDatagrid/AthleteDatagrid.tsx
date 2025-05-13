@@ -33,13 +33,13 @@ interface AthleteDatagridProps {
 }
 
 const AccessNotApprovedComponent = () => {
+  const { t } = useTranslation();
+
   return (
     <Box>
       <Typography color={"neutral"} level={"body-xs"}>
-        Zugriff nicht gestattet{" "}
-        <InfoTooltip
-          text={"Zugriff muss erst durch Athlet*in freigegeben werden"}
-        />
+        {t("components.athleteDatagrid.noAccess.label")}{" "}
+        <InfoTooltip text={t("components.athleteDatagrid.noAccess.tooltip")} />
       </Typography>
     </Box>
   );

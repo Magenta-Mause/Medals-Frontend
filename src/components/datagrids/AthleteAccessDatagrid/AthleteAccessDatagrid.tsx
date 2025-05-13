@@ -7,6 +7,8 @@ import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDat
 import useApi from "@hooks/useApi";
 import { useTranslation } from "react-i18next";
 import { Typography } from "@mui/joy";
+import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
+import { useCallback, useState } from "react";
 
 export interface AthleteAccessElement {
   state: "PENDING" | "APPROVED";
@@ -16,7 +18,24 @@ export interface AthleteAccessElement {
 
 const AthleteAccessDatagrid = (props: { data: AthleteAccessElement[] }) => {
   const { t } = useTranslation();
+  const [revokeModalOpen, setRevokeModalOpen] = useState(false);
+  const [rejectModalOpen, setRejectModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<AthleteAccessElement>();
   const { approveRequest, revokeRequest, removeAssignedTrainer } = useApi();
+
+  const revokeCallback = useCallback(async () => {
+    await removeAssignedTrainer(selectedItem?.trainer?.id ?? -1);
+    setRevokeModalOpen(false);
+  }, [removeAssignedTrainer, selectedItem]);
+
+  const rejectCallback = useCallback(async () => {
+    await revokeRequest(
+      selectedItem?.accessRequest?.id ?? "",
+      selectedItem?.accessRequest?.athlete?.id ?? -1,
+    );
+    setRejectModalOpen(false);
+  }, [revokeRequest, selectedItem]);
+
   const columns: Column<AthleteAccessElement>[] = [
     {
       columnName: t("components.athleteAccessManagementDatagrid.state"),
@@ -75,10 +94,8 @@ const AthleteAccessDatagrid = (props: { data: AthleteAccessElement[] }) => {
           key: "reject",
           color: "danger",
           operation: async (item) => {
-            await revokeRequest(
-              item.accessRequest?.id ?? "",
-              item.accessRequest?.athlete?.id ?? -1,
-            );
+            setRejectModalOpen(true);
+            setSelectedItem(item);
           },
         },
       ];
@@ -89,7 +106,8 @@ const AthleteAccessDatagrid = (props: { data: AthleteAccessElement[] }) => {
         key: "revoke",
         color: "danger",
         operation: async (item) => {
-          await removeAssignedTrainer(item.trainer.id);
+          setRevokeModalOpen(true);
+          setSelectedItem(item);
         },
       },
     ];
@@ -101,14 +119,44 @@ const AthleteAccessDatagrid = (props: { data: AthleteAccessElement[] }) => {
   };
 
   return (
-    <GenericResponsiveDatagrid
-      columns={columns}
-      data={props.data}
-      keyOf={(item) => item.trainer.id}
-      actionMenu={actions}
-      mobileRendering={mobileRendering}
-      disablePaging
-    />
+    <>
+      <GenericResponsiveDatagrid
+        columns={columns}
+        data={props.data}
+        keyOf={(item) => item.trainer.id}
+        actionMenu={actions}
+        mobileRendering={mobileRendering}
+        disablePaging
+      />
+      <ConfirmationPopup
+        confirmButtonText={t(
+          "components.athleteAccessManagementDatagrid.actions.revoke",
+        )}
+        header={t(
+          "components.athleteAccessManagementDatagrid.confirmations.revoke.header",
+        )}
+        message={t(
+          "components.athleteAccessManagementDatagrid.confirmations.revoke.message",
+        )}
+        onClose={() => setRevokeModalOpen(false)}
+        onConfirm={revokeCallback}
+        open={revokeModalOpen}
+      />
+      <ConfirmationPopup
+        confirmButtonText={t(
+          "components.athleteAccessManagementDatagrid.actions.reject",
+        )}
+        header={t(
+          "components.athleteAccessManagementDatagrid.confirmations.reject.header",
+        )}
+        message={t(
+          "components.athleteAccessManagementDatagrid.confirmations.reject.message",
+        )}
+        onClose={() => setRejectModalOpen(false)}
+        onConfirm={rejectCallback}
+        open={rejectModalOpen}
+      />
+    </>
   );
 };
 export default AthleteAccessDatagrid;

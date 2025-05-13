@@ -244,9 +244,9 @@ const NavBar = () => {
             padding: "none",
           }}
         >
+          <AthletePendingAccessRequestInfoCard />
           <LegalLinksSelector collapseSidebar={collapseSidebar} />
           <LanguageSelector />
-          <AthletePendingAccessRequestInfoCard />
         </List>
       </Box>
       <Divider />

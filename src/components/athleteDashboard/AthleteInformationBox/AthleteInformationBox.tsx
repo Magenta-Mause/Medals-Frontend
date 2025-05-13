@@ -62,6 +62,22 @@ const AthleteInformationBox = () => {
             {t("components.athleteDashboard.trainers.noTrainers")}
           </Typography>
         )}
+        <br />
+        {accessRequests.length > 0 && (
+          <Typography
+            level={"body-md"}
+            color={"neutral"}
+            sx={{ userSelect: "none" }}
+          >
+            {accessRequests.length == 1
+              ? t(
+                  "components.athleteDashboard.trainers.accessRequestsPending.singular",
+                )
+              : t(
+                  "components.athleteDashboard.trainers.accessRequestsPending.plural",
+                ).replaceAll("{count}", accessRequests.length.toString())}
+          </Typography>
+        )}
       </GenericDashboardBoxContent>
       <GenericDashboardBoxFooter>
         <span

@@ -459,6 +459,10 @@
       }
     },
     "athleteDatagrid": {
+      "noAccess": {
+        "label": "Access not permitted yet",
+        "tooltip": "Access must first be permitted through the Athlete"
+      },
       "table": {
         "columns": {
           "athleteId": "Athlete ID",
@@ -705,7 +709,11 @@
         "removeTrainers": "Manage your trainers",
         "removeTrainer": "Manage your trainer",
         "header": "Trainer Mangement",
-        "requestsPending": "Manage pending Requests"
+        "requestsPending": "Manage pending Requests",
+        "accessRequestsPending": {
+          "singular": "You have one pending access request",
+          "plural": "You have {count} pending access requests"
+        }
       },
       "activityChart": {
         "header": "Your activities in ",

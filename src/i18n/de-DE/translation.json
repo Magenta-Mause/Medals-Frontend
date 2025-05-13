@@ -384,6 +384,16 @@
         "accept": "Akzeptieren",
         "revoke": "Zugriff entziehen",
         "reject": "Ablehnen"
+      },
+      "confirmations": {
+        "revoke": {
+          "header": "Trainer Zugriff entziehen",
+          "message": "Bist du dir sicher, dass du deinem Trainer den Zugriff auf dich entziehen möchtest?"
+        },
+        "reject": {
+          "header": "Zugriff Anfrage ablehnen",
+          "message": "Bist du dir sicher, dass du diese Zugriffsanfrage ablehnen willst?"
+        }
       }
     },
     "athleteDetailHeader": {
@@ -463,6 +473,10 @@
       }
     },
     "athleteDatagrid": {
+      "noAccess": {
+        "label": "Zugriff nicht gestattet",
+        "tooltip": "Zugriff muss erst durch Athlet*in freigegeben werden"
+      },
       "table": {
         "columns": {
           "athleteId": "Athlet*in ID",
@@ -695,12 +709,16 @@
       },
       "trainers": {
         "noTrainers": "Keine Trainer*innen verwalten dich",
-        "trainer": "Dein*e Trainer*in:",
-        "trainers": "Deine Trainer*innen:",
+        "trainer": "Du wirst verwaltet von:",
+        "trainers": "Du wirst verwaltet von:",
         "removeTrainers": "Verwalte deine Trainer*innen",
         "removeTrainer": "Verwalte dein*e Trainer*in",
         "header": "Trainer*in Verwalten",
-        "requestsPending": "Ausstehende Anfragen verwalten"
+        "requestsPending": "Ausstehende Anfragen verwalten",
+        "accessRequestsPending": {
+          "singular": "Du hast eine ausstehende Zugriffsanfrage",
+          "plural": "Du hast {count} ausstehende Zugriffsanfragen"
+        }
       },
       "totalMedalBox": {
         "header": "Deutsches Sportabzeichen",
