@@ -150,9 +150,9 @@
       "deletionSuccess": "Athletes successful deleted!",
       "deletionError": "Error while deleting athletes"
     },
-    "trainerDatagrid": {
-      "deletionSuccess": "Trainers successful deleted!",
-      "deletionError": "Error while deleting trainers"
+    "entityDatagrid": {
+      "deletionSuccess": "{{entityType}}(s) successful deleted!",
+      "deletionError": "Error while deleting {{entityType}}(s)"
     }
   },
   "pages": {
@@ -218,7 +218,7 @@
         "subheader": "Pick the profile you want to continue with"
       },
       "signIn": {
-        "header": "Login",
+        "header": "Login", 
         "subheader": "Medals - The soon to be Medal Management System",
         "input": {
           "email": "Email",
@@ -515,6 +515,10 @@
       "actions": {
         "delete": "Delete",
         "edit": "Edit"
+      },
+      "deletionModal": {
+        "header": "{{entityType}} Deletion",
+        "confirmDeleteMessage":"By clicking 'Delete', the selected {{entityType}}(s) and all associated data will be permanently removed."
       }
     },
     "entityModal": {
@@ -531,10 +535,6 @@
         "confirm": "Invite {{entityType}}",
         "update": "Update {{entityType}}"
       }
-    },
-    "deletionModal": {
-      "header": "Trainer Deletion",
-      "confirmDeleteMessage": "By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
     },
     "buttons": {
       "next": "Next",

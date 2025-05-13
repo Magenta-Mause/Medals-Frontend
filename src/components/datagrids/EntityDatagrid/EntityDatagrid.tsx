@@ -9,6 +9,8 @@ import GenericResponsiveDatagrid, {
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
+import { enqueueSnackbar } from "notistack";
 
 interface EntityWithBasicInfo {
   id: number;
@@ -37,6 +39,8 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
   const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
   const [entityToEdit, setEntityToEdit] = useState<T | undefined>(undefined);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [entityToDelete, setEntityToDelete] = useState<T | undefined>(undefined);
 
   const columns: Column<T>[] = [
     {
@@ -99,14 +103,39 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
     },
   ];
 
+  const handleDeleteConfirmation = async () => {
+    if (!entityToDelete) return;
+    
+    try {
+      await deleteEntity(entityToDelete.id);
+      console.log(`Deleted ${entityType}:`, entityToDelete);
+      enqueueSnackbar(
+        t("snackbar.entityDatagrid.deletionSuccess", { 
+          entityType: t(`generic.${entityType}.singular`) 
+        }), 
+        { variant: "success" }
+      );
+    } catch (error) {
+      console.error(`Error deleting ${entityType}:`, error);
+      enqueueSnackbar(
+        t("snackbar.entityDatagrid.deletionError", { 
+          entityType: t(`generic.${entityType}.singular`) 
+        }), 
+        { variant: "error" }
+      );
+    } finally {
+      setEntityToDelete(undefined);
+    }
+  };
+
   const deleteAction: Action<T> = {
     label: <>{t("components.entityDatagrid.actions.delete")}</>,
     color: "danger",
     key: "delete",
     variant: "solid",
     operation: async (item) => {
-      await deleteEntity(item.id);
-      console.log(`Deleted ${entityType}:`, item);
+      setEntityToDelete(item);
+      setDeleteModalOpen(true);
     },
   };
 
@@ -159,6 +188,11 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
     setEntityToEdit(undefined);
   };
 
+  const getEntityName = () => {
+    if (!entityToDelete) return '';
+    return `${entityToDelete.first_name} ${entityToDelete.last_name}`;
+  };
+
   return (
     <>
       <GenericResponsiveDatagrid
@@ -176,6 +210,20 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
         isOpen={modalOpen}
         setOpen={handleModalClose}
         entityToEdit={entityToEdit}
+      />
+
+      <ConfirmationPopup
+        open={isDeleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+        onConfirm={handleDeleteConfirmation}
+        header={t("components.entityDatagrid.deletionModal.header", { 
+          entityType: t(`generic.${entityType}.singular`) 
+        })}
+        message={t("components.entityDatagrid.deletionModal.confirmDeleteMessage", {
+          entityType: t(`generic.${entityType}.singular`),
+          entityName: getEntityName()
+        })}
+        confirmButtonText={t("components.confirmationPopup.deleteButton")}
       />
     </>
   );
