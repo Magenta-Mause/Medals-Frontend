@@ -11,7 +11,7 @@ import {
 import Option from "@mui/joy/Option";
 import Select from "@mui/joy/Select";
 import dayjs, { Dayjs } from "dayjs";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import GenericModal from "../GenericModal";
@@ -92,6 +92,75 @@ const AthleteCreationForm = ({
 
   const isEditMode = !!athleteToEdit;
 
+  const validateField = useCallback(
+    (field: keyof FormErrors, value: any): string => {
+      switch (field) {
+        case "first_name":
+          if (!value) return t("generic.validation.required");
+          if (value.length > 255) return t("generic.validation.tooLong");
+          return "";
+        case "last_name":
+          if (!value) return t("generic.validation.required");
+          if (value.length > 255) return t("generic.validation.tooLong");
+          return "";
+        case "email":
+          if (!isEditMode) {
+            if (!value) return t("generic.validation.required");
+            if (!isValidEmail(value))
+              return t("generic.validation.invalidEmail");
+          }
+          return "";
+        case "birthdate":
+          if (!isEditMode && !value) return t("generic.validation.required");
+          return "";
+        case "gender":
+          if (!isEditMode && value === undefined)
+            return t("generic.validation.required");
+          return "";
+        default:
+          return "";
+      }
+    },
+    [t, isEditMode],
+  );
+
+  const resetForm = useCallback(() => {
+    setAthlete({
+      first_name: "",
+      last_name: "",
+      email: "",
+      gender: undefined,
+      birthdate: "",
+    });
+    setTouched({
+      first_name: false,
+      last_name: false,
+      email: false,
+      birthdate: false,
+      gender: false,
+    });
+    setErrors({
+      first_name: "",
+      last_name: "",
+      email: "",
+      birthdate: "",
+      gender: "",
+    });
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    if (!isEditMode) {
+      resetForm();
+    }
+  }, [setOpen, resetForm, isEditMode]);
+
+  useEffect(() => {
+    if (!isOpen && !isEditMode) {
+      resetForm();
+    }
+  }, [isOpen, resetForm, isEditMode]);
+
   useEffect(() => {
     if (athleteToEdit) {
       setAthlete(athleteToEdit);
@@ -111,40 +180,12 @@ const AthleteCreationForm = ({
         birthdate: "", // Not editable in edit mode
         gender: "", // Not editable in edit mode
       });
-    } else {
+    } else if (isOpen) {
       resetForm();
     }
-  }, [athleteToEdit]);
+  }, [athleteToEdit, validateField, resetForm, isOpen]);
 
   const dateFormat = getDateFormatForLocale(i18n.language);
-
-  const validateField = (field: keyof FormErrors, value: any): string => {
-    switch (field) {
-      case "first_name":
-        if (!value) return t("generic.validation.required");
-        if (value.length > 255) return t("generic.validation.tooLong");
-        return "";
-      case "last_name":
-        if (!value) return t("generic.validation.required");
-        if (value.length > 255) return t("generic.validation.tooLong");
-        return "";
-      case "email":
-        if (!isEditMode) {
-          if (!value) return t("generic.validation.required");
-          if (!isValidEmail(value)) return t("generic.validation.invalidEmail");
-        }
-        return "";
-      case "birthdate":
-        if (!isEditMode && !value) return t("generic.validation.required");
-        return "";
-      case "gender":
-        if (!isEditMode && value === undefined)
-          return t("generic.validation.required");
-        return "";
-      default:
-        return "";
-    }
-  };
 
   const handleFieldChange = (field: keyof Athlete, value: any) => {
     setAthlete((prev) => ({ ...prev, [field]: value }));
@@ -218,30 +259,6 @@ const AthleteCreationForm = ({
     return isFormValid();
   };
 
-  const resetForm = () => {
-    setAthlete({
-      first_name: "",
-      last_name: "",
-      email: "",
-      gender: undefined,
-      birthdate: "",
-    });
-    setTouched({
-      first_name: false,
-      last_name: false,
-      email: false,
-      birthdate: false,
-      gender: false,
-    });
-    setErrors({
-      first_name: "",
-      last_name: "",
-      email: "",
-      birthdate: "",
-      gender: "",
-    });
-  };
-
   const markTouched = (field: keyof FormTouched) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
@@ -310,7 +327,13 @@ const AthleteCreationForm = ({
           : t("pages.athleteCreationPage.createHeader")
       }
       open={isOpen}
-      setOpen={setOpen}
+      setOpen={(open) => {
+        if (!open) {
+          handleClose();
+        } else {
+          setOpen(open);
+        }
+      }}
       modalDialogSX={{ minWidth: "30%" }}
       modalSX={{
         display: "flex",
