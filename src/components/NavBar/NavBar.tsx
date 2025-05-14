@@ -14,7 +14,6 @@ import {
   HelpCenter,
   LogoutRounded,
   PeopleRounded,
-  SearchRounded,
   SpaceDashboard,
   SupervisedUserCircleOutlined,
 } from "@mui/icons-material";
@@ -24,7 +23,6 @@ import {
   Divider,
   GlobalStyles,
   IconButton,
-  Input,
   List,
   ListItem,
   ListItemButton,
@@ -201,7 +199,7 @@ const NavBar = () => {
             "--List-nestedInsetStart": "30px",
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}
-        > 
+        >
           {[
             ...(userRole
               ? [
