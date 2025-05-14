@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, CircularProgress, Typography } from "@mui/joy";
 import { Cloud } from "@mui/icons-material";
 import UploadIcon from "@mui/icons-material/Upload";
-import { CSVUploadState } from "@customTypes/enums";
+import { CSVUploadState } from "@components/CSVUploadComponent/CSVHelper";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 import { CSVData } from "@components/CSVUploadComponent/CSVHelper";
 import { useSnackbar } from "notistack";

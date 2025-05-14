@@ -30,13 +30,6 @@ export enum Genders {
   MALE = "MALE",
 }
 
-export enum CSVUploadState {
-  VALID,
-  UPLOADED,
-  FAILED,
-  LOADING,
-}
-
 export enum SwimmingCertificateType {
   ENDURANCE = "ENDURANCE", // Fully continuous swim (distance & time; bronze time not mandatory)
   SPRINT = "SPRINT", // 25m swim within the bronze-required time (or better)

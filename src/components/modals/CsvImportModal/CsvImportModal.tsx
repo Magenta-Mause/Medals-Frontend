@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Athlete } from "@customTypes/backendTypes";
 import GenericModal from "../GenericModal";
-import { CSVUploadState } from "@customTypes/enums";
+import { CSVUploadState } from "@components/CSVUploadComponent/CSVHelper";
 import { Tab, Tabs } from "@mui/material";
 import AthleteCSVUploadComponent from "@components/CSVUploadComponent/AthleteCSVUploadComponent/AthleteCSVUploadComponent";
 import PerformanceRecordingCSVUploadComponent from "@components/CSVUploadComponent/PerformanceRecordingCSVUploadComponent/PerformanceRecordingCSVUploadComponent";
