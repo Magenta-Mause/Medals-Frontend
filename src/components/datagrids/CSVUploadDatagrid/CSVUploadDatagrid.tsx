@@ -67,21 +67,19 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
   ];
   const mobileRendering: MobileTableRendering<CSVData<T>> = {};
   const { enqueueSnackbar } = useSnackbar();
-  const [isBlocked, setIsBlocked] = useState<boolean>(false);
+  const [dataUploaded, setDataUploaded] = useState<boolean>(false);
 
   const isFinished = useCallback(() => {
     return (
       csvData.reduce(
-        (prev, data) => prev || data.state === CSVUploadState.LOADING,
-        false,
-      ) &&
-      isBlocked &&
-      csvData.reduce(
-        (prev, data) => prev && data.state === CSVUploadState.FAILED,
+        (prev, data) =>
+          prev &&
+          data.state !== CSVUploadState.LOADING &&
+          data.state !== CSVUploadState.FAILED,
         true,
-      )
+      ) && dataUploaded
     );
-  }, [csvData, isBlocked]);
+  }, [csvData, dataUploaded]);
 
   const uploadData = useCallback(
     async (csvData: CSVData<T>[]) => {
@@ -153,18 +151,20 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
         </Button>
         <Button
           color={isFinished() ? "success" : "primary"}
-          disabled={(checkEmptyImport(csvData) || isBlocked) && !isFinished()}
+          disabled={
+            (checkEmptyImport(csvData) || dataUploaded) && !isFinished()
+          }
           onClick={() => {
             if (isFinished()) {
               setCsvData([]);
               setOpen(false);
             } else {
-              setIsBlocked(true);
+              setDataUploaded(true);
               uploadData(csvData);
             }
           }}
         >
-          {isBlocked
+          {dataUploaded
             ? csvData.reduce(
                 (prev, csvData) =>
                   prev || csvData.state === CSVUploadState.LOADING,
