@@ -16,17 +16,10 @@ const InfoAtLoginModal = ({
       open={open}
       setOpen={setOpen}
       header={t("pages.loginPage.info.header")}
-      modalDialogSX={{ maxWidth: "90vw", maxHeight: "90vh" }}
+      modalDialogSX={{ maxWidth: "40vw", maxHeight: "55vh" }}
       modalSX={{ left: 0 }}
     >
-      <Box
-        sx={{
-          overflowY: "scroll",
-          height: "50vh",
-          width: "40vw",
-          pb: 2,
-        }}
-      >
+      <Box>
         <Typography level="h3" sx={{ mb: 2 }}>
           {t("pages.loginPage.info.sectionHeader")}
         </Typography>

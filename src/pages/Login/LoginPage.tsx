@@ -91,7 +91,6 @@ const LoginPage = () => {
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    alignItems: "center",
                     width: "95%",
                   }}
                 >
@@ -100,6 +99,7 @@ const LoginPage = () => {
                     sx={{
                       cursor: "pointer",
                       fontSize: "small",
+                      paddingTop: 1,
                       color:
                         "var(--variant-plainColor, rgba(var(--joy-palette-primary-mainChannel) / 1))",
                     }}
