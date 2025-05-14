@@ -95,7 +95,7 @@ const LoginPage = () => {
                     width: "95%",
                   }}
                 >
-                  <span>{t("pages.loginPage.signIn.header")}</span>
+                  {t("pages.loginPage.signIn.header")}
                   <Typography
                     sx={{
                       cursor: "pointer",
