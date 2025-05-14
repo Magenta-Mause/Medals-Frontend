@@ -11,7 +11,7 @@ import {
 import Option from "@mui/joy/Option";
 import Select from "@mui/joy/Select";
 import dayjs, { Dayjs } from "dayjs";
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import GenericModal from "../GenericModal";
@@ -350,8 +350,7 @@ const AthleteCreationForm = ({
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          width: { xs: "100%", md: "30vw" },
-          p: 2,
+          minWidth: { xs: "100%", md: "25vw" },
         }}
       >
         <FormControl error={touched.first_name && !!errors.first_name}>
@@ -402,14 +401,6 @@ const AthleteCreationForm = ({
             onChange={(e) => handleFieldChange("email", e.target.value)}
             onBlur={() => markTouched("email")}
             disabled={isEditMode}
-            sx={
-              isEditMode
-                ? {
-                    opacity: 0.7,
-                    backgroundColor: "neutral.100",
-                  }
-                : {}
-            }
           />
           {touched.email && errors.email && (
             <FormHelperText>{errors.email}</FormHelperText>
@@ -417,7 +408,13 @@ const AthleteCreationForm = ({
         </FormControl>
 
         <FormControl error={touched.birthdate && !!errors.birthdate}>
-          <Box sx={{ display: "flex", alignItems: "baseline", gap: 1 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "baseline",
+              gap: 1,
+            }}
+          >
             <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
             {isEditMode && (
               <InfoTooltip
@@ -429,9 +426,6 @@ const AthleteCreationForm = ({
           <CustomDatePicker
             sx={{
               width: "100%",
-              ...(isEditMode
-                ? { opacity: 0.7, backgroundColor: "neutral.100" }
-                : {}),
             }}
             value={getDatePickerValue()}
             onChange={!isEditMode ? handleDateChange : undefined}
@@ -471,14 +465,6 @@ const AthleteCreationForm = ({
               }));
             }}
             disabled={isEditMode}
-            sx={
-              isEditMode
-                ? {
-                    opacity: 0.7,
-                    backgroundColor: "neutral.100",
-                  }
-                : {}
-            }
           >
             <Option value={Genders.FEMALE}>{t("genders.FEMALE")}</Option>
             <Option value={Genders.MALE}>{t("genders.MALE")}</Option>

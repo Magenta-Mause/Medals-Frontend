@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, FormLabel, Input } from "@mui/joy";
 import { emailRegex } from "constants/regex";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 
@@ -119,14 +119,6 @@ const EntityForm = ({
             error={!emailValid}
             disabled={isPending || isEditMode}
             readOnly={isEditMode}
-            sx={
-              isEditMode
-                ? {
-                    opacity: 0.7,
-                    backgroundColor: "neutral.100",
-                  }
-                : {}
-            }
           />
         </FormControl>
       </Box>
