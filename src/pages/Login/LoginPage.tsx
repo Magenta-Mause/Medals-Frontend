@@ -87,12 +87,18 @@ const LoginPage = () => {
               {isUserSelection ? (
                 t("pages.loginPage.userSelection.header")
               ) : (
-                <>
-                  {t("pages.loginPage.signIn.header")}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "95%",
+                  }}
+                >
+                  <span>{t("pages.loginPage.signIn.header")}</span>
                   <Typography
                     sx={{
                       cursor: "pointer",
-                      marginLeft: 10.5,
                       fontSize: "small",
                       color:
                         "var(--variant-plainColor, rgba(var(--joy-palette-primary-mainChannel) / 1))",
@@ -103,7 +109,7 @@ const LoginPage = () => {
                   >
                     {t("pages.loginPage.info.linkButton")}
                   </Typography>
-                </>
+                </Box>
               )}
             </Typography>
 
