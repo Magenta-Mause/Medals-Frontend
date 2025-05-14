@@ -4,11 +4,12 @@ import useApi from "@hooks/useApi";
 import { Box, Stack, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate } from "react-router";
 import LoginForm from "./LoginForm";
 import UserSelectionForm from "./UserSelectionForm";
+import InfoAtLoginModal from "@components/modals/InfoAtLoginModal/InfoAtLoginModal";
 
 const LoginPage = () => {
   const { loginUser } = useApi();
@@ -16,6 +17,7 @@ const LoginPage = () => {
     useContext(AuthContext);
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
+  const [isInfoAtLoginModalOpen, setInfoAtLoginModalOpen] = useState(false);
 
   const loginCallback = async (loginData: {
     email: string;
@@ -85,7 +87,24 @@ const LoginPage = () => {
               {isUserSelection
                 ? t("pages.loginPage.userSelection.header")
                 : t("pages.loginPage.signIn.header")}
+              <Typography level="body-xs" sx={{ padding: 1 }}>
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    setInfoAtLoginModalOpen(true);
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    color:
+                      "var(--variant-plainColor, rgba(var(--joy-palette-primary-mainChannel) / 1))",
+                  }}
+                >
+                  {t("pages.loginPage.signIn.info")}
+                </span>
+              </Typography>
             </Typography>
+
             <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
               {isUserSelection
                 ? t("pages.loginPage.userSelection.subheader")
@@ -101,6 +120,10 @@ const LoginPage = () => {
           )}
           {isUserSelection ? <UserSelectionForm /> : <></>}
         </Stack>
+        <InfoAtLoginModal
+          open={isInfoAtLoginModalOpen}
+          setOpen={(open: boolean) => setInfoAtLoginModalOpen(open)}
+        />
       </Box>
     </SplitPageComponent>
   );
