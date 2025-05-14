@@ -11,7 +11,7 @@ import {
 import Option from "@mui/joy/Option";
 import Select from "@mui/joy/Select";
 import dayjs, { Dayjs } from "dayjs";
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import GenericModal from "../GenericModal";
@@ -350,8 +350,7 @@ const AthleteCreationForm = ({
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          width: { xs: "100%", md: "30vw" },
-          p: 2,
+          minWidth: { xs: "100%", md: "25vw" },
         }}
       >
         <FormControl error={touched.first_name && !!errors.first_name}>
