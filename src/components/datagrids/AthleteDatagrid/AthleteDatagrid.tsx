@@ -264,18 +264,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         setAddAthleteRequestModalOpen(true);
       },
     },
-    {
-      label: t("pages.athleteImportPage.importButton"),
-      content: t("pages.athleteImportPage.importButton"),
-      icon: <UploadIcon />,
-      collapseToText: true,
-      color: "primary",
-      key: "import-athlete",
-      variant: "solid",
-      operation: async () => {
-        setImportModalOpen(true);
-      },
-    },
   ];
 
   const actions: Action<Athlete>[] = [
