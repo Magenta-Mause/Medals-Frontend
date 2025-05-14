@@ -9,14 +9,12 @@ import {
 } from "@components/CSVUploadComponent/CSVHelper";
 
 interface CSVUploadProviderProps<T> {
-  setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
   parseCSVData: (data: Papa.ParseResult<unknown>) => T[];
   validateDataRow: (data: T) => Promise<boolean>;
   setCsvData: React.Dispatch<React.SetStateAction<CSVData<T>[]>>;
 }
 
-const CSVUploadProvider = <T extends Record<string, unknown>>({
-  setSelectedFile,
+const CSVFileUploader = <T extends Record<string, unknown>>({
   parseCSVData,
   validateDataRow,
   setCsvData,
@@ -26,7 +24,6 @@ const CSVUploadProvider = <T extends Record<string, unknown>>({
 
   const checkValidFile = (file: File) => {
     if (file.name.endsWith(".csv") || file.type === "text/csv") {
-      setSelectedFile(file);
       parseCSV(file);
     } else {
       enqueueSnackbar(t("components.csvUploadComponent.invalidFileType"), {
@@ -130,4 +127,4 @@ const CSVUploadProvider = <T extends Record<string, unknown>>({
   );
 };
 
-export default CSVUploadProvider;
+export default CSVFileUploader;

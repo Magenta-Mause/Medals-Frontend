@@ -1,7 +1,7 @@
 import CSVUploadDatagrid from "@components/datagrids/CSVUploadDatagrid/CSVUploadDatagrid";
 import Papa from "papaparse";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
-import CSVUploadProvider from "@components/CSVUploadProvider/CSVUploadProvider";
+import CSVFileUploader from "@components/CSVFileUploader/CSVFileUploader";
 import { useState } from "react";
 import { CSVData } from "./CSVHelper";
 
@@ -22,15 +22,13 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
   validateDataRow,
   key,
 }: CSVUploadComponentProps<T>) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [csvData, setCsvData] = useState<CSVData<T>[]>([]);
 
   return (
     <>
-      {selectedFile === null ? (
-        <CSVUploadProvider
+      {csvData.length === 0 ? (
+        <CSVFileUploader
           key={`${key}-upload-provider`}
-          setSelectedFile={setSelectedFile}
           parseCSVData={parseCSVData}
           validateDataRow={validateDataRow}
           setCsvData={setCsvData}
@@ -43,7 +41,6 @@ const CSVUploadComponent = <T extends Record<string, unknown>>({
           csvColumns={csvColumns}
           uploadEntry={uploadEntry}
           setOpen={setOpen}
-          setSelectedFile={setSelectedFile}
         />
       )}
     </>

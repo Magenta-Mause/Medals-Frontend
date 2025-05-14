@@ -22,7 +22,6 @@ interface CSVUploadDatagridProps<T> {
   csvColumns: Column<CSVData<T>>[];
   uploadEntry: (data: T) => Promise<any>;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
 const CSVUploadDatagrid = <T extends Record<string, unknown>>({
@@ -31,7 +30,6 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
   csvColumns,
   uploadEntry,
   setOpen,
-  setSelectedFile,
 }: CSVUploadDatagridProps<T>) => {
   const { t } = useTranslation();
   const columns: Column<CSVData<T>>[] = [
@@ -147,7 +145,7 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
       >
         <Button
           onClick={() => {
-            setSelectedFile(null);
+            setCsvData([]);
           }}
           color={"danger"}
         >
@@ -158,7 +156,7 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
           disabled={(checkEmptyImport(csvData) || isBlocked) && !isFinished()}
           onClick={() => {
             if (isFinished()) {
-              setSelectedFile(null);
+              setCsvData([]);
               setOpen(false);
             } else {
               setIsBlocked(true);
