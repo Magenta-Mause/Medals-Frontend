@@ -30,15 +30,8 @@ const InfoAtLoginModal = ({
         <Typography level="h3" sx={{ mb: 2 }}>
           {t("pages.loginPage.info.sectionHeader")}
         </Typography>
-        <Typography level="body-md" sx={{ mb: 2 }}>
-          {t("pages.loginPage.info.greeting")
-            .split("\n")
-            .map((line, index) => (
-              <span key={index}>
-                {line}
-                <br />
-              </span>
-            ))}
+        <Typography level="body-md" sx={{ mb: 2, white: "pre-line" }}>
+          {t("pages.loginPage.info.greeting")}.
         </Typography>
         <Box component="ul" sx={{ pl: 3, mb: 2 }}>
           <li>{t("pages.loginPage.info.admin")}</li>

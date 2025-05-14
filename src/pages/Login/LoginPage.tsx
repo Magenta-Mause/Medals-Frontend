@@ -10,6 +10,7 @@ import { Navigate } from "react-router";
 import LoginForm from "./LoginForm";
 import UserSelectionForm from "./UserSelectionForm";
 import InfoAtLoginModal from "@components/modals/InfoAtLoginModal/InfoAtLoginModal";
+import InfoOutlineIcon from "@mui/icons-material/InfoOutlined";
 
 const LoginPage = () => {
   const { loginUser } = useApi();
@@ -84,31 +85,34 @@ const LoginPage = () => {
         <Stack sx={{ gap: 4, mb: 2 }}>
           <Stack sx={{ gap: 1 }}>
             <Typography component="h1" level="h3">
-              {isUserSelection
-                ? t("pages.loginPage.userSelection.header")
-                : t("pages.loginPage.signIn.header")}
-              <Typography level="body-xs" sx={{ padding: 1 }}>
-                <span
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    setInfoAtLoginModalOpen(true);
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    color:
-                      "var(--variant-plainColor, rgba(var(--joy-palette-primary-mainChannel) / 1))",
-                  }}
-                >
-                  {t("pages.loginPage.signIn.info")}
-                </span>
-              </Typography>
+              {isUserSelection ? (
+                t("pages.loginPage.userSelection.header")
+              ) : (
+                <>
+                  {t("pages.loginPage.signIn.header")}
+                  <InfoOutlineIcon
+                    sx={{
+                      cursor: "pointer",
+                      marginLeft: 0.2,
+                      height: 25,
+                      fontSize: "medium",
+                      color:
+                        "var(--variant-plainColor, rgba(var(--joy-palette-primary-mainChannel) / 1))",
+                    }}
+                    onClick={() => {
+                      setInfoAtLoginModalOpen(true);
+                    }}
+                  />
+                </>
+              )}
             </Typography>
 
             <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
-              {isUserSelection
-                ? t("pages.loginPage.userSelection.subheader")
-                : t("pages.loginPage.signIn.subheader")}
+              {isUserSelection ? (
+                t("pages.loginPage.userSelection.subheader")
+              ) : (
+                <>{t("pages.loginPage.signIn.subheader")}</>
+              )}
             </Typography>
           </Stack>
         </Stack>
