@@ -90,19 +90,20 @@ const LoginPage = () => {
               ) : (
                 <>
                   {t("pages.loginPage.signIn.header")}
-                  <InfoOutlineIcon
+                  <Typography
                     sx={{
                       cursor: "pointer",
-                      marginLeft: 0.2,
-                      height: 25,
-                      fontSize: "medium",
+                      marginLeft: 10.5,
+                      fontSize: "small",
                       color:
                         "var(--variant-plainColor, rgba(var(--joy-palette-primary-mainChannel) / 1))",
                     }}
                     onClick={() => {
                       setInfoAtLoginModalOpen(true);
                     }}
-                  />
+                  >
+                    {t("pages.loginPage.info.linkButton")}
+                  </Typography>
                 </>
               )}
             </Typography>

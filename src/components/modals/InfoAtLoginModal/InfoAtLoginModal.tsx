@@ -22,8 +22,8 @@ const InfoAtLoginModal = ({
       <Box
         sx={{
           overflowY: "scroll",
-          height: "47vh",
-          width: "50vh",
+          height: "50vh",
+          width: "40vw",
           pb: 2,
         }}
       >
