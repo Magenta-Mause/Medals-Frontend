@@ -675,8 +675,8 @@
       },
       "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used.",
       "emailNotEditable": "Email cannot be changed",
-      "birthdateNotEditable": "Geburtstag kann nicht bearbeitet werden",
-      "genderNotEditable": "Geschlecht kann nicht bearbeitet werden"
+      "birthdateNotEditable": "Birthdate cannot be changed",
+      "genderNotEditable": "Gender cannot be changed"
     },
     "athleteActivityChart": {
       "tooltipText": {
