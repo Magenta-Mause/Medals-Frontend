@@ -721,7 +721,7 @@
         "medalMissing": "You need at least a bronze medal in all categories",
         "noMedalReached": "which is not enough to reach a medal",
         "noSwimCertificate": {
-          "blurText": "To be accepted for the for the \"Deutsches Sportabzeichen\" you need a valid swim certification",
+          "blurText": "To be accepted for the for the \"Deutsches Sportabzeichen\" you need a valid swimming certification",
           "pointDisplay": {
             "prefix": "You have achieved",
             "between": "which would lead to a",
@@ -742,7 +742,7 @@
         }
       },
       "swimCertificate": {
-        "header": "Your swimming Certificate",
+        "header": "Your swimming certificate",
         "noSwimCertificate": "Missing",
         "existing": "You are set for your \"Deutsches Sportabzeichen\"",
         "notExisting": "You need a valid swimming certificate to be accepted for the \"Deutsches Sportabzeichen\""
