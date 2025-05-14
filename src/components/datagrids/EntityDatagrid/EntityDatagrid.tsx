@@ -154,7 +154,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
     },
   };
 
-  const actionMenuActions: Action<T>[] = [deleteAction, editAction];
+  const actionMenuActions: Action<T>[] = [editAction, deleteAction];
 
   const itemSelectionActions: Action<T>[] = [deleteAction];
 
