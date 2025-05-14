@@ -10,7 +10,6 @@ import { Navigate } from "react-router";
 import LoginForm from "./LoginForm";
 import UserSelectionForm from "./UserSelectionForm";
 import InfoAtLoginModal from "@components/modals/InfoAtLoginModal/InfoAtLoginModal";
-import InfoOutlineIcon from "@mui/icons-material/InfoOutlined";
 
 const LoginPage = () => {
   const { loginUser } = useApi();

@@ -214,6 +214,7 @@
         "loading": "Loading..."
       },
       "info": {
+        "linkButton": "Need help?",
         "header": "Login Info",
         "sectionHeader": "Welcome to Medals!",
         "greeting": "To get started, please log in using your email and password in the fields provided. On Medals, users can have one of the following roles",
