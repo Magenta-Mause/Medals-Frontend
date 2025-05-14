@@ -72,12 +72,16 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
   const isFinished = useCallback(() => {
     return (
       csvData.reduce(
-        (prev, data) =>
-          prev &&
-          data.state !== CSVUploadState.LOADING &&
-          data.state !== CSVUploadState.FAILED,
+        // No datapoint should be in LOADING state
+        (prev, data) => prev && data.state !== CSVUploadState.LOADING,
         true,
-      ) && dataUploaded
+      ) &&
+      csvData.reduce(
+        // Not every datapoint should be in FAILED state
+        (prev, data) => prev || data.state !== CSVUploadState.FAILED,
+        false,
+      ) &&
+      dataUploaded
     );
   }, [csvData, dataUploaded]);
 
