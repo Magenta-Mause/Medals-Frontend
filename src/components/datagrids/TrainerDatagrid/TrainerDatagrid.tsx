@@ -3,7 +3,7 @@ import { Trainer } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Add } from "@mui/icons-material";
 import { Typography } from "@mui/joy";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
@@ -12,6 +12,8 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
+import { enqueueSnackbar } from "notistack";
+import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 
 interface TrainerDatagridProps {
   trainers: Trainer[];
@@ -21,6 +23,8 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
   const { deleteTrainer } = useApi();
   const { t } = useTranslation();
   const [addTrainerModalOpen, setAddTrainerModalOpen] = useState(false);
+  const [selectedTrainers, setSelectedTrainers] = useState<Trainer[]>([]);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const columns: Column<Trainer>[] = [
     {
@@ -95,8 +99,8 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       key: "delete",
       variant: "solid",
       operation: async (item) => {
-        await deleteTrainer(item.id);
-        console.log("Deleted Trainer:", item);
+        setSelectedTrainers((prev) => [...prev, item]);
+        setDeleteModalOpen(true);
       },
     },
   ];
@@ -109,7 +113,7 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       </>
     ),
     h2: (trainer) => <>{trainer.email}</>,
-    bottomButtons: actions,
+    topRightMenu: actions,
     searchFilter: {
       name: "search",
       label: "Search",
@@ -129,6 +133,33 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
     },
   };
 
+  useEffect(() => {
+    if (!isDeleteModalOpen) {
+      setSelectedTrainers([]);
+    }
+  }, [isDeleteModalOpen]);
+
+  const handleConfirmDeletion = async () => {
+    if (selectedTrainers.length === 0) return;
+    try {
+      for (const trainer of selectedTrainers) {
+        const success = await deleteTrainer(trainer.id!);
+        if (success) {
+          console.log("Deleted Trainer:", trainer);
+        }
+      }
+      enqueueSnackbar(t("snackbar.trainerDatagrid.deletionSuccess"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error while deleting athletes", error);
+      enqueueSnackbar(t("snackbar.trainerDatagrid.deletionError"), {
+        variant: "error",
+      });
+    }
+    setDeleteModalOpen(false);
+  };
+
   return (
     <>
       <GenericResponsiveDatagrid
@@ -144,6 +175,18 @@ const TrainerDatagrid = (props: TrainerDatagridProps) => {
       <TrainerInvitationModal
         isOpen={addTrainerModalOpen}
         setOpen={setAddTrainerModalOpen}
+      />
+      <ConfirmationPopup
+        open={isDeleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+        }}
+        onConfirm={handleConfirmDeletion}
+        header={t("components.trainerDatagrid.deletionModal.header")}
+        message={t(
+          "components.trainerDatagrid.deletionModal.confirmDeleteMessage",
+        )}
+        confirmButtonText={t("components.confirmationPopup.deleteButton")}
       />
     </>
   );

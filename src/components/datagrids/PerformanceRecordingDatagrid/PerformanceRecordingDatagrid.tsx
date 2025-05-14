@@ -7,7 +7,7 @@ import {
 import useApi from "@hooks/useApi";
 import useFormatting from "@hooks/useFormatting";
 import { Typography } from "@mui/joy";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosCreate } from "react-icons/io";
 import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
@@ -20,6 +20,8 @@ import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
 import { calculatePerformanceRecordingMedal } from "@utils/calculationUtil";
 import { UserType } from "@customTypes/enums";
+import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
+import { enqueueSnackbar } from "notistack";
 
 interface PerformanceRecordingDatagridProps {
   performanceRecordings: PerformanceRecording[];
@@ -38,6 +40,10 @@ const PerformanceRecordingDatagrid = (
   const { t } = useTranslation();
   const { formatValue, formatLocalizedDate } = useFormatting();
   const [isCreationModalOpen, setCreationModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState<PerformanceRecording[]>(
+    [],
+  );
 
   const columns: Column<PerformanceRecording>[] = [
     ...(props.showDisciplines
@@ -94,6 +100,64 @@ const PerformanceRecordingDatagrid = (
     },
   ];
 
+  const filters: Filter<PerformanceRecording>[] = [
+    {
+      name: "Recorded in",
+      label: t("components.performanceRecordingDatagrid.filters.recordedIn"),
+      type: "SELECTION",
+      selection: [
+        ...new Set(
+          props.performanceRecordings.map((p) =>
+            new Date(Date.parse(p.date_of_performance))
+              .getFullYear()
+              .toString(),
+          ),
+        ),
+      ].map((date) => ({
+        displayValue: date,
+        value: date,
+      })),
+      apply: (filterParameter) => (item) =>
+        item.date_of_performance == filterParameter,
+    },
+  ];
+
+  const options: Action<PerformanceRecording>[] =
+    props.selectedUserType === UserType.TRAINER
+      ? [
+          {
+            label: t("components.performanceRecordingDatagrid.actions.delete"),
+            key: "delete",
+            operation: async (item) => {
+              setSelectedRecord((prev) => [...prev, item]);
+              setDeleteModalOpen(true);
+            },
+            color: "danger",
+          },
+        ]
+      : [];
+
+  const actions: ToolbarAction[] =
+    props.athlete && props.selectedUserType === UserType.TRAINER
+      ? [
+          {
+            label: t(
+              "pages.athleteDetailPage.createPerformanceRecordingButton",
+            ),
+            key: "addRecording",
+            operation: async () => {
+              await setCreationModalOpen(true);
+            },
+            icon: <IoIosCreate />,
+            content: t(
+              "components.performanceRecordingDatagrid.actions.add.text",
+            ),
+            color: "primary",
+            variant: "solid",
+          },
+        ]
+      : [];
+
   const mobileRendering: MobileTableRendering<PerformanceRecording> = {
     avatar: (item) => {
       return (
@@ -123,61 +187,32 @@ const PerformanceRecordingDatagrid = (
           : " ") + (formatLocalizedDate(p.date_of_performance) ?? "-")}
       </>
     ),
+    topRightMenu: options,
   };
 
-  const filters: Filter<PerformanceRecording>[] = [
-    {
-      name: "Recorded in",
-      label: t("components.performanceRecordingDatagrid.filters.recordedIn"),
-      type: "SELECTION",
-      selection: [
-        ...new Set(
-          props.performanceRecordings.map((p) =>
-            new Date(Date.parse(p.date_of_performance))
-              .getFullYear()
-              .toString(),
-          ),
-        ),
-      ].map((date) => ({
-        displayValue: date,
-        value: date,
-      })),
-      apply: (filterParameter) => (item) =>
-        item.date_of_performance == filterParameter,
-    },
-  ];
-
-  const options: Action<PerformanceRecording>[] = [
-    {
-      label: t("components.performanceRecordingDatagrid.actions.delete"),
-      key: "delete",
-      operation: async (item) => {
+  const handleConfirmDeletion = async () => {
+    if (selectedRecord.length === 0) return;
+    try {
+      for (const item of selectedRecord) {
         await deletePerformanceRecording(item.id);
-      },
-      color: "danger",
-    },
-  ];
+      }
+      enqueueSnackbar(t("snackbar.performanceRecording.deletionSuccess"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error while deleting perfomance recordings", error);
+      enqueueSnackbar(t("snackbar.performanceRecording.deletionError"), {
+        variant: "error",
+      });
+    }
+    setDeleteModalOpen(false);
+  };
 
-  const actions: ToolbarAction[] =
-    props.athlete && props.selectedUserType === UserType.TRAINER
-      ? [
-          {
-            label: t(
-              "pages.athleteDetailPage.createPerformanceRecordingButton",
-            ),
-            key: "addRecording",
-            operation: async () => {
-              await setCreationModalOpen(true);
-            },
-            icon: <IoIosCreate />,
-            content: t(
-              "components.performanceRecordingDatagrid.actions.add.text",
-            ),
-            color: "primary",
-            variant: "solid",
-          },
-        ]
-      : [];
+  useEffect(() => {
+    if (!isDeleteModalOpen) {
+      setSelectedRecord([]);
+    }
+  }, [isDeleteModalOpen]);
 
   return (
     <>
@@ -213,6 +248,20 @@ const PerformanceRecordingDatagrid = (
       ) : (
         <></>
       )}
+      <ConfirmationPopup
+        open={isDeleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+        }}
+        onConfirm={handleConfirmDeletion}
+        header={t(
+          "components.performanceRecordingDatagrid.deletionModal.header",
+        )}
+        message={t(
+          "components.performanceRecordingDatagrid.deletionModal.confirmDeleteMessage",
+        )}
+        confirmButtonText={t("components.confirmationPopup.deleteButton")}
+      />
     </>
   );
 };

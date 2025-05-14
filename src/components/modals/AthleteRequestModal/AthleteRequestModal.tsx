@@ -91,7 +91,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
 
     setLoading(true);
     return () => clearTimeout(delayDebounceFn);
-  }, [searchAthletes, searchAthlete]);
+  }, [searchAthletes, searchAthlete, props.isOpen]);
 
   const handleScroll = () => {
     if (listRef.current) {

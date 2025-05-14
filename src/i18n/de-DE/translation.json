@@ -2,9 +2,9 @@
   "languages": {
     "de": "Deutsch",
     "en": "English",
-    "es": "Española",
+    "es": "Español",
     "fr": "Français",
-    "nl": "Néerlandais"
+    "nl": "Nederlands"
   },
   "genders": {
     "DIVERSE": "Divers",
@@ -81,7 +81,7 @@
       "loginFailed": "Login fehlgeschlagen"
     },
     "setPassword": {
-      "failed": "Password setzen fehlgeschlagen",
+      "failed": "Passwortsetzen fehlgeschlagen",
       "success": "Passwort erfolgreich gesetzt"
     },
     "resetPassword": {
@@ -93,23 +93,25 @@
       "success": "Die Trainer*in wurde eingeladen"
     },
     "performanceRecording": {
-      "creationError": "Fehler beim Anlegen von Leistungsaufnahme",
-      "creationSuccess": "Leistungsaufnahme erfolgreich angelegt"
+      "creationError": "Fehler beim Anlegen der Leistungsaufnahme",
+      "creationSuccess": "Leistungsaufnahme erfolgreich angelegt",
+      "deletionSuccess": "Leistungswerte erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Leistungswerte ist ein Fehler aufgetreten"
     },
     "performanceMetrics": {
       "athleteNotFound": "Athlet*in konnte nicht gefunden werden",
       "fetchAthleteFailed": "Fehler beim Laden der Athlet*in-Daten"
     },
     "swimCertificate": {
-      "creationSuccess": "Schwimmabzeichen erfolgreich hinzugefügt",
-      "creationError": "Fehler beim Hinzufügen des Schwimmabzeichens",
+      "creationSuccess": "Schwimmnachweis erfolgreich hinzugefügt",
+      "creationError": "Fehler beim Hinzufügen des Schwimmnachweises",
       "deletionSuccess": "Schwimmnachweis erfolgreich gelöscht",
       "deletionError": "Fehler beim Löschen des Schwimmnachweises"
     },
     "acceptTrainerAccessRequest": {
       "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
-      "failed": "Trainer Anfrage konnte nicht angenommen werden",
-      "success": "Trainer Anfrage erfolgreich angenommen"
+      "failed": "Traineranfrage konnte nicht angenommen werden",
+      "success": "Traineranfrage erfolgreich angenommen"
     },
     "requestAthleteAccess": {
       "failed": "Anfrage fehlgeschlagen",
@@ -126,7 +128,16 @@
       "deletionError": "Beim Löschen des Kontos ist ein Fehler aufgetreten"
     },
     "removalConfirmationModal": {
-      "success": "Verbindung entfernt"
+      "success": "Verbindung entfernt",
+      "error": "Entfernen der Verbindung fehlgeschlagen"
+    },
+    "athleteDatagrid": {
+      "deletionSuccess": "Athlet*innen erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Athlet*innen ist ein Fehler aufgetreten"
+    },
+    "trainerDatagrid": {
+      "deletionSuccess": "Trainer erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Trainer ist ein Fehler aufgetreten"
     }
   },
   "pages": {
@@ -145,10 +156,22 @@
       "firstName": "Vorname",
       "lastName": "Nachname",
       "email": "E-Mail",
-      "birthdate": "Geburtstag",
+      "birthdate": "Geburtsdatum",
       "gender": "Geschlecht",
       "createButton": "Erstellen",
       "createHeader": "Athlet*in erstellen"
+    },
+    "athleteImportPage": {
+      "importButton": "Athlet*innen importieren",
+      "feedback1": "Athlet*in ",
+      "feedback2": " erstellt",
+      "failedFeedback": "Fehler beim Erstellen von Athlet*in ",
+      "DropFile": "Datei hier ablegen oder klicken",
+      "changeFile": "Datei zurücksetzen",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "valid": "Status",
+      "athleteList": "Athletenliste"
     },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
@@ -159,7 +182,7 @@
     },
     "materialsDownloadPage": {
       "header": "Materialien",
-      "headerText": "Hier die wichtigsten Materialien nur einen Klick entfernt"
+      "headerText": "Hier sind die wichtigsten Materialien, nur einen Klick entfernt"
     },
     "inDevelopment": {
       "h1": "501",
@@ -173,7 +196,7 @@
       "logo": "Medals",
       "userSelection": {
         "header": "Profil auswählen",
-        "subheader": "Wähle aus, mit welchem Profil du fortfahren willst"
+        "subheader": "Wähle aus, mit welchem Profil du fortfahren möchtest"
       },
       "signIn": {
         "header": "Anmelden",
@@ -184,7 +207,7 @@
         },
         "forgotPassword": "Passwort vergessen?",
         "privacyPolicy": "Datenschutzerklärung",
-        "acceptOur": "Ich akzeptiere die",
+        "continueMeansAccept": "Durch die Anmeldung akzeptierst du unsere",
         "submit": "Anmelden",
         "loginFailedWarning": "Anmeldung fehlgeschlagen",
         "logoutButton": "Abmelden",
@@ -221,24 +244,25 @@
     },
     "validateRequestPage": {
       "header": "Anfrage",
-      "subheader": "will Sie verwalten.\n Möchten Sie die Anfrage annehmen?",
+      "subheader": "hat angefragt, ob sie/er Sie verwalten darf.\n Möchten Sie die Anfrage genehmigen?",
       "accept": "Annehmen"
     },
     "profilePage": {
       "header": "Mein Profil",
-      "birthdate": "Geburtstag",
+      "birthdate": "Geburtsdatum",
       "gender": "Geschlecht",
       "email": "E-Mail",
       "resetPasswordButton": "Password zurücksetzen",
       "deleteProfileButton": "Account löschen",
-      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht."
+      "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" wird Ihr Konto mit allen dazugehörigen Daten unwiderruflich gelöscht.",
+      "confirmDeleteHeader": "Account Löschen"
     },
     "imprintPage": {
       "title": "Impressum",
       "contact": "Kontakt"
     },
     "privacyPolicyPage": {
-      "title": "Datenschutzerklärung",
+      "title": "Datenschutz",
       "introduction": "In dieser Datenschutzerklärung informieren wir Sie über die Verarbeitung personenbezogener Daten bei der Nutzung dieser Website.",
       "controller": "Verantwortlicher",
       "controllerIntro": "Verantwortlich für die Datenverarbeitung ist:",
@@ -271,7 +295,7 @@
       "source": "Quelle: Muster-Datenschutzerklärung von anwalt.de"
     },
     "creditsPage": {
-      "title": "Danksagungen",
+      "title": "Danksagung",
       "loginPage": "Hintergrundbilder auf der Login-Seite",
       "lightMode": "Heller Modus",
       "darkMode": "Dunkler Modus",
@@ -287,7 +311,7 @@
     },
     "performanceMetricsPage": {
       "title": {
-        "athlete": "Deine Anforderungen",
+        "athlete": "Anforderungen",
         "default": "Leistungswerte"
       },
       "filters": {
@@ -312,7 +336,7 @@
         "/performances": "Leistungen",
         "/materials": "Materialien",
         "/help": "Hilfe",
-        "/imprint": "Impressum",
+        "/imprint": "Impressum / Kontakt",
         "/privacyPolicy": "Datenschutz",
         "/credits": "Danksagungen",
         "/userRoleErrorPage": "fehlende Nutzungberechtigung"
@@ -339,15 +363,16 @@
       "columns": {
         "id": "ID",
         "name": "Name",
-        "birthdate": "Geburtstag",
+        "birthdate": "Geburtsdatum",
         "email": "E-Mail",
         "gender": "Geschlecht"
       }
     },
     "confirmationModal": {
       "header": "Bestätigung",
-      "description": "Bist du sicher, dass du die Athlet*in aus deinem Team entfernen willst?",
-      "descriptionPural": "Bist du sicher, dass du die Athlet*innen aus deinem Team entfernen willst?",
+      "description": "Bist du sicher, dass du die Athlet*in aus deinem Team entfernen möchtest?",
+      "description2": "Bist du sicher, dass du dein*e Trainer*in entfernen willst?",
+      "descriptionPural": "Bist du sicher, dass du die Athlet*innen aus deinem Team entfernen möchtest?",
       "cancel": "Abbrechen",
       "remove": "Zugriff abgeben"
     },
@@ -374,7 +399,7 @@
       },
       "legalLinks": {
         "title": "Rechtliches",
-        "imprint": "Impressum",
+        "imprint": "Impressum / Kontakt",
         "privacyPolicy": "Datenschutz",
         "credits": "Danksagung"
       }
@@ -398,7 +423,7 @@
       "fullScreenTable": {
         "pageControl": {
           "pageSize": {
-            "label": "Seiten Größe:",
+            "label": "Seitengröße:",
             "inputPostfix": "Einträge"
           }
         },
@@ -416,7 +441,7 @@
           "athleteId": "Athlet*in ID",
           "firstName": "Vorname",
           "lastName": "Nachname",
-          "birthdate": "Geburtstag",
+          "birthdate": "Geburtsdatum",
           "email": "E-Mail",
           "gender": "Geschlecht",
           "achievements": "Errungenschaften"
@@ -435,6 +460,10 @@
           "createAthlete": {
             "label": "Erstellen",
             "content": "Athlet*in erstellen"
+          },
+          "importAthlete": {
+            "label": "Importieren",
+            "content": "Athlet*innen importieren"
           }
         },
         "noEntries": {
@@ -448,6 +477,10 @@
         "openDetails": "Details",
         "export": "Exportieren",
         "remove": "Entfernen"
+      },
+      "deletionModal": {
+        "header": "Athlet*innen Löschen",
+        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Athlet*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
       }
     },
     "disciplineDatagrid": {
@@ -472,7 +505,7 @@
         "toolbar": {
           "addTrainer": {
             "label": "Einladen",
-            "content": "Trainer*in Einladen"
+            "content": "Trainer*in einladen"
           }
         }
       },
@@ -482,10 +515,14 @@
         "firstNamePlaceholder": "Max",
         "lastName": "Nachname",
         "lastNamePlaceholder": "Mustermann",
-        "confirm": "Trainer*in Einladen"
+        "confirm": "Trainer*in einladen"
       },
       "actions": {
         "delete": "Löschen"
+      },
+      "deletionModal": {
+        "header": "Trainer Löschen",
+        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer mit allen dazugehörigen Daten unwiderruflich gelöscht."
       }
     },
     "buttons": {
@@ -501,7 +538,6 @@
       "fieldRequired": "Bedingung ist verpflichtend"
     },
     "confirmationPopup": {
-      "header": "Account Löschen",
       "cancelButton": "Abbrechen",
       "deleteButton": "Löschen"
     },
@@ -533,6 +569,10 @@
           "label": "+ aufnehmen"
         },
         "delete": "Löschen"
+      },
+      "deletionModal": {
+        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Leistungsaufnahmen unwiderruflich gelöscht.",
+        "header": "Leistungsaufnahmen Löschen"
       }
     },
     "swimCertificateSection": {
@@ -567,8 +607,8 @@
           "description": "100 m in 4 Min. inkl. Entkleiden im Wasser (DLRG/DWRK-konform)"
         },
         "BADGES": {
-          "label": "Schwimmabzeichen",
-          "description": "Anerkanntes Schwimmabzeichen"
+          "label": "Schwimmnachweis",
+          "description": "Anerkannter Schwimmnachweis"
         }
       }
     },
@@ -630,25 +670,33 @@
           "plural": "Punkten"
         }
       },
+      "trainers": {
+        "noTrainers": "Keine Trainer*innen verwalten dich",
+        "trainer": "Dein*e Trainer*in:",
+        "trainers": "Deine Trainer*innen:",
+        "removeTrainers": "Verwalte deine Trainer*innen",
+        "removeTrainer": "Verwalte dein*e Trainer*in",
+        "header": "Trainer*in Verwalten"
+      },
       "totalMedalBox": {
         "header": "Deutsches Sportabzeichen",
         "noSwimCertificate": {
-          "blurText": "Um für das Deutsche Sportabzeichen zugelassen zu werden brauchst du einen gültigen Schwimm Nachweis",
+          "blurText": "Um für das Deutsche Sportabzeichen zugelassen zu werden, benötigst du einen gültigen Schwimmnachweis",
           "pointDisplay": {
             "prefix": "Du hast aktuell",
-            "between": "was eine",
-            "postfix": "ergeben würde"
+            "between": ", was eine",
+            "postfix": "ergeben würde."
           }
         },
-        "noMedalReached": "was nicht reicht um eine Medaille zu erreichen",
+        "noMedalReached": ", was nicht für eine Medaille ausreicht.",
         "medalMissing": "Du musst in allen Kategorien mindestens eine Bronze Medaille erreichen",
         "pointsMissingTemplate": {
           "prefix": {
             "singular": "Dir fehlt noch",
             "plural": "Dir fehlen noch"
           },
-          "between": "um die",
-          "postfix": "Medaille zu erreichen"
+          "between": ", um die",
+          "postfix": "Medaille zu erreichen."
         },
         "pointsCount": {
           "prefix": "Du hast",
@@ -658,8 +706,8 @@
       "swimCertificate": {
         "header": "Dein Schwimmnachweis",
         "noSwimCertificate": "Nicht vorhanden",
-        "existing": "Deinem Sportabzeichen steht nichts mehr im weg",
-        "notExisting": "Um das Deutsche Sportabzeichen zu erlangen brauchst du einen gültigen Schwimmnachweis"
+        "existing": "Deinem Deutschen Sportabzeichen steht nichts mehr im weg",
+        "notExisting": "Um das Deutsche Sportabzeichen zu erlangen, benötigst du einen gültigen Schwimmnachweis"
       }
     },
     "csvUploadComponent": {
@@ -675,6 +723,7 @@
     },
     "csvImportModal": {
       "importButton": "Daten importieren",
+      "importLabel": "Importieren",
       "firstName": "Vorname",
       "lastName": "Nachname",
       "discipline": "Übung",
