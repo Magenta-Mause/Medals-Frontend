@@ -181,6 +181,7 @@ const NavBar = () => {
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
+      <Divider />
       <Box
         sx={{
           minHeight: 0,
@@ -200,7 +201,7 @@ const NavBar = () => {
             "--List-nestedInsetStart": "30px",
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}
-        >
+        > 
           {[
             ...(userRole
               ? [
