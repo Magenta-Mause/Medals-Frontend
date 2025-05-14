@@ -181,11 +181,6 @@ const NavBar = () => {
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
-      <Input
-        size="sm"
-        startDecorator={<SearchRounded />}
-        placeholder={t("components.navbar.search")}
-      />
       <Box
         sx={{
           minHeight: 0,
