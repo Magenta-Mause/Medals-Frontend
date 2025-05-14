@@ -18,7 +18,7 @@ const CustomDatePicker = (props: {
       ) => void)
     | undefined;
   format: string | undefined;
-  disabled?: boolean; // <-- Add this line
+  disabled?: boolean;
 }) => {
   const { mode } = useColorScheme();
   const styles: Record<"dark" | "light", SxProps<Theme> | undefined> = {
