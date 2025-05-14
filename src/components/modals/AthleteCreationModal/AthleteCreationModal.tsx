@@ -401,14 +401,6 @@ const AthleteCreationForm = ({
             onChange={(e) => handleFieldChange("email", e.target.value)}
             onBlur={() => markTouched("email")}
             disabled={isEditMode}
-            sx={
-              isEditMode
-                ? {
-                    opacity: 0.7,
-                    backgroundColor: "neutral.100",
-                  }
-                : {}
-            }
           />
           {touched.email && errors.email && (
             <FormHelperText>{errors.email}</FormHelperText>
@@ -416,7 +408,13 @@ const AthleteCreationForm = ({
         </FormControl>
 
         <FormControl error={touched.birthdate && !!errors.birthdate}>
-          <Box sx={{ display: "flex", alignItems: "baseline", gap: 1 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "baseline",
+              gap: 1,
+            }}
+          >
             <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
             {isEditMode && (
               <InfoTooltip
@@ -428,9 +426,6 @@ const AthleteCreationForm = ({
           <CustomDatePicker
             sx={{
               width: "100%",
-              ...(isEditMode
-                ? { opacity: 0.7, backgroundColor: "neutral.100" }
-                : {}),
             }}
             value={getDatePickerValue()}
             onChange={!isEditMode ? handleDateChange : undefined}
@@ -470,14 +465,6 @@ const AthleteCreationForm = ({
               }));
             }}
             disabled={isEditMode}
-            sx={
-              isEditMode
-                ? {
-                    opacity: 0.7,
-                    backgroundColor: "neutral.100",
-                  }
-                : {}
-            }
           >
             <Option value={Genders.FEMALE}>{t("genders.FEMALE")}</Option>
             <Option value={Genders.MALE}>{t("genders.MALE")}</Option>

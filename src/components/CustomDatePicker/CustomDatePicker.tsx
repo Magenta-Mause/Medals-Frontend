@@ -50,15 +50,28 @@ const CustomDatePicker = (props: {
           InputProps: {
             disabled: props.disabled,
             sx: {
+              "> input": {
+                color: props.disabled
+                  ? "var(--variant-outlinedDisabledColor, var(--joy-palette-neutral-outlinedDisabledColor, var(--joy-palette-neutral-400, #9FA6AD))) !important"
+                  : "var(--mui-palette-text-primary)",
+                "-webkit-text-fill-color": props.disabled
+                  ? "var(--variant-outlinedDisabledColor, var(--joy-palette-neutral-outlinedDisabledColor, var(--joy-palette-neutral-400, #9FA6AD))) !important"
+                  : mode === "dark"
+                    ? "white"
+                    : "black",
+                p: 0,
+                pl: 1,
+                fontSize: "var(--joy-fontSize-md, 1rem) !important",
+              },
+              "> fieldset": {
+                display: "none",
+              },
               height: { sx: "3vh", md: "5vh", xs: "5vh" },
               borderRadius: "7px",
-              backgroundColor: props.disabled
-                ? mode === "dark"
-                  ? "#444" // consistent disabled look in dark mode
-                  : "#f5f5f5"
-                : mode === "dark"
-                  ? "#0b0d0e"
-                  : "white",
+              borderColor: props.disabled
+                ? "var(--variant-outlinedDisabledBorder, var(--joy-palette-neutral-outlinedDisabledBorder, var(--joy-palette-neutral-200, #DDE7EE))) !important"
+                : "var(--variant-outlinedBorder, var(--joy-palette-neutral-outlinedBorder, var(--joy-palette-neutral-300, #CDD7E1))) !important",
+              border: "var(--variant-borderWidth) solid",
               color: props.disabled
                 ? mode === "dark"
                   ? "#aaa"
