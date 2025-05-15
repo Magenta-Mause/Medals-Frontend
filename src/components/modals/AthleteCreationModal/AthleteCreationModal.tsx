@@ -66,7 +66,11 @@ const AthleteCreationForm = ({
 }: AthleteCreationFormProps) => {
   const { t, i18n } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
-  const { createAthlete, updateAthlete: apiUpdateAthlete, requestAthlete } = useApi();
+  const {
+    createAthlete,
+    updateAthlete: apiUpdateAthlete,
+    requestAthlete,
+  } = useApi();
   const [request, setRequest] = useState(true);
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
@@ -296,8 +300,8 @@ const AthleteCreationForm = ({
           });
 
           if (request) {
-        requestAthlete(id.id!)
-      }
+            requestAthlete(id.id!);
+          }
         }
         setOpen(false);
         resetForm();
@@ -484,9 +488,9 @@ const AthleteCreationForm = ({
         </FormControl>
 
         <Checkbox
-        label={t("pages.athleteCreationPage.requestAccess")}
-        checked={request}
-        onChange={(event) => setRequest(event.target.checked)}
+          label={t("pages.athleteCreationPage.requestAccess")}
+          checked={request}
+          onChange={(event) => setRequest(event.target.checked)}
         />
 
         <Button
