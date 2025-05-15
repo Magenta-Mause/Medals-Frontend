@@ -1,4 +1,3 @@
-import { AthleteWithValidity } from "@components/modals/AthleteImportModal/AthleteImportModal";
 import GenericResponsiveDatagrid from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
@@ -7,7 +6,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { CircularProgress } from "@mui/joy";
 import { Cloud } from "@mui/icons-material";
 import UploadIcon from "@mui/icons-material/Upload";
-import { AthleteValidityState } from "@customTypes/enums";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 
 const AthleteUploadDatagrid = (props: { athletes: AthleteWithValidity[] }) => {

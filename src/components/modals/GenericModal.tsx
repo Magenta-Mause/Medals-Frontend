@@ -20,6 +20,7 @@ const GenericModal = (props: {
           md: "var(--Sidebar-width)",
           sm: "0",
         },
+        zIndex: 999,
         ...props.modalSX,
       }}
       disableEscapeKeyDown={props.disableEscape ?? false}

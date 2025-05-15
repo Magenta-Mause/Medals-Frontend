@@ -12,26 +12,43 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import AthleteImportModal from "@components/modals/AthleteImportModal/AthleteImportModal";
+import CsvImportModal from "@components/modals/CsvImportModal/CsvImportModal";
 import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useTypedSelector } from "@stores/rootReducer";
 import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
 import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
 import { PersonAdd, PersonSearch } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
-import RemoveConfirmationModal from "@components/modals/GenericConfirmationModal/RemoveConfirmationModal/RemoveConfirmationModal";
-import { calculateAge } from "@utils/calculationUtil";
 import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
+import { enqueueSnackbar } from "notistack";
+import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { calculateAge } from "@utils/calculationUtil";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
 }
 
+const AccessNotApprovedComponent = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Box>
+      <Typography color={"neutral"} level={"body-xs"}>
+        {t("components.athleteDatagrid.noAccess.label")}{" "}
+        <InfoTooltip text={t("components.athleteDatagrid.noAccess.tooltip")} />
+      </Typography>
+    </Box>
+  );
+};
+
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
+  const { selectedUser } = useContext(AuthContext);
   const { deleteAthlete } = useApi();
+  const { removeTrainerAthleteConnection } = useApi();
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
@@ -41,11 +58,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [addImportModalOpen, setImportModalOpen] = useState(false);
   const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
     useState(false);
-  const [createAthletModalOpen, setCreateAthleteModalOpen] = useState(false);
+  const [createAthleteModalOpen, setCreateAthleteModalOpen] = useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [isRemoveConfirmationModalOpen, setRemoveConfirmationModalOpen] =
     useState(false);
   const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
   const currentYear = new Date().getFullYear();
 
   const ageSelection = [
@@ -125,7 +144,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       columnName: t("components.athleteDatagrid.table.columns.email"),
       size: "l",
       columnMapping(item) {
-        return <Typography noWrap>{item.email}</Typography>;
+        return item.has_access ? (
+          <Typography noWrap level={"body-xs"}>
+            {item.email}
+          </Typography>
+        ) : (
+          <AccessNotApprovedComponent />
+        );
       },
     },
     {
@@ -141,7 +166,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       size: "xl",
       disableSpan: true,
       columnMapping(item) {
-        return (
+        return item.has_access ? (
           <>
             <AchievementsBox
               athlete={item}
@@ -149,6 +174,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
               selectedYear={currentYear}
             />
           </>
+        ) : (
+          <AccessNotApprovedComponent />
         );
       },
     },
@@ -221,6 +248,18 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const toolbarActions: ToolbarAction[] = [
     {
+      label: t("components.csvImportModal.importLabel"),
+      content: t("components.csvImportModal.importButton"),
+      icon: <UploadIcon />,
+      collapseToText: true,
+      color: "primary",
+      key: "import-athlete",
+      variant: "solid",
+      operation: async () => {
+        setImportModalOpen(true);
+      },
+    },
+    {
       label: t("components.athleteDatagrid.table.toolbar.createAthlete.label"),
       content: t(
         "components.athleteDatagrid.table.toolbar.createAthlete.content",
@@ -246,60 +285,72 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         setAddAthleteRequestModalOpen(true);
       },
     },
-    {
-      label: t("pages.athleteImportPage.importButton"),
-      content: t("pages.athleteImportPage.importButton"),
-      icon: <UploadIcon />,
-      collapseToText: true,
-      color: "primary",
-      key: "import-athlete",
-      variant: "solid",
-      operation: async () => {
-        setImportModalOpen(true);
-      },
-    },
   ];
 
-  const actions: Action<Athlete>[] = [
-    {
-      label: <>{t("components.athleteDatagrid.actions.edit")}</>,
-      color: "primary",
-      key: "edit",
-      operation: async (item) => {
-        console.log("Editing Athlete:", item);
+  const actions: (athlete: Athlete) => Action<Athlete>[] = (athlete) => {
+    if (athlete.has_access) {
+      return [
+        {
+          label: <>{t("components.athleteDatagrid.actions.edit")}</>,
+          color: "primary",
+          key: "edit",
+          operation: async (item) => {
+            console.log("Editing Athlete:", item);
+          },
+        },
+        {
+          label: <>{t("components.athleteDatagrid.actions.export")}</>,
+          color: "primary",
+          key: "export",
+          variant: "outlined",
+          operation: async (item) => {
+            setSelectedAthletes((prev) => [...prev, item]);
+            setExportModalOpen(true);
+          },
+        },
+        {
+          label: <>{t("components.athleteDatagrid.actions.remove")}</>,
+          color: "danger",
+          key: "remove",
+          variant: "outlined",
+          operation: async (item) => {
+            setSelectedAthletes((prev) => [...prev, item]);
+            setRemoveConfirmationModalOpen(true);
+          },
+        },
+        {
+          label: <>{t("components.athleteDatagrid.actions.delete")}</>,
+          color: "danger",
+          key: "delete",
+          variant: "outlined",
+          operation: async (item) => {
+            setSelectedAthletes((prev) => [...prev, item]);
+            setDeleteModalOpen(true);
+          },
+        },
+      ];
+    }
+    return [
+      {
+        label: <>{t("components.athleteDatagrid.actions.remove")}</>,
+        color: "danger",
+        key: "remove",
+        variant: "outlined",
+        operation: async (item) => {
+          setSelectedAthletes((prev) => [...prev, item]);
+          setRemoveConfirmationModalOpen(true);
+        },
       },
-    },
-    {
-      label: <>{t("components.athleteDatagrid.actions.export")}</>,
-      color: "primary",
-      key: "export",
-      variant: "outlined",
-      operation: async (item) => {
-        setSelectedAthletes((prev) => [...prev, item]);
-        setExportModalOpen(true);
-      },
-    },
-    {
-      label: <>{t("components.athleteDatagrid.actions.delete")}</>,
-      color: "danger",
-      key: "delete",
-      variant: "outlined",
-      operation: async (item) => {
-        await deleteAthlete(item.id!);
-        console.log("Deleted Athlete:", item);
-      },
-    },
-    {
-      label: <>{t("components.athleteDatagrid.actions.remove")}</>,
-      color: "danger",
-      key: "remove",
-      variant: "outlined",
-      operation: async (item) => {
-        setSelectedAthletes((prev) => [...prev, item]);
-        setRemoveConfirmationModalOpen(true);
-      },
-    },
-  ];
+    ];
+  };
+
+  const normalizedActions = actions({
+    first_name: "",
+    last_name: "",
+    email: "",
+    birthdate: "",
+    has_access: true,
+  });
 
   const itemCallback = async (item: Athlete) => {
     navigate("/athletes/" + item.id);
@@ -317,16 +368,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         {formatLocalizedDate(athlete.birthdate)}
       </Typography>
     ),
-    bottomButtons: [
+    topRightMenu: [
       {
         key: "openDetails",
         label: t("components.athleteDatagrid.actions.openDetails"),
         operation: itemCallback,
         color: "primary",
       },
-      ...actions.filter((action) => action.key !== "export"),
+      ...normalizedActions.filter((action) => action.key !== "export"),
     ],
-    topRightInfo: (athlete) => (
+    contentRow: (athlete) => (
       <AchievementsBox
         athlete={athlete}
         performanceRecordings={performanceRecordings}
@@ -354,10 +405,60 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   };
 
   useEffect(() => {
-    if (!isExportModalOpen && !isRemoveConfirmationModalOpen) {
+    if (
+      !isExportModalOpen &&
+      !isRemoveConfirmationModalOpen &&
+      !isDeleteModalOpen
+    ) {
       setSelectedAthletes([]);
     }
-  }, [isExportModalOpen, isRemoveConfirmationModalOpen]);
+  }, [isExportModalOpen, isRemoveConfirmationModalOpen, isDeleteModalOpen]);
+
+  const handleConfirmDeletion = async () => {
+    if (selectedAthletes.length === 0) return;
+    try {
+      for (const athlete of selectedAthletes) {
+        const success = await deleteAthlete(athlete.id!);
+        if (success) {
+          console.log("Deleted Athlete:", athlete);
+        }
+      }
+      enqueueSnackbar(t("snackbar.athleteDatagrid.deletionSuccess"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error while deleting athletes", error);
+      enqueueSnackbar(t("snackbar.athleteDatagrid.deletionError"), {
+        variant: "error",
+      });
+    }
+    setDeleteModalOpen(false);
+  };
+
+  const handleConfirmRemove = async () => {
+    if (selectedUser?.id && selectedAthletes.length > 0) {
+      try {
+        for (const athlete of selectedAthletes) {
+          const success = await removeTrainerAthleteConnection(
+            selectedUser.id,
+            athlete.id!,
+          );
+          if (success) {
+            console.log("Remove Connection: ", athlete, selectedUser);
+          }
+        }
+        enqueueSnackbar(t("snackbar.removalConfirmationModal.success"), {
+          variant: "success",
+        });
+      } catch (error) {
+        console.error("Error while removing athlete connection", error);
+        enqueueSnackbar(t("snackbar.removalConfirmationModal.error"), {
+          variant: "error",
+        });
+      }
+      setRemoveConfirmationModalOpen(false);
+    }
+  };
 
   return (
     <>
@@ -368,30 +469,22 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         includePerformance={false}
         isButtonVisible={false}
       />
-      <RemoveConfirmationModal
-        isOpen={isRemoveConfirmationModalOpen}
-        setOpen={setRemoveConfirmationModalOpen}
-        selectedAthletes={selectedAthletes}
-      />
       <GenericResponsiveDatagrid
         data={props.athletes}
         columns={columns}
         filters={filters}
         toolbarActions={toolbarActions}
         actionMenu={actions}
-        itemSelectionActions={actions}
+        itemSelectionActions={normalizedActions}
         keyOf={(item) => item.id!}
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
         disablePaging={false}
         heightIfNoEntriesFound={"200px"}
         messageIfNoEntriesFound={noAthleteFoundMessage}
+        itemClickableFilter={(athlete) => athlete.has_access}
       />
-      <AthleteImportModal
-        isOpen={addImportModalOpen}
-        setOpen={setImportModalOpen}
-      />
-      <AthleteImportModal
+      <CsvImportModal
         isOpen={addImportModalOpen}
         setOpen={setImportModalOpen}
       />
@@ -400,11 +493,36 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         setOpen={setAddAthleteRequestModalOpen}
       />
       <AthleteCreationForm
-        isOpen={createAthletModalOpen}
+        isOpen={createAthleteModalOpen}
         setOpen={setCreateAthleteModalOpen}
+      />
+      <ConfirmationPopup
+        open={isDeleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+        }}
+        onConfirm={handleConfirmDeletion}
+        header={t("components.athleteDatagrid.deletionModal.header")}
+        message={t(
+          "components.athleteDatagrid.deletionModal.confirmDeleteMessage",
+        )}
+        confirmButtonText={t("components.confirmationPopup.deleteButton")}
+      />
+      <ConfirmationPopup
+        open={isRemoveConfirmationModalOpen}
+        onClose={() => {
+          setRemoveConfirmationModalOpen(false);
+        }}
+        onConfirm={handleConfirmRemove}
+        header={t("components.confirmationModal.header")}
+        message={t(
+          selectedAthletes.length > 1
+            ? "components.confirmationModal.descriptionPural"
+            : "components.confirmationModal.description",
+        )}
+        confirmButtonText={t("components.confirmationModal.remove")}
       />
     </>
   );
 };
-
 export default AthleteDatagrid;

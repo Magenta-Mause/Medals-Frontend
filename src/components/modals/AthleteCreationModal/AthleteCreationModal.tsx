@@ -67,6 +67,7 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
     email: "",
     birthdate: "",
     gender: undefined,
+    has_access: false,
   });
   const [manage, setManage] = useState(true);
 
@@ -155,7 +156,6 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
     try {
       await requestAthlete(
         await getAthleteId(email, birthdate),
-        selectedUser!.id,
       );
       enqueueSnackbar(t("snackbar.requestAthleteAccess.success"), {
         variant: "success",
@@ -210,6 +210,7 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
       email: "",
       gender: undefined,
       birthdate: "",
+      has_access: false,
     });
     setTouched({
       first_name: false,
