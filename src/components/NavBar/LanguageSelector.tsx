@@ -66,7 +66,6 @@ const LanguageSelector = () => {
             transition: "all 0.3s ease",
             backgroundColor: "var(--joy-palette-background-surface)",
             zIndex: 9,
-            pt: "30px",
             ...(!open
               ? {
                   transform: "translateY(50px)",

@@ -2,11 +2,10 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Athlete } from "@customTypes/backendTypes";
 import GenericModal from "../GenericModal";
-import { CSVUploadState } from "@components/CSVUploadComponent/CSVHelper";
+import { CSVUploadState } from "@customTypes/enums";
 import { Tab, Tabs } from "@mui/material";
 import AthleteCSVUploadComponent from "@components/CSVUploadComponent/AthleteCSVUploadComponent/AthleteCSVUploadComponent";
 import PerformanceRecordingCSVUploadComponent from "@components/CSVUploadComponent/PerformanceRecordingCSVUploadComponent/PerformanceRecordingCSVUploadComponent";
-import { Typography } from "@mui/joy";
 
 export interface AthleteWithValidity extends Athlete {
   state: CSVUploadState | undefined;
@@ -37,7 +36,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
           props.setOpen(isOpen);
         }}
         modalDialogSX={{
-          minWidth: "35%",
+          minWidth: "30%",
           justifyContent: "center",
         }}
       >
@@ -48,28 +47,14 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
           }}
           textColor="primary"
           indicatorColor="primary"
-          variant="fullWidth"
-          sx={{
-            "& .MuiTypography-body-md": {
-              borderRadius: "1px",
-              fontSize: "medium",
-              textTransform: "none",
-            },
-          }}
         >
           <Tab
-            label={
-              <Typography>
-                {t("components.csvImportModal.tabSelection.athleteImport")}
-              </Typography>
-            }
+            label={t("components.csvImportModal.tabSelection.athleteImport")}
           />
           <Tab
-            label={
-              <Typography>
-                {t("components.csvImportModal.tabSelection.performanceImport")}
-              </Typography>
-            }
+            label={t(
+              "components.csvImportModal.tabSelection.performanceImport",
+            )}
           />
         </Tabs>
         {selectedImportPage === importPage.athleteImport ? (

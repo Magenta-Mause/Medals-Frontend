@@ -1,5 +1,7 @@
 import {
+  Box,
   Button,
+  Checkbox,
   FormControl,
   FormLabel,
   GlobalStyles,
@@ -10,7 +12,7 @@ import {
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PrivacyPolicyModal from "@components/PrivacyPolicyModal/PrivacyPolicyModal";
 import PasswordInput from "@components/PasswordInput/PasswordInput";
 
@@ -21,15 +23,34 @@ interface SignInFormElement extends HTMLFormElement {
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
   password: HTMLInputElement;
+  privacyPolicy: HTMLInputElement;
 }
 
 const LoginForm = (props: {
-  loginCallback: (formValues: { email: string; password: string }) => void;
+  loginCallback: (formValues: {
+    email: string;
+    password: string;
+    privacyPolicy: boolean;
+  }) => void;
   isPending: boolean;
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [privacyPolicyChecked, setPrivacyPolicyChecked] = useState(false);
   const [privacyPolicyModalOpen, setPrivacyPolicyModalOpen] = useState(false);
+
+  useEffect(() => {
+    const privacyPolicyAccepted = localStorage.getItem("privacyPolicyAccepted");
+    if (privacyPolicyAccepted === "true") {
+      setPrivacyPolicyChecked(true);
+    }
+  }, []);
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setPrivacyPolicyChecked(isChecked);
+    localStorage.setItem("privacyPolicyAccepted", isChecked.toString());
+  };
 
   return (
     <>
@@ -51,6 +72,7 @@ const LoginForm = (props: {
           const data = {
             email: formElements.email.value,
             password: formElements.password.value,
+            privacyPolicy: formElements.privacyPolicy.checked,
           };
 
           props.loginCallback(data);
@@ -76,19 +98,72 @@ const LoginForm = (props: {
               onClick={() => {
                 navigate("/resetPassword");
               }}
-              sx={{ fontSize: "13px" }}
+              sx={{
+                fontSize: "13px",
+              }}
             >
               {t("pages.loginPage.signIn.forgotPassword")}
             </Link>
           </FormLabel>
         </FormControl>
-
         <Stack sx={{ gap: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Box>
+              <FormControl
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
+                <Checkbox
+                  size="sm"
+                  name="privacyPolicy"
+                  checked={privacyPolicyChecked}
+                  onChange={handleCheckboxChange}
+                />
+                <FormLabel
+                  sx={{
+                    margin: 0,
+                  }}
+                >
+                  <Typography level="body-sm">
+                    {t("pages.loginPage.signIn.acceptOur")}
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        setPrivacyPolicyModalOpen(true);
+                      }}
+                      style={{
+                        cursor: "pointer",
+                        color:
+                          "var(--variant-plainColor, rgba(var(--joy-palette-primary-mainChannel) / 1))",
+                      }}
+                    >
+                      {" "}
+                      {t("pages.loginPage.signIn.privacyPolicy")}
+                    </span>
+                  </Typography>
+                </FormLabel>
+              </FormControl>
+            </Box>
+          </Box>
           <Button
             type="submit"
             fullWidth
-            disabled={props.isPending}
-            sx={{ transition: "all ease .2s" }}
+            disabled={props.isPending || !privacyPolicyChecked}
+            sx={{
+              transition: "all ease .2s",
+            }}
           >
             {!props.isPending ? (
               t("pages.loginPage.signIn.submit")
@@ -96,26 +171,8 @@ const LoginForm = (props: {
               <>{t("pages.loginPage.signIn.loading")}</>
             )}
           </Button>
-          <Typography level="body-xs" sx={{ textAlign: "left" }}>
-            {t("pages.loginPage.signIn.continueMeansAccept")}{" "}
-            <span
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                setPrivacyPolicyModalOpen(true);
-              }}
-              style={{
-                cursor: "pointer",
-                color:
-                  "var(--variant-plainColor, rgba(var(--joy-palette-primary-mainChannel) / 1))",
-              }}
-            >
-              {t("pages.loginPage.signIn.privacyPolicy")}
-            </span>
-          </Typography>
         </Stack>
       </form>
-
       <PrivacyPolicyModal
         open={privacyPolicyModalOpen}
         setOpen={(open: boolean) => setPrivacyPolicyModalOpen(open)}

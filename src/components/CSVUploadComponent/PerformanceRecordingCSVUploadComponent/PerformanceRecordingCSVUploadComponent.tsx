@@ -1,5 +1,5 @@
 import useApi from "@hooks/useApi";
-import CSVUploadComponent from "../CSVUploadComponent";
+import CSVUploadComponent, { CSVData } from "../CSVUploadComponent";
 import { useTranslation } from "react-i18next";
 import {
   Athlete,
@@ -10,10 +10,8 @@ import {
 import useFormatting from "@hooks/useFormatting";
 import { AthletePerformanceExportColumn } from "@customTypes/enums";
 import { useTypedSelector } from "@stores/rootReducer";
-import {
-  convertDateFormat,
-  CSVData,
-} from "@components/CSVUploadComponent/CSVHelper";
+import { attributeToGermanHeader } from "@components/modals/AthleteExportModal/AthleteExportModal";
+import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
 
 interface PerformanceRecordingCSVUploadComponentProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -58,23 +56,47 @@ const PerformanceRecordingCSVUploadComponent = ({
     data.data.map(
       (row: any) =>
         ({
-          firstName: row[AthletePerformanceExportColumn.FirstName],
-          lastName: row[AthletePerformanceExportColumn.LastName],
+          firstName:
+            row[
+              attributeToGermanHeader[AthletePerformanceExportColumn.FirstName]
+            ],
+          lastName:
+            row[
+              attributeToGermanHeader[AthletePerformanceExportColumn.LastName]
+            ],
           discipline: disciplines.find(
             (discipline) =>
               discipline.name ===
-              row[AthletePerformanceExportColumn.Discipline],
+              row[
+                attributeToGermanHeader[
+                  AthletePerformanceExportColumn.Discipline
+                ]
+              ],
           ),
           dateOfPerformance: +convertGermanTimeToAmerican(
-            row[AthletePerformanceExportColumn.PerformanceDate],
+            row[
+              attributeToGermanHeader[
+                AthletePerformanceExportColumn.PerformanceDate
+              ]
+            ],
           ),
-          ratingValue: +row[AthletePerformanceExportColumn.Result],
+          ratingValue:
+            +row[
+              attributeToGermanHeader[AthletePerformanceExportColumn.Result]
+            ],
           athlete: athletes.find(
             (athlete) =>
-              athlete.email === row[AthletePerformanceExportColumn.Email] &&
+              athlete.email ===
+                row[
+                  attributeToGermanHeader[AthletePerformanceExportColumn.Email]
+                ] &&
               athlete.birthdate ===
                 convertDateFormat(
-                  row[AthletePerformanceExportColumn.Birthdate],
+                  row[
+                    attributeToGermanHeader[
+                      AthletePerformanceExportColumn.Birthdate
+                    ]
+                  ],
                 ),
           ),
         }) as PerformanceRecordingCreationCSVDto,

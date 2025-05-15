@@ -1,73 +1,69 @@
 import useApi from "@hooks/useApi";
 import SplitPageComponent from "@components/SplitPageComponent/SplitPageComponent";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { Box, Button, CircularProgress, Stack, Typography } from "@mui/joy";
+import { Box, Stack, Button, Typography } from "@mui/joy";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate, useSearchParams } from "react-router";
 import LoginForm from "@pages/Login/LoginForm";
-import { uuidRegex } from "constants/regex";
+import { jwtDecode } from "jwt-decode";
+
+interface DecodeJWT {
+  trainerName: string;
+  athleteId: number;
+}
 
 const AcceptTrainerAccessRequest = () => {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(true);
-  const { approveRequest, loginUser, getAccessRequest } = useApi();
+  const { approveRequest, loginUser } = useApi();
   const [trainerName, setTrainerName] = useState<string>("");
-  const [athleteId, setAthleteId] = useState<number | null>(null);
+  const [athleteId, setAthleteId] = useState<number>();
   const [searchParams] = useSearchParams();
   const { refreshIdentityToken, authorized } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (authorized) {
-      setLoading(true);
       const oneTimeCode = searchParams.get("oneTimeCode");
+      const uuidRegex = new RegExp(
+        "^[A-Za-z0-9_-]{10,}.[A-Za-z0-9_-]{10,}.[A-Za-z0-9_-]{10,}$",
+      );
 
       if (!oneTimeCode || !uuidRegex.test(oneTimeCode)) {
-        setLoading(false);
         return;
       }
 
-      const lookupUuid = async () => {
-        const accessRequest = await getAccessRequest(oneTimeCode);
-        setTrainerName(
-          accessRequest?.trainer?.first_name +
-            " " +
-            accessRequest?.trainer?.last_name,
-        );
-        setAthleteId(accessRequest?.athlete.id ?? -1);
-        setLoading(false);
-      };
-      lookupUuid();
+      const decoded = jwtDecode<DecodeJWT>(oneTimeCode);
+      setTrainerName(decoded.trainerName);
+      setAthleteId(decoded.athleteId);
     }
-  }, [searchParams, authorized, getAccessRequest]);
+  }, [searchParams, authorized]);
 
-  const accept = useCallback(
-    async (oneTimeCode: string) => {
-      try {
-        await approveRequest(oneTimeCode, athleteId ?? -1);
-        enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.success"), {
-          variant: "success",
-        });
-      } catch {
-        enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.failed"), {
-          variant: "error",
-        });
-      }
-    },
-    [athleteId, approveRequest, t],
-  );
+  const accept = async (oneTimeCode: string, athleteId: number) => {
+    try {
+      await approveRequest(oneTimeCode, athleteId);
+      enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.success"), {
+        variant: "success",
+      });
+    } catch {
+      enqueueSnackbar(t("snackbar.acceptTrainerAccessRequest.failed"), {
+        variant: "error",
+      });
+    }
+  };
+
   const loginCallback = async (loginData: {
     email: string;
     password: string;
+    privacyPolicy: boolean;
   }) => {
     try {
       const res = await loginUser(loginData.email, loginData.password);
 
       if (res) {
-        refreshIdentityToken();
+        await refreshIdentityToken();
       } else {
         enqueueSnackbar("Login failed", {
           variant: "error",
@@ -124,20 +120,6 @@ const AcceptTrainerAccessRequest = () => {
             </Stack>
             <LoginForm loginCallback={login} isPending={isPending} />
           </>
-        ) : loading ? (
-          <Box
-            sx={{
-              height: "200px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              gap: "20px",
-            }}
-          >
-            <CircularProgress size={"lg"} />
-            <Typography color={"neutral"}>{t("generic.loading")}</Typography>
-          </Box>
         ) : (
           <Stack>
             <Stack sx={{ gap: 4, mb: 2 }}>
@@ -154,8 +136,8 @@ const AcceptTrainerAccessRequest = () => {
             <Button
               onClick={() => {
                 const oneTimeCode = searchParams.get("oneTimeCode");
-                if (oneTimeCode) {
-                  accept(oneTimeCode);
+                if (oneTimeCode && athleteId) {
+                  accept(oneTimeCode, athleteId);
                   navigate("/");
                 }
               }}

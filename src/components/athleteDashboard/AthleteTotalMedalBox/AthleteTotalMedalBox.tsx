@@ -65,7 +65,7 @@ const AthleteTotalMedalBox = () => {
 
   return (
     <>
-      <Box sx={{ position: "relative", height: "100%", minHeight: "250px" }}>
+      <Box sx={{ position: "relative", height: "100%" }}>
         <Box
           sx={{
             position: "absolute",
@@ -155,7 +155,6 @@ const AthleteTotalMedalBox = () => {
                       ? medalColors[totalMedal]
                       : "gray",
                   position: "relative",
-                  top: "40px",
                   transition: "background .3s ease",
                   borderRadius: "100%",
                   "::after": {

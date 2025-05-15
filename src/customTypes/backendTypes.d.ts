@@ -14,13 +14,6 @@ export interface Athlete extends Record<string, unknown> {
   birthdate: string;
   gender?: Genders;
   swimming_certificate?: SwimmingCertificateType;
-  has_access: boolean;
-}
-
-export interface AccessRequest {
-  trainer: Trainer;
-  athlete: Athlete;
-  id: string;
 }
 
 export interface UserEntity {

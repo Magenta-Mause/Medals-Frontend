@@ -1,14 +1,12 @@
 import { useTranslation } from "react-i18next";
-import CSVUploadComponent from "../CSVUploadComponent";
+import CSVUploadComponent, { CSVData } from "../CSVUploadComponent";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import { AthleteExportColumn, Genders } from "@customTypes/enums";
 import { useCallback } from "react";
 import { BirthdateRegex, emailRegex } from "constants/regex";
-import {
-  convertDateFormat,
-  CSVData,
-} from "@components/CSVUploadComponent/CSVHelper";
+import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
+import { attributeToGermanHeader } from "@components/modals/AthleteExportModal/AthleteExportModal";
 
 interface AthleteCSVUploadComponentProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,17 +29,42 @@ const AthleteCSVUploadComponent = ({
     [checkAthleteExists],
   );
 
+  const normalizeGender = (gender: string | undefined) => {
+    let normalized = "";
+    if (gender?.trim().toLowerCase() === "m") {
+      normalized = "MALE";
+    }
+    if (gender?.trim().toLowerCase() === "d") {
+      normalized = "DIVERSE";
+    }
+    if (gender?.trim().toLowerCase() === "w") {
+      normalized = "FEMALE";
+    }
+    return Genders[normalized as keyof typeof Genders];
+  };
+
   const parseAthleteCSV = (athletesData: Papa.ParseResult<unknown>) => {
     return athletesData.data.map(
       (row: any) =>
         ({
-          first_name: row[AthleteExportColumn.FirstName].trim() ?? undefined,
-          last_name: row[AthleteExportColumn.LastName].trim() ?? undefined,
-          email: row[AthleteExportColumn.Email].trim() ?? undefined,
-          birthdate:
-            convertDateFormat(row[AthleteExportColumn.Birthdate]).trim() ??
+          first_name:
+            row[
+              attributeToGermanHeader[AthleteExportColumn.FirstName]
+            ].trim() ?? undefined,
+          last_name:
+            row[attributeToGermanHeader[AthleteExportColumn.LastName]].trim() ??
             undefined,
-          gender: row[AthleteExportColumn.Gender] ?? undefined,
+          email:
+            row[attributeToGermanHeader[AthleteExportColumn.Email]].trim() ??
+            undefined,
+          birthdate:
+            convertDateFormat(
+              row[attributeToGermanHeader[AthleteExportColumn.Birthdate]],
+            ).trim() ?? undefined,
+          gender:
+            normalizeGender(
+              row[attributeToGermanHeader[AthleteExportColumn.Gender]],
+            ) ?? undefined,
         }) as Partial<Athlete>,
     );
   };
@@ -63,7 +86,7 @@ const AthleteCSVUploadComponent = ({
     if (
       emailRegex.test(athlete.email) &&
       BirthdateRegex.test(athlete.birthdate) &&
-      Object.keys(Genders).includes(athlete.gender) &&
+      ["DIVERSE", "MALE", "FEMALE"].includes(athlete.gender) &&
       !athleteExists // Athlete should not exist, while importing
     ) {
       return true;

@@ -14,8 +14,7 @@
       margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
 
-    *::-webkit-scrollbar {
-      /* Try and make scrollnbar uniform across platforms */
+    *::-webkit-scrollbar { /* Try and make scrollnbar uniform across platforms */
       width: 2px;
       height: 2px;
     }
@@ -25,10 +24,11 @@
     }
 
     *::-webkit-scrollbar-thumb {
-      background-color: rgb(151, 151, 151); /* color of the scroll thumb */
+      background-color: rgb(151, 151, 151);    /* color of the scroll thumb */
       border-radius: 20px;
       padding-right: 10px;
     }
+
 
     input[type="number"] {
       -moz-appearance: textfield; /* Firefox */

@@ -4,8 +4,6 @@ import disciplineReducer from "@stores/slices/disciplineSlice";
 import performanceRecordingReducer from "@stores/slices/performanceRecordingSlice";
 import trainerReducer from "@stores/slices/trainerSlice";
 import disciplineMetricsReducer from "@stores/slices/disciplineRatingMetricSlice";
-import accessRequestReducer from "@stores/slices/accessRequestSlice";
-import managingTrainerSlice from "@stores/slices/managingTrainerSlice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { RootState } from ".";
 
@@ -15,8 +13,6 @@ const appReducer = combineReducers({
   disciplines: disciplineReducer,
   trainers: trainerReducer,
   disciplineMetrics: disciplineMetricsReducer,
-  accessRequests: accessRequestReducer,
-  managingTrainer: managingTrainerSlice,
 });
 
 const rootReducer = appReducer;

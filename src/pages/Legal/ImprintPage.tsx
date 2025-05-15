@@ -14,10 +14,10 @@ const ImprintPage = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        gap: 10,
+        justifyContent: "space-evenly",
       }}
     >
+      <Disclaimer />
       <Box
         sx={{
           width: "100%",
@@ -44,7 +44,6 @@ const ImprintPage = () => {
           Email: medals.ageless325@passmail.net
         </Typography>
       </Box>
-      <Disclaimer />
     </Box>
   );
 };

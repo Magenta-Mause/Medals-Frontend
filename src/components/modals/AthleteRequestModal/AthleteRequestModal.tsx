@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { CircularProgress } from "@mui/material";
 import { Athlete } from "@customTypes/backendTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
@@ -18,7 +18,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import GenericModal from "@components/modals/GenericModal";
 import { enqueueSnackbar } from "notistack";
 import useFormatting from "@hooks/useFormatting";
-import { useTypedSelector } from "@stores/rootReducer";
 
 interface AthleteRequestModalProps {
   isOpen: boolean;
@@ -26,30 +25,12 @@ interface AthleteRequestModalProps {
 }
 
 const AthleteRequestButton = (props: AthleteRequestModalProps) => {
-  const athletes = useTypedSelector((state) => state.athletes.data);
-  const requestedAthletes = useMemo(
-    () => athletes.filter((athlete) => !athlete.has_access),
-    [athletes],
-  );
-  const accessibleAthletes = useMemo(
-    () => athletes.filter((athlete) => athlete.has_access),
-    [athletes],
-  );
   const { t } = useTranslation();
   const { searchAthletes, requestAthlete } = useApi();
   const [loading, setLoading] = useState(false);
   const [icon, setShowScrollIcon] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
-  const [fetchedAthletes, setFetchedAthletes] = useState<Athlete[]>([]);
-  const athletesShown = useMemo(
-    () =>
-      fetchedAthletes.filter(
-        (athlete) =>
-          accessibleAthletes.filter((athlete2) => athlete2.id == athlete.id)
-            .length == 0,
-      ),
-    [accessibleAthletes, fetchedAthletes],
-  );
+  const [filteredResults, setFilteredResults] = useState<Athlete[]>([]);
   const { formatLocalizedDate } = useFormatting();
   const { selectedUser } = useContext(AuthContext);
   const [buttonState, setButtonState] = useState<{
@@ -60,17 +41,8 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
   const isButtonDisabled = (athleteId: number | undefined): boolean => {
     if (athleteId === undefined) return true;
 
-    if (
-      requestedAthletes.filter((athlete) => athlete.id == athleteId).length > 0
-    ) {
-      return true;
-    }
-
     const athleteState = buttonState[athleteId];
-    if (athleteState == undefined) {
-      return false;
-    }
-    return athleteState.loading || athleteState.send;
+    return athleteState?.loading || athleteState?.send || false;
   };
 
   const handleInvite = async (
@@ -86,7 +58,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
     }));
 
     try {
-      await requestAthlete(athleteId);
+      await requestAthlete(athleteId, trainerId);
       enqueueSnackbar(t("snackbar.requestAthleteAccess.success"), {
         variant: "success",
       });
@@ -106,24 +78,20 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
     const delayDebounceFn = setTimeout(async () => {
       try {
         const athletes = await searchAthletes(searchAthlete);
-        setFetchedAthletes(athletes);
+        setFilteredResults(athletes);
         if (athletes.length > 5) {
           setShowScrollIcon(true);
         }
       } catch (error) {
         console.error("Error fetching athletes", error);
-        setFetchedAthletes([]);
+        setFilteredResults([]);
       }
       setLoading(false);
     }, 500);
 
     setLoading(true);
     return () => clearTimeout(delayDebounceFn);
-  }, [searchAthletes, searchAthlete, props.isOpen]);
-
-  useEffect(() => {
-    setButtonState({});
-  }, [props.isOpen]);
+  }, [searchAthletes, searchAthlete]);
 
   const handleScroll = () => {
     if (listRef.current) {
@@ -145,7 +113,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
     };
 
     checkScrollable();
-  }, [fetchedAthletes]);
+  }, [filteredResults]);
 
   return (
     <>
@@ -203,13 +171,13 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
             onScroll={handleScroll}
             sx={{ maxHeight: 400, overflowY: "auto" }}
           >
-            {athletesShown.length === 0 && (
+            {filteredResults.length === 0 && (
               <Typography sx={{ padding: 2, paddingBottom: 1 }}>
                 {t("components.requestAthleteModal.notFound")}
               </Typography>
             )}
 
-            {athletesShown.map((athlete, index) => (
+            {filteredResults.map((athlete, index) => (
               <React.Fragment key={athlete.id}>
                 <ListItem
                   key={index}
@@ -249,7 +217,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
                         )}
                   </Button>
                 </ListItem>
-                {index != athletesShown.length - 1 ? (
+                {index != filteredResults.length - 1 ? (
                   <Divider sx={{ margin: 0.7 }} component="li" />
                 ) : (
                   <></>

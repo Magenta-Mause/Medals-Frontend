@@ -17,6 +17,7 @@ const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(crossSliceMiddleware),
+  devTools: true,
 });
 
 export type AppDispatch = typeof store.dispatch;

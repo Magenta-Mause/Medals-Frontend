@@ -24,7 +24,6 @@ import GenericResponsiveDatagrid, {
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 import { useMediaQuery } from "@mui/material";
-import dayjs from "dayjs";
 
 interface AthleteExportModalProps {
   isOpen: boolean;
@@ -33,6 +32,25 @@ interface AthleteExportModalProps {
   includePerformance: boolean;
   isButtonVisible: boolean;
 }
+
+const attributeToGermanHeader: Record<string, string> = {
+  [AthleteExportColumn.FirstName]: "Vorname",
+  [AthleteExportColumn.LastName]: "Nachname",
+  [AthleteExportColumn.Email]: "E-Mail",
+  [AthleteExportColumn.Birthdate]: "Geburtsdatum",
+  [AthleteExportColumn.Gender]: "Geschlecht",
+
+  [AthletePerformanceExportColumn.FirstName]: "Vorname",
+  [AthletePerformanceExportColumn.LastName]: "Nachname",
+  [AthletePerformanceExportColumn.Email]: "E-Mail",
+  [AthletePerformanceExportColumn.Birthdate]: "Geburtsdatum",
+  [AthletePerformanceExportColumn.Gender]: "Geschlecht",
+  [AthletePerformanceExportColumn.Discipline]: "Übung",
+  [AthletePerformanceExportColumn.Category]: "Kategorie",
+  [AthletePerformanceExportColumn.PerformanceDate]: "Datum",
+  [AthletePerformanceExportColumn.Result]: "Ergebnis",
+  [AthletePerformanceExportColumn.Points]: "Punkte",
+};
 
 const AthleteExportModal = ({
   isOpen,
@@ -109,22 +127,79 @@ const AthleteExportModal = ({
     const columns: string[] = withPerformance
       ? Object.values(AthletePerformanceExportColumn)
       : Object.values(AthleteExportColumn);
-    const header = columns.map((col) => col || col).join(",") + "\n";
+    const header =
+      columns.map((col) => attributeToGermanHeader[col] || col).join(",") +
+      "\n";
 
     const rows = data
       .map((item) => {
+        const birthdate = item.birthdate ? new Date(item.birthdate) : null;
         const performanceRecordingsOfAthlete = performanceRecordings.filter(
           (p) => p.athlete_id === item.id,
         );
 
-        if (withPerformance && performanceRecordingsOfAthlete.length > 0) {
-          return performanceRecordingsOfAthlete
-            .map((performance) =>
-              mapPerformanceDataToCSV(columns, item, disciplines, performance),
-            )
-            .join("\n");
+        if (!withPerformance || performanceRecordingsOfAthlete.length === 0) {
+          return columns
+            .map((col) => {
+              if (col === AthleteExportColumn.Birthdate) {
+                return item.birthdate
+                  ? new Intl.DateTimeFormat("de-DE").format(
+                      new Date(item.birthdate),
+                    )
+                  : "";
+              }
+              if (col === AthleteExportColumn.Gender) {
+                return item.gender;
+              }
+
+              return item[col] || "";
+            })
+            .join(",");
         }
-        return mapAthleteDataToCSV(columns, item);
+
+        return performanceRecordingsOfAthlete
+          .map((performance) => {
+            const discipline = disciplines.find(
+              (d) =>
+                d.id === performance.discipline_rating_metric.discipline.id,
+            );
+            const points = convertMedalToNumber(
+              calculatePerformanceRecordingMedal(performance),
+            );
+            return columns
+              .map((col) => {
+                switch (col) {
+                  case "athlete_first_name":
+                    return item.first_name || "";
+                  case "athlete_last_name":
+                    return item.last_name || "";
+                  case "athlete_email":
+                    return item.email || "";
+                  case "athlete_gender":
+                    return item.gender || "";
+                  case "athlete_birthdate":
+                    return birthdate
+                      ? new Intl.DateTimeFormat("de-DE").format(birthdate)
+                      : "";
+                  case "discipline":
+                    return discipline?.name || "";
+                  case "category":
+                    return discipline?.category || "";
+                  case "performance_date":
+                    return performance.date_of_performance
+                      ? new Intl.DateTimeFormat("de-DE").format(
+                          new Date(performance.date_of_performance),
+                        )
+                      : "";
+                  case "result":
+                    return performance.rating_value || "";
+                  case "points":
+                    return points || "";
+                }
+              })
+              .join(",");
+          })
+          .join("\n");
       })
       .join("\n");
 
@@ -236,73 +311,5 @@ const AthleteExportModal = ({
   );
 };
 
-const mapAthleteDataToCSV = (columns: string[], item: any) => {
-  return columns
-    .map((col) => {
-      switch (col) {
-        case AthleteExportColumn.FirstName:
-          return item.first_name || "";
-        case AthleteExportColumn.LastName:
-          return item.last_name || "";
-        case AthleteExportColumn.Email:
-          return item.email || "";
-        case AthleteExportColumn.Birthdate:
-          return formatItemBirthdate(item);
-        case AthleteExportColumn.Gender:
-          return item.gender || "";
-      }
-
-      return item[col] || "";
-    })
-    .join(",");
-};
-
-const mapPerformanceDataToCSV = (
-  columns: string[],
-  item: any,
-  disciplines: Discipline[],
-  performance: PerformanceRecording,
-): string => {
-  const points = convertMedalToNumber(
-    calculatePerformanceRecordingMedal(performance),
-  );
-  return columns
-    .map((col) => {
-      const discipline = disciplines.find(
-        (d) => d.id === performance.discipline_rating_metric.discipline.id,
-      );
-      switch (col) {
-        case AthletePerformanceExportColumn.FirstName:
-          return item.first_name || "";
-        case AthletePerformanceExportColumn.LastName:
-          return item.last_name || "";
-        case AthletePerformanceExportColumn.Email:
-          return item.email || "";
-        case AthletePerformanceExportColumn.Gender:
-          return item.gender || "";
-        case AthletePerformanceExportColumn.Birthdate:
-          return formatItemBirthdate(item);
-        case AthletePerformanceExportColumn.Discipline:
-          return discipline?.name || "";
-        case AthletePerformanceExportColumn.Category:
-          return discipline?.category || "";
-        case AthletePerformanceExportColumn.PerformanceDate:
-          return performance.date_of_performance
-            ? new Intl.DateTimeFormat("de-DE").format(
-                new Date(performance.date_of_performance),
-              )
-            : "";
-        case AthletePerformanceExportColumn.Result:
-          return performance.rating_value || "";
-        case AthletePerformanceExportColumn.Points:
-          return points || "";
-      }
-    })
-    .join(",");
-};
-
-const formatItemBirthdate = (item: any): string | null => {
-  return item.birthdate ? dayjs(item.birthdate).format("DD.MM.YYYY") : null;
-};
-
 export default AthleteExportModal;
+export { attributeToGermanHeader };

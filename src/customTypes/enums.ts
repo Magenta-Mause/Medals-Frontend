@@ -30,6 +30,13 @@ export enum Genders {
   MALE = "MALE",
 }
 
+export enum CSVUploadState {
+  VALID,
+  UPLOADED,
+  FAILED,
+  LOADING,
+}
+
 export enum SwimmingCertificateType {
   ENDURANCE = "ENDURANCE", // Fully continuous swim (distance & time; bronze time not mandatory)
   SPRINT = "SPRINT", // 25m swim within the bronze-required time (or better)
@@ -41,22 +48,22 @@ export enum SwimmingCertificateType {
 }
 
 export enum AthleteExportColumn {
-  FirstName = "Vorname",
-  LastName = "Nachname",
-  Email = "E-Mail",
-  Birthdate = "Geburtsdatum",
-  Gender = "Geschlecht",
+  FirstName = "first_name",
+  LastName = "last_name",
+  Email = "email",
+  Birthdate = "birthdate",
+  Gender = "gender",
 }
 
 export enum AthletePerformanceExportColumn {
-  FirstName = "Vorname",
-  LastName = "Nachname",
-  Email = "E-Mail",
-  Birthdate = "Geburtsdatum",
-  Gender = "Geschlecht",
-  Discipline = "Übung",
-  Category = "Kategorie",
-  PerformanceDate = "Datum",
-  Result = "Ergebnis",
-  Points = "Punkte",
+  FirstName = "athlete_first_name",
+  LastName = "athlete_last_name",
+  Email = "athlete_email",
+  Birthdate = "athlete_birthdate",
+  Gender = "athlete_gender",
+  Discipline = "discipline",
+  Category = "category",
+  PerformanceDate = "performance_date",
+  Result = "result",
+  Points = "points",
 }
