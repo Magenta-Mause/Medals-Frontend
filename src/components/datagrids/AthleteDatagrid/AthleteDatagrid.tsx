@@ -357,7 +357,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     email: "",
     birthdate: "",
     has_access: true,
-  });
+  }).filter((action) => action.key !== "edit");
 
   const itemCallback = async (item: Athlete) => {
     navigate("/athletes/" + item.id);
