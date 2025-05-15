@@ -45,7 +45,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
           onChange={(_event: React.SyntheticEvent, newSelectedPage: number) => {
             setSelectedImportPage(newSelectedPage);
           }}
-          textColor="primary"
+          textColor="inherit"
           indicatorColor="primary"
         >
           <Tab
