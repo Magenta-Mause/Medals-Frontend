@@ -830,10 +830,15 @@
       "discipline": "Übung",
       "performanceDate": "Aufnahmedatum",
       "performanceResult": "Ergebnis",
+      "email": "E-Mail",
+      "birthdate": "Geburtsdatum",
+      "gender": "Geschlecht",
+      "access": "Zugriff beantragen?",
       "tabSelection": {
         "athleteImport": "Athlet*innen",
         "performanceImport": "Leistungen"
       },
+      "invalidity": "ist ungültig",
       "invalidFirstName": "Vorname ist ungültig",
       "invalidLastName": "Nachname ist ungültig",
       "invalidDiscipline": "Übung ist ungültig",

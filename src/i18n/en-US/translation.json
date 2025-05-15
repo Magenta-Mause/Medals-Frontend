@@ -179,7 +179,6 @@
       "createButton": "Create",
       "createHeader": "Create Athlete",
       "requestAccess": "Send request"
-
     },
     "athleteEditPage": {
       "editHeader": "Edit Athlete",
@@ -226,7 +225,7 @@
         "subheader": "Pick the profile you want to continue with"
       },
       "signIn": {
-        "header": "Login", 
+        "header": "Login",
         "subheader": "Medals - The soon to be Medal Management System",
         "input": {
           "email": "Email",
@@ -518,7 +517,7 @@
           "athleteId": "Athlete ID",
           "firstName": "First Name",
           "lastName": "Last Name",
-          "birthdate": "Birth date",
+          "birthdate": "Birthdate",
           "email": "Email",
           "gender": "Gender",
           "achievements": "Achievements"
@@ -583,7 +582,7 @@
       },
       "deletionModal": {
         "header": "{{entityType}} Deletion",
-        "confirmDeleteMessage":"By clicking 'Delete', the selected {{entityType}}(s) and all associated data will be permanently removed."
+        "confirmDeleteMessage": "By clicking 'Delete', the selected {{entityType}}(s) and all associated data will be permanently removed."
       }
     },
     "entityModal": {
@@ -769,6 +768,10 @@
       "discipline": "Discipline",
       "performanceDate": "Performance Date",
       "performanceResult": "Result",
+      "email": "Email",
+      "birthdate": "Birthdate",
+      "gender": "Gender",
+      "access": "Request access?",
       "tabSelection": {
         "athleteImport": "Athletes",
         "performanceImport": "Performances"
