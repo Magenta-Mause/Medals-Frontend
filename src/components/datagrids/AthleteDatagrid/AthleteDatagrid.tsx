@@ -23,7 +23,6 @@ import AthleteRequestButton from "@components/modals/AthleteRequestModal/Athlete
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
 import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
-import { enqueueSnackbar } from "notistack";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { calculateAge } from "@utils/calculationUtil";
@@ -304,7 +303,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           operation: async (item) => {
             setAthleteToEdit(item);
             setEditAthleteModalOpen(true);
-      },
+          },
         },
         {
           label: <>{t("components.athleteDatagrid.actions.export")}</>,
@@ -359,8 +358,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     birthdate: "",
     has_access: true,
   });
-
-  const selectionActions = actions.filter((action) => action.key !== "edit");
 
   const itemCallback = async (item: Athlete) => {
     navigate("/athletes/" + item.id);

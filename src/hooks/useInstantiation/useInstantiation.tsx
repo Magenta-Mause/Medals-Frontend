@@ -217,12 +217,6 @@ const useInstantiation = () => {
             setManagingTrainer((await getTrainersAssignedToAthlete()) ?? []),
           );
         }
-        if (userType == UserType.ATHLETE) {
-          dispatch(setAccessRequests((await getAccessRequests()) ?? []));
-          dispatch(
-            setManagingTrainer((await getTrainersAssignedToAthlete()) ?? []),
-          );
-        }
         dispatch(setAthletes((await getAthletes()) ?? []));
         dispatch(setDisciplines((await getDisciplines()) ?? []));
         dispatch(
@@ -263,7 +257,6 @@ const useInstantiation = () => {
       dispatch,
       getAthletes,
       getAdmins,
-      getDisciplineMetrics,
       getDisciplines,
       getPerformanceRecordings,
       getDisciplineMetrics,
@@ -281,10 +274,6 @@ const useInstantiation = () => {
       uninitializeTrainerWebsocket,
       uninitializeAccessRequestWebsocket,
       uninitializeControllingTrainerWebsocket,
-      initializeAthleteWebsocket,
-      initializeDisciplineWebsocket,
-      initializePerformanceRecordingWebsocket,
-      initializeTrainerWebsocket,
       initializeAccessRequestWebsocket,
       initializeManagingTrainerWebsocket,
     ],
