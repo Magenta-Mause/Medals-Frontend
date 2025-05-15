@@ -253,6 +253,23 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const getAccessRequest = useCallback(
+    async (oneTimeCode: string) => {
+      try {
+        const request = await axiosInstance!.get(
+          `/athletes/access-requests/${oneTimeCode}`,
+        );
+        return request.data.data as AccessRequest;
+      } catch (error) {
+        console.error(
+          `Error while fetching athlete with id: ${oneTimeCode}`,
+          error,
+        );
+      }
+    },
+    [axiosInstance],
+  );
+
   const getAccessRequests = useCallback(async () => {
     try {
       const response = await axiosInstance!.get("/athletes/access-requests");
@@ -601,6 +618,7 @@ const useApi = () => {
     approveRequest,
     requestAthlete,
     searchAthletes,
+    getAccessRequest,
     getAccessRequests,
     removeTrainerAthleteConnection,
     revokeRequest,
