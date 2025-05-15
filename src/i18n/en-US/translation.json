@@ -429,11 +429,11 @@
       "confirmations": {
         "revoke": {
           "header": "Revoke Trainer access",
-          "message": "Are you sure that you want to revoke the Access rights of this Trainer?"
+          "message": "Are you sure that you want to revoke the access rights of this Trainer?"
         },
         "reject": {
           "header": "Reject Access Request",
-          "message": "Are you sure that you want to reject this Access Request?"
+          "message": "Are you sure that you want to reject this access request?"
         }
       }
     },
@@ -722,8 +722,8 @@
         "trainers": "Your trainers:",
         "removeTrainers": "Manage your trainers",
         "removeTrainer": "Manage your trainer",
-        "header": "Trainer Mangement",
-        "requestsPending": "Manage pending Requests",
+        "header": "Trainer Management",
+        "requestsPending": "Manage pending requests",
         "accessRequestsPending": {
           "singular": "You have one pending access request",
           "plural": "You have {count} pending access requests"

@@ -387,7 +387,7 @@
       "confirmations": {
         "revoke": {
           "header": "Trainer Zugriff entziehen",
-          "message": "Bist du dir sicher, dass du deinem Trainer den Zugriff auf dich entziehen möchtest?"
+          "message": "Bist du dir sicher, dass du der Trainer*in den Zugriff auf dich entziehen möchtest?"
         },
         "reject": {
           "header": "Zugriff Anfrage ablehnen",

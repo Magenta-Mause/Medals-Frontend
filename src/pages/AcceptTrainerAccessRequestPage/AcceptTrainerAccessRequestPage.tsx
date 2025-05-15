@@ -8,6 +8,7 @@ import { Box, Button, CircularProgress, Stack, Typography } from "@mui/joy";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate, useSearchParams } from "react-router";
 import LoginForm from "@pages/Login/LoginForm";
+import { uuidRegex } from "constants/regex";
 
 const AcceptTrainerAccessRequest = () => {
   const { t } = useTranslation();
@@ -23,9 +24,6 @@ const AcceptTrainerAccessRequest = () => {
     if (authorized) {
       setLoading(true);
       const oneTimeCode = searchParams.get("oneTimeCode");
-      const uuidRegex = new RegExp(
-        "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-      );
 
       if (!oneTimeCode || !uuidRegex.test(oneTimeCode)) {
         setLoading(false);
