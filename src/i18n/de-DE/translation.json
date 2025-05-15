@@ -170,7 +170,7 @@
       "firstName": "Vorname",
       "lastName": "Nachname",
       "valid": "Status",
-      "athleteList": "Athletenliste"
+      "athleteList": "Athlet*innen-liste"
     },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
@@ -300,8 +300,8 @@
       "darkMode": "Dunkler Modus",
       "materialsDownloadPage": "Materialien-Seite",
       "swimmingCard": "Schwimmkarte",
-      "singleAthletesCard": "Einzelathletenkarte",
-      "groupAthletesCard": "Gruppenathletenkarte",
+      "singleAthletesCard": "Einzelathlet*innen-Karte",
+      "groupAthletesCard": "Gruppenathlet*innen-Karte",
       "2020MedalsCard": "2020 Medaillenkarte",
       "2023MedalsCard": "2023 Medaillenkarte",
       "2024MedalsCard": "2024 Medaillenkarte",
@@ -354,7 +354,7 @@
     "requestAthleteModal": {
       "header": "Athlet*innen anfragen",
       "searchAthlete": "Name",
-      "notFound": "Kein Athleten gefunden",
+      "notFound": "Kein Athlet*innen gefunden",
       "requestAthleteButton": "Senden",
       "sendButton": "Gesendet"
     },
