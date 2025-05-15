@@ -13,14 +13,15 @@ interface AthleteCSVUploadComponentProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface AthleteWithAccess extends Partial<Athlete> {
+  access: boolean;
+}
+
 const AthleteCSVUploadComponent = ({
   setOpen,
 }: AthleteCSVUploadComponentProps) => {
   const { t } = useTranslation();
   const { createAthlete, checkAthleteExists } = useApi();
-  const [accessCheckboxes, setAccessCheckboxes] = useState<
-    Record<number, boolean>
-  >({});
 
   const checkIfAthleteExists = useCallback(
     async (athlete: Athlete) => {
@@ -69,11 +70,12 @@ const AthleteCSVUploadComponent = ({
             normalizeGender(
               row[attributeToGermanHeader[AthleteExportColumn.Gender]],
             ) ?? undefined,
-        }) as Partial<Athlete>,
+          access: true,
+        }) as AthleteWithAccess,
     );
   };
 
-  const isValidAthlete = async (athlete: Partial<Athlete>) => {
+  const isValidAthlete = async (athlete: AthleteWithAccess) => {
     if (
       !athlete.first_name ||
       !athlete.last_name ||
@@ -99,18 +101,26 @@ const AthleteCSVUploadComponent = ({
     return false;
   };
 
+  const handleChange = (athlete: AthleteWithAccess) => {
+    if (athlete.access) {
+      athlete.access = false;
+    } else {
+      athlete.access = true;
+    }
+  };
+
   return (
     <CSVUploadComponent
       key="athleteImport"
       setOpen={setOpen}
       parseCSVData={parseAthleteCSV}
       uploadEntry={
-        (athlete: Partial<Athlete>) => createAthlete(athlete as Athlete) // at this point, athlete is already validated
+        (athlete: AthleteWithAccess) => createAthlete(athlete as Athlete) // at this point, athlete is already validated
       }
       csvColumns={[
         {
           columnName: t("components.csvImportModal.firstName"),
-          columnMapping(csvData: CSVData<Partial<Athlete>>) {
+          columnMapping(csvData: CSVData<AthleteWithAccess>) {
             if (!csvData.data.first_name) {
               return t("components.csvImportModal.invalidFirstName");
             }
@@ -119,7 +129,7 @@ const AthleteCSVUploadComponent = ({
         },
         {
           columnName: t("components.csvImportModal.lastName"),
-          columnMapping(csvData: CSVData<Partial<Athlete>>) {
+          columnMapping(csvData: CSVData<AthleteWithAccess>) {
             if (!csvData.data.last_name) {
               return t("components.csvImportModal.invalidLastName");
             }
@@ -128,18 +138,11 @@ const AthleteCSVUploadComponent = ({
         },
         {
           columnName: "Access?",
-          columnMapping(csvData: CSVData<Partial<Athlete>>) {
-            const key: any = csvData.data.email ?? Math.random(); // fallback if email missing
-
+          columnMapping(csvData: CSVData<AthleteWithAccess>) {
             return (
               <Checkbox
-                checked={!!accessCheckboxes[key]}
-                onChange={(e) => {
-                  setAccessCheckboxes((prev) => ({
-                    ...prev,
-                    [key]: e.target.checked,
-                  }));
-                }}
+                checked={csvData.data.access}
+                onChange={() => handleChange(csvData.data)}
               />
             );
           },
