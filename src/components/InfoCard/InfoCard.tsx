@@ -1,13 +1,4 @@
-import { CloseRounded } from "@mui/icons-material";
-import {
-  Card,
-  Stack,
-  Typography,
-  IconButton,
-  LinearProgress,
-  Button,
-  ColorPaletteProp,
-} from "@mui/joy";
+import { Button, Card, ColorPaletteProp, Typography } from "@mui/joy";
 
 interface InfoCardProps {
   header: string;
@@ -25,26 +16,12 @@ const InfoCard = (props: InfoCardProps) => {
       variant="soft"
       color={props.type}
       size="sm"
-      sx={{ boxShadow: "none" }}
+      sx={{ boxShadow: "none", display: "flex", gap: "10px" }}
     >
-      <Stack
-        direction="row"
-        sx={{ justifyContent: "space-between", alignItems: "center" }}
-      >
-        <Typography level="title-sm">{props.header}</Typography>
-        <IconButton size="sm">
-          <CloseRounded />
-        </IconButton>
-      </Stack>
+      <Typography level="title-sm">{props.header}</Typography>
       <Typography level="body-xs">{props.text}</Typography>
-      <LinearProgress
-        variant="outlined"
-        value={80}
-        determinate
-        sx={{ my: 1 }}
-      />
       {props.buttonText ? (
-        <Button size="sm" variant="solid" onClick={props.buttonCallback}>
+        <Button size="sm" onClick={props.buttonCallback}>
           {props.buttonText}
         </Button>
       ) : (

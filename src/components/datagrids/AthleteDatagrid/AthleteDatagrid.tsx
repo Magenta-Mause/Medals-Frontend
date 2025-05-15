@@ -16,16 +16,17 @@ import GenericResponsiveDatagrid, {
 } from "../GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFilterComponent";
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
-import AthleteImportModal from "@components/modals/AthleteImportModal/AthleteImportModal";
+import CsvImportModal from "@components/modals/CsvImportModal/CsvImportModal";
 import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
 import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
 import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
+import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
+import { enqueueSnackbar } from "notistack";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { calculateAge } from "@utils/calculationUtil";
-import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 import { useTypedSelector } from "@stores/rootReducer";
 import useFormatting from "@hooks/useFormatting";
 import { PerformanceRecording } from "@customTypes/backendTypes";
@@ -33,6 +34,19 @@ import { PerformanceRecording } from "@customTypes/backendTypes";
 interface AthleteDatagridProps {
   athletes: Athlete[];
 }
+
+const AccessNotApprovedComponent = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Box>
+      <Typography color={"neutral"} level={"body-xs"}>
+        {t("components.athleteDatagrid.noAccess.label")}{" "}
+        <InfoTooltip text={t("components.athleteDatagrid.noAccess.tooltip")} />
+      </Typography>
+    </Box>
+  );
+};
 
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const { selectedUser } = useContext(AuthContext);
@@ -137,7 +151,13 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       columnName: t("components.athleteDatagrid.table.columns.email"),
       size: "l",
       columnMapping(item) {
-        return <Typography noWrap>{item.email}</Typography>;
+        return item.has_access ? (
+          <Typography noWrap level={"body-xs"}>
+            {item.email}
+          </Typography>
+        ) : (
+          <AccessNotApprovedComponent />
+        );
       },
     },
     {
@@ -153,7 +173,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       size: "xl",
       disableSpan: true,
       columnMapping(item) {
-        return (
+        return item.has_access ? (
           <>
             <AchievementsBox
               athlete={item}
@@ -161,6 +181,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
               selectedYear={currentYear}
             />
           </>
+        ) : (
+          <AccessNotApprovedComponent />
         );
       },
     },
@@ -233,6 +255,18 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const toolbarActions: ToolbarAction[] = [
     {
+      label: t("components.csvImportModal.importLabel"),
+      content: t("components.csvImportModal.importButton"),
+      icon: <UploadIcon />,
+      collapseToText: true,
+      color: "primary",
+      key: "import-athlete",
+      variant: "solid",
+      operation: async () => {
+        setImportModalOpen(true);
+      },
+    },
+    {
       label: t("components.athleteDatagrid.table.toolbar.createAthlete.label"),
       content: t(
         "components.athleteDatagrid.table.toolbar.createAthlete.content",
@@ -258,63 +292,73 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         setAddAthleteRequestModalOpen(true);
       },
     },
-    {
-      label: t("components.athleteDatagrid.table.toolbar.importAthlete.label"),
-      content: t(
-        "components.athleteDatagrid.table.toolbar.importAthlete.content",
-      ),
-      icon: <UploadIcon />,
-      collapseToText: true,
-      color: "primary",
-      key: "import-athlete",
-      variant: "solid",
-      operation: async () => {
-        setImportModalOpen(true);
-      },
-    },
   ];
 
-  const actions: Action<Athlete>[] = [
-    {
-      label: <>{t("components.athleteDatagrid.actions.edit")}</>,
-      color: "primary",
-      key: "edit",
-      operation: async (item) => {
-        setAthleteToEdit(item);
-        setEditAthleteModalOpen(true);
+  const actions: (athlete: Athlete) => Action<Athlete>[] = (athlete) => {
+    if (athlete.has_access) {
+      return [
+        {
+          label: <>{t("components.athleteDatagrid.actions.edit")}</>,
+          color: "primary",
+          key: "edit",
+          operation: async (item) => {
+            setAthleteToEdit(item);
+            setEditAthleteModalOpen(true);
       },
-    },
-    {
-      label: <>{t("components.athleteDatagrid.actions.export")}</>,
-      color: "primary",
-      key: "export",
-      variant: "outlined",
-      operation: async (item) => {
-        setSelectedAthletes((prev) => [...prev, item]);
-        setExportModalOpen(true);
+        },
+        {
+          label: <>{t("components.athleteDatagrid.actions.export")}</>,
+          color: "primary",
+          key: "export",
+          variant: "outlined",
+          operation: async (item) => {
+            setSelectedAthletes((prev) => [...prev, item]);
+            setExportModalOpen(true);
+          },
+        },
+        {
+          label: <>{t("components.athleteDatagrid.actions.remove")}</>,
+          color: "danger",
+          key: "remove",
+          variant: "outlined",
+          operation: async (item) => {
+            setSelectedAthletes((prev) => [...prev, item]);
+            setRemoveConfirmationModalOpen(true);
+          },
+        },
+        {
+          label: <>{t("components.athleteDatagrid.actions.delete")}</>,
+          color: "danger",
+          key: "delete",
+          variant: "outlined",
+          operation: async (item) => {
+            setSelectedAthletes((prev) => [...prev, item]);
+            setDeleteModalOpen(true);
+          },
+        },
+      ];
+    }
+    return [
+      {
+        label: <>{t("components.athleteDatagrid.actions.remove")}</>,
+        color: "danger",
+        key: "remove",
+        variant: "outlined",
+        operation: async (item) => {
+          setSelectedAthletes((prev) => [...prev, item]);
+          setRemoveConfirmationModalOpen(true);
+        },
       },
-    },
-    {
-      label: <>{t("components.athleteDatagrid.actions.remove")}</>,
-      color: "danger",
-      key: "remove",
-      variant: "outlined",
-      operation: async (item) => {
-        setSelectedAthletes((prev) => [...prev, item]);
-        setRemoveConfirmationModalOpen(true);
-      },
-    },
-    {
-      label: <>{t("components.athleteDatagrid.actions.delete")}</>,
-      color: "danger",
-      key: "delete",
-      variant: "outlined",
-      operation: async (item) => {
-        setSelectedAthletes((prev) => [...prev, item]);
-        setDeleteModalOpen(true);
-      },
-    },
-  ];
+    ];
+  };
+
+  const normalizedActions = actions({
+    first_name: "",
+    last_name: "",
+    email: "",
+    birthdate: "",
+    has_access: true,
+  });
 
   const selectionActions = actions.filter((action) => action.key !== "edit");
 
@@ -341,7 +385,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         operation: itemCallback,
         color: "primary",
       },
-      ...actions.filter((action) => action.key !== "export"),
+      ...normalizedActions.filter((action) => action.key !== "export"),
     ],
     contentRow: (athlete) => (
       <AchievementsBox
@@ -461,15 +505,16 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         filters={filters}
         toolbarActions={toolbarActions}
         actionMenu={actions}
-        itemSelectionActions={selectionActions}
+        itemSelectionActions={normalizedActions}
         keyOf={(item) => item.id!}
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
         disablePaging={false}
         heightIfNoEntriesFound={"200px"}
         messageIfNoEntriesFound={noAthleteFoundMessage}
+        itemClickableFilter={(athlete) => athlete.has_access}
       />
-      <AthleteImportModal
+      <CsvImportModal
         isOpen={addImportModalOpen}
         setOpen={setImportModalOpen}
       />
@@ -516,5 +561,4 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     </>
   );
 };
-
 export default AthleteDatagrid;

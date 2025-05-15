@@ -72,6 +72,7 @@ const AthleteCreationForm = ({
     email: "",
     birthdate: "",
     gender: undefined,
+    has_access: false,
   });
 
   const [touched, setTouched] = useState<FormTouched>({
@@ -131,6 +132,7 @@ const AthleteCreationForm = ({
       email: "",
       gender: undefined,
       birthdate: "",
+      has_access: false,
     });
     setTouched({
       first_name: false,

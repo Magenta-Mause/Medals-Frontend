@@ -78,6 +78,7 @@ const LegalLinksSelector = ({
             overflow: "hidden",
             transition: "all 0.3s ease",
             backgroundColor: "var(--joy-palette-background-surface)",
+            pt: "35px",
             ...(!open
               ? {
                   transform: "translateY(50px)",

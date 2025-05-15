@@ -1,9 +1,10 @@
 import {
+  AccessRequest,
   Athlete,
+  DisciplineRatingMetric,
   PerformanceRecording,
   PerformanceRecordingCreationDto,
   Trainer,
-  DisciplineRatingMetric,
   Admin,
 } from "@customTypes/backendTypes";
 import { useCallback } from "react";
@@ -252,11 +253,53 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const getAccessRequest = useCallback(
+    async (oneTimeCode: string) => {
+      try {
+        const request = await axiosInstance!.get(
+          `/athletes/access-requests/${oneTimeCode}`,
+        );
+        return request.data.data as AccessRequest;
+      } catch (error) {
+        console.error(
+          `Error while fetching athlete with id: ${oneTimeCode}`,
+          error,
+        );
+      }
+    },
+    [axiosInstance],
+  );
+
+  const revokeRequest = useCallback(
+    async (oneTimeCode: string, selectedUser: number) => {
+      try {
+        const response = await axiosInstance!.delete(
+          `/athletes/access-requests/${oneTimeCode}`,
+          {
+            headers: {
+              "X-Selected-User": selectedUser,
+            },
+          },
+        );
+
+        if (response.status !== 200) {
+          throw new Error(
+            `Error during accepting invite: ${response.statusText}`,
+          );
+        }
+      } catch (error) {
+        console.error(`Error while accepting invite`, error);
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
+
   const approveRequest = useCallback(
     async (oneTimeCode: string, selectedUser: number) => {
       try {
         const response = await axiosInstance!.post(
-          `/athletes/approve-access?oneTimeCode=${oneTimeCode}`,
+          `/athletes/access-requests/${oneTimeCode}`,
           {},
           {
             headers: {
@@ -278,14 +321,10 @@ const useApi = () => {
     [axiosInstance],
   );
 
-  const requestAthlete = async (athleteId: number, trainerId: number) => {
+  const requestAthlete = async (athleteId: number) => {
     try {
       const response = await axiosInstance!.post(
-        "/trainers/request-athlete-access",
-        {
-          athleteId: athleteId,
-          trainerId: trainerId,
-        },
+        "/trainers/access-request/" + athleteId,
       );
       return response.status === 200;
     } catch (error) {
@@ -508,22 +547,35 @@ const useApi = () => {
     [axiosInstance],
   );
 
-  const getTrainersAssignedToAthlete = useCallback(
-    async (athleteId: number) => {
+  const removeAssignedTrainer = useCallback(
+    async (trainerId: number) => {
       try {
-        const request = await axiosInstance!.get(
-          `/athletes/${athleteId}/assigned-trainers`,
+        const response = await axiosInstance.delete(
+          "/athletes/approved-trainers/" + trainerId,
         );
-        return request.data.data;
+        return response.data.data;
       } catch (error) {
         console.error(
-          `Error while fetching trainers assigned to athlete with id: ${athleteId}`,
+          `Error while removing the connection between trainer and athlete`,
           error,
         );
+        throw error;
       }
     },
     [axiosInstance],
   );
+
+  const getTrainersAssignedToAthlete = useCallback(async () => {
+    try {
+      const request = await axiosInstance!.get(`/athletes/approved-trainers`);
+      return request.data.data;
+    } catch (error) {
+      console.error(
+        "Error while fetching athletes assigned to a trainer",
+        error,
+      );
+    }
+  }, [axiosInstance]);
 
   return {
     loginUser,
@@ -557,7 +609,11 @@ const useApi = () => {
     approveRequest,
     requestAthlete,
     searchAthletes,
+    getAccessRequest,
     removeTrainerAthleteConnection,
+    getAccessRequests,
+    revokeRequest,
+    removeAssignedTrainer,
     getTrainersAssignedToAthlete,
   };
 };

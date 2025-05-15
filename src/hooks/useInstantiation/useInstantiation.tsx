@@ -1,5 +1,6 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import {
+  AccessRequest,
   Admin,
   Athlete,
   Discipline,
@@ -42,6 +43,18 @@ import { useCallback, useContext } from "react";
 import { useDispatch } from "react-redux";
 import useApi from "../useApi";
 import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
+import {
+  addAccessRequest,
+  removeAccessRequest,
+  setAccessRequests,
+  updateAccessRequest,
+} from "@stores/slices/accessRequestSlice";
+import {
+  addManagingTrainer,
+  removeManagingTrainer,
+  setManagingTrainer,
+  updateManagingTrainer,
+} from "@stores/slices/managingTrainerSlice";
 
 const useInstantiation = () => {
   const dispatch = useDispatch();
@@ -59,7 +72,6 @@ const useInstantiation = () => {
 
   const checkUserAccountUpdateId = useCallback(
     (id: number) => {
-      console.log(id, authorizedUsers);
       const isAuthorized = authorizedUsers?.some((user) => user.id === id);
       if (isAuthorized) {
         refreshIdentityToken();
@@ -75,6 +87,8 @@ const useInstantiation = () => {
     getTrainers,
     getAdmins,
     getDisciplineMetrics,
+    getAccessRequests,
+    getTrainersAssignedToAthlete,
   } = useApi();
 
   const {
@@ -98,6 +112,17 @@ const useInstantiation = () => {
   );
 
   const {
+    initialize: initializeManagingTrainerWebsocket,
+    uninitialize: uninitializeControllingTrainerWebsocket,
+  } = useGenericWebsocketInitialization<Trainer>(
+    "controlling-trainer",
+    true,
+    (d) => dispatch(addManagingTrainer(d)),
+    (d) => dispatch(updateManagingTrainer(d)),
+    (id) => dispatch(removeManagingTrainer({ id: id })),
+  );
+
+  const {
     initialize: initializeDisciplineWebsocket,
     uninitialize: uninitializeDisciplineWebsocket,
   } = useGenericWebsocketInitialization<Discipline>(
@@ -117,6 +142,16 @@ const useInstantiation = () => {
     (p) => dispatch(addPerformanceRecording(p)),
     (p) => dispatch(updatePerformanceRecording(p)),
     (id) => dispatch(removePerformanceRecording({ id: id })),
+  );
+  const {
+    initialize: initializeAccessRequestWebsocket,
+    uninitialize: uninitializeAccessRequestWebsocket,
+  } = useGenericWebsocketInitialization<AccessRequest>(
+    "athlete-access-request",
+    true,
+    (p) => dispatch(addAccessRequest(p)),
+    (p) => dispatch(updateAccessRequest(p)),
+    (id) => dispatch(removeAccessRequest({ id: id as unknown as string })),
   );
 
   const {
@@ -170,9 +205,23 @@ const useInstantiation = () => {
   const instantiateByType = useCallback(
     (userType: UserType) => {
       const instantiate = async () => {
+        dispatch(setManagingTrainer([]));
+        dispatch(setAccessRequests([]));
         if (userType == UserType.ADMIN) {
           dispatch(setTrainers((await getTrainers()) ?? []));
           dispatch(setAdmins((await getAdmins()) ?? []));
+        }
+        if (userType == UserType.ATHLETE) {
+          dispatch(setAccessRequests((await getAccessRequests()) ?? []));
+          dispatch(
+            setManagingTrainer((await getTrainersAssignedToAthlete()) ?? []),
+          );
+        }
+        if (userType == UserType.ATHLETE) {
+          dispatch(setAccessRequests((await getAccessRequests()) ?? []));
+          dispatch(
+            setManagingTrainer((await getTrainersAssignedToAthlete()) ?? []),
+          );
         }
         dispatch(setAthletes((await getAthletes()) ?? []));
         dispatch(setDisciplines((await getDisciplines()) ?? []));
@@ -186,6 +235,8 @@ const useInstantiation = () => {
           uninitializeDisciplineWebsocket();
           uninitializePerformanceRecordingWebsocket();
           uninitializeTrainerWebsocket();
+          uninitializeAccessRequestWebsocket();
+          uninitializeControllingTrainerWebsocket();
           uninitializeAdminWebsocket();
 
           initializeAthleteWebsocket();
@@ -195,28 +246,47 @@ const useInstantiation = () => {
             initializeTrainerWebsocket();
             initializeAdminWebsocket();
           }
+          if (userType == UserType.ATHLETE) {
+            initializeAccessRequestWebsocket();
+            initializeManagingTrainerWebsocket();
+          }
+          if (userType == UserType.ATHLETE) {
+            initializeAccessRequestWebsocket();
+            initializeManagingTrainerWebsocket();
+          }
         }, 700);
       };
       instantiate();
     },
     [
+      getTrainersAssignedToAthlete,
       dispatch,
       getAthletes,
       getAdmins,
       getDisciplineMetrics,
       getDisciplines,
       getPerformanceRecordings,
+      getDisciplineMetrics,
       getTrainers,
       initializeAthleteWebsocket,
       initializeAdminWebsocket,
       initializeDisciplineWebsocket,
       initializePerformanceRecordingWebsocket,
       initializeTrainerWebsocket,
+      getAccessRequests,
       uninitializeAthleteWebsocket,
       uninitializeAdminWebsocket,
       uninitializeDisciplineWebsocket,
       uninitializePerformanceRecordingWebsocket,
       uninitializeTrainerWebsocket,
+      uninitializeAccessRequestWebsocket,
+      uninitializeControllingTrainerWebsocket,
+      initializeAthleteWebsocket,
+      initializeDisciplineWebsocket,
+      initializePerformanceRecordingWebsocket,
+      initializeTrainerWebsocket,
+      initializeAccessRequestWebsocket,
+      initializeManagingTrainerWebsocket,
     ],
   );
 

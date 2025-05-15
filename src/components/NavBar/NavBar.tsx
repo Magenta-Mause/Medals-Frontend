@@ -1,6 +1,5 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
-import InfoCard from "@components/InfoCard/InfoCard";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import ProfileModal from "@components/modals/ProfileModal/ProfileModal";
 import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
@@ -40,6 +39,7 @@ import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
 import Tooltip from "@components/HoverTooltip/HoverTooltip";
 import RoleBasedRenderComponent from "@components/RoleBasedRenderComponent/RoleBasedRenderComponent";
+import AthletePendingAccessRequestInfoCard from "@components/AthletePendingAccessRequestInfoCard/AthletePendingAccessRequestInfoCard";
 
 const sharedNavBarElements = [
   {
@@ -122,7 +122,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
-  const warning = undefined;
 
   const userRole = selectedUser?.type;
   const [isProfileOpen, setProfileOpen] = useState(false);
@@ -137,7 +136,7 @@ const NavBar = () => {
           md: "none",
         },
         transition: "transform 0.4s, width 0.4s",
-        zIndex: 10000,
+        zIndex: 1000,
         height: "100dvh",
         width: "var(--Sidebar-width)",
         top: 0,
@@ -255,18 +254,9 @@ const NavBar = () => {
             padding: "none",
           }}
         >
+          <AthletePendingAccessRequestInfoCard />
           <LegalLinksSelector collapseSidebar={collapseSidebar} />
           <LanguageSelector />
-          {warning ? (
-            <InfoCard
-              header={t("components.navbar.bottomInfoCard.header")}
-              text={t("components.navbar.bottomInfoCard.text")}
-              type={"warning"}
-              buttonCallback={() => {}}
-            />
-          ) : (
-            <></>
-          )}
         </List>
       </Box>
       <Divider />
