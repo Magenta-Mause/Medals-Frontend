@@ -60,13 +60,17 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
   const isButtonDisabled = (athleteId: number | undefined): boolean => {
     if (athleteId === undefined) return true;
 
-    const athleteState = buttonState[athleteId];
     if (
       requestedAthletes.filter((athlete) => athlete.id == athleteId).length > 0
     ) {
       return true;
     }
-    return athleteState?.loading || athleteState?.send || false;
+
+    const athleteState = buttonState[athleteId];
+    if (athleteState == undefined) {
+      return false;
+    }
+    return athleteState.loading || athleteState.send;
   };
 
   const handleInvite = async (
@@ -116,6 +120,10 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
     setLoading(true);
     return () => clearTimeout(delayDebounceFn);
   }, [searchAthletes, searchAthlete, props.isOpen]);
+
+  useEffect(() => {
+    setButtonState({});
+  }, [props.isOpen]);
 
   const handleScroll = () => {
     if (listRef.current) {

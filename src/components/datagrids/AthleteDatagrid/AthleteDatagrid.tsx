@@ -289,46 +289,70 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     },
   ];
 
-  const actions: Action<Athlete>[] = [
-    {
-      label: <>{t("components.athleteDatagrid.actions.edit")}</>,
-      color: "primary",
-      key: "edit",
-      operation: async (item) => {
-        console.log("Editing Athlete:", item);
+  const actions: (athlete: Athlete) => Action<Athlete>[] = (athlete) => {
+    if (athlete.has_access) {
+      return [
+        {
+          label: <>{t("components.athleteDatagrid.actions.edit")}</>,
+          color: "primary",
+          key: "edit",
+          operation: async (item) => {
+            console.log("Editing Athlete:", item);
+          },
+        },
+        {
+          label: <>{t("components.athleteDatagrid.actions.export")}</>,
+          color: "primary",
+          key: "export",
+          variant: "outlined",
+          operation: async (item) => {
+            setSelectedAthletes((prev) => [...prev, item]);
+            setExportModalOpen(true);
+          },
+        },
+        {
+          label: <>{t("components.athleteDatagrid.actions.remove")}</>,
+          color: "danger",
+          key: "remove",
+          variant: "outlined",
+          operation: async (item) => {
+            setSelectedAthletes((prev) => [...prev, item]);
+            setRemoveConfirmationModalOpen(true);
+          },
+        },
+        {
+          label: <>{t("components.athleteDatagrid.actions.delete")}</>,
+          color: "danger",
+          key: "delete",
+          variant: "outlined",
+          operation: async (item) => {
+            setSelectedAthletes((prev) => [...prev, item]);
+            setDeleteModalOpen(true);
+          },
+        },
+      ];
+    }
+    return [
+      {
+        label: <>{t("components.athleteDatagrid.actions.remove")}</>,
+        color: "danger",
+        key: "remove",
+        variant: "outlined",
+        operation: async (item) => {
+          setSelectedAthletes((prev) => [...prev, item]);
+          setRemoveConfirmationModalOpen(true);
+        },
       },
-    },
-    {
-      label: <>{t("components.athleteDatagrid.actions.export")}</>,
-      color: "primary",
-      key: "export",
-      variant: "outlined",
-      operation: async (item) => {
-        setSelectedAthletes((prev) => [...prev, item]);
-        setExportModalOpen(true);
-      },
-    },
-    {
-      label: <>{t("components.athleteDatagrid.actions.remove")}</>,
-      color: "danger",
-      key: "remove",
-      variant: "outlined",
-      operation: async (item) => {
-        setSelectedAthletes((prev) => [...prev, item]);
-        setRemoveConfirmationModalOpen(true);
-      },
-    },
-    {
-      label: <>{t("components.athleteDatagrid.actions.delete")}</>,
-      color: "danger",
-      key: "delete",
-      variant: "outlined",
-      operation: async (item) => {
-        setSelectedAthletes((prev) => [...prev, item]);
-        setDeleteModalOpen(true);
-      },
-    },
-  ];
+    ];
+  };
+
+  const normalizedActions = actions({
+    first_name: "",
+    last_name: "",
+    email: "",
+    birthdate: "",
+    has_access: true,
+  });
 
   const itemCallback = async (item: Athlete) => {
     navigate("/athletes/" + item.id);
@@ -353,7 +377,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         operation: itemCallback,
         color: "primary",
       },
-      ...actions.filter((action) => action.key !== "export"),
+      ...normalizedActions.filter((action) => action.key !== "export"),
     ],
     contentRow: (athlete) => (
       <AchievementsBox
@@ -453,7 +477,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         filters={filters}
         toolbarActions={toolbarActions}
         actionMenu={actions}
-        itemSelectionActions={actions}
+        itemSelectionActions={normalizedActions}
         keyOf={(item) => item.id!}
         mobileRendering={mobileRendering}
         onItemClick={itemCallback}
@@ -507,5 +531,4 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     </>
   );
 };
-
 export default AthleteDatagrid;
