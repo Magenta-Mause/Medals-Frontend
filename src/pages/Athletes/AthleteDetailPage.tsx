@@ -14,6 +14,7 @@ import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExp
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { UserType } from "@customTypes/enums";
 import YearSelector from "@components/AthletePerformanceAccordions/YearSelector";
+import AthleteTotalMedalSection from "@components/AthleteTotalMedalSection/AthleteTotalMedalSection";
 
 const AthleteDetailPage = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -50,6 +51,10 @@ const AthleteDetailPage = () => {
     <>
       <AthleteDetailHeader athlete={filteredAthletes[0]} />
       <SwimCertificateSection athlete={filteredAthletes[0]} />
+      <AthleteTotalMedalSection
+        athlete={filteredAthletes[0]}
+        selectedYear={selectedYear}
+      />
       <Box
         sx={{
           display: "flex",

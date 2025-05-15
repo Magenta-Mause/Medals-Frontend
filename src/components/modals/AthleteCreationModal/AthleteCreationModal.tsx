@@ -3,6 +3,7 @@ import useApi from "@hooks/useApi";
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -65,7 +66,12 @@ const AthleteCreationForm = ({
 }: AthleteCreationFormProps) => {
   const { t, i18n } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
-  const { createAthlete, updateAthlete: apiUpdateAthlete } = useApi();
+  const {
+    createAthlete,
+    updateAthlete: apiUpdateAthlete,
+    requestAthlete,
+  } = useApi();
+  const [request, setRequest] = useState(true);
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
     last_name: "",
@@ -288,10 +294,14 @@ const AthleteCreationForm = ({
             });
           }
         } else {
-          await createAthlete(athlete);
+          const id = await createAthlete(athlete);
           enqueueSnackbar(t("snackbar.invite.success"), {
             variant: "success",
           });
+
+          if (request) {
+            requestAthlete(id.id!);
+          }
         }
         setOpen(false);
         resetForm();
@@ -476,6 +486,12 @@ const AthleteCreationForm = ({
             <FormHelperText>{errors.gender}</FormHelperText>
           )}
         </FormControl>
+
+        <Checkbox
+          label={t("pages.athleteCreationPage.requestAccess")}
+          checked={request}
+          onChange={(event) => setRequest(event.target.checked)}
+        />
 
         <Button
           fullWidth

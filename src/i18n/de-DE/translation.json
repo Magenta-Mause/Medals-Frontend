@@ -178,7 +178,8 @@
       "birthdate": "Geburtsdatum",
       "gender": "Geschlecht",
       "createButton": "Erstellen",
-      "createHeader": "Athlet*in erstellen"
+      "createHeader": "Athlet*in erstellen",
+      "requestAccess": "Zugriffsanfrage senden"
     },
     "athleteEditPage": {
       "editHeader": "Athlet*in bearbeiten",
@@ -615,7 +616,7 @@
       "deletionModal": {
         "header": "Trainer*in Löschen",
         "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
-      } 
+      }
     },
     "buttons": {
       "next": "Nächstes",
@@ -829,15 +830,26 @@
       "discipline": "Übung",
       "performanceDate": "Aufnahmedatum",
       "performanceResult": "Ergebnis",
+      "email": "E-Mail",
+      "birthdate": "Geburtsdatum",
+      "gender": "Geschlecht",
+      "access": "Zugriff beantragen?",
       "tabSelection": {
         "athleteImport": "Athlet*innen",
         "performanceImport": "Leistungen"
       },
+      "invalidity": "ist ungültig",
       "invalidFirstName": "Vorname ist ungültig",
       "invalidLastName": "Nachname ist ungültig",
       "invalidDiscipline": "Übung ist ungültig",
       "invalidPerformanceDate": "Aufnahmedatum ist ungültig",
       "invalidPerformanceResult": "Ergebnis ist ungültig"
+    },
+    "athleteTotalMedalBox": {
+      "theyAchieved": "Er/Sie hat ",
+      "achieved": "erreicht",
+      "noSwimmingCertificate": "Er/Sie benötigt einen Schwimmnachweis, um für das Deutsche Sportabzeichen zugelassen zu werden",
+      "categoryMissing": "Er/Sie benötigt mindestens eine Bronze Medaille in jeder Kategorie, um für das Deutsche Sportabzeichen zugelassen zu werden"
     }
   },
   "backendErrors": {
