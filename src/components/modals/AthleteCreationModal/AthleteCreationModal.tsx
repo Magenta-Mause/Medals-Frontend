@@ -154,7 +154,10 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
 
   const requestAccess = async (email: string, birthdate: string) => {
     try {
-      await requestAthlete(await getAthleteId(email, birthdate), selectedUser!.id);
+      await requestAthlete(
+        await getAthleteId(email, birthdate),
+        selectedUser!.id,
+      );
       enqueueSnackbar(t("snackbar.requestAthleteAccess.success"), {
         variant: "success",
       });

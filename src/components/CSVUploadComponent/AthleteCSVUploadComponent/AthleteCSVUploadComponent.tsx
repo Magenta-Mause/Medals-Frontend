@@ -3,10 +3,11 @@ import CSVUploadComponent, { CSVData } from "../CSVUploadComponent";
 import useApi from "@hooks/useApi";
 import { Athlete } from "@customTypes/backendTypes";
 import { AthleteExportColumn, Genders } from "@customTypes/enums";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { BirthdateRegex, emailRegex } from "constants/regex";
 import { convertDateFormat } from "@components/CSVUploadComponent/CSVUploadComponent";
 import { attributeToGermanHeader } from "@components/modals/AthleteExportModal/AthleteExportModal";
+import Checkbox from "@mui/joy/Checkbox";
 
 interface AthleteCSVUploadComponentProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,6 +18,9 @@ const AthleteCSVUploadComponent = ({
 }: AthleteCSVUploadComponentProps) => {
   const { t } = useTranslation();
   const { createAthlete, checkAthleteExists } = useApi();
+  const [accessCheckboxes, setAccessCheckboxes] = useState<
+    Record<number, boolean>
+  >({});
 
   const checkIfAthleteExists = useCallback(
     async (athlete: Athlete) => {
@@ -120,6 +124,24 @@ const AthleteCSVUploadComponent = ({
               return t("components.csvImportModal.invalidLastName");
             }
             return csvData.data.last_name;
+          },
+        },
+        {
+          columnName: "Access?",
+          columnMapping(csvData: CSVData<Partial<Athlete>>) {
+            const key: any = csvData.data.email ?? Math.random(); // fallback if email missing
+
+            return (
+              <Checkbox
+                checked={!!accessCheckboxes[key]}
+                onChange={(e) => {
+                  setAccessCheckboxes((prev) => ({
+                    ...prev,
+                    [key]: e.target.checked,
+                  }));
+                }}
+              />
+            );
           },
         },
       ]}
