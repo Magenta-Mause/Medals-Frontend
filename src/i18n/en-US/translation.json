@@ -207,10 +207,21 @@
         "forgotPassword": "Forgot password?",
         "continueMeansAccept": "By continuing, you accept our",
         "privacyPolicy": "Privacy policy",
+        "info": "i",
         "submit": "Login",
         "loginFailedWarning": "Login failed",
         "logoutButton": "Logout",
         "loading": "Loading..."
+      },
+      "info": {
+        "linkButton": "Need help?",
+        "header": "Login Info",
+        "sectionHeader": "Welcome to Medals!",
+        "greeting": "To get started, please log in using your email and password in the fields provided. On Medals, users can have one of the following roles",
+        "admin": "Administrator",
+        "trainer": "Trainer",
+        "athlete": "Athlete",
+        "content": "These roles are assigned by an administrator or a user with elevated user rights, such as a trainer.\nYour email may be linked to multiple accounts.\nAfter logging in, you'll be taken to a selection screen showing all accounts associated with your email.\n\nPlease note: Registration is not possible. You must be invited to join the platform.\nRequests can be sent via email to: "
       }
     },
     "setPasswordPage": {

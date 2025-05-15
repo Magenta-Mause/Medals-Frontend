@@ -206,11 +206,22 @@
         },
         "forgotPassword": "Passwort vergessen?",
         "privacyPolicy": "Datenschutzerklärung",
+        "info": "i",
         "continueMeansAccept": "Durch die Anmeldung akzeptierst du unsere",
         "submit": "Anmelden",
         "loginFailedWarning": "Anmeldung fehlgeschlagen",
         "logoutButton": "Abmelden",
         "loading": "Lädt..."
+      },
+      "info": {
+        "linkButton": "Brauchst du Hilfe?",
+        "header": "Login Info",
+        "sectionHeader": "Willkommen bei Medals!",
+        "greeting": "Um loszulegen, loggen Sie sich bitte mit Ihrer E-Mail Adresse und Ihrem Passwort in die vorgesehenen Felder ein. Auf Medals können Benutzer eine der folgenden Rollen haben:",
+        "admin": "Administrator",
+        "trainer": "Trainer",
+        "athlete": "Athlet",
+        "content": "Diese Rollen werden von einem Administrator oder einem Nutzer mit erhöhten Nutzerrechten, zum Beispiel einem Trainern zugewiesen.\nIhre E-Mail Adresse kann mit mehreren Konten verknüpft sein.\nNach dem Login gelangen Sie zu einem Auswahlbildschirm, auf dem alle verknüpften Konten angezeigt werden.\n\nBitte beachten Sie: Eine Registrierung ist nicht möglich. Sie müssen eingeladen werden, um die Plattform nutzen zu können.\nAnfragen können per E-Mail gesendet werden an: "
       }
     },
     "setPasswordPage": {
