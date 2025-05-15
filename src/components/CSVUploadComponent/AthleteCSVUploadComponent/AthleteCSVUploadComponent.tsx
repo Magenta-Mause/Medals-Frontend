@@ -105,7 +105,7 @@ const AthleteCSVUploadComponent = ({
         requestAthlete(createdAthlete.id!);
       }
     },
-    [selectedAthletes, requestAthlete],
+    [selectedAthletes, requestAthlete, createAthlete],
   );
 
   return (
