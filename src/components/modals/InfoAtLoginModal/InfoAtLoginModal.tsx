@@ -16,7 +16,7 @@ const InfoAtLoginModal = ({
       open={open}
       setOpen={setOpen}
       header={t("pages.loginPage.info.header")}
-      modalDialogSX={{ maxWidth: "40vw", maxHeight: "55vh" }}
+      modalDialogSX={{ maxWidth: "40vw", maxHeight: "75vh" }}
       modalSX={{ left: 0 }}
     >
       <Box>
@@ -33,7 +33,9 @@ const InfoAtLoginModal = ({
         </Box>
         <Typography level="body-md" sx={{ mb: 2, whiteSpace: "pre-line" }}>
           {t("pages.loginPage.info.content")}
-          <u>medals.ageless325@passmail.net</u>
+          <a href={"mailto:medals.ageless325@passmail.net"}>
+            medals.ageless325@passmail.net
+          </a>
         </Typography>
       </Box>
     </GenericModal>

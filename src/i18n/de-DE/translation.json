@@ -685,11 +685,11 @@
         "notAchieved": "Schwimmnachweis nicht vorhanden"
       },
       "showPassword": "Password anzeigen/ausblenden",
-      "athleteUploadDatagrid": {
-        "error": "Die angegebene Athlet*in existiert bereits oder ist inkorrekt",
+      "CSVUploadDatagrid": {
+        "error": "Die Daten existieren bereits oder sind inkorrekt",
         "loading": "Lädt...",
-        "uploaded": "Athlet*in wurde hochgeladen",
-        "valid": "Athlet*in kann hochgeladen werden"
+        "uploaded": "Daten wurden hochgeladen",
+        "valid": "Daten können hochgeladen werden"
       },
       "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
     },
@@ -765,6 +765,35 @@
         "existing": "Deinem Deutschen Sportabzeichen steht nichts mehr im weg",
         "notExisting": "Um das Deutsche Sportabzeichen zu erlangen, benötigst du einen gültigen Schwimmnachweis"
       }
+    },
+    "csvUploadComponent": {
+      "failedUpload": "Fehler beim Hochladen",
+      "DropFile": "Datei hier ablegen oder klicken",
+      "athleteList": "Athletenliste",
+      "changeFile": "Datei zurücksetzen",
+      "invalidFileType": "Nur CSV-Dateien sind erlaubt"
+    },
+    "csvUploadDatagrid": {
+      "valid": "Status",
+      "noValidEntries": "Keine gültigen Einträge"
+    },
+    "csvImportModal": {
+      "importButton": "Daten importieren",
+      "importLabel": "Importieren",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "discipline": "Übung",
+      "performanceDate": "Aufnahmedatum",
+      "performanceResult": "Ergebnis",
+      "tabSelection": {
+        "athleteImport": "Athlet*innen",
+        "performanceImport": "Leistungen"
+      },
+      "invalidFirstName": "Vorname ist ungültig",
+      "invalidLastName": "Nachname ist ungültig",
+      "invalidDiscipline": "Übung ist ungültig",
+      "invalidPerformanceDate": "Aufnahmedatum ist ungültig",
+      "invalidPerformanceResult": "Ergebnis ist ungültig"
     }
   }
 }

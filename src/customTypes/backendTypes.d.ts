@@ -6,7 +6,7 @@ import {
   UserType,
 } from "./enums";
 
-export interface Athlete {
+export interface Athlete extends Record<string, unknown> {
   id?: number;
   first_name: string;
   last_name: string;
