@@ -50,6 +50,7 @@ const AthleteDetailPage = () => {
     <>
       <AthleteDetailHeader athlete={filteredAthletes[0]} />
       <SwimCertificateSection athlete={filteredAthletes[0]} />
+      <SwimCertificateSection athlete={filteredAthletes[0]} />
       <Box
         sx={{
           display: "flex",

@@ -178,7 +178,7 @@
       "gender": "Gender",
       "createButton": "Create",
       "createHeader": "Create Athlete",
-      "requestAccess": "Send request"
+      "requestAccess": "Send access request"
     },
     "athleteEditPage": {
       "editHeader": "Edit Athlete",

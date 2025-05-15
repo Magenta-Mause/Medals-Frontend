@@ -179,7 +179,7 @@
       "gender": "Geschlecht",
       "createButton": "Erstellen",
       "createHeader": "Athlet*in erstellen",
-      "requestAccess": "Anfrage senden"
+      "requestAccess": "Zugriffsanfrage senden"
     },
     "athleteEditPage": {
       "editHeader": "Athlet*in bearbeiten",
