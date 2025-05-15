@@ -14,6 +14,13 @@ export interface Athlete {
   birthdate: string;
   gender?: Genders;
   swimming_certificate?: SwimmingCertificateType;
+  has_access: boolean;
+}
+
+export interface AccessRequest {
+  trainer: Trainer;
+  athlete: Athlete;
+  id: string;
 }
 
 export interface UserEntity {
