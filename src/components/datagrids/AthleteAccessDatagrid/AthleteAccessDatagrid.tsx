@@ -1,14 +1,14 @@
 import { AccessRequest, Trainer } from "@customTypes/backendTypes";
-import GenericResponsiveDatagrid, {
-  Action,
-} from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
+import GenericResponsiveDatagrid from "@components/datagrids/GenericResponsiveDatagrid/GenericResponsiveDatagrid";
 import { Column } from "@components/datagrids/GenericResponsiveDatagrid/FullScreenTable";
 import { MobileTableRendering } from "@components/datagrids/GenericResponsiveDatagrid/MobileTable";
 import useApi from "@hooks/useApi";
 import { useTranslation } from "react-i18next";
-import { Typography } from "@mui/joy";
+import { IconButton, Typography } from "@mui/joy";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import { useCallback, useState } from "react";
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
+import { Close, Done } from "@mui/icons-material";
 
 export interface AthleteAccessElement {
   state: "PENDING" | "APPROVED";
@@ -71,47 +71,65 @@ const AthleteAccessDatagrid = (props: { data: AthleteAccessElement[] }) => {
       },
       size: "xs",
     },
+    {
+      columnName: "",
+      columnMapping(item) {
+        if (item.state == "APPROVED") {
+          return <></>;
+        }
+
+        return (
+          <HoverTooltip
+            text={t(
+              "components.athleteAccessManagementDatagrid.actions.accept",
+            )}
+          >
+            <IconButton
+              onClick={() => {
+                approveRequest(
+                  item.accessRequest?.id ?? "",
+                  item.accessRequest?.athlete.id ?? -1,
+                );
+              }}
+            >
+              <Done color={"success"} sx={{ fontSize: "1.5rem" }} />
+            </IconButton>
+          </HoverTooltip>
+        );
+      },
+      size: "xs",
+    },
+    {
+      columnName: "",
+      columnMapping(item) {
+        return (
+          <HoverTooltip
+            text={
+              item.state == "PENDING"
+                ? t("components.athleteAccessManagementDatagrid.actions.reject")
+                : t("components.athleteAccessManagementDatagrid.actions.revoke")
+            }
+          >
+            <IconButton
+              onClick={() => {
+                if (item.state == "PENDING") {
+                  setRejectModalOpen(true);
+                  setSelectedItem(item);
+                } else {
+                  setRevokeModalOpen(true);
+                  setSelectedItem(item);
+                }
+              }}
+            >
+              <Close color={"warning"} sx={{ fontSize: "1.5rem" }} />
+            </IconButton>
+          </HoverTooltip>
+        );
+      },
+      size: "xs",
+    },
   ];
 
-  const actions: (
-    item: AthleteAccessElement,
-  ) => Action<AthleteAccessElement>[] = (item) => {
-    if (item.state == "PENDING") {
-      return [
-        {
-          label: t("components.athleteAccessManagementDatagrid.actions.accept"),
-          key: "accept",
-          color: "primary",
-          operation: async (item) => {
-            await approveRequest(
-              item.accessRequest?.id ?? "",
-              item.accessRequest?.athlete?.id ?? -1,
-            );
-          },
-        },
-        {
-          label: t("components.athleteAccessManagementDatagrid.actions.reject"),
-          key: "reject",
-          color: "danger",
-          operation: async (item) => {
-            setRejectModalOpen(true);
-            setSelectedItem(item);
-          },
-        },
-      ];
-    }
-    return [
-      {
-        label: t("components.athleteAccessManagementDatagrid.actions.revoke"),
-        key: "revoke",
-        color: "danger",
-        operation: async (item) => {
-          setRevokeModalOpen(true);
-          setSelectedItem(item);
-        },
-      },
-    ];
-  };
   const mobileRendering: MobileTableRendering<AthleteAccessElement> = {
     h1: (item) => item.trainer.first_name + " " + item.trainer.last_name,
     h2: (item) =>
@@ -124,7 +142,6 @@ const AthleteAccessDatagrid = (props: { data: AthleteAccessElement[] }) => {
         columns={columns}
         data={props.data}
         keyOf={(item) => item.trainer.id}
-        actionMenu={actions}
         mobileRendering={mobileRendering}
         disablePaging
       />
