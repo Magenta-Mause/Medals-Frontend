@@ -9,7 +9,6 @@ import {
   convertDateFormat,
   CSVData,
 } from "@components/CSVUploadComponent/CSVHelper";
-import { CheckBox } from "@mui/icons-material";
 import { Checkbox, Typography } from "@mui/joy";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 
@@ -106,7 +105,7 @@ const AthleteCSVUploadComponent = ({
         requestAthlete(createdAthlete.id!);
       }
     },
-    [selectedAthletes],
+    [selectedAthletes, requestAthlete],
   );
 
   return (
