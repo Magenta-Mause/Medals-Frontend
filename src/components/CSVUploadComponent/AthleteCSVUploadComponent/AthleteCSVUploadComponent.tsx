@@ -12,7 +12,7 @@ import {
 import { Checkbox, Typography } from "@mui/joy";
 import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 
-const NiceFormattedText = (props: { text: string }) => {
+const FormattedText = (props: { text: string }) => {
   return (
     <HoverTooltip text={props.text}>
       <Typography noWrap>{props.text}</Typography>
@@ -127,7 +127,7 @@ const AthleteCSVUploadComponent = ({
                 t("components.csvImportModal.firstName")
               );
             }
-            return <NiceFormattedText text={csvData.data.first_name ?? ""} />;
+            return <FormattedText text={csvData.data.first_name ?? ""} />;
           },
         },
         {
@@ -140,7 +140,7 @@ const AthleteCSVUploadComponent = ({
                 t("components.csvImportModal.lastName")
               );
             }
-            return <NiceFormattedText text={csvData.data.last_name ?? ""} />;
+            return <FormattedText text={csvData.data.last_name ?? ""} />;
           },
         },
         {
@@ -153,7 +153,7 @@ const AthleteCSVUploadComponent = ({
                 t("components.csvImportModal.email")
               );
             }
-            return <NiceFormattedText text={csvData.data.email ?? ""} />;
+            return <FormattedText text={csvData.data.email ?? ""} />;
           },
         },
         {
@@ -166,7 +166,7 @@ const AthleteCSVUploadComponent = ({
                 t("components.csvImportModal.birthdate")
               );
             }
-            return <NiceFormattedText text={csvData.data.birthdate ?? ""} />;
+            return <FormattedText text={csvData.data.birthdate ?? ""} />;
           },
         },
         {
