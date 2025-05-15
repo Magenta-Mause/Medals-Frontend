@@ -91,8 +91,15 @@ const AthleteAccessDatagrid = (props: { data: AthleteAccessElement[] }) => {
                   item.accessRequest?.athlete.id ?? -1,
                 );
               }}
+              sx={{
+                aspectRatio: "1",
+              }}
             >
-              <Done color={"success"} sx={{ fontSize: "1.5rem" }} />
+              <Done
+                color={"success"}
+                sx={{ height: ".8em" }}
+                fontSize={"large"}
+              />
             </IconButton>
           </HoverTooltip>
         );
@@ -120,8 +127,15 @@ const AthleteAccessDatagrid = (props: { data: AthleteAccessElement[] }) => {
                   setSelectedItem(item);
                 }
               }}
+              sx={{
+                aspectRatio: "1",
+              }}
             >
-              <Close color={"warning"} sx={{ fontSize: "1.5rem" }} />
+              <Close
+                color={"warning"}
+                sx={{ height: ".8em" }}
+                fontSize={"large"}
+              />
             </IconButton>
           </HoverTooltip>
         );
