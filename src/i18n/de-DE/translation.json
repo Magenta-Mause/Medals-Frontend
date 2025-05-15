@@ -110,8 +110,8 @@
     },
     "acceptTrainerAccessRequest": {
       "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
-      "failed": "Trainer*in-anfrage konnte nicht angenommen werden",
-      "success": "Trainer*in-anfrage erfolgreich angenommen"
+      "failed": "Trainer*in-Anfrage konnte nicht angenommen werden",
+      "success": "Trainer*in-Anfrage erfolgreich angenommen"
     },
     "requestAthleteAccess": {
       "failed": "Anfrage fehlgeschlagen",
@@ -170,7 +170,7 @@
       "firstName": "Vorname",
       "lastName": "Nachname",
       "valid": "Status",
-      "athleteList": "Athlet*innen-liste"
+      "athleteList": "Athlet*innen-Liste"
     },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
@@ -352,7 +352,7 @@
       }
     },
     "requestAthleteModal": {
-      "header": "Athlet*innen anfragen",
+      "header": "Athlet*innen Anfragen",
       "searchAthlete": "Name",
       "notFound": "Kein Athlet*innen gefunden",
       "requestAthleteButton": "Senden",
@@ -495,7 +495,7 @@
         "toolbar": {
           "addAthlete": {
             "label": "Anfragen",
-            "content": "Athlet*innen anfragen"
+            "content": "Athlet*innen Anfragen"
           },
           "createAthlete": {
             "label": "Erstellen",
