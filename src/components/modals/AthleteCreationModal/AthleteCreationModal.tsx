@@ -11,7 +11,7 @@ import {
 import Option from "@mui/joy/Option";
 import Select from "@mui/joy/Select";
 import dayjs, { Dayjs } from "dayjs";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import GenericModal from "../GenericModal";
@@ -19,7 +19,6 @@ import { emailRegex } from "constants/regex";
 import { Genders } from "@customTypes/enums";
 import Checkbox from "@mui/joy/Checkbox";
 import { enqueueSnackbar } from "notistack";
-import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 
 const isValidEmail = (email: string) => emailRegex.test(email);
 
@@ -60,7 +59,6 @@ interface AthleteCreationFormProps {
 const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
   const { t, i18n } = useTranslation();
   const { createAthlete, getAthleteId, requestAthlete } = useApi();
-  const { selectedUser } = useContext(AuthContext);
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
     last_name: "",
@@ -154,9 +152,7 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
 
   const requestAccess = async (email: string, birthdate: string) => {
     try {
-      await requestAthlete(
-        await getAthleteId(email, birthdate),
-      );
+      await requestAthlete(await getAthleteId(email, birthdate));
       enqueueSnackbar(t("snackbar.requestAthleteAccess.success"), {
         variant: "success",
       });
