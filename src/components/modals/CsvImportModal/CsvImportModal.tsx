@@ -37,7 +37,7 @@ const CsvImportModal = (props: AthleteCsvImportModalProps) => {
           props.setOpen(isOpen);
         }}
         modalDialogSX={{
-          minWidth: "30%",
+          minWidth: "35%",
           justifyContent: "center",
         }}
       >

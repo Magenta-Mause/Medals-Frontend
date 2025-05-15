@@ -59,7 +59,7 @@ interface GenericResponsiveDatagridProps<T> {
   filters?: Filter<T>[];
   toolbarActions?: ToolbarAction[];
   isLoading?: boolean;
-  actionMenu?: Action<T>[];
+  actionMenu?: Action<T>[] | ((item: T) => Action<T>[]);
   itemSelectionActions?: Action<T>[];
   keyOf: (item: T) => Key;
   elementsPerPage?: number;
@@ -68,6 +68,7 @@ interface GenericResponsiveDatagridProps<T> {
   disablePaging?: boolean;
   messageIfNoEntriesFound?: React.ReactNode;
   heightIfNoEntriesFound?: string;
+  itemClickableFilter?: (item: T) => boolean;
 }
 
 /**
@@ -365,6 +366,7 @@ const GenericResponsiveDatagrid = <T,>(
           allItems={props.data}
           messageIfNoEntriesFound={props.messageIfNoEntriesFound}
           heightIfNoEntriesFound={props.heightIfNoEntriesFound}
+          itemClickableFilter={props.itemClickableFilter}
         />
       </Sheet>
 

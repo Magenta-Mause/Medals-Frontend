@@ -61,7 +61,7 @@ const CSVUploadDatagrid = <T extends Record<string, unknown>>({
           <CloseIcon color="error" />
         );
       },
-      size: "xs",
+      size: "s",
     },
     ...csvColumns,
   ];

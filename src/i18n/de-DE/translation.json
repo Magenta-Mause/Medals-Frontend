@@ -110,8 +110,8 @@
     },
     "acceptTrainerAccessRequest": {
       "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
-      "failed": "Traineranfrage konnte nicht angenommen werden",
-      "success": "Traineranfrage erfolgreich angenommen"
+      "failed": "Trainer*in-Anfrage konnte nicht angenommen werden",
+      "success": "Trainer*in-Anfrage erfolgreich angenommen"
     },
     "requestAthleteAccess": {
       "failed": "Anfrage fehlgeschlagen",
@@ -136,8 +136,8 @@
       "deletionError": "Beim Löschen der Athlet*innen ist ein Fehler aufgetreten"
     },
     "trainerDatagrid": {
-      "deletionSuccess": "Trainer erfolgreich gelöscht!",
-      "deletionError": "Beim Löschen der Trainer ist ein Fehler aufgetreten"
+      "deletionSuccess": "Trainer*in erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Trainer*in ist ein Fehler aufgetreten"
     }
   },
   "pages": {
@@ -170,7 +170,7 @@
       "firstName": "Vorname",
       "lastName": "Nachname",
       "valid": "Status",
-      "athleteList": "Athletenliste"
+      "athleteList": "Athlet*innen-Liste"
     },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
@@ -206,11 +206,22 @@
         },
         "forgotPassword": "Passwort vergessen?",
         "privacyPolicy": "Datenschutzerklärung",
+        "info": "i",
         "continueMeansAccept": "Durch die Anmeldung akzeptierst du unsere",
         "submit": "Anmelden",
         "loginFailedWarning": "Anmeldung fehlgeschlagen",
         "logoutButton": "Abmelden",
         "loading": "Lädt..."
+      },
+      "info": {
+        "linkButton": "Brauchst du Hilfe?",
+        "header": "Login Info",
+        "sectionHeader": "Willkommen bei Medals!",
+        "greeting": "Um loszulegen, loggen Sie sich bitte mit Ihrer E-Mail Adresse und Ihrem Passwort in die vorgesehenen Felder ein. Auf Medals können Benutzer eine der folgenden Rollen haben:",
+        "admin": "Administrator",
+        "trainer": "Trainer",
+        "athlete": "Athlet",
+        "content": "Diese Rollen werden von einem Administrator oder einem Nutzer mit erhöhten Nutzerrechten, zum Beispiel einem Trainern zugewiesen.\nIhre E-Mail Adresse kann mit mehreren Konten verknüpft sein.\nNach dem Login gelangen Sie zu einem Auswahlbildschirm, auf dem alle verknüpften Konten angezeigt werden.\n\nBitte beachten Sie: Eine Registrierung ist nicht möglich. Sie müssen eingeladen werden, um die Plattform nutzen zu können.\nAnfragen können per E-Mail gesendet werden an: "
       }
     },
     "setPasswordPage": {
@@ -300,8 +311,8 @@
       "darkMode": "Dunkler Modus",
       "materialsDownloadPage": "Materialien-Seite",
       "swimmingCard": "Schwimmkarte",
-      "singleAthletesCard": "Einzelathletenkarte",
-      "groupAthletesCard": "Gruppenathletenkarte",
+      "singleAthletesCard": "Einzelathlet*innen-Karte",
+      "groupAthletesCard": "Gruppenathlet*innen-Karte",
       "2020MedalsCard": "2020 Medaillenkarte",
       "2023MedalsCard": "2023 Medaillenkarte",
       "2024MedalsCard": "2024 Medaillenkarte",
@@ -352,11 +363,48 @@
       }
     },
     "requestAthleteModal": {
-      "header": "Athlet*innen anfragen",
+      "header": "Athlet*innen Anfragen",
       "searchAthlete": "Name",
-      "notFound": "Kein Athleten gefunden",
+      "notFound": "Kein Athlet*innen gefunden",
       "requestAthleteButton": "Senden",
       "sendButton": "Gesendet"
+    },
+    "athleteAccessManagementModal": {
+      "header": "Zugriff verwalten"
+    },
+    "athletePendingRequestInfoCard": {
+      "header": "Ausstehende Anfragen",
+      "text": {
+        "singular": "Eine Trainer*in hat Zugriff auf dein Profil angefragt",
+        "plural": "Trainer*innen haben Zugriff auf dein Profil angefragt"
+      },
+      "button": "Zugriff Verwalten"
+    },
+    "athleteAccessManagementDatagrid": {
+      "state": "Status",
+      "states": {
+        "PENDING": "Angefragt",
+        "APPROVED": "Bestätigt"
+      },
+      "trainer": {
+        "firstName": "Vorname",
+        "lastName": "Nachname"
+      },
+      "actions": {
+        "accept": "Akzeptieren",
+        "revoke": "Zugriff entziehen",
+        "reject": "Ablehnen"
+      },
+      "confirmations": {
+        "revoke": {
+          "header": "Trainer Zugriff entziehen",
+          "message": "Bist du dir sicher, dass du der Trainer*in den Zugriff auf dich entziehen möchtest?"
+        },
+        "reject": {
+          "header": "Zugriff Anfrage ablehnen",
+          "message": "Bist du dir sicher, dass du diese Zugriffsanfrage ablehnen willst?"
+        }
+      }
     },
     "athleteDetailHeader": {
       "columns": {
@@ -435,6 +483,10 @@
       }
     },
     "athleteDatagrid": {
+      "noAccess": {
+        "label": "Zugriff nicht gestattet",
+        "tooltip": "Zugriff muss erst durch Athlet*in freigegeben werden"
+      },
       "table": {
         "columns": {
           "athleteId": "Athlet*in ID",
@@ -454,7 +506,7 @@
         "toolbar": {
           "addAthlete": {
             "label": "Anfragen",
-            "content": "Athlet*innen anfragen"
+            "content": "Athlet*innen Anfragen"
           },
           "createAthlete": {
             "label": "Erstellen",
@@ -520,8 +572,8 @@
         "delete": "Löschen"
       },
       "deletionModal": {
-        "header": "Trainer Löschen",
-        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer mit allen dazugehörigen Daten unwiderruflich gelöscht."
+        "header": "Trainer*in Löschen",
+        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
       }
     },
     "buttons": {
@@ -671,11 +723,16 @@
       },
       "trainers": {
         "noTrainers": "Keine Trainer*innen verwalten dich",
-        "trainer": "Dein*e Trainer*in:",
-        "trainers": "Deine Trainer*innen:",
+        "trainer": "Du wirst verwaltet von:",
+        "trainers": "Du wirst verwaltet von:",
         "removeTrainers": "Verwalte deine Trainer*innen",
         "removeTrainer": "Verwalte dein*e Trainer*in",
-        "header": "Trainer*in Verwalten"
+        "header": "Trainer*in Verwalten",
+        "requestsPending": "Ausstehende Anfragen verwalten",
+        "accessRequestsPending": {
+          "singular": "Du hast eine ausstehende Zugriffsanfrage",
+          "plural": "Du hast {count} ausstehende Zugriffsanfragen"
+        }
       },
       "totalMedalBox": {
         "header": "Deutsches Sportabzeichen",

@@ -1,5 +1,6 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import {
+  AccessRequest,
   Athlete,
   Discipline,
   PerformanceRecording,
@@ -34,6 +35,18 @@ import { useCallback, useContext } from "react";
 import { useDispatch } from "react-redux";
 import useApi from "../useApi";
 import { useGenericWebsocketInitialization } from "./useWebsocketInstantiation";
+import {
+  addAccessRequest,
+  removeAccessRequest,
+  setAccessRequests,
+  updateAccessRequest,
+} from "@stores/slices/accessRequestSlice";
+import {
+  addManagingTrainer,
+  removeManagingTrainer,
+  setManagingTrainer,
+  updateManagingTrainer,
+} from "@stores/slices/managingTrainerSlice";
 
 const useInstantiation = () => {
   const dispatch = useDispatch();
@@ -51,7 +64,6 @@ const useInstantiation = () => {
 
   const checkUserAccountUpdateId = useCallback(
     (id: number) => {
-      console.log(id, authorizedUsers);
       const isAuthorized = authorizedUsers?.some((user) => user.id === id);
       if (isAuthorized) {
         refreshIdentityToken();
@@ -66,6 +78,8 @@ const useInstantiation = () => {
     getDisciplines,
     getTrainers,
     getDisciplineMetrics,
+    getAccessRequests,
+    getTrainersAssignedToAthlete,
   } = useApi();
   const {
     initialize: initializeAthleteWebsocket,
@@ -88,6 +102,17 @@ const useInstantiation = () => {
   );
 
   const {
+    initialize: initializeManagingTrainerWebsocket,
+    uninitialize: uninitializeControllingTrainerWebsocket,
+  } = useGenericWebsocketInitialization<Trainer>(
+    "controlling-trainer",
+    true,
+    (d) => dispatch(addManagingTrainer(d)),
+    (d) => dispatch(updateManagingTrainer(d)),
+    (id) => dispatch(removeManagingTrainer({ id: id })),
+  );
+
+  const {
     initialize: initializeDisciplineWebsocket,
     uninitialize: uninitializeDisciplineWebsocket,
   } = useGenericWebsocketInitialization<Discipline>(
@@ -107,6 +132,16 @@ const useInstantiation = () => {
     (p) => dispatch(addPerformanceRecording(p)),
     (p) => dispatch(updatePerformanceRecording(p)),
     (id) => dispatch(removePerformanceRecording({ id: id })),
+  );
+  const {
+    initialize: initializeAccessRequestWebsocket,
+    uninitialize: uninitializeAccessRequestWebsocket,
+  } = useGenericWebsocketInitialization<AccessRequest>(
+    "athlete-access-request",
+    true,
+    (p) => dispatch(addAccessRequest(p)),
+    (p) => dispatch(updateAccessRequest(p)),
+    (id) => dispatch(removeAccessRequest({ id: id as unknown as string })),
   );
 
   const {
@@ -133,8 +168,16 @@ const useInstantiation = () => {
   const instantiateByType = useCallback(
     (userType: UserType) => {
       const instantiate = async () => {
+        dispatch(setManagingTrainer([]));
+        dispatch(setAccessRequests([]));
         if (userType == UserType.ADMIN) {
           dispatch(setTrainers((await getTrainers()) ?? []));
+        }
+        if (userType == UserType.ATHLETE) {
+          dispatch(setAccessRequests((await getAccessRequests()) ?? []));
+          dispatch(
+            setManagingTrainer((await getTrainersAssignedToAthlete()) ?? []),
+          );
         }
         dispatch(setAthletes((await getAthletes()) ?? []));
         dispatch(setDisciplines((await getDisciplines()) ?? []));
@@ -148,6 +191,8 @@ const useInstantiation = () => {
           uninitializeDisciplineWebsocket();
           uninitializePerformanceRecordingWebsocket();
           uninitializeTrainerWebsocket();
+          uninitializeAccessRequestWebsocket();
+          uninitializeControllingTrainerWebsocket();
 
           initializeAthleteWebsocket();
           initializeDisciplineWebsocket();
@@ -155,25 +200,35 @@ const useInstantiation = () => {
           if (userType == UserType.ADMIN) {
             initializeTrainerWebsocket();
           }
+          if (userType == UserType.ATHLETE) {
+            initializeAccessRequestWebsocket();
+            initializeManagingTrainerWebsocket();
+          }
         }, 700);
       };
       instantiate();
     },
     [
+      getTrainersAssignedToAthlete,
       dispatch,
       getAthletes,
-      getDisciplineMetrics,
       getDisciplines,
       getPerformanceRecordings,
+      getDisciplineMetrics,
       getTrainers,
-      initializeAthleteWebsocket,
-      initializeDisciplineWebsocket,
-      initializePerformanceRecordingWebsocket,
-      initializeTrainerWebsocket,
+      getAccessRequests,
       uninitializeAthleteWebsocket,
       uninitializeDisciplineWebsocket,
       uninitializePerformanceRecordingWebsocket,
       uninitializeTrainerWebsocket,
+      uninitializeAccessRequestWebsocket,
+      uninitializeControllingTrainerWebsocket,
+      initializeAthleteWebsocket,
+      initializeDisciplineWebsocket,
+      initializePerformanceRecordingWebsocket,
+      initializeTrainerWebsocket,
+      initializeAccessRequestWebsocket,
+      initializeManagingTrainerWebsocket,
     ],
   );
 

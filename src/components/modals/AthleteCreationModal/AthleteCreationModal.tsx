@@ -63,6 +63,7 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
     email: "",
     birthdate: "",
     gender: undefined,
+    has_access: false,
   });
 
   // Track if field has been touched (to avoid showing errors initially)
@@ -184,6 +185,7 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
       email: "",
       gender: undefined,
       birthdate: "",
+      has_access: false,
     });
     setTouched({
       first_name: false,

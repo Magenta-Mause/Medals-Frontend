@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ListItemText } from "@mui/material";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { Athlete } from "@customTypes/backendTypes";
@@ -35,7 +35,7 @@ const AthleteInviteButton = () => {
       throw new Error("Trainer ID is required");
     }
 
-    requestAthlete(athleteId, trainerId);
+    requestAthlete(athleteId);
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

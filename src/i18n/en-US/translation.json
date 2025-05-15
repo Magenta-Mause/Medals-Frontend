@@ -207,10 +207,21 @@
         "forgotPassword": "Forgot password?",
         "continueMeansAccept": "By continuing, you accept our",
         "privacyPolicy": "Privacy policy",
+        "info": "i",
         "submit": "Login",
         "loginFailedWarning": "Login failed",
         "logoutButton": "Logout",
         "loading": "Loading..."
+      },
+      "info": {
+        "linkButton": "Need help?",
+        "header": "Login Info",
+        "sectionHeader": "Welcome to Medals!",
+        "greeting": "To get started, please log in using your email and password in the fields provided. On Medals, users can have one of the following roles",
+        "admin": "Administrator",
+        "trainer": "Trainer",
+        "athlete": "Athlete",
+        "content": "These roles are assigned by an administrator or a user with elevated user rights, such as a trainer.\nYour email may be linked to multiple accounts.\nAfter logging in, you'll be taken to a selection screen showing all accounts associated with your email.\n\nPlease note: Registration is not possible. You must be invited to join the platform.\nRequests can be sent via email to: "
       }
     },
     "setPasswordPage": {
@@ -400,6 +411,43 @@
         "recordedAt": "Recorded at"
       }
     },
+    "athleteAccessManagementModal": {
+      "header": "Manage Access"
+    },
+    "athletePendingRequestInfoCard": {
+      "header": "Pending Requests",
+      "text": {
+        "singular": "A Trainer has requested access to your profile",
+        "plural": "Trainers have requested access to your profile"
+      },
+      "button": "Manage Access"
+    },
+    "athleteAccessManagementDatagrid": {
+      "state": "State",
+      "states": {
+        "PENDING": "Requested",
+        "APPROVED": "Approved"
+      },
+      "trainer": {
+        "firstName": "First Name",
+        "lastName": "Last Name"
+      },
+      "actions": {
+        "accept": "Accept",
+        "revoke": "Revoke Access",
+        "reject": "Reject"
+      },
+      "confirmations": {
+        "revoke": {
+          "header": "Revoke Trainer access",
+          "message": "Are you sure that you want to revoke the access rights of this Trainer?"
+        },
+        "reject": {
+          "header": "Reject Access Request",
+          "message": "Are you sure that you want to reject this access request?"
+        }
+      }
+    },
     "downloadCard": {
       "downloadButton": "Download",
       "items": {
@@ -432,6 +480,10 @@
       }
     },
     "athleteDatagrid": {
+      "noAccess": {
+        "label": "Access not permitted yet",
+        "tooltip": "Access must first be permitted through the Athlete"
+      },
       "table": {
         "columns": {
           "athleteId": "Athlete ID",
@@ -710,7 +762,12 @@
         "trainers": "Your trainers:",
         "removeTrainers": "Manage your trainers",
         "removeTrainer": "Manage your trainer",
-        "header": "Trainer Management"
+        "header": "Trainer Management",
+        "requestsPending": "Manage pending requests",
+        "accessRequestsPending": {
+          "singular": "You have one pending access request",
+          "plural": "You have {count} pending access requests"
+        }
       },
       "activityChart": {
         "header": "Your activities in ",
