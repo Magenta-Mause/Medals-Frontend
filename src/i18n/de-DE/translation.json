@@ -110,8 +110,8 @@
     },
     "acceptTrainerAccessRequest": {
       "noLogin": "Melden Sie sich an und nehmen Sie die Einladung erneut an",
-      "failed": "Traineranfrage konnte nicht angenommen werden",
-      "success": "Traineranfrage erfolgreich angenommen"
+      "failed": "Trainer*in-anfrage konnte nicht angenommen werden",
+      "success": "Trainer*in-anfrage erfolgreich angenommen"
     },
     "requestAthleteAccess": {
       "failed": "Anfrage fehlgeschlagen",
@@ -136,8 +136,8 @@
       "deletionError": "Beim Löschen der Athlet*innen ist ein Fehler aufgetreten"
     },
     "trainerDatagrid": {
-      "deletionSuccess": "Trainer erfolgreich gelöscht!",
-      "deletionError": "Beim Löschen der Trainer ist ein Fehler aufgetreten"
+      "deletionSuccess": "Trainer*in erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der Trainer*in ist ein Fehler aufgetreten"
     }
   },
   "pages": {
@@ -561,8 +561,8 @@
         "delete": "Löschen"
       },
       "deletionModal": {
-        "header": "Trainer Löschen",
-        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer mit allen dazugehörigen Daten unwiderruflich gelöscht."
+        "header": "Trainer*in Löschen",
+        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
       }
     },
     "buttons": {
