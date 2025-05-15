@@ -616,7 +616,7 @@
       "deletionModal": {
         "header": "Trainer*in Löschen",
         "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
-      } 
+      }
     },
     "buttons": {
       "next": "Nächstes",
@@ -844,6 +844,12 @@
       "invalidDiscipline": "Übung ist ungültig",
       "invalidPerformanceDate": "Aufnahmedatum ist ungültig",
       "invalidPerformanceResult": "Ergebnis ist ungültig"
+    },
+    "athleteTotalMedalBox": {
+      "theyAchieved": "Er/Sie hat ",
+      "achieved": "erreicht",
+      "noSwimmingCertificate": "Er/Sie benötigt einen Schwimmnachweis, um für das Deutsche Sportabzeichen zugelassen zu werden",
+      "categoryMissing": "Er/Sie benötigt mindestens eine Bronze Medaille in jeder Kategorie, um für das Deutsche Sportabzeichen zugelassen zu werden"
     }
   },
   "backendErrors": {

@@ -1,13 +1,45 @@
 import MedalIcon from "@components/icons/MedalIcon/MedalIcon";
-import SwimCertificateIcon from "@components/icons/SwimCertificateIcon/SwimCertificateIcon";
-import CreateSwimCertificateModal from "@components/modals/CreateSwimCertificateModal/CreateSwimCertificateModal";
 import { Medals } from "@customTypes/enums";
-import { Box, Typography, Button } from "@mui/joy";
-import { useTransition } from "react";
+import { Box, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
+import { Athlete } from "@customTypes/backendTypes";
+import { useTypedSelector } from "@stores/rootReducer";
+import { useMemo } from "react";
+import dayjs from "dayjs";
+import {
+  calculateTotalMedalFromAchievedPoints,
+  calculateTotalMedalFromPerformanceRecordings,
+  calculateTotalPointsFromPerformanceRecordings,
+} from "@utils/calculationUtil";
 
-const AthleteTotalMedalSection = () => {
+const AthleteTotalMedalSection = (props: {
+  athlete: Athlete;
+  selectedYear: number;
+}) => {
+  const performanceRecordings = useTypedSelector(
+    (state) => state.performanceRecordings.data,
+  );
+  const filteredPerformanceRecordings = useMemo(
+    () =>
+      performanceRecordings.filter(
+        (p) =>
+          p.athlete.id == props.athlete.id &&
+          dayjs(p.date_of_performance).year() == props.selectedYear,
+      ),
+    [performanceRecordings, props.athlete.id, props.selectedYear],
+  );
+  const totalPoints = calculateTotalPointsFromPerformanceRecordings(
+    filteredPerformanceRecordings,
+  );
+
+  const totalMedal = props.athlete.swimming_certificate
+    ? calculateTotalMedalFromPerformanceRecordings(
+        filteredPerformanceRecordings,
+      )
+    : Medals.NONE;
+
   const { t } = useTranslation();
+
   return (
     <Box
       sx={{
@@ -31,13 +63,30 @@ const AthleteTotalMedalSection = () => {
           sx={{ display: "flex", alignItems: "center", gap: 2, width: "100%" }}
         >
           <Box>
-            <MedalIcon medalType={Medals.GOLD} />
+            <MedalIcon medalType={totalMedal} />
           </Box>
           <Box>
             <Typography level="h4" sx={{ fontSize: "md" }}>
-              Total Medal
+              {!props.athlete.swimming_certificate ? (
+                t("components.athleteTotalMedalBox.noSwimmingCertificate")
+              ) : totalMedal ==
+                calculateTotalMedalFromAchievedPoints(totalPoints) ? (
+                <>
+                  {t("generic.deutschesSportabzeichen")}:{" "}
+                  {t("medals." + totalMedal)}
+                </>
+              ) : (
+                t("components.athleteTotalMedalBox.categoryMissing")
+              )}
             </Typography>
-            <Typography level="body-sm">2 Points</Typography>
+            <Typography level="body-sm">
+              {t("components.athleteTotalMedalBox.theyAchieved")}
+              {totalPoints}{" "}
+              {totalPoints == 1
+                ? t("generic.points.singular")
+                : t("generic.points.plural")}{" "}
+              {t("components.athleteTotalMedalBox.achieved")}
+            </Typography>
           </Box>
         </Box>
       </Box>
