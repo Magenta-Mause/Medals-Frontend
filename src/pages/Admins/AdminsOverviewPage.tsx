@@ -1,10 +1,10 @@
-import TrainerDatagrid from "@components/datagrids/EntityDatagrid/TrainerDatagrid/TrainerDatagrid";
+import AdminsDatagrid from "@components/datagrids/EntityDatagrid/AdminsDatagrid/AdminsDatagrid";
 import { Box, Typography } from "@mui/joy";
 import { useTypedSelector } from "@stores/rootReducer";
 import { useTranslation } from "react-i18next";
 
-const TrainerOverviewPage = () => {
-  const trainers = useTypedSelector((state) => state.trainers.data);
+const AdminsOverviewPage = () => {
+  const admins = useTypedSelector((state) => state.admins.data);
   const { t } = useTranslation();
 
   return (
@@ -21,12 +21,12 @@ const TrainerOverviewPage = () => {
         }}
       >
         <Typography level="h2" component="h1">
-          {t("pages.trainerOverviewPage.header")}
+          {t("pages.adminOverviewPage.header")}
         </Typography>
       </Box>
-      <TrainerDatagrid trainers={trainers} />
+      <AdminsDatagrid admins={admins} />
     </>
   );
 };
 
-export default TrainerOverviewPage;
+export default AdminsOverviewPage;

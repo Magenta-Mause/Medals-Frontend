@@ -6,6 +6,7 @@ import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
 import { UserType } from "@customTypes/enums";
 import useSidebar from "@hooks/useSidebar";
 import {
+  AdminPanelSettings,
   Article,
   Assessment,
   Download,
@@ -81,7 +82,16 @@ const NavBar = () => {
         },
       ],
     ],
-    [UserType.ADMIN, []],
+    [
+      UserType.ADMIN,
+      [
+        {
+          path: "/admins",
+          icon: <AdminPanelSettings />,
+          label: "admins",
+        },
+      ],
+    ],
     [
       UserType.TRAINER,
       [

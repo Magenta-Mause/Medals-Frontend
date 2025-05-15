@@ -37,9 +37,24 @@
       "tooLong": "Dieses Feld ist zu lang",
       "invalidEmail": "Ungültige E-Mail-Adresse"
     },
+    "athlete": {
+      "singular": "Athlet*in",
+      "plural": "Athlet*innen"
+    },
+    "trainer": {
+      "singular": "Trainer*in",
+      "plural": "Trainer*innen"
+    },
+    "admin": {
+      "singular": "Admin",
+      "plural": "Admins"
+    },
     "points": {
       "singular": "Punkt",
       "plural": "Punkte"
+    },
+    "errors": {
+      "unknownError": "Ein unbekannter Fehler ist aufgetreten"
     }
   },
   "disciplines": {
@@ -88,9 +103,13 @@
       "failed": "Es konnte kein Account gefunden werden",
       "success": "Bestätigungs E-Mail gesendet"
     },
-    "inviteTrainer": {
-      "failed": "Die Trainer*in konnte nicht eingeladen werden",
-      "success": "Die Trainer*in wurde eingeladen"
+    "invite": {
+      "success": "Erfolgreich eingeladen",
+      "failed": "Einladung fehlgeschlagen"
+    },
+    "update": {
+      "success": "Erfolgreich aktualisiert",
+      "failed": "Aktualisierung fehlgeschlagen"
     },
     "performanceRecording": {
       "creationError": "Fehler beim Anlegen der Leistungsaufnahme",
@@ -135,9 +154,9 @@
       "deletionSuccess": "Athlet*innen erfolgreich gelöscht!",
       "deletionError": "Beim Löschen der Athlet*innen ist ein Fehler aufgetreten"
     },
-    "trainerDatagrid": {
-      "deletionSuccess": "Trainer*in erfolgreich gelöscht!",
-      "deletionError": "Beim Löschen der Trainer*in ist ein Fehler aufgetreten"
+    "entityDatagrid": {
+      "deletionSuccess": "{{entityType}} erfolgreich gelöscht!",
+      "deletionError": "Beim Löschen der {{entityType}} ist ein Fehler aufgetreten"
     }
   },
   "pages": {
@@ -161,6 +180,10 @@
       "createButton": "Erstellen",
       "createHeader": "Athlet*in erstellen"
     },
+    "athleteEditPage": {
+      "editHeader": "Athlet*in bearbeiten",
+      "updateButton": "Ändern"
+    },
     "athleteImportPage": {
       "feedback1": "Athlet*in ",
       "feedback2": " erstellt",
@@ -174,6 +197,9 @@
     },
     "trainerOverviewPage": {
       "header": "Trainer*innen"
+    },
+    "adminOverviewPage": {
+      "header": "Admins"
     },
     "notFound": {
       "h1": "404",
@@ -429,6 +455,7 @@
         "/": "Start",
         "/athletes": "Athlet*innen",
         "/trainer": "Trainer*innen",
+        "/admins": "Admins",
         "/performanceMetrics": "Leistungswerte",
         "/assignAthlete": "Athlet*in zuweisen",
         "/dashboard": "Dashboard",
@@ -542,10 +569,9 @@
         "recordedAt": "Aufgenommen am"
       }
     },
-    "trainerDatagrid": {
+    "entityDatagrid": {
       "table": {
         "columns": {
-          "trainerId": "Trainer*in ID",
           "firstName": "Vorname",
           "lastName": "Nachname",
           "email": "E-Mail"
@@ -554,19 +580,34 @@
           "search": "Suche"
         },
         "toolbar": {
-          "addTrainer": {
+          "add": {
             "label": "Einladen",
-            "content": "Trainer*in einladen"
+            "content": "{{entityType}} einladen"
           }
         }
       },
-      "inviteModal": {
+      "actions": {
+        "delete": "Löschen",
+        "edit": "Bearbeiten"
+      },
+      "deletionModal": {
+        "header": "{{entityType}} Löschen",
+        "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten {{entityType}}(s) mit allen dazugehörigen Daten unwiderruflich gelöscht."
+      }
+    },
+    "entityModal": {
+      "modal": {
+        "createHeader": "{{entityType}} einladen",
+        "editHeader": "{{entityType}} bearbeiten"
+      },
+      "form": {
         "email": "E-Mail",
         "firstName": "Vorname",
         "firstNamePlaceholder": "Max",
         "lastName": "Nachname",
         "lastNamePlaceholder": "Mustermann",
-        "confirm": "Trainer*in einladen"
+        "confirm": "{{entityType}} einladen",
+        "update": "{{entityType}} aktualisieren"
       },
       "actions": {
         "delete": "Löschen"
@@ -574,7 +615,7 @@
       "deletionModal": {
         "header": "Trainer*in Löschen",
         "confirmDeleteMessage": "Durch das Klicken auf \"Löschen\" werden die ausgewählten Trainer*innen mit allen dazugehörigen Daten unwiderruflich gelöscht."
-      }
+      } 
     },
     "buttons": {
       "next": "Nächstes",
@@ -691,7 +732,10 @@
         "uploaded": "Daten wurden hochgeladen",
         "valid": "Daten können hochgeladen werden"
       },
-      "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet."
+      "genderDiversInfo": "Für die Geschlechtsoption „Divers“ werden die männlichen Werte verwendet.",
+      "emailNotEditable": "E-Mail kann nicht bearbeitet werden",
+      "birthdateNotEditable": "Geburtstag kann nicht bearbeitet werden",
+      "genderNotEditable": "Geschlecht kann nicht bearbeitet werden"
     },
     "calHeatmap": {
       "loadingError": "Fehler beim Laden des Activity Charts"
@@ -795,5 +839,8 @@
       "invalidPerformanceDate": "Aufnahmedatum ist ungültig",
       "invalidPerformanceResult": "Ergebnis ist ungültig"
     }
+  },
+  "backendErrors": {
+    "athleteAlreadyExists": "Athlet*in mit dieser E-Mail und Geburtsdatum existiert bereits."
   }
 }

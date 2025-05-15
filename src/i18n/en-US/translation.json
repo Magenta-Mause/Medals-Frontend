@@ -72,6 +72,21 @@
       "required": "This field is required",
       "tooLong": "This field is too long",
       "invalidEmail": "Invalid email address"
+    },
+    "athlete": {
+      "singular": "Athlete",
+      "plural": "Athletes"
+    },
+    "trainer": {
+      "singular": "Trainer",
+      "plural": "Trainers"
+    },
+    "admin": {
+      "singular": "Admin",
+      "plural": "Admins"
+    },
+    "errors": {
+      "unknownError": "An unknown error occurred"
     }
   },
   "snackbar": {
@@ -86,9 +101,13 @@
       "failed": "We couldnt find an account connected to that email",
       "success": "Verification email sent"
     },
-    "inviteTrainer": {
-      "failed": "Failed to invite trainer",
-      "success": "Trainer was invited successfully"
+    "invite": {
+      "success": "Successfully invited",
+      "failed": "Failed to invite"
+    },
+    "update": {
+      "success": "Successfully updated",
+      "failed": "Failed to update"
     },
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
@@ -133,9 +152,9 @@
       "deletionSuccess": "Athletes successful deleted!",
       "deletionError": "Error while deleting athletes"
     },
-    "trainerDatagrid": {
-      "deletionSuccess": "Trainers successful deleted!",
-      "deletionError": "Error while deleting trainers"
+    "entityDatagrid": {
+      "deletionSuccess": "{{entityType}}(s) successful deleted!",
+      "deletionError": "Error while deleting {{entityType}}(s)"
     }
   },
   "pages": {
@@ -158,7 +177,11 @@
       "birthdate": "Birth date",
       "gender": "Gender",
       "createButton": "Create",
-      "createHeader": "Create athlete"
+      "createHeader": "Create Athlete"
+    },
+    "athleteEditPage": {
+      "editHeader": "Edit Athlete",
+      "updateButton": "Update"
     },
     "athleteImportPage": {
       "importButton": "Import athletes",
@@ -174,6 +197,9 @@
     },
     "trainerOverviewPage": {
       "header": "Trainers"
+    },
+    "adminOverviewPage": {
+      "header": "Admins"
     },
     "notFound": {
       "h1": "404",
@@ -198,7 +224,7 @@
         "subheader": "Pick the profile you want to continue with"
       },
       "signIn": {
-        "header": "Login",
+        "header": "Login", 
         "subheader": "Medals - The soon to be Medal Management System",
         "input": {
           "email": "Email",
@@ -380,7 +406,8 @@
       "locationList": {
         "/": "Home",
         "/athletes": "Athletes",
-        "/trainer": "Trainers",
+        "/trainer": "Trainer",
+        "/admins": "Admins",
         "/performanceMetrics": "Performance Metrics",
         "/assignAthlete": "Assign Athlete",
         "/dashboard": "Dashboard",
@@ -531,10 +558,9 @@
         "confirmDeleteMessage": "By clicking 'Delete', the selected Athletes and all associated data will be permanently removed."
       }
     },
-    "trainerDatagrid": {
+    "entityDatagrid": {
       "table": {
         "columns": {
-          "trainerId": "Trainer ID",
           "firstName": "First Name",
           "lastName": "Last Name",
           "email": "Email"
@@ -543,26 +569,34 @@
           "search": "Search"
         },
         "toolbar": {
-          "addTrainer": {
+          "add": {
             "label": "Invite",
-            "content": "Invite trainer"
+            "content": "Invite {{entityType}}"
           }
         }
       },
-      "inviteModal": {
+      "actions": {
+        "delete": "Delete",
+        "edit": "Edit"
+      },
+      "deletionModal": {
+        "header": "{{entityType}} Deletion",
+        "confirmDeleteMessage":"By clicking 'Delete', the selected {{entityType}}(s) and all associated data will be permanently removed."
+      }
+    },
+    "entityModal": {
+      "modal": {
+        "createHeader": "Invite {{entityType}}",
+        "editHeader": "Edit {{entityType}}"
+      },
+      "form": {
         "email": "Email",
         "firstName": "First Name",
         "firstNamePlaceholder": "John",
         "lastName": "Last Name",
         "lastNamePlaceholder": "Doe",
-        "confirm": "Invite trainer"
-      },
-      "actions": {
-        "delete": "Delete"
-      },
-      "deletionModal": {
-        "header": "Trainer Deletion",
-        "confirmDeleteMessage": "By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
+        "confirm": "Invite {{entityType}}",
+        "update": "Update {{entityType}}"
       }
     },
     "buttons": {
@@ -691,7 +725,10 @@
         "uploaded": "Data has been uploaded",
         "valid": "Data can be uploaded"
       },
-      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
+      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used.",
+      "emailNotEditable": "Email cannot be changed",
+      "birthdateNotEditable": "Birthdate cannot be changed",
+      "genderNotEditable": "Gender cannot be changed"
     },
     "athleteActivityChart": {
       "tooltipText": {
@@ -805,5 +842,8 @@
         "notExisting": "You need a valid swimming certificate to be accepted for the \"Deutsches Sportabzeichen\""
       }
     }
+  },
+  "backendErrors": {
+    "athleteAlreadyExists": "An athlete with this email and birthdate already exists."
   }
 }

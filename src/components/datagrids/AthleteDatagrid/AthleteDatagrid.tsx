@@ -1,11 +1,15 @@
-import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
+import { Athlete } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
-import useFormatting from "@hooks/useFormatting";
 import { Box, Link, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
+import { useContext, useEffect, useState } from "react";
+import { enqueueSnackbar } from "notistack";
+import { PersonAdd, PersonSearch } from "@mui/icons-material";
+import UploadIcon from "@mui/icons-material/Upload";
 import { MdSportsKabaddi } from "react-icons/md";
+
+import { Column } from "../GenericResponsiveDatagrid/FullScreenTable";
 import GenericResponsiveDatagrid, {
   Action,
   ToolbarAction,
@@ -14,19 +18,17 @@ import { Filter } from "../GenericResponsiveDatagrid/GenericResponsiveDatagridFi
 import { MobileTableRendering } from "../GenericResponsiveDatagrid/MobileTable";
 import CsvImportModal from "@components/modals/CsvImportModal/CsvImportModal";
 import AthleteCreationForm from "@components/modals/AthleteCreationModal/AthleteCreationModal";
-import UploadIcon from "@mui/icons-material/Upload";
-import { useTypedSelector } from "@stores/rootReducer";
 import GenderIcon from "@components/icons/GenderIcon/GenderIcon";
 import AthleteRequestButton from "@components/modals/AthleteRequestModal/AthleteRequestModal";
-import { PersonAdd, PersonSearch } from "@mui/icons-material";
-import { useContext, useEffect, useState } from "react";
 import AthleteExportModal from "@components/modals/AthleteExportModal/AthleteExportModal";
 import AchievementsBox from "./AchievementsBox";
 import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
-import { enqueueSnackbar } from "notistack";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { calculateAge } from "@utils/calculationUtil";
+import { useTypedSelector } from "@stores/rootReducer";
+import useFormatting from "@hooks/useFormatting";
+import { PerformanceRecording } from "@customTypes/backendTypes";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -47,8 +49,8 @@ const AccessNotApprovedComponent = () => {
 
 const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const { selectedUser } = useContext(AuthContext);
-  const { deleteAthlete } = useApi();
-  const { removeTrainerAthleteConnection } = useApi();
+  const { deleteAthlete, updateAthlete, removeTrainerAthleteConnection } =
+    useApi();
   const performanceRecordings = useTypedSelector(
     (state) => state.performanceRecordings.data,
   ) as PerformanceRecording[];
@@ -59,11 +61,15 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   const [addAthleteRequestModalOpen, setAddAthleteRequestModalOpen] =
     useState(false);
   const [createAthleteModalOpen, setCreateAthleteModalOpen] = useState(false);
+  const [editAthleteModalOpen, setEditAthleteModalOpen] = useState(false);
   const [isExportModalOpen, setExportModalOpen] = useState(false);
   const [isRemoveConfirmationModalOpen, setRemoveConfirmationModalOpen] =
     useState(false);
-  const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedAthletes, setSelectedAthletes] = useState<Athlete[]>([]);
+  const [athleteToEdit, setAthleteToEdit] = useState<Athlete | undefined>(
+    undefined,
+  );
 
   const currentYear = new Date().getFullYear();
 
@@ -295,7 +301,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           color: "primary",
           key: "edit",
           operation: async (item) => {
-            console.log("Editing Athlete:", item);
+            setAthleteToEdit(item);
+            setEditAthleteModalOpen(true);
           },
         },
         {
@@ -350,7 +357,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     email: "",
     birthdate: "",
     has_access: true,
-  });
+  }).filter((action) => action.key !== "edit");
 
   const itemCallback = async (item: Athlete) => {
     navigate("/athletes/" + item.id);
@@ -404,6 +411,20 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
     onElementClick: itemCallback,
   };
 
+  const handleUpdateAthlete = async (athlete: Athlete) => {
+    try {
+      const success = await updateAthlete(athlete);
+      if (success) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error while updating athlete:", error);
+      return false;
+    }
+  };
+
   useEffect(() => {
     if (
       !isExportModalOpen &&
@@ -413,6 +434,12 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       setSelectedAthletes([]);
     }
   }, [isExportModalOpen, isRemoveConfirmationModalOpen, isDeleteModalOpen]);
+
+  useEffect(() => {
+    if (!editAthleteModalOpen) {
+      setAthleteToEdit(undefined);
+    }
+  }, [editAthleteModalOpen]);
 
   const handleConfirmDeletion = async () => {
     if (selectedAthletes.length === 0) return;
@@ -495,6 +522,12 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       <AthleteCreationForm
         isOpen={createAthleteModalOpen}
         setOpen={setCreateAthleteModalOpen}
+      />
+      <AthleteCreationForm
+        isOpen={editAthleteModalOpen}
+        setOpen={setEditAthleteModalOpen}
+        athleteToEdit={athleteToEdit}
+        updateAthlete={handleUpdateAthlete}
       />
       <ConfirmationPopup
         open={isDeleteModalOpen}

@@ -5,6 +5,7 @@ import {
   PerformanceRecording,
   PerformanceRecordingCreationDto,
   Trainer,
+  Admin,
 } from "@customTypes/backendTypes";
 import { useCallback } from "react";
 import config from "../config";
@@ -42,6 +43,30 @@ const useApi = () => {
           `Error while fetching athlete with id: ${athleteId}`,
           error,
         );
+      }
+    },
+    [axiosInstance],
+  );
+
+  const updateAthlete = useCallback(
+    async (athlete: Athlete) => {
+      try {
+        const request = await axiosInstance!.put(`/athletes/${athlete.id}`, {
+          firstName: athlete.first_name,
+          lastName: athlete.last_name,
+        });
+        if (request.status !== 200) {
+          throw new Error(
+            `Failed to update athlete, status code: ${request.status}`,
+          );
+        }
+        return request.data.data as Athlete;
+      } catch (error) {
+        console.error(
+          `Error while updating athlete with id: ${athlete.id}`,
+          error,
+        );
+        throw error;
       }
     },
     [axiosInstance],
@@ -101,6 +126,30 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const updateTrainer = useCallback(
+    async (trainer: Trainer) => {
+      try {
+        const request = await axiosInstance!.put(`/trainers/${trainer.id}`, {
+          firstName: trainer.first_name,
+          lastName: trainer.last_name,
+        });
+        if (request.status !== 200) {
+          throw new Error(
+            `Failed to update trainer, status code: ${request.status}`,
+          );
+        }
+        return request.data.data as Trainer;
+      } catch (error) {
+        console.error(
+          `Error while updating trainer with id: ${trainer.id}`,
+          error,
+        );
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
+
   const deleteTrainer = useCallback(
     async (trainerId: number) => {
       try {
@@ -122,7 +171,7 @@ const useApi = () => {
         const request = await axiosInstance!.post(`/trainers`, trainer);
         if (request.status !== 201)
           throw new Error(
-            `failed to create athlete, status code: ${request.status}`,
+            `failed to create trainer, status code: ${request.status}`,
           );
         return true;
       } catch (error) {
@@ -150,14 +199,59 @@ const useApi = () => {
     [axiosInstance],
   );
 
-  const deleteAdmin = async (adminId: number) => {
-    try {
-      const request = await axiosInstance!.delete(`/admins/${adminId}`);
-      return request.status == 202;
-    } catch (error) {
-      console.error(`Error while deleting admin with id: ${adminId}`, error);
-    }
-  };
+  const inviteAdmin = useCallback(
+    async (admin: Admin) => {
+      try {
+        const request = await axiosInstance!.post(`/admins`, {
+          first_name: admin.first_name,
+          last_name: admin.last_name,
+          email: admin.email,
+        });
+        if (request.status !== 201)
+          throw new Error(
+            `failed to create admin, status code: ${request.status}`,
+          );
+        return true;
+      } catch (error) {
+        console.error(`Error while adding admin`, error);
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
+
+  const updateAdmin = useCallback(
+    async (admin: Admin) => {
+      try {
+        const request = await axiosInstance!.put(`/admins/${admin.id}`, {
+          firstName: admin.first_name,
+          lastName: admin.last_name,
+        });
+        if (request.status !== 200) {
+          throw new Error(
+            `Failed to update admin, status code: ${request.status}`,
+          );
+        }
+        return request.data.data as Admin;
+      } catch (error) {
+        console.error(`Error while updating admin with id: ${admin.id}`, error);
+        throw error;
+      }
+    },
+    [axiosInstance],
+  );
+
+  const deleteAdmin = useCallback(
+    async (adminId: number) => {
+      try {
+        const request = await axiosInstance!.delete(`/admins/${adminId}`);
+        return request.status == 202;
+      } catch (error) {
+        console.error(`Error while deleting admin with id: ${adminId}`, error);
+      }
+    },
+    [axiosInstance],
+  );
 
   const getAccessRequest = useCallback(
     async (oneTimeCode: string) => {
@@ -431,6 +525,16 @@ const useApi = () => {
     [axiosInstance],
   );
 
+  const getAdmins = useCallback(async () => {
+    try {
+      const response = await axiosInstance!.get("/admins");
+      return response.data.data as Admin[];
+    } catch (error) {
+      console.error("Error while fetching admins", error);
+      return [];
+    }
+  }, [axiosInstance]);
+
   const removeTrainerAthleteConnection = useCallback(
     async (trainerId: number, athleteId: number) => {
       try {
@@ -488,8 +592,12 @@ const useApi = () => {
     fetchIdentityToken,
     deleteAthlete,
     getAthlete,
+    updateAthlete,
     getAthletes,
+    inviteAdmin,
+    updateAdmin,
     deleteAdmin,
+    getAdmins,
     setPassword,
     createAthlete,
     resetPassword,
@@ -497,6 +605,7 @@ const useApi = () => {
     getPerformanceRecordings,
     getDisciplines,
     deleteTrainer,
+    updateTrainer,
     getTrainer,
     getTrainers,
     inviteTrainer,
@@ -510,8 +619,8 @@ const useApi = () => {
     requestAthlete,
     searchAthletes,
     getAccessRequest,
-    removeTrainerAthleteConnection,
     getAccessRequests,
+    removeTrainerAthleteConnection,
     revokeRequest,
     removeAssignedTrainer,
     getTrainersAssignedToAthlete,

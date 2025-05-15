@@ -1,20 +1,20 @@
-import { Trainer } from "@customTypes/backendTypes";
+import { Admin } from "@customTypes/backendTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SliceState } from "..";
 
-const trainerSlice = createSlice({
-  name: "trainerSlice",
+const adminSlice = createSlice({
+  name: "adminSlice",
   initialState: {
     data: [],
     state: "idle",
     error: null,
-  } as SliceState<Trainer>,
+  } as SliceState<Admin>,
   reducers: {
-    addTrainer(state, action: PayloadAction<Trainer>) {
+    addAdmin(state, action: PayloadAction<Admin>) {
       state.data = state.data.filter((item) => item.id !== action.payload.id);
       state.data.push(action.payload);
     },
-    updateTrainer(state, action: PayloadAction<Trainer>) {
+    updateAdmin(state, action: PayloadAction<Admin>) {
       const index = state.data.findIndex(
         (item) => item.id === action.payload.id,
       );
@@ -27,17 +27,16 @@ const trainerSlice = createSlice({
         };
       }
     },
-    removeTrainer(state, action: PayloadAction<{ id: number }>) {
+    removeAdmin(state, action: PayloadAction<{ id: number }>) {
       state.data = state.data.filter((item) => item.id !== action.payload.id);
     },
-    setTrainers(state, action: PayloadAction<Trainer[]>) {
+    setAdmins(state, action: PayloadAction<Admin[]>) {
       state.data = action.payload;
     },
   },
 });
 
-const { addTrainer, updateTrainer, removeTrainer, setTrainers } =
-  trainerSlice.actions;
+const { addAdmin, updateAdmin, removeAdmin, setAdmins } = adminSlice.actions;
 
-export { addTrainer, updateTrainer, removeTrainer, setTrainers };
-export default trainerSlice.reducer;
+export { addAdmin, updateAdmin, removeAdmin, setAdmins };
+export default adminSlice.reducer;

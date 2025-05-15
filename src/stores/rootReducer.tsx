@@ -3,6 +3,7 @@ import athleteReducer from "@stores/slices/athleteSlice";
 import disciplineReducer from "@stores/slices/disciplineSlice";
 import performanceRecordingReducer from "@stores/slices/performanceRecordingSlice";
 import trainerReducer from "@stores/slices/trainerSlice";
+import adminReducer from "@stores/slices/adminSlice";
 import disciplineMetricsReducer from "@stores/slices/disciplineRatingMetricSlice";
 import accessRequestReducer from "@stores/slices/accessRequestSlice";
 import managingTrainerSlice from "@stores/slices/managingTrainerSlice";
@@ -14,6 +15,7 @@ const appReducer = combineReducers({
   performanceRecordings: performanceRecordingReducer,
   disciplines: disciplineReducer,
   trainers: trainerReducer,
+  admins: adminReducer,
   disciplineMetrics: disciplineMetricsReducer,
   accessRequests: accessRequestReducer,
   managingTrainer: managingTrainerSlice,

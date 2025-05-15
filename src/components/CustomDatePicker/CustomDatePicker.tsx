@@ -5,6 +5,7 @@ import {
   DateValidationError,
   PickerChangeHandlerContext,
 } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const CustomDatePicker = (props: {
   sx: SxProps<Theme>;
@@ -17,6 +18,7 @@ const CustomDatePicker = (props: {
       ) => void)
     | undefined;
   format: string | undefined;
+  disabled?: boolean;
 }) => {
   const { mode } = useColorScheme();
   const styles: Record<"dark" | "light", SxProps<Theme> | undefined> = {
@@ -29,6 +31,7 @@ const CustomDatePicker = (props: {
 
   return (
     <DatePicker
+      disabled={props.disabled}
       sx={
         {
           ...props.sx,
@@ -37,28 +40,49 @@ const CustomDatePicker = (props: {
         } as SxProps<Theme>
       }
       slotProps={{
-        day: {
-          sx: {
-            color: mode === "dark" ? "white" : "black",
-          },
-        },
         textField: {
+          disabled: props.disabled,
           error: props.error,
           sx: {
+            // shared height
             height: { sx: "3vh", md: "5vh", xs: "5vh" },
           },
           InputProps: {
+            disabled: props.disabled,
             sx: {
+              "> input": {
+                color: props.disabled
+                  ? "var(--variant-outlinedDisabledColor, var(--joy-palette-neutral-outlinedDisabledColor, var(--joy-palette-neutral-400, #9FA6AD))) !important"
+                  : "var(--mui-palette-text-primary)",
+                "-webkit-text-fill-color": props.disabled
+                  ? "var(--variant-outlinedDisabledColor, var(--joy-palette-neutral-outlinedDisabledColor, var(--joy-palette-neutral-400, #9FA6AD))) !important"
+                  : mode === "dark"
+                    ? "white"
+                    : "black",
+                p: 0,
+                pl: 1,
+                fontSize: "var(--joy-fontSize-md, 1rem) !important",
+              },
+              "> fieldset": {
+                display: "none",
+              },
               height: { sx: "3vh", md: "5vh", xs: "5vh" },
               borderRadius: "7px",
-              backgroundColor: mode === "dark" ? "#0b0d0e" : "white",
-              color: props.error
+              borderColor: props.disabled
+                ? "var(--variant-outlinedDisabledBorder, var(--joy-palette-neutral-outlinedDisabledBorder, var(--joy-palette-neutral-200, #DDE7EE))) !important"
+                : "var(--variant-outlinedBorder, var(--joy-palette-neutral-outlinedBorder, var(--joy-palette-neutral-300, #CDD7E1))) !important",
+              border: "var(--variant-borderWidth) solid",
+              color: props.disabled
                 ? mode === "dark"
-                  ? "#f7c5c5" // Error color for dark mode
-                  : "#c41c1c" // Error color for light mode
-                : mode === "dark"
-                  ? "white"
-                  : "#333333", // New color when no error & mode is not dark
+                  ? "#aaa"
+                  : "neutral.100"
+                : props.error
+                  ? mode === "dark"
+                    ? "#f7c5c5"
+                    : "#c41c1c"
+                  : mode === "dark"
+                    ? "white"
+                    : "#333333",
               fontSize: "large",
               "& .MuiOutlinedInput-root": {
                 backgroundColor: mode === "dark" ? "#0b0d0e" : "white",
@@ -101,6 +125,7 @@ const CustomDatePicker = (props: {
       value={props.value}
       onChange={props.onChange}
       format={props.format}
+      maxDate={dayjs()}
     />
   );
 };
