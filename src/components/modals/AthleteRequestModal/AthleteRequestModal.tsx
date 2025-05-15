@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { CircularProgress } from "@mui/material";
 import { Athlete } from "@customTypes/backendTypes";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
@@ -18,6 +18,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import GenericModal from "@components/modals/GenericModal";
 import { enqueueSnackbar } from "notistack";
 import useFormatting from "@hooks/useFormatting";
+import { useTypedSelector } from "@stores/rootReducer";
 
 interface AthleteRequestModalProps {
   isOpen: boolean;
@@ -25,12 +26,30 @@ interface AthleteRequestModalProps {
 }
 
 const AthleteRequestButton = (props: AthleteRequestModalProps) => {
+  const athletes = useTypedSelector((state) => state.athletes.data);
+  const requestedAthletes = useMemo(
+    () => athletes.filter((athlete) => !athlete.has_access),
+    [athletes],
+  );
+  const accessibleAthletes = useMemo(
+    () => athletes.filter((athlete) => athlete.has_access),
+    [athletes],
+  );
   const { t } = useTranslation();
   const { searchAthletes, requestAthlete } = useApi();
   const [loading, setLoading] = useState(false);
   const [icon, setShowScrollIcon] = useState(false);
   const [searchAthlete, setSearchAthlete] = useState("");
-  const [filteredResults, setFilteredResults] = useState<Athlete[]>([]);
+  const [fetchedAthletes, setFetchedAthletes] = useState<Athlete[]>([]);
+  const athletesShown = useMemo(
+    () =>
+      fetchedAthletes.filter(
+        (athlete) =>
+          accessibleAthletes.filter((athlete2) => athlete2.id == athlete.id)
+            .length == 0,
+      ),
+    [accessibleAthletes, fetchedAthletes],
+  );
   const { formatLocalizedDate } = useFormatting();
   const { selectedUser } = useContext(AuthContext);
   const [buttonState, setButtonState] = useState<{
@@ -42,6 +61,11 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
     if (athleteId === undefined) return true;
 
     const athleteState = buttonState[athleteId];
+    if (
+      requestedAthletes.filter((athlete) => athlete.id == athleteId).length > 0
+    ) {
+      return true;
+    }
     return athleteState?.loading || athleteState?.send || false;
   };
 
@@ -78,13 +102,13 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
     const delayDebounceFn = setTimeout(async () => {
       try {
         const athletes = await searchAthletes(searchAthlete);
-        setFilteredResults(athletes);
+        setFetchedAthletes(athletes);
         if (athletes.length > 5) {
           setShowScrollIcon(true);
         }
       } catch (error) {
         console.error("Error fetching athletes", error);
-        setFilteredResults([]);
+        setFetchedAthletes([]);
       }
       setLoading(false);
     }, 500);
@@ -113,7 +137,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
     };
 
     checkScrollable();
-  }, [filteredResults]);
+  }, [fetchedAthletes]);
 
   return (
     <>
@@ -171,13 +195,13 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
             onScroll={handleScroll}
             sx={{ maxHeight: 400, overflowY: "auto" }}
           >
-            {filteredResults.length === 0 && (
+            {athletesShown.length === 0 && (
               <Typography sx={{ padding: 2, paddingBottom: 1 }}>
                 {t("components.requestAthleteModal.notFound")}
               </Typography>
             )}
 
-            {filteredResults.map((athlete, index) => (
+            {athletesShown.map((athlete, index) => (
               <React.Fragment key={athlete.id}>
                 <ListItem
                   key={index}
@@ -217,7 +241,7 @@ const AthleteRequestButton = (props: AthleteRequestModalProps) => {
                         )}
                   </Button>
                 </ListItem>
-                {index != filteredResults.length - 1 ? (
+                {index != athletesShown.length - 1 ? (
                   <Divider sx={{ margin: 0.7 }} component="li" />
                 ) : (
                   <></>
