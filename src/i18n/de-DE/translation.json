@@ -178,7 +178,8 @@
       "birthdate": "Geburtsdatum",
       "gender": "Geschlecht",
       "createButton": "Erstellen",
-      "createHeader": "Athlet*in erstellen"
+      "createHeader": "Athlet*in erstellen",
+      "requestAccess": "Anfrage senden"
     },
     "athleteEditPage": {
       "editHeader": "Athlet*in bearbeiten",

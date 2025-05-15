@@ -177,7 +177,9 @@
       "birthdate": "Birth date",
       "gender": "Gender",
       "createButton": "Create",
-      "createHeader": "Create Athlete"
+      "createHeader": "Create Athlete",
+      "requestAccess": "Send request"
+
     },
     "athleteEditPage": {
       "editHeader": "Edit Athlete",

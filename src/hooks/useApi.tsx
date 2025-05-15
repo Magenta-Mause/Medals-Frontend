@@ -194,7 +194,7 @@ const useApi = () => {
       if (response.status != 201) {
         throw new Error("Error during athlete creation");
       }
-      return response.status == 201;
+      return response.data.data as Athlete;
     },
     [axiosInstance],
   );
