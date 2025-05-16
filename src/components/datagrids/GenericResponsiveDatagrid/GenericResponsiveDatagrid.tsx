@@ -219,12 +219,12 @@ const GenericResponsiveDatagrid = <T,>(
   }, [selected, props, cleanupSelection]);
 
   useEffect(() => {
-    if (!wasPageSizeChanged) {
+    if (!wasPageSizeChanged && !props.elementsPerPage) {
       setPageSizeInternal(
         Math.floor(windowDimensions.height / ESTIMATED_HEIGHT_OF_ROW),
       );
     }
-  }, [windowDimensions, wasPageSizeChanged]);
+  }, [windowDimensions, wasPageSizeChanged, props.elementsPerPage]);
 
   return (
     <>
