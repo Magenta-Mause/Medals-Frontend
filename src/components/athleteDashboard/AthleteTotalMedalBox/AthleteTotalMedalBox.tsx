@@ -191,13 +191,16 @@ const AthleteTotalMedalBox = () => {
                     position: "relative",
                     display: "flex",
                     flexDirection: "column",
-                    top: "-20px",
                     opacity: 0.5,
                     userSelect: "none",
                     width: "75%",
                   }}
                 >
-                  <Typography level={"body-md"} sx={{ userSelect: "text" }}>
+                  <Typography
+                    level={"body-md"}
+                    fontSize={".9rem"}
+                    sx={{ userSelect: "none" }}
+                  >
                     {isMedalMissing ? (
                       t(
                         "components.athleteDashboard.totalMedalBox.medalMissing",

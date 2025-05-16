@@ -13,6 +13,7 @@ import { Key, useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Action } from "./GenericResponsiveDatagrid";
 import RowMenu from "./RowMenu";
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 
 const COLUMN_SIZES = {
   xs: 70,
@@ -370,11 +371,17 @@ const FullScreenTable = <T,>(props: {
                 wordBreak: "break-word", // Break long words if needed
               }}
             >
-              <Typography
-                sx={{ paddingLeft: column.disableSpan ? 0 : 2, width: "100%" }}
-              >
-                {column.columnName}
-              </Typography>
+              <HoverTooltip text={column.columnName}>
+                <Typography
+                  sx={{
+                    paddingLeft: column.disableSpan ? 0 : 2,
+                    width: "100%",
+                  }}
+                  noWrap
+                >
+                  {column.columnName}
+                </Typography>
+              </HoverTooltip>
             </th>
           ))}
           {props.actionMenu ? (
@@ -495,6 +502,7 @@ const FullScreenTable = <T,>(props: {
                         display: "flex",
                         width: "100%",
                       }}
+                      noWrap
                     >
                       {column.columnMapping(row as T)}
                     </Typography>
