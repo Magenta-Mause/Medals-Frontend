@@ -15,7 +15,9 @@ import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 const FormattedText = (props: { text: string }) => {
   return (
     <HoverTooltip text={props.text}>
-      <Typography noWrap>{props.text}</Typography>
+      <Typography noWrap sx={{}}>
+        {props.text}
+      </Typography>
     </HoverTooltip>
   );
 };
@@ -43,7 +45,8 @@ const AthleteCSVUploadComponent = ({
   );
 
   const parseAthleteCSV = (athletesData: Papa.ParseResult<unknown>) => {
-    return athletesData.data.map(
+    console.log("importing:", athletesData);
+    const athletes = athletesData.data.map(
       (row: any) =>
         ({
           first_name: row[AthleteExportColumn.FirstName].trim() ?? undefined,
@@ -55,6 +58,8 @@ const AthleteCSVUploadComponent = ({
           gender: row[AthleteExportColumn.Gender] ?? undefined,
         }) as Partial<Athlete>,
     );
+    setSelectedAthletes(athletes.map(athleteToKey));
+    return athletes;
   };
 
   const isValidAthlete = async (athlete: Partial<Athlete>) => {
@@ -71,16 +76,12 @@ const AthleteCSVUploadComponent = ({
     const checkedAthlete = athlete as Athlete;
     const athleteExists = await checkIfAthleteExists(checkedAthlete);
 
-    if (
+    return (
       emailRegex.test(athlete.email) &&
       BirthdateRegex.test(athlete.birthdate) &&
       Object.keys(Genders).includes(athlete.gender) &&
-      !athleteExists // Athlete should not exist, while importing
-    ) {
-      return true;
-    }
-
-    return false;
+      !athleteExists
+    );
   };
 
   const athleteToKey = (athlete: Partial<Athlete>) =>
@@ -101,7 +102,6 @@ const AthleteCSVUploadComponent = ({
       const key = athleteToKey(athlete);
       const createdAthlete = await createAthlete(athlete as Athlete); // at this point, athlete is already validated
       if (selectedAthletes.includes(key)) {
-        console.log("requesting pupsnase:", createdAthlete);
         requestAthlete(createdAthlete.id!);
       }
     },
@@ -109,82 +109,86 @@ const AthleteCSVUploadComponent = ({
   );
 
   return (
-    <CSVUploadComponent
-      key="athleteImport"
-      setOpen={setOpen}
-      parseCSVData={parseAthleteCSV}
-      uploadEntry={(athlete: Partial<Athlete>) =>
-        createCallback(athlete as Athlete)
-      }
-      csvColumns={[
-        {
-          columnName: t("components.csvImportModal.firstName"),
-          columnMapping(csvData: CSVData<Partial<Athlete>>) {
-            if (!csvData.data.first_name) {
+    <>
+      <CSVUploadComponent
+        key="athleteImport"
+        setOpen={setOpen}
+        parseCSVData={parseAthleteCSV}
+        uploadEntry={(athlete: Partial<Athlete>) =>
+          createCallback(athlete as Athlete)
+        }
+        csvColumns={[
+          {
+            columnName: t("components.csvImportModal.firstName"),
+            columnMapping(csvData: CSVData<Partial<Athlete>>) {
+              if (!csvData.data.first_name) {
+                return (
+                  t("components.csvImportModal.invalidity") +
+                  " " +
+                  t("components.csvImportModal.firstName")
+                );
+              }
+              return <FormattedText text={csvData.data.first_name ?? ""} />;
+            },
+          },
+          {
+            columnName: t("components.csvImportModal.lastName"),
+            columnMapping(csvData: CSVData<Partial<Athlete>>) {
+              if (!csvData.data.last_name) {
+                return (
+                  t("components.csvImportModal.invalidity") +
+                  " " +
+                  t("components.csvImportModal.lastName")
+                );
+              }
+              return <FormattedText text={csvData.data.last_name ?? ""} />;
+            },
+          },
+          {
+            columnName: t("components.csvImportModal.email"),
+            columnMapping(csvData: CSVData<Partial<Athlete>>) {
+              if (!csvData.data.email) {
+                return (
+                  t("components.csvImportModal.invalidity") +
+                  " " +
+                  t("components.csvImportModal.email")
+                );
+              }
+              return <FormattedText text={csvData.data.email ?? ""} />;
+            },
+          },
+          {
+            columnName: t("components.csvImportModal.birthdate"),
+            columnMapping(csvData: CSVData<Partial<Athlete>>) {
+              if (!csvData.data.last_name) {
+                return (
+                  t("components.csvImportModal.invalidity") +
+                  " " +
+                  t("components.csvImportModal.birthdate")
+                );
+              }
+              return <FormattedText text={csvData.data.birthdate ?? ""} />;
+            },
+          },
+          {
+            columnName: t("components.csvImportModal.access"),
+            columnMapping(csvData: CSVData<Partial<Athlete>>) {
               return (
-                t("components.csvImportModal.invalidity") +
-                " " +
-                t("components.csvImportModal.firstName")
+                <Checkbox
+                  checked={selectedAthletes.includes(
+                    athleteToKey(csvData.data),
+                  )}
+                  onChange={() => {
+                    handleChangeSelection(csvData.data);
+                  }}
+                />
               );
-            }
-            return <FormattedText text={csvData.data.first_name ?? ""} />;
+            },
           },
-        },
-        {
-          columnName: t("components.csvImportModal.lastName"),
-          columnMapping(csvData: CSVData<Partial<Athlete>>) {
-            if (!csvData.data.last_name) {
-              return (
-                t("components.csvImportModal.invalidity") +
-                " " +
-                t("components.csvImportModal.lastName")
-              );
-            }
-            return <FormattedText text={csvData.data.last_name ?? ""} />;
-          },
-        },
-        {
-          columnName: t("components.csvImportModal.email"),
-          columnMapping(csvData: CSVData<Partial<Athlete>>) {
-            if (!csvData.data.email) {
-              return (
-                t("components.csvImportModal.invalidity") +
-                " " +
-                t("components.csvImportModal.email")
-              );
-            }
-            return <FormattedText text={csvData.data.email ?? ""} />;
-          },
-        },
-        {
-          columnName: t("components.csvImportModal.birthdate"),
-          columnMapping(csvData: CSVData<Partial<Athlete>>) {
-            if (!csvData.data.last_name) {
-              return (
-                t("components.csvImportModal.invalidity") +
-                " " +
-                t("components.csvImportModal.birthdate")
-              );
-            }
-            return <FormattedText text={csvData.data.birthdate ?? ""} />;
-          },
-        },
-        {
-          columnName: t("components.csvImportModal.access"),
-          columnMapping(csvData: CSVData<Partial<Athlete>>) {
-            return (
-              <Checkbox
-                checked={selectedAthletes.includes(athleteToKey(csvData.data))}
-                onChange={() => {
-                  handleChangeSelection(csvData.data);
-                }}
-              />
-            );
-          },
-        },
-      ]}
-      validateDataRow={isValidAthlete}
-    />
+        ]}
+        validateDataRow={isValidAthlete}
+      />
+    </>
   );
 };
 

@@ -850,8 +850,8 @@
     "athleteTotalMedalBox": {
       "theyAchieved": "They achieved  ",
       "achieved": "",
-      "noSwimmingCertificate": "They require to have a valid swim certificate to be eligible for the \"Deutsche Sportabzeichen\"",
-      "categoryMissing": "They need to have at least one bronze medal in all categories to be eligible for the \"Deutsches Sportabzeichen\""
+      "noSwimmingCertificate": "They are required to have a valid swim certificate to be eligible for the \"Deutsche Sportabzeichen\"",
+      "categoryMissing": "They are required to have achieved at least a bronze medal in all categories to be eligible for the \"Deutsches Sportabzeichen\""
     }
   },
   "backendErrors": {

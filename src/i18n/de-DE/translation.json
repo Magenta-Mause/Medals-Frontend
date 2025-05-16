@@ -859,8 +859,8 @@
     "athleteTotalMedalBox": {
       "theyAchieved": "Er/Sie hat ",
       "achieved": "erreicht",
-      "noSwimmingCertificate": "Er/Sie benötigt einen Schwimmnachweis, um für das Deutsche Sportabzeichen zugelassen zu werden",
-      "categoryMissing": "Er/Sie benötigt mindestens eine Bronze Medaille in jeder Kategorie, um für das Deutsche Sportabzeichen zugelassen zu werden"
+      "noSwimmingCertificate": "Es wird ein Schwimmnachweis benötigt, um für das Deutsche Sportabzeichen zugelassen zu werden",
+      "categoryMissing": "Es wird mindestens eine Bronze Medaille in jeder Kategorie benötigt, um für das Deutsche Sportabzeichen zugelassen zu werden"
     }
   },
   "backendErrors": {
