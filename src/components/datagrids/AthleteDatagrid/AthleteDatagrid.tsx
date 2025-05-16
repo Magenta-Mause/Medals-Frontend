@@ -1,4 +1,4 @@
-import { Athlete } from "@customTypes/backendTypes";
+import { Athlete, PerformanceRecording } from "@customTypes/backendTypes";
 import useApi from "@hooks/useApi";
 import { Box, Link, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
@@ -28,7 +28,6 @@ import { AuthContext } from "@components/AuthenticationProvider/AuthenticationPr
 import { calculateAge } from "@utils/calculationUtil";
 import { useTypedSelector } from "@stores/rootReducer";
 import useFormatting from "@hooks/useFormatting";
-import { PerformanceRecording } from "@customTypes/backendTypes";
 
 interface AthleteDatagridProps {
   athletes: Athlete[];
@@ -75,7 +74,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
 
   const ageSelection = [
     {
-      displayValue: "All",
+      displayValue: t("generic.all"),
       value: "all",
     },
     ...Array.from({ length: 12 }, (_, i) => {
