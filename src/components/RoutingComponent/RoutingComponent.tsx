@@ -53,8 +53,7 @@ const RoutingComponent = () => {
           <Route path="/admins" element={<AdminsOverviewPage />} />
 
           {/* TRAINER */}
-          <Route path="/athletes" element={<AthleteOverviewPage />} />
-          <Route path="/athletes/:athleteId" element={<AthleteDetailPage />} />
+          <Route path="/:athleteId" element={<AthleteDetailPage />} />
           <Route
             path="/performanceMetrics"
             element={<PerformanceMetricsPage />}

@@ -359,7 +359,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
   }).filter((action) => action.key !== "edit");
 
   const itemCallback = async (item: Athlete) => {
-    navigate("/athletes/" + item.id);
+    navigate("/" + item.id);
   };
 
   const mobileRendering: MobileTableRendering<Athlete> = {

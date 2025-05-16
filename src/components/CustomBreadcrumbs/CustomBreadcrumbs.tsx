@@ -7,10 +7,20 @@ import { ChevronRight } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router";
 import { useTranslation } from "react-i18next";
 import useAthleteLookup from "@hooks/useAthleteLookup";
+import { useContext } from "react";
+import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
+import { UserType } from "@customTypes/enums";
 
 const CustomBreadcrumbs = () => {
   const { t } = useTranslation();
   const { useAthleteNameLookup } = useAthleteLookup();
+  const { selectedUser } = useContext(AuthContext);
+  const myHome =
+    selectedUser?.type == UserType.ATHLETE
+      ? "/dashboard"
+      : selectedUser?.type == UserType.ADMIN
+        ? "/trainer"
+        : "/athletes";
 
   const useBreadcrumbsAthleteNameConverter = (
     athleteId: BreadcrumbComponentProps<string>,
@@ -18,7 +28,7 @@ const CustomBreadcrumbs = () => {
 
   const routes: BreadcrumbsRoute[] = [
     {
-      path: "/athletes/:athleteId",
+      path: "/:athleteId",
       breadcrumb: useBreadcrumbsAthleteNameConverter,
     },
   ];
@@ -39,11 +49,18 @@ const CustomBreadcrumbs = () => {
               to={match.pathname}
               key={breadcrumb?.toLocaleString()}
             >
-              {t("components.breadcrumbs.paths." + match.pathname, {
-                defaultValue: "",
-              }) == ""
+              {t(
+                "components.breadcrumbs.paths." +
+                  (match.pathname == "/" ? myHome : match.pathname),
+                {
+                  defaultValue: "",
+                },
+              ) == ""
                 ? breadcrumb
-                : t("components.breadcrumbs.paths." + match.pathname)}
+                : t(
+                    "components.breadcrumbs.paths." +
+                      (match.pathname == "/" ? myHome : match.pathname),
+                  )}
             </Link>
           ))}
         </Breadcrumbs>
