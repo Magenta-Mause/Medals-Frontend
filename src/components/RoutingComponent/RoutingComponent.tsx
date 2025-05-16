@@ -23,6 +23,7 @@ import AthletePerformanceViewPage from "@pages/Athletes/AthletePerformanceViewPa
 import RoleBasedRenderComponent from "@components/RoleBasedRenderComponent/RoleBasedRenderComponent";
 import ImprintPage from "@pages/Legal/ImprintPage";
 import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
+import HelpPage from "@pages/Help/HelpPage";
 
 const RoutingComponent = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -69,7 +70,7 @@ const RoutingComponent = () => {
 
           {/* Shared Pages */}
           <Route path="/materials" element={<MaterialsDownloadPage />} />
-          <Route path="/help" element={<InDevelopmentPage />} />
+          <Route path="/help" element={<HelpPage />} />
         </Route>
 
         {/* Error Pages */}

@@ -357,6 +357,17 @@
         "gender": "Geschlecht"
       },
       "resetFilter": "Filter zurücksetzen"
+    },
+    "helpPage": {
+      "header": "Hilfe",
+      "intro": "Hier finden Sie alles Wissenswerte zur Anwendung",
+      "button": "Herunterladen",
+      "headers": {
+
+      },
+      "texts":{
+
+      }
     }
   },
   "components": {
