@@ -487,11 +487,13 @@ const AthleteCreationForm = ({
           )}
         </FormControl>
 
-        <Checkbox
-          label={t("pages.athleteCreationPage.requestAccess")}
-          checked={request}
-          onChange={(event) => setRequest(event.target.checked)}
-        />
+        {!isEditMode && (
+          <Checkbox
+            label={t("pages.athleteCreationPage.requestAccess")}
+            checked={request}
+            onChange={(event) => setRequest(event.target.checked)}
+          />
+        )}
 
         <Button
           fullWidth
