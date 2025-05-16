@@ -48,7 +48,7 @@ python i18n_translate.py --to fi -F locale_en.json
 An example on how you could (at the time of writing) translate the whole i18n en locale to spanish, french and dutch:
 
 ```bash
-python i18n_translate.py --to nl --to es --to fr -F -E languages -E pages.notFound.h1 -E pages.inDevelopment.h1 -E pages.userRoleError.h1 -E pages.loginPage.logo -E components.genericRespondiveDatagrid.mobileList.pageControl.pageLabels translation.json
+python i18n_translate.py --to nl --to es --to fr -F -E languages -E pages.notFound.h1 -E pages.inDevelopment.h1 -E pages.userRoleError.h1 -E pages.loginPage.logo -E components.genericResponsiveDatagrid.mobileList.pageControl.pageLabels translation.json
 ```
 
 For a list of supported languages, please see `supported_languages.json`. `multi` contains the languages (codes) for the non-finetuned model
