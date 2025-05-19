@@ -248,7 +248,7 @@
         "admin": "Administrator",
         "trainer": "Trainer",
         "athlete": "Athlete",
-        "content": "These roles are assigned by an administrator or a user with elevated user rights, such as a trainer.\nYour email may be linked to multiple accounts.\nAfter logging in, you'll be taken to a selection screen showing all accounts associated with your email.\n\nPlease note: Registration is not possible. You must be invited to join the platform.\nRequests can be sent via email to: "
+        "content": "These roles are assigned by an administrator or a user with elevated user rights, such as a trainer.\nYour email may be linked to multiple accounts.\nAfter logging in, you'll be taken to a selection screen showing all accounts associated with your email.\nPlease note: Registration is not possible. You must be invited to join the platform.\nRequests can be sent via email to: "
       }
     },
     "setPasswordPage": {
@@ -856,5 +856,8 @@
   },
   "backendErrors": {
     "athleteAlreadyExists": "An athlete with this email and birthdate already exists."
+  },
+  "helpPage": {
+    "markdownFileName": "/en-US.md"
   }
 }

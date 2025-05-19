@@ -1,38 +1,35 @@
-import { Download, Pages } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/joy";
-import { useTranslation } from "react-i18next"
+import { Box } from "@mui/joy";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import Markdown from "react-markdown";
+import axios from "axios";
 
-const HelpPage=()=>{
-    const { t } = useTranslation();
+const HelpPage = () => {
+  const { t } = useTranslation();
+  const [markdownText, setMarkdownText] = useState("");
+  useEffect(() => {
+    (async () =>
+      setMarkdownText(
+        (await axios.get("/assets/help-page" + t("helpPage.markdownFileName")))
+          .data,
+      ))();
+  }, [t]);
 
-    return (
-        <>
-        <Box>
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Typography level="h2" component="h1">
-                    {t("pages.helpPage.header")}
-                </Typography>
-                <Button>
-                    <Download/>
-                    {t("pages.helpPage.button")}
-                </Button>
-            </Box>
-            <Typography sx={{ mt: 1 }}>
-                {t("pages.helpPage.intro")}
-            </Typography>
-        </Box>
-
-        <Box>
-            <Typography level="h3" sx={{mt: 3}}>
-                Lorem ipsum header
-            </Typography>
-            <Typography sx={{mt: 1}}>
-                Lorem ipsum text
-            </Typography>
-
-        </Box>
-        </>
-    );
+  return (
+    <Box
+      sx={{
+        "> p > img": {
+          borderRadius: "5px",
+          maxWidth: "80%",
+        },
+        "> h3": {
+          marginTop: "50px",
+        },
+      }}
+    >
+      <Markdown>{markdownText}</Markdown>
+    </Box>
+  );
 };
 
 export default HelpPage;
