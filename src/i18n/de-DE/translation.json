@@ -359,15 +359,7 @@
       "resetFilter": "Filter zurücksetzen"
     },
     "helpPage": {
-      "header": "Hilfe",
-      "intro": "Hier finden Sie alles Wissenswerte zur Anwendung",
-      "button": "Herunterladen",
-      "headers": {
-
-      },
-      "texts":{
-
-      }
+      "button": "PDF Herunterladen"
     }
   },
   "components": {
@@ -865,5 +857,8 @@
   },
   "backendErrors": {
     "athleteAlreadyExists": "Athlet*in mit dieser E-Mail und Geburtsdatum existiert bereits."
+  },
+  "helpPage": {
+    "markdownFileName": "/de-DE.md"
   }
 }

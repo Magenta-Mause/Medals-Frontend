@@ -1,7 +1,5 @@
 # Help Page [EN]
 
-[Help Page.pdf](Help%20Page%20%5BEN%5D%201f546711f96a80d18cd3f29743c5e325/Help_Page.pdf)
-
 ## General
 
 ### Signup
@@ -26,14 +24,14 @@ long.
 
 If you already have an account, you can login using your mail address and your password.
 
-![](/assets/images/helpPage/en-us/medals_login.png.png)
+![](/assets/images/helpPage/en-us/medals_login.png)
 
 ### Forgot password
 
 If you forgot your password, you can use the "Forgot password?" option on the Login page to send a password-reset email
 to your mail address.
 
-![](/assets/images/helpPage/en-us/medals_login_forgotpassword_en.png.png)
+![](/assets/images/helpPage/en-us/medals_login_forgotpassword.png)
 
 ![](/assets/images/helpPage/en-us/medals_forgot_password.png)
 
@@ -53,7 +51,7 @@ navigation bar.
 
 If you want to logout, you have to click the "Logout" button on the bottom right hand corner of the navigation bar.
 
-![](/assets/images/helpPage/en-us/medals_logout_en.png)
+![](/assets/images/helpPage/en-us/medals_logout.png)
 
 ### Reset password & delete account
 

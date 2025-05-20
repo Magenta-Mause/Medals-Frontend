@@ -158,6 +158,9 @@
     }
   },
   "pages": {
+    "helpPage": {
+      "button": "Download PDF"
+    },
     "homePage": {
       "h1": "Medals",
       "h3": "The Medal Management System of the Future"

@@ -78,6 +78,9 @@
     }
   },
   "pages": {
+    "helpPage": {
+      "button": "Descargar PDF"
+    },
     "homePage": {
       "h1": "Medals",
       "h3": "El pronto será el Sistema de Gestión de Medallas"
@@ -445,5 +448,8 @@
       "languageSelectionButton": "Cambiar idioma",
       "selectUser": "Continuar con este usuario"
     }
+  },
+  "helpPage": {
+    "markdownFileName": "/es-ES.md"
   }
 }
