@@ -357,6 +357,9 @@
         "gender": "Geschlecht"
       },
       "resetFilter": "Filter zurücksetzen"
+    },
+    "helpPage": {
+      "button": "PDF Herunterladen"
     }
   },
   "components": {
@@ -854,5 +857,8 @@
   },
   "backendErrors": {
     "athleteAlreadyExists": "Athlet*in mit dieser E-Mail und Geburtsdatum existiert bereits."
+  },
+  "helpPage": {
+    "markdownFileName": "/de-DE.md"
   }
 }

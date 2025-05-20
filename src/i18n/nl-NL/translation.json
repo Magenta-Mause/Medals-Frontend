@@ -78,6 +78,9 @@
     }
   },
   "pages": {
+    "helpPage": {
+      "button": "PDF Downloaden"
+    },
     "homePage": {
       "h1": "Medals",
       "h3": "Het binnenkort Medal Management System te zijn"
@@ -445,5 +448,8 @@
       "languageSelectionButton": "Taal wijzigen",
       "selectUser": "Ga verder met deze gebruiker"
     }
+  },
+  "helpPage": {
+    "markdownFileName": "/nl-NL.md"
   }
 }

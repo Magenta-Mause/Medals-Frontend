@@ -78,6 +78,9 @@
     }
   },
   "pages": {
+    "helpPage": {
+      "button": "Télécharger le PDF"
+    },
     "homePage": {
       "h1": "Medals",
       "h3": "Le prochain système de gestion des médailles"
@@ -445,5 +448,8 @@
       "languageSelectionButton": "Changer de langue",
       "selectUser": "Continuer avec cet utilisateur"
     }
+  },
+  "helpPage": {
+    "markdownFileName": "/fr-FR.md"
   }
 }
