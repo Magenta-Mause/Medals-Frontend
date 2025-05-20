@@ -8,13 +8,16 @@ import { DownloadRounded } from "@mui/icons-material";
 const HelpPage = () => {
   const { t, i18n } = useTranslation();
   const [markdownText, setMarkdownText] = useState("");
-  
+
   useEffect(() => {
     (async () => {
       try {
         setMarkdownText(
-          (await axios.get("/assets/help-page" + t("helpPage.markdownFileName")))
-            .data
+          (
+            await axios.get(
+              "/assets/help-page" + t("helpPage.markdownFileName"),
+            )
+          ).data,
         );
       } catch (error) {
         console.error("Error loading markdown:", error);
@@ -28,19 +31,19 @@ const HelpPage = () => {
       de: "Medals_HelpPage_de-DE.pdf",
       fr: "Medals_HelpPage_fr-FR.pdf",
       es: "Medals_HelpPage_es-ES.pdf",
-      nl: "Medals_HelpPage_nl-NL.pdf"
+      nl: "Medals_HelpPage_nl-NL.pdf",
     };
-    
-    const currentLang = i18n.language?.split('-')[0] || 'en';
-    
+
+    const currentLang = i18n.language?.split("-")[0] || "en";
+
     const pdfFilename = languageToPdfMap[currentLang] || languageToPdfMap.en;
-    
+
     const pdfUrl = `/assets/help-page/pdf/${pdfFilename}`;
-    
-    const link = document.createElement('a');
+
+    const link = document.createElement("a");
     link.href = pdfUrl;
-    link.setAttribute('download', pdfFilename);
-    
+    link.setAttribute("download", pdfFilename);
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -48,7 +51,7 @@ const HelpPage = () => {
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
         <Button
           variant="outlined"
           color="primary"
@@ -59,7 +62,7 @@ const HelpPage = () => {
           {t("pages.helpPage.button")}
         </Button>
       </Box>
-      
+
       <Box
         id="markdown-container"
         sx={{
