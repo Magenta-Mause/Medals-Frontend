@@ -3,7 +3,6 @@ import PageLayout from "@components/PageLayout/PageLayout";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import AthleteDetailPage from "@pages/Athletes/AthleteDetailPage";
 import AthleteOverviewPage from "@pages/Athletes/AthleteOverviewPage";
-import InDevelopmentPage from "@pages/InDevelopment/InDevelopmentPage";
 import CreditsPage from "@pages/Legal/CreditsPage";
 import LoginPage from "@pages/Login/LoginPage";
 import MaterialsDownloadPage from "@pages/MaterialsDownloadPage/MaterialsDownloadPage";
