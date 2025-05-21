@@ -37,7 +37,7 @@ import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
-import Tooltip from "@components/HoverTooltip/HoverTooltip";
+import Tooltip, { HoverTooltip } from "@components/HoverTooltip/HoverTooltip";
 import RoleBasedRenderComponent from "@components/RoleBasedRenderComponent/RoleBasedRenderComponent";
 import AthletePendingAccessRequestInfoCard from "@components/AthletePendingAccessRequestInfoCard/AthletePendingAccessRequestInfoCard";
 
@@ -184,9 +184,24 @@ const NavBar = () => {
         onClick={() => collapseSidebar()}
       />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <IconButton variant="soft" color="primary" size="sm" sx={{ p: 0.5 }}>
-          <MedalsIcon size="inline" />
-        </IconButton>
+        <HoverTooltip text={t("generic.skipToContent")}>
+          <IconButton
+            variant="soft"
+            color="primary"
+            size="sm"
+            sx={{ p: 0.5 }}
+            onClick={() => {
+              const mainContent = document.getElementById("main-component");
+              console.log(mainContent);
+              if (mainContent) {
+                mainContent.focus();
+                window.scrollTo(0, mainContent.offsetTop);
+              }
+            }}
+          >
+            <MedalsIcon size="inline" />
+          </IconButton>
+        </HoverTooltip>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
@@ -224,7 +239,13 @@ const NavBar = () => {
               : (navBarElements.get(undefined) ?? [])),
             ...sharedNavBarElements,
           ].map((element) => (
-            <ListItem key={element.path}>
+            <ListItem
+              key={element.path}
+              sx={{
+                mx: "5px",
+                mb: "1px",
+              }}
+            >
               <ListItemButton
                 sx={{
                   transition: "background ease .2s",

@@ -19,6 +19,8 @@ const PageLayout = () => {
       <Box
         component="main"
         className="MainContent"
+        id="main-component"
+        tabIndex={-1}
         sx={{
           px: { xs: 2, md: 6 },
           pt: {

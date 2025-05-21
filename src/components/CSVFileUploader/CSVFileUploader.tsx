@@ -7,6 +7,7 @@ import {
   CSVData,
   CSVUploadState,
 } from "@components/CSVUploadComponent/CSVHelper";
+import "./csvFileUploader.css";
 
 interface CSVUploadProviderProps<T> {
   parseCSVData: (data: Papa.ParseResult<unknown>) => T[];
@@ -83,8 +84,21 @@ const CSVFileUploader = <T extends Record<string, unknown>>({
       <input
         type="file"
         id="file-upload"
-        style={{ display: "none", justifyContent: "center" }}
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "20%",
+          opacity: 0,
+          cursor: "pointer",
+          zIndex: 1,
+          bottom: 0,
+          left: 0,
+          pointerEvents: "none",
+          background: "var(--joy-palette-background-level1)",
+        }}
+        alt={"upload your csv file here"}
         onChange={handleFileChange}
+        tabIndex={0}
       />
       <label htmlFor="file-upload">
         <Box

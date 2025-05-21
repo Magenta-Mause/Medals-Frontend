@@ -39,6 +39,7 @@ const UserRowMapping = (props: {
           justifyContent: "space-between",
           alignItems: "start",
           p: 1,
+          mx: "4px",
           borderRadius: 3,
           ":hover": {
             background: "black",
