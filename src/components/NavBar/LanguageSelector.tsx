@@ -25,6 +25,8 @@ const LanguageSelector = () => {
       sx={{
         display: "flex",
         flexDirection: "column-reverse",
+        mx: "5px",
+        mb: "5px",
       }}
     >
       <Toggler
@@ -81,13 +83,20 @@ const LanguageSelector = () => {
           }}
         >
           {Object.keys(i18n.options.resources ?? []).map((language) => (
-            <ListItem key={language}>
+            <ListItem
+              key={language}
+              sx={{
+                mx: "5px",
+                mb: "5px",
+              }}
+            >
               <ListItemButton
                 onClick={() => {
                   i18n.changeLanguage(language);
                   setOpen(false);
                 }}
                 selected={i18n.language === language}
+                tabIndex={open ? 0 : -1}
               >
                 {/* Always render the decorator to preserve layout */}
                 <ListItemDecorator sx={{ width: "1.5em" }}>

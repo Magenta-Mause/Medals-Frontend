@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import { useTranslation } from "react-i18next";
 import { Athlete } from "@customTypes/backendTypes";
-import { Typography } from "@mui/joy";
+import { Link, Typography } from "@mui/joy";
 import {
   GenericDashboardBoxContent,
   GenericDashboardBoxFooter,
@@ -44,11 +44,7 @@ const AthleteInformationBox = () => {
       >
         {trainers && trainers.length > 0 ? (
           <>
-            <Typography
-              color={"neutral"}
-              level="title-md"
-              sx={{ userSelect: "none" }}
-            >
+            <Typography color={"neutral"} level="title-md">
               {trainers.length > 1
                 ? t("components.athleteDashboard.trainers.trainers")
                 : t("components.athleteDashboard.trainers.trainer")}{" "}
@@ -64,11 +60,7 @@ const AthleteInformationBox = () => {
         )}
         <br />
         {accessRequests.length > 0 && (
-          <Typography
-            level={"body-md"}
-            color={"neutral"}
-            sx={{ userSelect: "none" }}
-          >
+          <Typography level={"body-md"} color={"neutral"}>
             {accessRequests.length == 1
               ? t(
                   "components.athleteDashboard.trainers.accessRequestsPending.singular",
@@ -79,21 +71,26 @@ const AthleteInformationBox = () => {
           </Typography>
         )}
       </GenericDashboardBoxContent>
-      <GenericDashboardBoxFooter>
-        <span
+      <GenericDashboardBoxFooter
+        sx={{
+          userSelect: "inherit",
+        }}
+      >
+        <Link
           onClick={() => {
             setRemoveTrainerAccessModal(true);
           }}
-          style={{
-            cursor: "pointer",
-            color:
-              "var(--variant-plainColor, rgba(var(--joy-palette-primary-mainChannel) / 1))",
+          onKeyDown={(e) => {
+            if (e.key == "Enter" || e.key == " ") {
+              setRemoveTrainerAccessModal(true);
+            }
           }}
+          tabIndex={0}
         >
           {accessRequests.length > 0
             ? t("components.athleteDashboard.trainers.requestsPending")
             : t("components.athleteDashboard.trainers.removeTrainers")}
-        </span>
+        </Link>
       </GenericDashboardBoxFooter>
       <AthleteAccessManagementModal
         isOpen={isRemoveTrainerAccessModal}

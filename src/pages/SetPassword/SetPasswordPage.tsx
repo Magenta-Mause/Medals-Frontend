@@ -5,7 +5,7 @@ import useApi from "@hooks/useApi";
 import { Box, Button, FormControl, Stack, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router";
 
@@ -21,6 +21,7 @@ interface SetPasswordFormElements extends HTMLFormControlsCollection {
 
 const SetPasswordPage = () => {
   const [searchParams] = useSearchParams();
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const { setPassword: setPasswordApi } = useApi();
   const { logout } = useContext(AuthContext);
   const { enqueueSnackbar } = useSnackbar();
@@ -41,6 +42,9 @@ const SetPasswordPage = () => {
       enqueueSnackbar(t("snackbar.setPassword.success"), {
         variant: "success",
       });
+      setTimeout(() => {
+        buttonRef.current!.focus();
+      }, 100);
     } catch {
       enqueueSnackbar(t("snackbar.setPassword.failed"), { variant: "error" });
       throw new Error("Failed to set password");
@@ -148,6 +152,7 @@ const SetPasswordPage = () => {
                   type="submit"
                   fullWidth
                   disabled={isPending || !passwordValid}
+                  ref={buttonRef}
                   color={
                     !passwordValid
                       ? "neutral"

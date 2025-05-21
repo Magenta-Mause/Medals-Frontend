@@ -507,7 +507,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
         onItemClick={itemCallback}
         disablePaging={false}
         heightIfNoEntriesFound={"200px"}
-        elementsPerPage={25}
+        elementsPerPage={9}
         messageIfNoEntriesFound={noAthleteFoundMessage}
         itemClickableFilter={(athlete) => athlete.has_access}
       />
