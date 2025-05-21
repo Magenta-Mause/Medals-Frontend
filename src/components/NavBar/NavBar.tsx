@@ -14,7 +14,6 @@ import {
   HelpCenter,
   LogoutRounded,
   PeopleRounded,
-  SearchRounded,
   SpaceDashboard,
   SupervisedUserCircleOutlined,
 } from "@mui/icons-material";
@@ -24,7 +23,6 @@ import {
   Divider,
   GlobalStyles,
   IconButton,
-  Input,
   List,
   ListItem,
   ListItemButton,
@@ -205,11 +203,7 @@ const NavBar = () => {
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
-      <Input
-        size="sm"
-        startDecorator={<SearchRounded />}
-        placeholder={t("components.navbar.search")}
-      />
+      <Divider />
       <Box
         sx={{
           minHeight: 0,
