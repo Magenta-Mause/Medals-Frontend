@@ -1,4 +1,5 @@
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import "./FullScreenTable.css";
 import {
   Box,
   Button,
@@ -12,6 +13,7 @@ import { Key, useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Action } from "./GenericResponsiveDatagrid";
 import RowMenu from "./RowMenu";
+import HoverTooltip from "@components/HoverTooltip/HoverTooltip";
 
 const COLUMN_SIZES = {
   xs: 70,
@@ -287,7 +289,7 @@ const PageControl = (props: {
 const FullScreenTable = <T,>(props: {
   messageIfNoEntriesFound?: React.ReactNode;
   itemSelectionActions?: Action<T>[];
-  actionMenu?: Action<T>[];
+  actionMenu?: Action<T>[] | ((item: T) => Action<T>[]);
   selected: Key[];
   renderedPage: T[];
   setSelected: (callback: (prevState: Key[]) => Key[]) => void;
@@ -296,6 +298,7 @@ const FullScreenTable = <T,>(props: {
   rowOnClick?: (item: T) => void;
   allItems: T[];
   heightIfNoEntriesFound?: string;
+  itemClickableFilter?: (item: T) => boolean;
 }) => {
   const { t } = useTranslation();
 
@@ -368,11 +371,17 @@ const FullScreenTable = <T,>(props: {
                 wordBreak: "break-word", // Break long words if needed
               }}
             >
-              <Typography
-                sx={{ paddingLeft: column.disableSpan ? 0 : 2, width: "100%" }}
-              >
-                {column.columnName}
-              </Typography>
+              <HoverTooltip text={column.columnName}>
+                <Typography
+                  sx={{
+                    paddingLeft: column.disableSpan ? 0 : 2,
+                    width: "100%",
+                  }}
+                  noWrap
+                >
+                  {column.columnName}
+                </Typography>
+              </HoverTooltip>
             </th>
           ))}
           {props.actionMenu ? (
@@ -426,13 +435,26 @@ const FullScreenTable = <T,>(props: {
             <tr
               key={props.keyOf(row)}
               onClick={() => {
-                if (props.rowOnClick) {
+                if (
+                  props.rowOnClick &&
+                  (!props.itemClickableFilter || props.itemClickableFilter(row))
+                ) {
                   props.rowOnClick(row);
                 }
               }}
+              className={
+                "fullscreen-table-row-" +
+                (props.rowOnClick &&
+                (!props.itemClickableFilter || props.itemClickableFilter(row))
+                  ? "clickable"
+                  : "not-clickable")
+              }
               style={{
                 cursor:
-                  props.rowOnClick && props.renderedPage.length > 0
+                  props.rowOnClick &&
+                  (!props.itemClickableFilter ||
+                    props.itemClickableFilter(row)) &&
+                  props.renderedPage.length > 0
                     ? "pointer"
                     : "inherit",
               }}
@@ -480,6 +502,7 @@ const FullScreenTable = <T,>(props: {
                         display: "flex",
                         width: "100%",
                       }}
+                      noWrap
                     >
                       {column.columnMapping(row as T)}
                     </Typography>
@@ -488,7 +511,14 @@ const FullScreenTable = <T,>(props: {
               ))}
               {props.actionMenu ? (
                 <td>
-                  <RowMenu item={row} actionMenu={props.actionMenu} />
+                  <RowMenu
+                    item={row}
+                    actionMenu={
+                      Array.isArray(props.actionMenu)
+                        ? props.actionMenu
+                        : props.actionMenu(row)
+                    }
+                  />
                 </td>
               ) : (
                 <></>
@@ -501,5 +531,5 @@ const FullScreenTable = <T,>(props: {
   );
 };
 
-export { PageControl as PageControll };
+export { PageControl };
 export default FullScreenTable;

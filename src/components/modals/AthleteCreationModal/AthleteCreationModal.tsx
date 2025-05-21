@@ -3,6 +3,7 @@ import useApi from "@hooks/useApi";
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -11,12 +12,14 @@ import {
 import Option from "@mui/joy/Option";
 import Select from "@mui/joy/Select";
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomDatePicker from "@components/CustomDatePicker/CustomDatePicker";
 import GenericModal from "../GenericModal";
 import { emailRegex } from "constants/regex";
 import { Genders } from "@customTypes/enums";
+import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
+import { useSnackbar } from "notistack";
 
 const isValidEmail = (email: string) => emailRegex.test(email);
 
@@ -48,24 +51,36 @@ interface FormErrors {
   gender: string;
 }
 
-// Define props for the component.
 interface AthleteCreationFormProps {
   isOpen: boolean;
   setOpen: (open: boolean) => void;
+  athleteToEdit?: Athlete;
+  updateAthlete?: (athlete: Athlete) => Promise<boolean>;
 }
 
-const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
+const AthleteCreationForm = ({
+  isOpen,
+  setOpen,
+  athleteToEdit,
+  updateAthlete,
+}: AthleteCreationFormProps) => {
   const { t, i18n } = useTranslation();
-  const { createAthlete } = useApi();
+  const { enqueueSnackbar } = useSnackbar();
+  const {
+    createAthlete,
+    updateAthlete: apiUpdateAthlete,
+    requestAthlete,
+  } = useApi();
+  const [request, setRequest] = useState(true);
   const [athlete, setAthlete] = useState<Athlete>({
     first_name: "",
     last_name: "",
     email: "",
     birthdate: "",
     gender: undefined,
+    has_access: false,
   });
 
-  // Track if field has been touched (to avoid showing errors initially)
   const [touched, setTouched] = useState<FormTouched>({
     first_name: false,
     last_name: false,
@@ -74,7 +89,6 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
     gender: false,
   });
 
-  // Form validation state
   const [errors, setErrors] = useState<FormErrors>({
     first_name: "",
     last_name: "",
@@ -83,107 +97,48 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
     gender: "",
   });
 
-  // Get date format based on current locale
-  const dateFormat = getDateFormatForLocale(i18n.language);
+  const isEditMode = !!athleteToEdit;
 
-  // Validate form fields
-  const validateField = (field: keyof FormErrors, value: any): string => {
-    switch (field) {
-      case "first_name":
-        if (!value) return t("generic.validation.required");
-        if (value.length > 255) return t("generic.validation.tooLong");
-        return "";
-      case "last_name":
-        if (!value) return t("generic.validation.required");
-        if (value.length > 255) return t("generic.validation.tooLong");
-        return "";
-      case "email":
-        if (!value) return t("generic.validation.required");
-        if (!isValidEmail(value)) return t("generic.validation.invalidEmail");
-        return "";
-      case "birthdate":
-        if (!value) return t("generic.validation.required");
-        return "";
-      case "gender":
-        if (value === undefined) return t("generic.validation.required");
-        return "";
-      default:
-        return "";
-    }
-  };
+  const validateField = useCallback(
+    (field: keyof FormErrors, value: any): string => {
+      switch (field) {
+        case "first_name":
+          if (!value) return t("generic.validation.required");
+          if (value.length > 255) return t("generic.validation.tooLong");
+          return "";
+        case "last_name":
+          if (!value) return t("generic.validation.required");
+          if (value.length > 255) return t("generic.validation.tooLong");
+          return "";
+        case "email":
+          if (!isEditMode) {
+            if (!value) return t("generic.validation.required");
+            if (!isValidEmail(value))
+              return t("generic.validation.invalidEmail");
+          }
+          return "";
+        case "birthdate":
+          if (!isEditMode && !value) return t("generic.validation.required");
+          return "";
+        case "gender":
+          if (!isEditMode && value === undefined)
+            return t("generic.validation.required");
+          return "";
+        default:
+          return "";
+      }
+    },
+    [t, isEditMode],
+  );
 
-  // Handle field changes
-  const handleFieldChange = (field: keyof Athlete, value: any) => {
-    setAthlete((prev) => ({ ...prev, [field]: value }));
-
-    // Mark field as touched
-    if (!touched[field as keyof FormTouched]) {
-      setTouched((prev) => ({ ...prev, [field]: true }));
-    }
-
-    // Validate field
-    const error = validateField(field as keyof FormErrors, value);
-    setErrors((prev) => ({ ...prev, [field]: error }));
-  };
-
-  // Handle date change specifically
-  const handleDateChange = (date: Date | null) => {
-    // Mark as touched
-    if (!touched.birthdate) {
-      setTouched((prev) => ({ ...prev, birthdate: true }));
-    }
-
-    if (date) {
-      // Format to ISO string for backend compatibility
-      const isoDate = dayjs(date).format("YYYY-MM-DD");
-      handleFieldChange("birthdate", isoDate);
-    } else {
-      handleFieldChange("birthdate", "");
-    }
-  };
-
-  // Check if form is valid for submission
-  const isFormValid = () => {
-    return (
-      Object.values(errors).every((error) => !error) &&
-      Object.keys(errors).every((field) => touched[field as keyof FormTouched])
-    );
-  };
-
-  // Mark all fields as touched when submit button is clicked
-  const handleSubmitAttempt = () => {
-    const allTouched: FormTouched = {
-      first_name: true,
-      last_name: true,
-      email: true,
-      birthdate: true,
-      gender: true,
-    };
-
-    setTouched(allTouched);
-
-    // Revalidate all fields
-    const newErrors: FormErrors = {
-      first_name: validateField("first_name", athlete.first_name),
-      last_name: validateField("last_name", athlete.last_name),
-      email: validateField("email", athlete.email),
-      birthdate: validateField("birthdate", athlete.birthdate),
-      gender: validateField("gender", athlete.gender),
-    };
-
-    setErrors(newErrors);
-
-    return isFormValid();
-  };
-
-  // Reset form
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setAthlete({
       first_name: "",
       last_name: "",
       email: "",
       gender: undefined,
       birthdate: "",
+      has_access: false,
     });
     setTouched({
       first_name: false,
@@ -199,9 +154,119 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
       birthdate: "",
       gender: "",
     });
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    if (!isEditMode) {
+      resetForm();
+    }
+  }, [setOpen, resetForm, isEditMode]);
+
+  useEffect(() => {
+    if (!isOpen && !isEditMode) {
+      resetForm();
+    }
+  }, [isOpen, resetForm, isEditMode]);
+
+  useEffect(() => {
+    if (athleteToEdit) {
+      setAthlete(athleteToEdit);
+      // Mark relevant fields as touched in edit mode
+      setTouched({
+        first_name: true,
+        last_name: true,
+        email: true,
+        birthdate: true,
+        gender: true,
+      });
+      // Validate the initial values
+      setErrors({
+        first_name: validateField("first_name", athleteToEdit.first_name),
+        last_name: validateField("last_name", athleteToEdit.last_name),
+        email: "", // Email is not editable in edit mode
+        birthdate: "", // Not editable in edit mode
+        gender: "", // Not editable in edit mode
+      });
+    } else if (isOpen) {
+      resetForm();
+    }
+  }, [athleteToEdit, validateField, resetForm, isOpen]);
+
+  const dateFormat = getDateFormatForLocale(i18n.language);
+
+  const handleFieldChange = (field: keyof Athlete, value: any) => {
+    setAthlete((prev) => ({ ...prev, [field]: value }));
+
+    if (!touched[field as keyof FormTouched]) {
+      setTouched((prev) => ({ ...prev, [field]: true }));
+    }
+
+    const error = validateField(field as keyof FormErrors, value);
+    setErrors((prev) => ({ ...prev, [field]: error }));
   };
 
-  // Function to mark field as touched
+  const handleDateChange = (date: Date | null) => {
+    if (!touched.birthdate) {
+      setTouched((prev) => ({ ...prev, birthdate: true }));
+    }
+
+    if (date) {
+      const isoDate = dayjs(date).format("YYYY-MM-DD");
+      handleFieldChange("birthdate", isoDate);
+    } else {
+      handleFieldChange("birthdate", "");
+    }
+  };
+
+  const isFormValid = () => {
+    if (isEditMode) {
+      return !errors.first_name && !errors.last_name;
+    }
+
+    return (
+      Object.values(errors).every((error) => !error) &&
+      Object.keys(errors).every((field) => touched[field as keyof FormTouched])
+    );
+  };
+
+  const handleSubmitAttempt = () => {
+    const fieldsToTouch = isEditMode
+      ? {
+          first_name: true,
+          last_name: true,
+          email: touched.email,
+          birthdate: touched.birthdate,
+          gender: touched.gender,
+        }
+      : {
+          first_name: true,
+          last_name: true,
+          email: true,
+          birthdate: true,
+          gender: true,
+        };
+
+    setTouched((prev) => ({
+      ...prev,
+      ...fieldsToTouch,
+    }));
+
+    const newErrors: FormErrors = {
+      first_name: validateField("first_name", athlete.first_name),
+      last_name: validateField("last_name", athlete.last_name),
+      email: isEditMode ? "" : validateField("email", athlete.email),
+      birthdate: isEditMode
+        ? ""
+        : validateField("birthdate", athlete.birthdate),
+      gender: isEditMode ? "" : validateField("gender", athlete.gender),
+    };
+
+    setErrors(newErrors);
+
+    return isFormValid();
+  };
+
   const markTouched = (field: keyof FormTouched) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
@@ -210,7 +275,6 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
     if (!athlete.birthdate) return null;
 
     try {
-      // Convert the ISO string (or Date) to a Dayjs object
       return dayjs(athlete.birthdate);
     } catch (e) {
       console.error("Invalid date format:", athlete.birthdate, e);
@@ -218,11 +282,70 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
     }
   };
 
+  const handleFormSubmit = async () => {
+    if (handleSubmitAttempt()) {
+      try {
+        if (isEditMode) {
+          const updateFn = updateAthlete || apiUpdateAthlete;
+          if (updateFn) {
+            await updateFn(athlete);
+            enqueueSnackbar(t("snackbar.update.success"), {
+              variant: "success",
+            });
+          }
+        } else {
+          const id = await createAthlete(athlete);
+          enqueueSnackbar(t("snackbar.invite.success"), {
+            variant: "success",
+          });
+
+          if (request) {
+            requestAthlete(id.id!);
+          }
+        }
+        setOpen(false);
+        resetForm();
+      } catch (error: any) {
+        const serverMessage = error?.response?.data?.data;
+        if (
+          serverMessage ===
+          "An athlete with the same email and birthdate already exists."
+        ) {
+          setErrors((prev) => ({
+            ...prev,
+            email: t("backendErrors.athleteAlreadyExists"),
+            birthdate: t("backendErrors.athleteAlreadyExists"),
+          }));
+          setTouched((prev) => ({
+            ...prev,
+            email: true,
+            birthdate: true,
+          }));
+        } else {
+          enqueueSnackbar(t("generic.errors.unknownError"), {
+            variant: "error",
+          });
+          console.error("Unhandled form submission error:", error);
+        }
+      }
+    }
+  };
+
   return (
     <GenericModal
-      header={t("pages.athleteCreationPage.createHeader")}
+      header={
+        isEditMode
+          ? t("pages.athleteEditPage.editHeader")
+          : t("pages.athleteCreationPage.createHeader")
+      }
       open={isOpen}
-      setOpen={setOpen}
+      setOpen={(open) => {
+        if (!open) {
+          handleClose();
+        } else {
+          setOpen(open);
+        }
+      }}
       modalDialogSX={{ minWidth: "30%" }}
       modalSX={{
         display: "flex",
@@ -239,14 +362,14 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          width: { xs: "100%", md: "30vw" },
+          minWidth: { xs: "100%", md: "25vw" },
         }}
       >
         <FormControl error={touched.first_name && !!errors.first_name}>
           <FormLabel>{t("pages.athleteCreationPage.firstName")}</FormLabel>
           <Input
             placeholder={t("pages.athleteCreationPage.firstName")}
-            size="lg"
+            size="md"
             variant="outlined"
             value={athlete.first_name}
             onChange={(e) => handleFieldChange("first_name", e.target.value)}
@@ -261,7 +384,7 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
           <FormLabel>{t("pages.athleteCreationPage.lastName")}</FormLabel>
           <Input
             placeholder={t("pages.athleteCreationPage.lastName")}
-            size="lg"
+            size="md"
             variant="outlined"
             value={athlete.last_name}
             onChange={(e) => handleFieldChange("last_name", e.target.value)}
@@ -273,14 +396,23 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
         </FormControl>
 
         <FormControl error={touched.email && !!errors.email}>
-          <FormLabel>{t("pages.athleteCreationPage.email")}</FormLabel>
+          <Box sx={{ display: "flex", alignItems: "baseline", gap: 1 }}>
+            <FormLabel>{t("pages.athleteCreationPage.email")}</FormLabel>
+            {isEditMode && (
+              <InfoTooltip
+                text={t("components.tooltip.emailNotEditable")}
+                position="right"
+              />
+            )}
+          </Box>
           <Input
             placeholder={t("pages.athleteCreationPage.email")}
-            size="lg"
+            size="md"
             variant="outlined"
             value={athlete.email}
             onChange={(e) => handleFieldChange("email", e.target.value)}
             onBlur={() => markTouched("email")}
+            disabled={isEditMode}
           />
           {touched.email && errors.email && (
             <FormHelperText>{errors.email}</FormHelperText>
@@ -288,13 +420,30 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
         </FormControl>
 
         <FormControl error={touched.birthdate && !!errors.birthdate}>
-          <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "baseline",
+              gap: 1,
+            }}
+          >
+            <FormLabel>{t("pages.athleteCreationPage.birthdate")}</FormLabel>
+            {isEditMode && (
+              <InfoTooltip
+                text={t("components.tooltip.birthdateNotEditable")}
+                position="right"
+              />
+            )}
+          </Box>
           <CustomDatePicker
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+            }}
             value={getDatePickerValue()}
-            onChange={handleDateChange}
+            onChange={!isEditMode ? handleDateChange : undefined}
             format={dateFormat}
             error={touched.birthdate && !!errors.birthdate}
+            disabled={isEditMode}
           />
           {touched.birthdate && errors.birthdate && (
             <FormHelperText>{errors.birthdate}</FormHelperText>
@@ -302,12 +451,32 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
         </FormControl>
 
         <FormControl error={touched.gender && !!errors.gender}>
-          <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
+          <Box sx={{ display: "flex", alignItems: "baseline", gap: 1 }}>
+            <FormLabel>{t("pages.athleteCreationPage.gender")}</FormLabel>
+            {isEditMode && (
+              <InfoTooltip
+                text={t("components.tooltip.genderNotEditable")}
+                position="right"
+              />
+            )}
+          </Box>
           <Select
             placeholder={t("pages.athleteCreationPage.gender")}
             value={athlete.gender}
-            onChange={(_, newValue) => handleFieldChange("gender", newValue)}
-            onBlur={() => markTouched("gender")}
+            onChange={
+              !isEditMode
+                ? (_, newValue) => handleFieldChange("gender", newValue)
+                : undefined
+            }
+            onBlur={() => {
+              const value = athlete.gender;
+              markTouched("gender");
+              setErrors((prev) => ({
+                ...prev,
+                gender: validateField("gender", value),
+              }));
+            }}
+            disabled={isEditMode}
           >
             <Option value={Genders.FEMALE}>{t("genders.FEMALE")}</Option>
             <Option value={Genders.MALE}>{t("genders.MALE")}</Option>
@@ -318,22 +487,26 @@ const AthleteCreationForm = ({ isOpen, setOpen }: AthleteCreationFormProps) => {
           )}
         </FormControl>
 
+        {!isEditMode && (
+          <Checkbox
+            label={t("pages.athleteCreationPage.requestAccess")}
+            checked={request}
+            onChange={(event) => setRequest(event.target.checked)}
+          />
+        )}
+
         <Button
           fullWidth
+          size="md"
           disabled={!isFormValid()}
           sx={{
-            mt: 4,
-            mb: 2,
+            mt: 2,
           }}
-          onClick={() => {
-            if (handleSubmitAttempt()) {
-              createAthlete(athlete);
-              setOpen(false);
-              resetForm();
-            }
-          }}
+          onClick={handleFormSubmit}
         >
-          {t("pages.athleteCreationPage.createButton")}
+          {isEditMode
+            ? t("pages.athleteEditPage.updateButton")
+            : t("pages.athleteCreationPage.createButton")}
         </Button>
       </Box>
     </GenericModal>

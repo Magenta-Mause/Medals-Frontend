@@ -6,7 +6,7 @@ import {
   UserType,
 } from "./enums";
 
-export interface Athlete {
+export interface Athlete extends Record<string, unknown> {
   id?: number;
   first_name: string;
   last_name: string;
@@ -14,6 +14,13 @@ export interface Athlete {
   birthdate: string;
   gender?: Genders;
   swimming_certificate?: SwimmingCertificateType;
+  has_access: boolean;
+}
+
+export interface AccessRequest {
+  trainer: Trainer;
+  athlete: Athlete;
+  id: string;
 }
 
 export interface UserEntity {
@@ -59,6 +66,13 @@ export interface DisciplineRatingMetric {
 }
 
 export interface Trainer {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
+export interface Admin {
   id: number;
   first_name: string;
   last_name: string;

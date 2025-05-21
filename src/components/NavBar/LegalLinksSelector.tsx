@@ -38,6 +38,7 @@ const LegalLinksSelector = ({
       sx={{
         display: "flex",
         flexDirection: "column-reverse",
+        mx: "5px",
       }}
     >
       <Toggler
@@ -78,6 +79,7 @@ const LegalLinksSelector = ({
             overflow: "hidden",
             transition: "all 0.3s ease",
             backgroundColor: "var(--joy-palette-background-surface)",
+            pt: "35px",
             ...(!open
               ? {
                   transform: "translateY(50px)",
@@ -92,13 +94,20 @@ const LegalLinksSelector = ({
           }}
         >
           {links.map((link) => (
-            <ListItem key={link.path}>
+            <ListItem
+              key={link.path}
+              sx={{
+                mx: "5px",
+                mb: "5px",
+              }}
+            >
               <ListItemButton
                 onClick={() => {
                   navigate(link.path);
                   collapseSidebar();
                   setOpen(false);
                 }}
+                tabIndex={open ? 0 : -1}
               >
                 <ListItemContent sx={{ userSelect: "none" }}>
                   {link.label}

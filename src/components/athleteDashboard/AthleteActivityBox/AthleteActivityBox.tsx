@@ -39,6 +39,12 @@ const AthleteActivityBox = () => {
           onClick={() => {
             navigate("/performances");
           }}
+          onKeyDown={(e) => {
+            if (e.key == "Enter" || e.key == " ") {
+              navigate("/performances");
+            }
+          }}
+          tabIndex={0}
         >
           {t("components.athleteDashboard.activityChart.link")}
           <OpenInNew sx={{ py: "5px" }} />

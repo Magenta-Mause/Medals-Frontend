@@ -65,7 +65,7 @@ const AthleteTotalMedalBox = () => {
 
   return (
     <>
-      <Box sx={{ position: "relative", height: "100%" }}>
+      <Box sx={{ position: "relative", height: "100%", minHeight: "250px" }}>
         <Box
           sx={{
             position: "absolute",
@@ -155,6 +155,7 @@ const AthleteTotalMedalBox = () => {
                       ? medalColors[totalMedal]
                       : "gray",
                   position: "relative",
+                  top: "40px",
                   transition: "background .3s ease",
                   borderRadius: "100%",
                   "::after": {
@@ -190,13 +191,16 @@ const AthleteTotalMedalBox = () => {
                     position: "relative",
                     display: "flex",
                     flexDirection: "column",
-                    top: "-20px",
                     opacity: 0.5,
                     userSelect: "none",
                     width: "75%",
                   }}
                 >
-                  <Typography level={"body-md"} sx={{ userSelect: "text" }}>
+                  <Typography
+                    level={"body-md"}
+                    fontSize={".9rem"}
+                    sx={{ userSelect: "none" }}
+                  >
                     {isMedalMissing ? (
                       t(
                         "components.athleteDashboard.totalMedalBox.medalMissing",

@@ -1,723 +1,455 @@
 {
-    "languages": {
-        "de": "Deutsch",
-        "en": "English",
-        "es": "Español",
-        "fr": "Français",
-        "nl": "Nederlands"
-    },
-    "genders": {
-        "DIVERSE": "Diversen",
-        "FEMALE": "Vrouwen",
-        "MALE": "Mannelijk",
-        "ALL": "Alles"
-    },
-    "userTypes": {
-        "ATHLETE": "Atleet",
-        "TRAINER": "Trainer",
-        "ADMIN": "Beheerder"
-    },
-    "units": {
-        "MINUTES": "minuten",
-        "SECONDS": "seconden",
-        "METERS": "metersunit synonyms for matching user input",
-        "POINTS": "punten"
-    },
-    "messages": {
-        "noEntriesFound": "Geen items gevonden"
-    },
-    "disciplines": {
-        "categories": {
-            "STRENGTH": {
-                "label": "Sterkte"
-            },
-            "ENDURANCE": {
-                "label": "Duurzaamheid"
-            },
-            "SPEED": {
-                "label": "Snelheid"
-            },
-            "COORDINATION": {
-                "label": "Coördinatie"
-            }
-        }
-    },
-    "medals": {
-        "GOLD": "Goud",
-        "SILVER": "Zilver",
-        "BRONZE": "Brons",
-        "NONE": "Geen medaille bereikt"
-    },
-    "generic": {
-        "all": "Alles",
-        "discipline": "Discipline",
-        "tooYoung": "naar jong",
-        "invalid": "ongeldig",
-        "loading": "Laden...",
-        "submit": "Verzenden",
-        "confirm": "Bevestigen",
-        "password": "Wachtwoord",
-        "finished": "Voltooid",
-        "category": "Categorie",
-        "medal": "medaille",
-        "date": {
-            "on": "op"
-        },
-        "deutschesSportabzeichen": "Deutsches Sportabzeichen",
-        "points": {
-            "plural": "punten",
-            "singular": "punt"
-        },
-        "validation": {
-            "required": "Dit veld is vereist",
-            "tooLong": "Dit veld is te lang.",
-            "invalidEmail": "Ongeldig e-mailadres"
-        }
-    },
-    "snackbar": {
-        "login": {
-            "loginFailed": "Aanmelden mislukt"
-        },
-        "setPassword": {
-            "failed": "Instellen van wachtwoord is mislukt",
-            "success": "Wachtwoord succesvol ingesteld"
-        },
-        "resetPassword": {
-            "failed": "We konden geen account vinden dat verbonden is met die e-mail",
-            "success": "Verificatie-e-mail verzonden"
-        },
-        "inviteTrainer": {
-            "failed": "Kon trainer niet uitnodigen",
-            "success": "Trainer is met succes uitgenodigd"
-        },
-        "performanceRecording": {
-            "creationError": "Fout bij het registreren van prestatie-opname",
-            "creationSuccess": "Prestatieregistratie met succes geregistreerd",
-            "deletionSuccess": "Performance recording succesvol verwijderd!",
-            "deletionError": "Fout bij het verwijderen van performance Records"
-        },
-        "performanceMetrics": {
-            "athleteNotFound": "Atleet niet gevonden",
-            "fetchAthleteFailed": "Kon atleetgegevens niet ophalen"
-        },
-        "acceptTrainerAccessRequest": {
-            "noLogin": "Log in en accepteer de uitnodiging opnieuw",
-            "failed": "Kon het verzoek niet accepteren",
-            "success": "Verzoek aanvaard"
-        },
-        "requestAthleteAccess": {
-            "failed": "Het versturen van het verzoek is mislukt",
-            "success": "Verzoek is verzonden."
-        },
-        "athleteExportModal": {
-            "noAthleteSelected": "Selecteer ten minste één atleet",
-            "exportError": "Fout bij het aanmaken van het CSV-bestand",
-            "unexpectedError": "Er is een onverwachte fout opgetreden",
-            "success": "Exporteren succesvol!"
-        },
-        "swimCertificate": {
-            "creationSuccess": "Zwemcertificaat succesvol toegevoegd",
-            "creationError": "Fout bij toevoegen van zwemcertificaat",
-            "deletionSuccess": "Zwemcertificaat succesvol verwijderd",
-            "deletionError": "Fout bij het verwijderen van zwemcertificaat"
-        },
-        "profileModal": {
-            "accountDeleted": "Account is succesvol verwijderd",
-            "deletionError": "Er is een fout opgetreden bij het verwijderen van het account"
-        },
-        "removalConfirmationModal": {
-            "success": "Verbinding verwijderd",
-            "error": "Verwijderen van verbinding is mislukt"
-        },
-        "athleteDatagrid": {
-            "deletionSuccess": "Atleten succesvol verwijderd!",
-            "deletionError": "Fout bij het verwijderen van atleten"
-        },
-        "trainerDatagrid": {
-            "deletionSuccess": "Trainers succesvol verwijderd!",
-            "deletionError": "Fout bij het verwijderen van trainers"
-        }
-    },
-    "pages": {
-        "homePage": {
-            "h1": "Medailles",
-            "h3": "Het Medal Management System of the Future"
-        },
-        "athleteDetailPage": {
-            "createSwimCertificateButton": "Zwemcertificaat aanmaken",
-            "createPerformanceRecordingButton": "Recordprestaties"
-        },
-        "athleteOverviewPage": {
-            "header": "Atleten",
-            "createButton": "Atleet aanmaken"
-        },
-        "athleteCreationPage": {
-            "firstName": "Voornaam",
-            "lastName": "Achternaam",
-            "email": "E-mail",
-            "birthdate": "Geboortedatum",
-            "gender": "Geslacht",
-            "createButton": "Aanmaken",
-            "createHeader": "Atleet aanmaken"
-        },
-        "athleteImportPage": {
-            "importButton": "Sporters importeren",
-            "feedback1": "Atleet",
-            "feedback2": "aangemaakt",
-            "failedFeedback": "Aanmaken mislukt",
-            "DropFile": "Sleep & plaats uw bestand hier of klik",
-            "changeFile": "Bestand resetten",
-            "firstName": "Voornaam",
-            "lastName": "Achternaam",
-            "valid": "Status",
-            "athleteList": "Atletenlijst"
-        },
-        "trainerOverviewPage": {
-            "header": "Trainers"
-        },
-        "notFound": {
-            "h1": "404",
-            "h2": "Pagina niet gevonden"
-        },
-        "materialsDownloadPage": {
-            "header": "Materialen",
-            "headerText": "Hier zijn de belangrijkste materialen, op slechts een klik verwijderd"
-        },
-        "inDevelopment": {
-            "h1": "501",
-            "h2": "Pagina in ontwikkeling"
-        },
-        "userRoleError": {
-            "h1": "401",
-            "h2": "Geen geldige rol gevonden"
-        },
-        "loginPage": {
-            "logo": "Medals",
-            "userSelection": {
-                "header": "Kies uw profiel",
-                "subheader": "Kies het profiel waarmee u wilt doorgaan"
-            },
-            "signIn": {
-                "header": "Aanmelden",
-                "subheader": "Medailles - Het binnenkort Medal Management System",
-                "input": {
-                    "email": "E-mail",
-                    "password": "Wachtwoord"
-                },
-                "forgotPassword": "Wachtwoord vergeten?",
-                "continueMeansAccept": "Door verder te gaan, accepteer je onze",
-                "privacyPolicy": "Privacybeleid",
-                "submit": "Aanmelden",
-                "loginFailedWarning": "Aanmelden mislukt",
-                "logoutButton": "Afmelden",
-                "loading": "Laden..."
-            }
-        },
-        "setPasswordPage": {
-            "header": "Uw wachtwoord instellen",
-            "subheader": "Stel uw wachtwoord in om uw account te gebruiken",
-            "invalidCode": "Ongeldige code",
-            "form": {
-                "passwordLabel": "Wachtwoord",
-                "submit": "Wachtwoord instellen",
-                "loading": "Laden...",
-                "goToLogin": "Ga naar aanmelding"
-            }
-        },
-        "resetPasswordPage": {
-            "header": "Wachtwoord resetten",
-            "subheader": {
-                "hasCode": "Voer uw nieuwe wachtwoord in",
-                "noCode": "Voer uw e-mailadres in om uw wachtwoord te resetten"
-            },
-            "email": "E-mail",
-            "button": {
-                "hasCode": "Wachtwoord resetten",
-                "noCode": "Verzend verificatie-e-mail",
-                "success": {
-                    "hasCode": "Wachtwoord succesvol gereset",
-                    "noCode": "Verificatie-e-mail verzonden"
-                }
-            }
-        },
-        "validateRequestPage": {
-            "header": "Verzoek",
-            "subheader": "heeft verzocht om toegang tot u, wilt u het verzoek te accepteren?",
-            "accept": "Accepteren"
-        },
-        "profilePage": {
-            "header": "Mijn profiel",
-            "birthdate": "Geboortedatum",
-            "gender": "Geslacht",
-            "email": "E-mail",
-            "resetPasswordButton": "Wachtwoord resetten",
-            "deleteProfileButton": "Account verwijderen",
-            "confirmDeleteMessage": "Door op 'Delete' te klikken worden uw account en alle bijbehorende gegevens permanent verwijderd.",
-            "confirmDeleteHeader": "Verwijdering van rekening"
-        },
-        "imprintPage": {
-            "title": "Impressum",
-            "contact": "Contactpersoon"
-        },
-        "privacyPolicyPage": {
-            "title": "Privacybeleid",
-            "introduction": "In dit privacybeleid informeren wij u over de verwerking van persoonsgegevens bij het gebruik van deze website.",
-            "controller": "Controller",
-            "controllerIntro": "De voor de verwerking van gegevens verantwoordelijke is:",
-            "controllerEmail": "E-mail",
-            "personalData": "Persoonlijke gegevens",
-            "personalDataDetails": "Persoonsgegevens zijn informatie die betrekking heeft op een geïdentificeerde of identificeerbare natuurlijke persoon (gegevenspersoon). Een identificeerbare natuurlijke persoon is een persoon die direct of indirect kan worden geïdentificeerd, met name door verwijzing naar een identificatiecode zoals een naam, een identificatienummer, locatiegegevens, een online identificatiecode of een of meer factoren die specifiek zijn voor de fysieke, fysiologische, genetische, mentale, economische, culturele of sociale identiteit van die natuurlijke persoon.",
-            "dataOnWebsiteVisit": "Gegevens op Website Bezoek",
-            "dataOnWebsiteVisitDetails": {
-                "intro": "Wanneer u deze website alleen gebruikt voor informatieve doeleinden en geen gegevens verstrekt, verwerken wij alleen de gegevens die nodig zijn om de website weer te geven op het internetapparaat dat u gebruikt. Dit omvat met name:",
-                "ipAddress": "IP-adres",
-                "dateAndTime": "Datum en tijdstip van het verzoek",
-                "dataVolume": "Bedrag van de overgedragen gegevens",
-                "referrer": "De website waaruit het verzoek is ontstaan",
-                "browser": "Browsertype en -versie",
-                "os": "Operating system",
-                "legalBasis": "De rechtsgrondslag voor de verwerking van deze gegevens is gerechtvaardigde belangen overeenkomstig artikel 6(1)(f) AVG om de weergave van de website mogelijk te maken."
-            },
-            "yourRights": "Uw rechten",
-            "yourRightsDetails": {
-                "intro": "Als betrokkene hebt u de volgende rechten:",
-                "access": "U heeft het recht om toegang te krijgen tot de persoonsgegevens die de verwerkingsverantwoordelijke verwerkt (art. 15 AVG).",
-                "rectification": "U heeft recht op rectificatie van onjuiste of onvolledige gegevens betreffende u (art. 16 AVG).",
-                "erasure": "U heeft het recht om te wissen (art. 17 AVG).",
-                "restriction": "U heeft het recht om de verwerking van uw persoonsgegevens te beperken (art. 18 AVG).",
-                "dataPortability": "U heeft recht op gegevensportabiliteit (art. 20 AVG).",
-                "objection": "U heeft het recht bezwaar te maken tegen de verwerking van uw persoonsgegevens (art. 21 AVG).",
-                "automatedDecisionMaking": "U heeft het recht om niet onderworpen te zijn aan een beslissing die uitsluitend gebaseerd is op geautomatiseerde verwerking, waaronder profilering .. die rechtsgevolgen voor u of soortgelijke significante gevolgen heeft voor u (art. 22 AVG).",
-                "complaint": "U heeft het recht om een klacht in te dienen bij een toezichthoudende autoriteit als u van mening bent dat de verwerking van uw persoonsgegevens in strijd is met het recht op gegevensbescherming (art. 77 AVG). De bevoegde toezichthoudende autoriteit is degene op uw gewone verblijfplaats, werkplek of plaats van de vermeende inbreuk."
-            },
-            "source": "Bron: Voorbeeld privacybeleid van anwalt.de"
-        },
-        "creditsPage": {
-            "title": "Dankbetuigingen",
-            "loginPage": "Achtergrondafbeeldingen op de aanmeldpagina",
-            "lightMode": "Lichtmodus",
-            "darkMode": "Donkere modus",
-            "materialsDownloadPage": "Materiaalpagina",
-            "swimmingCard": "Zwemkaart",
-            "singleAthletesCard": "Single Atleten Card",
-            "groupAthletesCard": "Groep Atleten kaart",
-            "2020MedalsCard": "Medailleskaart 2020",
-            "2023MedalsCard": "Medailleskaart 2023",
-            "2024MedalsCard": "2024 Medailles Card",
-            "2025MedalsCard": "Medailleskaart 2025",
-            "photoBy": "Foto door"
-        },
-        "performanceMetricsPage": {
-            "title": {
-                "default": "Prestatiemetrics",
-                "athlete": "Vereisten"
-            },
-            "filters": {
-                "year": "Jaar",
-                "ageGroup": "Leeftijdsgroep",
-                "gender": "Geslacht"
-            },
-            "resetFilter": "Filter resetten"
-        }
-    },
-    "components": {
-        "breadcrumbs": {
-            "paths": {
-                "/": "Begin",
-                "/athletes": "Atleten",
-                "/trainer": "Trainers",
-                "/performanceMetrics": "Prestatiemetrics",
-                "/assignAthlete": "Atleet toewijzen",
-                "/dashboard": "Dashboard",
-                "/profile": "Profiel",
-                "/requirements": "Vereisten",
-                "/performances": "Prestaties",
-                "/materials": "Materialen",
-                "/help": "Hulp",
-                "/imprint": "Impressum",
-                "/privacyPolicy": "Privacybeleid",
-                "/credits": "Dankbetuigingen",
-                "/userRoleErrorPage": "Gebruikersrolfout"
-            }
-        },
-        "requestAthleteModal": {
-            "header": "Verzoek om toegang tot atleet",
-            "searchAthlete": "Naam",
-            "notFound": "Geen atleten gevonden",
-            "requestAthleteButton": "Verzenden",
-            "sendButton": "Verzonden"
-        },
-        "athleteDetailHeader": {
-            "columns": {
-                "id": "ID",
-                "name": "Naam",
-                "birthdate": "Geboortedatum",
-                "email": "E-mail",
-                "gender": "Geslacht"
-            }
-        },
-        "confirmationModal": {
-            "header": "Bevestiging",
-            "description": "Weet u zeker dat u de atleet uit uw team wilt verwijderen?",
-            "description2": "Weet u zeker dat u uw trainer wilt verwijderen?",
-            "descriptionPural": "Weet u zeker dat u de atleten uit uw team wilt verwijderen?",
-            "cancel": "Annuleren",
-            "remove": "Toegang opgeven"
-        },
-        "navbar": {
-            "logo": "Medailles",
-            "locationList": {
-                "/": "Begin",
-                "/athletes": "Atleten",
-                "/trainer": "Trainers",
-                "/performanceMetrics": "Prestatiemetrics",
-                "/assignAthlete": "Atleet toewijzen",
-                "/dashboard": "Dashboard",
-                "/profile": "Profiel",
-                "/requirements": "Vereisten",
-                "/performances": "Prestaties",
-                "/materials": "Materialen",
-                "/help": "Hulp"
-            },
-            "search": "Zoeken",
-            "languageSelector": "Taal",
-            "bottomInfoCard": {
-                "header": "Waarschuwing",
-                "text": "Waarschuwing."
-            },
-            "legalLinks": {
-                "title": "Juridisch",
-                "imprint": "Impressum",
-                "privacyPolicy": "Privacybeleid",
-                "credits": "Dankbetuigingen"
-            }
-        },
-        "disciplineDatagrid": {
-            "columns": {
-                "title": "Titel",
-                "description": "Omschrijving",
-                "bestValue": "Beste waarde",
-                "recordedAt": "Opgenomen op"
-            }
-        },
-        "downloadCard": {
-            "downloadButton": "Downloaden",
-            "items": {
-                "DSA_Leistungsuebersicht_2020.pdf": "Prestatierecord 2020",
-                "DSA_Leistungsuebersicht_2023.pdf": "Prestatierecord 2023",
-                "DSA_Leistungsuebersicht_2024.pdf": "Prestatierecord 2024",
-                "DSA_Leistungsuebersicht_2025.pdf": "Prestatierecord 2025",
-                "DSA-Schwimmnachweis_2025.pdf": "Zwemcertificaat",
-                "DSA_Einzelpruefkarte_2025.pdf": "Individuele rapportkaart",
-                "DSA_Gruppenpruefkarte_2025.pdf": "Groepsrapportkaart"
-            }
-        },
-        "genericResponsiveDatagrid": {
-            "filterForm": {
-                "submit": "Verzenden"
-            },
-            "fullScreenTable": {
-                "pageControl": {
-                    "pageSize": {
-                        "label": "Paginagrootte:",
-                        "inputPostfix": "Inzendingen"
-                    }
-                },
-                "empty": "Geen items gevonden"
-            },
-            "mobileList": {
-                "pageControl": {
-                    "pageLabels": "Page {currPage} of {maxPage}"
-                }
-            }
-        },
-        "athleteDatagrid": {
-            "table": {
-                "columns": {
-                    "athleteId": "Atleet-ID",
-                    "firstName": "Voornaam",
-                    "lastName": "Achternaam",
-                    "birthdate": "Geboortedatum",
-                    "email": "E-mail",
-                    "gender": "Geslacht",
-                    "achievements": "Resultaten"
-                },
-                "filters": {
-                    "search": "Zoeken",
-                    "birthYear": "Geboortejaar",
-                    "gender": "Geslacht",
-                    "age": "Leeftijd"
-                },
-                "toolbar": {
-                    "addAthlete": {
-                        "label": "Verzoek",
-                        "content": "Atleten aanvragen"
-                    },
-                    "createAthlete": {
-                        "label": "Aanmaken",
-                        "content": "Atleet aanmaken"
-                    },
-                    "importAthlete": {
-                        "label": "Importeren",
-                        "content": "Sporters importeren"
-                    }
-                },
-                "noEntries": {
-                    "link": "Verzoek om toegang",
-                    "text": "om atleten te beheren"
-                }
-            },
-            "actions": {
-                "delete": "Verwijderen",
-                "edit": "Bewerken",
-                "openDetails": "Details",
-                "export": "Exporteren",
-                "remove": "Verwijderen"
-            },
-            "deletionModal": {
-                "header": "Schrappen van atleten",
-                "confirmDeleteMessage": "Door op 'Delete' te klikken worden de geselecteerde atleten en alle bijbehorende gegevens definitief verwijderd."
-            }
-        },
-        "trainerDatagrid": {
-            "table": {
-                "columns": {
-                    "trainerId": "Trainer-ID",
-                    "firstName": "Voornaam",
-                    "lastName": "Achternaam",
-                    "email": "E-mail"
-                },
-                "filters": {
-                    "search": "Zoeken"
-                },
-                "toolbar": {
-                    "addTrainer": {
-                        "label": "Uitnodigen",
-                        "content": "Nodig trainer uit"
-                    }
-                }
-            },
-            "inviteModal": {
-                "email": "E-mail",
-                "firstName": "Voornaam",
-                "firstNamePlaceholder": "John",
-                "lastName": "Achternaam",
-                "lastNamePlaceholder": "Doe",
-                "confirm": "Nodig trainer uit"
-            },
-            "actions": {
-                "delete": "Verwijderen"
-            },
-            "deletionModal": {
-                "header": "Verwijdering van trainers",
-                "confirmDeleteMessage": "Door op 'Delete' te klikken worden de geselecteerde Trainers en alle bijbehorende gegevens definitief verwijderd."
-            }
-        },
-        "buttons": {
-            "next": "Volgende",
-            "previous": "Vorige"
-        },
-        "passwordStrengthIndicator": {
-            "is8Characters": "Wachtwoord is minstens 8 tekens lang",
-            "password": "Wachtwoord",
-            "hasNumber": "Wachtwoord bevat een nummer",
-            "hasUpperCase": "Wachtwoord bevat een hoofdletter",
-            "hasSpecial": "Wachtwoord bevat een speciaal teken",
-            "fieldRequired": "beperking is vereist"
-        },
-        "disclaimer": {
-            "text": "Deze aanvraag is een universitair project en geen officiële dienst (bv. Sportabzeichen-Digital). Het wordt niet goedgekeurd of verstrekt door een officiële organisatie. Er worden geen officiële certificeringen of claims verstrekt."
-        },
-        "athletePerformanceAccordions": {
-            "selectedYear": "Geselecteerd jaar"
-        },
-        "performanceRecordingDatagrid": {
-            "columns": {
-                "dateOfRecording": "Opgenomen op",
-                "result": "Bereikt resultaat",
-                "medal": "Bereikte medaille",
-                "discipline": "Discipline"
-            },
-            "filters": {
-                "recordedIn": "Opgenomen in"
-            },
-            "actions": {
-                "add": {
-                    "text": "Opname van prestaties toevoegen",
-                    "label": "+ toevoegen"
-                },
-                "delete": "Verwijderen",
-                "disconnect": "Verbinding verbreken"
-            },
-            "deletionModal": {
-                "confirmDeleteMessage": "Door op 'Delete' te klikken worden de geselecteerde opnames definitief verwijderd.",
-                "header": "Schrappen van records"
-            }
-        },
-        "performanceRecordingViewModal": {
-            "header": {
-                "plain": "Prestatieregistraties",
-                "date": "Prestatie-opnames van de"
-            }
-        },
-        "createPerformanceRecordingModal": {
-            "header": "Registreer prestatie-opname",
-            "form": {
-                "discipline": "Discipline",
-                "athlete": "Atleet",
-                "amount": "Bereikt resultaat",
-                "dateOfRecording": "Datum van registratie",
-                "ageAtRecording": "Berekende leeftijd bij registratie:"
-            }
-        },
-        "swimCertificateSection": {
-            "noCertificateWarning": "Geen zwemcertificaat bereikt",
-            "deleteButton": "Certificaat verwijderen",
-            "certificateLabel": {
-                "endurance": "Duurzaamheid",
-                "sprint": "Sprint",
-                "junior": "<12 jaar",
-                "senior": "≥ 12 jaar",
-                "sustained": "Aanhoudend zwemmen",
-                "clothed": "Gekleed zwemmen",
-                "badges": "Zwemcertificaat"
-            }
-        },
-        "confirmationPopup": {
-            "cancelButton": "Annuleren",
-            "deleteButton": "Verwijderen"
-        },
-        "createSwimCertificateModal": {
-            "header": "Zwemcertificaat aanmaken",
-            "options": {
-                "ENDURANCE": {
-                    "label": "Duurzaamheid",
-                    "description": "Zwem volledig in de uithoudingscursus (zelfs als de bronstijd niet wordt gehaald)"
-                },
-                "SPRINT": {
-                    "label": "Sprint",
-                    "description": "25 m binnen of sneller dan de vereiste tijd"
-                },
-                "JUNIOR": {
-                    "label": "50m zonder tijdslimiet",
-                    "description": "Onder de 12 jaar: 50 m continu zonder tijdsbeperking"
-                },
-                "SENIOR": {
-                    "label": "200m in maximaal 11 minuten",
-                    "description": "12 jaar en ouder: 200 m continu in maximaal 11 minuten"
-                },
-                "SUSTAINED": {
-                    "label": "Aanhoudend zwemmen",
-                    "description": "15 minuten continu zwemmen (open water toegestaan)"
-                },
-                "CLOTHED": {
-                    "label": "Gekleed zwemmen",
-                    "description": "100 m in 4 minuten met waterontmanteling (in overeenstemming met DLRG/DWRK-richtlijnen)"
-                },
-                "BADGES": {
-                    "label": "Zwemcertificaat",
-                    "description": "Officieel erkend zwemcertificaat"
-                }
-            }
-        },
-        "tooltip": {
-            "colorSchemeToggle": "Schakelen tussen licht/donker-modus",
-            "profileButton": "Accountinstellingen",
-            "ageFilter": "De leeftijd komt overeen met de leeftijd die in het lopende kalenderjaar is bereikt",
-            "switchUserButton": "Gebruiker wisselen",
-            "logoutButton": "Afmelden",
-            "languageSelectionButton": "Taal wijzigen",
-            "selectUser": "Ga verder met deze gebruiker",
-            "swimCertificate": {
-                "achieved": "Zwemcertificaat bereikt",
-                "notAchieved": "Zwemcertificaat niet bereikt"
-            },
-            "showPassword": "Wachtwoord tonen/verbergen",
-            "athleteUploadDatagrid": {
-                "error": "De gespecificeerde atleet bestaat al of is onjuist",
-                "loading": "Laden...",
-                "uploaded": "Atleet is geüpload",
-                "valid": "Atleet kan worden geüpload"
-            },
-            "genderDiversInfo": "Voor de genderoptie \"Divers\" worden de metrics voor mannetjes gebruikt."
-        },
-        "athleteActivityChart": {
-            "tooltipText": {
-                "noData": "Geen opnames van optredens",
-                "data": {
-                    "singular": "opname van prestaties",
-                    "plural": "opnames van prestaties"
-                }
-            }
-        },
-        "calHeatmap": {
-            "loadingError": "Fout bij laden activiteitsdiagram"
-        },
-        "athleteExportModal": {
-            "header": "Atleetexport",
-            "exportButton": "Exporteren",
-            "performanceCheckbox": "Include performance metrics",
-            "removeFromSelectionButton": "Verwijderen"
-        },
-        "athleteDashboard": {
-            "error": {
-                "notAnAthlete": "Geselecteerde gebruiker is geen atleet"
-            },
-            "activityChartHeader": "Uw activiteiten in",
-            "totalPerformanceRecordings": "Uw prestatie-opnames",
-            "performanceRecordingsThisYear": "waarvan dit jaar",
-            "selectedUser": "Uw profiel",
-            "bornIn": "Geboren op",
-            "categoryMedalBox": {
-                "thisEquals": "Dit is gelijk aan",
-                "points": {
-                    "singular": "punt",
-                    "plural": "punten"
-                }
-            },
-            "trainers": {
-                "noTrainers": "Er worden geen trainers aan u toegewezen",
-                "trainer": "Uw trainer:",
-                "trainers": "Uw trainers:",
-                "removeTrainers": "Beheer uw trainers",
-                "removeTrainer": "Beheer uw trainer",
-                "header": "Trainer Management"
-            },
-            "activityChart": {
-                "header": "Uw activiteiten in",
-                "link": "Bekijk al uw activiteiten"
-            },
-            "totalMedalBox": {
-                "header": "\"Deutsches Sportabzeichen\"",
-                "medalMissing": "U heeft minstens een bronzen medaille nodig in alle categorieën",
-                "noMedalReached": "Wat niet genoeg is om een medaille te bereiken",
-                "noSwimCertificate": {
-                    "blurText": "Om geaccepteerd te worden voor de \"Deutsches Sportabzeichen\" heb je een geldig zwemcertificaat nodig",
-                    "pointDisplay": {
-                        "prefix": "Jullie hebben het gehaald.",
-                        "between": "Wat zou leiden tot een",
-                        "postfix": ""
-                    }
-                },
-                "pointsMissingTemplate": {
-                    "prefix": {
-                        "singular": "",
-                        "plural": ""
-                    },
-                    "between": "ontbreken om de",
-                    "postfix": "medaille"
-                },
-                "pointsCount": {
-                    "prefix": "Jullie hebben het gehaald.",
-                    "postfix": ""
-                }
-            },
-            "swimCertificate": {
-                "header": "Uw zwemcertificaat",
-                "noSwimCertificate": "Ontbrekend",
-                "existing": "U bent helemaal klaar voor uw \"Deutsches Sportabzeichen\"",
-                "notExisting": "U heeft een geldig zwemcertificaat nodig voor de \"Deutsches Sportabzeichen\""
-            }
-        }
+  "languages": {
+    "de": "Deutsch",
+    "en": "English",
+    "es": "Española",
+    "fr": "Français",
+    "nl": "Néerlandais"
+  },
+  "genders": {
+    "DIVERSE": "Diversen",
+    "FEMALE": "Vrouwen",
+    "MALE": "Mannelijk",
+    "ALL": "Alles"
+  },
+  "userTypes": {
+    "ATHLETE": "Atleet",
+    "TRAINER": "Trainer",
+    "ADMIN": "Beheerder"
+  },
+  "units": {
+    "MINUTES": "minuten",
+    "SECONDS": "seconden",
+    "METERS": "metersunit synonyms for matching user input",
+    "POINTS": "punten"
+  },
+  "messages": {
+    "noEntriesFound": "Geen items gevonden"
+  },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+        "label": "Sterkte"
+      },
+      "ENDURANCE": {
+        "label": "Duurzaamheid"
+      },
+      "SPEED": {
+        "label": "Snelheid"
+      },
+      "COORDINATION": {
+        "label": "Coördinatie"
+      }
     }
+  },
+  "medals": {
+    "GOLD": "Goud",
+    "SILVER": "Zilver",
+    "BRONZE": "Brons",
+    "NONE": "Geen medaille bereikt"
+  },
+  "generic": {
+    "all": "Alles",
+    "discipline": "Discipline",
+    "tooYoung": "naar jong",
+    "invalid": "ongeldig",
+    "loading": "Laden...",
+    "submit": "Verzenden"
+  },
+  "snackbar": {
+    "login": {
+      "loginFailed": "Aanmelden mislukt"
+    },
+    "setPassword": {
+      "failed": "Instellen van wachtwoord is mislukt",
+      "success": "Wachtwoord succesvol ingesteld"
+    },
+    "resetPassword": {
+      "failed": "We konden geen account vinden dat verbonden is met die e-mail",
+      "success": "Verificatie-e-mail verzonden"
+    },
+    "inviteTrainer": {
+      "failed": "Kon trainer niet uitnodigen",
+      "success": "Trainer is met succes uitgenodigd"
+    },
+    "performanceRecording": {
+      "creationError": "Fout bij het registreren van prestatie-opname",
+      "creationSuccess": "Prestatieregistratie met succes geregistreerd"
+    }
+  },
+  "pages": {
+    "helpPage": {
+      "button": "PDF Downloaden"
+    },
+    "homePage": {
+      "h1": "Medals",
+      "h3": "Het binnenkort Medal Management System te zijn"
+    },
+    "athleteDetailPage": {
+      "createPerformanceRecordingButton": "Recordprestaties"
+    },
+    "athleteOverviewPage": {
+      "header": "Atleten",
+      "createButton": "Atleet aanmaken"
+    },
+    "athleteCreationPage": {
+      "firstName": "Voornaam",
+      "lastName": "Achternaam",
+      "email": "E-mail",
+      "birthdate": "Geboortedatum",
+      "gender": "Geslacht",
+      "createButton": "Aanmaken",
+      "createHeader": "Atleet aanmaken"
+    },
+    "trainerOverviewPage": {
+      "header": "Trainers"
+    },
+    "notFound": {
+      "h1": "404",
+      "h2": "Pagina niet gevonden"
+    },
+    "downloadPage": {
+      "header": "Downloads",
+      "headerText": "Hier zijn de belangrijkste downloads op slechts een klik verwijderd"
+    },
+    "inDevelopment": {
+      "h1": "501",
+      "h2": "Pagina in ontwikkeling"
+    },
+    "userRoleError": {
+      "h1": "401",
+      "h2": "Geen geldige rol gevonden"
+    },
+    "loginPage": {
+      "logo": "Medals",
+      "userSelection": {
+        "header": "Kies uw profiel",
+        "subheader": "Kies het profiel waarmee u wilt doorgaan"
+      },
+      "signIn": {
+        "header": "Aanmelden",
+        "subheader": "Medailles - Het binnenkort Medal Management System",
+        "input": {
+          "email": "E-mail",
+          "password": "Wachtwoord"
+        },
+        "forgotPassword": "Wachtwoord vergeten?",
+        "privacyPolicy": "Privacybeleid",
+        "submit": "Aanmelden",
+        "loginFailedWarning": "Aanmelden mislukt",
+        "logoutButton": "Afmelden",
+        "loading": "Laden..."
+      }
+    },
+    "setPasswordPage": {
+      "header": "Uw wachtwoord instellen",
+      "subheader": "Stel uw wachtwoord in om uw account te gebruiken",
+      "invalidCode": "Ungültiger-code",
+      "form": {
+        "passwordLabel": "Wachtwoord",
+        "submit": "Wachtwoord instellen",
+        "loading": "Laden...",
+        "goToLogin": "Ga naar aanmelding"
+      }
+    },
+    "resetPasswordPage": {
+      "header": "Wachtwoord resetten",
+      "subheader": {
+        "hasCode": "Voer uw nieuwe wachtwoord in",
+        "noCode": "Voer uw e-mailadres in om uw wachtwoord te resetten"
+      },
+      "email": "E-mail",
+      "button": {
+        "hasCode": "Wachtwoord resetten",
+        "noCode": "Verzend verificatie-e-mail",
+        "success": {
+          "hasCode": "Wachtwoord succesvol gereset",
+          "noCode": "Verificatie-e-mail verzonden"
+        }
+      }
+    },
+    "profilePage": {
+      "header": "Mijn profiel",
+      "birthdate": "Geboortedatum",
+      "gender": "Geslacht",
+      "email": "E-mail",
+      "resetPasswordButton": "Wachtwoord resetten",
+      "deleteProfileButton": "Account verwijderen",
+      "confirmDeleteMessage": "Door op 'Delete' te klikken worden uw account en alle bijbehorende gegevens permanent verwijderd."
+    },
+    "imprintPage": {
+      "title": "Impressum",
+      "contact": "Contactpersoon"
+    },
+    "privacyPolicyPage": {
+      "title": "Privacybeleid",
+      "introduction": "In dit privacybeleid informeren wij u over de verwerking van persoonsgegevens bij het gebruik van deze website.",
+      "controller": "Controller",
+      "controllerIntro": "De voor de verwerking van gegevens verantwoordelijke is:",
+      "controllerEmail": "E-mail",
+      "personalData": "Persoonlijke gegevens",
+      "personalDataDetails": "Persoonsgegevens zijn informatie die betrekking heeft op een geïdentificeerde of identificeerbare natuurlijke persoon (gegevenspersoon). Een identificeerbare natuurlijke persoon is een persoon die direct of indirect kan worden geïdentificeerd, met name door verwijzing naar een identificatiecode zoals een naam, een identificatienummer, locatiegegevens, een online identificatiecode of een of meer factoren die specifiek zijn voor de fysieke, fysiologische, genetische, mentale, economische, culturele of sociale identiteit van die natuurlijke persoon.",
+      "dataOnWebsiteVisit": "Gegevens op Website Bezoek",
+      "dataOnWebsiteVisitDetails": {
+        "intro": "Wanneer u deze website alleen gebruikt voor informatieve doeleinden en geen gegevens verstrekt, verwerken wij alleen de gegevens die nodig zijn om de website weer te geven op het internetapparaat dat u gebruikt. Dit omvat met name:",
+        "ipAddress": "IP-adres",
+        "dateAndTime": "Datum en tijdstip van het verzoek",
+        "dataVolume": "Bedrag van de overgedragen gegevens",
+        "referrer": "De website waaruit het verzoek is ontstaan",
+        "browser": "Browsertype en -versie",
+        "os": "Operating system",
+        "legalBasis": "De rechtsgrondslag voor de verwerking van deze gegevens is gerechtvaardigde belangen overeenkomstig artikel 6(1)(f) AVG om de weergave van de website mogelijk te maken."
+      },
+      "yourRights": "Uw rechten",
+      "yourRightsDetails": {
+        "intro": "Als betrokkene hebt u de volgende rechten:",
+        "access": "U heeft het recht om toegang te krijgen tot de persoonsgegevens die de verwerkingsverantwoordelijke verwerkt (art. 15 AVG).",
+        "rectification": "U heeft recht op rectificatie van onjuiste of onvolledige gegevens betreffende u (art. 16 AVG).",
+        "erasure": "U heeft het recht om te wissen (art. 17 AVG).",
+        "restriction": "U heeft het recht om de verwerking van uw persoonsgegevens te beperken (art. 18 AVG).",
+        "dataPortability": "U heeft recht op gegevensportabiliteit (art. 20 AVG).",
+        "objection": "U heeft het recht bezwaar te maken tegen de verwerking van uw persoonsgegevens (art. 21 AVG).",
+        "automatedDecisionMaking": "U heeft het recht om niet onderworpen te zijn aan een beslissing die uitsluitend gebaseerd is op geautomatiseerde verwerking, waaronder profilering .. die rechtsgevolgen voor u of soortgelijke significante gevolgen heeft voor u (art. 22 AVG).",
+        "complaint": "U heeft het recht om een klacht in te dienen bij een toezichthoudende autoriteit als u van mening bent dat de verwerking van uw persoonsgegevens in strijd is met het recht op gegevensbescherming (art. 77 AVG). De bevoegde toezichthoudende autoriteit is degene op uw gewone verblijfplaats, werkplek of plaats van de vermeende inbreuk."
+      },
+      "source": "Bron: Voorbeeld Privacybeleid van anwalt.de"
+    },
+    "creditsPage": {
+      "title": "Dankbetuigingen",
+      "loginPage": "Achtergrondafbeeldingen op de aanmeldpagina",
+      "lightMode": "Lichtmodus",
+      "darkMode": "DarkMode",
+      "downloadPage": "Pagina downloaden",
+      "swimmingCard": "Zwemkaart",
+      "singleAthletesCard": "SingleAthletesCard",
+      "groupAthletesCard": "GroupAthletesCard",
+      "2020MedalsCard": "2020MedaillesCard",
+      "2023MedalsCard": "2023MedaillesCard",
+      "2024MedalsCard": "2024MedaillesCard",
+      "2025MedalsCard": "2025MedaillesCard",
+      "photoBy": "Foto door"
+    },
+    "performanceMetricsPage": {
+      "title": "Prestatiemetrics",
+      "filters": {
+        "year": "Jaar",
+        "ageGroup": "Leeftijdsgroep",
+        "gender": "Geslacht"
+      },
+      "tooltips": {
+        "genderDiversInfo": "Voor de genderoptie \"Diverse\" worden de metrieken voor mannen gebruikt en ook in de evaluatie overwogen."
+      }
+    }
+  },
+  "components": {
+    "breadcrumbs": {
+      "paths": {
+        "/": "Begin",
+        "/athletes": "Atleten",
+        "/trainer": "Trainer",
+        "/performanceMetrics": "Prestatiemetrics",
+        "/assignAthlete": "Atleet toewijzen",
+        "/dashboard": "Dashboard",
+        "/profile": "Profiel",
+        "/requirements": "Vereisten",
+        "/performances": "Prestaties",
+        "/downloads": "Downloads",
+        "/help": "Hulp",
+        "/imprint": "Impressum",
+        "/privacyPolicy": "Privacybeleid",
+        "/credits": "Dankbetuigingen",
+        "/userRoleErrorPage": "Gebruikersrolfout"
+      }
+    },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "ID",
+        "name": "Naam",
+        "birthdate": "Geboortedatum",
+        "email": "E-mail",
+        "gender": "Geslacht"
+      }
+    },
+    "navbar": {
+      "logo": "Medailles",
+      "locationList": {
+        "/": "Begin",
+        "/athletes": "Atleten",
+        "/trainer": "Trainer",
+        "/performanceMetrics": "Prestatiemetrics",
+        "/assignAthlete": "Atleet toewijzen",
+        "/dashboard": "Dashboard",
+        "/profile": "Profiel",
+        "/requirements": "Vereisten",
+        "/performances": "Prestaties",
+        "/downloads": "Downloads",
+        "/help": "Hulp"
+      },
+      "search": "Zoeken",
+      "languageSelector": "Taal",
+      "bottomInfoCard": {
+        "header": "Waarschuwing",
+        "text": "Waarschuwing."
+      },
+      "legalLinks": {
+        "title": "Juridisch",
+        "imprint": "Impressum",
+        "privacyPolicy": "Privacybeleid",
+        "credits": "Dankbetuigingen"
+      }
+    },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Titel",
+        "description": "Omschrijving",
+        "bestValue": "Beste waarde",
+        "recordedAt": "Opgenomen op"
+      }
+    },
+    "downloadCard": {
+      "downloadButton": "Downloaden",
+      "items": {
+        "DSA_Leistungsuebersicht_2020.pdf": "Prestatierecord 2020",
+        "DSA_Leistungsuebersicht_2023.pdf": "Prestatierecord 2023",
+        "DSA_Leistungsuebersicht_2024.pdf": "Prestatierecord 2024",
+        "DSA_Leistungsuebersicht_2025.pdf": "Prestatierecord 2025",
+        "DSA-Schwimmnachweis_2025.pdf": "Zwemrecord",
+        "DSA_Einzelpruefkarte_2025.pdf": "Individuele rapportkaart",
+        "DSA_Gruppenpruefkarte_2025.pdf": "Groepsrapportkaart"
+      }
+    },
+    "genericResponsiveDatagrid": {
+      "filterForm": {
+        "submit": "Verzenden"
+      },
+      "fullScreenTable": {
+        "pageControl": {
+          "pageSize": {
+            "label": "Paginagrootte:",
+            "inputPostfix": "Inzendingen"
+          }
+        },
+        "empty": "Geen items gevonden"
+      },
+      "mobileList": {
+        "pageControl": {
+          "pageLabels": "Page {currPage} of {maxPage}"
+        }
+      }
+    },
+    "athleteDatagrid": {
+      "table": {
+        "columns": {
+          "athleteId": "Atleet-ID",
+          "firstName": "Voornaam",
+          "lastName": "Achternaam",
+          "birthdate": "Geboortedatum",
+          "email": "E-mail",
+          "gender": "Geslacht",
+          "medals": "Medailles"
+        },
+        "filters": {
+          "search": "Zoeken",
+          "birthYear": "Geboortejaar",
+          "gender": "Geslacht"
+        }
+      },
+      "actions": {
+        "delete": "Verwijderen",
+        "edit": "Bewerken",
+        "openDetails": "Details"
+      }
+    },
+    "trainerDatagrid": {
+      "table": {
+        "columns": {
+          "trainerId": "Trainer-ID",
+          "firstName": "Voornaam",
+          "lastName": "Achternaam",
+          "email": "E-mail"
+        },
+        "filters": {
+          "search": "Zoeken"
+        },
+        "toolbar": {
+          "addTrainer": {
+            "label": "Uitnodigen",
+            "content": "Nodig trainer uit"
+          }
+        }
+      },
+      "inviteModal": {
+        "email": "E-mail",
+        "firstName": "Voornaam",
+        "firstNamePlaceholder": "John",
+        "lastName": "Achternaam",
+        "lastNamePlaceholder": "Doe",
+        "confirm": "Nodig trainer uit"
+      },
+      "actions": {
+        "delete": "Verwijderen"
+      }
+    },
+    "buttons": {
+      "next": "Volgende",
+      "previous": "Vorige"
+    },
+    "passwordStrengthIndicator": {
+      "is8Characters": "Wachtwoord is minstens 8 tekens lang",
+      "password": "Wachtwoord",
+      "hasNumber": "Wachtwoord bevat een nummer",
+      "hasUpperCase": "Wachtwoord bevat een hoofdletter",
+      "hasSpecial": "Wachtwoord bevat een speciaal teken",
+      "required": "Vereist"
+    },
+    "disclaimer": {
+      "text": "Deze aanvraag is een universitair project en geen officiële dienst (bijv. Sportabzeichen-Digital). Het wordt niet goedgekeurd of verstrekt door een officiële organisatie. Er worden geen officiële certificeringen of claims verstrekt."
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Geselecteerd jaar"
+    },
+    "performanceRecordingDatagrid": {
+      "columns": {
+        "dateOfRecording": "Opgenomen op",
+        "result": "Bereikt resultaat",
+        "medal": "Bereikte medaille"
+      },
+      "filters": {
+        "recordedIn": "Opgenomen in"
+      },
+      "actions": {
+        "add": {
+          "text": "Opname van prestaties toevoegen",
+          "label": "+ toevoegen"
+        },
+        "delete": "Verwijderen"
+      }
+    },
+    "createPerformanceRecordingModal": {
+      "header": "Registreer prestatie-opname",
+      "form": {
+        "discipline": "Discipline",
+        "athlete": "Atleet",
+        "amount": "Bereikt resultaat",
+        "dateOfRecording": "Datum van registratie",
+        "ageAtRecording": "Berekende leeftijd bij registratie:"
+      }
+    },
+    "confirmationPopup": {
+      "header": "Weet je het zeker?",
+      "cancelButton": "Annuleren",
+      "deleteButton": "Verwijderen"
+    },
+    "tooltip": {
+      "colorSchemeToggle": "Schakel licht-/donkermodus in",
+      "profileButton": "Accountinstellingen",
+      "switchUserButton": "Gebruiker wisselen",
+      "logoutButton": "Afmelden",
+      "languageSelectionButton": "Taal wijzigen",
+      "selectUser": "Ga verder met deze gebruiker"
+    }
+  },
+  "helpPage": {
+    "markdownFileName": "/nl-NL.md"
+  }
 }

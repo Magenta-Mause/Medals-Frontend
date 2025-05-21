@@ -1,12 +1,12 @@
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import ColorSchemeToggle from "@components/ColorSchemeToggle/ColorSchemeToggle";
-import InfoCard from "@components/InfoCard/InfoCard";
 import MedalsIcon from "@components/MedalsIcon/MedalsIcon";
 import ProfileModal from "@components/modals/ProfileModal/ProfileModal";
 import LegalLinksSelector from "@components/NavBar/LegalLinksSelector";
 import { UserType } from "@customTypes/enums";
 import useSidebar from "@hooks/useSidebar";
 import {
+  AdminPanelSettings,
   Article,
   Assessment,
   Download,
@@ -35,8 +35,9 @@ import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { matchPath, useLocation, useNavigate } from "react-router";
 import LanguageSelector from "./LanguageSelector";
-import Tooltip from "@components/HoverTooltip/HoverTooltip";
+import Tooltip, { HoverTooltip } from "@components/HoverTooltip/HoverTooltip";
 import RoleBasedRenderComponent from "@components/RoleBasedRenderComponent/RoleBasedRenderComponent";
+import AthletePendingAccessRequestInfoCard from "@components/AthletePendingAccessRequestInfoCard/AthletePendingAccessRequestInfoCard";
 
 const sharedNavBarElements = [
   {
@@ -79,7 +80,16 @@ const NavBar = () => {
         },
       ],
     ],
-    [UserType.ADMIN, []],
+    [
+      UserType.ADMIN,
+      [
+        {
+          path: "/admins",
+          icon: <AdminPanelSettings />,
+          label: "admins",
+        },
+      ],
+    ],
     [
       UserType.TRAINER,
       [
@@ -110,7 +120,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
-  const warning = undefined;
 
   const userRole = selectedUser?.type;
   const [isProfileOpen, setProfileOpen] = useState(false);
@@ -125,7 +134,7 @@ const NavBar = () => {
           md: "none",
         },
         transition: "transform 0.4s, width 0.4s",
-        zIndex: 10000,
+        zIndex: 1000,
         height: "100dvh",
         width: "var(--Sidebar-width)",
         top: 0,
@@ -173,9 +182,24 @@ const NavBar = () => {
         onClick={() => collapseSidebar()}
       />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <IconButton variant="soft" color="primary" size="sm" sx={{ p: 0.5 }}>
-          <MedalsIcon size="inline" />
-        </IconButton>
+        <HoverTooltip text={t("generic.skipToContent")}>
+          <IconButton
+            variant="soft"
+            color="primary"
+            size="sm"
+            sx={{ p: 0.5 }}
+            onClick={() => {
+              const mainContent = document.getElementById("main-component");
+              console.log(mainContent);
+              if (mainContent) {
+                mainContent.focus();
+                window.scrollTo(0, mainContent.offsetTop);
+              }
+            }}
+          >
+            <MedalsIcon size="inline" />
+          </IconButton>
+        </HoverTooltip>
         <Typography level="title-lg">{t("components.navbar.logo")}</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
@@ -209,7 +233,13 @@ const NavBar = () => {
               : (navBarElements.get(undefined) ?? [])),
             ...sharedNavBarElements,
           ].map((element) => (
-            <ListItem key={element.path}>
+            <ListItem
+              key={element.path}
+              sx={{
+                mx: "5px",
+                mb: "1px",
+              }}
+            >
               <ListItemButton
                 sx={{
                   transition: "background ease .2s",
@@ -239,18 +269,9 @@ const NavBar = () => {
             padding: "none",
           }}
         >
+          <AthletePendingAccessRequestInfoCard />
           <LegalLinksSelector collapseSidebar={collapseSidebar} />
           <LanguageSelector />
-          {warning ? (
-            <InfoCard
-              header={t("components.navbar.bottomInfoCard.header")}
-              text={t("components.navbar.bottomInfoCard.text")}
-              type={"warning"}
-              buttonCallback={() => {}}
-            />
-          ) : (
-            <></>
-          )}
         </List>
       </Box>
       <Divider />

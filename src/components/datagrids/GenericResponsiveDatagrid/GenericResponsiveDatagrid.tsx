@@ -21,7 +21,7 @@ import {
 } from "@mui/joy";
 import { OverridableStringUnion } from "@mui/types";
 import React, { Key, useCallback, useEffect, useState } from "react";
-import FullScreenTable, { Column, PageControll } from "./FullScreenTable";
+import FullScreenTable, { Column, PageControl } from "./FullScreenTable";
 import FilterComponent, {
   Filter,
 } from "./GenericResponsiveDatagridFilterComponent";
@@ -59,7 +59,7 @@ interface GenericResponsiveDatagridProps<T> {
   filters?: Filter<T>[];
   toolbarActions?: ToolbarAction[];
   isLoading?: boolean;
-  actionMenu?: Action<T>[];
+  actionMenu?: Action<T>[] | ((item: T) => Action<T>[]);
   itemSelectionActions?: Action<T>[];
   keyOf: (item: T) => Key;
   elementsPerPage?: number;
@@ -68,6 +68,7 @@ interface GenericResponsiveDatagridProps<T> {
   disablePaging?: boolean;
   messageIfNoEntriesFound?: React.ReactNode;
   heightIfNoEntriesFound?: string;
+  itemClickableFilter?: (item: T) => boolean;
 }
 
 /**
@@ -85,8 +86,8 @@ interface GenericResponsiveDatagridProps<T> {
  * @param {(item: T) => Key} keyOf - Function to derive a unique key for each data item.
  * @param {number} [elementsPerPage=5] - Number of rows to display per page. Defaults to 5.
  * @param {MobileTableRendering<T>} mobileRendering - Configuration for rendering the grid on smaller screens.
- * @param {(item: T) => void} onItemClick - Methode which gets called when clicking on a table entry
- * @param {boolean} disablePaging - Disable the "paging" functionality (this will show all entries on one page and disable the page controll buttons)
+ * @param {(item: T) => void} onItemClick - Method which gets called when clicking on a table entry
+ * @param {boolean} disablePaging - Disable the "paging" functionality (this will show all entries on one page and disable the page control buttons)
  *
  * @description
  * This component supports:
@@ -218,12 +219,12 @@ const GenericResponsiveDatagrid = <T,>(
   }, [selected, props, cleanupSelection]);
 
   useEffect(() => {
-    if (!wasPageSizeChanged) {
+    if (!wasPageSizeChanged && !props.elementsPerPage) {
       setPageSizeInternal(
         Math.floor(windowDimensions.height / ESTIMATED_HEIGHT_OF_ROW),
       );
     }
-  }, [windowDimensions, wasPageSizeChanged]);
+  }, [windowDimensions, wasPageSizeChanged, props.elementsPerPage]);
 
   return (
     <>
@@ -365,6 +366,7 @@ const GenericResponsiveDatagrid = <T,>(
           allItems={props.data}
           messageIfNoEntriesFound={props.messageIfNoEntriesFound}
           heightIfNoEntriesFound={props.heightIfNoEntriesFound}
+          itemClickableFilter={props.itemClickableFilter}
         />
       </Sheet>
 
@@ -411,7 +413,7 @@ const GenericResponsiveDatagrid = <T,>(
         }}
       />
       {!props.disablePaging ? (
-        <PageControll
+        <PageControl
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           elementsPerPage={pageSize}

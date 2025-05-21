@@ -27,9 +27,11 @@ const AchievementsBox = ({
       p.athlete_id === athlete.id &&
       new Date(p.date_of_performance).getFullYear() === selectedYear,
   );
-  const totalMedal = calculateTotalMedalFromPerformanceRecordings(
-    performanceRecordingsOfAthlete,
-  );
+  const totalMedal = athlete.swimming_certificate
+    ? calculateTotalMedalFromPerformanceRecordings(
+        performanceRecordingsOfAthlete,
+      )
+    : Medals.NONE;
 
   return (
     <Box

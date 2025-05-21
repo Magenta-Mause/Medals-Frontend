@@ -3,7 +3,6 @@ import PageLayout from "@components/PageLayout/PageLayout";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
 import AthleteDetailPage from "@pages/Athletes/AthleteDetailPage";
 import AthleteOverviewPage from "@pages/Athletes/AthleteOverviewPage";
-import InDevelopmentPage from "@pages/InDevelopment/InDevelopmentPage";
 import CreditsPage from "@pages/Legal/CreditsPage";
 import LoginPage from "@pages/Login/LoginPage";
 import MaterialsDownloadPage from "@pages/MaterialsDownloadPage/MaterialsDownloadPage";
@@ -12,6 +11,7 @@ import ResetPasswordPage from "@pages/PasswordReset/PasswordResetPage";
 import PerformanceMetricsPage from "@pages/PerformanceMetrics/PerformanceMetricsPage";
 import SetPasswordPage from "@pages/SetPassword/SetPasswordPage";
 import TrainerOverviewPage from "@pages/Trainers/TrainerOverviewPage";
+import AdminsOverviewPage from "@pages/Admins/AdminsOverviewPage";
 import UserRoleErrorPage from "@pages/UserRoleError/UserRoleErrorPage";
 import ValidateInvitePage from "@pages/AcceptTrainerAccessRequestPage/AcceptTrainerAccessRequestPage";
 import { useContext } from "react";
@@ -22,6 +22,7 @@ import AthletePerformanceViewPage from "@pages/Athletes/AthletePerformanceViewPa
 import RoleBasedRenderComponent from "@components/RoleBasedRenderComponent/RoleBasedRenderComponent";
 import ImprintPage from "@pages/Legal/ImprintPage";
 import PrivacyPolicyPage from "@pages/Legal/PrivacyPolicyPage";
+import HelpPage from "@pages/Help/HelpPage";
 
 const RoutingComponent = () => {
   const { selectedUser } = useContext(AuthContext);
@@ -48,9 +49,11 @@ const RoutingComponent = () => {
         <Route path="/credits" element={<CreditsPage />} />
 
         <Route element={<ProtectedRoute userRole={selectedUser?.type} />}>
+          {/* ADMIN */}
+          <Route path="/admins" element={<AdminsOverviewPage />} />
+
           {/* TRAINER */}
-          <Route path="/athletes" element={<AthleteOverviewPage />} />
-          <Route path="/athletes/:athleteId" element={<AthleteDetailPage />} />
+          <Route path="/:athleteId" element={<AthleteDetailPage />} />
           <Route
             path="/performanceMetrics"
             element={<PerformanceMetricsPage />}
@@ -65,7 +68,7 @@ const RoutingComponent = () => {
 
           {/* Shared Pages */}
           <Route path="/materials" element={<MaterialsDownloadPage />} />
-          <Route path="/help" element={<InDevelopmentPage />} />
+          <Route path="/help" element={<HelpPage />} />
         </Route>
 
         {/* Error Pages */}

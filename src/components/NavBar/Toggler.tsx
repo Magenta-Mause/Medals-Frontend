@@ -18,7 +18,6 @@ const Toggler = ({
   const [open, setOpen] = useState(defaultExpanded);
   return (
     <Fragment>
-      {renderToggle({ open, setOpen })}
       <Box
         sx={[
           {
@@ -35,6 +34,7 @@ const Toggler = ({
       >
         {children}
       </Box>
+      {renderToggle({ open, setOpen })}
     </Fragment>
   );
 };

@@ -179,7 +179,7 @@ const PerformanceMetricsPage = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2, p: 2 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <Typography level="h2" component="h1">
         {userRole === UserType.ATHLETE
           ? t("pages.performanceMetricsPage.title.athlete")

@@ -4,11 +4,12 @@ import useApi from "@hooks/useApi";
 import { Box, Stack, Typography } from "@mui/joy";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate } from "react-router";
 import LoginForm from "./LoginForm";
 import UserSelectionForm from "./UserSelectionForm";
+import InfoAtLoginModal from "@components/modals/InfoAtLoginModal/InfoAtLoginModal";
 
 const LoginPage = () => {
   const { loginUser } = useApi();
@@ -16,6 +17,7 @@ const LoginPage = () => {
     useContext(AuthContext);
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
+  const [isInfoAtLoginModalOpen, setInfoAtLoginModalOpen] = useState(false);
 
   const loginCallback = async (loginData: {
     email: string;
@@ -82,14 +84,41 @@ const LoginPage = () => {
         <Stack sx={{ gap: 4, mb: 2 }}>
           <Stack sx={{ gap: 1 }}>
             <Typography component="h1" level="h3">
-              {isUserSelection
-                ? t("pages.loginPage.userSelection.header")
-                : t("pages.loginPage.signIn.header")}
+              {isUserSelection ? (
+                t("pages.loginPage.userSelection.header")
+              ) : (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "95%",
+                  }}
+                >
+                  {t("pages.loginPage.signIn.header")}
+                  <Typography
+                    sx={{
+                      cursor: "pointer",
+                      padding: 0,
+                    }}
+                    level={"body-sm"}
+                    color={"primary"}
+                    onClick={() => {
+                      setInfoAtLoginModalOpen(true);
+                    }}
+                  >
+                    {t("pages.loginPage.info.linkButton")}
+                  </Typography>
+                </Box>
+              )}
             </Typography>
+
             <Typography level="body-sm" sx={{ whiteSpace: "pre-line" }}>
-              {isUserSelection
-                ? t("pages.loginPage.userSelection.subheader")
-                : t("pages.loginPage.signIn.subheader")}
+              {isUserSelection ? (
+                t("pages.loginPage.userSelection.subheader")
+              ) : (
+                <>{t("pages.loginPage.signIn.subheader")}</>
+              )}
             </Typography>
           </Stack>
         </Stack>
@@ -101,6 +130,10 @@ const LoginPage = () => {
           )}
           {isUserSelection ? <UserSelectionForm /> : <></>}
         </Stack>
+        <InfoAtLoginModal
+          open={isInfoAtLoginModalOpen}
+          setOpen={(open: boolean) => setInfoAtLoginModalOpen(open)}
+        />
       </Box>
     </SplitPageComponent>
   );

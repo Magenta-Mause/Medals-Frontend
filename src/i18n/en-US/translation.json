@@ -54,6 +54,7 @@
     "tooYoung": "to young",
     "invalid": "invalid",
     "loading": "Loading...",
+    "skipToContent": "Skip to content",
     "submit": "Submit",
     "confirm": "Confirm",
     "password": "Password",
@@ -72,6 +73,21 @@
       "required": "This field is required",
       "tooLong": "This field is too long",
       "invalidEmail": "Invalid email address"
+    },
+    "athlete": {
+      "singular": "Athlete",
+      "plural": "Athletes"
+    },
+    "trainer": {
+      "singular": "Trainer",
+      "plural": "Trainers"
+    },
+    "admin": {
+      "singular": "Admin",
+      "plural": "Admins"
+    },
+    "errors": {
+      "unknownError": "An unknown error occurred"
     }
   },
   "snackbar": {
@@ -86,9 +102,13 @@
       "failed": "We couldnt find an account connected to that email",
       "success": "Verification email sent"
     },
-    "inviteTrainer": {
-      "failed": "Failed to invite trainer",
-      "success": "Trainer was invited successfully"
+    "invite": {
+      "success": "Successfully invited",
+      "failed": "Failed to invite"
+    },
+    "update": {
+      "success": "Successfully updated",
+      "failed": "Failed to update"
     },
     "performanceRecording": {
       "creationError": "Error while registering performance recording",
@@ -133,12 +153,15 @@
       "deletionSuccess": "Athletes successful deleted!",
       "deletionError": "Error while deleting athletes"
     },
-    "trainerDatagrid": {
-      "deletionSuccess": "Trainers successful deleted!",
-      "deletionError": "Error while deleting trainers"
+    "entityDatagrid": {
+      "deletionSuccess": "{{entityType}}(s) successful deleted!",
+      "deletionError": "Error while deleting {{entityType}}(s)"
     }
   },
   "pages": {
+    "helpPage": {
+      "button": "Download PDF"
+    },
     "homePage": {
       "h1": "Medals",
       "h3": "The Medal Management System of the Future"
@@ -158,7 +181,12 @@
       "birthdate": "Birth date",
       "gender": "Gender",
       "createButton": "Create",
-      "createHeader": "Create athlete"
+      "createHeader": "Create Athlete",
+      "requestAccess": "Send access request"
+    },
+    "athleteEditPage": {
+      "editHeader": "Edit Athlete",
+      "updateButton": "Update"
     },
     "athleteImportPage": {
       "importButton": "Import athletes",
@@ -174,6 +202,9 @@
     },
     "trainerOverviewPage": {
       "header": "Trainers"
+    },
+    "adminOverviewPage": {
+      "header": "Admins"
     },
     "notFound": {
       "h1": "404",
@@ -207,10 +238,21 @@
         "forgotPassword": "Forgot password?",
         "continueMeansAccept": "By continuing, you accept our",
         "privacyPolicy": "Privacy policy",
+        "info": "i",
         "submit": "Login",
         "loginFailedWarning": "Login failed",
         "logoutButton": "Logout",
         "loading": "Loading..."
+      },
+      "info": {
+        "linkButton": "Need help?",
+        "header": "Login Info",
+        "sectionHeader": "Welcome to Medals!",
+        "greeting": "To get started, please log in using your email and password in the fields provided. On Medals, users can have one of the following roles",
+        "admin": "Administrator",
+        "trainer": "Trainer",
+        "athlete": "Athlete",
+        "content": "These roles are assigned by an administrator or a user with elevated user rights, such as a trainer.\nYour email may be linked to multiple accounts.\nAfter logging in, you'll be taken to a selection screen showing all accounts associated with your email.\nPlease note: Registration is not possible. You must be invited to join the platform.\nRequests can be sent via email to: "
       }
     },
     "setPasswordPage": {
@@ -369,7 +411,8 @@
       "locationList": {
         "/": "Home",
         "/athletes": "Athletes",
-        "/trainer": "Trainers",
+        "/trainer": "Trainer",
+        "/admins": "Admins",
         "/performanceMetrics": "Performance Metrics",
         "/assignAthlete": "Assign Athlete",
         "/dashboard": "Dashboard",
@@ -398,6 +441,43 @@
         "description": "Description",
         "bestValue": "Best value",
         "recordedAt": "Recorded at"
+      }
+    },
+    "athleteAccessManagementModal": {
+      "header": "Manage Access"
+    },
+    "athletePendingRequestInfoCard": {
+      "header": "Pending Requests",
+      "text": {
+        "singular": "A Trainer has requested access to your profile",
+        "plural": "Trainers have requested access to your profile"
+      },
+      "button": "Manage Access"
+    },
+    "athleteAccessManagementDatagrid": {
+      "state": "State",
+      "states": {
+        "PENDING": "Requested",
+        "APPROVED": "Approved"
+      },
+      "trainer": {
+        "firstName": "First Name",
+        "lastName": "Last Name"
+      },
+      "actions": {
+        "accept": "Accept",
+        "revoke": "Revoke Access",
+        "reject": "Reject"
+      },
+      "confirmations": {
+        "revoke": {
+          "header": "Revoke Trainer access",
+          "message": "Are you sure that you want to revoke the access rights of this Trainer?"
+        },
+        "reject": {
+          "header": "Reject Access Request",
+          "message": "Are you sure that you want to reject this access request?"
+        }
       }
     },
     "downloadCard": {
@@ -432,12 +512,16 @@
       }
     },
     "athleteDatagrid": {
+      "noAccess": {
+        "label": "Access not permitted yet",
+        "tooltip": "Access must first be permitted through the Athlete"
+      },
       "table": {
         "columns": {
           "athleteId": "Athlete ID",
           "firstName": "First Name",
           "lastName": "Last Name",
-          "birthdate": "Birth date",
+          "birthdate": "Birthdate",
           "email": "Email",
           "gender": "Gender",
           "achievements": "Achievements"
@@ -479,10 +563,9 @@
         "confirmDeleteMessage": "By clicking 'Delete', the selected Athletes and all associated data will be permanently removed."
       }
     },
-    "trainerDatagrid": {
+    "entityDatagrid": {
       "table": {
         "columns": {
-          "trainerId": "Trainer ID",
           "firstName": "First Name",
           "lastName": "Last Name",
           "email": "Email"
@@ -491,26 +574,34 @@
           "search": "Search"
         },
         "toolbar": {
-          "addTrainer": {
+          "add": {
             "label": "Invite",
-            "content": "Invite trainer"
+            "content": "Invite {{entityType}}"
           }
         }
       },
-      "inviteModal": {
+      "actions": {
+        "delete": "Delete",
+        "edit": "Edit"
+      },
+      "deletionModal": {
+        "header": "{{entityType}} Deletion",
+        "confirmDeleteMessage": "By clicking 'Delete', the selected {{entityType}}(s) and all associated data will be permanently removed."
+      }
+    },
+    "entityModal": {
+      "modal": {
+        "createHeader": "Invite {{entityType}}",
+        "editHeader": "Edit {{entityType}}"
+      },
+      "form": {
         "email": "Email",
         "firstName": "First Name",
         "firstNamePlaceholder": "John",
         "lastName": "Last Name",
         "lastNamePlaceholder": "Doe",
-        "confirm": "Invite trainer"
-      },
-      "actions": {
-        "delete": "Delete"
-      },
-      "deletionModal": {
-        "header": "Trainer Deletion",
-        "confirmDeleteMessage": "By clicking 'Delete', the selected Trainers and all associated data will be permanently removed."
+        "confirm": "Invite {{entityType}}",
+        "update": "Update {{entityType}}"
       }
     },
     "buttons": {
@@ -633,13 +724,16 @@
         "notAchieved": "Swimming certificate not achieved"
       },
       "showPassword": "Show/Hide password",
-      "athleteUploadDatagrid": {
+      "CSVUploadDatagrid": {
         "error": "The specified athlete already exists or is incorrect",
         "loading": "Loading...",
-        "uploaded": "Athlete has been uploaded",
-        "valid": "Athlete can be uploaded"
+        "uploaded": "Data has been uploaded",
+        "valid": "Data can be uploaded"
       },
-      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used."
+      "genderDiversInfo": "For the gender option \"Diverse\", the metrics for males are used.",
+      "emailNotEditable": "Email cannot be changed",
+      "birthdateNotEditable": "Birthdate cannot be changed",
+      "genderNotEditable": "Gender cannot be changed"
     },
     "athleteActivityChart": {
       "tooltipText": {
@@ -658,6 +752,39 @@
       "exportButton": "Export",
       "performanceCheckbox": "Include performance metrics",
       "removeFromSelectionButton": "Remove"
+    },
+    "csvUploadComponent": {
+      "failedUpload": "Error during upload",
+      "DropFile": "Drag & Drop your file here or click",
+      "athleteList": "Athlete List",
+      "changeFile": "Reset file",
+      "invalidFileType": "Only CSV files are allowed"
+    },
+    "csvUploadDatagrid": {
+      "valid": "Status",
+      "noValidEntries": "No valid entries"
+    },
+    "csvImportModal": {
+      "importButton": "Import data",
+      "importLabel": "Import",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "discipline": "Discipline",
+      "performanceDate": "Performance Date",
+      "performanceResult": "Result",
+      "email": "Email",
+      "birthdate": "Birthdate",
+      "gender": "Gender",
+      "access": "Request access?",
+      "tabSelection": {
+        "athleteImport": "Athletes",
+        "performanceImport": "Performances"
+      },
+      "invalidFirstName": "Invalid first name",
+      "invalidLastName": "Invalid last name",
+      "invalidDiscipline": "Invalid discipline",
+      "invalidPerformanceDate": "Invalid date",
+      "invalidPerformanceResult": "Invalid result"
     },
     "athleteDashboard": {
       "error": {
@@ -681,7 +808,12 @@
         "trainers": "Your trainers:",
         "removeTrainers": "Manage your trainers",
         "removeTrainer": "Manage your trainer",
-        "header": "Trainer Mangement"
+        "header": "Trainer Management",
+        "requestsPending": "Manage pending requests",
+        "accessRequestsPending": {
+          "singular": "You have one pending access request",
+          "plural": "You have {count} pending access requests"
+        }
       },
       "activityChart": {
         "header": "Your activities in ",
@@ -692,7 +824,7 @@
         "medalMissing": "You need at least a bronze medal in all categories",
         "noMedalReached": "which is not enough to reach a medal",
         "noSwimCertificate": {
-          "blurText": "To be accepted for the for the \"Deutsches Sportabzeichen\" you need a valid swimming certificate",
+          "blurText": "To be accepted for the for the \"Deutsches Sportabzeichen\" you need a valid swimming certification",
           "pointDisplay": {
             "prefix": "You have achieved",
             "between": "which would lead to a",
@@ -715,9 +847,21 @@
       "swimCertificate": {
         "header": "Your swimming certificate",
         "noSwimCertificate": "Missing",
-        "existing": "You are all set for your \"Deutsches Sportabzeichen\"",
+        "existing": "You are set for your \"Deutsches Sportabzeichen\"",
         "notExisting": "You need a valid swimming certificate to be accepted for the \"Deutsches Sportabzeichen\""
       }
+    },
+    "athleteTotalMedalBox": {
+      "theyAchieved": "They achieved  ",
+      "achieved": "",
+      "noSwimmingCertificate": "They are required to have a valid swimming certificate to be eligible for the \"Deutsche Sportabzeichen\"",
+      "categoryMissing": "They are required to have achieved at least a bronze medal in all categories to be eligible for the \"Deutsches Sportabzeichen\""
     }
+  },
+  "backendErrors": {
+    "athleteAlreadyExists": "An athlete with this email and birthdate already exists."
+  },
+  "helpPage": {
+    "markdownFileName": "/en-US.md"
   }
 }

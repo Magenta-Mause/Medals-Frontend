@@ -1,0 +1,7 @@
+.fullscreen-table-row-clickable:hover {
+  background: var(--joy-palette-background-level1) !important;
+}
+
+.fullscreen-table-row-not-clickable:hover {
+  background: var(--joy-palette-background-surface) !important;
+}
