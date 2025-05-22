@@ -862,6 +862,6 @@
         "athleteAlreadyExists": "Un atleta con este correo electrónico y fecha de nacimiento ya existe."
     },
     "helpPage": {
-        "markdownFileName": "/en-US.md"
+        "markdownFileName": "/es-ES.md"
     }
 }
