@@ -7,7 +7,6 @@ import {
   CSVData,
   CSVUploadState,
 } from "@components/CSVUploadComponent/CSVHelper";
-import "./csvFileUploader.css";
 
 interface CSVUploadProviderProps<T> {
   parseCSVData: (data: Papa.ParseResult<unknown>) => T[];

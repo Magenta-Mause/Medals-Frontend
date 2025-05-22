@@ -200,6 +200,7 @@ const AthleteExportModal = ({
         header={t("components.athleteExportModal.header")}
         modalDialogSX={{
           width: "600px",
+          maxHeight: "60vh",
         }}
       >
         <Box
