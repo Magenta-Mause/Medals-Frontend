@@ -199,7 +199,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           athlete.first_name.toLowerCase().includes(filterParameter) ||
           athlete.last_name.toLowerCase().includes(filterParameter) ||
           athlete.birthdate.toLowerCase().includes(filterParameter) ||
-          athlete.email.toLowerCase().includes(filterParameter) ||
+          (athlete.has_access &&
+            athlete.email.toLowerCase().includes(filterParameter)) ||
           athlete.id!.toString().toLowerCase().includes(filterParameter);
       },
       type: "TEXT",
