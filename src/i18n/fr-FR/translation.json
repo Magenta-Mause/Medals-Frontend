@@ -1,867 +1,867 @@
 {
-    "languages": {
-        "de": "Deutsch",
-        "en": "English",
-        "es": "Español",
-        "fr": "Français",
-        "nl": "Nederlands"
-    },
-    "genders": {
-        "DIVERSE": "Divers",
-        "FEMALE": "Femmes",
-        "MALE": "Hommes",
-        "ALL": "Tous"
-    },
-    "userTypes": {
-        "ATHLETE": "Athlète",
-        "TRAINER": "Entraîneur",
-        "ADMIN": "Administrateur"
-    },
-    "units": {
-        "MINUTES": "minutes",
-        "SECONDS": "secondes",
-        "METERS": "mètres",
-        "POINTS": "Paragraphes Page"
-    },
-    "messages": {
-        "noEntriesFound": "Aucune entrée trouvée"
-    },
-    "disciplines": {
-        "categories": {
-            "STRENGTH": {
-                "label": "Résistance"
-            },
-            "ENDURANCE": {
-                "label": "Endurance"
-            },
-            "SPEED": {
-                "label": "Régime"
-            },
-            "COORDINATION": {
-                "label": "Coordination"
-            }
-        }
-    },
-    "medals": {
-        "GOLD": "Or",
-        "SILVER": "Argent",
-        "BRONZE": "Bronze",
-        "NONE": "Aucune médaille obtenue"
-    },
-    "generic": {
-        "all": "Tous",
-        "discipline": "Discipline",
-        "tooYoung": "aux jeunes",
-        "invalid": "invalide",
-        "loading": "Chargement...",
-        "skipToContent": "Passer au contenu",
-        "submit": "Soumettre",
-        "confirm": "Confirmer",
-        "password": "Mot de passe",
-        "finished": "Terminé",
-        "category": "Catégorie",
-        "medal": "Médaille",
-        "date": {
-            "on": "le"
-        },
-        "deutschesSportabzeichen": "Deutsches Sportabzeichen",
-        "points": {
-            "plural": "Paragraphes Page",
-            "singular": "Montant total"
-        },
-        "validation": {
-            "required": "Ce champ est requis",
-            "tooLong": "Ce champ est trop long",
-            "invalidEmail": "Adresse e-mail non valide"
-        },
-        "athlete": {
-            "singular": "Athlète",
-            "plural": "Athlètes"
-        },
-        "trainer": {
-            "singular": "Entraîneur",
-            "plural": "Entraîneurs"
-        },
-        "admin": {
-            "singular": "Administrateur",
-            "plural": "Administrateurs"
-        },
-        "errors": {
-            "unknownError": "Une erreur inconnue s'est produite"
-        }
-    },
-    "snackbar": {
-        "login": {
-            "loginFailed": "La connexion a échoué"
-        },
-        "setPassword": {
-            "failed": "Impossible de définir le mot de passe",
-            "success": "Le mot de passe est défini avec succès"
-        },
-        "resetPassword": {
-            "failed": "Nous n'avons pas trouvé de compte connecté à ce courriel.",
-            "success": "Courriel de vérification envoyé"
-        },
-        "invite": {
-            "success": "Réussir l'invitation",
-            "failed": "Échec de l'invitation"
-        },
-        "update": {
-            "success": "Mise à jour réussie",
-            "failed": "Échec de la mise à jour"
-        },
-        "performanceRecording": {
-            "creationError": "Erreur lors de l'enregistrement des performances",
-            "creationSuccess": "Enregistrement des performances enregistré avec succès",
-            "deletionSuccess": "Enregistrement de performance réussi supprimé!",
-            "deletionError": "Erreur lors de la suppression des enregistrements de performance"
-        },
-        "performanceMetrics": {
-            "athleteNotFound": "Athlète introuvable",
-            "fetchAthleteFailed": "Impossible d'obtenir des données sur les athlètes"
-        },
-        "acceptTrainerAccessRequest": {
-            "noLogin": "Connectez-vous et acceptez à nouveau l'invitation",
-            "failed": "Impossible d'accepter la demande",
-            "success": "Demande acceptée"
-        },
-        "requestAthleteAccess": {
-            "failed": "Échec de l'envoi de la demande",
-            "success": "La demande a été envoyée"
-        },
-        "athleteExportModal": {
-            "noAthleteSelected": "Veuillez sélectionner au moins un athlète",
-            "exportError": "Erreur lors de la génération du fichier CSV",
-            "unexpectedError": "Une erreur inattendue s'est produite",
-            "success": "Exporter avec succès !"
-        },
-        "swimCertificate": {
-            "creationSuccess": "Certificat de natation ajouté avec succès",
-            "creationError": "Erreur lors de l'ajout du certificat de natation",
-            "deletionSuccess": "Le certificat de natation a été supprimé avec succès",
-            "deletionError": "Erreur lors de la suppression du certificat de natation"
-        },
-        "profileModal": {
-            "accountDeleted": "Compte a été supprimé avec succès",
-            "deletionError": "Il y a eu une erreur lors de la suppression du compte"
-        },
-        "removalConfirmationModal": {
-            "success": "Connexion supprimée",
-            "error": "L'élimination de la connaction a échoué"
-        },
-        "athleteDatagrid": {
-            "deletionSuccess": "Les athlètes ont réussi supprimé!",
-            "deletionError": "Erreur lors de la suppression des athlètes"
-        },
-        "entityDatagrid": {
-            "deletionSuccess": "{{entityType}}(s) succès supprimé!",
-            "deletionError": "Erreur lors de la suppression de {{entityType}}}(s)"
-        }
-    },
-    "pages": {
-        "helpPage": {
-            "button": "Télécharger le PDF"
-        },
-        "homePage": {
-            "h1": "Médailles",
-            "h3": "Le système de gestion des médailles de l'avenir"
-        },
-        "athleteDetailPage": {
-            "createSwimCertificateButton": "Créer un certificat de natation",
-            "createPerformanceRecordingButton": "Comptabiliser les performances"
-        },
-        "athleteOverviewPage": {
-            "header": "Athlètes",
-            "createButton": "Créer un athlète"
-        },
-        "athleteCreationPage": {
-            "firstName": "Prénom",
-            "lastName": "Nom de famille",
-            "email": "Courriel",
-            "birthdate": "Date de naissance",
-            "gender": "Sexe",
-            "createButton": "Créer",
-            "createHeader": "Créer un athlète",
-            "requestAccess": "Envoyer une demande d'accès"
-        },
-        "athleteEditPage": {
-            "editHeader": "Modifier l'athlète",
-            "updateButton": "Mise à jour"
-        },
-        "athleteImportPage": {
-            "importButton": "Importer des athlètes",
-            "feedback1": "Athlète",
-            "feedback2": "créé",
-            "failedFeedback": "Échec de la création",
-            "DropFile": "Faites glisser et déposez votre fichier ici ou cliquez sur",
-            "changeFile": "Réinitialiser le fichier",
-            "firstName": "Prénom",
-            "lastName": "Nom de famille",
-            "valid": "État",
-            "athleteList": "Liste des athlètes"
-        },
-        "trainerOverviewPage": {
-            "header": "Entraîneurs"
-        },
-        "adminOverviewPage": {
-            "header": "Administrateurs"
-        },
-        "notFound": {
-            "h1": "404",
-            "h2": "Page non trouvée"
-        },
-        "materialsDownloadPage": {
-            "header": "Matériaux",
-            "headerText": "Voici les matériaux les plus importants, juste un clic"
-        },
-        "inDevelopment": {
-            "h1": "501",
-            "h2": "Page dans le développement"
-        },
-        "userRoleError": {
-            "h1": "401",
-            "h2": "Aucun rôle valide trouvé"
-        },
-        "loginPage": {
-            "logo": "Medals",
-            "userSelection": {
-                "header": "Choisissez votre profil",
-                "subheader": "Choisissez le profil que vous souhaitez continuer avec"
-            },
-            "signIn": {
-                "header": "Connexion",
-                "subheader": "Médailles - Le prochain système de gestion des médailles",
-                "input": {
-                    "email": "Courriel",
-                    "password": "Mot de passe"
-                },
-                "forgotPassword": "Mot de passe oublié ?",
-                "continueMeansAccept": "En continuant, vous acceptez notre",
-                "privacyPolicy": "Politique de confidentialité",
-                "info": "C'est-à-dire qu'il n'y a pas de",
-                "submit": "Connexion",
-                "loginFailedWarning": "La connexion a échoué",
-                "logoutButton": "Déconnecter",
-                "loading": "Chargement..."
-            },
-            "info": {
-                "linkButton": "Besoin d'aide ?",
-                "header": "Connectez-vous à l'information",
-                "sectionHeader": "Bienvenue aux Médailles !",
-                "greeting": "Pour commencer, veuillez vous connecter en utilisant votre email et mot de passe dans les champs fournis. Sur les médailles, les utilisateurs peuvent avoir l'un des rôles suivants",
-                "admin": "Administrateur",
-                "trainer": "Entraîneur",
-                "athlete": "Athlète",
-                "content": "Ces rôles sont attribués par un administrateur ou un utilisateur ayant des droits d'utilisateur élevés, comme un formateur. Votre courriel peut être lié à plusieurs comptes. Après vous être connecté, vous serez amené à un écran de sélection montrant tous les comptes associés à votre courriel. Veuillez noter: L'inscription n'est pas possible. Vous devez être invité à rejoindre la plateforme. Les demandes peuvent être envoyées par courriel à:"
-            }
-        },
-        "setPasswordPage": {
-            "header": "Configurez votre mot de passe",
-            "subheader": "Veuillez configurer votre mot de passe pour utiliser votre compte",
-            "invalidCode": "Code non valide",
-            "form": {
-                "passwordLabel": "Mot de passe",
-                "submit": "Définir le mot de passe",
-                "loading": "Chargement...",
-                "goToLogin": "Aller à la connexion"
-            }
-        },
-        "resetPasswordPage": {
-            "header": "Réinitialiser le mot de passe",
-            "subheader": {
-                "hasCode": "Saisissez votre nouveau mot de passe",
-                "noCode": "Saisissez votre adresse e-mail pour réinitialiser votre mot de passe"
-            },
-            "email": "Courriel",
-            "button": {
-                "hasCode": "Réinitialiser le mot de passe",
-                "noCode": "Envoyer un courriel de vérification",
-                "success": {
-                    "hasCode": "Réinitialiser le mot de passe avec succès",
-                    "noCode": "Courriel de vérification envoyé"
-                }
-            }
-        },
-        "validateRequestPage": {
-            "header": "Demande",
-            "subheader": "a demandé l'accès à vous, souhaitez-vous accepter la demande?",
-            "accept": "Accepter"
-        },
-        "profilePage": {
-            "header": "Mon profil",
-            "birthdate": "Date de naissance",
-            "gender": "Sexe",
-            "email": "Courriel",
-            "resetPasswordButton": "Réinitialiser le mot de passe",
-            "deleteProfileButton": "Supprimer le compte",
-            "confirmDeleteMessage": "En cliquant sur 'Supprimer', votre compte et toutes les données associées seront définitivement supprimés.",
-            "confirmDeleteHeader": "Suppression du compte"
-        },
-        "imprintPage": {
-            "title": "Empreinte",
-            "contact": "Personne à contacter"
-        },
-        "privacyPolicyPage": {
-            "title": "Politique de confidentialité",
-            "introduction": "Dans cette politique de confidentialité, nous vous informons du traitement des données personnelles lors de l'utilisation de ce site.",
-            "controller": "Contrôleur",
-            "controllerIntro": "Le responsable du traitement des données est:",
-            "controllerEmail": "Courriel",
-            "personalData": "Données personnelles",
-            "personalDataDetails": "Une personne physique identifiable est une personne physique identifiable qui peut être identifiée, directement ou indirectement, notamment par référence à un identificateur tel qu'un nom, un numéro d'identification, des données de localisation, un identificateur en ligne ou à un ou plusieurs facteurs propres à l'identité physique, physiologique, génétique, mentale, économique, culturelle ou sociale de cette personne physique.",
-            "dataOnWebsiteVisit": "Données sur la visite du site Web",
-            "dataOnWebsiteVisitDetails": {
-                "intro": "Lorsque vous utilisez ce site Web uniquement à des fins d'information et que vous ne fournissez aucune donnée, nous traitons uniquement les données nécessaires pour afficher le site Web sur l'appareil compatible avec Internet que vous utilisez.",
-                "ipAddress": "Adresse IP",
-                "dateAndTime": "Date et heure de la demande",
-                "dataVolume": "Quantité de données transférées",
-                "referrer": "Le site Web à partir duquel la demande a été présentée",
-                "browser": "Type et version du navigateur",
-                "os": "Système d'exploitation",
-                "legalBasis": "La base juridique pour le traitement de ces données est des intérêts légitimes en vertu de l'article 6, paragraphe 1, point f), du RGPD pour permettre l'affichage du site Web."
-            },
-            "yourRights": "Vos droits",
-            "yourRightsDetails": {
-                "intro": "En tant que personne concernée, vous disposez des droits suivants:",
-                "access": "Vous avez le droit d'accéder aux données personnelles vous concernant que le responsable traite (art. 15 RGPD).",
-                "rectification": "Vous avez le droit de rectifier des données inexactes ou incomplètes vous concernant (art. 16 RGPD).",
-                "erasure": "Vous avez le droit d'effacer (art. 17 RGPD).",
-                "restriction": "Vous avez le droit de restreindre le traitement de vos données personnelles (art. 18 RGPD).",
-                "dataPortability": "Vous avez le droit à la portabilité des données (art. 20 RGPD).",
-                "objection": "Vous avez le droit de vous opposer au traitement de vos données personnelles (art. 21 RGPD).",
-                "automatedDecisionMaking": "Vous avez le droit de ne pas être soumis à une décision basée uniquement sur le traitement automatisé – y compris le profilage – qui produit des effets juridiques vous concernant ou qui vous affecte de façon similaire (art. 22 RGPD).",
-                "complaint": "Vous avez le droit de déposer une plainte auprès d'une autorité de contrôle si vous pensez que le traitement de vos données à caractère personnel viole la loi sur la protection des données (art. 77 RGPD). L'autorité de contrôle compétente est celle à votre résidence habituelle, lieu de travail ou lieu de l'infraction alléguée."
-            },
-            "source": "Source: Exemple de politique de confidentialité d'anwalt.de"
-        },
-        "creditsPage": {
-            "title": "Crédits ouverts",
-            "loginPage": "Images de fond sur la page de connexion",
-            "lightMode": "Mode lumière",
-            "darkMode": "Mode sombre",
-            "materialsDownloadPage": "Table des matières",
-            "swimmingCard": "Carte de natation",
-            "singleAthletesCard": "Carte de l'athlète unique",
-            "groupAthletesCard": "Carte des athlètes de groupe",
-            "2020MedalsCard": "Carte des médailles 2020",
-            "2023MedalsCard": "Carte des médailles 2023",
-            "2024MedalsCard": "Carte des médailles 2024",
-            "2025MedalsCard": "Carte des médailles 2025",
-            "photoBy": "Photo de"
-        },
-        "performanceMetricsPage": {
-            "title": {
-                "default": "Mesure des performances",
-                "athlete": "Besoins"
-            },
-            "filters": {
-                "year": "Année",
-                "ageGroup": "Groupe d ' âge",
-                "gender": "Sexe"
-            },
-            "resetFilter": "Restaurer le filtre"
-        }
-    },
-    "components": {
-        "breadcrumbs": {
-            "paths": {
-                "/": "Sommaire",
-                "/athletes": "Athlètes",
-                "/trainer": "Entraîneurs",
-                "/performanceMetrics": "Mesure des performances",
-                "/assignAthlete": "Attribuer un athlète",
-                "/dashboard": "Tableau de bord",
-                "/profile": "Profil",
-                "/requirements": "Besoins",
-                "/performances": "Résultats",
-                "/materials": "Matériaux",
-                "/help": "Aide",
-                "/imprint": "Empreinte",
-                "/privacyPolicy": "Politique de confidentialité",
-                "/credits": "Crédits ouverts",
-                "/userRoleErrorPage": "Erreur de rôle de l'utilisateur"
-            }
-        },
-        "requestAthleteModal": {
-            "header": "Demander l'accès à l'athlète",
-            "searchAthlete": "Dénomination",
-            "notFound": "Aucun sportif trouvé",
-            "requestAthleteButton": "Envoyer",
-            "sendButton": "Envoyé"
-        },
-        "athleteDetailHeader": {
-            "columns": {
-                "id": "Numéro d'identification",
-                "name": "Dénomination",
-                "birthdate": "Date de naissance",
-                "email": "Courriel",
-                "gender": "Sexe"
-            }
-        },
-        "confirmationModal": {
-            "header": "Confirmation",
-            "description": "Voulez-vous vraiment retirer l'athlète de votre équipe?",
-            "description2": "Voulez-vous vraiment enlever votre formateur ?",
-            "descriptionPural": "Voulez-vous vraiment retirer les athlètes de votre équipe?",
-            "cancel": "Annuler",
-            "remove": "Renoncer à l'accès"
-        },
-        "navbar": {
-            "logo": "Médailles",
-            "locationList": {
-                "/": "Sommaire",
-                "/athletes": "Athlètes",
-                "/trainer": "Entraîneur",
-                "/admins": "Administrateurs",
-                "/performanceMetrics": "Mesure des performances",
-                "/assignAthlete": "Attribuer l'athlète",
-                "/dashboard": "Tableau de bord",
-                "/profile": "Profil",
-                "/requirements": "Besoins",
-                "/performances": "Résultats",
-                "/materials": "Matériaux",
-                "/help": "Aide"
-            },
-            "search": "Rechercher",
-            "languageSelector": "Langue",
-            "bottomInfoCard": {
-                "header": "Avertissement",
-                "text": "Avertissement !"
-            },
-            "legalLinks": {
-                "title": "Jurisprudence",
-                "imprint": "Empreinte",
-                "privacyPolicy": "Politique de confidentialité",
-                "credits": "Crédits ouverts"
-            }
-        },
-        "disciplineDatagrid": {
-            "columns": {
-                "title": "Titre",
-                "description": "Désignation des marchandises",
-                "bestValue": "Meilleure valeur",
-                "recordedAt": "Enregistré à"
-            }
-        },
-        "athleteAccessManagementModal": {
-            "header": "Gérer l'accès"
-        },
-        "athletePendingRequestInfoCard": {
-            "header": "Demandes en suspens",
-            "text": {
-                "singular": "Un formateur a demandé l'accès à votre profil",
-                "plural": "Les formateurs ont demandé l'accès à votre profil"
-            },
-            "button": "Gérer l'accès"
-        },
-        "athleteAccessManagementDatagrid": {
-            "state": "État",
-            "states": {
-                "PENDING": "Demande",
-                "APPROVED": "Approuvé"
-            },
-            "trainer": {
-                "firstName": "Prénom",
-                "lastName": "Nom de famille"
-            },
-            "actions": {
-                "accept": "Accepter",
-                "revoke": "Révocation de l'accès",
-                "reject": "Rejet"
-            },
-            "confirmations": {
-                "revoke": {
-                    "header": "Accès au formateur de rappel",
-                    "message": "Voulez-vous vraiment révoquer les droits d'accès de ce formateur ?"
-                },
-                "reject": {
-                    "header": "Rejeter la demande d'accès",
-                    "message": "Voulez-vous vraiment rejeter cette demande d'accès?"
-                }
-            }
-        },
-        "downloadCard": {
-            "downloadButton": "Télécharger",
-            "items": {
-                "DSA_Leistungsuebersicht_2020.pdf": "Résultats obtenus en 2020",
-                "DSA_Leistungsuebersicht_2023.pdf": "Résultats obtenus 2023",
-                "DSA_Leistungsuebersicht_2024.pdf": "Résultats obtenus 2024",
-                "DSA_Leistungsuebersicht_2025.pdf": "Résultats obtenus en 2025",
-                "DSA-Schwimmnachweis_2025.pdf": "Certificat de natation",
-                "DSA_Einzelpruefkarte_2025.pdf": "Fiche de déclaration individuelle",
-                "DSA_Gruppenpruefkarte_2025.pdf": "Fiche de compte rendu de groupe"
-            }
-        },
-        "genericResponsiveDatagrid": {
-            "filterForm": {
-                "submit": "Soumettre"
-            },
-            "fullScreenTable": {
-                "pageControl": {
-                    "pageSize": {
-                        "label": "Taille de la page :",
-                        "inputPostfix": "Entrées"
-                    }
-                },
-                "empty": "Aucune entrée trouvée"
-            },
-            "mobileList": {
-                "pageControl": {
-                    "pageLabels": "Page {currPage} of {maxPage}"
-                }
-            }
-        },
-        "athleteDatagrid": {
-            "noAccess": {
-                "label": "L'accès n'est pas encore autorisé",
-                "tooltip": "L'accès doit d'abord être autorisé par l'intermédiaire de l'athlète."
-            },
-            "table": {
-                "columns": {
-                    "athleteId": "Identification de l'athlète",
-                    "firstName": "Prénom",
-                    "lastName": "Nom de famille",
-                    "birthdate": "Date de naissance",
-                    "email": "Courriel",
-                    "gender": "Sexe",
-                    "achievements": "Réalisations"
-                },
-                "filters": {
-                    "search": "Rechercher",
-                    "birthYear": "Année de naissance",
-                    "gender": "Sexe",
-                    "age": "Âge"
-                },
-                "toolbar": {
-                    "addAthlete": {
-                        "label": "Demande",
-                        "content": "Demander aux athlètes"
-                    },
-                    "createAthlete": {
-                        "label": "Créer",
-                        "content": "Créer un athlète"
-                    },
-                    "importAthlete": {
-                        "label": "Importation",
-                        "content": "Importer des athlètes"
-                    }
-                },
-                "noEntries": {
-                    "link": "Demande d'accès",
-                    "text": "pour gérer les athlètes"
-                }
-            },
-            "actions": {
-                "delete": "Supprimer",
-                "edit": "Modifier",
-                "openDetails": "Détails",
-                "export": "Exportations",
-                "remove": "Supprimer"
-            },
-            "deletionModal": {
-                "header": "Suppression des athlètes",
-                "confirmDeleteMessage": "En cliquant sur 'Supprimer', les athlètes sélectionnés et toutes les données associées seront définitivement supprimées."
-            }
-        },
-        "entityDatagrid": {
-            "table": {
-                "columns": {
-                    "firstName": "Prénom",
-                    "lastName": "Nom de famille",
-                    "email": "Courriel"
-                },
-                "filters": {
-                    "search": "Rechercher"
-                },
-                "toolbar": {
-                    "add": {
-                        "label": "Inviter",
-                        "content": "Inviter {{entityType}}"
-                    }
-                }
-            },
-            "actions": {
-                "delete": "Supprimer",
-                "edit": "Modifier"
-            },
-            "deletionModal": {
-                "header": "{{entityType}} Suppression",
-                "confirmDeleteMessage": "En cliquant sur 'Supprimer', le (les) {{entityType}} sélectionné(s) et toutes les données associées seront définitivement supprimées."
-            }
-        },
-        "entityModal": {
-            "modal": {
-                "createHeader": "Inviter {{entityType}}",
-                "editHeader": "Modifier {{entityType}}"
-            },
-            "form": {
-                "email": "Courriel",
-                "firstName": "Prénom",
-                "firstNamePlaceholder": "C'est vrai.",
-                "lastName": "Nom de famille",
-                "lastNamePlaceholder": "Oeufs",
-                "confirm": "Inviter {{entityType}}",
-                "update": "Mettre à jour {{entityType}}"
-            }
-        },
-        "buttons": {
-            "next": "Suivant",
-            "previous": "Précédent"
-        },
-        "passwordStrengthIndicator": {
-            "is8Characters": "Le mot de passe est d'au moins 8 caractères",
-            "password": "Mot de passe",
-            "hasNumber": "Le mot de passe contient un numéro",
-            "hasUpperCase": "Le mot de passe contient une lettre majuscule",
-            "hasSpecial": "Le mot de passe contient un caractère spécial",
-            "fieldRequired": "une contrainte est nécessaire"
-        },
-        "disclaimer": {
-            "text": "Cette demande est un projet universitaire et non un service officiel (p. ex. Sportabzeichen-Digital). Elle n'est approuvée ni fournie par aucun organisme officiel. Aucune certification ou réclamation officielle n'est fournie."
-        },
-        "athletePerformanceAccordions": {
-            "selectedYear": "Année sélectionnée"
-        },
-        "performanceRecordingDatagrid": {
-            "columns": {
-                "dateOfRecording": "Enregistré le",
-                "result": "Résultat obtenu",
-                "medal": "Médaille obtenue",
-                "discipline": "Discipline"
-            },
-            "filters": {
-                "recordedIn": "Enregistré en"
-            },
-            "actions": {
-                "add": {
-                    "text": "Ajouter l'enregistrement des performances",
-                    "label": "+ ajouter"
-                },
-                "delete": "Supprimer",
-                "disconnect": "Déconnecter"
-            },
-            "deletionModal": {
-                "confirmDeleteMessage": "En cliquant sur 'Supprimer', les Enregistrements sélectionnés seront définitivement supprimés.",
-                "header": "Suppression de l'enregistrement"
-            }
-        },
-        "performanceRecordingViewModal": {
-            "header": {
-                "plain": "Enregistrements de performances",
-                "date": "Enregistrements d'exécution de la"
-            }
-        },
-        "createPerformanceRecordingModal": {
-            "header": "Enregistrement des performances",
-            "form": {
-                "discipline": "Discipline",
-                "athlete": "Athlète",
-                "amount": "Résultat obtenu",
-                "dateOfRecording": "Date de l'enregistrement",
-                "ageAtRecording": "Âge calculé à l'enregistrement:"
-            }
-        },
-        "swimCertificateSection": {
-            "noCertificateWarning": "Aucun certificat de natation n'a été obtenu",
-            "deleteButton": "Supprimer le certificat",
-            "certificateLabel": {
-                "endurance": "Endurance",
-                "sprint": "Sprint",
-                "junior": "< 12 ans",
-                "senior": "≥ 12 ans",
-                "sustained": "Natation soutenue",
-                "clothed": "Nage en tissu",
-                "badges": "Certificat de natation"
-            }
-        },
-        "confirmationPopup": {
-            "cancelButton": "Annuler",
-            "deleteButton": "Supprimer"
-        },
-        "createSwimCertificateModal": {
-            "header": "Créer un certificat de natation",
-            "options": {
-                "ENDURANCE": {
-                    "label": "Endurance",
-                    "description": "Nager complètement le parcours d'endurance (même si le temps de bronze n'est pas atteint)"
-                },
-                "SPRINT": {
-                    "label": "Sprint",
-                    "description": "25 m à l'intérieur ou à une vitesse supérieure au temps requis"
-                },
-                "JUNIOR": {
-                    "label": "50m sans limite de temps",
-                    "description": "Moins de 12 ans: 50 m sans limite de temps"
-                },
-                "SENIOR": {
-                    "label": "200m au maximum 11 minutes",
-                    "description": "Âgés de 12 ans et plus: 200 m en continu en un maximum de 11 minutes"
-                },
-                "SUSTAINED": {
-                    "label": "Natation soutenue",
-                    "description": "15 minutes de natation continue (eau libre autorisée)"
-                },
-                "CLOTHED": {
-                    "label": "Nage en tissu",
-                    "description": "100 m en 4 minutes avec dérapage de l'eau (conformément aux directives DLRG/DWRK)"
-                },
-                "BADGES": {
-                    "label": "Certificat de natation",
-                    "description": "Certificat de natation officiellement reconnu"
-                }
-            }
-        },
-        "tooltip": {
-            "colorSchemeToggle": "Interrupteur entre le mode lumière/obscurité",
-            "profileButton": "Paramètres du compte",
-            "ageFilter": "L'âge correspond à l'âge atteint dans l'année civile en cours",
-            "switchUserButton": "Changer d' utilisateur",
-            "logoutButton": "Déconnecter",
-            "languageSelectionButton": "Changer de langue",
-            "selectUser": "Procéder avec cet utilisateur",
-            "swimCertificate": {
-                "achieved": "Certificat de natation obtenu",
-                "notAchieved": "Certificat de natation non obtenu"
-            },
-            "showPassword": "Afficher/cacher le mot de passe",
-            "CSVUploadDatagrid": {
-                "error": "L'athlète spécifié existe déjà ou est incorrect",
-                "loading": "Chargement...",
-                "uploaded": "Les données ont été téléchargées",
-                "valid": "Les données peuvent être téléchargées"
-            },
-            "genderDiversInfo": "Pour l'option genre \"Diverse\", les paramètres pour les hommes sont utilisés.",
-            "emailNotEditable": "Le courriel ne peut pas être modifié",
-            "birthdateNotEditable": "La date de naissance ne peut pas être changée",
-            "genderNotEditable": "Le sexe ne peut pas être changé"
-        },
-        "athleteActivityChart": {
-            "tooltipText": {
-                "noData": "Pas d'enregistrements de performances",
-                "data": {
-                    "singular": "enregistrement des performances",
-                    "plural": "enregistrements d'exécution"
-                }
-            }
-        },
-        "calHeatmap": {
-            "loadingError": "Erreur lors du chargement du graphique d'activité"
-        },
-        "athleteExportModal": {
-            "header": "Exportation d'athlètes",
-            "exportButton": "Exportations",
-            "performanceCheckbox": "Inclure les paramètres de performance",
-            "removeFromSelectionButton": "Supprimer"
-        },
-        "csvUploadComponent": {
-            "failedUpload": "Erreur lors du téléchargement",
-            "DropFile": "Faites glisser et déposez votre fichier ici ou cliquez sur",
-            "athleteList": "Liste des athlètes",
-            "changeFile": "Réinitialiser le fichier",
-            "invalidFileType": "Seuls les fichiers CSV sont autorisés"
-        },
-        "csvUploadDatagrid": {
-            "valid": "État",
-            "noValidEntries": "Pas d'entrées valides"
-        },
-        "csvImportModal": {
-            "importButton": "Importer les données",
-            "importLabel": "Importation",
-            "firstName": "Prénom",
-            "lastName": "Nom de famille",
-            "discipline": "Discipline",
-            "performanceDate": "Date d'exécution",
-            "performanceResult": "Résultat",
-            "email": "Courriel",
-            "birthdate": "Date de naissance",
-            "gender": "Sexe",
-            "access": "Demander l'accès ?",
-            "tabSelection": {
-                "athleteImport": "Athlètes",
-                "performanceImport": "Résultats"
-            },
-            "invalidFirstName": "Prénom non valide",
-            "invalidLastName": "Nom de famille non valide",
-            "invalidDiscipline": "Discipline non valable",
-            "invalidPerformanceDate": "Date d'invalidation",
-            "invalidPerformanceResult": "Résultat non valide"
-        },
-        "athleteDashboard": {
-            "error": {
-                "notAnAthlete": "L'utilisateur sélectionné n'est pas un athlète"
-            },
-            "activityChartHeader": "Vos activités dans",
-            "totalPerformanceRecordings": "Vos enregistrements de performances",
-            "performanceRecordingsThisYear": "dont cette année",
-            "selectedUser": "Votre profil",
-            "bornIn": "Naissance",
-            "categoryMedalBox": {
-                "thisEquals": "C'est égal.",
-                "points": {
-                    "singular": "Montant total",
-                    "plural": "Paragraphes Page"
-                }
-            },
-            "trainers": {
-                "noTrainers": "Aucun formateur ne vous est assigné",
-                "trainer": "Votre formateur :",
-                "trainers": "Vos formateurs :",
-                "removeTrainers": "Gérer vos formateurs",
-                "removeTrainer": "Gérer votre formateur",
-                "header": "Gestion des formateurs",
-                "requestsPending": "Gérer les demandes en attente",
-                "accessRequestsPending": {
-                    "singular": "Vous avez une demande d'accès en attente",
-                    "plural": "Vous avez {compte} en attente de demandes d'accès"
-                }
-            },
-            "activityChart": {
-                "header": "Vos activités dans",
-                "link": "Voir toutes vos activités"
-            },
-            "totalMedalBox": {
-                "header": "\"Deutsches Sportabzeichen\"",
-                "medalMissing": "Vous avez besoin d'au moins une médaille de bronze dans toutes les catégories",
-                "noMedalReached": "qui ne suffit pas pour atteindre une médaille",
-                "noSwimCertificate": {
-                    "blurText": "Pour être accepté pour le \"Deutsches Sportabzeichen\" vous avez besoin d'une certification de natation valide",
-                    "pointDisplay": {
-                        "prefix": "Vous avez réussi",
-                        "between": "qui mènerait à une",
-                        "postfix": ""
-                    }
-                },
-                "pointsMissingTemplate": {
-                    "prefix": {
-                        "singular": "",
-                        "plural": ""
-                    },
-                    "between": "manquant pour atteindre le",
-                    "postfix": "Médaille"
-                },
-                "pointsCount": {
-                    "prefix": "Vous avez réussi",
-                    "postfix": ""
-                }
-            },
-            "swimCertificate": {
-                "header": "Votre certificat de natation",
-                "noSwimCertificate": "Disparu",
-                "existing": "Vous êtes prêt pour votre \"Deutsches Sportabzeichen\"",
-                "notExisting": "Vous avez besoin d'un certificat de natation valide pour être accepté pour le \"Deutsches Sportabzeichen\""
-            }
-        },
-        "athleteTotalMedalBox": {
-            "theyAchieved": "Ils ont atteint",
-            "achieved": "Le présent règlement entre en vigueur le jour suivant celui de sa publication au Journal officiel de l'Union européenne.",
-            "noSwimmingCertificate": "Ils sont tenus d'avoir un certificat de natation valide pour être admissibles au \"Deutsche Sportabzeichen\"",
-            "categoryMissing": "Ils doivent avoir obtenu au moins une médaille de bronze dans toutes les catégories pour être admissibles au « Deutsches Sportabzeichen »"
-        }
-    },
-    "backendErrors": {
-        "athleteAlreadyExists": "Un athlète avec ce courriel et date de naissance existe déjà."
-    },
-    "helpPage": {
-        "markdownFileName": "/fr-US.md"
+  "languages": {
+    "de": "Deutsch",
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "nl": "Nederlands"
+  },
+  "genders": {
+    "DIVERSE": "Divers",
+    "FEMALE": "Femmes",
+    "MALE": "Hommes",
+    "ALL": "Tous"
+  },
+  "userTypes": {
+    "ATHLETE": "Athlète",
+    "TRAINER": "Entraîneur",
+    "ADMIN": "Administrateur"
+  },
+  "units": {
+    "MINUTES": "minutes",
+    "SECONDS": "secondes",
+    "METERS": "mètres",
+    "POINTS": "Paragraphes Page"
+  },
+  "messages": {
+    "noEntriesFound": "Aucune entrée trouvée"
+  },
+  "disciplines": {
+    "categories": {
+      "STRENGTH": {
+        "label": "Résistance"
+      },
+      "ENDURANCE": {
+        "label": "Endurance"
+      },
+      "SPEED": {
+        "label": "Régime"
+      },
+      "COORDINATION": {
+        "label": "Coordination"
+      }
     }
+  },
+  "medals": {
+    "GOLD": "Or",
+    "SILVER": "Argent",
+    "BRONZE": "Bronze",
+    "NONE": "Aucune médaille obtenue"
+  },
+  "generic": {
+    "all": "Tous",
+    "discipline": "Discipline",
+    "tooYoung": "aux jeunes",
+    "invalid": "invalide",
+    "loading": "Chargement...",
+    "skipToContent": "Passer au contenu",
+    "submit": "Soumettre",
+    "confirm": "Confirmer",
+    "password": "Mot de passe",
+    "finished": "Terminé",
+    "category": "Catégorie",
+    "medal": "Médaille",
+    "date": {
+      "on": "le"
+    },
+    "deutschesSportabzeichen": "Deutsches Sportabzeichen",
+    "points": {
+      "plural": "Paragraphes Page",
+      "singular": "Montant total"
+    },
+    "validation": {
+      "required": "Ce champ est requis",
+      "tooLong": "Ce champ est trop long",
+      "invalidEmail": "Adresse e-mail non valide"
+    },
+    "athlete": {
+      "singular": "Athlète",
+      "plural": "Athlètes"
+    },
+    "trainer": {
+      "singular": "Entraîneur",
+      "plural": "Entraîneurs"
+    },
+    "admin": {
+      "singular": "Administrateur",
+      "plural": "Administrateurs"
+    },
+    "errors": {
+      "unknownError": "Une erreur inconnue s'est produite"
+    }
+  },
+  "snackbar": {
+    "login": {
+      "loginFailed": "La connexion a échoué"
+    },
+    "setPassword": {
+      "failed": "Impossible de définir le mot de passe",
+      "success": "Le mot de passe est défini avec succès"
+    },
+    "resetPassword": {
+      "failed": "Nous n'avons pas trouvé de compte connecté à ce courriel.",
+      "success": "Courriel de vérification envoyé"
+    },
+    "invite": {
+      "success": "Réussir l'invitation",
+      "failed": "Échec de l'invitation"
+    },
+    "update": {
+      "success": "Mise à jour réussie",
+      "failed": "Échec de la mise à jour"
+    },
+    "performanceRecording": {
+      "creationError": "Erreur lors de l'enregistrement des performances",
+      "creationSuccess": "Enregistrement des performances enregistré avec succès",
+      "deletionSuccess": "Enregistrement de performance réussi supprimé!",
+      "deletionError": "Erreur lors de la suppression des enregistrements de performance"
+    },
+    "performanceMetrics": {
+      "athleteNotFound": "Athlète introuvable",
+      "fetchAthleteFailed": "Impossible d'obtenir des données sur les athlètes"
+    },
+    "acceptTrainerAccessRequest": {
+      "noLogin": "Connectez-vous et acceptez à nouveau l'invitation",
+      "failed": "Impossible d'accepter la demande",
+      "success": "Demande acceptée"
+    },
+    "requestAthleteAccess": {
+      "failed": "Échec de l'envoi de la demande",
+      "success": "La demande a été envoyée"
+    },
+    "athleteExportModal": {
+      "noAthleteSelected": "Veuillez sélectionner au moins un athlète",
+      "exportError": "Erreur lors de la génération du fichier CSV",
+      "unexpectedError": "Une erreur inattendue s'est produite",
+      "success": "Exporter avec succès !"
+    },
+    "swimCertificate": {
+      "creationSuccess": "Certificat de natation ajouté avec succès",
+      "creationError": "Erreur lors de l'ajout du certificat de natation",
+      "deletionSuccess": "Le certificat de natation a été supprimé avec succès",
+      "deletionError": "Erreur lors de la suppression du certificat de natation"
+    },
+    "profileModal": {
+      "accountDeleted": "Compte a été supprimé avec succès",
+      "deletionError": "Il y a eu une erreur lors de la suppression du compte"
+    },
+    "removalConfirmationModal": {
+      "success": "Connexion supprimée",
+      "error": "L'élimination de la connaction a échoué"
+    },
+    "athleteDatagrid": {
+      "deletionSuccess": "Les athlètes ont réussi supprimé!",
+      "deletionError": "Erreur lors de la suppression des athlètes"
+    },
+    "entityDatagrid": {
+      "deletionSuccess": "{{entityType}}(s) succès supprimé!",
+      "deletionError": "Erreur lors de la suppression de {{entityType}}}(s)"
+    }
+  },
+  "pages": {
+    "helpPage": {
+      "button": "Télécharger le PDF"
+    },
+    "homePage": {
+      "h1": "Médailles",
+      "h3": "Le système de gestion des médailles de l'avenir"
+    },
+    "athleteDetailPage": {
+      "createSwimCertificateButton": "Créer un certificat de natation",
+      "createPerformanceRecordingButton": "Comptabiliser les performances"
+    },
+    "athleteOverviewPage": {
+      "header": "Athlètes",
+      "createButton": "Créer un athlète"
+    },
+    "athleteCreationPage": {
+      "firstName": "Prénom",
+      "lastName": "Nom de famille",
+      "email": "Courriel",
+      "birthdate": "Date de naissance",
+      "gender": "Sexe",
+      "createButton": "Créer",
+      "createHeader": "Créer un athlète",
+      "requestAccess": "Envoyer une demande d'accès"
+    },
+    "athleteEditPage": {
+      "editHeader": "Modifier l'athlète",
+      "updateButton": "Mise à jour"
+    },
+    "athleteImportPage": {
+      "importButton": "Importer des athlètes",
+      "feedback1": "Athlète",
+      "feedback2": "créé",
+      "failedFeedback": "Échec de la création",
+      "DropFile": "Faites glisser et déposez votre fichier ici ou cliquez sur",
+      "changeFile": "Réinitialiser le fichier",
+      "firstName": "Prénom",
+      "lastName": "Nom de famille",
+      "valid": "État",
+      "athleteList": "Liste des athlètes"
+    },
+    "trainerOverviewPage": {
+      "header": "Entraîneurs"
+    },
+    "adminOverviewPage": {
+      "header": "Administrateurs"
+    },
+    "notFound": {
+      "h1": "404",
+      "h2": "Page non trouvée"
+    },
+    "materialsDownloadPage": {
+      "header": "Matériaux",
+      "headerText": "Voici les matériaux les plus importants, juste un clic"
+    },
+    "inDevelopment": {
+      "h1": "501",
+      "h2": "Page dans le développement"
+    },
+    "userRoleError": {
+      "h1": "401",
+      "h2": "Aucun rôle valide trouvé"
+    },
+    "loginPage": {
+      "logo": "Medals",
+      "userSelection": {
+        "header": "Choisissez votre profil",
+        "subheader": "Choisissez le profil que vous souhaitez continuer avec"
+      },
+      "signIn": {
+        "header": "Connexion",
+        "subheader": "Médailles - Le prochain système de gestion des médailles",
+        "input": {
+          "email": "Courriel",
+          "password": "Mot de passe"
+        },
+        "forgotPassword": "Mot de passe oublié ?",
+        "continueMeansAccept": "En continuant, vous acceptez notre",
+        "privacyPolicy": "Politique de confidentialité",
+        "info": "C'est-à-dire qu'il n'y a pas de",
+        "submit": "Connexion",
+        "loginFailedWarning": "La connexion a échoué",
+        "logoutButton": "Déconnecter",
+        "loading": "Chargement..."
+      },
+      "info": {
+        "linkButton": "Besoin d'aide ?",
+        "header": "Connectez-vous à l'information",
+        "sectionHeader": "Bienvenue aux Médailles !",
+        "greeting": "Pour commencer, veuillez vous connecter en utilisant votre email et mot de passe dans les champs fournis. Sur les médailles, les utilisateurs peuvent avoir l'un des rôles suivants",
+        "admin": "Administrateur",
+        "trainer": "Entraîneur",
+        "athlete": "Athlète",
+        "content": "Ces rôles sont attribués par un administrateur ou un utilisateur ayant des droits d'utilisateur élevés, comme un formateur. Votre courriel peut être lié à plusieurs comptes. Après vous être connecté, vous serez amené à un écran de sélection montrant tous les comptes associés à votre courriel. Veuillez noter: L'inscription n'est pas possible. Vous devez être invité à rejoindre la plateforme. Les demandes peuvent être envoyées par courriel à:"
+      }
+    },
+    "setPasswordPage": {
+      "header": "Configurez votre mot de passe",
+      "subheader": "Veuillez configurer votre mot de passe pour utiliser votre compte",
+      "invalidCode": "Code non valide",
+      "form": {
+        "passwordLabel": "Mot de passe",
+        "submit": "Définir le mot de passe",
+        "loading": "Chargement...",
+        "goToLogin": "Aller à la connexion"
+      }
+    },
+    "resetPasswordPage": {
+      "header": "Réinitialiser le mot de passe",
+      "subheader": {
+        "hasCode": "Saisissez votre nouveau mot de passe",
+        "noCode": "Saisissez votre adresse e-mail pour réinitialiser votre mot de passe"
+      },
+      "email": "Courriel",
+      "button": {
+        "hasCode": "Réinitialiser le mot de passe",
+        "noCode": "Envoyer un courriel de vérification",
+        "success": {
+          "hasCode": "Réinitialiser le mot de passe avec succès",
+          "noCode": "Courriel de vérification envoyé"
+        }
+      }
+    },
+    "validateRequestPage": {
+      "header": "Demande",
+      "subheader": "a demandé l'accès à vous, souhaitez-vous accepter la demande?",
+      "accept": "Accepter"
+    },
+    "profilePage": {
+      "header": "Mon profil",
+      "birthdate": "Date de naissance",
+      "gender": "Sexe",
+      "email": "Courriel",
+      "resetPasswordButton": "Réinitialiser le mot de passe",
+      "deleteProfileButton": "Supprimer le compte",
+      "confirmDeleteMessage": "En cliquant sur 'Supprimer', votre compte et toutes les données associées seront définitivement supprimés.",
+      "confirmDeleteHeader": "Suppression du compte"
+    },
+    "imprintPage": {
+      "title": "Empreinte",
+      "contact": "Personne à contacter"
+    },
+    "privacyPolicyPage": {
+      "title": "Politique de confidentialité",
+      "introduction": "Dans cette politique de confidentialité, nous vous informons du traitement des données personnelles lors de l'utilisation de ce site.",
+      "controller": "Contrôleur",
+      "controllerIntro": "Le responsable du traitement des données est:",
+      "controllerEmail": "Courriel",
+      "personalData": "Données personnelles",
+      "personalDataDetails": "Une personne physique identifiable est une personne physique identifiable qui peut être identifiée, directement ou indirectement, notamment par référence à un identificateur tel qu'un nom, un numéro d'identification, des données de localisation, un identificateur en ligne ou à un ou plusieurs facteurs propres à l'identité physique, physiologique, génétique, mentale, économique, culturelle ou sociale de cette personne physique.",
+      "dataOnWebsiteVisit": "Données sur la visite du site Web",
+      "dataOnWebsiteVisitDetails": {
+        "intro": "Lorsque vous utilisez ce site Web uniquement à des fins d'information et que vous ne fournissez aucune donnée, nous traitons uniquement les données nécessaires pour afficher le site Web sur l'appareil compatible avec Internet que vous utilisez.",
+        "ipAddress": "Adresse IP",
+        "dateAndTime": "Date et heure de la demande",
+        "dataVolume": "Quantité de données transférées",
+        "referrer": "Le site Web à partir duquel la demande a été présentée",
+        "browser": "Type et version du navigateur",
+        "os": "Système d'exploitation",
+        "legalBasis": "La base juridique pour le traitement de ces données est des intérêts légitimes en vertu de l'article 6, paragraphe 1, point f), du RGPD pour permettre l'affichage du site Web."
+      },
+      "yourRights": "Vos droits",
+      "yourRightsDetails": {
+        "intro": "En tant que personne concernée, vous disposez des droits suivants:",
+        "access": "Vous avez le droit d'accéder aux données personnelles vous concernant que le responsable traite (art. 15 RGPD).",
+        "rectification": "Vous avez le droit de rectifier des données inexactes ou incomplètes vous concernant (art. 16 RGPD).",
+        "erasure": "Vous avez le droit d'effacer (art. 17 RGPD).",
+        "restriction": "Vous avez le droit de restreindre le traitement de vos données personnelles (art. 18 RGPD).",
+        "dataPortability": "Vous avez le droit à la portabilité des données (art. 20 RGPD).",
+        "objection": "Vous avez le droit de vous opposer au traitement de vos données personnelles (art. 21 RGPD).",
+        "automatedDecisionMaking": "Vous avez le droit de ne pas être soumis à une décision basée uniquement sur le traitement automatisé – y compris le profilage – qui produit des effets juridiques vous concernant ou qui vous affecte de façon similaire (art. 22 RGPD).",
+        "complaint": "Vous avez le droit de déposer une plainte auprès d'une autorité de contrôle si vous pensez que le traitement de vos données à caractère personnel viole la loi sur la protection des données (art. 77 RGPD). L'autorité de contrôle compétente est celle à votre résidence habituelle, lieu de travail ou lieu de l'infraction alléguée."
+      },
+      "source": "Source: Exemple de politique de confidentialité d'anwalt.de"
+    },
+    "creditsPage": {
+      "title": "Crédits ouverts",
+      "loginPage": "Images de fond sur la page de connexion",
+      "lightMode": "Mode lumière",
+      "darkMode": "Mode sombre",
+      "materialsDownloadPage": "Table des matières",
+      "swimmingCard": "Carte de natation",
+      "singleAthletesCard": "Carte de l'athlète unique",
+      "groupAthletesCard": "Carte des athlètes de groupe",
+      "2020MedalsCard": "Carte des médailles 2020",
+      "2023MedalsCard": "Carte des médailles 2023",
+      "2024MedalsCard": "Carte des médailles 2024",
+      "2025MedalsCard": "Carte des médailles 2025",
+      "photoBy": "Photo de"
+    },
+    "performanceMetricsPage": {
+      "title": {
+        "default": "Mesure des performances",
+        "athlete": "Besoins"
+      },
+      "filters": {
+        "year": "Année",
+        "ageGroup": "Groupe d ' âge",
+        "gender": "Sexe"
+      },
+      "resetFilter": "Restaurer le filtre"
+    }
+  },
+  "components": {
+    "breadcrumbs": {
+      "paths": {
+        "/": "Sommaire",
+        "/athletes": "Athlètes",
+        "/trainer": "Entraîneurs",
+        "/performanceMetrics": "Mesure des performances",
+        "/assignAthlete": "Attribuer un athlète",
+        "/dashboard": "Tableau de bord",
+        "/profile": "Profil",
+        "/requirements": "Besoins",
+        "/performances": "Résultats",
+        "/materials": "Matériaux",
+        "/help": "Aide",
+        "/imprint": "Empreinte",
+        "/privacyPolicy": "Politique de confidentialité",
+        "/credits": "Crédits ouverts",
+        "/userRoleErrorPage": "Erreur de rôle de l'utilisateur"
+      }
+    },
+    "requestAthleteModal": {
+      "header": "Demander l'accès à l'athlète",
+      "searchAthlete": "Dénomination",
+      "notFound": "Aucun sportif trouvé",
+      "requestAthleteButton": "Envoyer",
+      "sendButton": "Envoyé"
+    },
+    "athleteDetailHeader": {
+      "columns": {
+        "id": "Numéro d'identification",
+        "name": "Dénomination",
+        "birthdate": "Date de naissance",
+        "email": "Courriel",
+        "gender": "Sexe"
+      }
+    },
+    "confirmationModal": {
+      "header": "Confirmation",
+      "description": "Voulez-vous vraiment retirer l'athlète de votre équipe?",
+      "description2": "Voulez-vous vraiment enlever votre formateur ?",
+      "descriptionPural": "Voulez-vous vraiment retirer les athlètes de votre équipe?",
+      "cancel": "Annuler",
+      "remove": "Renoncer à l'accès"
+    },
+    "navbar": {
+      "logo": "Médailles",
+      "locationList": {
+        "/": "Sommaire",
+        "/athletes": "Athlètes",
+        "/trainer": "Entraîneur",
+        "/admins": "Administrateurs",
+        "/performanceMetrics": "Mesure des performances",
+        "/assignAthlete": "Attribuer l'athlète",
+        "/dashboard": "Tableau de bord",
+        "/profile": "Profil",
+        "/requirements": "Besoins",
+        "/performances": "Résultats",
+        "/materials": "Matériaux",
+        "/help": "Aide"
+      },
+      "search": "Rechercher",
+      "languageSelector": "Langue",
+      "bottomInfoCard": {
+        "header": "Avertissement",
+        "text": "Avertissement !"
+      },
+      "legalLinks": {
+        "title": "Jurisprudence",
+        "imprint": "Empreinte",
+        "privacyPolicy": "Politique de confidentialité",
+        "credits": "Crédits ouverts"
+      }
+    },
+    "disciplineDatagrid": {
+      "columns": {
+        "title": "Titre",
+        "description": "Désignation des marchandises",
+        "bestValue": "Meilleure valeur",
+        "recordedAt": "Enregistré à"
+      }
+    },
+    "athleteAccessManagementModal": {
+      "header": "Gérer l'accès"
+    },
+    "athletePendingRequestInfoCard": {
+      "header": "Demandes en suspens",
+      "text": {
+        "singular": "Un formateur a demandé l'accès à votre profil",
+        "plural": "Les formateurs ont demandé l'accès à votre profil"
+      },
+      "button": "Gérer l'accès"
+    },
+    "athleteAccessManagementDatagrid": {
+      "state": "État",
+      "states": {
+        "PENDING": "Demande",
+        "APPROVED": "Approuvé"
+      },
+      "trainer": {
+        "firstName": "Prénom",
+        "lastName": "Nom de famille"
+      },
+      "actions": {
+        "accept": "Accepter",
+        "revoke": "Révocation de l'accès",
+        "reject": "Rejet"
+      },
+      "confirmations": {
+        "revoke": {
+          "header": "Accès au formateur de rappel",
+          "message": "Voulez-vous vraiment révoquer les droits d'accès de ce formateur ?"
+        },
+        "reject": {
+          "header": "Rejeter la demande d'accès",
+          "message": "Voulez-vous vraiment rejeter cette demande d'accès?"
+        }
+      }
+    },
+    "downloadCard": {
+      "downloadButton": "Télécharger",
+      "items": {
+        "DSA_Leistungsuebersicht_2020.pdf": "Résultats obtenus en 2020",
+        "DSA_Leistungsuebersicht_2023.pdf": "Résultats obtenus 2023",
+        "DSA_Leistungsuebersicht_2024.pdf": "Résultats obtenus 2024",
+        "DSA_Leistungsuebersicht_2025.pdf": "Résultats obtenus en 2025",
+        "DSA-Schwimmnachweis_2025.pdf": "Certificat de natation",
+        "DSA_Einzelpruefkarte_2025.pdf": "Fiche de déclaration individuelle",
+        "DSA_Gruppenpruefkarte_2025.pdf": "Fiche de compte rendu de groupe"
+      }
+    },
+    "genericResponsiveDatagrid": {
+      "filterForm": {
+        "submit": "Soumettre"
+      },
+      "fullScreenTable": {
+        "pageControl": {
+          "pageSize": {
+            "label": "Taille de la page :",
+            "inputPostfix": "Entrées"
+          }
+        },
+        "empty": "Aucune entrée trouvée"
+      },
+      "mobileList": {
+        "pageControl": {
+          "pageLabels": "Page {currPage} of {maxPage}"
+        }
+      }
+    },
+    "athleteDatagrid": {
+      "noAccess": {
+        "label": "L'accès n'est pas encore autorisé",
+        "tooltip": "L'accès doit d'abord être autorisé par l'intermédiaire de l'athlète."
+      },
+      "table": {
+        "columns": {
+          "athleteId": "Identification de l'athlète",
+          "firstName": "Prénom",
+          "lastName": "Nom de famille",
+          "birthdate": "Date de naissance",
+          "email": "Courriel",
+          "gender": "Sexe",
+          "achievements": "Réalisations"
+        },
+        "filters": {
+          "search": "Rechercher",
+          "birthYear": "Année de naissance",
+          "gender": "Sexe",
+          "age": "Âge"
+        },
+        "toolbar": {
+          "addAthlete": {
+            "label": "Demande",
+            "content": "Demander aux athlètes"
+          },
+          "createAthlete": {
+            "label": "Créer",
+            "content": "Créer un athlète"
+          },
+          "importAthlete": {
+            "label": "Importation",
+            "content": "Importer des athlètes"
+          }
+        },
+        "noEntries": {
+          "link": "Demande d'accès",
+          "text": "pour gérer les athlètes"
+        }
+      },
+      "actions": {
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "openDetails": "Détails",
+        "export": "Exportations",
+        "remove": "Supprimer"
+      },
+      "deletionModal": {
+        "header": "Suppression des athlètes",
+        "confirmDeleteMessage": "En cliquant sur 'Supprimer', les athlètes sélectionnés et toutes les données associées seront définitivement supprimées."
+      }
+    },
+    "entityDatagrid": {
+      "table": {
+        "columns": {
+          "firstName": "Prénom",
+          "lastName": "Nom de famille",
+          "email": "Courriel"
+        },
+        "filters": {
+          "search": "Rechercher"
+        },
+        "toolbar": {
+          "add": {
+            "label": "Inviter",
+            "content": "Inviter {{entityType}}"
+          }
+        }
+      },
+      "actions": {
+        "delete": "Supprimer",
+        "edit": "Modifier"
+      },
+      "deletionModal": {
+        "header": "{{entityType}} Suppression",
+        "confirmDeleteMessage": "En cliquant sur 'Supprimer', le (les) {{entityType}} sélectionné(s) et toutes les données associées seront définitivement supprimées."
+      }
+    },
+    "entityModal": {
+      "modal": {
+        "createHeader": "Inviter {{entityType}}",
+        "editHeader": "Modifier {{entityType}}"
+      },
+      "form": {
+        "email": "Courriel",
+        "firstName": "Prénom",
+        "firstNamePlaceholder": "C'est vrai.",
+        "lastName": "Nom de famille",
+        "lastNamePlaceholder": "Oeufs",
+        "confirm": "Inviter {{entityType}}",
+        "update": "Mettre à jour {{entityType}}"
+      }
+    },
+    "buttons": {
+      "next": "Suivant",
+      "previous": "Précédent"
+    },
+    "passwordStrengthIndicator": {
+      "is8Characters": "Le mot de passe est d'au moins 8 caractères",
+      "password": "Mot de passe",
+      "hasNumber": "Le mot de passe contient un numéro",
+      "hasUpperCase": "Le mot de passe contient une lettre majuscule",
+      "hasSpecial": "Le mot de passe contient un caractère spécial",
+      "fieldRequired": "une contrainte est nécessaire"
+    },
+    "disclaimer": {
+      "text": "Cette demande est un projet universitaire et non un service officiel (p. ex. Sportabzeichen-Digital). Elle n'est approuvée ni fournie par aucun organisme officiel. Aucune certification ou réclamation officielle n'est fournie."
+    },
+    "athletePerformanceAccordions": {
+      "selectedYear": "Année sélectionnée"
+    },
+    "performanceRecordingDatagrid": {
+      "columns": {
+        "dateOfRecording": "Enregistré le",
+        "result": "Résultat obtenu",
+        "medal": "Médaille obtenue",
+        "discipline": "Discipline"
+      },
+      "filters": {
+        "recordedIn": "Enregistré en"
+      },
+      "actions": {
+        "add": {
+          "text": "Ajouter l'enregistrement des performances",
+          "label": "+ ajouter"
+        },
+        "delete": "Supprimer",
+        "disconnect": "Déconnecter"
+      },
+      "deletionModal": {
+        "confirmDeleteMessage": "En cliquant sur 'Supprimer', les Enregistrements sélectionnés seront définitivement supprimés.",
+        "header": "Suppression de l'enregistrement"
+      }
+    },
+    "performanceRecordingViewModal": {
+      "header": {
+        "plain": "Enregistrements de performances",
+        "date": "Enregistrements d'exécution de la"
+      }
+    },
+    "createPerformanceRecordingModal": {
+      "header": "Enregistrement des performances",
+      "form": {
+        "discipline": "Discipline",
+        "athlete": "Athlète",
+        "amount": "Résultat obtenu",
+        "dateOfRecording": "Date de l'enregistrement",
+        "ageAtRecording": "Âge calculé à l'enregistrement:"
+      }
+    },
+    "swimCertificateSection": {
+      "noCertificateWarning": "Aucun certificat de natation n'a été obtenu",
+      "deleteButton": "Supprimer le certificat",
+      "certificateLabel": {
+        "endurance": "Endurance",
+        "sprint": "Sprint",
+        "junior": "< 12 ans",
+        "senior": "≥ 12 ans",
+        "sustained": "Natation soutenue",
+        "clothed": "Nage en tissu",
+        "badges": "Certificat de natation"
+      }
+    },
+    "confirmationPopup": {
+      "cancelButton": "Annuler",
+      "deleteButton": "Supprimer"
+    },
+    "createSwimCertificateModal": {
+      "header": "Créer un certificat de natation",
+      "options": {
+        "ENDURANCE": {
+          "label": "Endurance",
+          "description": "Nager complètement le parcours d'endurance (même si le temps de bronze n'est pas atteint)"
+        },
+        "SPRINT": {
+          "label": "Sprint",
+          "description": "25 m à l'intérieur ou à une vitesse supérieure au temps requis"
+        },
+        "JUNIOR": {
+          "label": "50m sans limite de temps",
+          "description": "Moins de 12 ans: 50 m sans limite de temps"
+        },
+        "SENIOR": {
+          "label": "200m au maximum 11 minutes",
+          "description": "Âgés de 12 ans et plus: 200 m en continu en un maximum de 11 minutes"
+        },
+        "SUSTAINED": {
+          "label": "Natation soutenue",
+          "description": "15 minutes de natation continue (eau libre autorisée)"
+        },
+        "CLOTHED": {
+          "label": "Nage en tissu",
+          "description": "100 m en 4 minutes avec dérapage de l'eau (conformément aux directives DLRG/DWRK)"
+        },
+        "BADGES": {
+          "label": "Certificat de natation",
+          "description": "Certificat de natation officiellement reconnu"
+        }
+      }
+    },
+    "tooltip": {
+      "colorSchemeToggle": "Interrupteur entre le mode lumière/obscurité",
+      "profileButton": "Paramètres du compte",
+      "ageFilter": "L'âge correspond à l'âge atteint dans l'année civile en cours",
+      "switchUserButton": "Changer d' utilisateur",
+      "logoutButton": "Déconnecter",
+      "languageSelectionButton": "Changer de langue",
+      "selectUser": "Procéder avec cet utilisateur",
+      "swimCertificate": {
+        "achieved": "Certificat de natation obtenu",
+        "notAchieved": "Certificat de natation non obtenu"
+      },
+      "showPassword": "Afficher/cacher le mot de passe",
+      "CSVUploadDatagrid": {
+        "error": "L'athlète spécifié existe déjà ou est incorrect",
+        "loading": "Chargement...",
+        "uploaded": "Les données ont été téléchargées",
+        "valid": "Les données peuvent être téléchargées"
+      },
+      "genderDiversInfo": "Pour l'option genre \"Diverse\", les paramètres pour les hommes sont utilisés.",
+      "emailNotEditable": "Le courriel ne peut pas être modifié",
+      "birthdateNotEditable": "La date de naissance ne peut pas être changée",
+      "genderNotEditable": "Le sexe ne peut pas être changé"
+    },
+    "athleteActivityChart": {
+      "tooltipText": {
+        "noData": "Pas d'enregistrements de performances",
+        "data": {
+          "singular": "enregistrement des performances",
+          "plural": "enregistrements d'exécution"
+        }
+      }
+    },
+    "calHeatmap": {
+      "loadingError": "Erreur lors du chargement du graphique d'activité"
+    },
+    "athleteExportModal": {
+      "header": "Exportation d'athlètes",
+      "exportButton": "Exportations",
+      "performanceCheckbox": "Inclure les paramètres de performance",
+      "removeFromSelectionButton": "Supprimer"
+    },
+    "csvUploadComponent": {
+      "failedUpload": "Erreur lors du téléchargement",
+      "DropFile": "Faites glisser et déposez votre fichier ici ou cliquez sur",
+      "athleteList": "Liste des athlètes",
+      "changeFile": "Réinitialiser le fichier",
+      "invalidFileType": "Seuls les fichiers CSV sont autorisés"
+    },
+    "csvUploadDatagrid": {
+      "valid": "État",
+      "noValidEntries": "Pas d'entrées valides"
+    },
+    "csvImportModal": {
+      "importButton": "Importer les données",
+      "importLabel": "Importation",
+      "firstName": "Prénom",
+      "lastName": "Nom de famille",
+      "discipline": "Discipline",
+      "performanceDate": "Date d'exécution",
+      "performanceResult": "Résultat",
+      "email": "Courriel",
+      "birthdate": "Date de naissance",
+      "gender": "Sexe",
+      "access": "Demander l'accès ?",
+      "tabSelection": {
+        "athleteImport": "Athlètes",
+        "performanceImport": "Résultats"
+      },
+      "invalidFirstName": "Prénom non valide",
+      "invalidLastName": "Nom de famille non valide",
+      "invalidDiscipline": "Discipline non valable",
+      "invalidPerformanceDate": "Date d'invalidation",
+      "invalidPerformanceResult": "Résultat non valide"
+    },
+    "athleteDashboard": {
+      "error": {
+        "notAnAthlete": "L'utilisateur sélectionné n'est pas un athlète"
+      },
+      "activityChartHeader": "Vos activités dans",
+      "totalPerformanceRecordings": "Vos enregistrements de performances",
+      "performanceRecordingsThisYear": "dont cette année",
+      "selectedUser": "Votre profil",
+      "bornIn": "Naissance",
+      "categoryMedalBox": {
+        "thisEquals": "C'est égal.",
+        "points": {
+          "singular": "Montant total",
+          "plural": "Paragraphes Page"
+        }
+      },
+      "trainers": {
+        "noTrainers": "Aucun formateur ne vous est assigné",
+        "trainer": "Votre formateur :",
+        "trainers": "Vos formateurs :",
+        "removeTrainers": "Gérer vos formateurs",
+        "removeTrainer": "Gérer votre formateur",
+        "header": "Gestion des formateurs",
+        "requestsPending": "Gérer les demandes en attente",
+        "accessRequestsPending": {
+          "singular": "Vous avez une demande d'accès en attente",
+          "plural": "Vous avez {compte} en attente de demandes d'accès"
+        }
+      },
+      "activityChart": {
+        "header": "Vos activités dans",
+        "link": "Voir toutes vos activités"
+      },
+      "totalMedalBox": {
+        "header": "\"Deutsches Sportabzeichen\"",
+        "medalMissing": "Vous avez besoin d'au moins une médaille de bronze dans toutes les catégories",
+        "noMedalReached": "qui ne suffit pas pour atteindre une médaille",
+        "noSwimCertificate": {
+          "blurText": "Pour être accepté pour le \"Deutsches Sportabzeichen\" vous avez besoin d'une certification de natation valide",
+          "pointDisplay": {
+            "prefix": "Vous avez réussi",
+            "between": "qui mènerait à une",
+            "postfix": ""
+          }
+        },
+        "pointsMissingTemplate": {
+          "prefix": {
+            "singular": "",
+            "plural": ""
+          },
+          "between": "manquant pour atteindre le",
+          "postfix": "Médaille"
+        },
+        "pointsCount": {
+          "prefix": "Vous avez réussi",
+          "postfix": ""
+        }
+      },
+      "swimCertificate": {
+        "header": "Votre certificat de natation",
+        "noSwimCertificate": "Disparu",
+        "existing": "Vous êtes prêt pour votre \"Deutsches Sportabzeichen\"",
+        "notExisting": "Vous avez besoin d'un certificat de natation valide pour être accepté pour le \"Deutsches Sportabzeichen\""
+      }
+    },
+    "athleteTotalMedalBox": {
+      "theyAchieved": "Ils ont atteint",
+      "achieved": "Le présent règlement entre en vigueur le jour suivant celui de sa publication au Journal officiel de l'Union européenne.",
+      "noSwimmingCertificate": "Ils sont tenus d'avoir un certificat de natation valide pour être admissibles au \"Deutsche Sportabzeichen\"",
+      "categoryMissing": "Ils doivent avoir obtenu au moins une médaille de bronze dans toutes les catégories pour être admissibles au « Deutsches Sportabzeichen »"
+    }
+  },
+  "backendErrors": {
+    "athleteAlreadyExists": "Un athlète avec ce courriel et date de naissance existe déjà."
+  },
+  "helpPage": {
+    "markdownFileName": "/fr-FR.md"
+  }
 }
