@@ -15,6 +15,7 @@ const MedalsIcon = (props: { size: "inline" | "large" }) => {
       <img
         src="/logo.svg"
         style={{ aspectRatio: 1, flexGrow: 1, width: "100%", height: "auto" }}
+        alt="Medals Icon"
       />
     </Box>
   );
