@@ -29,6 +29,7 @@
 - [Deployment](#Deployment)
   - [Official Deployment](#official-deployment)
   - [Custom Deployment](#custom-deployment)
+- [Published Docker Images](#published-docker-images)
 
 ## Medals
 
@@ -38,7 +39,7 @@ Medals is a application to administer athletes for the [Deutsche Sportabzeichen]
 
 ### Requirements
 
-- [Node](https://nodejs.org/en/download) v.22.3.0
+- Node v.22.3.0
 - npm v.10.8.1
 - JDK21
 - git v.2.45.1.windows.1
@@ -59,13 +60,15 @@ The frontend should now be accessible on `http://localhost:5173`.
 
 Now you need to start the [Medals-Backend](https://github.com/Magenta-Mause/Medals-Backend)
 
+TODO
+
 ## Deployment
 
 ### Official Deployment
 
 Medals has a official deployment that you can find with the following url: [https://stratssync.com/](https://stratssync.com/)
 
-You can only use Medals if you are invited either by an administrator or a trainer. If that is not the case for you but still want to use the application you either need to deploy it [locally](#local-deployment) for you or make a [custom deployment](#custom-deployment)
+You can only use Medals if you are invited either by an administrator or a trainer. If that is not the case for you, but you still want to use the application you either need to deploy it [locally](#local-deployment) for you or make a [custom deployment](#custom-deployment). For the local deployment regard the [Medals-Deployment](https://github.com/Magenta-Mause/Medals-Deployment) documentation.
 
 ### Custom Deployment
 
@@ -73,7 +76,9 @@ To create your own deployment you need to change the environment variables in th
 
 ## Published Docker Images
 
-On every push to main or if the `build_frontend` workflow is dispatched manually two Docker images are published.
+On every push to main or if the `Build Frontend` workflow is dispatched manually two Docker images are published. The images can be found on [Docker Hub](https://hub.docker.com/repository/docker/ecofreshkaese/medals-frontend/general).
+
+The latest image is used for the official deployment while the image with the local tag can be used for local deployments.
 
 # Was möchte ich erzählen
 
