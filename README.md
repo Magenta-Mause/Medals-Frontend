@@ -33,7 +33,7 @@
 
 ## Medals
 
-Medals is a application to administer athletes for the [Deutsche Sportabzeichen](https://deutsches-sportabzeichen.de/). Trainers can administer their athletes, track the performances for different disciplines, add/remove swimming certificates, see wether the athlete is eligible to receive a [Deutsche Sportabzeichen](https://deutsches-sportabzeichen.de/). Athletes can see their own performances, wether they have a valid swimming certificate and if they are eligible for a [Deutsche Sportabzeichen](https://deutsches-sportabzeichen.de/), if not what they need to do to be eligible.
+Medals is an application to administer athletes for the [Deutsche Sportabzeichen](https://deutsches-sportabzeichen.de/). Trainers can administer their athletes, track the performances for different disciplines, add/remove swimming certificates, see wether the athlete is eligible to receive a [Deutsche Sportabzeichen](https://deutsches-sportabzeichen.de/). Athletes can see their own performances, wether they have a valid swimming certificate and if they are eligible for a [Deutsche Sportabzeichen](https://deutsches-sportabzeichen.de/), if not what they need to do to be eligible.
 
 ## Setup
 
@@ -68,7 +68,7 @@ The backend should now be accessible on `http://localhost:8080`.
 
 ### Official Deployment
 
-Medals has a official deployment that you can find with the following url: [https://stratssync.com/](https://stratssync.com/)
+Medals has an official deployment that you can find with the following url: [https://stratssync.com/](https://stratssync.com/)
 
 You can only use Medals if you are invited either by an administrator or a trainer. If that is not the case for you, but you still want to use the application you either need to deploy it locally for you or make a [custom deployment](#custom-deployment). For the local deployment regard the [Medals-Deployment](https://github.com/Magenta-Mause/Medals-Deployment) documentation.
 
