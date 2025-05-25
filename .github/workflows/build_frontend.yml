@@ -38,7 +38,7 @@ jobs:
         run: npm run build
 
   publish-build-prod:
-    name: Publish Frontend
+    name: Publish Production Frontend
     runs-on: ubuntu-latest
     needs: lint
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
@@ -71,7 +71,7 @@ jobs:
         run: docker push ${{vars.MEDALS_DOCKER_USERNAME}}/medals-frontend
 
   publish-build-local:
-    name: Publish Frontend
+    name: Publish Local-Use Frontend
     runs-on: ubuntu-latest
     needs: lint
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
