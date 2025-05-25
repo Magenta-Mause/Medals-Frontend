@@ -56,9 +56,13 @@ The frontend should now be accessible on `http://localhost:5173`.
 
 ### Backend Setup
 
-1. `git clone https://github.com/Magenta-Mause/Medals-Backend.git`
+### Backend Setup
 
-Now you need to start the [Medals-Backend](https://github.com/Magenta-Mause/Medals-Backend)
+1. `git clone https://github.com/Magenta-Mause/Medals-Backend.git`
+2. change the email value of `app.admin.admins` to your email address in `src/main/resources/application.yml`
+3. `mvn spring-boot:run -Dspring-boot.run.profiles=local`
+
+The backend should now be accessible on `http://localhost:8080`.
 
 TODO
 
@@ -68,7 +72,7 @@ TODO
 
 Medals has a official deployment that you can find with the following url: [https://stratssync.com/](https://stratssync.com/)
 
-You can only use Medals if you are invited either by an administrator or a trainer. If that is not the case for you, but you still want to use the application you either need to deploy it [locally](#local-deployment) for you or make a [custom deployment](#custom-deployment). For the local deployment regard the [Medals-Deployment](https://github.com/Magenta-Mause/Medals-Deployment) documentation.
+You can only use Medals if you are invited either by an administrator or a trainer. If that is not the case for you, but you still want to use the application you either need to deploy it locally for you or make a [custom deployment](#custom-deployment). For the local deployment regard the [Medals-Deployment](https://github.com/Magenta-Mause/Medals-Deployment) documentation.
 
 ### Custom Deployment
 
