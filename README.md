@@ -79,15 +79,3 @@ To create your own deployment you need to change the environment variables in th
 On every push to main or if the `Build Frontend` workflow is dispatched manually two Docker images are published. The images can be found on [Docker Hub](https://hub.docker.com/repository/docker/ecofreshkaese/medals-frontend/general).
 
 The latest image is used for the official deployment while the image with the local tag can be used for local deployments.
-
-# Was möchte ich erzählen
-
-- was ist die Anwendung
-- warum gibt es sie
-- wie benutzt man sie
-  - official deployment
-  - local deployment
-  - custom deployment
-- einige technische details
-  - wie funktioniert das mit unserem docker
-  - cicd konzept
