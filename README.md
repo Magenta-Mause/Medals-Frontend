@@ -24,7 +24,7 @@
 
 ## Table of contents
 
-- [What is Medals](#Medals)
+- [Medals](#Medals)
 - [Setup](#Setup)
   - [Requirements](#requirements)
   - [Frontend Setup](#frontend-setup)
