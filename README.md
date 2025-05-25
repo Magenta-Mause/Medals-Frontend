@@ -64,8 +64,6 @@ The frontend should now be accessible on `http://localhost:5173`.
 
 The backend should now be accessible on `http://localhost:8080`.
 
-TODO
-
 ## Deployment
 
 ### Official Deployment
