@@ -17,12 +17,12 @@
 </p>
 
 <p align="center">
-**Medals-Frontend** - the frontend of _Medals_.
+<b>Medals-Frontend</b> - the frontend of <a href="https://stratssync.com">Medals</a>.
 </p>
 
 ## Table of contents
 
-- [What is Medals][#Medals]
+- [What is Medals](#Medals)
 
 ## Medals
 
