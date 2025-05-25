@@ -59,8 +59,6 @@ The frontend should now be accessible on `http://localhost:5173`.
 
 ### Backend Setup
 
-### Backend Setup
-
 1. `git clone https://github.com/Magenta-Mause/Medals-Backend.git`
 2. change the email value of `app.admin.admins` to your email address in `src/main/resources/application.yml`
 3. `mvn spring-boot:run -Dspring-boot.run.profiles=local`
