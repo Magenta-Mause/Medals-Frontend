@@ -1,10 +1,9 @@
 <p align="center">
-<a href="https://stratssync.com">
-<picture>
-<img src="https://raw.githubusercontent.com/Magenta-Mause/Medals-Frontend/refs/heads/main/public/logo.svg" alt="Medals" width="300" />
-</picture>
-</a>
-
+    <a href="https://stratssync.com">
+        <picture>
+            <img src="https://raw.githubusercontent.com/Magenta-Mause/Medals-Frontend/refs/heads/main/public/logo.svg" alt="Medals" width="300" />
+        </picture>
+    </a>
 </p>
 
 <p align="center">Train smarter. Track better. Win medals.</p>
@@ -17,24 +16,64 @@
 </p>
 
 <p align="center">
-<b>Medals-Frontend</b> - the frontend of <a href="https://stratssync.com">Medals</a>.
+    <b>Medals-Frontend</b> - the frontend of <a href="https://stratssync.com">Medals</a>.
 </p>
 
 ## Table of contents
 
 - [What is Medals](#Medals)
+- [Setup](#Setup)
+  - [Requirements](#requirements)
+  - [Frontend Setup](#frontend-setup)
+  - [Backend Setup](#backend-setup)
+- [Deployment](#Deployment)
+  - [Official Deployment](#official-deployment)
+  - [Custom Deployment](#custom-deployment)
 
 ## Medals
 
 Medals is a application to administer athletes for the [Deutsche Sportabzeichen](https://deutsches-sportabzeichen.de/). Trainers can administer their athletes, track the performances for different disciplines, add/remove swimming certificates, see wether the athlete is eligible to receive a [Deutsche Sportabzeichen](https://deutsches-sportabzeichen.de/). Athletes can see their own performances, wether they have a valid swimming certificate and if they are eligible for a [Deutsche Sportabzeichen](https://deutsches-sportabzeichen.de/), if not what they need to do to be eligible.
 
-# Run localy
+## Setup
 
-To run this application localy you need to have node installed on your machine look [here](https://nodejs.org/en/download) for installation advice.
+### Requirements
 
-If you have `node.js` installed on your machine open this repository and execute `npm i` to install all required packages.
-After all packages have been installed use `npm run dev` to start the application localy.
-After the application has started you will be able to access the localy deployed version on `http://localhost:5173`
+- [Node](https://nodejs.org/en/download) v.22.3.0
+- npm v.10.8.1
+- JDK21
+- git v.2.45.1.windows.1
+
+As of writing this those are the versions used to develop the application. Other software versions might work but are not tested.
+
+### Frontend Setup
+
+1. `git clone https://github.com/Magenta-Mause/Medals-Frontend.git`
+2. `npm i`
+3. `npm run dev`
+
+The frontend should now be accessible on `http://localhost:5173`.
+
+### Backend Setup
+
+1. `git clone https://github.com/Magenta-Mause/Medals-Backend.git`
+
+Now you need to start the [Medals-Backend](https://github.com/Magenta-Mause/Medals-Backend)
+
+## Deployment
+
+### Official Deployment
+
+Medals has a official deployment that you can find with the following url: [https://stratssync.com/](https://stratssync.com/)
+
+You can only use Medals if you are invited either by an administrator or a trainer. If that is not the case for you but still want to use the application you either need to deploy it [locally](#local-deployment) for you or make a [custom deployment](#custom-deployment)
+
+### Custom Deployment
+
+To create your own deployment you need to change the environment variables in the `.env`-file to your respective backend url. After that you have to run `npm run build:image` to create the docker image locally. For further information on how to deploy your own full deployment regard the [Medals-Deployment](https://github.com/Magenta-Mause/Medals-Deployment) documentation.
+
+## Published Docker Images
+
+On every push to main or if the `build_frontend` workflow is dispatched manually two Docker images are published.
 
 # Was möchte ich erzählen
 
