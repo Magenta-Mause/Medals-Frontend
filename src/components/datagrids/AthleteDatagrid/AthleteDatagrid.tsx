@@ -224,7 +224,6 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       label: t("components.athleteDatagrid.table.filters.status.label"),
       option: t("components.athleteDatagrid.table.filters.status.option"),
       apply(filterParameter) {
-        console.log(filterParameter);
         if (parseInt(filterParameter) == 1) {
           return (athlete) => athlete.has_access;
         }
