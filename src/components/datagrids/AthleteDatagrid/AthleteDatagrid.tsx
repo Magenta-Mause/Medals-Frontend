@@ -25,7 +25,10 @@ import AchievementsBox from "./AchievementsBox";
 import InfoTooltip from "@components/InfoTooltip/InfoTooltip";
 import ConfirmationPopup from "@components/ConfirmationPopup/ConfirmationPopup";
 import { AuthContext } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { calculateAge } from "@utils/calculationUtil";
+import {
+  calculateAge,
+  calculateTotalPointsFromPerformanceRecordings,
+} from "@utils/calculationUtil";
 import { useTypedSelector } from "@stores/rootReducer";
 import useFormatting from "@hooks/useFormatting";
 
@@ -127,7 +130,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       columnMapping(item) {
         return <Typography>{item.first_name}</Typography>;
       },
-      sortable: true,
+      mapSortable: (column) => column.first_name.toLowerCase(),
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.lastName"),
@@ -135,7 +138,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       columnMapping(item) {
         return <Typography>{item.last_name}</Typography>;
       },
-      sortable: true,
+      mapSortable: (column) => column.last_name.toLowerCase(),
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.birthdate"),
@@ -143,7 +146,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       columnMapping(item) {
         return <Typography>{formatLocalizedDate(item.birthdate)}</Typography>;
       },
-      sortable: true,
+      mapSortable: (column) => Date.parse(column.birthdate),
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.email"),
@@ -157,6 +160,7 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           <AccessNotApprovedComponent />
         );
       },
+      mapSortable: (column) => (column.email ?? "").toLowerCase(),
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.gender"),
@@ -164,7 +168,8 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
       columnMapping(item) {
         return <GenderIcon gender={item.gender} />;
       },
-      sortable: true,
+      mapSortable: (column) =>
+        column.gender == "MALE" ? "M" : column.gender == "FEMALE" ? "W" : "D",
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.achievements"),
@@ -183,6 +188,15 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           <AccessNotApprovedComponent />
         );
       },
+      mapSortable: (column) =>
+        calculateTotalPointsFromPerformanceRecordings(
+          performanceRecordings.filter(
+            (p) =>
+              p.athlete.id == column.id &&
+              new Date(Date.parse(p.date_of_performance)).getFullYear() ==
+                currentYear,
+          ),
+        ),
     },
   ];
 
@@ -204,6 +218,19 @@ const AthleteDatagrid = (props: AthleteDatagridProps) => {
           athlete.id!.toString().toLowerCase().includes(filterParameter);
       },
       type: "TEXT",
+    },
+    {
+      name: "status",
+      label: t("components.athleteDatagrid.table.filters.status.label"),
+      option: t("components.athleteDatagrid.table.filters.status.option"),
+      apply(filterParameter) {
+        console.log(filterParameter);
+        if (parseInt(filterParameter) == 1) {
+          return (athlete) => athlete.has_access;
+        }
+        return () => true;
+      },
+      type: "TOGGLE",
     },
     {
       name: "gender",

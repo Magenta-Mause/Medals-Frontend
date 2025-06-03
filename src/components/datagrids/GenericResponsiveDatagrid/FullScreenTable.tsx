@@ -1,4 +1,8 @@
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import {
+  ArrowDownward,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+} from "@mui/icons-material";
 import "./FullScreenTable.css";
 import {
   Box,
@@ -26,9 +30,9 @@ const COLUMN_SIZES = {
 export interface Column<T> {
   columnName: string;
   columnMapping: (item: T) => React.ReactNode;
-  sortable?: boolean;
   size?: keyof typeof COLUMN_SIZES;
   disableSpan?: boolean;
+  mapSortable?: (column: T) => string | number;
 }
 
 const PageButton = (props: {
@@ -299,8 +303,23 @@ const FullScreenTable = <T,>(props: {
   allItems: T[];
   heightIfNoEntriesFound?: string;
   itemClickableFilter?: (item: T) => boolean;
+  setSortedBy: (columnIndex: number) => void;
+  setSortDirection: (callback: (prev: number) => number) => void;
+  sortDirection: number;
+  sortedBy: number | undefined;
 }) => {
   const { t } = useTranslation();
+
+  const toggleSortedBy = useCallback(
+    (columnIndex: number) => {
+      if (props.sortedBy == columnIndex) {
+        props.setSortDirection((sortDirection) => sortDirection * -1);
+      } else {
+        props.setSortedBy(columnIndex);
+      }
+    },
+    [props],
+  );
 
   return (
     <Table
@@ -361,7 +380,7 @@ const FullScreenTable = <T,>(props: {
           ) : (
             <></>
           )}
-          {props.columns.map((column) => (
+          {props.columns.map((column, index) => (
             <th
               key={column.columnName}
               style={{
@@ -369,18 +388,52 @@ const FullScreenTable = <T,>(props: {
                 padding: "12px 6px",
                 whiteSpace: "normal", // Allow text to wrap
                 wordBreak: "break-word", // Break long words if needed
+                cursor: column.mapSortable ? "pointer" : "default",
               }}
+              onClick={() =>
+                column.mapSortable ? toggleSortedBy(index) : undefined
+              }
             >
-              <HoverTooltip text={column.columnName}>
-                <Typography
+              <HoverTooltip
+                text={
+                  column.columnName +
+                  (column.mapSortable
+                    ? " - " + t("components.tooltip.clickToSort")
+                    : "")
+                }
+              >
+                <Box
                   sx={{
-                    paddingLeft: column.disableSpan ? 0 : 2,
                     width: "100%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                   }}
-                  noWrap
                 >
-                  {column.columnName}
-                </Typography>
+                  <Typography
+                    sx={{
+                      paddingLeft: column.disableSpan ? 0 : 2,
+                      width: "fit-content",
+                    }}
+                    noWrap
+                  >
+                    {column.columnName}
+                  </Typography>
+                  <ArrowDownward
+                    style={{
+                      position: "relative",
+                      right: 0,
+                      transition: "transform ease .3s",
+                      transform:
+                        "rotate(" +
+                        (props.sortDirection == 1 ? 0 : 180) +
+                        "deg) " +
+                        "scale(" +
+                        (props.sortedBy == index ? "1" : "0") +
+                        ")",
+                    }}
+                  />
+                </Box>
               </HoverTooltip>
             </th>
           ))}

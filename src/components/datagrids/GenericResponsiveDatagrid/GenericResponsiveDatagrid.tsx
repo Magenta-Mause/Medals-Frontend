@@ -119,6 +119,7 @@ const GenericResponsiveDatagrid = <T,>(
   props: GenericResponsiveDatagridProps<T>,
 ) => {
   const [selected, setSelected] = useState<Key[]>([]);
+  const [sortedBy, setSortedBy] = useState<number | undefined>(undefined);
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [filterValues, setFilterValues] = useState<Record<string, string>>({});
   const [currentPage, setCurrentPage] = useState<number>(0);
@@ -127,6 +128,7 @@ const GenericResponsiveDatagrid = <T,>(
   );
   const windowDimensions = useWindowDimensions();
   const [wasPageSizeChanged, setPageSizeChanged] = useState(false);
+  const [sortDirection, setSortDirection] = useState(1);
   const setPageSize = useCallback(
     (elementsPerPage: number) => {
       setPageSizeInternal(elementsPerPage);
@@ -178,14 +180,34 @@ const GenericResponsiveDatagrid = <T,>(
   ]);
 
   const getRenderedPage = useCallback(() => {
-    if (props.disablePaging) {
-      return getFilteredContent();
+    let items = getFilteredContent();
+    if (sortedBy != undefined) {
+      const sortedColumn = props.columns[sortedBy];
+      if (sortedColumn.mapSortable) {
+        const sortFunction = (a: T, b: T) =>
+          sortedColumn.mapSortable!(a) == sortedColumn.mapSortable!(b)
+            ? 0
+            : sortDirection *
+              (sortedColumn.mapSortable!(a) > sortedColumn.mapSortable!(b)
+                ? 1
+                : -1);
+        items = items.sort(sortFunction);
+      }
     }
-    return getFilteredContent().slice(
-      currentPage * pageSize,
-      (currentPage + 1) * pageSize,
-    );
-  }, [currentPage, getFilteredContent, pageSize, props.disablePaging]);
+    if (props.disablePaging) {
+      return items;
+    }
+
+    return items.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
+  }, [
+    props.columns,
+    currentPage,
+    getFilteredContent,
+    pageSize,
+    props.disablePaging,
+    sortedBy,
+    sortDirection,
+  ]);
 
   const setFilter = (
     key: string,
@@ -367,6 +389,10 @@ const GenericResponsiveDatagrid = <T,>(
           messageIfNoEntriesFound={props.messageIfNoEntriesFound}
           heightIfNoEntriesFound={props.heightIfNoEntriesFound}
           itemClickableFilter={props.itemClickableFilter}
+          setSortedBy={setSortedBy}
+          setSortDirection={setSortDirection}
+          sortDirection={sortDirection}
+          sortedBy={sortedBy}
         />
       </Sheet>
 

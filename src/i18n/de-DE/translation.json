@@ -533,7 +533,11 @@
           "search": "Suche",
           "birthYear": "Geburtsjahr",
           "gender": "Geschlecht",
-          "age": "Alter"
+          "age": "Alter",
+          "status": {
+            "option": "Zugelassen",
+            "label": "Status"
+          }
         },
         "toolbar": {
           "addAthlete": {
@@ -720,6 +724,7 @@
     },
     "tooltip": {
       "colorSchemeToggle": "Wechseln zwischen Light-/Darkmode",
+      "clickToSort": "Klicke zum Sortieren",
       "ageFilter": "Das Alter entspricht dem Alter, was in den aktuellen Kalenderjahr erreicht wird",
       "profileButton": "Account Einstellungen",
       "switchUserButton": "Benutzer wechseln",

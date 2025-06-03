@@ -17,6 +17,7 @@ export interface Filter<T> {
   type: "TEXT" | "SELECTION" | "TOGGLE";
   selection?: (string | FilterValue)[];
   label?: string | ReactNode;
+  text?: string | ReactNode;
   option?: string;
 }
 
