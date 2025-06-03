@@ -71,7 +71,10 @@ const PerformanceRecordingDatagrid = (
           </Typography>
         );
       },
-      sortable: true,
+      mapSortable: (p) =>
+        p.discipline_rating_metric.discipline.is_more_better
+          ? p.rating_value
+          : -p.rating_value,
     },
     {
       columnName: t(
@@ -85,7 +88,7 @@ const PerformanceRecordingDatagrid = (
         );
       },
       size: "l",
-      sortable: true,
+      mapSortable: (p) => Date.parse(p.date_of_performance),
     },
     {
       columnName: t("components.performanceRecordingDatagrid.columns.medal"),

@@ -72,14 +72,14 @@ const AthleteExportModal = ({
       columnMapping(item) {
         return <Typography>{item.first_name}</Typography>;
       },
-      sortable: true,
+      mapSortable: (i) => i.first_name.toLowerCase(),
     },
     {
       columnName: t("components.athleteDatagrid.table.columns.lastName"),
       columnMapping(item) {
         return <Typography>{item.last_name}</Typography>;
       },
-      sortable: true,
+      mapSortable: (i) => i.last_name.toLowerCase(),
     },
   ];
 
