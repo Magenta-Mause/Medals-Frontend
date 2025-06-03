@@ -190,7 +190,6 @@ const NavBar = () => {
             sx={{ p: 0.5 }}
             onClick={() => {
               const mainContent = document.getElementById("main-component");
-              console.log(mainContent);
               if (mainContent) {
                 mainContent.focus();
                 window.scrollTo(0, mainContent.offsetTop);
