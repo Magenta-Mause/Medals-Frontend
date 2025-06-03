@@ -530,7 +530,11 @@
                     "search": "Zoeken",
                     "birthYear": "Geboortejaar",
                     "gender": "Geslacht",
-                    "age": "Leeftijd"
+                    "age": "Leeftijd",
+                    "status": {
+                        "option": "Goedgekeurd",
+                        "label": "Staat"
+                    }
                 },
                 "toolbar": {
                     "addAthlete": {
@@ -713,6 +717,7 @@
         },
         "tooltip": {
             "colorSchemeToggle": "Schakelen tussen licht/donker-modus",
+            "clickToSort": "Klik om te sorteren",
             "profileButton": "Accountinstellingen",
             "ageFilter": "De leeftijd komt overeen met de leeftijd die in het lopende kalenderjaar is bereikt",
             "switchUserButton": "Gebruiker wisselen",

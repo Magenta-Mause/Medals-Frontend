@@ -530,7 +530,11 @@
                     "search": "Buscar",
                     "birthYear": "Año de nacimiento",
                     "gender": "Género",
-                    "age": "Edad"
+                    "age": "Edad",
+                    "status": {
+                        "option": "Aprobados",
+                        "label": "Estado"
+                    }
                 },
                 "toolbar": {
                     "addAthlete": {
@@ -713,6 +717,7 @@
         },
         "tooltip": {
             "colorSchemeToggle": "Conmutar entre el modo luz/oscuro",
+            "clickToSort": "Haga clic para ordenar",
             "profileButton": "Configuración de la cuenta",
             "ageFilter": "La edad corresponde a la edad alcanzada en el año civil en curso",
             "switchUserButton": "Cambiar usuario",

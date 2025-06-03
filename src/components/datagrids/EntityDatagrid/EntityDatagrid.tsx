@@ -50,14 +50,14 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
       columnMapping(item) {
         return <Typography>{item.first_name}</Typography>;
       },
-      sortable: true,
+      mapSortable: (t) => t.first_name.toLowerCase(),
     },
     {
       columnName: t("components.entityDatagrid.table.columns.lastName"),
       columnMapping(item) {
         return <Typography>{item.last_name}</Typography>;
       },
-      sortable: true,
+      mapSortable: (t) => t.last_name.toLowerCase(),
     },
     {
       columnName: t("components.entityDatagrid.table.columns.email"),
@@ -65,6 +65,7 @@ function EntityDatagrid<T extends EntityWithBasicInfo>({
       columnMapping(item) {
         return <Typography noWrap>{item.email}</Typography>;
       },
+      mapSortable: (t) => t.email.toLowerCase(),
     },
   ];
 
